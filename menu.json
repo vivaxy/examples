@@ -47,6 +47,10 @@
         {
             "name": "dp share",
             "link": "dp-share"
+        },
+        {
+            "name": "qrcode",
+            "link": "qrcode"
         }
     ]
 }
