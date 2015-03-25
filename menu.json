@@ -39,6 +39,14 @@
         {
             "name": "underscore",
             "link": "underscore"
+        },
+        {
+            "name": "baidu map",
+            "link": "baidu-map"
+        },
+        {
+            "name": "dp share",
+            "link": "dp-share"
         }
     ]
 }
