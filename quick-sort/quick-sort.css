@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    background: rgb(41, 128, 185);
+    position: absolute;
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.select {
+    background: rgb(52, 152, 219);
+}
+
+.compareTo {
+    background: rgb(22, 160, 133);
+}
+
+.compare {
+    background: rgb(26, 188, 156);
+}

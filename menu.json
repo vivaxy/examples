@@ -3,6 +3,10 @@
         {
             "name": "bubble sort",
             "link": "bubble-sort"
+        },
+        {
+            "name": "quick sort",
+            "link": "quick-sort"
         }
     ]
 }
