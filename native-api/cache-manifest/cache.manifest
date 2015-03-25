@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# VERSION 1.0
+
+# 缓存
+CACHE:
+index.html
+cached.js
+fallback-2.js
+
+# 不缓存
+NETWORK:
+not-cached.js
+
+# 替换
+FALLBACK:
+fallback.js fallback-2.js

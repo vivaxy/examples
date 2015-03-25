@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--
+    @since 2014/8/27 15:58
+    @author vivaxy
+-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%">
+    <text x="10" y="50" style="fill:red;">SVG Path
+        <tspan x="10" y="150">M = moveto</tspan>
+        <tspan x="10" y="200">L = lineto</tspan>
+        <tspan x="10" y="250">H = horizontal lineto</tspan>
+        <tspan x="10" y="300">V = vertical lineto</tspan>
+        <tspan x="10" y="350">C = curveto</tspan>
+        <tspan x="10" y="400">S = smooth curveto</tspan>
+        <tspan x="10" y="450">Q = quadratic Bézier curve</tspan>
+        <tspan x="10" y="500">T = smooth quadratic Bézier curveto</tspan>
+        <tspan x="10" y="550">A = elliptical Arc</tspan>
+        <tspan x="10" y="600">Z = closepath</tspan>
+    </text>
+</svg>

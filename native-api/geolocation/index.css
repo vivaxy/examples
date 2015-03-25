@@ -1,0 +1,25 @@
+/**
+ * @since 2014/8/28 9:20
+ * @author vivaxy
+ */
+#get-location {
+    border-radius: 1px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0px 10px;
+    background: rgb(26, 188, 156);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
+
+#watch-location {
+    border-radius: 1px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0px 10px;
+    background: rgb(26, 188, 156);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
