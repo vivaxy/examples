@@ -23,6 +23,22 @@
         {
             "name": "bootstrap datetimepicker",
             "link": "bootstrap-datetimepicker"
+        },
+        {
+            "name": "knockout js",
+            "link": "knockout"
+        },
+        {
+            "name": "mathjax",
+            "link": "mathjax"
+        },
+        {
+            "name": "moment",
+            "link": "moment"
+        },
+        {
+            "name": "underscore",
+            "link": "underscore"
         }
     ]
 }
