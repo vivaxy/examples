@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <title>app</title>
+</head>
+<body>
+<div data-ng-app="testApp" data-ng-controller="testController">
+    {{ firstName + " " + lastName }}
+</div>
+<script type="text/javascript" src="angular.min.js"></script>
+<script>
+    var app = angular.module("testApp", []);
+    //    The [] parameter in the module definition can be used to define dependent modules.
+    app.controller("testController", function ($scope) {
+        $scope.firstName = "John";
+        $scope.lastName = "Doe";
+    });
+</script>
+</body>
+</html>

@@ -7,6 +7,18 @@
         {
             "name": "quick sort",
             "link": "quick-sort"
+        },
+        {
+            "name": "angular js",
+            "link": "angular"
+        },
+        {
+            "name": "async js",
+            "link": "async"
+        },
+        {
+            "name": "bootstrap datetimepicker",
+            "link": "bootstrap-datetimepicker"
         }
     ]
 }
