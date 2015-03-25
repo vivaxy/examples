@@ -51,6 +51,10 @@
         {
             "name": "qrcode",
             "link": "qrcode"
+        },
+        {
+            "name": "wechat share",
+            "link": "wechat-share"
         }
     ]
 }
