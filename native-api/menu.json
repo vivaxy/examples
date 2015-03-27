@@ -1,0 +1,56 @@
+{
+    "menu": [
+        {
+            "name": "base",
+            "link": "base"
+        },
+        {
+            "name": "browser message",
+            "link": "browser-message"
+        },
+        {
+            "name": "cache manifest",
+            "link": "cache-manifest"
+        },
+        {
+            "name": "device motion",
+            "link": "device-motion"
+        },
+        {
+            "name": "draggable",
+            "link": "draggable"
+        },
+        {
+            "name": "geolocation",
+            "link": "geolocation"
+        },
+        {
+            "name": "gesture",
+            "link": "gesture"
+        },
+        {
+            "name": "hash change",
+            "link": "hash-change"
+        },
+        {
+            "name": "local storage",
+            "link": "local-storage"
+        },
+        {
+            "name": "svg",
+            "link": "svg"
+        },
+        {
+            "name": "transition",
+            "link": "transition"
+        },
+        {
+            "name": "visibility",
+            "link": "visibility"
+        },
+        {
+            "name": "web worker",
+            "link": "web-worker"
+        }
+    ]
+}
