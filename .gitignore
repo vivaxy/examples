@@ -1,3 +1,4 @@
 .idea
 .module-cache
 npm_debug.log
+.DS_Store
