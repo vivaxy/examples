@@ -1,64 +1,46 @@
-{
-    "menu": [
-        {
-            "name": "native api",
-            "link": "native-api"
-        },
-        {
-            "name": "bubble sort",
-            "link": "bubble-sort"
-        },
-        {
-            "name": "quick sort",
-            "link": "quick-sort"
-        },
-        {
-            "name": "angular js",
-            "link": "angular"
-        },
-        {
-            "name": "async js",
-            "link": "async"
-        },
-        {
-            "name": "bootstrap datetimepicker",
-            "link": "bootstrap-datetimepicker"
-        },
-        {
-            "name": "knockout js",
-            "link": "knockout"
-        },
-        {
-            "name": "mathjax",
-            "link": "mathjax"
-        },
-        {
-            "name": "moment",
-            "link": "moment"
-        },
-        {
-            "name": "underscore",
-            "link": "underscore"
-        },
-        {
-            "name": "baidu map",
-            "link": "baidu-map"
-        },
-        {
-            "name": "dp share",
-            "link": "dp-share"
-        },
-        {
-            "name": "qrcode",
-            "link": "qrcode"
-        },
-        {
-            "name": "wechat share",
-            "link": "wechat-share"
-        },
-        {
-            "name": "react js",
-            "link": "react"
-        }
-    ]
-}
+[{
+    "name": "native api",
+    "link": "native-api"
+}, {
+    "name": "bubble sort",
+    "link": "bubble-sort"
+}, {
+    "name": "quick sort",
+    "link": "quick-sort"
+}, {
+    "name": "angular js",
+    "link": "angular"
+}, {
+    "name": "async js",
+    "link": "async"
+}, {
+    "name": "bootstrap datetimepicker",
+    "link": "bootstrap-datetimepicker"
+}, {
+    "name": "knockout js",
+    "link": "knockout"
+}, {
+    "name": "mathjax",
+    "link": "mathjax"
+}, {
+    "name": "moment",
+    "link": "moment"
+}, {
+    "name": "underscore",
+    "link": "underscore"
+}, {
+    "name": "baidu map",
+    "link": "baidu-map"
+}, {
+    "name": "dp share",
+    "link": "dp-share"
+}, {
+    "name": "qrcode",
+    "link": "qrcode"
+}, {
+    "name": "wechat share",
+    "link": "wechat-share"
+}, {
+    "name": "react js",
+    "link": "react"
+}]
