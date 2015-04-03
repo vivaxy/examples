@@ -55,6 +55,10 @@
         {
             "name": "wechat share",
             "link": "wechat-share"
+        },
+        {
+            "name": "react js",
+            "link": "react"
         }
     ]
 }
