@@ -1,51 +1,49 @@
-{
-    "menu": [{
-        "name": "base",
+[{
+    "name": "base",
         "link": "base"
-    }, {
-        "name": "browser message",
+}, {
+    "name": "browser message",
         "link": "browser-message"
-    }, {
-        "name": "cache manifest",
+}, {
+    "name": "cache manifest",
         "link": "cache-manifest"
-    }, {
-        "name": "device motion",
+}, {
+    "name": "device motion",
         "link": "device-motion"
-    }, {
-        "name": "draggable",
+}, {
+    "name": "draggable",
         "link": "draggable"
-    }, {
-        "name": "geolocation",
+}, {
+    "name": "geolocation",
         "link": "geolocation"
-    }, {
-        "name": "gesture",
+}, {
+    "name": "gesture",
         "link": "gesture"
-    }, {
-        "name": "hash change",
+}, {
+    "name": "hash change",
         "link": "hash-change"
-    }, {
-        "name": "local storage",
+}, {
+    "name": "local storage",
         "link": "local-storage"
-    }, {
-        "name": "svg",
+}, {
+    "name": "svg",
         "link": "svg"
-    }, {
-        "name": "transition",
+}, {
+    "name": "transition",
         "link": "transition"
-    }, {
-        "name": "visibility",
+}, {
+    "name": "visibility",
         "link": "visibility"
-    }, {
-        "name": "web worker",
+}, {
+    "name": "web worker",
         "link": "web-worker"
-    }, {
-        "name": "object",
+}, {
+    "name": "object",
         "link": "object"
-    }, {
-        "name": "object-oriented",
+}, {
+    "name": "object-oriented",
         "link": "object-oriented"
-    }, {
-        "name": "popstate",
+}, {
+    "name": "popstate",
         "link": "popstate"
-    }]
-}
+}]
