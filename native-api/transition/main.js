@@ -5,11 +5,11 @@
 var demo = document.querySelector('.demo'),
     getTransitionEndEventName = function () {
         var transitions = {
-                "transition": "transitionend",
-                "WebkitTransition": "webkitTransitionEnd",
-                "MozTransition": "transitionend"
+                'transition': 'transitionend',
+                'WebkitTransition': 'webkitTransitionEnd',
+                'MozTransition': 'transitionend'
             },
-            el = document.createElement("div");
+            el = document.createElement('div');
         for (var i in transitions) {
             if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
                 return transitions[i];
