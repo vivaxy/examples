@@ -9,13 +9,16 @@ var Example = React.createClass({displayName: "Example",
 var ExampleList = React.createClass({displayName: "ExampleList",
     componentDidMount: function () {
         var _this = this;
-        new Ajax({
+        var ajax = new Ajax({
             url: './data/examples.json'
         }).on('success', function (data) {
-            _this.setState({
-                data: JSON.parse(data)
+                _this.setState({
+                    data: JSON.parse(data)
+                });
             });
-        }).send();
+        setTimeout(function () {
+            ajax.send();
+        }, 2000);
     },
     getInitialState: function () {
         // initial state
@@ -29,13 +32,11 @@ var ExampleList = React.createClass({displayName: "ExampleList",
     render: function () {
         var list = this.state.data.map(function (a) {
             return (
-                React.createElement("li", null, React.createElement(Example, {data: a}))
+                React.createElement(Example, {data: a})
             );
         });
         return (
-            React.createElement("ul", null, 
-                list
-            )
+            React.createElement("div", null, list)
         );
     }
 });

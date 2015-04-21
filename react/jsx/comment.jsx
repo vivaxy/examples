@@ -1,14 +1,9 @@
 /**
-- CommentBox
-  - CommentList
-    - Comment
-  - CommentForm
+ - CommentBox
+ - CommentList
+ - Comment
+ - CommentForm
  */
-var data = [{
-    author: "wait",
-    text: "loading"
-}];
-
 var CommentList = React.createClass({
     render: function () {
         var commentNodes = this.props.data.map(function (comment) {
@@ -44,10 +39,10 @@ var CommentForm = React.createClass({
     },
     render: function () {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Your name" ref="author" />
-                <input type="text" placeholder="Say something..." ref="text" />
-                <input type="submit" value="Post" />
+            <form onSubmit={this.handleSubmit} style={{'margin': '10px 0'}}>
+                <input type="text" placeholder="Your name" ref="author"/>
+                <input type="text" placeholder="Say something..." ref="text"/>
+                <input type="submit" value="Post"/>
             </form>
         );
     }
@@ -56,11 +51,11 @@ var CommentForm = React.createClass({
 var Comment = React.createClass({
     render: function () {
         return (
-            <div>
-                <h2>
+            <div style={{padding: '10px', border: '1px solid #ddd'}}>
+                <h2 style={{margin: 0}}>
                     {this.props.author}
                 </h2>
-                    {this.props.children}
+                {this.props.children}
             </div>
         );
     }
@@ -72,12 +67,12 @@ var CommentBox = React.createClass({
         new Ajax({
             url: '../data/comment.json'
         }).on('success', function (data) {
-            setTimeout(function () {
-                _this.setState({
-                    data: JSON.parse(data)
-                });
-            }, 2000);
-        }).send(comment);
+                setTimeout(function () {
+                    _this.setState({
+                        data: JSON.parse(data)
+                    });
+                }, 2000);
+            }).send(comment);
     },
     handleCommentSubmit: function (comment) {
         var comments = this.state.data;
@@ -85,12 +80,15 @@ var CommentBox = React.createClass({
         this.setState({
             data: newComments
         });
-        this.loadData(comment);
+        //this.loadData(comment);
     },
     getInitialState: function () {
         // initial state
         return {
-            data: data
+            data: [{
+                author: "wait",
+                text: "loading"
+            }]
         };
     },
     componentDidMount: function () {
@@ -102,7 +100,7 @@ var CommentBox = React.createClass({
             <div>
                 <h1>Comments</h1>
                 <CommentList data={this.state.data}/>
-                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+                <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
             </div>
         );
     }
