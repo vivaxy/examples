@@ -8,7 +8,7 @@ var timedCount = function () {
     i = i + 1;
     data.timedCount = i;
     //console.log(JSON.stringify(data));
-    this.postMessage(JSON.stringify(data));
+    self.postMessage(JSON.stringify(data));
     setTimeout(timedCount, 500);
 };
 timedCount();
