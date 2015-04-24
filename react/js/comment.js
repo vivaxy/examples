@@ -1,8 +1,8 @@
 /**
  - CommentBox
- - CommentList
- - Comment
- - CommentForm
+   - CommentList
+     - Comment
+   - CommentForm
  */
 var CommentList = React.createClass({displayName: "CommentList",
     render: function () {
