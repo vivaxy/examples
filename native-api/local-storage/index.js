@@ -11,6 +11,6 @@ var out = "";
 for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     var value = localStorage.getItem(key);
-    out = out + key + " : " + value + "<br />";
+    out = out + key + " : " + value + "<br >";
 }
 document.write(out);

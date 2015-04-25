@@ -23,14 +23,14 @@ var getLocation = function () {
 };
 var showPosition = function (position) {
     console.log(position);
-    showLocationBtn.innerHTML = "accuracy: " + position.coords.accuracy + "<br />" +
-        "altitude: " + position.coords.altitude + "<br />" +
-        "altitudeAccuracy: " + position.coords.altitudeAccuracy + "<br />" +
-        "heading: " + position.coords.heading + "<br />" +
-        "latitude: " + position.coords.latitude + "<br />" +
-        "longitude: " + position.coords.longitude + "<br />" +
-        "speed: " + position.coords.speed + "<br />" +
-        "timestamp: " + position.timestamp + "<br />";
+    showLocationBtn.innerHTML = "accuracy: " + position.coords.accuracy + "<br >" +
+        "altitude: " + position.coords.altitude + "<br >" +
+        "altitudeAccuracy: " + position.coords.altitudeAccuracy + "<br >" +
+        "heading: " + position.coords.heading + "<br >" +
+        "latitude: " + position.coords.latitude + "<br >" +
+        "longitude: " + position.coords.longitude + "<br >" +
+        "speed: " + position.coords.speed + "<br >" +
+        "timestamp: " + position.timestamp + "<br >";
 };
 var showError = function (error) {
     switch (error.code) {
