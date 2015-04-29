@@ -1,0 +1,22 @@
+.main {
+    float: left;
+    width: 100%;
+    background: #39c;
+    height: 300px;
+}
+
+.sub {
+    float: left;
+    width: 480px;
+    margin-left: -100%;
+    background: #f60;
+    height: 300px;
+}
+
+.extra {
+    float: left;
+    width: 190px;
+    margin-left: -190px;
+    background: #666;
+    height: 300px;
+}
