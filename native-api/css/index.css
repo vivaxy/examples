@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .main {
     float: left;
     width: 100%;
@@ -7,7 +11,7 @@
 
 .sub {
     float: left;
-    width: 480px;
+    width: 200px;
     margin-left: -100%;
     background: #f60;
     height: 300px;
@@ -15,8 +19,8 @@
 
 .extra {
     float: left;
-    width: 190px;
-    margin-left: -190px;
+    width: 100px;
+    margin-left: -100px;
     background: #666;
     height: 300px;
 }
