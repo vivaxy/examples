@@ -7,6 +7,7 @@ div {
     background: rgb(41, 128, 185);
     position: absolute;
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+    bottom: 0;
 }
 
 .select {
