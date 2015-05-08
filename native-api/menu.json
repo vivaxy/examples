@@ -70,5 +70,9 @@
     {
         "name": "refresh",
         "link": "refresh"
+    },
+    {
+        "name": "promise",
+        "link": "promise"
     }
 ]
