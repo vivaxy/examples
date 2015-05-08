@@ -13,7 +13,7 @@
 			height		: 256,
 			typeNumber	: -1,
 			correctLevel	: QRErrorCorrectLevel.H,
-                        background      : "#ffffff",
+                        background      : "rgba(255, 255, 255, 0)",
                         foreground      : "#000000"
 		}, options);
 
