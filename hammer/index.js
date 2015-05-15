@@ -9,12 +9,13 @@ var canvas = document.querySelector('canvas'),
     fontSize = 36;
 canvas.width = width;
 canvas.height = height;
+ctx.translate(width / 2, height / 2);
 
-var log = function (text, scale) {
+var log = function (text, scale, rotate) {
         ctx.fillStyle = '#ddd';
-        ctx.fillRect(0, 0, width, height);
-        fontSize = fontSize * scale;
-        ctx.font = fontSize + 'px Arial';
+        ctx.fillRect(-width / 2, -height / 2, width, height);
+        ctx.font = fontSize * scale + 'px Arial';
+        ctx.rotate(rotate * Math.PI / 180);
         ctx.textAlign = 'center';
         //var r = Math.floor(Math.random() * 255),
         //    g = Math.floor(Math.random() * 255),
@@ -22,7 +23,7 @@ var log = function (text, scale) {
         //ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
         ctx.fillStyle = 'rgb(255, 0, 0)';
         ctx.textBaseline = 'middle';
-        ctx.fillText(text, width / 2, height / 2);
+        ctx.fillText(text, 0, 0);
     },
     isHorizon = function (pointers) {
         var point1 = pointers[0],
@@ -41,13 +42,17 @@ hammer.on('pinch', function (e) {
      INPUT_END 4
      INPUT_CANCEL 8
      */
-    if (e.eventType === 2 && e.rotation > -30 && e.rotation < 30 && e.pointers.length === 2 && isHorizon(e.pointers) && isInRange({
+    if (e.eventType === 2 && isInRange({
             x: width / 2,
             y: height / 2
         }, e.center, 100)) {
         var msg = 'zoom';
-        console.log(msg, e.scale);
-        log(msg, e.scale);
+        console.log(msg, e.scale, e.rotation);
+        log(msg, e.scale, e.rotation);
+        ctx.rotate(-e.rotation * Math.PI / 180);
+    }
+    if (e.eventType === 4 || e.eventType === 8) {
+        fontSize = fontSize * e.scale;
     }
     //console.log(e);
     //console.log(e.pointers);
@@ -64,4 +69,4 @@ hammer.on('pinch', function (e) {
 
 hammer.get('pinch').set({enable: true});
 
-log('zoom', 1);
+log('zoom', 1, 0);
