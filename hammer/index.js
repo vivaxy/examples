@@ -14,10 +14,11 @@ var log = function (text, scale) {
         ctx.fillRect(0, 0, width, height);
         ctx.font = 36 * scale + 'px Arial';
         ctx.textAlign = 'center';
-        var r = Math.floor(Math.random() * 255),
-            g = Math.floor(Math.random() * 255),
-            b = Math.floor(Math.random() * 255);
-        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        //var r = Math.floor(Math.random() * 255),
+        //    g = Math.floor(Math.random() * 255),
+        //    b = Math.floor(Math.random() * 255);
+        //ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        ctx.fillStyle = 'rgb(255, 0, 0)';
         ctx.textBaseline = 'middle';
         ctx.fillText(text, width / 2, height / 2);
     },
