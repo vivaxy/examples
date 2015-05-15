@@ -5,14 +5,15 @@
 var canvas = document.querySelector('canvas'),
     ctx = canvas.getContext('2d'),
     width = window.innerWidth,
-    height = window.innerHeight;
+    height = window.innerHeight,
+    fontSize = 36;
 canvas.width = width;
 canvas.height = height;
 
 var log = function (text, scale) {
         ctx.fillStyle = '#ddd';
         ctx.fillRect(0, 0, width, height);
-        ctx.font = 36 * scale + 'px Arial';
+        ctx.font = fontSize * scale + 'px Arial';
         ctx.textAlign = 'center';
         //var r = Math.floor(Math.random() * 255),
         //    g = Math.floor(Math.random() * 255),
@@ -61,3 +62,5 @@ hammer.on('pinch', function (e) {
 });
 
 hammer.get('pinch').set({enable: true});
+
+log('zoom', 1);
