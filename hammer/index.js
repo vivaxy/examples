@@ -6,7 +6,6 @@ var canvas = document.querySelector('canvas'),
     ctx = canvas.getContext('2d'),
     width = window.innerWidth,
     height = window.innerHeight;
-alert(width);
 canvas.width = width;
 canvas.height = height;
 
@@ -39,11 +38,11 @@ hammer.on('pinch', function (e) {
      INPUT_END 4
      INPUT_CANCEL 8
      */
-    if (e.eventType === 2 && e.scale > 1 && e.rotation > -30 && e.rotation < 30 && e.pointers.length === 2 && isHorizon(e.pointers) && isInRange({
+    if (e.eventType === 2 && e.rotation > -30 && e.rotation < 30 && e.pointers.length === 2 && isHorizon(e.pointers) && isInRange({
             x: width / 2,
             y: height / 2
         }, e.center, 100)) {
-        var msg = 'zoom in';
+        var msg = 'zoom';
         console.log(msg, e.scale);
         log(msg, e.scale);
     }
