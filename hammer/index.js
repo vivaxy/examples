@@ -6,18 +6,20 @@ var canvas = document.querySelector('canvas'),
     ctx = canvas.getContext('2d'),
     width = window.innerWidth,
     height = window.innerHeight;
+alert(width);
 canvas.width = width;
 canvas.height = height;
 
-var log = function (text) {
-        ctx.clearRect(0, 0, width, height);
-        ctx.font = '60px Arial';
+var log = function (text, scale) {
+        ctx.fillStyle = '#ddd';
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = 36 * scale + 'px Arial';
         ctx.textAlign = 'center';
         var r = Math.floor(Math.random() * 255),
             g = Math.floor(Math.random() * 255),
             b = Math.floor(Math.random() * 255);
         ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-        ctx.textBaseline = 'top';
+        ctx.textBaseline = 'middle';
         ctx.fillText(text, width / 2, height / 2);
     },
     isHorizon = function (pointers) {
@@ -26,7 +28,7 @@ var log = function (text) {
         return Math.abs(point1.pageX - point2.pageX) > Math.abs(point1.pageY - point2.pageY) * 2;
     },
     isInRange = function (target, point, range) {
-        return Math.pow(target.x - point.x, 2) + Math.pow(target.y - point.y, 2) < Math.pow(range, 2);
+        return Math.pow(point.x - target.x, 2) + Math.pow(point.y - target.y, 2) < Math.pow(range, 2);
     };
 
 var hammer = new Hammer(canvas);
@@ -42,8 +44,8 @@ hammer.on('pinch', function (e) {
             y: height / 2
         }, e.center, 100)) {
         var msg = 'zoom in';
-        console.log(msg);
-        log(msg);
+        console.log(msg, e.scale);
+        log(msg, e.scale);
     }
     //console.log(e);
     //console.log(e.pointers);
