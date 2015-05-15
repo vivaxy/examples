@@ -13,7 +13,8 @@ canvas.height = height;
 var log = function (text, scale) {
         ctx.fillStyle = '#ddd';
         ctx.fillRect(0, 0, width, height);
-        ctx.font = fontSize * scale + 'px Arial';
+        fontSize = fontSize * scale;
+        ctx.font = fontSize + 'px Arial';
         ctx.textAlign = 'center';
         //var r = Math.floor(Math.random() * 255),
         //    g = Math.floor(Math.random() * 255),
