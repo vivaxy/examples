@@ -10,16 +10,24 @@ canvas.width = width;
 canvas.height = height;
 
 var log = function (text) {
-    ctx.clearRect(0, 0, width, height);
-    ctx.font = '60px Arial';
-    ctx.textAlign = 'center';
-    var r = Math.floor(Math.random() * 255),
-        g = Math.floor(Math.random() * 255),
-        b = Math.floor(Math.random() * 255);
-    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-    ctx.textBaseline = 'top';
-    ctx.fillText(text, width / 2, height / 2);
-};
+        ctx.clearRect(0, 0, width, height);
+        ctx.font = '60px Arial';
+        ctx.textAlign = 'center';
+        var r = Math.floor(Math.random() * 255),
+            g = Math.floor(Math.random() * 255),
+            b = Math.floor(Math.random() * 255);
+        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+        ctx.textBaseline = 'top';
+        ctx.fillText(text, width / 2, height / 2);
+    },
+    isHorizon = function (pointers) {
+        var point1 = pointers[0],
+            point2 = pointers[1];
+        return Math.abs(point1.pageX - point2.pageX) > Math.abs(point1.pageY - point2.pageY) * 2;
+    },
+    isInRange = function (target, point, range) {
+        return Math.pow(target.x - point.x, 2) + Math.pow(target.y - point.y, 2) < Math.pow(range, 2);
+    };
 
 var hammer = new Hammer(canvas);
 hammer.on('pinch', function (e) {
@@ -29,13 +37,13 @@ hammer.on('pinch', function (e) {
      INPUT_END 4
      INPUT_CANCEL 8
      */
-    if (e.eventType === 2 && e.scale > 1 && e.rotation > -30 && e.rotation < 30 && e.pointers.length === 2) {
-        var point1 = e.pointers[0],
-            point2 = e.pointers[1];
-        if (Math.abs(point1.pageX - point2.pageX) > Math.abs(point1.pageY - point2.pageY) * 2) {
-            console.log('zoom in');
-            log('zoom in');
-        }
+    if (e.eventType === 2 && e.scale > 1 && e.rotation > -30 && e.rotation < 30 && e.pointers.length === 2 && isHorizon(e.pointers) && isInRange({
+            x: width / 2,
+            y: height / 2
+        }, e.center, 100)) {
+        var msg = 'zoom in';
+        console.log(msg);
+        log(msg);
     }
     //console.log(e);
     //console.log(e.pointers);
