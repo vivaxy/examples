@@ -1,0 +1,17 @@
+{
+  "name": "browserify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify src/main.js -o index.js",
+    "watch": "watchify src/main.js -o index.js --debug --verbose"
+  },
+  "author": "vivaxy",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^10.2.0",
+    "watchify": "^3.2.1"
+  }
+}

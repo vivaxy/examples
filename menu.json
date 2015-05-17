@@ -62,5 +62,9 @@
     {
         "name": "hammer",
         "link": "hammer"
+    },
+    {
+        "name": "browserify",
+        "link": "browserify"
     }
 ]

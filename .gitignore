@@ -2,3 +2,4 @@
 .module-cache
 npm_debug.log
 .DS_Store
+node_modules
