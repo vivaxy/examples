@@ -78,5 +78,9 @@
     {
         "name": "audio",
         "link": "audio"
+    },
+    {
+        "name": "animation steps",
+        "link": "animation-steps"
     }
 ]
