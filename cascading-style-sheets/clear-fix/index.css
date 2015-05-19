@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+.container {
+    background-color: #8ff;
+}
+
+.one, .two {
+    float: left;
+}
+
+.clear-fix {
+    /* for ie7~8 */
+    zoom: 1;
+}
+
+.clear-fix:after {
+    display: block;
+    height: 0;
+    clear: both;
+    font-size: 0;
+    content: '';
+}

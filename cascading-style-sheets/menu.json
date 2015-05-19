@@ -2,5 +2,9 @@
     {
         "name": "column layout",
         "link": "column-layout"
+    },
+    {
+        "name": "clear fix",
+        "link": "clear-fix"
     }
 ]
