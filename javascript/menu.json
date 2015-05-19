@@ -42,5 +42,9 @@
     {
         "name": "probability",
         "link": "probability"
+    },
+    {
+        "name": "use blob to create web worker",
+        "link": "use-blob-to-create-web-worker"
     }
 ]
