@@ -4,6 +4,14 @@
         "link": "native-api"
     },
     {
+        "name": "javascript",
+        "link": "javascript"
+    },
+    {
+        "name": "css",
+        "link": "css"
+    },
+    {
         "name": "bubble sort",
         "link": "bubble-sort"
     },

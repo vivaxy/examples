@@ -1,0 +1,16 @@
+/**
+ * @since 150513 16:28
+ * @author vivaxy
+ */
+body {
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}

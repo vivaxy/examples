@@ -1,0 +1,43 @@
+/*
+ * @author            : vivaxy
+ * @date              : 2015-04-06 16:50:13
+ * @last modified by  : vivaxy
+ * @last modified time: 2015-04-06 19:45:45
+ */
+
+body {
+    margin: 0;
+}
+
+.card-list .card, .card-list .card .title, .card-list .card .detail, .form {
+    margin: 10px;
+    color: #333;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.form a, .form label, .form input {
+    display: block;
+    text-decoration: none;
+    margin: 10px;
+    color: #333;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.form input, .form a {
+    border: 1px solid #d7d7d7;
+    width: 90%;
+}
+
+.form a {
+    text-align: center;
+}
+
+.form label[for="detail"], .form input#detail, .card-list .card .detail {
+    font-style: italic;
+    color: #999;
+    font-size: 14px;
+    line-height: 16px;
+}
+
