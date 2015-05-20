@@ -48,7 +48,7 @@
         "link": "use-blob-to-create-web-worker"
     },
     {
-        "name": "get comment string",
-        "link": "get-comment-string"
+        "name": "template engine",
+        "link": "template-engine"
     }
 ]
