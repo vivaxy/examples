@@ -64,10 +64,6 @@
         "link": "popstate"
     },
     {
-        "name": "css",
-        "link": "css"
-    },
-    {
         "name": "refresh",
         "link": "refresh"
     },
