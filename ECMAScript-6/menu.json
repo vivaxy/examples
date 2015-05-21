@@ -10,5 +10,29 @@
     {
         "name": "template strings",
         "link": "template-strings"
+    },
+    {
+        "name": "destructuring",
+        "link": "destructuring"
+    },
+    {
+        "name": "default",
+        "link": "default"
+    },
+    {
+        "name": "rest",
+        "link": "rest"
+    },
+    {
+        "name": "spread",
+        "link": "spread"
+    },
+    {
+        "name": "let",
+        "link": "let"
+    },
+    {
+        "name": "const",
+        "link": "const"
     }
 ]
