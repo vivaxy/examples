@@ -2,5 +2,9 @@
     {
         "name": "arrow",
         "link": "arrow"
+    },
+    {
+        "name": "class",
+        "link": "class"
     }
 ]
