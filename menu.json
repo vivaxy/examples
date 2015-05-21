@@ -74,5 +74,9 @@
     {
         "name": "browserify",
         "link": "browserify"
+    },
+    {
+        "name": "ECMAScript 6",
+        "link": "ECMAScript-6"
     }
 ]
