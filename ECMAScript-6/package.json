@@ -1,0 +1,14 @@
+{
+  "name": "ECMAScript-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+      "build": "./build.js"
+  },
+  "author": "vivaxy",
+  "license": "MIT",
+  "devDependencies": {
+    "es6-transpiler": "^0.7.18"
+  }
+}
