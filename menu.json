@@ -82,5 +82,9 @@
     {
         "name": "browserify",
         "link": "browserify"
+    },
+    {
+        "name": "angular material",
+        "link": "angular-material"
     }
 ]
