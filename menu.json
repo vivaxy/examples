@@ -12,6 +12,14 @@
         "link": "cascading-style-sheets"
     },
     {
+        "name": "pitfall",
+        "link": "pitfall"
+    },
+    {
+        "name": "ECMAScript 6",
+        "link": "ECMAScript-6"
+    },
+    {
         "name": "bubble sort",
         "link": "bubble-sort"
     },
@@ -74,9 +82,5 @@
     {
         "name": "browserify",
         "link": "browserify"
-    },
-    {
-        "name": "ECMAScript 6",
-        "link": "ECMAScript-6"
     }
 ]
