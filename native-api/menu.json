@@ -78,5 +78,9 @@
     {
         "name": "animation steps",
         "link": "animation-steps"
+    },
+    {
+        "name": "attributes",
+        "link": "attributes"
     }
 ]
