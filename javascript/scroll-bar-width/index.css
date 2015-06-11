@@ -1,0 +1,12 @@
+.window {
+    width: 200px;
+    height: 200px;
+    overflow-y: auto;
+    background-color: #0088cc;
+}
+
+.window .content {
+    width: 200px;
+    height: 400px;
+    background-color: #006666;
+}
