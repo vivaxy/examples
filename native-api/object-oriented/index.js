@@ -45,6 +45,7 @@ SubType.prototype.sayAge = function () {
     return this;
 };
 
-var sub = new SubType('haha', 12);
+var sub = new SubType('name', 12);
 
 sub.sayAge();
+sub.sayName();
