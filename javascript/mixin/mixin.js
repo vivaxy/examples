@@ -2,17 +2,14 @@
  * @since 150416 09:55
  * @author vivaxy
  */
-var mixin = function (a, b) {
-    var r = {};
-    for (var i in a) {
-        if (a.hasOwnProperty(i)) {
-            r[i] = a[i];
+var mixin = function () {
+    var output = {};
+    Array.prototype.forEach.call(arguments, function (object) {
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                output[key] = object[key];
+            }
         }
-    }
-    for (var j in b) {
-        if (b.hasOwnProperty(j)) {
-            r[j] = b[j];
-        }
-    }
-    return r;
+    });
+    return output;
 };

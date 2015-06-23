@@ -4,16 +4,18 @@
  */
 
 var a = {
-    name: 'a',
-    age: 12
-};
+        name: 'a',
+        age: 12
+    },
 
-var b = {
-    name: 'b',
-    age: 13,
-    sex: 'male'
-};
+    b = {
+        name: 'b',
+        age: 13,
+        sex: 'male'
+    },
 
-var c = mixin(a, b);
+    c = {
+        address: 'shanghai'
+    };
 
-console.log(c);
+console.log(mixin(a, b, c));
