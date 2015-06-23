@@ -8,12 +8,6 @@
 'use strict';
 
 var extend = function (child, parent) {
-    for (var key in parent) {
-        if (parent.hasOwnProperty(key)) {
-            child[key] = parent[key];
-        }
-    }
-
     var ctor = function () {
         this.constructor = child;
     };
