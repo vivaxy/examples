@@ -8,11 +8,11 @@
 'use strict';
 
 var extend = function (child, parent) {
-    var ctor = function () {
+    var Constructor = function () {
         this.constructor = child;
     };
-    ctor.prototype = parent.prototype;
-    child.prototype = new ctor();
+    Constructor.prototype = parent.prototype;
+    child.prototype = new Constructor();
     child.__super__ = parent.prototype;
     return child;
 };
