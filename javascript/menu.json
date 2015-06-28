@@ -82,5 +82,9 @@
     {
         "name": "request animation frame",
         "link": "request-animation-frame"
+    },
+    {
+        "name": "function string extend",
+        "link": "function-string-extend"
     }
 ]
