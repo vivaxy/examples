@@ -54,5 +54,9 @@
     {
         "name": "scroll bar width",
         "link": "scroll-bar-width"
+    },
+    {
+        "name": "debounce",
+        "link": "debounce"
     }
 ]
