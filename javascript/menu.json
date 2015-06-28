@@ -58,5 +58,13 @@
     {
         "name": "debounce",
         "link": "debounce"
+    },
+    {
+        "name": "poll",
+        "link": "poll"
+    },
+    {
+        "name": "once",
+        "link": "once"
     }
 ]
