@@ -1,6 +1,6 @@
 [
     {
-        "name": "canvas-polyfill",
+        "name": "canvas polyfill",
         "link": "canvas-polyfill"
     },
     {
@@ -66,5 +66,9 @@
     {
         "name": "once",
         "link": "once"
+    },
+    {
+        "name": "is native",
+        "link": "is-native"
     }
 ]
