@@ -4,9 +4,9 @@
  */
 /**
  * `func` will be executed in `wait` time after the final called on `debounce`
- * @param func
- * @param wait
- * @param immediate
+ * @param func - finally executed function
+ * @param wait - time waited after finally called of `func` to execute `func`
+ * @param immediate - ? 
  * @returns {Function}
  */
 var debounce = function (func, wait, immediate) {
