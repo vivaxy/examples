@@ -78,5 +78,9 @@
     {
         "name": "matches selector",
         "link": "matches-selector"
+    },
+    {
+        "name": "request animation frame",
+        "link": "request-animation-frame"
     }
 ]
