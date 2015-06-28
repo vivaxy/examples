@@ -28,6 +28,7 @@ var extend = function () {
             var Child = new Function(childFunction[functionArgumentIndex], childFunctionBody);
             mixin(Constructor.prototype, Parent.prototype);
             Child.prototype = new Constructor();
+            Child.prototype.constructor = arg;
             mixin(Child.prototype, arg.prototype);
             Parent = Child;
         } else if (typeof  arg === 'object') { // prototype methods

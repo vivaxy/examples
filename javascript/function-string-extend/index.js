@@ -46,3 +46,5 @@ Male = extend(Human, Male, {
 
 var male = new Male('male', 25, 'office');
 male.say();
+
+debugger;
