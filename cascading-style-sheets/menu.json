@@ -10,5 +10,9 @@
     {
         "name": "border box",
         "link": "border-box"
+    },
+    {
+        "name": "writing mode",
+        "link": "writing-mode"
     }
 ]
