@@ -82,5 +82,9 @@
     {
         "name": "attributes",
         "link": "attributes"
+    },
+    {
+        "name": "indeterminate",
+        "link": "indeterminate"
     }
 ]
