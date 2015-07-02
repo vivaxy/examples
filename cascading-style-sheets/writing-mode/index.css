@@ -1,0 +1,28 @@
+/**
+ * @since 150702 10:33
+ * @author vivaxy
+ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.room {
+    width: 500px;
+    height: 300px;
+    float: left;
+    /* for browsers of webkit engine */
+    -webkit-writing-mode: vertical-rl;
+    /* for ie */
+　　writing-mode: tb-rl;
+}
+
+.center {
+    width: 100px;
+    height: 40px;
+    margin: auto;
+    background-color: #f00;
+}
