@@ -14,3 +14,17 @@ event.on('lol', function (data1, data2) {
 });
 
 event.fire('lol', 1, 2);
+
+var test  = function (e) {
+    console.log(e);
+};
+
+event.on('test', test);
+event.on('test', test);
+event.on('test', test);
+
+event.fire('test', '这是测试');
+event.off('test', test);
+event.fire('test', '这是测试');
+event.off('test');
+event.fire('test', '这是测试');

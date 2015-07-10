@@ -10,7 +10,8 @@
 var Event = function () {
         this.events = {};
     },
-    p = Event.prototype;
+    p = {};
+Event.prototype = p;
 
 p.on = function (event, callback) {
     if (!this.events[event]) {
@@ -34,9 +35,7 @@ p.fire = function (event) {
 
 p.off = function (event, callback) {
     if (this.events[event] && callback) {
-        this.events[event] = this.events[event].filter(function (cb) {
-            return cb !== callback;
-        });
+        this.events[event].splice(this.events[event].indexOf(callback), 1);
     } else {
         this.events[event] = [];
     }
