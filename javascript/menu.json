@@ -86,5 +86,9 @@
     {
         "name": "function string extend",
         "link": "function-string-extend"
+    },
+    {
+        "name": "referrer killer",
+        "link": "referrer-killer"
     }
 ]
