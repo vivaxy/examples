@@ -2,6 +2,7 @@
  * @since 150722 11:34
  * @author vivaxy
  */
+// https://github.com/jpgerek/referrer-killer
 var RefererKiller = function () {
     this.refererKillerIframeId = 0;
 };
