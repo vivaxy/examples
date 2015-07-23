@@ -9,8 +9,8 @@ var fs = require('fs'),
 fs.readFile('menu.json', 'utf-8', function (err, data) {
     JSON.parse(data).forEach(function (item) {
         var path = item.link;
-        babel.transformFile(path + '/index.es6.js', {
-            filename: path + '/index.es6.js'
+        babel.transformFile(path + '/index.es6', {
+            filename: path + '/index.es6'
         }, function (err, result) {
             if (err) {
                 console.log('error: ' + path + '\n' + err);

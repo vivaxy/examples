@@ -34,5 +34,13 @@
     {
         "name": "const",
         "link": "const"
+    },
+    {
+        "name": "iterators",
+        "link": "iterators"
+    },
+    {
+        "name": "generators",
+        "link": "generators"
     }
 ]
