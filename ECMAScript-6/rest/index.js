@@ -1,4 +1,10 @@
-var f = function (x) {var SLICE$0 = Array.prototype.slice;var y = SLICE$0.call(arguments, 1);
+'use strict';
+
+var f = function f(x) {
+    for (var _len = arguments.length, y = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        y[_key - 1] = arguments[_key];
+    }
+
     console.log(x * y.length, y);
 };
 

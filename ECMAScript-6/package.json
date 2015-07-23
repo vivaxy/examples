@@ -4,11 +4,11 @@
   "description": "",
   "main": "",
   "scripts": {
-      "build": "./build.js"
+    "build": "./build.js"
   },
   "author": "vivaxy",
   "license": "MIT",
   "devDependencies": {
-    "es6-transpiler": "^0.7.18"
+    "babel-core": "^5.8.3"
   }
 }

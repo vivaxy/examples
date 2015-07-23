@@ -1,3 +1,5 @@
+"use strict";
+
 var a = 0;
 var b = 0;
 
@@ -6,8 +8,8 @@ var b = 0;
     var b = 1;
     if (a === 1) {
         a = 2;
-        var b$0 = 2;
-        console.log(a, b$0);
+        var _b = 2;
+        console.log(a, _b);
     }
     console.log(a, b);
 })();
