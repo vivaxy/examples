@@ -3,15 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
-  "scripts": {
-    "build": "./build.js"
-  },
   "author": "vivaxy",
   "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^5.8.3"
-  },
   "dependencies": {
-    "babel-runtime": "^5.8.3"
+    "babel-core": "^5.8.3"
   }
 }

@@ -42,5 +42,9 @@
     {
         "name": "generators",
         "link": "generators"
+    },
+    {
+        "name": "unicode",
+        "link": "unicode"
     }
 ]

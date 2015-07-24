@@ -1,3 +1,7 @@
+/**
+ * @since 150521 19:15
+ * @author vivaxy
+ */
 var [a, , b] = [1, 2, 3];
 
 console.log(a, b);
