@@ -4,8 +4,8 @@
  */
 
 // set canvas
-var canvas = document.getElementsByTagName("canvas")[0];
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementsByTagName('canvas')[0],
+    ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -27,8 +27,7 @@ var savedTouches = [],
         r = r.toString(16); // make it a hex digit
         g = g.toString(16); // make it a hex digit
         b = b.toString(16); // make it a hex digit
-        var color = "#" + r + g + b;
-        return color;
+        return '#' + r + g + b;
     },
     getTouch = function (touch) {
         return {
@@ -39,38 +38,39 @@ var savedTouches = [],
         };
     },
     getTouchIndex = function (id) {
-        for (var i in savedTouches) {
-            if (id == savedTouches[i].id) {
-                return i;
+        var resultIndex = -1;
+        savedTouches.forEach(function (savedTouche, index) {
+            if (savedTouche.id === id) {
+                resultIndex = index;
             }
-        }
-        return -1;
+        });
+        return resultIndex;
     };
 
 // set events
-var START_EV = isMobile ? 'touchstart' : 'mousedown',
-    MOVE_EV = isMobile ? 'touchmove' : 'mousemove',
-    END_EV = isMobile ? 'touchend' : 'mouseup',
+var startEvent = isMobile ? 'touchstart' : 'mousedown',
+    moveEvent = isMobile ? 'touchmove' : 'mousemove',
+    endEvent = isMobile ? 'touchend' : 'mouseup',
 // click or touch starts
-    START_FUNC = function (e) {
+    startHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        for (var i in touches) {
-            var touch = getTouch(touches[i]);
+        touches.forEach(function (_touch) {
+            var touch = getTouch(_touch);
             savedTouches.push(touch);
             ctx.beginPath();
             ctx.fillStyle = touch.color;
             ctx.arc(touch.x, touch.y, 4, 0, 2 * Math.PI, false);
             ctx.fill();
-        }
+        });
         return false;
     },
 // moves
-    MOVE_FUNC = function (e) {
+    moveHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        for (var i in touches) {
-            var touch = getTouch(touches[i]);
+        touches.forEach(function (_touch) {
+            var touch = getTouch(_touch);
             var id = getTouchIndex(touch.id);
             if (id >= 0) {
                 touch.color = savedTouches[id].color;
@@ -82,15 +82,15 @@ var START_EV = isMobile ? 'touchstart' : 'mousedown',
                 ctx.stroke();
                 savedTouches.splice(id, 1, touch);
             }
-        }
+        });
         return false;
     },
 // click or touch releases
-    END_FUNC = function (e) {
+    endHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        for (var i in touches) {
-            var touch = getTouch(touches[i]);
+        touches.forEach(function (_touch) {
+            var touch = getTouch(_touch);
             var id = getTouchIndex(touch.id);
             if (id >= 0) {
                 touch.color = savedTouches[id].color;
@@ -105,13 +105,13 @@ var START_EV = isMobile ? 'touchstart' : 'mousedown',
                 // remove this touch
                 savedTouches.splice(id, 1);
             }
-        }
+        });
         return false;
     };
 // bind
-canvas.addEventListener(START_EV, START_FUNC, false);
-canvas.addEventListener(MOVE_EV, MOVE_FUNC, false);
-canvas.addEventListener(END_EV, END_FUNC, false);
-canvas.addEventListener("touchcancel", END_FUNC, false);
-canvas.addEventListener("touchleave", END_FUNC, false);
-canvas.addEventListener("mouseout", END_FUNC, false);
+canvas.addEventListener(startEvent, startHandler, false);
+canvas.addEventListener(moveEvent, moveHandler, false);
+canvas.addEventListener(endEvent, endHandler, false);
+canvas.addEventListener("touchcancel", endHandler, false);
+canvas.addEventListener("touchleave", endHandler, false);
+canvas.addEventListener("mouseout", endHandler, false);
