@@ -1,0 +1,25 @@
+/**
+ * @since 15-08-03 21:21
+ * @author vivaxy
+ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+ul {
+    counter-reset: count;
+    list-style: none;
+}
+
+ul li {
+    counter-increment: count;
+}
+
+ul li:before {
+    content: counters(count, '、', cjk-ideographic) '      ';
+    white-space: pre;
+}

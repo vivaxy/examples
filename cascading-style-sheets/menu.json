@@ -14,5 +14,13 @@
     {
         "name": "writing mode",
         "link": "writing-mode"
+    },
+    {
+        "name": "counter",
+        "link": "counter"
+    },
+    {
+        "name": "counters",
+        "link": "counters"
     }
 ]

@@ -6,5 +6,13 @@
     {
         "name": "setImmediate",
         "link": "set-immediate"
+    },
+    {
+        "name": "stdout",
+        "link": "stdout"
+    },
+    {
+        "name": "readline",
+        "link": "readline"
     }
 ]
