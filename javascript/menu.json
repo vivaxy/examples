@@ -90,5 +90,9 @@
     {
         "name": "referrer killer",
         "link": "referrer-killer"
+    },
+    {
+        "name": "append script",
+        "link": "append-script"
     }
 ]
