@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
+    <link type="text/css" rel="stylesheet" href="index.css">
+    <title>event delegation on safari</title>
+</head>
+<body>
+<p>Q: event delegation not available on body</p>
+
+<p>$('body').on('click', '.J_button', function(e){console.log(e);});</p>
+
+<p>`J_button` should has `cursor: pointer;` style!</p>
+
+<p>reference: http://www.quirksmode.org/blog/archives/2010/10/click_event_del_1.html</p>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="/ba.js"></script>
+</body>
+</html>

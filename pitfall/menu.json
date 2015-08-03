@@ -2,5 +2,9 @@
     {
         "name": "click event on label with input",
         "link": "click-event-on-label-with-input"
+    },
+    {
+        "name": "event delegation on safari",
+        "link": "event-delegation-on-safari"
     }
 ]
