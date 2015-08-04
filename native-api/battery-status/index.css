@@ -1,0 +1,20 @@
+/**
+ * @since 15-08-04 20:21
+ * @author vivaxy
+ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+log {
+    width: 100%;
+}
+
+log entry {
+    width: 100%;
+    display: block;
+}

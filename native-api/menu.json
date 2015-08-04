@@ -90,5 +90,9 @@
     {
         "name": "details summary",
         "link": "details-summary"
+    },
+    {
+        "name": "battery status",
+        "link": "battery-status"
     }
 ]
