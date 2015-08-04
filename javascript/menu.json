@@ -94,5 +94,9 @@
     {
         "name": "append script",
         "link": "append-script"
+    },
+    {
+        "name": "delegate event",
+        "link": "delegate-event"
     }
 ]

@@ -1,0 +1,30 @@
+body, p {
+    margin: 0;
+}
+
+.container {
+    background-color: #c80;
+}
+
+.container .box {
+    width: 50%;
+    padding-bottom: 50%;
+    float: left;
+}
+
+.container .box:nth-child(1) {
+    background-color: #08c;
+
+}
+
+.container .box:nth-child(2) {
+    background-color: #8c0;
+}
+
+.container .box ul {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    list-style: none;
+    width: 50%;
+    padding: 0;
+}
