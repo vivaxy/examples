@@ -10,27 +10,31 @@ var log = function (string) {
     console.log(string);
 };
 
-navigator.getBattery().then(function (battery) {
+if (navigator.getBattery) {
+    navigator.getBattery().then(function (battery) {
 
-    log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
-    log('Battery level: ' + battery.level * 100 + '%');
-    log('Battery charging time: ' + battery.chargingTime + ' seconds');
-    log('Battery discharging time: ' + battery.dischargingTime + ' seconds');
-
-    battery.addEventListener('chargingchange', function () {
         log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
-    });
-
-    battery.addEventListener('levelchange', function () {
         log('Battery level: ' + battery.level * 100 + '%');
-    });
-
-    battery.addEventListener('chargingtimechange', function () {
         log('Battery charging time: ' + battery.chargingTime + ' seconds');
-    });
-
-    battery.addEventListener('dischargingtimechange', function () {
         log('Battery discharging time: ' + battery.dischargingTime + ' seconds');
-    });
 
-});
+        battery.addEventListener('chargingchange', function () {
+            log('Battery charging? ' + (battery.charging ? 'Yes' : 'No'));
+        });
+
+        battery.addEventListener('levelchange', function () {
+            log('Battery level: ' + battery.level * 100 + '%');
+        });
+
+        battery.addEventListener('chargingtimechange', function () {
+            log('Battery charging time: ' + battery.chargingTime + ' seconds');
+        });
+
+        battery.addEventListener('dischargingtimechange', function () {
+            log('Battery discharging time: ' + battery.dischargingTime + ' seconds');
+        });
+
+    });
+} else {
+    log('this device does not support Battery Status API.');
+}
