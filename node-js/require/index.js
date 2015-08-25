@@ -4,6 +4,7 @@
  */
 'use strict';
 var person = require('./person.js');
+console.log(new Date().getTime(), 'first require of person');
 person = require('./other.js');
 person = require('./other.js');
 person.grow();

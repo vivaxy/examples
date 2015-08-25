@@ -5,7 +5,7 @@
 'use strict';
 var Person = function (age) {
     this.age = age;
-    console.log('new instance');
+    console.log(new Date().getTime(), 'new instance');
 };
 
 Person.prototype.grow = function () {
