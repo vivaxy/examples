@@ -3,8 +3,14 @@
  * @author vivaxy
  */
 'use strict';
-var Person = function () {
+var Person = function (age) {
+    this.age = age;
     console.log('new instance');
 };
 
-module.exports = new Person();
+Person.prototype.grow = function () {
+    this.age++;
+    return this;
+};
+
+module.exports = new Person(24);

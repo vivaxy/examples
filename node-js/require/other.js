@@ -5,6 +5,5 @@
 'use strict';
 var person = require('./person.js');
 person = require('./person.js');
-person = require('./person.js');
-
+person.grow();
 module.exports = person;
