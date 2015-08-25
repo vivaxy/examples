@@ -14,5 +14,9 @@
     {
         "name": "readline",
         "link": "readline"
+    },
+    {
+        "name": "require",
+        "link": "require"
     }
 ]
