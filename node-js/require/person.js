@@ -3,10 +3,11 @@
  * @author vivaxy
  */
 'use strict';
-var Person = function (age) {
-    this.age = age;
-    console.log(new Date().getTime(), 'new instance');
-};
+var log = require('./log.js'),
+    Person = function (age) {
+        this.age = age;
+        log('new instance of person');
+    };
 
 Person.prototype.grow = function () {
     this.age++;

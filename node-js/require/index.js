@@ -3,10 +3,13 @@
  * @author vivaxy
  */
 'use strict';
-var person = require('./person.js');
-console.log(new Date().getTime(), 'first require of person');
-person = require('./other.js');
-person = require('./other.js');
-person.grow();
+var log = require('./log.js'),
+    person = {};
+log('index', 'before require a');
+person.a = require('./action-a.js');
+log('index', 'after require a');
+log('index', 'before require b');
+person.b = require('./action-b.js');
+log('index', 'after require b');
 
-console.log(person.age);
+log('(person.a === person.b) ===', person.a === person.b);
