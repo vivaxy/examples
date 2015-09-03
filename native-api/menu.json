@@ -94,5 +94,9 @@
     {
         "name": "battery status",
         "link": "battery-status"
+    },
+    {
+        "name": "send beacon",
+        "link": "send-beacon"
     }
 ]
