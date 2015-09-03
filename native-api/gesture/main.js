@@ -55,7 +55,7 @@ var startEvent = isMobile ? 'touchstart' : 'mousedown',
     startHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        touches.forEach(function (_touch) {
+        Array.prototype.forEach.call(touches, function (_touch) {
             var touch = getTouch(_touch);
             savedTouches.push(touch);
             ctx.beginPath();
@@ -69,7 +69,7 @@ var startEvent = isMobile ? 'touchstart' : 'mousedown',
     moveHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        touches.forEach(function (_touch) {
+        Array.prototype.forEach.call(touches, function (_touch) {
             var touch = getTouch(_touch);
             var id = getTouchIndex(touch.id);
             if (id >= 0) {
@@ -89,7 +89,7 @@ var startEvent = isMobile ? 'touchstart' : 'mousedown',
     endHandler = function (e) {
         e.preventDefault();
         var touches = isMobile ? e.changedTouches : [e];
-        touches.forEach(function (_touch) {
+        Array.prototype.forEach.call(touches, function (_touch) {
             var touch = getTouch(_touch);
             var id = getTouchIndex(touch.id);
             if (id >= 0) {
