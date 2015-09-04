@@ -98,5 +98,9 @@
     {
         "name": "send beacon",
         "link": "send-beacon"
+    },
+    {
+        "name": "analyser node",
+        "link": "analyser-node"
     }
 ]
