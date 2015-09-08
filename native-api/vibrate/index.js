@@ -28,7 +28,7 @@ var startPersistentVibrate = function (duration, interval) {
 var vibrating = false;
 var durationInput = document.getElementById('duration');
 var intervalInput = document.getElementById('interval');
-var switchInput = document.getElementById('interval');
+var switchInput = document.getElementById('switch');
 
 switchInput.addEventListener('click', function () {
     if (vibrating) {
