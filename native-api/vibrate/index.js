@@ -10,11 +10,6 @@ navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mo
 
 var vibrateInterval;
 
-// Starts vibration at passed in level
-var startVibrate = function (duration) {
-    navigator.vibrate(duration);
-};
-
 // Stops vibration
 var stopVibrate = function () {
     // Clear interval and stop persistent vibrating
@@ -26,17 +21,19 @@ var stopVibrate = function () {
 // Assumes a number value is given
 var startPersistentVibrate = function (duration, interval) {
     vibrateInterval = setInterval(function () {
-        startVibrate(duration);
+        navigator.vibrate(duration);
     }, interval);
 };
 
 var vibrating = false;
+var durationInput = document.getElementById('duration');
+var intervalInput = document.getElementById('interval');
 
 window.addEventListener('click', function () {
     if (vibrating) {
         stopVibrate();
     } else {
-        startPersistentVibrate(999, 1);
+        startPersistentVibrate(durationInput.value, intervalInput.value);
     }
     vibrating = !vibrating;
 }, false);
