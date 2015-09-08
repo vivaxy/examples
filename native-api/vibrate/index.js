@@ -4,8 +4,37 @@
  */
 'use strict';
 
-var vibrate = function () {
-    navigator.vibrate([100, 30, 100, 30, 100, 200, 200, 30, 200, 30, 200, 200, 100, 30, 100, 30, 100]);
+var vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+var vibrateInterval;
+
+// Starts vibration at passed in level
+var startVibrate = function (duration) {
+    vibrate(duration);
 };
 
-window.addEventListener('click', vibrate, false);
+// Stops vibration
+var stopVibrate = function () {
+    // Clear interval and stop persistent vibrating
+    if (vibrateInterval) clearInterval(vibrateInterval);
+    vibrate(0);
+};
+
+// Start persistent vibration at given duration and interval
+// Assumes a number value is given
+var startPersistentVibrate = function (duration, interval) {
+    vibrateInterval = setInterval(function () {
+        startVibrate(duration);
+    }, interval);
+};
+
+var vibrating = false;
+
+window.addEventListener('click', function () {
+    if (vibrating) {
+        startPersistentVibrate(1000, 0);
+    } else {
+        vibrate(0);
+    }
+    vibrating = !vibrating;
+}, false);
