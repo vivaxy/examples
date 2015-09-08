@@ -4,7 +4,9 @@
  */
 'use strict';
 
-navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate || function (duration) {
+        alert('vibrate not supported ' + JSON.stringify(duration));
+    };
 
 var vibrateInterval;
 
