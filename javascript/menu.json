@@ -98,5 +98,9 @@
     {
         "name": "delegate event",
         "link": "delegate-event"
+    },
+    {
+        "name": "inline script context",
+        "link": "inline-script-context"
     }
 ]
