@@ -102,5 +102,9 @@
     {
         "name": "inline script context",
         "link": "inline-script-context"
+    },
+    {
+        "name": "return value of new",
+        "link": "return-value-of-new"
     }
 ]
