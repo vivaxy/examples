@@ -106,5 +106,9 @@
     {
         "name": "vibrate",
         "link": "vibrate"
+    },
+    {
+        "name": "date input",
+        "link": "date-input"
     }
 ]
