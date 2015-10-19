@@ -106,5 +106,9 @@
     {
         "name": "return value of new",
         "link": "return-value-of-new"
+    },
+    {
+        "name": "hippo",
+        "link": "hippo"
     }
 ]
