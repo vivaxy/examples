@@ -1,0 +1,172 @@
+/**
+ * @since 150125 20:08
+ * @author vivaxy
+ */
+body {
+    margin: 0;
+    background: #eee;
+}
+
+a {
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+p {
+    margin: 0;
+}
+
+.section {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.section-title {
+    padding: 15px 8px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #666;
+}
+
+.section-article {
+    padding: 15px;
+}
+
+.fixed-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+/* header */
+.header {
+    height: 48px;
+    line-height: 48px;
+    font-size: 18px;
+    background: #3498db;
+    color: #fff;
+}
+
+.back {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.icon-back {
+    width: 32px;
+    height: 32px;
+    display: block;
+    background-size: 50%;
+    background: url(arrow.png) no-repeat 50%;
+}
+
+.separator {
+    display: inline-block;
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.4);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* big image */
+.big-image-wrap {
+    max-height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+
+.big-image {
+    width: 100%;
+}
+
+.big-image-paragraph {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 50px 0 15px 0;
+    background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.big-image-paragraph p {
+    margin: 0 15px;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 18px;
+    height: 18px;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* image detail */
+.image-detail-wrap {
+    padding: 15px 0;
+}
+
+.image-detail-wrap .inner-wrap {
+    margin: 0 15px;
+}
+
+.image-detail-wrap .inner-wrap .title-wrap {
+    font-size: 18px;
+    line-height: 36px;
+    padding-bottom: 15px;
+    border-bottom: 1px #ddd dashed;
+}
+
+.image-detail-wrap .inner-wrap .title-wrap .button {
+    float: right;
+    border-radius: 4px;
+    background: #3498db;
+    color: #fff;
+    min-width: 50px;
+    height: 36px;
+    padding: 0 15px;
+    border: none;
+    text-align: center;
+}
+
+.image-detail-wrap .inner-wrap .detail-wrap .detail {
+    color: #666;
+    padding-top: 15px;
+    font-size: 16px;
+}
+
+/* action bar */
+.action-bar .title-wrap {
+    font-size: 18px;
+    padding: 15px;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+
+.action-bar .title-wrap .title {
+    display: block;
+    -webkit-box-flex: 1;
+    line-height: 36px;
+    vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.action-bar .title-wrap .button {
+    display: block;
+    min-width: 0;
+    line-height: 36px;
+    border-radius: 4px;
+    background: #3498db;
+    color: #fff;
+    height: 36px;
+    padding: 0 15px;
+    border: none;
+    text-align: center;
+}
+
