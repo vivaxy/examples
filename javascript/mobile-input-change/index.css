@@ -1,0 +1,24 @@
+/**
+ * @since 2015-10-28 09:55
+ * @author vivaxy
+ */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+input {
+    width: 100%;
+    outline-color: #f63;
+}
+
