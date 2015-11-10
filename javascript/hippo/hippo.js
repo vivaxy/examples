@@ -3,6 +3,7 @@
  * @author vivaxy
  */
 'use strict';
+window._hippoImageList = [];
 (function () {
     var hippo = window.hippo = window.hippo || [];
     var next = function () {
@@ -58,12 +59,18 @@
                         break;
                     default:
                         // image
-                        // todo fix GC
                         var image = new Image();
-                        image.addEventListener('load', next);
-                        image.addEventListener('error', next);
-                        image.addEventListener('abort', next);
+                        var fromImageToNext = function () {
+                            var index = _hippoImageList.indexOf(image);
+                            _hippoImageList.splice(index, 1);
+                            next();
+                        };
+                        image.addEventListener('load', fromImageToNext);
+                        image.addEventListener('error', fromImageToNext);
+                        image.addEventListener('abort', fromImageToNext);
                         image.src = remote + '?data=' + JSON.stringify(data);
+                        // fix GC
+                        _hippoImageList.push(image);
                         break;
                 }
                 break;
