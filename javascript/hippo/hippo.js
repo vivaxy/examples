@@ -3,8 +3,8 @@
  * @author vivaxy
  */
 'use strict';
-window._hippoImageList = [];
 (function () {
+    var _hippoImage = window._hippoImage = window._hippoImage || {};
     var hippo = window.hippo = window.hippo || [];
     var next = function () {
         hippo.shift();
@@ -60,9 +60,9 @@ window._hippoImageList = [];
                     default:
                         // image
                         var image = new Image();
+                        var imageKey = 'image-' + new Date();
                         var fromImageToNext = function () {
-                            var index = _hippoImageList.indexOf(image);
-                            _hippoImageList.splice(index, 1);
+                            delete _hippoImage[imageKey];
                             next();
                         };
                         image.addEventListener('load', fromImageToNext);
@@ -70,7 +70,7 @@ window._hippoImageList = [];
                         image.addEventListener('abort', fromImageToNext);
                         image.src = remote + '?data=' + JSON.stringify(data);
                         // fix GC
-                        _hippoImageList.push(image);
+                        _hippoImage[imageKey] = image;
                         break;
                 }
                 break;
