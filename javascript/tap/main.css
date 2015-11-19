@@ -18,6 +18,13 @@ body {
     text-align: center;
 }
 
+.test .inner {
+    width: 50%;
+    height: 50%;
+    background-color: #f60;
+    margin: 25%;
+}
+
 .console {
     width: 100%;
     height: 30px;

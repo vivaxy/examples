@@ -35,8 +35,10 @@
 
         var coordinate = coords.move || coords.start;
 
-        event.x = coordinate[0];
-        event.y = coordinate[1];
+        event.offset = coordinate.offset;
+        event.page = coordinate.page;
+        event.client = coordinate.client;
+        event.target = coordinate.target;
 
         return event;
     };
@@ -48,7 +50,24 @@
     utils.getCoordinate = function (e) {
         var x = e.offsetX || e.pageX - e.target.offsetLeft;
         var y = e.offsetY || e.pageY - e.target.offsetTop;
-        return [x, y];
+        return {
+            offset: {
+                x: e.offsetX,
+                y: e.offsetY
+            },
+            page: {
+                x: e.pageX,
+                y: e.pageY
+            },
+            client: {
+                x: e.clientX,
+                y: e.clientY
+            },
+            target: {
+                x: x,
+                y: y
+            }
+        };
     };
 
     var eventMatrix = [{
