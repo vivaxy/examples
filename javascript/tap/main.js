@@ -5,8 +5,10 @@
 var log = function (e) {
     var currentTarget = e.currentTarget;
     var rect = currentTarget.getBoundingClientRect();
-    var x = e.client.x - rect.left;
-    var y = e.client.y - rect.top;
+    var coordinate = e.coordinate;
+    var clientCoordinate = coordinate.client;
+    var x = clientCoordinate.x - rect.left;
+    var y = clientCoordinate.y - rect.top;
     console.log({
         x: x,
         y: y

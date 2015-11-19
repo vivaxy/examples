@@ -33,12 +33,7 @@
         var event = window.document.createEvent('HTMLEvents');
         event.initEvent(name, true, true);
 
-        var coordinate = coords.move || coords.start;
-
-        event.offset = coordinate.offset;
-        event.page = coordinate.page;
-        event.client = coordinate.client;
-        event.target = coordinate.target;
+        event.coordinate = coords.move || coords.start;
 
         return event;
     };
