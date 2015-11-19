@@ -9,9 +9,12 @@
  * ```js
  * element.addEventListener('tap', function(e){
  *     var target = e.target;
- *     var x = e.x;
- *     var y = e.y;
- * }, false);
+ *     var coordinate = e.coordinate;
+ *     var offsetCoordinate = coordinate.offset;
+ *     var pageCoordinate = coordinate.page;
+ *     var clientCoordinate = coordinate.client;
+ *     var targetCoordinate = coordinate.target;
+ * });
  * ```
  *
  * support ie9+, webkit

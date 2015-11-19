@@ -18,4 +18,4 @@ var log = function (e) {
 
 document.querySelector('.test').addEventListener('tap', function (e) {
     log(e);
-}, false);
+});
