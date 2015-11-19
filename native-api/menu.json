@@ -110,5 +110,9 @@
     {
         "name": "date input",
         "link": "date-input"
+    },
+    {
+        "name": "generators",
+        "link": "generators"
     }
 ]
