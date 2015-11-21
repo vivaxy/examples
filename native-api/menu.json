@@ -118,5 +118,9 @@
     {
         "name": "event source",
         "link": "event-source"
+    },
+    {
+        "name": "replace",
+        "link": "replace"
     }
 ]
