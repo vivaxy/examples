@@ -1,0 +1,26 @@
+{
+  "name": "hammer",
+  "version": "1.0.0",
+  "description": "hammer",
+  "main": "index.js",
+  "dependencies": {
+    "event-emitter": "git://github.com/vivaxy/event-emitter.git#c11c73b17ab3e7b2715a75b2f7355300721799ee"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.15",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0",
+    "console-to-dom": "git://github.com/vivaxy/console-to-dom.git#889005f18c7b3eb2cac6ebd1a16e116799f7dbe6"
+  },
+  "scripts": {
+    "server": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "keywords": [
+    "hammer"
+  ],
+  "author": "vivaxy",
+  "license": "MIT"
+}

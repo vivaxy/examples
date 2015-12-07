@@ -36,7 +36,7 @@ map.addEventListener("click", function (e) {
 
 //拖动事件
 map.addEventListener("dragend", function () {
-  var center = map.getCenter();
+  var center = map._getCenter();
   console.log('center moved to ', center.lng, center.lat);
 });
 
