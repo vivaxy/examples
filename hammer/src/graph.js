@@ -66,16 +66,20 @@ class Graph {
         center.y += offsetY;
 
         let ctx = this.ctx;
+
         ctx.translate(center.x, center.y);
 
         let rotation = (this.theta + angle) * Math.PI / 180;
 
         ctx.rotate(rotation);
 
+        // or ctx.save();
+
         let width = after.width / 2;
         let height = after.height / 2;
         ctx.drawImage(this.image, -width, -height, after.width, after.height);
 
+        // or ctx.restore();
         ctx.rotate(-rotation);
 
         ctx.translate(-center.x, -center.y);
