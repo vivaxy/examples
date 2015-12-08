@@ -6,7 +6,7 @@
 
 /**
  * event:
- * 
+ *
  * progress
  *     加载的进度
  *     参数 progress 0 ~ 1
@@ -21,19 +21,22 @@ import EventEmitter from '../node_modules/event-emitter/src/event-emitter.js';
 
 class Preload extends EventEmitter {
 
-    constructor(list) {
+    constructor(resourceList) {
 
         super();
 
-        if (!list.length) {
+        if (!resourceList.length) {
             throw new Error('preload: nothing to load');
         }
 
         this.retryCount = 5;
 
-        this.list = list.map(src => {
+        this.resourceList = resourceList;
+
+        this.list = resourceList.map((o, index) => {
             return {
-                src: src,
+                index: index,
+                src: o.src,
                 retryCount: this.retryCount,
                 loaded: false
             };
@@ -46,8 +49,17 @@ class Preload extends EventEmitter {
     start() {
         this.list.forEach(o => {
             let load = () => {
-                this._loadImage(o.src, () => {
+                this._loadImage(o.src, (image) => {
                     o.loaded = true;
+                    /**
+                     * 加载后的 image 对象应该被缓存下来，虽然 src 加载过，但是
+                     * ```
+                     * var image = new Image();
+                     * image.src = src;
+                     * image.complete; // => false;
+                     * ```
+                     */
+                    this.resourceList[o.index].image = image;
                     let progress = this._getProgress();
                     this.emit('progress', progress);
                     if (progress === 1) {
@@ -75,7 +87,9 @@ class Preload extends EventEmitter {
      */
     _loadImage(src, success, error) {
         let image = new Image();
-        image.addEventListener('load', success);
+        image.addEventListener('load', () => {
+            success(image);
+        });
         image.addEventListener('error', error);
         image.src = src;
         return this;

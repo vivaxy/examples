@@ -7,7 +7,7 @@ export default [
     {
         width: 76,
         height: 76,
-        x: 320,
+        x: 220,
         y: 640,
         src: './image/snow.png'
     },
@@ -21,7 +21,7 @@ export default [
     {
         width: 94,
         height: 58,
-        x: 320,
+        x: 420,
         y: 640,
         src: './image/bus.png'
     }

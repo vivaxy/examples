@@ -32,16 +32,13 @@ class Application {
 
         return resourceList.map(resource => {
 
-            let image = new Image();
-            image.src = resource.src;
-
             return new Graph({
                 ctx: this.ctx,
                 width: resource.width,
                 height: resource.height,
                 x: resource.x,
                 y: resource.y,
-                image: image,
+                image: resource.image,
                 src: resource.src
             });
         });
@@ -49,11 +46,11 @@ class Application {
     }
 
     _preload(done) {
-        let preload = new Preload(resourceList.map(resource => resource.src));
+        let preload = new Preload(resourceList);
         preload.on('done', done);
         preload.start();
     }
-
+    
     _getInput() {
 
         let input = new Input(this.canvas);
