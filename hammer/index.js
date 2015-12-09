@@ -165,16 +165,13 @@
 
 	            return _resources2.default.map(function (resource) {
 
-	                var image = new Image();
-	                image.src = resource.src;
-
 	                return new _graph2.default({
 	                    ctx: _this2.ctx,
 	                    width: resource.width,
 	                    height: resource.height,
 	                    x: resource.x,
 	                    y: resource.y,
-	                    image: image,
+	                    image: resource.image,
 	                    src: resource.src
 	                });
 	            });
@@ -182,9 +179,7 @@
 	    }, {
 	        key: '_preload',
 	        value: function _preload(done) {
-	            var preload = new _preload3.default(_resources2.default.map(function (resource) {
-	                return resource.src;
-	            }));
+	            var preload = new _preload3.default(_resources2.default);
 	            preload.on('done', done);
 	            preload.start();
 	        }
@@ -205,16 +200,14 @@
 
 	                _this3._sortGraphList(graph);
 
-	                _this3._paint();
-	                _this3.activeGraph.paint(delta.x, delta.y);
+	                _this3._paint(delta.x, delta.y);
 	            });
 
 	            input.on('drag-move', function (center, delta) {
 	                if (!_this3.activeGraph) {
 	                    return false;
 	                }
-	                _this3._paint();
-	                _this3.activeGraph.paint(delta.x, delta.y);
+	                _this3._paint(delta.x, delta.y);
 	            });
 
 	            input.on('drag-end', function (center, delta) {
@@ -235,16 +228,15 @@
 	                _this3.activeGraph = graph;
 	                _this3._sortGraphList(graph);
 
-	                _this3._paint();
-	                _this3.activeGraph.paint(null, null, rotation, scale);
+	                _this3._paint(null, null, rotation, scale);
+	                _this3.activeGraph.paint();
 	            });
 
 	            input.on('pinch-move', function (center, rotation, scale) {
 	                if (!_this3.activeGraph) {
 	                    return false;
 	                }
-	                _this3._paint();
-	                _this3.activeGraph.paint(null, null, rotation, scale);
+	                _this3._paint(null, null, rotation, scale);
 	                _this3.savedRotation = rotation;
 	            });
 
@@ -270,21 +262,25 @@
 	    }, {
 	        key: '_getActiveGraph',
 	        value: function _getActiveGraph(center) {
-	            return this.graphList.find(function (graph) {
+	            this.graphList.reverse();
+	            var found = this.graphList.find(function (graph) {
 	                return graph.inRange(center);
 	            });
+	            this.graphList.reverse();
+	            return found;
 	        }
 	    }, {
 	        key: '_paint',
-	        value: function _paint() {
+	        value: function _paint(x, y, angle, scale) {
 	            var _this4 = this;
 
 	            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	            this.graphList.forEach(function (o) {
 	                // 不画正在拖动的元素，都则会有残影
 	                if (o !== _this4.activeGraph) {
-	                    console.log(o.src);
 	                    o.paint();
+	                } else {
+	                    o.paint(x, y, angle, scale);
 	                }
 	            });
 	            return this;
@@ -293,6 +289,9 @@
 	        key: '_sortGraphList',
 	        value: function _sortGraphList(graph) {
 	            var index = this.graphList.indexOf(graph);
+	            if (index === -1) {
+	                return this;
+	            }
 	            this.graphList.splice(index, 1);
 	            this.graphList.push(graph);
 	            return this;
@@ -695,16 +694,20 @@
 	      center.y += offsetY;
 
 	      var ctx = this.ctx;
+
 	      ctx.translate(center.x, center.y);
 
 	      var rotation = (this.theta + angle) * Math.PI / 180;
 
 	      ctx.rotate(rotation);
 
+	      // or ctx.save();
+
 	      var width = after.width / 2;
 	      var height = after.height / 2;
 	      ctx.drawImage(this.image, -width, -height, after.width, after.height);
 
+	      // or ctx.restore();
 	      ctx.rotate(-rotation);
 
 	      ctx.translate(-center.x, -center.y);
@@ -835,7 +838,7 @@
 
 	/**
 	 * event:
-	 * 
+	 *
 	 * progress
 	 *     加载的进度
 	 *     参数 progress 0 ~ 1
@@ -869,20 +872,23 @@
 	var Preload = (function (_EventEmitter) {
 	    _inherits(Preload, _EventEmitter);
 
-	    function Preload(list) {
+	    function Preload(resourceList) {
 	        _classCallCheck(this, Preload);
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Preload).call(this));
 
-	        if (!list.length) {
+	        if (!resourceList.length) {
 	            throw new Error('preload: nothing to load');
 	        }
 
 	        _this.retryCount = 5;
 
-	        _this.list = list.map(function (src) {
+	        _this.resourceList = resourceList;
+
+	        _this.list = resourceList.map(function (o, index) {
 	            return {
-	                src: src,
+	                index: index,
+	                src: o.src,
 	                retryCount: _this.retryCount,
 	                loaded: false
 	            };
@@ -901,8 +907,17 @@
 
 	            this.list.forEach(function (o) {
 	                var load = function load() {
-	                    _this2._loadImage(o.src, function () {
+	                    _this2._loadImage(o.src, function (image) {
 	                        o.loaded = true;
+	                        /**
+	                         * 加载后的 image 对象应该被缓存下来，虽然 src 加载过，但是
+	                         * ```
+	                         * var image = new Image();
+	                         * image.src = src;
+	                         * image.complete; // => false;
+	                         * ```
+	                         */
+	                        _this2.resourceList[o.index].image = image;
 	                        var progress = _this2._getProgress();
 	                        _this2.emit('progress', progress);
 	                        if (progress === 1) {
@@ -933,7 +948,9 @@
 	        key: '_loadImage',
 	        value: function _loadImage(src, success, error) {
 	            var image = new Image();
-	            image.addEventListener('load', success);
+	            image.addEventListener('load', function () {
+	                success(image);
+	            });
 	            image.addEventListener('error', error);
 	            image.src = src;
 	            return this;
@@ -979,7 +996,7 @@
 	exports.default = [{
 	    width: 76,
 	    height: 76,
-	    x: 320,
+	    x: 220,
 	    y: 640,
 	    src: './image/snow.png'
 	}, {
@@ -991,7 +1008,7 @@
 	}, {
 	    width: 94,
 	    height: 58,
-	    x: 320,
+	    x: 420,
 	    y: 640,
 	    src: './image/bus.png'
 	}];

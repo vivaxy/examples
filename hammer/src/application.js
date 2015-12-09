@@ -50,7 +50,7 @@ class Application {
         preload.on('done', done);
         preload.start();
     }
-    
+
     _getInput() {
 
         let input = new Input(this.canvas);
@@ -65,23 +65,21 @@ class Application {
 
             this._sortGraphList(graph);
 
-            this._paint();
-            this.activeGraph.paint(delta.x, delta.y);
+            this._paint(delta.x, delta.y, null, null);
         });
 
         input.on('drag-move', (center, delta) => {
             if (!this.activeGraph) {
                 return false;
             }
-            this._paint();
-            this.activeGraph.paint(delta.x, delta.y);
+            this._paint(delta.x, delta.y, null, null);
         });
 
         input.on('drag-end', (center, delta) => {
             if (!this.activeGraph) {
                 return false;
             }
-            this.activeGraph.move(delta.x, delta.y);
+            this.activeGraph.move(delta.x, delta.y, null, null);
             // 先清除正在拖动的元素，让 paint 方法能够画出所有元素
             this.activeGraph = null;
             this._paint();
@@ -95,16 +93,15 @@ class Application {
             this.activeGraph = graph;
             this._sortGraphList(graph);
 
-            this._paint();
-            this.activeGraph.paint(null, null, rotation, scale);
+            this._paint(null, null, rotation, scale);
+            this.activeGraph.paint();
         });
 
         input.on('pinch-move', (center, rotation, scale) => {
             if (!this.activeGraph) {
                 return false;
             }
-            this._paint();
-            this.activeGraph.paint(null, null, rotation, scale);
+            this._paint(null, null, rotation, scale);
             this.savedRotation = rotation;
         });
 
@@ -129,18 +126,23 @@ class Application {
     }
 
     _getActiveGraph(center) {
-        return this.graphList.find(graph => {
+        this.graphList.reverse();
+        let found = this.graphList.find(graph => {
             return graph.inRange(center);
         });
+        this.graphList.reverse();
+        return found;
     }
 
-    _paint() {
+    _paint(x, y, angle, scale) {
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.graphList.forEach(o => {
             // 不画正在拖动的元素，都则会有残影
             if (o !== this.activeGraph) {
                 o.paint();
+            } else {
+                o.paint(x, y, angle, scale);
             }
         });
         return this;
@@ -149,6 +151,9 @@ class Application {
 
     _sortGraphList(graph) {
         let index = this.graphList.indexOf(graph);
+        if (index === -1) {
+            return this;
+        }
         this.graphList.splice(index, 1);
         this.graphList.push(graph);
         return this;
