@@ -13,16 +13,16 @@ class Application {
 
     constructor(config) {
 
-        this.canvas = config.canvas;
+        this._canvas = config.canvas;
 
-        this.ctx = this.canvas.getContext('2d');
+        this._ctx = this._canvas.getContext('2d');
 
-        this.activeGraph = null;
-        this.savedRotation = null;
+        this._activeGraph = undefined;
+        this._savedRotation = undefined;
 
         this._preload(() => {
-            this.graphList = this._getGraphList();
-            this.input = this._getInput();
+            this._graphList = this._getGraphList();
+            this._input = this._getInput();
             this._paint();
         });
 
@@ -33,7 +33,7 @@ class Application {
         return resourceList.map(resource => {
 
             return new Graph({
-                ctx: this.ctx,
+                ctx: this._ctx,
                 width: resource.width,
                 height: resource.height,
                 x: resource.x,
@@ -53,7 +53,7 @@ class Application {
 
     _getInput() {
 
-        let input = new Input(this.canvas);
+        let input = new Input(this._canvas);
 
         input.on('drag-start', (center, delta) => {
 
@@ -61,27 +61,27 @@ class Application {
             if (!graph) {
                 return false;
             }
-            this.activeGraph = graph;
+            this._activeGraph = graph;
 
             this._sortGraphList(graph);
 
-            this._paint(delta.x, delta.y, null, null);
+            this._paint(delta.x, delta.y, undefined, undefined);
         });
 
         input.on('drag-move', (center, delta) => {
-            if (!this.activeGraph) {
+            if (!this._activeGraph) {
                 return false;
             }
-            this._paint(delta.x, delta.y, null, null);
+            this._paint(delta.x, delta.y, undefined, undefined);
         });
 
         input.on('drag-end', (center, delta) => {
-            if (!this.activeGraph) {
+            if (!this._activeGraph) {
                 return false;
             }
-            this.activeGraph.move(delta.x, delta.y, null, null);
+            this._activeGraph.move(delta.x, delta.y, undefined, undefined);
             // 先清除正在拖动的元素，让 paint 方法能够画出所有元素
-            this.activeGraph = null;
+            this._activeGraph = undefined;
             this._paint();
         });
 
@@ -90,29 +90,29 @@ class Application {
             if (!graph) {
                 return false;
             }
-            this.activeGraph = graph;
+            this._activeGraph = graph;
             this._sortGraphList(graph);
 
-            this._paint(null, null, rotation, scale);
-            this.activeGraph.paint();
+            this._paint(undefined, undefined, rotation, scale);
+            this._activeGraph.paint();
         });
 
         input.on('pinch-move', (center, rotation, scale) => {
-            if (!this.activeGraph) {
+            if (!this._activeGraph) {
                 return false;
             }
-            this._paint(null, null, rotation, scale);
-            this.savedRotation = rotation;
+            this._paint(undefined, undefined, rotation, scale);
+            this._savedRotation = rotation;
         });
 
         input.on('pinch-end', (center, rotation, scale) => {
-            if (!this.activeGraph) {
+            if (!this._activeGraph) {
                 return false;
             }
-            this.activeGraph.resize(scale);
-            this.activeGraph.rotate(this.savedRotation);
-            this.savedRotation = null;
-            this.activeGraph = null;
+            this._activeGraph.resize(scale);
+            this._activeGraph.rotate(this._savedRotation);
+            this._savedRotation = undefined;
+            this._activeGraph = undefined;
             this._paint();
         });
 
@@ -126,20 +126,20 @@ class Application {
     }
 
     _getActiveGraph(center) {
-        this.graphList.reverse();
-        let found = this.graphList.find(graph => {
+        this._graphList.reverse();
+        let found = this._graphList.find(graph => {
             return graph.inRange(center);
         });
-        this.graphList.reverse();
+        this._graphList.reverse();
         return found;
     }
 
     _paint(x, y, angle, scale) {
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.graphList.forEach(o => {
+        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        this._graphList.forEach(o => {
             // 不画正在拖动的元素，都则会有残影
-            if (o !== this.activeGraph) {
+            if (o !== this._activeGraph) {
                 o.paint();
             } else {
                 o.paint(x, y, angle, scale);
@@ -150,12 +150,12 @@ class Application {
     };
 
     _sortGraphList(graph) {
-        let index = this.graphList.indexOf(graph);
+        let index = this._graphList.indexOf(graph);
         if (index === -1) {
             return this;
         }
-        this.graphList.splice(index, 1);
-        this.graphList.push(graph);
+        this._graphList.splice(index, 1);
+        this._graphList.push(graph);
         return this;
     }
 }

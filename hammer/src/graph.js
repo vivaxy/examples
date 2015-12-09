@@ -21,13 +21,13 @@ class Graph {
      */
     constructor(config) {
 
-        this.ctx = config.ctx;
-        this.width = config.width;
-        this.height = config.height;
-        this.x = config.x;
-        this.y = config.y;
-        this.image = config.image;
-        this.src = config.src;
+        this._ctx = config.ctx;
+        this._width = config.width;
+        this._height = config.height;
+        this._x = config.x;
+        this._y = config.y;
+        this._image = config.image;
+        //this._src = config.src;
 
         /**
          * 转动角度
@@ -65,7 +65,7 @@ class Graph {
         center.x += offsetX;
         center.y += offsetY;
 
-        let ctx = this.ctx;
+        let ctx = this._ctx;
 
         ctx.translate(center.x, center.y);
 
@@ -77,7 +77,7 @@ class Graph {
 
         let width = after.width / 2;
         let height = after.height / 2;
-        ctx.drawImage(this.image, -width, -height, after.width, after.height);
+        ctx.drawImage(this._image, -width, -height, after.width, after.height);
 
         // or ctx.restore();
         ctx.rotate(-rotation);
@@ -93,8 +93,8 @@ class Graph {
      */
     _getCenter() {
         return {
-            x: this.x + this.width / 2,
-            y: this.y + this.height / 2
+            x: this._x + this._width / 2,
+            y: this._y + this._height / 2
         };
     }
 
@@ -107,10 +107,10 @@ class Graph {
     inRange(point, tolerance = 0) {
         let x = point.x;
         let y = point.y;
-        let xLowBound = this.x - tolerance;
-        let xHighBound = this.x + this.width + tolerance;
-        let yLowBound = this.y - tolerance;
-        let yHighBound = this.y + this.height + tolerance;
+        let xLowBound = this._x - tolerance;
+        let xHighBound = this._x + this._width + tolerance;
+        let yLowBound = this._y - tolerance;
+        let yHighBound = this._y + this._height + tolerance;
         return x > xLowBound && x < xHighBound && y > yLowBound && y < yHighBound;
     }
 
@@ -121,8 +121,8 @@ class Graph {
      * @returns {Graph}
      */
     move(x = 0, y = 0) {
-        this.x += x;
-        this.y += y;
+        this._x += x;
+        this._y += y;
         return this;
     }
 
@@ -144,8 +144,8 @@ class Graph {
     _getRectFromScale(ratio = 1) {
         let after = {};
         let center = this._getCenter();
-        after.width = this.width * ratio;
-        after.height = this.height * ratio;
+        after.width = this._width * ratio;
+        after.height = this._height * ratio;
         after.x = center.x - after.width / 2;
         after.y = center.y - after.height / 2;
         return after;
@@ -158,10 +158,10 @@ class Graph {
      */
     resize(ratio) {
         let after = this._getRectFromScale(ratio);
-        this.width = after.width;
-        this.height = after.height;
-        this.x = after.x;
-        this.y = after.y;
+        this._width = after.width;
+        this._height = after.height;
+        this._x = after.x;
+        this._y = after.y;
         return this;
     }
 

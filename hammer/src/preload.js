@@ -29,15 +29,15 @@ class Preload extends EventEmitter {
             throw new Error('preload: nothing to load');
         }
 
-        this.retryCount = 5;
+        this._retryCount = 5;
 
-        this.resourceList = resourceList;
+        this._resourceList = resourceList;
 
-        this.list = resourceList.map((o, index) => {
+        this._list = resourceList.map((o, index) => {
             return {
                 index: index,
                 src: o.src,
-                retryCount: this.retryCount,
+                retryCount: this._retryCount,
                 loaded: false
             };
         });
@@ -47,7 +47,7 @@ class Preload extends EventEmitter {
      * 预加载开始
      */
     start() {
-        this.list.forEach(o => {
+        this._list.forEach(o => {
             let load = () => {
                 this._loadImage(o.src, (image) => {
                     o.loaded = true;
@@ -59,7 +59,7 @@ class Preload extends EventEmitter {
                      * image.complete; // => false;
                      * ```
                      */
-                    this.resourceList[o.index].image = image;
+                    this._resourceList[o.index].image = image;
                     let progress = this._getProgress();
                     this.emit('progress', progress);
                     if (progress === 1) {
@@ -103,11 +103,11 @@ class Preload extends EventEmitter {
      */
     _getProgress() {
 
-        let loadedImage = this.list.filter((o => {
+        let loadedImage = this._list.filter((o => {
             return o.loaded;
         }));
 
-        return loadedImage.length / this.list.length;
+        return loadedImage.length / this._list.length;
 
     }
 }

@@ -144,16 +144,16 @@
 
 	        _classCallCheck(this, Application);
 
-	        this.canvas = config.canvas;
+	        this._canvas = config.canvas;
 
-	        this.ctx = this.canvas.getContext('2d');
+	        this._ctx = this._canvas.getContext('2d');
 
-	        this.activeGraph = null;
-	        this.savedRotation = null;
+	        this._activeGraph = undefined;
+	        this._savedRotation = undefined;
 
 	        this._preload(function () {
-	            _this.graphList = _this._getGraphList();
-	            _this.input = _this._getInput();
+	            _this._graphList = _this._getGraphList();
+	            _this._input = _this._getInput();
 	            _this._paint();
 	        });
 	    }
@@ -166,7 +166,7 @@
 	            return _resources2.default.map(function (resource) {
 
 	                return new _graph2.default({
-	                    ctx: _this2.ctx,
+	                    ctx: _this2._ctx,
 	                    width: resource.width,
 	                    height: resource.height,
 	                    x: resource.x,
@@ -188,7 +188,7 @@
 	        value: function _getInput() {
 	            var _this3 = this;
 
-	            var input = new _input2.default(this.canvas);
+	            var input = new _input2.default(this._canvas);
 
 	            input.on('drag-start', function (center, delta) {
 
@@ -196,27 +196,27 @@
 	                if (!graph) {
 	                    return false;
 	                }
-	                _this3.activeGraph = graph;
+	                _this3._activeGraph = graph;
 
 	                _this3._sortGraphList(graph);
 
-	                _this3._paint(delta.x, delta.y);
+	                _this3._paint(delta.x, delta.y, undefined, undefined);
 	            });
 
 	            input.on('drag-move', function (center, delta) {
-	                if (!_this3.activeGraph) {
+	                if (!_this3._activeGraph) {
 	                    return false;
 	                }
-	                _this3._paint(delta.x, delta.y);
+	                _this3._paint(delta.x, delta.y, undefined, undefined);
 	            });
 
 	            input.on('drag-end', function (center, delta) {
-	                if (!_this3.activeGraph) {
+	                if (!_this3._activeGraph) {
 	                    return false;
 	                }
-	                _this3.activeGraph.move(delta.x, delta.y);
+	                _this3._activeGraph.move(delta.x, delta.y, undefined, undefined);
 	                // 先清除正在拖动的元素，让 paint 方法能够画出所有元素
-	                _this3.activeGraph = null;
+	                _this3._activeGraph = undefined;
 	                _this3._paint();
 	            });
 
@@ -225,29 +225,29 @@
 	                if (!graph) {
 	                    return false;
 	                }
-	                _this3.activeGraph = graph;
+	                _this3._activeGraph = graph;
 	                _this3._sortGraphList(graph);
 
-	                _this3._paint(null, null, rotation, scale);
-	                _this3.activeGraph.paint();
+	                _this3._paint(undefined, undefined, rotation, scale);
+	                _this3._activeGraph.paint();
 	            });
 
 	            input.on('pinch-move', function (center, rotation, scale) {
-	                if (!_this3.activeGraph) {
+	                if (!_this3._activeGraph) {
 	                    return false;
 	                }
-	                _this3._paint(null, null, rotation, scale);
-	                _this3.savedRotation = rotation;
+	                _this3._paint(undefined, undefined, rotation, scale);
+	                _this3._savedRotation = rotation;
 	            });
 
 	            input.on('pinch-end', function (center, rotation, scale) {
-	                if (!_this3.activeGraph) {
+	                if (!_this3._activeGraph) {
 	                    return false;
 	                }
-	                _this3.activeGraph.resize(scale);
-	                _this3.activeGraph.rotate(_this3.savedRotation);
-	                _this3.savedRotation = null;
-	                _this3.activeGraph = null;
+	                _this3._activeGraph.resize(scale);
+	                _this3._activeGraph.rotate(_this3._savedRotation);
+	                _this3._savedRotation = undefined;
+	                _this3._activeGraph = undefined;
 	                _this3._paint();
 	            });
 
@@ -262,11 +262,11 @@
 	    }, {
 	        key: '_getActiveGraph',
 	        value: function _getActiveGraph(center) {
-	            this.graphList.reverse();
-	            var found = this.graphList.find(function (graph) {
+	            this._graphList.reverse();
+	            var found = this._graphList.find(function (graph) {
 	                return graph.inRange(center);
 	            });
-	            this.graphList.reverse();
+	            this._graphList.reverse();
 	            return found;
 	        }
 	    }, {
@@ -274,10 +274,10 @@
 	        value: function _paint(x, y, angle, scale) {
 	            var _this4 = this;
 
-	            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-	            this.graphList.forEach(function (o) {
+	            this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+	            this._graphList.forEach(function (o) {
 	                // 不画正在拖动的元素，都则会有残影
-	                if (o !== _this4.activeGraph) {
+	                if (o !== _this4._activeGraph) {
 	                    o.paint();
 	                } else {
 	                    o.paint(x, y, angle, scale);
@@ -288,12 +288,12 @@
 	    }, {
 	        key: '_sortGraphList',
 	        value: function _sortGraphList(graph) {
-	            var index = this.graphList.indexOf(graph);
+	            var index = this._graphList.indexOf(graph);
 	            if (index === -1) {
 	                return this;
 	            }
-	            this.graphList.splice(index, 1);
-	            this.graphList.push(graph);
+	            this._graphList.splice(index, 1);
+	            this._graphList.push(graph);
 	            return this;
 	        }
 	    }]);
@@ -339,13 +339,13 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this));
 
-	        _this.element = canvas;
-	        _this.ctx = canvas.getContext('2d');
+	        _this._element = canvas;
+	        //this._ctx = canvas.getContext('2d');
 
-	        _this.ratio = _this._getRatio();
-	        _this.offset = _this._getOffset();
+	        _this._ratio = _this._getRatio();
+	        _this._offset = _this._getOffset();
 
-	        _this.hammer = _this._getHammer();
+	        _this._hammer = _this._getHammer();
 
 	        return _this;
 	    }
@@ -358,7 +358,7 @@
 	    _createClass(Input, [{
 	        key: '_getRatio',
 	        value: function _getRatio() {
-	            var element = this.element;
+	            var element = this._element;
 	            var ratio = {};
 	            var rect = element.getBoundingClientRect();
 	            var styleWidth = rect.width;
@@ -378,7 +378,7 @@
 	    }, {
 	        key: '_getOffset',
 	        value: function _getOffset() {
-	            var element = this.element;
+	            var element = this._element;
 	            var offset = {};
 	            var rect = element.getBoundingClientRect();
 	            offset.x = rect.left;
@@ -394,7 +394,7 @@
 	    }, {
 	        key: 'destroy',
 	        value: function destroy() {
-	            this.hammer.destroy();
+	            this._hammer.destroy();
 	            return this;
 	        }
 
@@ -409,7 +409,7 @@
 	            var _this2 = this;
 
 	            // tap, doubletap, press, horizontal pan and swipe, and the multi-touch pinch and rotate
-	            var hammer = new Hammer(this.element);
+	            var hammer = new Hammer(this._element);
 
 	            hammer.get('pinch').set({ enable: true });
 	            hammer.get('tap').set({ enable: false });
@@ -490,7 +490,7 @@
 	    }, {
 	        key: '_getCoordinates',
 	        value: function _getCoordinates(point) {
-	            var offset = this.offset;
+	            var offset = this._offset;
 	            return this._getDistance({
 	                x: point.x - offset.x,
 	                y: point.y - offset.y
@@ -506,7 +506,7 @@
 	    }, {
 	        key: '_getDistance',
 	        value: function _getDistance(delta) {
-	            var ratio = this.ratio;
+	            var ratio = this._ratio;
 	            return {
 	                x: delta.x * ratio.x,
 	                y: delta.y * ratio.y
@@ -642,13 +642,13 @@
 	  function Graph(config) {
 	    _classCallCheck(this, Graph);
 
-	    this.ctx = config.ctx;
-	    this.width = config.width;
-	    this.height = config.height;
-	    this.x = config.x;
-	    this.y = config.y;
-	    this.image = config.image;
-	    this.src = config.src;
+	    this._ctx = config.ctx;
+	    this._width = config.width;
+	    this._height = config.height;
+	    this._x = config.x;
+	    this._y = config.y;
+	    this._image = config.image;
+	    //this._src = config.src;
 
 	    /**
 	     * 转动角度
@@ -693,7 +693,7 @@
 	      center.x += offsetX;
 	      center.y += offsetY;
 
-	      var ctx = this.ctx;
+	      var ctx = this._ctx;
 
 	      ctx.translate(center.x, center.y);
 
@@ -705,7 +705,7 @@
 
 	      var width = after.width / 2;
 	      var height = after.height / 2;
-	      ctx.drawImage(this.image, -width, -height, after.width, after.height);
+	      ctx.drawImage(this._image, -width, -height, after.width, after.height);
 
 	      // or ctx.restore();
 	      ctx.rotate(-rotation);
@@ -724,8 +724,8 @@
 	    key: '_getCenter',
 	    value: function _getCenter() {
 	      return {
-	        x: this.x + this.width / 2,
-	        y: this.y + this.height / 2
+	        x: this._x + this._width / 2,
+	        y: this._y + this._height / 2
 	      };
 	    }
 
@@ -743,10 +743,10 @@
 
 	      var x = point.x;
 	      var y = point.y;
-	      var xLowBound = this.x - tolerance;
-	      var xHighBound = this.x + this.width + tolerance;
-	      var yLowBound = this.y - tolerance;
-	      var yHighBound = this.y + this.height + tolerance;
+	      var xLowBound = this._x - tolerance;
+	      var xHighBound = this._x + this._width + tolerance;
+	      var yLowBound = this._y - tolerance;
+	      var yHighBound = this._y + this._height + tolerance;
 	      return x > xLowBound && x < xHighBound && y > yLowBound && y < yHighBound;
 	    }
 
@@ -763,8 +763,8 @@
 	      var x = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 	      var y = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
-	      this.x += x;
-	      this.y += y;
+	      this._x += x;
+	      this._y += y;
 	      return this;
 	    }
 
@@ -796,8 +796,8 @@
 
 	      var after = {};
 	      var center = this._getCenter();
-	      after.width = this.width * ratio;
-	      after.height = this.height * ratio;
+	      after.width = this._width * ratio;
+	      after.height = this._height * ratio;
 	      after.x = center.x - after.width / 2;
 	      after.y = center.y - after.height / 2;
 	      return after;
@@ -813,10 +813,10 @@
 	    key: 'resize',
 	    value: function resize(ratio) {
 	      var after = this._getRectFromScale(ratio);
-	      this.width = after.width;
-	      this.height = after.height;
-	      this.x = after.x;
-	      this.y = after.y;
+	      this._width = after.width;
+	      this._height = after.height;
+	      this._x = after.x;
+	      this._y = after.y;
 	      return this;
 	    }
 	  }]);
@@ -881,15 +881,15 @@
 	            throw new Error('preload: nothing to load');
 	        }
 
-	        _this.retryCount = 5;
+	        _this._retryCount = 5;
 
-	        _this.resourceList = resourceList;
+	        _this._resourceList = resourceList;
 
-	        _this.list = resourceList.map(function (o, index) {
+	        _this._list = resourceList.map(function (o, index) {
 	            return {
 	                index: index,
 	                src: o.src,
-	                retryCount: _this.retryCount,
+	                retryCount: _this._retryCount,
 	                loaded: false
 	            };
 	        });
@@ -905,7 +905,7 @@
 	        value: function start() {
 	            var _this2 = this;
 
-	            this.list.forEach(function (o) {
+	            this._list.forEach(function (o) {
 	                var load = function load() {
 	                    _this2._loadImage(o.src, function (image) {
 	                        o.loaded = true;
@@ -917,7 +917,7 @@
 	                         * image.complete; // => false;
 	                         * ```
 	                         */
-	                        _this2.resourceList[o.index].image = image;
+	                        _this2._resourceList[o.index].image = image;
 	                        var progress = _this2._getProgress();
 	                        _this2.emit('progress', progress);
 	                        if (progress === 1) {
@@ -967,11 +967,11 @@
 	        key: '_getProgress',
 	        value: function _getProgress() {
 
-	            var loadedImage = this.list.filter(function (o) {
+	            var loadedImage = this._list.filter(function (o) {
 	                return o.loaded;
 	            });
 
-	            return loadedImage.length / this.list.length;
+	            return loadedImage.length / this._list.length;
 	        }
 	    }]);
 

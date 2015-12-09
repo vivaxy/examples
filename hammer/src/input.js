@@ -12,13 +12,13 @@ class Input extends EventEmitter {
 
         super();
 
-        this.element = canvas;
-        this.ctx = canvas.getContext('2d');
+        this._element = canvas;
+        //this._ctx = canvas.getContext('2d');
 
-        this.ratio = this._getRatio();
-        this.offset = this._getOffset();
+        this._ratio = this._getRatio();
+        this._offset = this._getOffset();
 
-        this.hammer = this._getHammer();
+        this._hammer = this._getHammer();
 
     }
 
@@ -27,7 +27,7 @@ class Input extends EventEmitter {
      * @returns {{}}
      */
     _getRatio() {
-        let element = this.element;
+        let element = this._element;
         let ratio = {};
         let rect = element.getBoundingClientRect();
         let styleWidth = rect.width;
@@ -44,7 +44,7 @@ class Input extends EventEmitter {
      * @returns {{}}
      */
     _getOffset() {
-        let element = this.element;
+        let element = this._element;
         let offset = {};
         let rect = element.getBoundingClientRect();
         offset.x = rect.left;
@@ -57,7 +57,7 @@ class Input extends EventEmitter {
      * @returns {Input}
      */
     destroy() {
-        this.hammer.destroy();
+        this._hammer.destroy();
         return this;
     }
 
@@ -68,7 +68,7 @@ class Input extends EventEmitter {
     _getHammer() {
 
         // tap, doubletap, press, horizontal pan and swipe, and the multi-touch pinch and rotate
-        var hammer = new Hammer(this.element);
+        var hammer = new Hammer(this._element);
 
         hammer.get('pinch').set({enable: true});
         hammer.get('tap').set({enable: false});
@@ -148,7 +148,7 @@ class Input extends EventEmitter {
      * @returns {{x, y}|*}
      */
     _getCoordinates(point) {
-        let offset = this.offset;
+        let offset = this._offset;
         return this._getDistance({
             x: (point.x - offset.x),
             y: (point.y - offset.y)
@@ -161,7 +161,7 @@ class Input extends EventEmitter {
      * @returns {{x: number, y: number}}
      */
     _getDistance(delta) {
-        let ratio = this.ratio;
+        let ratio = this._ratio;
         return {
             x: delta.x * ratio.x,
             y: delta.y * ratio.y
