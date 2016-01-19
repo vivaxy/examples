@@ -122,5 +122,9 @@
     {
         "name": "replace",
         "link": "replace"
+    },
+    {
+        "name": "3d touch",
+        "link": "3d-touch"
     }
 ]
