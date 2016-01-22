@@ -94,5 +94,9 @@
     {
         "name": "koa",
         "link": "koa"
+    },
+    {
+        "name": "react redux",
+        "link": "react-redux/release"
     }
 ]
