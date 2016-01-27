@@ -5,8 +5,8 @@
 
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 
 export default class AddTodo extends Component {
     render () {

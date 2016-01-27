@@ -19,12 +19,14 @@ class App extends Component {
         return (
             <div>
                 <AddTodo onAddClick={
-                    text => dispatch(addTodo(text))
+                    (text) => dispatch(addTodo(text))
                 }/>
                 <TodoList todos={this.props.visibleTodos} onTodoClick={
-                    index => dispatch(completeTodo(index))
+                    (index) => dispatch(completeTodo(index))
                 }/>
-                <Footer filter={visibilityFilter} onFilterChange={nextFilter => dispatch(setVisibilityFilter(nextFilter))}/>
+                <Footer filter={visibilityFilter} onFilterChange={
+                    (nextFilter) => dispatch(setVisibilityFilter(nextFilter))
+                }/>
             </div>
         );
     }
@@ -42,7 +44,7 @@ App.propTypes = {
     ]).isRequired
 };
 
-function selectTodos(todos, filter) {
+function selectTodos (todos, filter) {
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
             return todos;
@@ -55,7 +57,7 @@ function selectTodos(todos, filter) {
 
 // 基于全局 state ，哪些是我们想注入的 props ?
 // 注意：使用 https://github.com/faassen/reselect 效果更佳。
-function select(state) {
+function select (state) {
     return {
         visibleTodos: selectTodos(state.todos, state.visibilityFilter),
         visibilityFilter: state.visibilityFilter
