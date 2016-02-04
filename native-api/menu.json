@@ -126,5 +126,9 @@
     {
         "name": "3d touch",
         "link": "3d-touch"
+    },
+    {
+        "name": "notification",
+        "link": "notification"
     }
 ]
