@@ -98,5 +98,9 @@
     {
         "name": "react redux",
         "link": "react-redux/release"
+    },
+    {
+        "name": "sliding tiles puzzle",
+        "link": "sliding-tiles-puzzle"
     }
 ]
