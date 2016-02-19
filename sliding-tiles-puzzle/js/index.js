@@ -212,7 +212,7 @@ Array.prototype.clone = function () {
 };
 
 AStar.prototype.heuristic = function (node) {
-    return this.manhattanDistance(node) + this.manhattanDistance(node);
+    return this.manhattanDistance(node) + this.linearConflicts(node) + this.misplacedTiles(node);
 };
 
 AStar.prototype.misplacedTiles = function (node) {
@@ -276,8 +276,8 @@ AStar.prototype.findConflicts = function (state, i, dimension) {
     var tilesRelated = [];
 
     // Loop foreach pair of elements in the row/column
-    for (var h = 0; h < state.length - 1 && !tilesRelated.contains(h); h++) {
-        for (var k = h + 1; k < state.length && !tilesRelated.contains(h); k++) {
+    for (var h = 0; h < state.length - 1 && tilesRelated.indexOf(h) === -1; h++) {
+        for (var k = h + 1; k < state.length && tilesRelated.indexOf(h) === -1; k++) {
             var moves = dimension == 1
                 ? this.inConflict(i, state[i][h], state[i][k], h, k, dimension)
                 : this.inConflict(i, state[h][i], state[k][i], h, k, dimension);
