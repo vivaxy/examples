@@ -10,5 +10,9 @@
     {
         "name": "columns",
         "link": "columns"
+    },
+    {
+        "name": "modal",
+        "link": "modal"
     }
 ]
