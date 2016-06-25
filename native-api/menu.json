@@ -130,5 +130,9 @@
     {
         "name": "notification",
         "link": "notification"
+    },
+    {
+        "name": "service worker",
+        "link": "service-worker"
     }
 ]
