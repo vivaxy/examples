@@ -13,7 +13,7 @@ self.addEventListener('fetch', function (event) {
     // might host the same RESTful API (imagine this being used to mock responses against what might be
     // a test, or QA, or production environment).
     // Also check for the existence of the 'X-Mock-Response' header.
-    if (requestUrl.pathname === '/data.json') {
+    if (requestUrl.pathname.indexOf('data.json') !== -1) {
         // This matches the result format documented at
         // https://developers.google.com/url-shortener/v1/getting_started#shorten
         var responseBody = {
