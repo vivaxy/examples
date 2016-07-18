@@ -1,0 +1,23 @@
+/**
+ * @since 2016-07-18 10:16
+ * @author vivaxy
+ */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+img, audio, video {
+    width: 100px;
+    height: 100px;
+}

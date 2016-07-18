@@ -114,5 +114,9 @@
     {
         "name": "mobile input change",
         "link": "mobile-input-change"
+    },
+    {
+        "name": "load resource as array buffer",
+        "link": "load-resource-as-array-buffer"
     }
 ]
