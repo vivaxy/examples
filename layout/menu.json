@@ -14,5 +14,9 @@
     {
         "name": "modal",
         "link": "modal"
+    },
+    {
+        "name": "0.5px border",
+        "link": "0.5px-border"
     }
 ]
