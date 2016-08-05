@@ -6,5 +6,9 @@
     {
         "name": "event delegation on ios safari",
         "link": "event-delegation-on-ios-safari"
+    },
+    {
+        "name": "ios double click fixed position error on webview",
+        "link": "ios-double-click-fixed-position-error-on-webview"
     }
 ]
