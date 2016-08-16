@@ -26,19 +26,19 @@ var isInScreen = function (element) {
 
     // 元素在屏幕上方
     var elementBottomToWindowTop = rect.top + elementHeight;
-    var bottomBorderInScreen = elementBottomToWindowTop > inScreenHeight;
+    var bottomBorderInScreen = elementBottomToWindowTop >= inScreenHeight;
 
     // 元素在屏幕下方
     var elementTopToWindowBottom = windowHeight - (rect.bottom - elementHeight);
-    var topBorderInScreen = elementTopToWindowBottom > inScreenHeight;
+    var topBorderInScreen = elementTopToWindowBottom >= inScreenHeight;
 
     // 元素在屏幕左侧
     var elementRightToWindowLeft = rect.left + elementWidth;
-    var rightBorderInScreen = elementRightToWindowLeft > inScreenWidth;
+    var rightBorderInScreen = elementRightToWindowLeft >= inScreenWidth;
 
     // 元素在屏幕右侧
     var elementLeftToWindowRight = windowWidth - (rect.right - elementWidth);
-    var leftBorderInScreen = elementLeftToWindowRight > inScreenWidth;
+    var leftBorderInScreen = elementLeftToWindowRight >= inScreenWidth;
 
     return bottomBorderInScreen && topBorderInScreen && rightBorderInScreen && leftBorderInScreen;
 };
