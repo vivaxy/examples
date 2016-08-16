@@ -118,5 +118,9 @@
     {
         "name": "load resource as array buffer",
         "link": "load-resource-as-array-buffer"
+    },
+    {
+        "name": "is-element-on-screen",
+        "link": "is element on screen"
     }
 ]
