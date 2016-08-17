@@ -47,5 +47,5 @@ var element = document.querySelector('.js-element');
 
 setInterval(function () {
     var onScreen = isOnScreen(element);
-    console.log(onScreen);
+    document.body.style.backgroundColor = onScreen ? 'yellow': 'white';
 }, 50);
