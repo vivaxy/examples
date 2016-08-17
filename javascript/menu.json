@@ -120,7 +120,11 @@
         "link": "load-resource-as-array-buffer"
     },
     {
-        "name": "is-element-on-screen",
-        "link": "is element on screen"
+        "name": "is element on screen",
+        "link": "is-element-on-screen"
+    },
+    {
+        "name": "create element",
+        "link": "create-element"
     }
 ]
