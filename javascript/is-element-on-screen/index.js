@@ -15,6 +15,11 @@ var ON_SCREEN_WIDTH = 50;
 var isOnScreen = function (element) {
 
     var rect = element.getBoundingClientRect();
+
+    if (rect.width === 0 || rect.height === 0 || element.style.opacity === '0') {
+        return false;
+    }
+
     var windowHeight = window.innerHeight || document.documentElement.clientHeight;
     var windowWidth = window.innerWidth || document.documentElement.clientWidth;
 
