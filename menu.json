@@ -12,6 +12,10 @@
         "link": "cascading-style-sheets"
     },
     {
+        "name": "HTML",
+        "link": "html"
+    },
+    {
         "name": "pitfall",
         "link": "pitfall"
     },
