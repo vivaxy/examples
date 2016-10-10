@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 
-var element = document.getElementById('main');
+var element = document.querySelector('.js-chart');
 var myChart = echarts.init(element);
 
 myChart.showLoading();
