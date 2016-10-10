@@ -20,7 +20,7 @@ fetch('data.json')
 
         var option = {
             tooltip: {
-                trigger: 'item'
+                trigger: 'axis',
             },
             grid: {
                 top: '12%',
