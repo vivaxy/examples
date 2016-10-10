@@ -1,6 +1,10 @@
 [
     {
-        "name": "with current index ",
+        "name": "with current index",
         "link": "with-current-index"
+    },
+    {
+        "name": "horizontal scroll",
+        "link": "horizontal-scroll"
     }
 ]

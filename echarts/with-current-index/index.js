@@ -107,7 +107,7 @@ var option = {
 };
 
 // 基于准备好的dom，初始化echarts实例
-var element = document.getElementById('main');
+var element = document.querySelector('.js-chart');
 var myChart = echarts.init(element);
 
 // 使用刚指定的配置项和数据显示图表。
