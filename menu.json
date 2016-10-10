@@ -36,6 +36,10 @@
         "link": "echarts"
     },
     {
+        "name": "amap",
+        "link": "amap"
+    },
+    {
         "name": "angular js",
         "link": "angular"
     },
