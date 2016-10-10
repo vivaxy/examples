@@ -3,14 +3,16 @@
  * @author vivaxy
  */
 
+var zoom = 14;
+var center = [
+    121.4203236,
+    31.2162311
+];
+
 var map = new AMap.Map('container', {
-    center: [
-        121.4203236,
-        31.2162311
-    ],
-    zoom: 14,
+    center: center,
+    zoom: zoom,
     dragEnable: false,
-    zoomEnable: false,
     doubleClickZoom: false,
     keyboardEnable: false,
     scrollWheel: false,
@@ -19,9 +21,6 @@ var map = new AMap.Map('container', {
 
 var marker = new AMap.Marker({
     icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-    position: [
-        121.4203236,
-        31.2162311
-    ]
+    position: center
 });
 marker.setMap(map);

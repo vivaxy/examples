@@ -3,14 +3,16 @@
  * @author vivaxy
  */
 
+var zoom = 14;
+var center = [
+    121.4203236,
+    31.2162311
+];
+
 var map = new AMap.Map('container', {
-    center: [
-        121.4203236,
-        31.2162311
-    ],
-    zoom: 14,
+    center: center,
+    zoom: zoom,
     dragEnable: false,
-    zoomEnable: false,
     doubleClickZoom: false,
     keyboardEnable: false,
     scrollWheel: false,
