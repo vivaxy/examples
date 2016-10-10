@@ -32,6 +32,10 @@
         "link": "quick-sort"
     },
     {
+        "name": "echarts",
+        "link": "echarts"
+    },
+    {
         "name": "angular js",
         "link": "angular"
     },
