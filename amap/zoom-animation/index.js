@@ -26,12 +26,6 @@ var map = new AMap.Map('container', {
     animateEnable: true,
 });
 
-var marker = new AMap.Marker({
-    icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-    position: center,
-});
-marker.setMap(map);
-
 zoomIn.addEventListener('click', () => {
     // map.setZoomAndCenter(zoom++, center);
     if (zoom < maxZoom) {
