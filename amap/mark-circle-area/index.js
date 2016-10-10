@@ -4,12 +4,17 @@
  */
 
 var map = new AMap.Map('container', {
-    resizeEnable: false,
     center: [
         121.4203236,
         31.2162311
     ],
-    zoom: 13
+    zoom: 14,
+    dragEnable: false,
+    zoomEnable: false,
+    doubleClickZoom: false,
+    keyboardEnable: false,
+    scrollWheel: false,
+    touchZoom: false,
 });
 
 var circle = new AMap.Circle({
