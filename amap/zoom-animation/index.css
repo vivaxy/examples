@@ -26,4 +26,10 @@ body {
     border: 1px solid #efefef;
     border-radius: 4px;
     outline: none;
+    background-color: #fff;
+    color: #333;
+}
+
+.button-group button[disabled] {
+    color: #ddd;
 }
