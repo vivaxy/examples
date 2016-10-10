@@ -53,8 +53,8 @@ fetch('data.json')
                 {
                     type: 'slider',
                     zoomLock: true,
-                    start: 0,
-                    end: 50,
+                    startValue: 0,
+                    endValue: 15,
                     handleSize: 0,
                     showDetail: false,
                     dataBackground: {
@@ -83,7 +83,8 @@ fetch('data.json')
                         return maxRank - item;
                     })
                 }
-            ]
+            ],
+            animation: false,
         };
 
         myChart.setOption(option);
