@@ -6,5 +6,9 @@
     {
         "name": "mark point",
         "link": "mark-point"
+    },
+    {
+        "name": "zoom animation",
+        "link": "zoom-animation"
     }
 ]
