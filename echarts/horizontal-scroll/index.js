@@ -22,8 +22,6 @@ fetch('data.json')
             tooltip: {
                 trigger: 'item'
             },
-            calculable: true,
-            legend: {},
             grid: {
                 top: '12%',
                 left: '1%',
