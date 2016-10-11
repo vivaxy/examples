@@ -8,15 +8,15 @@
         "link": "mark-point"
     },
     {
-        "name": "zoom animation",
-        "link": "zoom-animation"
-    },
-    {
         "name": "mark polygon area",
         "link": "mark-polygon-area"
     },
     {
         "name": "zoom",
         "link": "zoom"
+    },
+    {
+        "name": "zoom with circle",
+        "link": "zoom-with-circle"
     }
 ]
