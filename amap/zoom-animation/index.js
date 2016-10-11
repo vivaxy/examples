@@ -22,7 +22,7 @@ var map = new AMap.Map('container', {
     doubleClickZoom: false,
     keyboardEnable: false,
     scrollWheel: false,
-    touchZoom: false,
+    touchZoom: true,
     animateEnable: true,
 });
 
@@ -43,18 +43,27 @@ var circle = new AMap.Circle({
 });
 circle.setMap(map);
 
+var setButtonStatus = () => {
+    zoomOut.setAttribute('disabled', true);
+    zoomIn.setAttribute('disabled', true);
+    if (zoom > minZoom) {
+        zoomOut.removeAttribute('disabled');
+    }
+    if (zoom < maxZoom) {
+        zoomIn.removeAttribute('disabled');
+    }
+};
+
 zoomIn.addEventListener('click', () => {
     // map.setZoomAndCenter(zoom++, center);
     if (zoom < maxZoom) {
         zoom++;
         map.setZoom(zoom);
-        zoomOut.removeAttribute('disabled');
         requestAnimationFrame(() => {
             circle.setRadius(zoomToRadius());
         });
-    } else {
-        zoomIn.setAttribute('disabled', true);
     }
+    setButtonStatus();
 });
 
 zoomOut.addEventListener('click', () => {
@@ -62,11 +71,11 @@ zoomOut.addEventListener('click', () => {
     if (zoom > minZoom) {
         zoom--;
         map.setZoom(zoom);
-        zoomIn.removeAttribute('disabled');
         requestAnimationFrame(() => {
             circle.setRadius(zoomToRadius());
         });
-    } else {
-        zoomOut.setAttribute('disabled', true);
     }
+    setButtonStatus();
 });
+
+setButtonStatus();
