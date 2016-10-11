@@ -49,7 +49,9 @@ zoomIn.addEventListener('click', () => {
         zoom++;
         map.setZoom(zoom);
         zoomOut.removeAttribute('disabled');
-        circle.setRadius(zoomToRadius());
+        requestAnimationFrame(() => {
+            circle.setRadius(zoomToRadius());
+        });
     } else {
         zoomIn.setAttribute('disabled', true);
     }
@@ -61,7 +63,9 @@ zoomOut.addEventListener('click', () => {
         zoom--;
         map.setZoom(zoom);
         zoomIn.removeAttribute('disabled');
-        circle.setRadius(zoomToRadius());
+        requestAnimationFrame(() => {
+            circle.setRadius(zoomToRadius());
+        });
     } else {
         zoomOut.setAttribute('disabled', true);
     }
