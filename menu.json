@@ -40,6 +40,10 @@
         "link": "amap"
     },
     {
+        "name": "bmap",
+        "link": "bmap"
+    },
+    {
         "name": "angular js",
         "link": "angular"
     },
