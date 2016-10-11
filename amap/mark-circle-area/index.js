@@ -8,8 +8,9 @@ var center = [
     121.4203236,
     31.2162311
 ];
+var container = document.querySelector('.js-container');
 
-var map = new AMap.Map('container', {
+var map = new AMap.Map(container, {
     center: center,
     zoom: zoom,
     dragEnable: false,
