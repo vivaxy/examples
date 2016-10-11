@@ -10,5 +10,9 @@
     {
         "name": "mark polygon area",
         "link": "mark-polygon-area"
+    },
+    {
+        "name": "zoom",
+        "link": "zoom"
     }
 ]
