@@ -6,5 +6,9 @@
     {
         "name": "mark point",
         "link": "mark-point"
+    },
+    {
+        "name": "mark polygon area",
+        "link": "mark-polygon-area"
     }
 ]
