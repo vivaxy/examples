@@ -16,6 +16,10 @@
         "link": "html"
     },
     {
+        "name": "tinymce",
+        "link": "tinymce"
+    },
+    {
         "name": "pitfall",
         "link": "pitfall"
     },
