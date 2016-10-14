@@ -24,7 +24,7 @@ var map = new AMap.Map(container, {
     doubleClickZoom: false,
     keyboardEnable: false,
     scrollWheel: true,
-    touchZoom: false,
+    touchZoom: true,
     animateEnable: true,
 });
 
