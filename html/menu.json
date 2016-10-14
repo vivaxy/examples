@@ -2,5 +2,9 @@
     {
         "name": "playsinline",
         "link": "playsinline"
+    },
+    {
+        "name": "meta scale",
+        "link": "meta-scale"
     }
 ]
