@@ -122,5 +122,9 @@
     {
         "name": "sliding tiles puzzle",
         "link": "sliding-tiles-puzzle"
+    },
+    {
+        "name": "on screen",
+        "link": "on-screen"
     }
 ]

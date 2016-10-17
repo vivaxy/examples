@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "onscreen": "^1.2.0",
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "build": "webpack"
+  }
+}
