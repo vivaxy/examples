@@ -15,6 +15,7 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loaders: [
+                    'es3ify',
                     'babel',
                 ]
             },

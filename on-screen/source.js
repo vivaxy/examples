@@ -3,6 +3,9 @@
  * @author vivaxy
  */
 
+import 'es5-shim';
+import 'es5-shim/es5-sham';
+import 'console-polyfill';
 import OnScreen from 'onscreen';
 
 const os = new OnScreen({
