@@ -85,6 +85,7 @@
 	var toggleElement = panel.querySelector('.js-toggle-element');
 	var toggleVisibility = panel.querySelector('.js-toggle-visibility');
 	var toggleWidth = panel.querySelector('.js-toggle-width');
+	var toggleTransform = panel.querySelector('.js-toggle-transform');
 
 	check.addEventListener(CLICK, function () {
 	    var on = _onscreen2["default"].check(SELECTOR);
@@ -118,6 +119,15 @@
 	toggleWidth.addEventListener(CLICK, function () {
 	    element.style.width = width ? '0px' : '100px';
 	    width = !width;
+	});
+
+	var transform = true;
+	toggleTransform.addEventListener(CLICK, function () {
+	    element.style.msTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+	    element.style.mozTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+	    element.style.webkitTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+	    element.style.transform = transform ? 'translateX(1000%)' : 'translateX(0)';
+	    transform = !transform;
 	});
 
 /***/ },

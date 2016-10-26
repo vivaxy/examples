@@ -30,6 +30,7 @@ const toggleDisplay = panel.querySelector('.js-toggle-display');
 const toggleElement = panel.querySelector('.js-toggle-element');
 const toggleVisibility = panel.querySelector('.js-toggle-visibility');
 const toggleWidth = panel.querySelector('.js-toggle-width');
+const toggleTransform = panel.querySelector('.js-toggle-transform');
 
 check.addEventListener(CLICK, () => {
     const on = OnScreen.check(SELECTOR);
@@ -63,4 +64,13 @@ let width = true;
 toggleWidth.addEventListener(CLICK, () => {
     element.style.width = width ? '0px' : '100px';
     width = !width;
+});
+
+let transform = true;
+toggleTransform.addEventListener(CLICK, () => {
+    element.style.msTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+    element.style.mozTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+    element.style.webkitTransform = transform ? 'translateX(1000%)' : 'translateX(0)';
+    element.style.transform = transform ? 'translateX(1000%)' : 'translateX(0)';
+    transform = !transform;
 });
