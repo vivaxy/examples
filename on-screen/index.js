@@ -63,16 +63,61 @@
 	 * @author vivaxy
 	 */
 
+	var SELECTOR = '.js-element';
+	var CLICK = 'click';
+	var panel = document.querySelector('.js-panel');
+
 	var os = new _onscreen2["default"]({
 	    tolerance: 50
 	});
 
-	os.on('enter', '.js-element', function () {
-	    document.body.style.backgroundColor = 'yellow';
+	os.on('enter', SELECTOR, function () {
+	    panel.style.backgroundColor = 'yellow';
 	});
 
-	os.on('leave', '.js-element', function () {
-	    document.body.style.backgroundColor = 'white';
+	os.on('leave', SELECTOR, function () {
+	    panel.style.backgroundColor = 'white';
+	});
+
+	var element = document.querySelector(SELECTOR);
+	var check = panel.querySelector('.js-check');
+	var toggleDisplay = panel.querySelector('.js-toggle-display');
+	var toggleElement = panel.querySelector('.js-toggle-element');
+	var toggleVisibility = panel.querySelector('.js-toggle-visibility');
+	var toggleWidth = panel.querySelector('.js-toggle-width');
+
+	check.addEventListener(CLICK, function () {
+	    var on = _onscreen2["default"].check(SELECTOR);
+	    panel.style.backgroundColor = on ? 'yellow' : 'white';
+	});
+
+	var display = true;
+	toggleDisplay.addEventListener(CLICK, function () {
+	    element.style.display = display ? 'none' : 'block';
+	    display = !display;
+	});
+
+	var elementExist = true;
+	var parent = document.body;
+	toggleElement.addEventListener(CLICK, function () {
+	    if (elementExist) {
+	        parent.removeChild(element);
+	    } else {
+	        parent.appendChild(element);
+	    }
+	    elementExist = !elementExist;
+	});
+
+	var visibility = true;
+	toggleVisibility.addEventListener(CLICK, function () {
+	    element.style.visibility = visibility ? 'hidden' : 'visible';
+	    visibility = !visibility;
+	});
+
+	var width = true;
+	toggleWidth.addEventListener(CLICK, function () {
+	    element.style.width = width ? '0px' : '100px';
+	    width = !width;
 	});
 
 /***/ },
