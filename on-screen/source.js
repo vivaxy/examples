@@ -13,11 +13,11 @@ const os = new OnScreen({
     tolerance: 50
 });
 
-os.on('enter', SELECTOR, function() {
+os.on('enter', SELECTOR, () => {
     panel.style.backgroundColor = 'yellow';
 });
 
-os.on('leave', SELECTOR, function() {
+os.on('leave', SELECTOR, () => {
     panel.style.backgroundColor = 'white';
 });
 
