@@ -18,14 +18,25 @@ var map = new qq.maps.Map(container, {
     disableDefaultUI: true,
 });
 
-var cityLocation = new qq.maps.CityService({
+var searchService = new qq.maps.SearchService({
     //请求成功回调函数
-    complete: function(result) {
-        map.setCenter(result.detail.latLng);
+    complete: function(results) {
+        var pois = results.detail.pois;
+        var infoWin = new qq.maps.InfoWindow({
+            map: map
+        });
+        var latlngBounds = new qq.maps.LatLngBounds();
+        for (var i = 0, l = pois.length; i < l; i++) {
+            var poi = pois[i];
+            //扩展边界范围，用来包含搜索到的Poi点
+            latlngBounds.extend(poi.latLng);
+        }
+        //调整地图视野
+        map.fitBounds(latlngBounds);
     },
     error: function() {
         alert("出错了，请输入正确的经纬度！！！");
     }
 });
 
-cityLocation.searchCityByName('上海');
+searchService.search('上海');
