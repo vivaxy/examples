@@ -126,5 +126,9 @@
     {
         "name": "create element",
         "link": "create-element"
+    },
+    {
+        "name": "clipboard",
+        "link": "clipboard"
     }
 ]
