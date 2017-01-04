@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 
-var promisifiedOldGUM = function (constraints) {
+var promisifiedOldGUM = function(constraints) {
 
     // First get ahold of getUserMedia, if present
     var getUserMedia = (navigator.getUserMedia ||
@@ -17,7 +17,7 @@ var promisifiedOldGUM = function (constraints) {
     }
 
     // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
         getUserMedia.call(navigator, constraints, resolve, reject);
     });
 
@@ -35,28 +35,28 @@ var constraints = {
     audio: true,
     video: {
         width: {
-            min: 256,
-            ideal: 1280,
-            max: 1920
+            min: 128,
+            ideal: window.innerWidth,
+            max: window.innerWidth
         },
         height: {
-            min: 194,
-            ideal: 720,
-            max: 1080
+            min: 128,
+            ideal: window.innerHeight,
+            max: window.innerHeight
         },
         facingMode: 'user'
     }
 };
 
 navigator.mediaDevices.getUserMedia(constraints)
-    .then(function (mediaStream) {
+    .then(function(mediaStream) {
         var video = document.querySelector('video');
         video.src = window.URL.createObjectURL(mediaStream);
-        video.onloadedmetadata = function (e) {
+        video.onloadedmetadata = function(e) {
             // Do something with the video here.
             video.play();
         };
     })
-    .catch(function (err) {
+    .catch(function(err) {
         console.log(err.name);
     }); // always check for errors at the end.
