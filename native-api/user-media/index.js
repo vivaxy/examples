@@ -35,12 +35,12 @@ var constraints = {
     audio: true,
     video: {
         width: {
-            min: 1024,
+            min: 256,
             ideal: 1280,
             max: 1920
         },
         height: {
-            min: 776,
+            min: 194,
             ideal: 720,
             max: 1080
         },
