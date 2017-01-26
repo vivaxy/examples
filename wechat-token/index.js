@@ -3,8 +3,8 @@
  * @author vivaxy
  */
 var textarea = document.querySelector('.js-text');
-var sign = document.querySelector('.sign');
-var check = document.querySelector('.check');
+var sign = document.querySelector('.js-sign');
+var check = document.querySelector('.js-check');
 
 var getURLPartFromText = function(area) {
     var text = area.value;
