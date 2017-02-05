@@ -1,22 +1,22 @@
 [
     {
         "name": "nextTick",
-        "link": "next-tick"
+        "link": "next-tick/"
     },
     {
         "name": "setImmediate",
-        "link": "set-immediate"
+        "link": "set-immediate/"
     },
     {
         "name": "stdout",
-        "link": "stdout"
+        "link": "stdout/"
     },
     {
         "name": "readline",
-        "link": "readline"
+        "link": "readline/"
     },
     {
         "name": "require",
-        "link": "require"
+        "link": "require/"
     }
 ]

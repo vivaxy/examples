@@ -1,18 +1,18 @@
 [
     {
         "name": "mark circle area",
-        "link": "mark-circle-area"
+        "link": "mark-circle-area/"
     },
     {
         "name": "mark point",
-        "link": "mark-point"
+        "link": "mark-point/"
     },
     {
         "name": "mark polygon area",
-        "link": "mark-polygon-area"
+        "link": "mark-polygon-area/"
     },
     {
         "name": "zoom",
-        "link": "zoom"
+        "link": "zoom/"
     }
 ]

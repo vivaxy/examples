@@ -1,142 +1,142 @@
 [
     {
         "name": "base",
-        "link": "base"
+        "link": "base/"
     },
     {
         "name": "browser message",
-        "link": "browser-message"
+        "link": "browser-message/"
     },
     {
         "name": "cache manifest",
-        "link": "cache-manifest"
+        "link": "cache-manifest/"
     },
     {
         "name": "device motion",
-        "link": "device-motion"
+        "link": "device-motion/"
     },
     {
         "name": "draggable",
-        "link": "draggable"
+        "link": "draggable/"
     },
     {
         "name": "geolocation",
-        "link": "geolocation"
+        "link": "geolocation/"
     },
     {
         "name": "gesture",
-        "link": "gesture"
+        "link": "gesture/"
     },
     {
         "name": "hash change",
-        "link": "hash-change"
+        "link": "hash-change/"
     },
     {
         "name": "local storage",
-        "link": "local-storage"
+        "link": "local-storage/"
     },
     {
         "name": "svg",
-        "link": "svg"
+        "link": "svg/"
     },
     {
         "name": "transition",
-        "link": "transition"
+        "link": "transition/"
     },
     {
         "name": "visibility",
-        "link": "visibility"
+        "link": "visibility/"
     },
     {
         "name": "web worker",
-        "link": "web-worker"
+        "link": "web-worker/"
     },
     {
         "name": "object",
-        "link": "object"
+        "link": "object/"
     },
     {
         "name": "object-oriented",
-        "link": "object-oriented"
+        "link": "object-oriented/"
     },
     {
         "name": "popstate",
-        "link": "popstate"
+        "link": "popstate/"
     },
     {
         "name": "refresh",
-        "link": "refresh"
+        "link": "refresh/"
     },
     {
         "name": "promise",
-        "link": "promise"
+        "link": "promise/"
     },
     {
         "name": "audio",
-        "link": "audio"
+        "link": "audio/"
     },
     {
         "name": "animation steps",
-        "link": "animation-steps"
+        "link": "animation-steps/"
     },
     {
         "name": "attributes",
-        "link": "attributes"
+        "link": "attributes/"
     },
     {
         "name": "indeterminate",
-        "link": "indeterminate"
+        "link": "indeterminate/"
     },
     {
         "name": "details summary",
-        "link": "details-summary"
+        "link": "details-summary/"
     },
     {
         "name": "battery status",
-        "link": "battery-status"
+        "link": "battery-status/"
     },
     {
         "name": "send beacon",
-        "link": "send-beacon"
+        "link": "send-beacon/"
     },
     {
         "name": "analyser node",
-        "link": "analyser-node"
+        "link": "analyser-node/"
     },
     {
         "name": "vibrate",
-        "link": "vibrate"
+        "link": "vibrate/"
     },
     {
         "name": "date input",
-        "link": "date-input"
+        "link": "date-input/"
     },
     {
         "name": "generators",
-        "link": "generators"
+        "link": "generators/"
     },
     {
         "name": "event source",
-        "link": "event-source"
+        "link": "event-source/"
     },
     {
         "name": "replace",
-        "link": "replace"
+        "link": "replace/"
     },
     {
         "name": "3d touch",
-        "link": "3d-touch"
+        "link": "3d-touch/"
     },
     {
         "name": "notification",
-        "link": "notification"
+        "link": "notification/"
     },
     {
         "name": "service worker",
-        "link": "service-worker"
+        "link": "service-worker/"
     },
     {
         "name": "user media",
-        "link": "user-media"
+        "link": "user-media/"
     }
 ]

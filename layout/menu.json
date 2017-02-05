@@ -1,22 +1,22 @@
 [
     {
         "name": "common list",
-        "link": "common-list"
+        "link": "common-list/"
     },
     {
         "name": "fixed bar",
-        "link": "fixed-bar"
+        "link": "fixed-bar/"
     },
     {
         "name": "columns",
-        "link": "columns"
+        "link": "columns/"
     },
     {
         "name": "modal",
-        "link": "modal"
+        "link": "modal/"
     },
     {
         "name": "0.5px border",
-        "link": "0.5px-border"
+        "link": "0.5px-border/"
     }
 ]

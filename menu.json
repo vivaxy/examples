@@ -1,134 +1,134 @@
 [
     {
         "name": "native api",
-        "link": "native-api"
+        "link": "native-api/"
     },
     {
         "name": "javascript",
-        "link": "javascript"
+        "link": "javascript/"
     },
     {
         "name": "cascading style sheets",
-        "link": "cascading-style-sheets"
+        "link": "cascading-style-sheets/"
     },
     {
         "name": "HTML",
-        "link": "html"
+        "link": "html/"
     },
     {
         "name": "tinymce",
-        "link": "tinymce"
+        "link": "tinymce/"
     },
     {
         "name": "pitfall",
-        "link": "pitfall"
+        "link": "pitfall/"
     },
     {
         "name": "ECMAScript 6",
-        "link": "ecma-script-6"
+        "link": "ecma-script-6/"
     },
     {
         "name": "bubble sort",
-        "link": "bubble-sort"
+        "link": "bubble-sort/"
     },
     {
         "name": "quick sort",
-        "link": "quick-sort"
+        "link": "quick-sort/"
     },
     {
         "name": "echarts",
-        "link": "echarts"
+        "link": "echarts/"
     },
     {
         "name": "amap",
-        "link": "amap"
+        "link": "amap/"
     },
     {
         "name": "bmap",
-        "link": "bmap"
+        "link": "bmap/"
     },
     {
         "name": "angular js",
-        "link": "angular"
+        "link": "angular/"
     },
     {
         "name": "async js",
-        "link": "async"
+        "link": "async/"
     },
     {
         "name": "bootstrap datetimepicker",
-        "link": "bootstrap-datetimepicker"
+        "link": "bootstrap-datetimepicker/"
     },
     {
         "name": "knockout js",
-        "link": "knockout"
+        "link": "knockout/"
     },
     {
         "name": "mathjax",
-        "link": "mathjax"
+        "link": "mathjax/"
     },
     {
         "name": "moment",
-        "link": "moment"
+        "link": "moment/"
     },
     {
         "name": "underscore",
-        "link": "underscore"
+        "link": "underscore/"
     },
     {
         "name": "baidu map",
-        "link": "baidu-map"
+        "link": "baidu-map/"
     },
     {
         "name": "dp share",
-        "link": "dp-share"
+        "link": "dp-share/"
     },
     {
         "name": "qrcode",
-        "link": "qrcode"
+        "link": "qrcode/"
     },
     {
         "name": "wechat share",
-        "link": "wechat-share"
+        "link": "wechat-share/"
     },
     {
         "name": "react js",
-        "link": "react"
+        "link": "react/"
     },
     {
         "name": "hammer",
-        "link": "hammer"
+        "link": "hammer/"
     },
     {
         "name": "browserify",
-        "link": "browserify"
+        "link": "browserify/"
     },
     {
         "name": "angular material",
-        "link": "angular-material"
+        "link": "angular-material/"
     },
     {
         "name": "layout",
-        "link": "layout"
+        "link": "layout/"
     },
     {
         "name": "koa",
-        "link": "koa"
+        "link": "koa/"
     },
     {
         "name": "react redux",
-        "link": "react-redux/release"
+        "link": "react-redux/release/"
     },
     {
         "name": "sliding tiles puzzle",
-        "link": "sliding-tiles-puzzle"
+        "link": "sliding-tiles-puzzle/"
     },
     {
         "name": "on screen",
-        "link": "on-screen"
+        "link": "on-screen/"
     },
     {
         "name": "qq maps",
-        "link": "qq-maps"
+        "link": "qq-maps/"
     }
 ]
