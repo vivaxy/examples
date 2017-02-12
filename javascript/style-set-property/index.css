@@ -1,0 +1,25 @@
+/**
+ * @since 2017-02-12 09:48
+ * @author vivaxy
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    --width: 100px;
+}
+
+.animate {
+    width: var(--width);
+    height: 100px;
+    background-color: #ffaaaa;
+    transition: all 1s;
+}

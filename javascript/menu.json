@@ -130,5 +130,9 @@
     {
         "name": "clipboard",
         "link": "clipboard/"
+    },
+    {
+        "name": "style.setProperty",
+        "link": "style-set-property/"
     }
 ]
