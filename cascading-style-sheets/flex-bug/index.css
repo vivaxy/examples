@@ -1,0 +1,52 @@
+/**
+ * @since 2017-02-28 14:12
+ * @author vivaxy
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.flex-box {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.flex-item-1 {
+    -webkit-box-flex: 1;
+    -webkit-flex: 9;
+    flex: 1 1 0;
+    height: 0;
+}
+
+.flex-item-2 {
+    -webkit-box-flex: 1;
+    -webkit-flex: 9;
+    flex: 9 9 0;
+    height: 0;
+}
+
+.item-1 {
+    width: 100%;
+    height: 100%;
+    background-color: #f99;
+}
+
+.item-2 {
+    width: 100%;
+    height: 100%;
+    background-color: #ff9;
+}

@@ -26,5 +26,9 @@
     {
         "name": "live edit style",
         "link": "live-edit-style/"
+    },
+    {
+        "name": "flex-bug",
+        "link": "flex-bug/"
     }
 ]
