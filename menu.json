@@ -16,6 +16,10 @@
         "link": "html/"
     },
     {
+        "name": "benchmark",
+        "link": "benchmark/"
+    },
+    {
         "name": "react-native",
         "link": "react-native/"
     },
