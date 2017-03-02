@@ -29,13 +29,16 @@ const getNow = () => {
 const count = 1000000;
 const run = (func) => {
     const beginTime = getNow();
-    for (let i = 0; i < 1000000; i++) {
+    for (let i = 0; i < count; i++) {
         func();
     }
     const endTime = getNow();
     return endTime - beginTime;
 };
 
-root.innerHTML = `<p>getBoundingClientRect ${run(testGetBoundingClientRect)}ms</p>
+root.innerHTML = `
+<p>run ${count} times</p>
+<p>getBoundingClientRect ${run(testGetBoundingClientRect)}ms</p>
 <p>innerWidth ${run(testInnerWidth)}ms</p>
-<p>clientWidth ${run(testClientWidth)}ms</p>`;
+<p>clientWidth ${run(testClientWidth)}ms</p>
+`;
