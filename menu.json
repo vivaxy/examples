@@ -138,5 +138,9 @@
     {
         "name": "qq maps",
         "link": "qq-maps/"
+    },
+    {
+        "name": "babel-plugin-import",
+        "link": "babel-plugin-import/"
     }
 ]
