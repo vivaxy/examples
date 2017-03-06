@@ -1,0 +1,38 @@
+/**
+ * @since 2017-03-06 10:24
+ * @author vivaxy
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.demo {
+    offset-path: path("M10,80 q100,120 120,20 q140,-50 160,0");
+    animation: move 3s linear infinite;
+    animation-direction: alternate-reverse;
+    /* span 元素不能实现 */
+    display: inline-block;
+    /* offset-anchor */
+    /* offset-position */
+}
+
+@keyframes move {
+    0% {
+        offset-rotation: 0deg;
+        offset-distance: 0%;
+    }
+    100% {
+        offset-rotation: 360deg;
+        offset-distance: 100%;
+    }
+}

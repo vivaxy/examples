@@ -8,11 +8,11 @@
         "link": "clear-fix/"
     },
     {
-        "name": "border box",
+        "name": "border-box",
         "link": "border-box/"
     },
     {
-        "name": "writing mode",
+        "name": "writing-mode",
         "link": "writing-mode/"
     },
     {
@@ -30,5 +30,9 @@
     {
         "name": "flex-bug",
         "link": "flex-bug/"
+    },
+    {
+        "name": "offset-path",
+        "link": "offset-path/"
     }
 ]
