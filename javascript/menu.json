@@ -134,5 +134,9 @@
     {
         "name": "style.setProperty",
         "link": "style-set-property/"
+    },
+    {
+        "name": "postMessage",
+        "link": "post-message/"
     }
 ]
