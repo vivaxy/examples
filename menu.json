@@ -16,6 +16,10 @@
         "link": "html/"
     },
     {
+        "name": "webgl",
+        "link": "webgl/"
+    },
+    {
         "name": "benchmark",
         "link": "benchmark/"
     },
