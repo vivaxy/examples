@@ -62,14 +62,19 @@ var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 var program = createProgram(gl, vertexShader, fragmentShader);
 var positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
+var resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
+var colorUniformLocation = gl.getUniformLocation(program, 'u_color');
 var positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
 // three 2d points
 var positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0
+    10, 20,
+    80, 20,
+    10, 30,
+    10, 30,
+    80, 20,
+    80, 30
 ];
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
@@ -79,6 +84,8 @@ gl.clear(gl.COLOR_BUFFER_BIT);
 // Tell it to use our program (pair of shaders)
 gl.useProgram(program);
 gl.enableVertexAttribArray(positionAttributeLocation);
+gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+gl.uniform4f(colorUniformLocation, Math.random(), Math.random(), Math.random(), 1);
 
 // Bind the position buffer.
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -92,5 +99,5 @@ var offset = 0;        // start at the beginning of the buffer
 gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
 
 var primitiveType = gl.TRIANGLES;
-var count = 3;
+var count = 6;
 gl.drawArrays(primitiveType, offset, count);
