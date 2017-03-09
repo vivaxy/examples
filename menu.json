@@ -1,5 +1,9 @@
 [
     {
+        "name": "algorithms",
+        "link": "algorithms/"
+    },
+    {
         "name": "native api",
         "link": "native-api/"
     },
