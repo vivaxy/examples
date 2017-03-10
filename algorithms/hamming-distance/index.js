@@ -27,4 +27,17 @@ var hammingDistance = function(x, y) {
     return count;
 };
 
+var hammingDistance2 = function(x, y) {
+    var result = x ^ y;
+    var count = 0;
+    while (result > 0) {
+        if (result % 2 === 1) {
+            count++;
+        }
+        result = result >>> 1;
+    }
+    return count;
+};
+
 console.log(hammingDistance(1, 4) === 2);
+console.log(hammingDistance2(1, 4) === 2);
