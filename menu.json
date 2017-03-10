@@ -20,6 +20,10 @@
         "link": "html/"
     },
     {
+        "name": "three.js",
+        "link": "three-js/"
+    },
+    {
         "name": "webgl",
         "link": "webgl/"
     },
