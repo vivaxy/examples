@@ -20,6 +20,10 @@
         "link": "html/"
     },
     {
+        "name": "webvr",
+        "link": "webvr/"
+    },
+    {
         "name": "three.js",
         "link": "three-js/"
     },
