@@ -2,5 +2,9 @@
     {
         "name": "Hamming Distance",
         "link": "hamming-distance/"
+    },
+    {
+        "name": "Simplify Path",
+        "link": "simplify-path/"
     }
 ]

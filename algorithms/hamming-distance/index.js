@@ -2,10 +2,10 @@
  * @since 2017-03-09 12:24
  * @author vivaxy
  * @see https://leetcode.com/problems/hamming-distance/
- * @see https://leetcode.com/submissions/detail/96029999/
  */
 
 /**
+ * @see https://leetcode.com/submissions/detail/96029999/
  * @param {number} x
  * @param {number} y
  * @return {number}
@@ -27,6 +27,12 @@ var hammingDistance = function(x, y) {
     return count;
 };
 
+/**
+ * @see https://leetcode.com/submissions/detail/96167955/
+ * @param {number} x
+ * @param {number} y
+ * @return {number}
+ */
 var hammingDistance2 = function(x, y) {
     var result = x ^ y;
     var count = 0;
