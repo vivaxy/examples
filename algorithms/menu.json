@@ -6,5 +6,9 @@
     {
         "name": "Simplify Path",
         "link": "simplify-path/"
+    },
+    {
+        "name": "Minimum Moves to Equal Array Elements",
+        "link": "minimum-moves-to-equal-array-elements/"
     }
 ]
