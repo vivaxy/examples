@@ -17,11 +17,12 @@ AFRAME.registerComponent('intersection-spawn', {
         parse: AFRAME.utils.styleParser.parse
     },
 
-    init: function () {
+    init: function() {
         const data = this.data;
         const el = this.el;
 
-        el.addEventListener(data.event, evt => {
+        el.addEventListener(data.event, function(evt) {
+
             // Create element.
             const spawnEl = document.createElement('a-entity');
 
@@ -29,8 +30,10 @@ AFRAME.registerComponent('intersection-spawn', {
             spawnEl.setAttribute('position', evt.detail.intersection.point);
 
             // Set components and properties.
-            Object.keys(data).forEach(name => {
-                if (name === 'event') { return; }
+            Object.keys(data).forEach(function(name) {
+                if (name === 'event') {
+                    return;
+                }
                 AFRAME.utils.entity.setComponentProperty(spawnEl, name, data[name]);
             });
 
