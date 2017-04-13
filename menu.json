@@ -154,5 +154,9 @@
     {
         "name": "babel-plugin-import",
         "link": "babel-plugin-import/"
+    },
+    {
+        "name": "dragula",
+        "link": "dragula/"
     }
 ]
