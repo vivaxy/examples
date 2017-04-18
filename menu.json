@@ -158,5 +158,9 @@
     {
         "name": "dragula",
         "link": "dragula/"
+    },
+    {
+        "name": "mobx",
+        "link": "mobx/"
     }
 ]
