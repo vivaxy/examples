@@ -1,0 +1,5 @@
+rootProject.name = 'lottie_react_native'
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/lib/android')
+
+include ':app'
