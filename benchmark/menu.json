@@ -2,5 +2,9 @@
     {
         "name": "getBoundingClientRect vs innerWidth vs clientWidth",
         "link": "getBoundingClientRect-vs-innerWidth-vs-clientWidth/"
+    },
+    {
+        "name": "classFunctionDeclaration vs classPrototypeFunctionBind",
+        "link": "classFunctionDeclaration-vs-classPrototypeFunctionBind/"
     }
 ]
