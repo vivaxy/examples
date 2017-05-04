@@ -1,5 +1,9 @@
 [
     {
+        "name": "compose",
+        "link": "compose/"
+    },
+    {
         "name": "canvas polyfill",
         "link": "canvas-polyfill/"
     },
