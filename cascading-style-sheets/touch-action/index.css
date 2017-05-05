@@ -1,0 +1,30 @@
+/**
+ * @since 2017-05-05 10:09:29
+ * @author vivaxy
+ * @see https://www.chenhuijing.com/blog/codrops-css-ref-touch-action/
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding-top: 100%;
+}
+
+.button {
+    width: 100px;
+    height: 100px;
+    background-color: #d7d7d7;
+    display: inline-block;
+}
+
+.manipulation {
+    touch-action: manipulation;
+}
