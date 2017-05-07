@@ -1,0 +1,23 @@
+/**
+ * @since 2017-05-07 11:51:18
+ * @author vivaxy
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.element {
+    width: 100px;
+    height: 100px;
+    background-color: #d7d7d7;
+}

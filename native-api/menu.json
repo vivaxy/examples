@@ -1,5 +1,9 @@
 [
     {
+        "name": "animate",
+        "link": "animate/"
+    },
+    {
         "name": "base",
         "link": "base/"
     },
