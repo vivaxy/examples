@@ -1,5 +1,9 @@
 [
     {
+        "name": "rerender logic",
+        "link": "rerender-logic/"
+    },
+    {
         "name": "context global state",
         "link": "context-global-state/"
     },
