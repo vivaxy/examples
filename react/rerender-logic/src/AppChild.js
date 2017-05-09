@@ -9,6 +9,8 @@ import AppChildChild from './AppChildChild';
 class AppChild extends Component {
 
     shouldComponentUpdate() {
+        // if return false, this will break the rerender of `AppChildChild`
+        // only `setState` and `forceUpdate` will trigger rerender of react components
         return true;
     }
 
