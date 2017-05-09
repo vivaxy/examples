@@ -15,13 +15,26 @@ class AppHeader extends Component {
         count: 1,
     };
 
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     componentDidMount() {
-        this.on('minus', (value) => {
+        const minusCount = (value) => {
             this.setState({
                 count: this.state.count - value,
             });
-        });
+        };
+        this.on('AppIntro:minus', minusCount);
     }
+
+    handleClick() {
+        this.emit('AppHeader:add', 1);
+        this.setState({
+            count: this.state.count + 1,
+        });
+    };
 
     render() {
         const { count } = this.state;
@@ -30,12 +43,7 @@ class AppHeader extends Component {
                 <img src={logo} className="App-logo" alt="logo" />
                 <h2>Welcome to React</h2>
                 <p>{count}</p>
-                <p onClick={() => {
-                    this.emit('add', 1);
-                    this.setState({
-                        count: this.state.count + 1,
-                    });
-                }}>add</p>
+                <p onClick={this.handleClick}>add</p>
             </div>
         );
     }

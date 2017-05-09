@@ -6,19 +6,21 @@
 import events from './events';
 
 export default (Component) => {
-    const EventfulComponent = class extends Component {
+    const EventfulComponent = class EventfulComponent extends Component {
 
-        on(...args) {
+        on(type, func) {
             if (!this.hasMounted) {
-                events.on(...args);
+                events.on(type, func);
+                console.log(Component.name, 'on', type, func.name, 'listeners', events.listeners(type));
             } else {
                 throw new Error('add event listeners before component mounted');
             }
         }
 
-        emit(...args) {
+        emit(type, ...args) {
             if (this.hasMounted) {
-                events.emit(...args);
+                events.emit(type, ...args);
+                console.log(Component.name, 'emit', type, ...args, 'listeners', events.listeners(type));
             } else {
                 throw new Error('emit events after component mounted');
             }
