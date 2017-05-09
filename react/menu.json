@@ -1,5 +1,9 @@
 [
     {
+        "name": "high ordered component",
+        "link": "high-ordered-component/"
+    },
+    {
         "name": "global state",
         "link": "global-state/"
     },
