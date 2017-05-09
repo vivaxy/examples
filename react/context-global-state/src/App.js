@@ -6,13 +6,18 @@ import AppIntro from './AppIntro';
 
 export default class App extends Component {
 
-    state = {
-        count: 1,
-    };
+    state = {};
 
     constructor(props) {
         super(props);
         this.action = this.action.bind(this);
+    }
+
+    getChildContext() {
+        return {
+            state: this.state,
+            action: this.action,
+        };
     }
 
     action(dispatch) {
@@ -20,11 +25,10 @@ export default class App extends Component {
     }
 
     render() {
-        const { state } = this;
         return (
             <div className="App">
-                <AppHeader globalState={state} action={this.action} />
-                <AppIntro globalState={state} action={this.action} />
+                <AppHeader />
+                <AppIntro />
             </div>
         );
     }

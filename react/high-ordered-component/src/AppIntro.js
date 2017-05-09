@@ -19,7 +19,7 @@ class AppIntro extends Component {
                 count: this.state.count + value,
             });
         };
-        this.on('AppHeader:add', addCount);
+        this.on('AppHeader', 'add', addCount);
     }
 
     render() {
@@ -29,7 +29,7 @@ class AppIntro extends Component {
                 To get started, edit <code>src/App.js</code> and save to reload.
                 <p>{count}</p>
                 <p onClick={() => {
-                    this.emit('AppIntro:minus', 1);
+                    this.emit('minus', 1);
                     this.setState({
                         count: this.state.count - 1,
                     });

@@ -26,11 +26,11 @@ class AppHeader extends Component {
                 count: this.state.count - value,
             });
         };
-        this.on('AppIntro:minus', minusCount);
+        this.on('AppIntro', 'minus', minusCount);
     }
 
     handleClick() {
-        this.emit('AppHeader:add', 1);
+        this.emit('add', 1);
         this.setState({
             count: this.state.count + 1,
         });

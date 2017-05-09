@@ -5,22 +5,33 @@
 
 import events from './events';
 
+const logEvents = (sourceName, method, type, data) => {
+    console.log(sourceName, method, type, data, events._events);
+};
+
 export default (Component) => {
     const EventfulComponent = class EventfulComponent extends Component {
 
-        on(type, func) {
+        setState(state) {
+            console.log(Component.name, this.state, state);
+            super.setState(state);
+        }
+
+        on(componentName, type, func) {
+            const composedType = componentName + ':' + type;
             if (!this.hasMounted) {
-                events.on(type, func);
-                console.log(Component.name, 'on', type, func.name, 'listeners', events.listeners(type));
+                events.on(composedType, func);
+                logEvents(Component.name, 'on', composedType, func);
             } else {
                 throw new Error('add event listeners before component mounted');
             }
         }
 
-        emit(type, ...args) {
+        emit(type, data) {
+            const composedType = Component.name + ':' + type;
             if (this.hasMounted) {
-                events.emit(type, ...args);
-                console.log(Component.name, 'emit', type, ...args, 'listeners', events.listeners(type));
+                events.emit(composedType, data);
+                logEvents(Component.name, 'emit', type, data);
             } else {
                 throw new Error('emit events after component mounted');
             }
