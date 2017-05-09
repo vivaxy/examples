@@ -4,6 +4,10 @@
         "link": "high-ordered-component/"
     },
     {
+        "name": "base component",
+        "link": "base-component/"
+    },
+    {
         "name": "global state",
         "link": "global-state/"
     },

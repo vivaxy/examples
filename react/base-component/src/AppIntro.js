@@ -3,32 +3,33 @@
  * @author vivaxy
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class AppIntro extends Component {
+import BaseComponent from './BaseComponent';
+
+export default class AppIntro extends BaseComponent {
 
     state = {
         count: 1,
     };
 
     componentDidMount() {
-        const { events } = this.props;
-        events.on('add', (value) => {
+        this.on('add', (value) => {
             this.setState({
                 count: this.state.count + value,
             });
         });
+        super.componentDidMount();
     }
 
     render() {
-        const { events } = this.props;
         const { count } = this.state;
         return (
             <div className="App-intro">
                 To get started, edit <code>src/App.js</code> and save to reload.
                 <p>{count}</p>
                 <p onClick={() => {
-                    events.emit('minus', 1);
+                    this.emit('minus', 1);
                     this.setState({
                         count: this.state.count - 1,
                     });

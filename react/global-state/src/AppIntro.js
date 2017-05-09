@@ -10,7 +10,7 @@ export default class AppIntro extends Component {
     render() {
         const { count, action } = this.props;
         return (
-            <p className="App-intro">
+            <div className="App-intro">
                 To get started, edit <code>src/App.js</code> and save to reload.
                 <p>{count}</p>
                 <p onClick={() => {
@@ -21,7 +21,7 @@ export default class AppIntro extends Component {
                         };
                     });
                 }}>minus</p>
-            </p>
+            </div>
         );
     }
 }

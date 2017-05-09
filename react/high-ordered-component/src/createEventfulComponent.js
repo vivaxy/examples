@@ -8,17 +8,17 @@ import events from './events';
 export default (Component) => {
     const EventfulComponent = class extends Component {
 
-        on(type, callback) {
+        on(...args) {
             if (!this.hasMounted) {
-                events.on(type, callback);
+                events.on(...args);
             } else {
                 throw new Error('add event listeners before component mounted');
             }
         }
 
-        emit(type, ...args) {
+        emit(...args) {
             if (this.hasMounted) {
-                events.emit(type, ...args);
+                events.emit(...args);
             } else {
                 throw new Error('emit events after component mounted');
             }
