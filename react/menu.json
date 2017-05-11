@@ -1,5 +1,9 @@
 [
     {
+        "name": "componentWillReceiveProps",
+        "link": "component-will-receive-props/"
+    },
+    {
         "name": "rerender logic",
         "link": "rerender-logic/"
     },
