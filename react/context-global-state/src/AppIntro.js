@@ -4,15 +4,10 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-export default class AppIntro extends Component {
+import connect from './lib/connect'
 
-    static contextTypes = {
-        initialize: PropTypes.func,
-        store: PropTypes.object,
-        actions: PropTypes.object,
-    };
+class AppIntro extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -43,7 +38,8 @@ export default class AppIntro extends Component {
                             });
                         };
                     },
-                    minus: () => {
+                    minus: (data) => {
+                        console.log(data);
                         return (dispatch, state) => {
                             dispatch({
                                 ...state,
@@ -66,13 +62,14 @@ export default class AppIntro extends Component {
     render() {
         const { store, actions } = this.context;
         return (
-            <div className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
+            <div onClick={() => {
+                actions.AppIntro.minus('data passed into action in AppIntro');
+            }}>
                 <p>{store.AppIntro.count}</p>
-                <p onClick={() => {
-                    actions.AppIntro.minus();
-                }}>minus</p>
+                <p>click to minus</p>
             </div>
         );
     }
 }
+
+export default connect(AppIntro);

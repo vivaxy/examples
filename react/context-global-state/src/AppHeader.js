@@ -4,17 +4,9 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import connect from './lib/connect';
 
-import logo from './logo.svg';
-
-export default class AppHeader extends Component {
-
-    static contextTypes = {
-        initialize: PropTypes.func,
-        store: PropTypes.object,
-        actions: PropTypes.object,
-    };
+class AppHeader extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -69,14 +61,14 @@ export default class AppHeader extends Component {
     render() {
         const { store, actions } = this.context;
         return (
-            <div className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2>Welcome to React</h2>
+            <div onClick={() => {
+                actions.AppHeader.add('data passed into action in AppHeader');
+            }}>
                 <p>{store && store.AppHeader && store.AppHeader.count}</p>
-                <p onClick={() => {
-                    actions.AppHeader.add('data');
-                }}>add</p>
+                <p>click to add</p>
             </div>
         );
     }
 }
+
+export default connect(AppHeader);
