@@ -8,6 +8,12 @@ import { connect } from 'react-redux';
 
 import createReducer from '../lib/createReducer';
 
+const styles = {
+    button: {
+        marginLeft: 125,
+    },
+};
+
 class Header extends Component {
     render() {
         const { count, clear } = this.props;
@@ -20,12 +26,6 @@ class Header extends Component {
     }
 }
 
-const styles = {
-    button: {
-        marginLeft: 125,
-    },
-};
-
 const ACTION_TYPES = {
     HEADER_CLEAR: 'HEADER_CLEAR',
     HEADER_ADD_COUNT: 'HEADER_ADD_COUNT',
@@ -37,7 +37,7 @@ export const reducer = createReducer(DEFAULT_STATE, {
     [ACTION_TYPES.HEADER_CLEAR]: (state) => {
         return {
             ...state,
-            DEFAULT_STATE,
+            ...DEFAULT_STATE,
         };
     },
     [ACTION_TYPES.HEADER_ADD_COUNT]: (state, action) => {
