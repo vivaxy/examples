@@ -32,7 +32,7 @@ class Footer extends Component {
     }
 }
 
-const ACTIONS = {
+const ACTION_TYPES = {
     FOOTER_INPUT_CHANGE: 'FOOTER_INPUT_CHANGE',
     FOOTER_ERROR_MESSAGE: 'FOOTER_ERROR_MESSAGE',
 };
@@ -44,14 +44,14 @@ const DEFAULT_STATE = {
     errorMessage: '',
 };
 export const reducer = createReducer(DEFAULT_STATE, {
-    [ACTIONS.FOOTER_INPUT_CHANGE]: (state, action) => {
+    [ACTION_TYPES.FOOTER_INPUT_CHANGE]: (state, action) => {
         return {
             ...state,
             inputValue: action.payload,
             errorMessage: '',
         };
     },
-    [ACTIONS.FOOTER_ERROR_MESSAGE]: (state, action) => {
+    [ACTION_TYPES.FOOTER_ERROR_MESSAGE]: (state, action) => {
         return {
             ...state,
             errorMessage: action.payload,
@@ -68,7 +68,7 @@ const mapDispatchToProps = {
     updateInputValue: (value) => {
         return (dispatch) => {
             dispatch({
-                type: ACTIONS.FOOTER_INPUT_CHANGE,
+                type: ACTION_TYPES.FOOTER_INPUT_CHANGE,
                 payload: value,
             });
         };
@@ -78,7 +78,7 @@ const mapDispatchToProps = {
             const numberValue = Number(getState()[Footer.name].inputValue);
             if (isNaN(numberValue)) {
                 dispatch({
-                    type: ACTIONS.FOOTER_ERROR_MESSAGE,
+                    type: ACTION_TYPES.FOOTER_ERROR_MESSAGE,
                     payload: '请输入数字',
                 });
             } else {

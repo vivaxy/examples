@@ -26,7 +26,7 @@ const styles = {
     },
 };
 
-const ACTIONS = {
+const ACTION_TYPES = {
     HEADER_CLEAR: 'HEADER_CLEAR',
     HEADER_ADD_COUNT: 'HEADER_ADD_COUNT',
 };
@@ -34,13 +34,13 @@ const DEFAULT_STATE = {
     count: 1,
 };
 export const reducer = createReducer(DEFAULT_STATE, {
-    [ACTIONS.HEADER_CLEAR]: (state) => {
+    [ACTION_TYPES.HEADER_CLEAR]: (state) => {
         return {
             ...state,
             DEFAULT_STATE,
         };
     },
-    [ACTIONS.HEADER_ADD_COUNT]: (state, action) => {
+    [ACTION_TYPES.HEADER_ADD_COUNT]: (state, action) => {
         return {
             ...state,
             count: state.count + action.payload,
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
     clear: () => {
         return (dispatch) => {
             dispatch({
-                type: ACTIONS.HEADER_CLEAR,
+                type: ACTION_TYPES.HEADER_CLEAR,
             });
         };
     },
