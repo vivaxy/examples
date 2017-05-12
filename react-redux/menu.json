@@ -1,5 +1,9 @@
 [
     {
+        "name": "component redux",
+        "link": "component-redux/"
+    },
+    {
         "name": "simple",
         "link": "simple/"
     }
