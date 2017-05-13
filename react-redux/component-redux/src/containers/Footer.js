@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import createReducer from '../lib/createReducer';
+import * as actionTypes from '../configs/actionTypes';
 
 class Footer extends Component {
 
@@ -32,32 +33,25 @@ class Footer extends Component {
     }
 }
 
-const ACTION_TYPES = {
-    FOOTER_INPUT_CHANGE: 'FOOTER_INPUT_CHANGE',
-    FOOTER_ERROR_MESSAGE: 'FOOTER_ERROR_MESSAGE',
-};
-const HEADER_ACTIONS = {
-    HEADER_ADD_COUNT: 'HEADER_ADD_COUNT',
-};
 const DEFAULT_STATE = {
     inputValue: 0,
     errorMessage: '',
 };
 export const reducer = createReducer(DEFAULT_STATE, {
-    [ACTION_TYPES.FOOTER_INPUT_CHANGE]: (state, action) => {
+    [actionTypes.UPDATE_FORM_INPUT]: (state, action) => {
         return {
             ...state,
             inputValue: action.payload,
             errorMessage: '',
         };
     },
-    [ACTION_TYPES.FOOTER_ERROR_MESSAGE]: (state, action) => {
+    [actionTypes.UPDATE_FORM_ERROR]: (state, action) => {
         return {
             ...state,
             errorMessage: action.payload,
         };
     },
-    [HEADER_ACTIONS.HEADER_ADD_COUNT]: (state, action) => {
+    [actionTypes.ADD_VALUE_TO_COUNT]: (state, action) => {
         return {
             ...state,
             ...DEFAULT_STATE,
@@ -68,7 +62,7 @@ const mapDispatchToProps = {
     updateInputValue: (value) => {
         return (dispatch) => {
             dispatch({
-                type: ACTION_TYPES.FOOTER_INPUT_CHANGE,
+                type: actionTypes.UPDATE_FORM_INPUT,
                 payload: value,
             });
         };
@@ -78,12 +72,12 @@ const mapDispatchToProps = {
             const numberValue = Number(getState()[Footer.name].inputValue);
             if (isNaN(numberValue)) {
                 dispatch({
-                    type: ACTION_TYPES.FOOTER_ERROR_MESSAGE,
+                    type: actionTypes.UPDATE_FORM_ERROR,
                     payload: '请输入数字',
                 });
             } else {
                 dispatch({
-                    type: HEADER_ACTIONS.HEADER_ADD_COUNT,
+                    type: actionTypes.ADD_VALUE_TO_COUNT,
                     payload: numberValue,
                 });
             }

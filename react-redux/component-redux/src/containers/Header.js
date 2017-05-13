@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import createReducer from '../lib/createReducer';
+import * as actionTypes from '../configs/actionTypes';
 
 const styles = {
     button: {
@@ -26,21 +27,17 @@ class Header extends Component {
     }
 }
 
-const ACTION_TYPES = {
-    HEADER_CLEAR: 'HEADER_CLEAR',
-    HEADER_ADD_COUNT: 'HEADER_ADD_COUNT',
-};
 const DEFAULT_STATE = {
     count: 1,
 };
 export const reducer = createReducer(DEFAULT_STATE, {
-    [ACTION_TYPES.HEADER_CLEAR]: (state) => {
+    [actionTypes.RESET_COUNT]: (state) => {
         return {
             ...state,
             ...DEFAULT_STATE,
         };
     },
-    [ACTION_TYPES.HEADER_ADD_COUNT]: (state, action) => {
+    [actionTypes.ADD_VALUE_TO_COUNT]: (state, action) => {
         return {
             ...state,
             count: state.count + action.payload,
@@ -51,7 +48,7 @@ const mapDispatchToProps = {
     clear: () => {
         return (dispatch) => {
             dispatch({
-                type: ACTION_TYPES.HEADER_CLEAR,
+                type: actionTypes.RESET_COUNT,
             });
         };
     },
