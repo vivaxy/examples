@@ -64,7 +64,6 @@ function tokenizer(input) {
     return tokens;
 }
 
-// todo
 function parser(tokens) {
     let current = 0;
 
@@ -84,17 +83,23 @@ function parser(tokens) {
                 value: token.value,
             };
         }
+        if (token.type === 'name') {
+            current++;
+            return {
+                type: 'BinaryOperator',
+                name: token.value,
+            };
+        }
         if (token.type === 'paren' && token.value === '(') {
             let params = [];
             token = tokens[++current];
             while ((token.type !== 'paren') || (token.type === 'paren' && token.value !== ')')) {
-                node.params.push(walk());
+                params.push(walk());
                 token = tokens[current];
             }
             current++;
             return {
                 type: 'CallExpression',
-                name: token.value,
                 params: params,
             };
         }
@@ -132,6 +137,7 @@ function traverser(ast, visitor) {
                 break;
             case 'NumberLiteral':
             case 'StringLiteral':
+            case 'BinaryOperator':
                 break;
             default:
                 throw new TypeError(node.type);
@@ -186,7 +192,15 @@ function transformer(ast) {
                 }
                 parent._context.push(expression);
             },
-        }
+        },
+        BinaryOperator: {
+            enter(node, parent) {
+                parent._context.push({
+                    type: 'BinaryOperator',
+                    name: node.name,
+                });
+            },
+        },
     });
     return newAst;
 }
@@ -195,7 +209,7 @@ function codeGenerator(node) {
     switch (node.type) {
         case 'Program':
             return node.body.map(codeGenerator)
-                .join('\n');
+                .join(' ');
         case 'ExpressionStatement':
             return (
                 codeGenerator(node.expression) +
@@ -203,10 +217,10 @@ function codeGenerator(node) {
             );
         case 'CallExpression':
             return (
-                codeGenerator(node.callee) +
+                // codeGenerator(node.callee) +
                 '(' +
                 node.arguments.map(codeGenerator)
-                    .join(', ') +
+                    .join(' ') +
                 ')'
             );
         case 'Identifier':
@@ -215,6 +229,19 @@ function codeGenerator(node) {
             return node.value;
         case 'StringLiteral':
             return '"' + node.value + '"';
+        case 'BinaryOperator':
+            switch (node.name) {
+                case '加':
+                    return '+';
+                case '减':
+                    return '-';
+                case '乘':
+                    return '*';
+                case '除':
+                    return '/';
+                default:
+                    throw new TypeError(node.type);
+            }
         default:
             throw new TypeError(node.type);
     }
@@ -222,11 +249,19 @@ function codeGenerator(node) {
 
 function compiler(input) {
     let tokens = tokenizer(input);
+    // console.log(tokens);
+
     let ast = parser(tokens);
-    console.log(ast);
-    // let newAst = transformer(ast);
-    // let output = codeGenerator(newAst);
-    // return output;
+    // console.log(JSON.stringify(ast, null, 2));
+
+    let newAst = transformer(ast);
+    // console.log(JSON.stringify(newAst, null, 2));
+
+    let output = codeGenerator(newAst);
+    // console.log(output);
+
+    return output;
 }
 
 console.log(compiler('(2 加 (4 减 2))'));
+console.log(compiler('2 加 (4 减 2)'));
