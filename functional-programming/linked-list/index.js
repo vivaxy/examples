@@ -10,16 +10,19 @@ const createNode = (value, next) => {
             return value;
         }
         return next;
-    }
+    };
 };
+exports.createNode = createNode;
 
 const getValue = (node) => {
     return node(true);
 };
+exports.getValue = getValue;
 
 const getNext = (node) => {
     return node(false);
 };
+exports.getNext = getNext;
 
 const linkedList1 = createNode(1, createNode(2, createNode(3, null)));
 console.log('getValue(linkedList1)', '=', getValue(linkedList1)); // => 1
@@ -52,14 +55,15 @@ const reverse = (linkedList) => {
 };
 
 const logLinkedList = (linkedList) => {
-    let current = linkedList;
-    let structure = '';
-    while (current !== null) {
-        structure = structure + getValue(current) + ' -> ';
-        current = getNext(current);
+    if (linkedList === null) {
+        return 'null';
     }
-    return structure + 'null';
+    return getValue(linkedList) + ' -> ' + logLinkedList(getNext(linkedList));
 };
+exports.logLinkedList = logLinkedList;
 
 const linkedList4 = reverse(linkedList1);
 console.log(logLinkedList(linkedList4)); // => 3 -> 2 -> 1 -> null
+console.log('');
+console.log('----------');
+console.log('');
