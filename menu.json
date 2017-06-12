@@ -4,6 +4,10 @@
         "link": "compiler/"
     },
     {
+        "name": "Functional Programming",
+        "link": "functional-programming/"
+    },
+    {
         "name": "native api",
         "link": "native-api/"
     },
