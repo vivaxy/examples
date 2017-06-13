@@ -6,5 +6,9 @@
     {
         "name": "Lazy Evaluation",
         "link": "lazy-evaluation/"
+    },
+    {
+        "name": "Tree Node",
+        "link": "tree-node/"
     }
 ]
