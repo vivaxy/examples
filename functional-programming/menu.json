@@ -10,5 +10,9 @@
     {
         "name": "Tree Node",
         "link": "tree-node/"
+    },
+    {
+        "name": "Manipulate Functions",
+        "link": "manipulate-functions/"
     }
 ]
