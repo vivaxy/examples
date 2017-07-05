@@ -5,7 +5,7 @@
 
 const reverseArgs = require('./reverseArgs');
 
-const compose = (...fns) => {
+const compose1 = (...fns) => {
     const traverse = (funcs, result) => {
         if (!funcs.length) {
             return result;
@@ -18,6 +18,15 @@ const compose = (...fns) => {
         return traverse(fns, input);
     };
 };
+
+const compose = (...fns) => {
+    return (input) => {
+        return fns.reduceRight((value, fn) => {
+            return fn(value);
+        }, input);
+    };
+};
+
 module.exports = compose;
 
 const addA = (value) => {
