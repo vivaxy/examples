@@ -1,0 +1,26 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "Basic example of cycle.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "author": "vivaxy",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vivaxy/course.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@cycle/dom": "^17.6.0",
+    "@cycle/run": "^3.1.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.5.1",
+    "xstream": "^10.8.0"
+  }
+}

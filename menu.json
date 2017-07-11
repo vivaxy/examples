@@ -28,6 +28,10 @@
         "link": "webvr/"
     },
     {
+        "name": "cycle.js",
+        "link": "cycle-js/"
+    },
+    {
         "name": "three.js",
         "link": "three-js/"
     },
