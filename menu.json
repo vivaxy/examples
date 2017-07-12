@@ -24,6 +24,14 @@
         "link": "html/"
     },
     {
+        "name": "webgl",
+        "link": "webgl/"
+    },
+    {
+        "name": "benchmark",
+        "link": "benchmark/"
+    },
+    {
         "name": "webvr",
         "link": "webvr/"
     },
@@ -36,16 +44,12 @@
         "link": "three-js/"
     },
     {
-        "name": "webgl",
-        "link": "webgl/"
-    },
-    {
-        "name": "benchmark",
-        "link": "benchmark/"
-    },
-    {
         "name": "react-native",
         "link": "react-native/"
+    },
+    {
+        "name": "webpack",
+        "link": "webpack/"
     },
     {
         "name": "tinymce",

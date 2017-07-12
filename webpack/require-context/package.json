@@ -1,0 +1,27 @@
+{
+  "name": "require-context",
+  "version": "1.0.0",
+  "description": "webpack require.context demo",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vivaxy/course.git"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "vivaxy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vivaxy/course/issues"
+  },
+  "homepage": "https://github.com/vivaxy/course#readme",
+  "dependencies": {
+    "webpack": "^3.2.0",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
