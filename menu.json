@@ -36,6 +36,10 @@
         "link": "webvr/"
     },
     {
+        "name": "layout",
+        "link": "layout/"
+    },
+    {
         "name": "cycle.js",
         "link": "cycle-js/"
     },
@@ -142,10 +146,6 @@
     {
         "name": "angular material",
         "link": "angular-material/"
-    },
-    {
-        "name": "layout",
-        "link": "layout/"
     },
     {
         "name": "koa",
