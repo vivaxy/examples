@@ -18,3 +18,15 @@
     padding: 2px 6px;
     white-space: pre;
 }
+
+/* for ios safari */
+.popover:focus:after {
+    display: block;
+    position: absolute;
+    background: #000;
+    border-radius: 4px;
+    content: attr(pop-over-content);
+    color: #fff;
+    padding: 2px 6px;
+    white-space: pre;
+}
