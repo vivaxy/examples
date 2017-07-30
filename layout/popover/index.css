@@ -19,7 +19,6 @@
     white-space: pre;
 }
 
-/* for ios safari */
 .popover:focus:after {
     display: block;
     position: absolute;
