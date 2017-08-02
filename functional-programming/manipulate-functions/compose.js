@@ -11,6 +11,9 @@ module.exports = (...fns) => {
     };
 };
 
+/**
+ * support more agrs
+ */
 module.exports = (...fns) => {
     return fns.reduce((a, b) => {
         return (...args) => {

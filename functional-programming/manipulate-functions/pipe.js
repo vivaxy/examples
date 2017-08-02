@@ -10,3 +10,14 @@ module.exports = (...fns) => {
         }, input);
     };
 };
+
+/**
+ * support more args
+ */
+module.exports = (...fns) => {
+    return fns.reduceRight((a, b) => {
+        return (...args) => {
+            return a(b(...args));
+        }
+    });
+};
