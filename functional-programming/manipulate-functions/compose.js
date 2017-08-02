@@ -10,3 +10,11 @@ module.exports = (...fns) => {
         }, input);
     };
 };
+
+module.exports = (...fns) => {
+    return fns.reduce((a, b) => {
+        return (...args) => {
+            return a(b(...args));
+        };
+    });
+};

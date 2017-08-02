@@ -1,5 +1,5 @@
 const compose = require('../compose');
-const reverseArgs = require('../reverseArgs');
+const reverseArgs = require('../reverse-args');
 
 const addA = (value) => {
     return value + 'A';
