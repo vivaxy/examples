@@ -1,5 +1,9 @@
 [
     {
+        "name": "selection",
+        "link": "selection/"
+    },
+    {
         "name": "animate",
         "link": "animate/"
     },
