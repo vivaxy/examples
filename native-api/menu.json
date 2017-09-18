@@ -1,5 +1,9 @@
 [
     {
+        "name": "designMode",
+        "link": "design-mode/"
+    },
+    {
         "name": "selection",
         "link": "selection/"
     },
