@@ -1,5 +1,9 @@
 [
     {
+        "name": "script type=\"module\"",
+        "link": "script-type-module/"
+    },
+    {
         "name": "designMode",
         "link": "design-mode/"
     },
