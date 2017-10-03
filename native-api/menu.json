@@ -1,5 +1,9 @@
 [
     {
+        "name": "CompositionEvent",
+        "link": "composition-event/"
+    },
+    {
         "name": "script type=\"module\"",
         "link": "script-type-module/"
     },
