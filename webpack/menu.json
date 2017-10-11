@@ -1,5 +1,9 @@
 [
     {
+        "name": "Tree Shaking",
+        "link": "tree-shaking/"
+    },
+    {
         "name": "require.context",
         "link": "require-context/"
     }

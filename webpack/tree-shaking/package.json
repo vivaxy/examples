@@ -1,0 +1,17 @@
+{
+  "name": "tree-shaking",
+  "version": "1.0.0",
+  "description": "webpack tree shaking",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "vivaxy",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.3"
+  }
+}
