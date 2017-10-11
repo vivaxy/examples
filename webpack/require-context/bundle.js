@@ -67,7 +67,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var context = __webpack_require__(1);
+const context = __webpack_require__(1);
 const keys = context.keys();
 const filename = './dir/first-level.js';
 const func = context(filename);
