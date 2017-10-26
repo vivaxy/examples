@@ -1,5 +1,9 @@
 [
     {
+        "name": "Pointer Lock",
+        "link": "pointer-lock/"
+    },
+    {
         "name": "CompositionEvent",
         "link": "composition-event/"
     },
