@@ -4,24 +4,27 @@
  */
 
 // create a linked list by closure
-const createNode = (value, next) => {
-    return (x) => {
+function createNode(value, next) {
+    return function(x) {
         if (x) {
             return value;
         }
         return next;
     };
-};
+}
+
 exports.createNode = createNode;
 
-const getValue = (node) => {
+function getValue(node) {
     return node(true);
-};
+}
+
 exports.getValue = getValue;
 
-const getNext = (node) => {
+function getNext(node) {
     return node(false);
-};
+}
+
 exports.getNext = getNext;
 
 const linkedList1 = createNode(1, createNode(2, createNode(3, null)));
@@ -40,26 +43,26 @@ console.log('getNext(linkedList3)', '=', getNext(linkedList3)); // => null
  * @param next
  * @param value
  */
-const append = (next, value) => {
+function append(next, value) {
     if (next === null) {
         return createNode(value, null);
     }
     return createNode(getValue(next), append(getNext(next), value));
-};
+}
 
-const reverse = (linkedList) => {
+function reverse(linkedList) {
     if (linkedList === null) {
         return null;
     }
     return append(reverse(getNext(linkedList)), getValue(linkedList));
-};
+}
 
-const logLinkedList = (linkedList) => {
+function logLinkedList(linkedList) {
     if (linkedList === null) {
         return 'null';
     }
     return getValue(linkedList) + ' -> ' + logLinkedList(getNext(linkedList));
-};
+}
 exports.logLinkedList = logLinkedList;
 
 const linkedList4 = reverse(linkedList1);

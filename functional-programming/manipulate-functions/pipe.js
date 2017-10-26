@@ -3,9 +3,9 @@
  * @author vivaxy
  */
 
-module.exports = (...fns) => {
-    return (input) => {
-        return fns.reduce((value, fn) => {
+module.exports = function pipe(...fns) {
+    return function(input) {
+        return fns.reduce(function(value, fn) {
             return fn(value);
         }, input);
     };
@@ -14,10 +14,10 @@ module.exports = (...fns) => {
 /**
  * support more args
  */
-module.exports = (...fns) => {
-    return fns.reduceRight((a, b) => {
-        return (...args) => {
+module.exports = function(...fns) {
+    return fns.reduceRight(function(a, b) {
+        return function(...args) {
             return a(b(...args));
-        }
+        };
     });
 };

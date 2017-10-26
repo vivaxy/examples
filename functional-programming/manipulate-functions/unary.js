@@ -3,8 +3,8 @@
  * @author vivaxy
  */
 
-module.exports = (fn) => {
-    return (arg) => {
+module.exports = function(fn) {
+    return function(arg) {
         return fn(arg);
     };
 };
