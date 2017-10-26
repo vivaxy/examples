@@ -1,7 +1,7 @@
 [
     {
         "name": "target",
-        "link": "target/index.html"
+        "link": "target/"
     },
     {
         "name": "touch-action",
