@@ -1,5 +1,9 @@
 [
     {
+        "name": "FontFace",
+        "link": "font-face/"
+    },
+    {
         "name": "Pointer Lock",
         "link": "pointer-lock/"
     },
