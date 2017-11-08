@@ -1,5 +1,9 @@
 [
     {
+        "name": "multiple select",
+        "link": "select-multiple/"
+    },
+    {
         "name": "playsinline",
         "link": "playsinline/"
     },
