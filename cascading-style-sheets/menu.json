@@ -1,5 +1,9 @@
 [
     {
+        "name": "svg",
+        "link": "svg/"
+    },
+    {
         "name": "target",
         "link": "target/"
     },

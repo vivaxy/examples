@@ -1,0 +1,17 @@
+path {
+    stroke-dasharray: 3000;
+    stroke-dashoffset: 3000;
+    -webkit-animation: dash 5s linear infinite;
+    animation: dash 5s linear infinite;
+}
+
+@-webkit-keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
