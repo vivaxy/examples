@@ -3,7 +3,13 @@
  * @author vivaxy
  */
 
+body {
+    height: 2000px;
+}
+
 #content {
     background-size: 100%;
     background-image: url(//www.baidu.com/img/bd_logo.png);
+    height: 400px;
+    overflow-y: scroll;
 }
