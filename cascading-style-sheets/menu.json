@@ -4,6 +4,10 @@
         "link": "svg/"
     },
     {
+        "name": "background-attachment",
+        "link": "background-attachment/"
+    },
+    {
         "name": "target",
         "link": "target/"
     },
