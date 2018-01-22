@@ -54,5 +54,9 @@
     {
         "name": "offset-path",
         "link": "offset-path/"
+    },
+    {
+        "name": ":focus-within",
+        "link": "focus-within/"
     }
 ]
