@@ -1,0 +1,13 @@
+{
+  "name": "prop-types",
+  "version": "1.0.0",
+  "description": "prop types validator",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ava": "^0.24.0"
+  },
+  "scripts": {
+    "test": "ava"
+  }
+}

@@ -178,5 +178,9 @@
     {
         "name": "mobx",
         "link": "mobx/"
+    },
+    {
+        "name": "PropTypes",
+        "link": "prop-types/index.js"
     }
 ]
