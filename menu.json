@@ -180,8 +180,8 @@
         "link": "mobx/"
     },
     {
-        "name": "PropTypes",
-        "link": "prop-types/index.js"
+        "name": "ArgTypes",
+        "link": "arg-types/index.js"
     },
     {
         "name": "RSA",

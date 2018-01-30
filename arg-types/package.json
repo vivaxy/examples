@@ -1,7 +1,7 @@
 {
-  "name": "prop-types",
+  "name": "arg-types",
   "version": "1.0.0",
-  "description": "prop types validator",
+  "description": "argument types validator",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
