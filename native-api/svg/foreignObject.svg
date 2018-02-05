@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <foreignObject width="120" height="50">
+        <body xmlns="http://www.w3.org/1999/xhtml">
+            <p style="font-size:12px;margin:0;">一段需要word wrap的文字。</p>
+        </body>
+    </foreignObject>
+</svg>
