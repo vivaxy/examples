@@ -3,6 +3,43 @@
  * @author vivaxy
  */
 
+class InputForm extends HTMLElement {
+
+    static get observedAttributes() {
+        return ['value', 'name'];
+    }
+
+    constructor() {
+        super();
+        this.state = { value: this.getAttribute('value'), name: this.getAttribute('name') };
+        this.shadow = this.attachShadow({ mode: 'open' });
+        this.render();
+        this.attachEvents();
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.state[name] = newValue;
+    }
+
+    attachEvents() {
+        const button = this.shadow.querySelector('.js-button');
+        const input = this.shadow.querySelector('.js-input');
+        input.addEventListener('change', (e) => {
+            this.state.value = e.target.value;
+        });
+        button.addEventListener('click', () => {
+            const event = new CustomEvent('set-value');
+            event.value = this.state.value;
+            this.dispatchEvent(event);
+        });
+    }
+
+    render() {
+        const { value, name } = this.state;
+        this.shadow.innerHTML = `<input type="text" value="${value}" class="js-input" /><button class="js-button">${name}</button>`
+    }
+}
+
 class ExampleRoot extends HTMLElement {
 
     static get observedAttributes() {
@@ -16,7 +53,7 @@ class ExampleRoot extends HTMLElement {
             height: this.getAttribute('height'),
         };
         this.shadow = this.attachShadow({ mode: 'open' });
-        this.render(this.state);
+        this.render();
         this.attachEvents();
     }
 
@@ -38,13 +75,13 @@ class ExampleRoot extends HTMLElement {
     }
 
     attachEvents() {
-        const widthButton = this.shadow.querySelector('.js-width-button');
-        const heightButton = this.shadow.querySelector('.js-height-button');
-        widthButton.addEventListener('click', () => {
-            this.setAttribute('width', this.shadow.querySelector('.js-width-input').value);
+        const widthInputForm = this.shadow.querySelector('.js-width');
+        const heightInputForm = this.shadow.querySelector('.js-height');
+        widthInputForm.addEventListener('set-value', (e) => {
+            this.setAttribute('width', e.value);
         });
-        heightButton.addEventListener('click', () => {
-            this.setAttribute('height', this.shadow.querySelector('.js-height-input').value);
+        heightInputForm.addEventListener('set-value', (e) => {
+            this.setAttribute('height', e.value);
         });
         const dispatchEventButton = this.shadow.querySelector('.js-dispatch-event-button');
         dispatchEventButton.addEventListener('click', () => {
@@ -54,13 +91,12 @@ class ExampleRoot extends HTMLElement {
         });
     }
 
-    render(state) {
+    render() {
+        const { width, height } = this.state;
         this.shadow.innerHTML = `<div>
-    <input type="text" value="${state.width}" class="js-width-input" />
-    <button class="js-width-button">Set width attribute</button>
+    <input-form value="${width}" class="js-width" name="Set width"></input-form>
     <hr />
-    <input type="text" value="${state.height}" class="js-height-input" />
-    <button class="js-height-button">Set height attribute</button>
+    <input-form value="${height}" class="js-height" name="Set height"></input-form>
     <hr />
     <button class="js-dispatch-event-button">Dispatch event</button>
 </div>`
@@ -68,6 +104,7 @@ class ExampleRoot extends HTMLElement {
 }
 
 customElements.define('example-root', ExampleRoot);
+customElements.define('input-form', InputForm);
 document.querySelector('example-root').addEventListener('example-event', (e) => {
     console.log(e.currentAttr);
 });
