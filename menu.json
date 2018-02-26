@@ -69,11 +69,11 @@
     },
     {
         "name": "bubble sort",
-        "link": "bubble-sort/"
+        "link": "bubble-sort/index.html"
     },
     {
         "name": "quick sort",
-        "link": "quick-sort/"
+        "link": "quick-sort/index.html"
     },
     {
         "name": "echarts",
