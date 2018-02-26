@@ -13,11 +13,9 @@ function getQueryStringByName(name, defaultValue) {
 const interval = getQueryStringByName('interval', 10);
 const number = getQueryStringByName('number', 100);
 
-// define function
-let i = 0;
 const steps = []; // select compare move
 function quickSort(a, start, end) {
-    i = start;
+    let i = start;
     let j = end;
     steps.push({ select: [i, j] });
     while (i < j) {
@@ -46,15 +44,18 @@ function quickSort(a, start, end) {
             a[j] = temp2;
         }
     }
-    if (start < i - 1) quickSort(a, start, i - 1);
-    if (end > i + 1) quickSort(a, i + 1, end);
-    return a;
+    if (start < i - 1) {
+        quickSort(a, start, i - 1);
+    }
+    if (end > i + 1) {
+        quickSort(a, i + 1, end);
+    }
 }
 
 // define array
 const array = [];
 const arrayInit = [];
-for (i = 0; i < number; i++) {
+for (let i = 0; i < number; i++) {
     array[i] = Math.random();
     arrayInit[i] = array[i];
 }
@@ -87,12 +88,12 @@ function addCss(sheet, selectorText, cssText, position) {
 }
 
 addCss(css, 'div', 'width: ' + 100 / number + '%; ' + transition + ': background ' + interval / 1000 + 's, left ' + interval / 1000 + 's;');
-for (i = 0; i < number; i++) {
+for (let i = 0; i < number; i++) {
     addCss(css, '.div' + i, 'height: ' + 100 * arrayInit[i] + '%;');
 }
 // create div
 const div = [];
-for (i = 0; i < number; i++) {
+for (let i = 0; i < number; i++) {
     const d = document.createElement('div');
     d.classList.add('div' + i);
     d.style.left = 100 / number * i + '%';
@@ -106,7 +107,7 @@ let loopVar = 0;
 function loopFunc() {
     if (loopVar >= steps.length) {
         clearTimeout(loopVar);
-        for (i = 0; i < number; i++) {
+        for (let i = 0; i < number; i++) {
             const classList = div[i].classList;
             classList.remove('select');
             classList.remove('compare');
@@ -115,25 +116,25 @@ function loopFunc() {
         return;
     }
     if (steps[loopVar].hasOwnProperty('select')) {
-        for (i = 0; i < number; i++) {
+        for (let i = 0; i < number; i++) {
             const classList = div[i].classList;
             classList.remove('select');
             classList.remove('compare');
             classList.remove('compareTo');
         }
-        for (i = steps[loopVar].select[0]; i <= steps[loopVar].select[1]; i++) {
+        for (let i = steps[loopVar].select[0]; i <= steps[loopVar].select[1]; i++) {
             div[i].classList.add('select');
         }
         toBeMoved = steps[loopVar].select[0];
     }
     if (steps[loopVar].hasOwnProperty('compareTo')) {
-        for (i = 0; i < number; i++) {
+        for (let i = 0; i < number; i++) {
             div[i].classList.remove('compareTo');
         }
         div[steps[loopVar].compareTo].classList.add('compareTo');
     }
     if (steps[loopVar].hasOwnProperty('compare')) {
-        for (i = 0; i < number; i++) {
+        for (let i = 0; i < number; i++) {
             div[i].classList.remove('compare');
         }
         div[steps[loopVar].compare].classList.add('compare');
