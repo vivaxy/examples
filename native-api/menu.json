@@ -4,6 +4,10 @@
         "link": "webrtc/"
     },
     {
+        "name": "Custom Elements",
+        "link": "custom-elements/index.html"
+    },
+    {
         "name": "FontFace",
         "link": "font-face/"
     },
