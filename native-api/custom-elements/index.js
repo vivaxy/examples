@@ -41,7 +41,7 @@ class BaseElement extends HTMLElement {
             element.appendChild(children);
         } else if (Array.isArray(children)) {
             children.map((child) => {
-                if (children instanceof HTMLElement) {
+                if (child instanceof HTMLElement) {
                     return element.appendChild(child);
                 }
             });
