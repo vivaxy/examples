@@ -3,58 +3,93 @@
  * @author vivaxy
  */
 
-class InputForm extends HTMLElement {
+class BaseElement extends HTMLElement {
+    constructor() {
+        super();
+        if (!this.render) {
+            throw new Error('render method is required');
+        }
+        this.state = (this.constructor.observedAttributes || []).reduce((attr, key) => ({
+            ...attr,
+            [key]: this.getAttribute(key)
+        }), {});
+        this.shadow = this.attachShadow({ mode: 'open' });
+        this.clearAndRender();
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.state[name] = newValue;
+        this.clearAndRender();
+    }
+
+    clearAndRender() {
+        Array.from(this.shadow.children).map(child => child.remove());
+        const nodes = this.render();
+        if (Array.isArray(nodes)) {
+            nodes.map(node => this.shadow.appendChild(node));
+        } else {
+            this.shadow.appendChild(nodes);
+        }
+    }
+
+    createElement({ type, attributes = {}, children, events = {} }) {
+        const element = document.createElement(type);
+        Object.keys(attributes).map(key => element.setAttribute(key, attributes[key]));
+        if (typeof children === 'string') {
+            element.textContent = children;
+        } else if (children instanceof HTMLElement) {
+            element.appendChild(children);
+        } else if (Array.isArray(children)) {
+            children.map((child) => {
+                if (children instanceof HTMLElement) {
+                    return element.appendChild(child);
+                }
+            });
+        }
+        Object.keys(events).map(key => element.addEventListener(key, events[key]));
+        return element;
+    }
+
+}
+
+class InputForm extends BaseElement {
 
     static get observedAttributes() {
         return ['value', 'name'];
     }
 
-    constructor() {
-        super();
-        this.state = { value: this.getAttribute('value'), name: this.getAttribute('name') };
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.render();
-        this.attachEvents();
+    handleSubmit() {
+        const event = new CustomEvent('set-value');
+        event.value = this.state.value;
+        this.dispatchEvent(event);
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.state[name] = newValue;
-    }
-
-    attachEvents() {
-        const button = this.shadow.querySelector('.js-button');
-        const input = this.shadow.querySelector('.js-input');
-        input.addEventListener('change', (e) => {
-            this.state.value = e.target.value;
-        });
-        button.addEventListener('click', () => {
-            const event = new CustomEvent('set-value');
-            event.value = this.state.value;
-            this.dispatchEvent(event);
-        });
+    handleChange(e) {
+        this.state.value = e.target.value;
     }
 
     render() {
-        const { value, name } = this.state;
-        this.shadow.innerHTML = `<input type="text" value="${value}" class="js-input" /><button class="js-button">${name}</button>`
+        return [
+            this.createElement({
+                type: 'input',
+                attributes: { type: 'text', value: this.state.value },
+                events: { change: this.handleChange.bind(this) },
+            }),
+            this.createElement({
+                type: 'button',
+                children: this.state.name,
+                events: { click: this.handleSubmit.bind(this) },
+            }),
+        ];
     }
 }
 
-class ExampleRoot extends HTMLElement {
+customElements.define('input-form', InputForm);
+
+class ExampleRoot extends BaseElement {
 
     static get observedAttributes() {
-        return ['width'];
-    }
-
-    constructor() {
-        super();
-        this.state = {
-            width: this.getAttribute('width'),
-            height: this.getAttribute('height'),
-        };
-        this.shadow = this.attachShadow({ mode: 'open' });
-        this.render();
-        this.attachEvents();
+        return ['width', 'height'];
     }
 
     connectedCallback() {
@@ -70,41 +105,44 @@ class ExampleRoot extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+        super.attributeChangedCallback(name, oldValue, newValue);
         console.log('attributeChangedCallback', name, oldValue, newValue);
-        this.state[name] = newValue;
     }
 
-    attachEvents() {
-        const widthInputForm = this.shadow.querySelector('.js-width');
-        const heightInputForm = this.shadow.querySelector('.js-height');
-        widthInputForm.addEventListener('set-value', (e) => {
-            this.setAttribute('width', e.value);
-        });
-        heightInputForm.addEventListener('set-value', (e) => {
-            this.setAttribute('height', e.value);
-        });
-        const dispatchEventButton = this.shadow.querySelector('.js-dispatch-event-button');
-        dispatchEventButton.addEventListener('click', () => {
-            const event = new CustomEvent('example-event');
-            event.currentAttr = this.state;
-            this.dispatchEvent(event);
+    handleDispatchEvent() {
+        const event = new CustomEvent('example-event');
+        event.currentAttr = this.state;
+        this.dispatchEvent(event);
+    }
+
+    updateAttribute(name) {
+        return (e) => {
+            this.setAttribute(name, e.value);
+        };
+    }
+
+    createInputForm(name) {
+        return this.createElement({
+            type: 'input-form',
+            attributes: { value: this.state[name], name: `Set ${name}` },
+            events: { 'set-value': this.updateAttribute.call(this, name) },
         });
     }
 
     render() {
-        const { width, height } = this.state;
-        this.shadow.innerHTML = `<div>
-    <input-form value="${width}" class="js-width" name="Set width"></input-form>
-    <hr />
-    <input-form value="${height}" class="js-height" name="Set height"></input-form>
-    <hr />
-    <button class="js-dispatch-event-button">Dispatch event</button>
-</div>`
+        return [
+            this.createInputForm('width'),
+            this.createElement({ type: 'hr' }),
+            this.createInputForm('height'),
+            this.createElement({ type: 'hr' }),
+            this.createElement({
+                type: 'button',
+                children: 'Dispatch event',
+                events: { click: this.handleDispatchEvent.bind(this) },
+            }),
+        ];
     }
 }
 
 customElements.define('example-root', ExampleRoot);
-customElements.define('input-form', InputForm);
-document.querySelector('example-root').addEventListener('example-event', (e) => {
-    console.log(e.currentAttr);
-});
+document.querySelector('example-root').addEventListener('example-event', e => console.log(e.currentAttr));
