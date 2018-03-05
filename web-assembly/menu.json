@@ -2,5 +2,9 @@
     {
         "name": "MDN Basic Example",
         "link": "mdn-basic-example/hello.html"
+    },
+    {
+        "name": "Standalone Example",
+        "link": "standalone-example/index.html"
     }
 ]
