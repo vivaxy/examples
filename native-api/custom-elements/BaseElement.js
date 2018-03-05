@@ -49,6 +49,4 @@ class BaseElement extends HTMLElement {
         Object.keys(events).map(key => element.addEventListener(key, events[key]));
         return element;
     }
-
 }
-
