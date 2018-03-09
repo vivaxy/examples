@@ -1,0 +1,10 @@
+[
+    {
+        "name": "Bubble Sort",
+        "link": "bubble-sort/index.html"
+    },
+    {
+        "name": "Quick Sort",
+        "link": "quick-sort/index.html"
+    }
+]

@@ -1,5 +1,9 @@
 [
     {
+        "name": "Algorithms",
+        "link": "algorithms/index.html"
+    },
+    {
         "name": "Compiler",
         "link": "compiler/index.html"
     },
@@ -70,14 +74,6 @@
     {
         "name": "ECMAScript 6",
         "link": "ecma-script-6/index.html"
-    },
-    {
-        "name": "Bubble Sort",
-        "link": "bubble-sort/index.html"
-    },
-    {
-        "name": "Quick Sort",
-        "link": "quick-sort/index.html"
     },
     {
         "name": "Echarts",
