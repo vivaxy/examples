@@ -170,5 +170,9 @@
     {
         "name": "service worker",
         "link": "service-worker/"
+    },
+    {
+        "name": "sourceMappingURL and sourceURL",
+        "link": "source-mapping-url-and-source-url/index.html"
     }
 ]

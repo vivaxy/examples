@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "file": "out.js",
+    "sourceRoot": "",
+    "sources": [
+        "sourcemap:///foo.js",
+        "sourcemap:///bar.js"
+    ],
+    "names": [
+        "src",
+        "maps",
+        "are",
+        "fun"
+    ],
+    "mappings": "AAgBC,SAAQ,CAAEA"
+}
