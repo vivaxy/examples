@@ -1,5 +1,13 @@
 [
     {
+        "name": "Depth First Search",
+        "link": "depth-first-search/index.html"
+    },
+    {
+        "name": "TreeNode",
+        "link": "tree-node/index.html"
+    },
+    {
         "name": "Bubble Sort",
         "link": "bubble-sort/index.html"
     },
