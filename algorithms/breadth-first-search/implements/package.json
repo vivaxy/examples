@@ -1,0 +1,17 @@
+{
+  "name": "implements",
+  "version": "1.0.0",
+  "description": "breadth first search",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "algorithms"
+  ],
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
+}
