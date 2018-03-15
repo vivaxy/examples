@@ -1,0 +1,8 @@
+/**
+ * @since 20180315 09:57
+ * @author vivaxy
+ */
+
+input:default + label {
+    background-color: #ffff00;
+}
