@@ -190,5 +190,9 @@
   {
     "name": "jpeg-js-lib",
     "link": "jpeg-js-lib/index.js"
+  },
+  {
+    "name": "pngjs3-lib",
+    "link": "pngjs3-lib/index.js"
   }
 ]
