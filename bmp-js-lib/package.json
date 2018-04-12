@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bmp-js": "^0.0.3",
+    "fs-extra": "^5.0.0"
+  }
+}

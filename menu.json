@@ -194,5 +194,9 @@
   {
     "name": "pngjs3-lib",
     "link": "pngjs3-lib/index.js"
+  },
+  {
+    "name": "bmp-js-lib",
+    "link": "bmp-js-lib/index.js"
   }
 ]
