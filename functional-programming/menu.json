@@ -1,18 +1,18 @@
 [
-    {
-        "name": "Linked List",
-        "link": "linked-list/"
-    },
-    {
-        "name": "Lazy Evaluation",
-        "link": "lazy-evaluation/"
-    },
-    {
-        "name": "Tree Node",
-        "link": "tree-node/"
-    },
-    {
-        "name": "Manipulate Functions",
-        "link": "manipulate-functions/"
-    }
+  {
+    "name": "Linked List",
+    "link": "linked-list/index.js"
+  },
+  {
+    "name": "Lazy Evaluation",
+    "link": "lazy-evaluation/index.js"
+  },
+  {
+    "name": "Tree Node",
+    "link": "tree-node/index.js"
+  },
+  {
+    "name": "Manipulate Functions",
+    "link": "manipulate-functions/index.html"
+  }
 ]

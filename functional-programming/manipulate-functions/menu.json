@@ -1,0 +1,26 @@
+[
+  {
+    "name": "async pipe",
+    "link": "async-pipe.js"
+  },
+  {
+    "name": "compose",
+    "link": "compose.js"
+  },
+  {
+    "name": "curry",
+    "link": "curry.js"
+  },
+  {
+    "name": "pipe",
+    "link": "pipe.js"
+  },
+  {
+    "name": "reverse-args",
+    "link": "reverse-args.js"
+  },
+  {
+    "name": "unary",
+    "link": "unary.js"
+  }
+]
