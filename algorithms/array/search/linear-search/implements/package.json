@@ -1,0 +1,16 @@
+{
+  "name": "implements",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "ava": "^0.25.0"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT"
+}

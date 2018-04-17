@@ -1,22 +1,10 @@
 [
   {
-    "name": "Depth First Search",
-    "link": "depth-first-search/index.html"
+    "name": "Array",
+    "link": "array/index.html"
   },
   {
-    "name": "Breadth First Search",
-    "link": "breadth-first-search/index.html"
-  },
-  {
-    "name": "TreeNode",
+    "name": "Tree Node",
     "link": "tree-node/index.html"
-  },
-  {
-    "name": "Bubble Sort",
-    "link": "bubble-sort/index.html"
-  },
-  {
-    "name": "Quick Sort",
-    "link": "quick-sort/index.html"
   }
 ]
