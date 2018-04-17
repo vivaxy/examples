@@ -2,5 +2,9 @@
   {
     "name": "Linear Search",
     "link": "linear-search/index.html"
+  },
+  {
+    "name": "Binary Search",
+    "link": "binary-search/index.html"
   }
 ]
