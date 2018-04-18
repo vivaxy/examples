@@ -20,3 +20,10 @@ const imageDataToBinary1 = async() => {
 };
 
 imageDataToBinary1();
+
+const binaryToImageData1 = async() => {
+  const buffer = await fse.readFile('imageDataToBinary1.png');
+  console.log(PNG.sync.read(buffer));
+};
+
+binaryToImageData1();
