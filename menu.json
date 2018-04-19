@@ -189,7 +189,7 @@
   },
   {
     "name": "PNG",
-    "link": "png/parser.js"
+    "link": "png/index.js"
   },
   {
     "name": "jpeg-js-lib",

@@ -4,14 +4,14 @@
  */
 
 const zlib = require('pako');
-const constants = require('./parser/constants.js');
-const CrcCalculator = require('./parser/crc.js');
-const SyncReader = require('./parser/sync-reader.js');
-const filter = require('./parser/filter.js');
-const dataToBitMap = require('./parser/dataToBitMap/index.js');
-const formatNormaliser = require('./parser/format-normaliser.js');
+const constants = require('../lib/constants.js');
+const CrcCalculator = require('../lib/crc.js');
+const SyncReader = require('./sync-reader.js');
+const filter = require('./filter.js');
+const dataToBitMap = require('./dataToBitMap/index.js');
+const formatNormaliser = require('./format-normaliser.js');
 
-module.exports = function parser(buffer, options = {}) {
+module.exports = function decode(buffer, options = {}) {
   const syncReader = new SyncReader(buffer);
 
   const checkCRC = options.checkCRC === undefined ? true : options.checkCRC;

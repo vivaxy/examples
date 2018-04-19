@@ -4,7 +4,7 @@
  */
 
 const SyncReader = require('./sync-reader.js');
-const paethPredictor = require('./paeth-predictor.js');
+const paethPredictor = require('../lib/paeth-predictor.js');
 const { getImagePasses } = require('./interlace.js');
 
 function getByteWidth(width, bpp, depth) {
