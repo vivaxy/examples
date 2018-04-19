@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "bundle": "npx browserify parser.js -s pngParser > bundle.js",
+    "test-bundle": "npx browserify __tests__/helpers/index.js > __tests__/helpers/standalone.js"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
