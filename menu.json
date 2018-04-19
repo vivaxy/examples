@@ -188,6 +188,10 @@
     "link": "rsa/index.html"
   },
   {
+    "name": "PNG",
+    "link": "png/parser.js"
+  },
+  {
     "name": "jpeg-js-lib",
     "link": "jpeg-js-lib/index.js"
   },

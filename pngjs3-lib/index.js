@@ -19,11 +19,12 @@ const imageDataToBinary1 = async() => {
   await fse.writeFile('imageDataToBinary1.png', buffer, { encoding: 'binary' });
 };
 
-imageDataToBinary1();
-
 const binaryToImageData1 = async() => {
   const buffer = await fse.readFile('imageDataToBinary1.png');
   console.log(PNG.sync.read(buffer));
 };
 
-binaryToImageData1();
+(async() => {
+  await imageDataToBinary1();
+  await binaryToImageData1();
+})();
