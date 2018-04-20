@@ -145,12 +145,7 @@ module.exports = function filter(inBuffer, bitmapInfo) {
     }
   }
 
-  function start() {
-    read(images[imageIndex].byteWidth + 1, reverseFilterLine);
-    syncReader.process();
-    return Buffer.concat(unfilteredLines);
-  }
-
-  return start();
-
+  read(images[imageIndex].byteWidth + 1, reverseFilterLine);
+  syncReader.process();
+  return Buffer.concat(unfilteredLines);
 };

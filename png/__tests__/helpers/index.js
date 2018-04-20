@@ -8,7 +8,7 @@ const parser = require('../../parser.js');
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
 
-fetch('../fixtures/pixles_5x5_interlace.png')
+fetch('../fixtures/pixels_5x5_interlace.png')
   .then((res) => {
     return res.arrayBuffer();
   })
