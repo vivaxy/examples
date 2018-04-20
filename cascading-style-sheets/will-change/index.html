@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
+  <link type="text/css" rel="stylesheet" href="index.css">
+  <title>Will Change</title>
+</head>
+<body>
+<div class="element"></div>
+<pre>
+  1. Open browser console.
+  2. Open `Rendering` panel.
+  3. Check `Layer borders`.
+
+  If `will-change` is not given, the red circle is not in a separated layer. So the browser rendering the circle with other elements.
+  If you want to animate the circle, you expect the browser to render the circle in a separated layer for better optimization.
+
+  There are two ways to do that.
+
+  1. Add `transform`.
+  2. Add `will-change: transform;`.
+
+  `will-change` is useful to do that ahead of time, before the actual `transform` happens.
+
+  If you encounter a jank, this will be useful.
+</pre>
+<p>Reference: <a href="https://www.youtube.com/watch?v=zwaanTsSH2M">Will-Change: Micro Tip #30 - Supercharged</a></p>
+<script type="text/javascript" charset="utf-8" src="index.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+</body>
+</html>
