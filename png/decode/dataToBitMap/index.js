@@ -11,15 +11,15 @@ module.exports = function(data, bitmapInfo) {
     bpp,
     interlace,
   } = bitmapInfo;
+  let bits;
 
   if (depth !== 8) {
-    var bits = bitRetriever(data, depth);
+    bits = bitRetriever(data, depth);
   }
-  var pxData;
+  let pxData;
   if (depth <= 8) {
     pxData = new Buffer(width * height * 4);
-  }
-  else {
+  } else {
     pxData = new Uint16Array(width * height * 4);
   }
   let rawPos = 0;
@@ -29,25 +29,23 @@ module.exports = function(data, bitmapInfo) {
   if (interlace) {
     images = interlaceUtils.getImagePasses(width, height);
     getPxPos = interlaceUtils.getInterlaceIterator(width, height);
-  }
-  else {
-    var nonInterlacedPxPos = 0;
+  } else {
+    let nonInterlacedPxPos = 0;
     getPxPos = function() {
-      var returner = nonInterlacedPxPos;
+      const returner = nonInterlacedPxPos;
       nonInterlacedPxPos += 4;
       return returner;
     };
     images = [{ width: width, height: height }];
   }
 
-  for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
+  for (let imageIndex = 0; imageIndex < images.length; imageIndex++) {
     if (depth === 8) {
       rawPos = mapImage8Bit({
         image: images[imageIndex],
         pxData, getPxPos, bpp, data, rawPos,
       });
-    }
-    else {
+    } else {
       const maxBit = Math.pow(2, depth) - 1;
       rawPos = mapImageCustomBit({
         image: images[imageIndex],
@@ -59,8 +57,7 @@ module.exports = function(data, bitmapInfo) {
     if (rawPos !== data.length) {
       throw new Error('extra data found');
     }
-  }
-  else {
+  } else {
     bits.end();
   }
 

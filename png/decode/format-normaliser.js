@@ -1,15 +1,15 @@
 function dePalette(indata, outdata, width, height, palette) {
-  var pxPos = 0;
+  let pxPos = 0;
   // use values from palette
-  for (var y = 0; y < height; y++) {
-    for (var x = 0; x < width; x++) {
-      var color = palette[indata[pxPos]];
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const color = palette[indata[pxPos]];
 
       if (!color) {
         throw new Error('index ' + indata[pxPos] + ' not in palette');
       }
 
-      for (var i = 0; i < 4; i++) {
+      for (let i = 0; i < 4; i++) {
         outdata[pxPos + i] = color[i];
       }
       pxPos += 4;
@@ -18,21 +18,20 @@ function dePalette(indata, outdata, width, height, palette) {
 }
 
 function replaceTransparentColor(indata, outdata, width, height, transColor) {
-  var pxPos = 0;
-  for (var y = 0; y < height; y++) {
-    for (var x = 0; x < width; x++) {
-      var makeTrans = false;
+  let pxPos = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let makeTrans = false;
 
       if (transColor.length === 1) {
         if (transColor[0] === indata[pxPos]) {
           makeTrans = true;
         }
-      }
-      else if (transColor[0] === indata[pxPos] && transColor[1] === indata[pxPos + 1] && transColor[2] === indata[pxPos + 2]) {
+      } else if (transColor[0] === indata[pxPos] && transColor[1] === indata[pxPos + 1] && transColor[2] === indata[pxPos + 2]) {
         makeTrans = true;
       }
       if (makeTrans) {
-        for (var i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
           outdata[pxPos + i] = 0;
         }
       }
@@ -42,13 +41,13 @@ function replaceTransparentColor(indata, outdata, width, height, transColor) {
 }
 
 function scaleDepth(indata, outdata, width, height, depth) {
-  var maxOutSample = 255;
-  var maxInSample = Math.pow(2, depth) - 1;
-  var pxPos = 0;
+  const maxOutSample = 255;
+  const maxInSample = Math.pow(2, depth) - 1;
+  let pxPos = 0;
 
-  for (var y = 0; y < height; y++) {
-    for (var x = 0; x < width; x++) {
-      for (var i = 0; i < 4; i++) {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      for (let i = 0; i < 4; i++) {
         outdata[pxPos + i] = Math.floor((indata[pxPos + i] * maxOutSample) / maxInSample + 0.5);
       }
       pxPos += 4;
@@ -57,19 +56,18 @@ function scaleDepth(indata, outdata, width, height, depth) {
 }
 
 module.exports = function(indata, imageData, skipRescale = false) {
-  var depth = imageData.depth;
-  var width = imageData.width;
-  var height = imageData.height;
-  var colorType = imageData.colorType;
-  var transColor = imageData.transColor;
-  var palette = imageData.palette;
+  const depth = imageData.depth;
+  const width = imageData.width;
+  const height = imageData.height;
+  const colorType = imageData.colorType;
+  const transColor = imageData.transColor;
+  const palette = imageData.palette;
 
-  var outdata = indata; // only different for 16 bits
+  let outdata = indata; // only different for 16 bits
 
   if (colorType === 3) { // paletted
     dePalette(indata, outdata, width, height, palette);
-  }
-  else {
+  } else {
     if (transColor) {
       replaceTransparentColor(indata, outdata, width, height, transColor);
     }

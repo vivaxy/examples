@@ -29,8 +29,7 @@ module.exports = class SyncReader {
 
         read.func.call(this, buf.slice(0, read.length));
 
-      }
-      else {
+      } else {
         break;
       }
 

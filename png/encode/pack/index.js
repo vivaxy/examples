@@ -9,7 +9,7 @@ const filterSumUp = require('./filterSumUp.js');
 const filterSumAvg = require('./filterSumAvg.js');
 const filterSumPaeth = require('./filterSumPaeth.js');
 
-var filters = {
+const filters = {
   '0': filterNone,
   '1': filterSub,
   '2': filterUp,
@@ -17,7 +17,7 @@ var filters = {
   '4': filterPaeth,
 };
 
-var filterSums = {
+const filterSums = {
   '0': filterSumNone,
   '1': filterSumSub,
   '2': filterSumUp,
@@ -26,35 +26,33 @@ var filterSums = {
 };
 
 module.exports = function(pxData, width, height, options, bpp) {
-  var filterTypes;
+  let filterTypes;
   if (!('filterType' in options) || options.filterType === -1) {
     filterTypes = ['0', '1', '2', '3', '4'];
-  }
-  else if (typeof options.filterType === 'number') {
+  } else if (typeof options.filterType === 'number') {
     filterTypes = [options.filterType];
-  }
-  else {
+  } else {
     throw new Error('unrecognised filter types');
   }
 
   if (options.bitDepth === 16) {
-    bpp *= 2; // eslint-disable-line
+    bpp *= 2;
   }
-  var byteWidth = width * bpp;
-  var rawPos = 0;
-  var pxPos = 0;
-  var rawData = new Buffer((byteWidth + 1) * height);
+  const byteWidth = width * bpp;
+  let rawPos = 0;
+  let pxPos = 0;
+  const rawData = new Buffer((byteWidth + 1) * height);
 
-  var sel = filterTypes[0];
+  let sel = filterTypes[0];
 
-  for (var y = 0; y < height; y++) {
+  for (let y = 0; y < height; y++) {
 
     if (filterTypes.length > 1) {
       // find best filter for this line (with lowest sum of values)
-      var min = Infinity;
+      let min = Infinity;
 
-      for (var i = 0; i < filterTypes.length; i++) {
-        var sum = filterSums[filterTypes[i]](pxData, pxPos, byteWidth, bpp);
+      for (let i = 0; i < filterTypes.length; i++) {
+        const sum = filterSums[filterTypes[i]](pxData, pxPos, byteWidth, bpp);
         if (sum < min) {
           sel = filterTypes[i];
           min = sum;

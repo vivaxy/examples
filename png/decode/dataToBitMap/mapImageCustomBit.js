@@ -1,12 +1,7 @@
 const pixelBppMap = require('./pixelBppMap.js');
 
-module.exports = function mapImageCustomBit({
-                                              image, pxData, getPxPos, bpp, bits, maxBit,
-                                            }) {
-  const {
-    width: imageWidth,
-    height: imageHeight,
-  } = image;
+module.exports = function mapImageCustomBit({ image, pxData, getPxPos, bpp, bits, maxBit }) {
+  const { width: imageWidth, height: imageHeight } = image;
   let imagePass = image.index;
   for (let y = 0; y < imageHeight; y++) {
     for (let x = 0; x < imageWidth; x++) {

@@ -1,8 +1,6 @@
 const pixelBppMap = require('./pixelBppMap.js');
 
-module.exports = function mapImage8Bit({
-                                         image, pxData, getPxPos, bpp, data, rawPos,
-                                       }) {
+module.exports = function mapImage8Bit({ image, pxData, getPxPos, bpp, data, rawPos }) {
   const imageWidth = image.width;
   const imageHeight = image.height;
   let imagePass = image.index;
@@ -14,16 +12,15 @@ module.exports = function mapImage8Bit({
         let idx = pixelBppMap[bpp][i];
         if (idx === 0xff) {
           pxData[pxPos + i] = 0xff;
-        }
-        else {
+        } else {
           let dataPos = idx + rawPos;
-          if (dataPos === data.length) { // eslint-disable-line
+          if (dataPos === data.length) {
             throw new Error('Ran out of data');
           }
           pxData[pxPos + i] = data[dataPos];
         }
       }
-      rawPos += bpp; //eslint-disable-line no-param-reassign
+      rawPos += bpp;
     }
   }
   return rawPos;

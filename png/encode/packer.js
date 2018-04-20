@@ -53,17 +53,17 @@ module.exports = class Packer {
 
   filterData(data, width, height) {
     // convert to correct format for filtering (e.g. right bpp and bit depth)
-    var packedData = bitPacker(data, width, height, this._options);
+    const packedData = bitPacker(data, width, height, this._options);
 
     // filter pixel data
-    var bpp = constants.COLORTYPE_TO_BPP_MAP[this._options.colorType];
+    const bpp = constants.COLORTYPE_TO_BPP_MAP[this._options.colorType];
     return filter(packedData, width, height, this._options, bpp);
   }
 
   _packChunk(type, data) {
 
-    var len = (data ? data.length : 0);
-    var buf = new Buffer(len + 12);
+    const len = (data ? data.length : 0);
+    const buf = new Buffer(len + 12);
 
     buf.writeUInt32BE(len, 0);
     buf.writeUInt32BE(type, 4);
@@ -77,14 +77,14 @@ module.exports = class Packer {
   }
 
   packGAMA(gamma) {
-    var buf = new Buffer(4);
+    const buf = new Buffer(4);
     buf.writeUInt32BE(Math.floor(gamma * constants.GAMMA_DIVISION), 0);
     return this._packChunk(constants.TYPE_gAMA, buf);
   }
 
   packIHDR(width, height) {
 
-    var buf = new Buffer(13);
+    const buf = new Buffer(13);
     buf.writeUInt32BE(width, 0);
     buf.writeUInt32BE(height, 4);
     buf[8] = this._options.bitDepth; // Bit depth

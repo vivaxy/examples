@@ -1,10 +1,10 @@
 const constants = require('../lib/constants.js');
 
 module.exports = function(dataIn, width, height, options) {
-  var outHasAlpha = [constants.COLORTYPE_COLOR_ALPHA, constants.COLORTYPE_ALPHA].indexOf(options.colorType) !== -1;
+  const outHasAlpha = [constants.COLORTYPE_COLOR_ALPHA, constants.COLORTYPE_ALPHA].indexOf(options.colorType) !== -1;
   if (options.colorType === options.inputColorType) {
-    var bigEndian = (function() {
-      var buffer = new ArrayBuffer(2);
+    const bigEndian = (function() {
+      const buffer = new ArrayBuffer(2);
       new DataView(buffer).setInt16(0, 256, true /* littleEndian */);
       // Int16Array uses the platform's endianness.
       return new Int16Array(buffer)[0] !== 256;
@@ -16,31 +16,28 @@ module.exports = function(dataIn, width, height, options) {
   }
 
   // map to a UInt16 array if data is 16bit, fix endianness below
-  var data = options.bitDepth !== 16 ? dataIn : new Uint16Array(dataIn.buffer);
+  const data = options.bitDepth !== 16 ? dataIn : new Uint16Array(dataIn.buffer);
 
-  var maxValue = 255;
-  var inBpp = constants.COLORTYPE_TO_BPP_MAP[options.inputColorType];
+  let maxValue = 255;
+  let inBpp = constants.COLORTYPE_TO_BPP_MAP[options.inputColorType];
   if (inBpp === 4 && !options.inputHasAlpha) {
     inBpp = 3;
   }
-  var outBpp = constants.COLORTYPE_TO_BPP_MAP[options.colorType];
+  let outBpp = constants.COLORTYPE_TO_BPP_MAP[options.colorType];
   if (options.bitDepth === 16) {
     maxValue = 65535;
     outBpp *= 2;
   }
-  var outData = new Buffer(width * height * outBpp);
+  const outData = new Buffer(width * height * outBpp);
 
-  var inIndex = 0;
-  var outIndex = 0;
+  let inIndex = 0;
+  let outIndex = 0;
 
-  var bgColor = Object.assign(
-    {
-      red: maxValue,
-      green: maxValue,
-      blue: maxValue,
-    },
-    options.bgColor,
-  );
+  const bgColor = Object.assign({
+    red: maxValue,
+    green: maxValue,
+    blue: maxValue,
+  }, options.bgColor);
 
   function getRGBA() {
     let red = maxValue;
@@ -85,9 +82,9 @@ module.exports = function(dataIn, width, height, options) {
     return { red: red, green: green, blue: blue, alpha: alpha };
   }
 
-  for (var y = 0; y < height; y++) {
-    for (var x = 0; x < width; x++) {
-      var rgba = getRGBA();
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const rgba = getRGBA();
 
       switch (options.colorType) {
         case constants.COLORTYPE_COLOR_ALPHA:
@@ -99,8 +96,7 @@ module.exports = function(dataIn, width, height, options) {
             if (outHasAlpha) {
               outData[outIndex + 3] = rgba.alpha;
             }
-          }
-          else {
+          } else {
             outData.writeUInt16BE(rgba.red, outIndex);
             outData.writeUInt16BE(rgba.green, outIndex + 2);
             outData.writeUInt16BE(rgba.blue, outIndex + 4);
@@ -112,14 +108,13 @@ module.exports = function(dataIn, width, height, options) {
         case constants.COLORTYPE_ALPHA:
         case constants.COLORTYPE_GRAYSCALE:
           // Convert to grayscale and alpha
-          var grayscale = (rgba.red + rgba.green + rgba.blue) / 3;
+          const grayscale = (rgba.red + rgba.green + rgba.blue) / 3;
           if (options.bitDepth === 8) {
             outData[outIndex] = grayscale;
             if (outHasAlpha) {
               outData[outIndex + 1] = rgba.alpha;
             }
-          }
-          else {
+          } else {
             outData.writeUInt16BE(grayscale, outIndex);
             if (outHasAlpha) {
               outData.writeUInt16BE(rgba.alpha, outIndex + 2);
