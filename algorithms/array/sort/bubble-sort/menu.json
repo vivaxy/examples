@@ -1,6 +1,6 @@
 [
-    {
-        "name": "Animation",
-        "link": "animation/index.html"
-    }
+  {
+    "name": "Animation",
+    "link": "animation/index.html?interval=300&number=30"
+  }
 ]
