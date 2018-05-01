@@ -2,5 +2,9 @@
   {
     "name": "Implements",
     "link": "implements/index.html"
+  },
+  {
+    "name": "Animation",
+    "link": "Animation/index.html?interval=1000&length=10"
   }
 ]

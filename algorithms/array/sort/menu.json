@@ -6,5 +6,9 @@
   {
     "name": "Quick Sort",
     "link": "quick-sort/index.html"
+  },
+  {
+    "name": "Selection Sort",
+    "link": "selection-sort/index.html"
   }
 ]
