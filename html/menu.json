@@ -1,18 +1,22 @@
 [
-    {
-        "name": "multiple select",
-        "link": "select-multiple/"
-    },
-    {
-        "name": "playsinline",
-        "link": "playsinline/"
-    },
-    {
-        "name": "meta scale",
-        "link": "meta-scale/"
-    },
-    {
-        "name": "datalist",
-        "link": "datalist/"
-    }
+  {
+    "name": "Multiple Select",
+    "link": "select-multiple/"
+  },
+  {
+    "name": "playsinline",
+    "link": "playsinline/"
+  },
+  {
+    "name": "Meta Scale",
+    "link": "meta-scale/"
+  },
+  {
+    "name": "datalist",
+    "link": "datalist/"
+  },
+  {
+    "name": "Meta Width",
+    "link": "meta-width/index.html"
+  }
 ]

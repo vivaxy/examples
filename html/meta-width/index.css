@@ -1,0 +1,27 @@
+/**
+ * @since 2018-05-01 16:46:23
+ * @author vivaxy
+ */
+
+body {
+  margin: 0;
+}
+
+input {
+  width: 750px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 60px;
+  font-size: 60px;
+  line-height: 60px;
+}
+
+button {
+  width: 750px;
+  margin: 0;
+  padding: 0;
+  height: 60px;
+  font-size: 60px;
+  line-height: 60px;
+}
