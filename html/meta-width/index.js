@@ -5,10 +5,20 @@
 
 const input = document.querySelector('input');
 const button = document.querySelector('button');
+const meta = document.createElement('meta');
 
-button.addEventListener('click', () => {
-  url.searchParams.set('width', input.value);
-  location.href = url.href;
-});
+const setMeta = () => {
+  let width = input.value || '750';
+  if (width === 'device-width') {
+    width = window.screen.width;
+  } else {
+    width = Number(width);
+  }
+  const scale = window.screen.width / width;
+  meta.setAttribute('content', `width=${width}, initial-scale=${scale}, user-scalable=0`);
+  meta.setAttribute('name', 'viewport');
+};
 
-input.value = width;
+setMeta();
+document.head.appendChild(meta);
+button.addEventListener('click', setMeta);

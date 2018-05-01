@@ -5,23 +5,9 @@
   <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
   <link type="text/css" rel="stylesheet" href="index.css">
   <title>Meta Width</title>
-  <script>
-    const meta = document.createElement('meta');
-    const url = new URL(location.href);
-    let width = url.searchParams.get('width') || '750';
-    if (width === 'device-width') {
-      width = window.screen.width;
-    } else {
-      width = Number(width);
-    }
-    const scale = window.screen.width / width;
-    meta.setAttribute('content', `width=${width}, initial-scale=${scale}, maximum-scale=${scale}, user-scalable=0`);
-    meta.setAttribute('name', 'viewport');
-    document.head.appendChild(meta);
-  </script>
 </head>
 <body>
-<input/>
+<input value="750"/>
 <button>Set meta width</button>
 <script type="text/javascript" charset="utf-8" src="index.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
