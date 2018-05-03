@@ -9,11 +9,9 @@ class CheckerboardPainter {
   }
 
   paint(ctx, geom, properties) {
-    const size = parseInt(properties.get('--checkerboard-size').toString()) || 10;
-    const spacing = parseInt(properties.get('--checkerboard-spacing').toString()) || 10;
+    const size = parseInt(properties.get('--checkerboard-size').toString()) || 1;
+    const spacing = parseInt(properties.get('--checkerboard-spacing').toString()) || 1;
     const colors = ['red', 'green', 'blue'];
-
-    console.log(size);
 
     for (let y = 0; y < geom.height / size; y++) {
       for (let x = 0; x < geom.width / size; x++) {
