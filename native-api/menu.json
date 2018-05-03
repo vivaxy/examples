@@ -174,5 +174,9 @@
   {
     "name": "sourceMappingURL and sourceURL",
     "link": "source-mapping-url-and-source-url/index.html"
+  },
+  {
+    "name": "paintWorklet",
+    "link": "paint-worklet/index.html"
   }
 ]

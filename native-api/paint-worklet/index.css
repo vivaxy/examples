@@ -1,0 +1,16 @@
+/**
+ * @since 20180503 13:31
+ * @author vivaxy
+ */
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  --checkerboard-spacing: 10;
+  --checkerboard-size: 32;
+  background-image: paint(checkerboard);
+}
