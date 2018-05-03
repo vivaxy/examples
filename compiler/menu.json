@@ -2,5 +2,9 @@
   {
     "name": "chinese to javascript",
     "link": "chinese-to-javascript/index.js"
+  },
+  {
+    "name": "javascript",
+    "link": "javascript/index.js"
   }
 ]
