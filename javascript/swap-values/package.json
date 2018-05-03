@@ -1,0 +1,14 @@
+{
+  "name": "swap-values",
+  "version": "1.0.0",
+  "description": "Swap values in places",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
+}
