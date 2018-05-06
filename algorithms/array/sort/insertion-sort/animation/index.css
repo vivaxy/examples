@@ -1,5 +1,5 @@
 /**
- * @since 2018-04-22 09:09:29
+ * @since 2018-05-06 11:13:43
  * @author vivaxy
  */
 
@@ -11,28 +11,23 @@ body {
 }
 
 .item {
-  background: #83baff;
+  background: #999999;
   position: absolute;
   bottom: 0;
   color: #333;
 }
 
-.item.outer-select {
+.item.OUTER_SELECT {
   background: #90fdff;
   z-index: 1;
 }
 
-.item.inner-select {
+.item.INNER_SELECT {
   background: #cbff7c;
   z-index: 1;
 }
 
-.item.mark {
-  background: #ff7b7e;
-  z-index: 1;
-}
-
-.item.compare {
+.item.COMPARE {
   animation-name: flash;
   z-index: 1;
 }

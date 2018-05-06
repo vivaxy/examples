@@ -5,6 +5,6 @@
   },
   {
     "name": "Animation",
-    "link": "animation/index.html?interval=1000&length=10"
+    "link": "animation/index.html?interval=100&length=10"
   }
 ]
