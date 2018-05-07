@@ -49,65 +49,102 @@ test('parser', (t) => {
     body: [
       {
         type: astTypes.EXPRESSION_STATEMENT,
-        value: 1,
-      },
-      {
-        type: astTypes.BINARY_OPERATOR,
-        value: '===',
-      },
-      {
-        type: astTypes.NUMBER_LITERAL,
-        value: 2,
+        expression: {
+          type: astTypes.BINARY_EXPRESSION,
+          operator: '===',
+          left: {
+            type: astTypes.LITERAL,
+            value: 1,
+          },
+          right: {
+            type: astTypes.LITERAL,
+            value: 2,
+          },
+        },
       },
     ],
   });
-  t.deepEqual(parser(tokenizer('1 === 1 && (1 === 2)')), {
+  t.deepEqual(parser(tokenizer('1 === 2 && 3 == 4')), {
     type: astTypes.PROGRAM,
     body: [
       {
-        type: astTypes.NUMBER_LITERAL,
-        value: 1,
-      },
-      {
-        type: astTypes.BINARY_OPERATOR,
-        value: '===',
-      },
-      {
-        type: astTypes.NUMBER_LITERAL,
-        value: 1,
-      },
-      {
-        type: astTypes.BINARY_OPERATOR,
-        value: '&&',
-      },
-      {
-        type: astTypes.PARENTHESIS,
-        body: [
-          {
-            type: astTypes.NUMBER_LITERAL,
-            value: 1,
+        type: astTypes.EXPRESSION_STATEMENT,
+        expression: {
+          type: astTypes.LOGICAL_EXPRESSION,
+          operator: '&&',
+          left: {
+            type: astTypes.BINARY_EXPRESSION,
+            operator: '===',
+            left: {
+              type: astTypes.LITERAL,
+              value: 1,
+            },
+            right: {
+              type: astTypes.LITERAL,
+              value: 2,
+            },
           },
-          {
-            type: astTypes.BINARY_OPERATOR,
-            value: '===',
+          right: {
+            type: astTypes.BINARY_EXPRESSION,
+            operator: '==',
+            left: {
+              type: astTypes.LITERAL,
+              value: 3,
+            },
+            right: {
+              type: astTypes.LITERAL,
+              value: 4,
+            },
           },
-          {
-            type: astTypes.NUMBER_LITERAL,
-            value: 2,
+        },
+      },
+    ],
+  });
+  t.deepEqual(parser(tokenizer('1 === 2 && (3 == 4)')), {
+    type: astTypes.PROGRAM,
+    body: [
+      {
+        type: astTypes.EXPRESSION_STATEMENT,
+        expression: {
+          type: astTypes.LOGICAL_EXPRESSION,
+          operator: '&&',
+          left: {
+            type: astTypes.BINARY_EXPRESSION,
+            operator: '===',
+            left: {
+              type: astTypes.LITERAL,
+              value: 1,
+            },
+            right: {
+              type: astTypes.LITERAL,
+              value: 2,
+            },
           },
-        ],
+          right: {
+            type: astTypes.BINARY_EXPRESSION,
+            operator: '==',
+            left: {
+              type: astTypes.LITERAL,
+              value: 3,
+            },
+            right: {
+              type: astTypes.LITERAL,
+              value: 4,
+            },
+          },
+        },
       },
     ],
   });
 });
 
-// test('execute', (t) => {
-  // t.deepEqual(execute(parser(tokenizer('1 === 1 && (1 === 2)'))), false);
-  // t.deepEqual(execute(parser(tokenizer('1 === 1 && 1 === 2'))), false);
-  // t.deepEqual(execute(parser(tokenizer('{{userGrade}} > 1'), { userGrade: 1 })), false);
-  // t.deepEqual(execute(parser(tokenizer('{{userGrade}} >= 1'), { userGrade: 1 })), true);
-  // t.deepEqual(execute(parser(tokenizer('{{userGrade}} >= 1 && {{userName}} === \'test\''), {
-  //   userGrade: 1,
-  //   userName: 'test',
-  // })), true);
-// });
+test('execute', (t) => {
+  t.deepEqual(compiler('1 === 1 && (1 === 2)'), false);
+  t.deepEqual(compiler('1 === 1 && 1 === 2'), false);
+  t.deepEqual(compiler('{{userGrade}} > 1', { userGrade: 1 }), false);
+  t.deepEqual(compiler('{{userGrade}} >= 1', { userGrade: 1 }), true);
+  t.deepEqual(compiler('{{userGrade}} >= 1 && {{userName}} === \'test\'', {
+    userGrade: 1,
+    userName: 'test',
+  }), true);
+});

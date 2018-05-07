@@ -14,6 +14,7 @@ const tokenTypes = {
   STRING: 'string',
   BOOLEAN: 'boolean',
   PARENTHESIS: 'parenthesis',
+  LABEL: 'label', // ;
 };
 
 compiler.tokenTypes = tokenTypes;
@@ -57,30 +58,28 @@ function tokenizer(input) {
   let i = 0;
   const length = input.length;
 
-  function pushToken(type, value, extraLength) {
+  function pushToken(type, value, extraLength = 0) {
+    i += value.length + extraLength;
     if (type === tokenTypes.NUMBER) {
       value = Number(value);
     }
     if (type === tokenTypes.BOOLEAN) {
-      if (value !== 'true' && value !== 'false') {
-        throw new Error('Error BOOLEAN token: ' + value);
-      }
       value = value === 'true';
-    }
-    if (!extraLength) {
-      extraLength = 0;
     }
     tokens.push({
       type,
       value,
     });
-    i += value.length + extraLength;
   }
 
   while (i < length) {
     let char = input[i];
     if (char === ' ') {
       i++;
+      continue;
+    }
+    if (char === ';') {
+      pushToken(tokenTypes.LABEL, char);
       continue;
     }
     if (char === '*' || char === '+' || char === '-') {
@@ -225,18 +224,16 @@ function tokenizer(input) {
 compiler.tokenizer = tokenizer;
 
 function parser(tokens, args) {
-  const ast = astFactory.PROGRAM([]);
-
   let length = tokens.length;
-
-  ast.body.push(walk(0, length - 1));
 
   function getLogicalExpressionIndex(start, end) {
     for (let i = end; i >= start; i--) {
       if (
         tokens[i].type === tokenTypes.LOGICAL_OPERATOR
-        && tokens[i].value === '&&'
-        && tokens[i].value === '||'
+        && (
+          tokens[i].value === '&&'
+          || tokens[i].value === '||'
+        )
       ) {
         return i;
       }
@@ -266,268 +263,137 @@ function parser(tokens, args) {
   }
 
   function walk(start, end) {
-    let logicalIndex = getLogicalExpressionIndex(start, end);
-    let expression;
-    if (logicalIndex === -1) {
-        let binaryExpressionIndex = getBinaryExpressionIndex(start, end);
-        expression = astFactory.BINARY_EXPRESSION();
-    } else {
-      let leftExpression = null;
-      let rightExpression = null;
-      expression = astFactory.LOGICAL_EXPRESSION(tokens[logicalIndex].value, leftExpression, rightExpression);
+    if (start > end) {
+      throw new Error('Walk: start > end');
     }
-    return astFactory.EXPRESSION_STATEMENT(expression);
 
-    let token = tokens[i];
-    if (token.type === tokenTypes.NUMBER) {
-      i++;
-      return astFactory.NUMBER_LITERAL(token.value);
-    }
-    if (token.type === tokenTypes.STRING) {
-      i++;
-      return {
-        type: astTypes.STRING_LITERAL,
-        value: token.value,
-      };
-    }
-    if (token.type === tokenTypes.BOOLEAN) {
-      i++;
-      return {
-        type: astTypes.BOOLEAN_LITERAL,
-        value: token.value,
-      };
-    }
-    if (token.type === tokenTypes.ARGUMENT) {
-      i++;
-      const value = args[token.value];
-      if (typeof value === 'string') {
-        return {
-          type: astTypes.STRING_LITERAL,
-          value,
-        };
-      } else if (typeof value === 'boolean') {
-        return {
-          type: astTypes.BOOLEAN_LITERAL,
-          value,
-        };
-      } else if (typeof value === 'number') {
-        return {
-          type: astTypes.NUMBER_LITERAL,
-          value,
-        };
-      } else {
-        throw new Error('Unexpected argument: ' + token.value);
+    if (start === end) {
+      const token = tokens[start];
+      if (token.type === tokenTypes.NUMBER || token.type === tokenTypes.STRING || token.type === tokenTypes.BOOLEAN) {
+        return astFactory.LITERAL(token.value);
       }
-    }
-    if (token.type === tokenTypes.COMPARISON_OPERATOR) {
-      i++;
-      return {
-        type: astTypes.BINARY_OPERATOR,
-        value: token.value,
-      };
-    }
-    if (token.type === tokenTypes.LOGICAL_OPERATOR) {
-      i++;
-      return {
-        type: astTypes.BINARY_OPERATOR,
-        value: token.value,
-      };
-    }
-    if (token.type === tokenTypes.PARENTHESIS && token.value === '(') {
-      let body = [];
-      token = tokens[++i];
-      while ((token.type !== tokenTypes.PARENTHESIS) || (token.type === tokenTypes.PARENTHESIS && token.value !== ')')) {
-        body.push(walk());
-        token = tokens[i];
+      if (token.type === tokenTypes.ARGUMENT) {
+        const value = args[token.value];
+        if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
+          return astFactory.LITERAL(value);
+        } else {
+          throw new Error('Unexpected argument: ' + token.value);
+        }
       }
-      i++;
-      return {
-        type: astTypes.PARENTHESIS,
-        body,
-      };
+      throw new Error('Unexpected token type: ' + token.type);
     }
-    throw TypeError(token.type);
+
+    if (
+      tokens[start].type === tokenTypes.PARENTHESIS
+      && tokens[start].value === '('
+      && tokens[end].type === tokenTypes.PARENTHESIS
+      && tokens[end].value === ')'
+    ) {
+      start++;
+      end--;
+    }
+
+    const logicalExpressionIndex = getLogicalExpressionIndex(start, end);
+    if (logicalExpressionIndex !== -1) {
+      return astFactory.LOGICAL_EXPRESSION(
+        tokens[logicalExpressionIndex].value,
+        walk(start, logicalExpressionIndex - 1),
+        walk(logicalExpressionIndex + 1, end),
+      );
+    }
+
+    const binaryExpressionIndex = getBinaryExpressionIndex(start, end);
+    if (binaryExpressionIndex !== -1) {
+      return astFactory.BINARY_EXPRESSION(
+        tokens[binaryExpressionIndex].value,
+        walk(start, binaryExpressionIndex - 1),
+        walk(binaryExpressionIndex + 1, end),
+      );
+    }
+
+    throw new Error('Unexpected expression');
   }
 
-  return ast;
+  function getStatements() {
+    let start = 0;
+    const end = length - 1;
+    let statements = [];
+    for (let i = start; i <= end; i++) {
+      if (tokens[i].type === tokenTypes.LABEL && tokens[i].value === ';') {
+        statements.push(astFactory.EXPRESSION_STATEMENT(walk(start, i - 1)));
+        start = i + 1;
+      }
+    }
+    if (tokens[end].type === tokenTypes.LABEL && tokens[end].value === ';') {
+      statements.push(astFactory.EXPRESSION_STATEMENT(walk(start, end - 1)));
+    } else {
+      statements.push(astFactory.EXPRESSION_STATEMENT(walk(start, end)));
+    }
+    return statements;
+  }
+
+  return astFactory.PROGRAM(getStatements());
 }
 
 compiler.parser = parser;
 
 function execute(ast) {
-  function evaluate(nodes) {
-    let nodeArray = nodes.slice();
-    let prevLength = nodeArray.length + 1;
-    while (nodeArray.length > 1) {
-      // console.log(nodeArray);
-      if (prevLength === nodeArray.length) {
-        throw new Error('Unconsumable nodes');
-      }
-      prevLength = nodeArray.length;
-      const node0 = nodeArray[0];
-      const node1 = nodeArray[1];
-      const node2 = nodeArray[2];
-      if (node0.type === astTypes.PARENTHESIS) {
-        nodeArray.splice(0, 1, evaluate(node0.body));
-        prevLength++;
-      } else if (node2.type === astTypes.PARENTHESIS) {
-        nodeArray.splice(2, 1, evaluate(node2.body));
-        prevLength++;
-      } else if (
-        node0.type === astTypes.UNARY_OPERATOR
-        && (
-          node1.type === astTypes.NUMBER_LITERAL
-          || node1.type === astTypes.STRING_LITERAL
-          || node1.type === astTypes.BOOLEAN_LITERAL
-        )
-      ) {
-        nodeArray.splice(0, 2);
-        if (node0.value === '+') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: +node1.value,
-          });
-        } else if (node0.value === '-') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: -node1.value,
-          });
-        } else {
-          throw new Error('Unexpected UNARY_OPERATOR: ' + node0.value);
-        }
-      } else if (node0.type === astTypes.UNARY_OPERATOR && node1.type === astTypes.BOOLEAN_LITERAL) {
-        nodeArray.splice(0, 2);
-        if (node0.value === '!') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: !node1.value,
-          });
-        } else {
-          throw new Error('Unexpected UNARY_OPERATOR: ' + node0.value);
-        }
-      } else if (node0.type === astTypes.NUMBER_LITERAL && node1.type === astTypes.UNARY_OPERATOR) {
-        nodeArray.splice(0, 2);
-        if (node1.value === '++') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value++,
-          });
-        } else if (node1.value === '--') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value++,
-          });
-        } else {
-          throw new Error('Unexpected UNARY_OPERATOR: ' + node1.value);
-        }
-      } else if (
-        node2
-        && node0.type === astTypes.NUMBER_LITERAL
-        && node1.type === astTypes.BINARY_OPERATOR
-        && node2.type === astTypes.NUMBER_LITERAL
-      ) {
-        nodeArray.splice(0, 3);
-        if (node1.value === '+') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value + node2.value,
-          });
-        } else if (node1.value === '-') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value - node2.value,
-          });
-        } else if (node1.value === '*') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value * node2.value,
-          });
-        } else if (node1.value === '%') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value % node2.value,
-          });
-        } else if (node1.value === '**') {
-          nodeArray.unshift({
-            type: astTypes.NUMBER_LITERAL,
-            value: node0.value ** node2.value,
-          });
-        } else if (node1.value === '===') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value === node2.value,
-          });
-        } else if (node1.value === '==') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value == node2.value,
-          });
-        } else if (node1.value === '>') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value > node2.value,
-          });
-        } else if (node1.value === '<') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value < node2.value,
-          });
-        } else if (node1.value === '>=') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value >= node2.value,
-          });
-        } else if (node1.value === '<=') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value <= node2.value,
-          });
-        } else if (node1.value === '!=') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value != node2.value,
-          });
-        } else if (node1.value === '!==') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value !== node2.value,
-          });
-        } else {
-          throw new Error('Unexpected BINARY_OPERATOR: ' + node1.value);
-        }
-      } else if (
-        node2
-        && node0.type === astTypes.BOOLEAN_LITERAL
-        && node1.type === astTypes.BINARY_OPERATOR
-        && node2.type === astTypes.BOOLEAN_LITERAL
-      ) {
-        if (node1.value === '&&') {
-          nodeArray.splice(0, 3);
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value && node2.value,
-          });
-        } else if (node1.value === '||') {
-          nodeArray.unshift({
-            type: astTypes.BOOLEAN_LITERAL,
-            value: node0.value || node2.value,
-          });
-        }
-      } else {
-        throw new Error('Unexpected BINARY_OPERATOR: ' + node1.value);
-      }
+  if (ast.type === astTypes.PROGRAM) {
+    for (let i = 0, l = ast.body.length - 1; i < l; i++) {
+      execute(ast.body[i]);
     }
-    return nodeArray[0];
+    return execute(ast.body[ast.body.length - 1]);
   }
-
-  return evaluate(ast.body).value;
+  if (ast.type === astTypes.EXPRESSION_STATEMENT) {
+    return execute(ast.expression);
+  }
+  if (ast.type === astTypes.LOGICAL_EXPRESSION) {
+    if (ast.operator === '&&') {
+      return execute(ast.left) && execute(ast.right);
+    }
+    if (ast.operator === '||') {
+      return execute(ast.left) && execute(ast.right);
+    }
+    throw new Error('Unexpected LOGICAL_EXPRESSION operator: ' + ast.operator);
+  }
+  if (ast.type === astTypes.BINARY_EXPRESSION) {
+    if (ast.operator === '===') {
+      return execute(ast.left) === execute(ast.right);
+    }
+    if (ast.operator === '==') {
+      return execute(ast.left) == execute(ast.right);
+    }
+    if (ast.operator === '>') {
+      return execute(ast.left) > execute(ast.right);
+    }
+    if (ast.operator === '<') {
+      return execute(ast.left) < execute(ast.right);
+    }
+    if (ast.operator === '<=') {
+      return execute(ast.left) <= execute(ast.right);
+    }
+    if (ast.operator === '>=') {
+      return execute(ast.left) >= execute(ast.right);
+    }
+    if (ast.operator === '!=') {
+      return execute(ast.left) != execute(ast.right);
+    }
+    if (ast.operator === '!==') {
+      return execute(ast.left) !== execute(ast.right);
+    }
+    throw new Error('Unexpected BINARY_EXPRESSION operator: ' + ast.operator);
+  }
+  if (ast.type === astTypes.LITERAL) {
+    return ast.value;
+  }
+  throw new Error('Unexpected ast type: ' + ast.type);
 }
 
 compiler.execute = execute;
 
-function compiler(input) {
+function compiler(input, args) {
   const tokens = tokenizer(input);
-  const ast = parser(tokens);
+  const ast = parser(tokens, args);
   return execute(ast);
 }
 
