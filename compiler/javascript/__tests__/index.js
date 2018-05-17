@@ -139,7 +139,8 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
-  t.deepEqual(compiler('1 === 1 && (1 === 2)'), false);
+  t.deepEqual(compiler('1 === -1 && (1 === 1)'), false);
+  // t.deepEqual(compiler('1 === 1.1 && (1 === 1)'), false);
   t.deepEqual(compiler('1 === 1 && 1 === 2'), false);
   t.deepEqual(compiler('{{userGrade}} > 1', { userGrade: 1 }), false);
   t.deepEqual(compiler('{{userGrade}} >= 1', { userGrade: 1 }), true);

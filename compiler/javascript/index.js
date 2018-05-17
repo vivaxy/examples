@@ -262,25 +262,51 @@ function parser(tokens, args) {
     return -1;
   }
 
+  function getUnaryExpression(start, end) {
+    if (end - start !== 1) {
+      return null;
+    }
+    if (
+      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '-') ||
+      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '+') ||
+      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '!')
+    ) {
+      return astFactory.UNARY_EXPRESSION(tokens[start].value, getLiteral(end, end));
+    }
+  }
+
+  function getLiteral(start, end) {
+    if (start !== end) {
+      return null;
+    }
+    const token = tokens[start];
+    if (token.type === tokenTypes.NUMBER || token.type === tokenTypes.STRING || token.type === tokenTypes.BOOLEAN) {
+      return astFactory.LITERAL(token.value);
+    }
+    if (token.type === tokenTypes.ARGUMENT) {
+      const value = args[token.value];
+      if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
+        return astFactory.LITERAL(value);
+      } else {
+        throw new Error('Unexpected argument: ' + token.value);
+      }
+    }
+    throw new Error('Unexpected token type: ' + token.type);
+  }
+
   function walk(start, end) {
     if (start > end) {
       throw new Error('Walk: start > end');
     }
 
-    if (start === end) {
-      const token = tokens[start];
-      if (token.type === tokenTypes.NUMBER || token.type === tokenTypes.STRING || token.type === tokenTypes.BOOLEAN) {
-        return astFactory.LITERAL(token.value);
-      }
-      if (token.type === tokenTypes.ARGUMENT) {
-        const value = args[token.value];
-        if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
-          return astFactory.LITERAL(value);
-        } else {
-          throw new Error('Unexpected argument: ' + token.value);
-        }
-      }
-      throw new Error('Unexpected token type: ' + token.type);
+    const literal = getLiteral(start, end);
+    if (literal) {
+      return literal;
+    }
+
+    const unaryExpression = getUnaryExpression(start, end);
+    if (unaryExpression) {
+      return unaryExpression;
     }
 
     if (
@@ -309,6 +335,10 @@ function parser(tokens, args) {
         walk(start, binaryExpressionIndex - 1),
         walk(binaryExpressionIndex + 1, end),
       );
+    }
+
+    if (isUnaryExpression(start, end)) {
+
     }
 
     throw new Error('Unexpected expression');
@@ -385,6 +415,18 @@ function execute(ast) {
   }
   if (ast.type === astTypes.LITERAL) {
     return ast.value;
+  }
+  if (ast.type === astTypes.UNARY_EXPRESSION) {
+    if (ast.operator === '-') {
+      return -ast.argument.value;
+    }
+    if (ast.operator === '+') {
+      return +ast.argument.value;
+    }
+    if (ast.operator === '!') {
+      return !ast.argument.value;
+    }
+    throw new Error('Unexpected UNARY_EXPRESSION operator: ' + ast.operator);
   }
   throw new Error('Unexpected ast type: ' + ast.type);
 }
