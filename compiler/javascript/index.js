@@ -393,10 +393,6 @@ function parser(tokens, args) {
       );
     }
 
-    if (isUnaryExpression(start, end)) {
-
-    }
-
     throw new Error('Unexpected expression');
   }
 
