@@ -15,6 +15,8 @@ const tokenTypes = {
   BOOLEAN: 'boolean',
   PARENTHESIS: 'parenthesis',
   LABEL: 'label', // ;
+  NULL: 'null',
+  IDENTIFIER: 'identifier', // 变量 / undefined
 };
 
 compiler.tokenTypes = tokenTypes;
@@ -26,6 +28,7 @@ const astTypes = {
   BINARY_EXPRESSION: 'BinaryExpression',
   UNARY_EXPRESSION: 'UnaryExpression',
   LOGICAL_EXPRESSION: 'LogicalExpression',
+  IDENTIFIER: 'Identifier',
 };
 
 compiler.astTypes = astTypes;
@@ -49,6 +52,9 @@ const astFactory = {
   LOGICAL_EXPRESSION: (operator, left, right) => {
     return { type: astTypes.LOGICAL_EXPRESSION, operator, left, right };
   },
+  IDENTIFIER: (name) => {
+    return { type: astTypes.IDENTIFIER, name };
+  },
 };
 
 compiler.astFactory = astFactory;
@@ -65,6 +71,9 @@ function tokenizer(input) {
     }
     if (type === tokenTypes.BOOLEAN) {
       value = value === 'true';
+    }
+    if (type === tokenTypes.NULL) {
+      value = null;
     }
     tokens.push({
       type,
@@ -216,6 +225,14 @@ function tokenizer(input) {
       pushToken(tokenTypes.BOOLEAN, 'false');
       continue;
     }
+    if (char === 'n' && input[i + 1] === 'u' && input[i + 2] === 'l' && input[i + 3] === 'l') {
+      pushToken(tokenTypes.NULL, 'null');
+      continue;
+    }
+    if (char === 'u' && input[i + 1] === 'n' && input[i + 2] === 'd' && input[i + 3] === 'e' && input[i + 4] === 'f' && input[i + 5] === 'i' && input[i + 6] === 'n' && input[i + 7] === 'e' && input[i + 8] === 'd') {
+      pushToken(tokenTypes.IDENTIFIER, 'undefined');
+      continue;
+    }
     throw new Error('Unexpected token: ' + char);
   }
   return tokens;
@@ -271,27 +288,66 @@ function parser(tokens, args) {
       (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '+') ||
       (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '!')
     ) {
-      return astFactory.UNARY_EXPRESSION(tokens[start].value, getLiteral(end, end));
+      return astFactory.UNARY_EXPRESSION(tokens[start].value, getLiteralOrIdentifier(end, end));
     }
+  }
+
+  function getLiteralOrIdentifier(start, end) {
+    if (start !== end) {
+      return null;
+    }
+    maskArguments(start, end);
+    const token = tokens[start];
+    if (token.type === tokenTypes.IDENTIFIER) {
+      return getIdentifier(start, end);
+    } else {
+      return getLiteral(start, end);
+    }
+  }
+
+  function getIdentifier(start, end) {
+    if (start !== end) {
+      throw new Error('Unexpected identifier count');
+    }
+    const token = tokens[start];
+    if (token.type === tokenTypes.IDENTIFIER) {
+      return astFactory.IDENTIFIER(token.value);
+    }
+    throw new Error('Unexpected identifier token type: ' + token.type)
   }
 
   function getLiteral(start, end) {
     if (start !== end) {
+      throw new Error('Unexpected literal count');
+    }
+    const token = tokens[start];
+    if (token.type === tokenTypes.NUMBER || token.type === tokenTypes.STRING || token.type === tokenTypes.BOOLEAN || token.type === tokenTypes.NULL) {
+      return astFactory.LITERAL(token.value);
+    }
+    throw new Error('Unexpected literal token type: ' + token.type);
+  }
+
+  function maskArguments(start, end) {
+    if (start !== end) {
       return null;
     }
     const token = tokens[start];
-    if (token.type === tokenTypes.NUMBER || token.type === tokenTypes.STRING || token.type === tokenTypes.BOOLEAN) {
-      return astFactory.LITERAL(token.value);
-    }
     if (token.type === tokenTypes.ARGUMENT) {
-      const value = args[token.value];
-      if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') {
-        return astFactory.LITERAL(value);
+      token.value = args[token.value];
+      if (typeof token.value === 'string') {
+        token.type = tokenTypes.STRING;
+      } else if (typeof token.value === 'number') {
+        token.type = tokenTypes.NUMBER;
+      } else if (typeof token.value === 'boolean') {
+        token.type = tokenTypes.BOOLEAN;
+      } else if (token.value === null) {
+        token.type = tokenTypes.NULL;
+      } else if (token.value === undefined) {
+        token.type = tokenTypes.IDENTIFIER;
       } else {
-        throw new Error('Unexpected argument: ' + token.value);
+        throw new Error('Unexpected argument type: ' + token.value);
       }
     }
-    throw new Error('Unexpected token type: ' + token.type);
   }
 
   function walk(start, end) {
@@ -299,7 +355,7 @@ function parser(tokens, args) {
       throw new Error('Walk: start > end');
     }
 
-    const literal = getLiteral(start, end);
+    const literal = getLiteralOrIdentifier(start, end);
     if (literal) {
       return literal;
     }
@@ -427,6 +483,12 @@ function execute(ast) {
       return !ast.argument.value;
     }
     throw new Error('Unexpected UNARY_EXPRESSION operator: ' + ast.operator);
+  }
+  if (ast.type === astTypes.IDENTIFIER) {
+    if (ast.name === 'undefined') {
+      return undefined;
+    }
+    throw new Error('Unexpected identifier name: ' + ast.name);
   }
   throw new Error('Unexpected ast type: ' + ast.type);
 }

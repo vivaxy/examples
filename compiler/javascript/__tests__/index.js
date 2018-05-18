@@ -139,6 +139,10 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  t.deepEqual(compiler('undefined === undefined'), true);
+  t.deepEqual(compiler('1 === undefined'), false);
+  t.deepEqual(compiler('null === undefined'), false);
+  t.deepEqual(compiler('null === null'), true);
   t.deepEqual(compiler('1 === -1 && (1 === 1)'), false);
   t.deepEqual(compiler('-1 === -1'), true);
   t.deepEqual(compiler('1.1 === 1.1'), true);
