@@ -169,10 +169,10 @@ function tokenizer(input) {
       }
     }
     const NUMBERS = /[0-9]/;
-    if (NUMBERS.test(char)) {
+    if (NUMBERS.test(char) || char === '.') {
       let value = '';
       let j = 0;
-      while (NUMBERS.test(char)) {
+      while (NUMBERS.test(char) || char === '.') {
         value += char;
         j++;
         char = input[i + j];
