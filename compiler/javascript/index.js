@@ -344,6 +344,7 @@ function parser(tokens, args) {
         token.type = tokenTypes.NULL;
       } else if (token.value === undefined) {
         token.type = tokenTypes.IDENTIFIER;
+        token.value = 'undefined';
       } else {
         throw new Error('Unexpected argument type: ' + token.value);
       }
