@@ -6,6 +6,10 @@
 const test = require('ava');
 const mergeSort = require('../index.js');
 
-test('merge sort', (t) => {
-  t.pass();
+const expect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+test('merge sort', async (t) => {
+  const input = [5, 3, 4, 0, 6, 8, 1, 9, 2, 7];
+  mergeSort(input, 0, input.length - 1);
+  t.deepEqual(input, expect);
 });
