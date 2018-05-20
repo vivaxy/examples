@@ -217,22 +217,27 @@ function tokenizer(input) {
       pushToken(tokenTypes.PARENTHESIS, char);
       continue;
     }
-    if (char === 't' && input[i + 1] === 'r' && input[i + 2] === 'u' && input[i + 3] === 'e') {
-      pushToken(tokenTypes.BOOLEAN, 'true');
+    if (matchToken('true', tokenTypes.BOOLEAN)) {
       continue;
     }
-    if (char === 'f' && input[i + 1] === 'a' && input[i + 2] === 'l' && input[i + 3] === 's' && input[i + 4] === 'e') {
-      pushToken(tokenTypes.BOOLEAN, 'false');
+    if (matchToken('false', tokenTypes.BOOLEAN)) {
       continue;
     }
-    if (char === 'n' && input[i + 1] === 'u' && input[i + 2] === 'l' && input[i + 3] === 'l') {
-      pushToken(tokenTypes.NULL, 'null');
+    if (matchToken('null', tokenTypes.NULL)) {
       continue;
     }
-    if (char === 'u' && input[i + 1] === 'n' && input[i + 2] === 'd' && input[i + 3] === 'e' && input[i + 4] === 'f' && input[i + 5] === 'i' && input[i + 6] === 'n' && input[i + 7] === 'e' && input[i + 8] === 'd') {
-      pushToken(tokenTypes.IDENTIFIER, 'undefined');
+    if (matchToken('undefined', tokenTypes.IDENTIFIER)) {
       continue;
     }
+
+    function matchToken(pattern, tokenType) {
+      if (input.slice(i, i + pattern.length) === pattern) {
+        pushToken(tokenType, pattern);
+        return true;
+      }
+      return false;
+    }
+
     throw new Error('Unexpected token: ' + char);
   }
   return tokens;
@@ -313,7 +318,7 @@ function parser(tokens, args) {
     if (token.type === tokenTypes.IDENTIFIER) {
       return astFactory.IDENTIFIER(token.value);
     }
-    throw new Error('Unexpected identifier token type: ' + token.type)
+    throw new Error('Unexpected identifier token type: ' + token.type);
   }
 
   function getLiteral(start, end) {
