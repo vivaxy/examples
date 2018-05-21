@@ -14,7 +14,7 @@ const tokenTypes = {
   STRING: 'string',
   BOOLEAN: 'boolean',
   PARENTHESIS: 'parenthesis',
-  LABEL: 'label', // ;
+  LABEL: 'label', // ;, ,
   NULL: 'null',
   IDENTIFIER: 'identifier', // 变量, undefined
 };
@@ -29,6 +29,7 @@ const astTypes = {
   UNARY_EXPRESSION: 'UnaryExpression',
   LOGICAL_EXPRESSION: 'LogicalExpression',
   IDENTIFIER: 'Identifier',
+  SEQUENCE_EXPRESSION: 'SequenceExpression',
 };
 
 compiler.astTypes = astTypes;
@@ -54,6 +55,9 @@ const astFactory = {
   },
   IDENTIFIER: (name) => {
     return { type: astTypes.IDENTIFIER, name };
+  },
+  SEQUENCE_EXPRESSION: (expressions) => {
+    return { type: astTypes.SEQUENCE_EXPRESSION, expressions };
   },
 };
 
@@ -85,6 +89,10 @@ function tokenizer(input) {
     let char = input[i];
     if (char === ' ') {
       i++;
+      continue;
+    }
+    if (char === ',') {
+      pushToken(tokenTypes.LABEL, char);
       continue;
     }
     if (char === ';') {
@@ -250,13 +258,13 @@ function parser(tokens, args) {
 
   function getLogicalExpressionIndex(start, end) {
     for (let i = end; i >= start; i--) {
-      if (
-        tokens[i].type === tokenTypes.LOGICAL_OPERATOR
-        && (
-          tokens[i].value === '&&'
-          || tokens[i].value === '||'
-        )
-      ) {
+      // && precedence is higher than ||
+      if (tokens[i].type === tokenTypes.LOGICAL_OPERATOR && tokens[i].value === '&&') {
+        return i;
+      }
+    }
+    for (let i = end; i >= start; i--) {
+      if (tokens[i].type === tokenTypes.LOGICAL_OPERATOR && tokens[i].value === '||') {
         return i;
       }
     }
@@ -291,7 +299,7 @@ function parser(tokens, args) {
     if (
       (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '-') ||
       (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '+') ||
-      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '!')
+      (tokens[start].type === tokenTypes.LOGICAL_OPERATOR && tokens[start].value === '!')
     ) {
       return astFactory.UNARY_EXPRESSION(tokens[start].value, getLiteralOrIdentifier(end, end));
     }
@@ -356,9 +364,32 @@ function parser(tokens, args) {
     }
   }
 
+  function getSequenceExpressions(start, end) {
+    let sequenceExpressions = [];
+    let prevStart = start;
+    for (let i = start; i <= end; i++) {
+      if (tokens[i].type === tokenTypes.LABEL && tokens[i].value === ',') {
+        sequenceExpressions.push(walk(prevStart, i - 1));
+        prevStart = i + 1;
+      }
+    }
+    if (prevStart !== start) {
+      sequenceExpressions.push(walk(prevStart, end));
+    }
+    if (sequenceExpressions.length) {
+      return astFactory.SEQUENCE_EXPRESSION(sequenceExpressions);
+    }
+    return null;
+  }
+
   function walk(start, end) {
     if (start > end) {
       throw new Error('Walk: start > end');
+    }
+
+    const sequenceExpression = getSequenceExpressions(start, end);
+    if (sequenceExpression) {
+      return sequenceExpression;
     }
 
     const literal = getLiteralOrIdentifier(start, end);
@@ -425,6 +456,11 @@ function parser(tokens, args) {
 
 compiler.parser = parser;
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+ * @param ast
+ * @returns {*}
+ */
 function execute(ast) {
   if (ast.type === astTypes.PROGRAM) {
     for (let i = 0, l = ast.body.length - 1; i < l; i++) {
@@ -434,6 +470,12 @@ function execute(ast) {
   }
   if (ast.type === astTypes.EXPRESSION_STATEMENT) {
     return execute(ast.expression);
+  }
+  if (ast.type === astTypes.SEQUENCE_EXPRESSION) {
+    for (let i = 0; i < ast.expressions.length - 1; i++) {
+      execute(ast.expressions[i]);
+    }
+    return execute(ast.expressions[ast.expressions.length - 1]);
   }
   if (ast.type === astTypes.LOGICAL_EXPRESSION) {
     if (ast.operator === '&&') {
