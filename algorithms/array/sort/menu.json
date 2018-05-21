@@ -14,5 +14,9 @@
   {
     "name": "Insertion Sort",
     "link": "insertion-sort/index.html"
+  },
+  {
+    "name": "Merge Sort",
+    "link": "merge-sort/index.html"
   }
 ]
