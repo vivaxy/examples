@@ -6,11 +6,10 @@
 import * as EVENT_TYPES from '../enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
-import query from '../utils/query.js';
 import NewArray from '../class/new-array.js';
 
 export default {
-  init: (events) => {
+  init: (events, query) => {
     let elements = null;
     let newArrayB = null;
     let newArrayC = null;
