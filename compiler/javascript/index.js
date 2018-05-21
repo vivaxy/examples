@@ -26,6 +26,12 @@ const astTypes = {
   EXPRESSION_STATEMENT: 'ExpressionStatement',
   LITERAL: 'Literal',
   BINARY_EXPRESSION: 'BinaryExpression',
+  /**
+   * void
+   * +
+   * -
+   * !
+   */
   UNARY_EXPRESSION: 'UnaryExpression',
   LOGICAL_EXPRESSION: 'LogicalExpression',
   IDENTIFIER: 'Identifier',
@@ -225,6 +231,9 @@ function tokenizer(input) {
       pushToken(tokenTypes.PARENTHESIS, char);
       continue;
     }
+    if (matchToken('void', tokenTypes.LABEL)) {
+      continue;
+    }
     if (matchToken('true', tokenTypes.BOOLEAN)) {
       continue;
     }
@@ -293,15 +302,19 @@ function parser(tokens, args) {
   }
 
   function getUnaryExpression(start, end) {
-    if (end - start !== 1) {
+    if (!(tokens[start + 1] && tokens[start + 1].type === tokenTypes.PARENTHESIS && tokens[start + 1].value === '(' &&
+      tokens[end].type === tokenTypes.PARENTHESIS && tokens[end].value === ')'
+    ) && end - start !== 1) {
       return null;
     }
+    const token = tokens[start];
     if (
-      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '-') ||
-      (tokens[start].type === tokenTypes.ARITHMETIC_OPERATOR && tokens[start].value === '+') ||
-      (tokens[start].type === tokenTypes.LOGICAL_OPERATOR && tokens[start].value === '!')
+      (token.type === tokenTypes.ARITHMETIC_OPERATOR && token.value === '-') ||
+      (token.type === tokenTypes.ARITHMETIC_OPERATOR && token.value === '+') ||
+      (token.type === tokenTypes.LOGICAL_OPERATOR && token.value === '!') ||
+      (token.type === tokenTypes.LABEL && token.value === 'void')
     ) {
-      return astFactory.UNARY_EXPRESSION(tokens[start].value, getLiteralOrIdentifier(end, end));
+      return astFactory.UNARY_EXPRESSION(token.value, getLiteralOrIdentifier(start + 1, end));
     }
   }
 
@@ -543,6 +556,9 @@ function execute(ast) {
     }
     if (ast.operator === '!') {
       return !ast.argument.value;
+    }
+    if (ast.operator === 'void') {
+      return undefined;
     }
     throw new Error('Unexpected UNARY_EXPRESSION operator: ' + ast.operator);
   }

@@ -139,6 +139,8 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  t.deepEqual(compiler('void 0'), undefined);
+  t.deepEqual(compiler('void(0)'), undefined);
   t.deepEqual(compiler('1, 2 === 1'), false);
   t.deepEqual(compiler('1, 2'), 2);
   t.deepEqual(compiler('true || true && false'), false);
