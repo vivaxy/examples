@@ -53,9 +53,23 @@ export default {
         case ACTION_TYPES.CREATE_A_NEW_ARRAY: {
           const { arrayName, fromIndex, toIndex } = data;
           if (arrayName === 'B') {
-            newArrayB = new NewArray({ arrayLength: elements.length, fromIndex, toIndex, parent: body, arrayName });
+            newArrayB = new NewArray({
+              arrayLength: elements.length,
+              fromIndex,
+              toIndex,
+              parent: body,
+              arrayName,
+              animationInterval: query.interval,
+            });
           } else if (arrayName === 'C') {
-            newArrayC = new NewArray({ arrayLength: elements.length, fromIndex, toIndex, parent: body, arrayName });
+            newArrayC = new NewArray({
+              arrayLength: elements.length,
+              fromIndex,
+              toIndex,
+              parent: body,
+              arrayName,
+              animationInterval: query.interval,
+            });
           } else {
             throw new Error('Unexpected array name: ' + arrayName);
           }
@@ -155,16 +169,22 @@ export default {
         }
         case ACTION_TYPES.DESTROY_NEW_ARRAYS: {
           if (newArrayB) {
-            newArrayB.dispose();
-            newArrayB = null;
-            elementsInB = [];
+            newArrayB.hide();
           }
           if (newArrayC) {
-            newArrayC.dispose();
-            newArrayC = null;
-            elementsInC = [];
+            newArrayC.hide();
           }
           setTimeout(() => {
+            if (newArrayB) {
+              newArrayB.dispose();
+              newArrayB = null;
+              elementsInB = [];
+            }
+            if (newArrayC) {
+              newArrayC.dispose();
+              newArrayC = null;
+              elementsInC = [];
+            }
             events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
           }, query.interval);
           break;

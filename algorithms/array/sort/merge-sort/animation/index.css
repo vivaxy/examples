@@ -22,6 +22,11 @@ body {
   position: absolute;
   height: 50%;
   top: 0;
+  opacity: 0;
+}
+
+.new-array.show {
+  opacity: 1;
 }
 
 .new-array-B {
