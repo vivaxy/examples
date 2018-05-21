@@ -139,6 +139,12 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  t.deepEqual(compiler('3 ** 2 === 9'), true);
+  t.deepEqual(compiler('3 % 2 === 1'), true);
+  t.deepEqual(compiler('2 / 2 === 1'), true);
+  t.deepEqual(compiler('2 * 2 === 4'), true);
+  t.deepEqual(compiler('1 - 2 === -1'), true);
+  t.deepEqual(compiler('1 + 2 === 3'), true);
   t.deepEqual(compiler('undefined === undefined'), true);
   t.deepEqual(compiler('undefined === {{test}}', {}), true);
   t.deepEqual(compiler('1 === undefined'), false);

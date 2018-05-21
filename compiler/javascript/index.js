@@ -16,7 +16,7 @@ const tokenTypes = {
   PARENTHESIS: 'parenthesis',
   LABEL: 'label', // ;
   NULL: 'null',
-  IDENTIFIER: 'identifier', // 变量 / undefined
+  IDENTIFIER: 'identifier', // 变量, undefined
 };
 
 compiler.tokenTypes = tokenTypes;
@@ -92,7 +92,7 @@ function tokenizer(input) {
       continue;
     }
     if (char === '*' || char === '+' || char === '-') {
-      const nextChar = char[i + 1];
+      const nextChar = input[i + 1];
       if (char === nextChar) {
         pushToken(tokenTypes.ARITHMETIC_OPERATOR, char + char);
         continue;
@@ -468,6 +468,24 @@ function execute(ast) {
     }
     if (ast.operator === '!==') {
       return execute(ast.left) !== execute(ast.right);
+    }
+    if (ast.operator === '+') {
+      return execute(ast.left) + execute(ast.right);
+    }
+    if (ast.operator === '-') {
+      return execute(ast.left) - execute(ast.right);
+    }
+    if (ast.operator === '*') {
+      return execute(ast.left) * execute(ast.right);
+    }
+    if (ast.operator === '/') {
+      return execute(ast.left) / execute(ast.right);
+    }
+    if (ast.operator === '%') {
+      return execute(ast.left) % execute(ast.right);
+    }
+    if (ast.operator === '**') {
+      return execute(ast.left) ** execute(ast.right);
     }
     throw new Error('Unexpected BINARY_EXPRESSION operator: ' + ast.operator);
   }
