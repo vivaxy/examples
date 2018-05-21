@@ -40,6 +40,68 @@ const astTypes = {
 
 compiler.astTypes = astTypes;
 
+const operatorPrecedence = {
+  '( ... )': 20,
+  '.': 19,
+  '[ ... ]': 19,
+  'new ... ( ... )': 19,
+  '... (...)': 19,
+  'new': 18,
+  '... ++': 17,
+  '... --': 17,
+  '!': 16,
+  '~': 16,
+  '+?': 16, // + ...
+  '-?': 16, // - ...
+  '++': 16, // ++ ...
+  '--': 16, // -- ...
+  'typeof': 16,
+  'void': 16,
+  'delete': 16,
+  'await': 16,
+  '**': 15,
+  '*': 14,
+  '/': 14,
+  '%': 14,
+  '+': 13,
+  '-': 13,
+  '<<': 12,
+  '>>': 12,
+  '>>>': 12,
+  '<': 11,
+  '<=': 11,
+  '>': 11,
+  '>=': 11,
+  'in': 11,
+  'instanceof': 11,
+  '==': 10,
+  '!=': 10,
+  '===': 10,
+  '!==': 10,
+  '&': 9,
+  '^': 8,
+  '|': 7,
+  '&&': 6,
+  '||': 5,
+  '?:': 4,
+  '=': 3,
+  '+=': 3,
+  '-=': 3,
+  '**=': 3,
+  '*=': 3,
+  '/=': 3,
+  '%=': 3,
+  '<<=': 3,
+  '>>=': 3,
+  '>>>=': 3,
+  '&=': 3,
+  '^=': 3,
+  '|=': 3,
+  'yield': 2,
+  'yield*': 2,
+  ',': 1,
+};
+
 const astFactory = {
   PROGRAM: (body) => {
     return { type: astTypes.PROGRAM, body };
@@ -265,46 +327,91 @@ compiler.tokenizer = tokenizer;
 function parser(tokens, args) {
   let length = tokens.length;
 
-  function getLogicalExpressionIndex(start, end) {
+  function getLogicalExpression(start, end) {
+    let logicalExpressionIndex = -1;
     for (let i = end; i >= start; i--) {
       // && precedence is higher than ||
       if (tokens[i].type === tokenTypes.LOGICAL_OPERATOR && tokens[i].value === '&&') {
-        return i;
+        logicalExpressionIndex = i;
       }
     }
     for (let i = end; i >= start; i--) {
       if (tokens[i].type === tokenTypes.LOGICAL_OPERATOR && tokens[i].value === '||') {
-        return i;
+        logicalExpressionIndex = i;
       }
     }
-    return -1;
+
+    if (logicalExpressionIndex !== -1) {
+      return astFactory.LOGICAL_EXPRESSION(
+        tokens[logicalExpressionIndex].value,
+        walk(start, logicalExpressionIndex - 1),
+        walk(logicalExpressionIndex + 1, end),
+      );
+    }
+    return null;
   }
 
-  function getBinaryExpressionIndex(start, end) {
-    for (let i = end; i >= start; i--) {
+  function getBinaryExpression(start, end) {
+    let operatorIndex = -1;
+    let i = start;
+    while (i <= end) {
+      const token = tokens[i];
+      if (token.type === tokenTypes.PARENTHESIS && token.value === '(') {
+        const groupEnd = getGroupingEnd(i, end);
+        if (groupEnd === -1) {
+          throw new Error('Grouping not match');
+        }
+        i = groupEnd + 1;
+        continue;
+      }
+      const prevToken = tokens[i - 1];
       if (
         (
-          tokens[i].type === tokenTypes.ARITHMETIC_OPERATOR
-          && tokens[i - 1]
-          && (
-            tokens[i - 1].type === tokenTypes.NUMBER
-            || tokens[i - 1].type === tokenTypes.STRING
-            || tokens[i - 1].type === tokenTypes.BOOLEAN
+          (
+            token.type === tokenTypes.ARITHMETIC_OPERATOR ||
+            token.type === tokenTypes.COMPARISON_OPERATOR
+          ) &&
+          prevToken &&
+          (
+            prevToken.type === tokenTypes.NUMBER ||
+            prevToken.type === tokenTypes.STRING ||
+            prevToken.type === tokenTypes.BOOLEAN ||
+            prevToken.type === tokenTypes.IDENTIFIER ||
+            prevToken.type === tokenTypes.NULL ||
+            prevToken.type === tokenTypes.ARGUMENT ||
+            (
+              prevToken.type === tokenTypes.PARENTHESIS &&
+              prevToken.value === ')'
+            )
           )
-        ) || (
-          tokens[i].type === tokenTypes.COMPARISON_OPERATOR
         )
       ) {
-        return i;
+        // valid binary operator
+        if (operatorIndex === -1 || operatorPrecedence[tokens[operatorIndex].value] > operatorPrecedence[token.value]) {
+          operatorIndex = i;
+        }
       }
+      i++;
     }
-    return -1;
+    if (operatorIndex === -1) {
+      return null;
+    }
+    if (operatorIndex === start) {
+      return null;
+    }
+    if (operatorIndex === end) {
+      return null;
+    }
+
+    return astFactory.BINARY_EXPRESSION(
+      tokens[operatorIndex].value,
+      walk(start, operatorIndex - 1),
+      walk(operatorIndex + 1, end),
+    );
   }
 
   function getUnaryExpression(start, end) {
-    if (!(tokens[start + 1] && tokens[start + 1].type === tokenTypes.PARENTHESIS && tokens[start + 1].value === '(' &&
-      tokens[end].type === tokenTypes.PARENTHESIS && tokens[end].value === ')'
-    ) && end - start !== 1) {
+    if (getGroupingEnd(start + 1, end) === -1 && end - start !== 1) {
       return null;
     }
     const token = tokens[start];
@@ -395,9 +502,42 @@ function parser(tokens, args) {
     return null;
   }
 
+  function getGroupingEnd(start, end) {
+    let token = tokens[start];
+    if (token.type !== tokenTypes.PARENTHESIS || token.value !== '(') {
+      return -1;
+    }
+    let depth = 1;
+    for (let i = start + 1; i <= end; i++) {
+      token = tokens[i];
+      if (token.type === tokenTypes.PARENTHESIS && token.value === '(') {
+        depth++;
+      }
+      if (token.type === tokenTypes.PARENTHESIS && token.value === ')') {
+        depth--;
+        if (depth === 0) {
+          return i;
+        }
+      }
+    }
+
+    return -1;
+  }
+
+  /**
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+   * @param start
+   * @param end
+   * @returns {*}
+   */
   function walk(start, end) {
     if (start > end) {
       throw new Error('Walk: start > end');
+    }
+
+    const groupEnd = getGroupingEnd(start, end);
+    if (groupEnd === end) {
+      return walk(start + 1, end - 1);
     }
 
     const sequenceExpression = getSequenceExpressions(start, end);
@@ -415,32 +555,14 @@ function parser(tokens, args) {
       return unaryExpression;
     }
 
-    if (
-      tokens[start].type === tokenTypes.PARENTHESIS
-      && tokens[start].value === '('
-      && tokens[end].type === tokenTypes.PARENTHESIS
-      && tokens[end].value === ')'
-    ) {
-      start++;
-      end--;
+    const logicalExpression = getLogicalExpression(start, end);
+    if (logicalExpression) {
+      return logicalExpression;
     }
 
-    const logicalExpressionIndex = getLogicalExpressionIndex(start, end);
-    if (logicalExpressionIndex !== -1) {
-      return astFactory.LOGICAL_EXPRESSION(
-        tokens[logicalExpressionIndex].value,
-        walk(start, logicalExpressionIndex - 1),
-        walk(logicalExpressionIndex + 1, end),
-      );
-    }
-
-    const binaryExpressionIndex = getBinaryExpressionIndex(start, end);
-    if (binaryExpressionIndex !== -1) {
-      return astFactory.BINARY_EXPRESSION(
-        tokens[binaryExpressionIndex].value,
-        walk(start, binaryExpressionIndex - 1),
-        walk(binaryExpressionIndex + 1, end),
-      );
+    const binaryExpression = getBinaryExpression(start, end);
+    if (binaryExpression) {
+      return binaryExpression;
     }
 
     throw new Error('Unexpected expression');
@@ -470,7 +592,6 @@ function parser(tokens, args) {
 compiler.parser = parser;
 
 /**
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
  * @param ast
  * @returns {*}
  */

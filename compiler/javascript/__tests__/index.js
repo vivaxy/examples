@@ -139,6 +139,9 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  t.deepEqual(compiler('(1 + 1) * ((2))'), 4);
+  t.deepEqual(compiler('(1 + 1) * (2)'), 4);
+  t.deepEqual(compiler('(1 + 1) * 2'), 4);
   t.deepEqual(compiler('void 0'), undefined);
   t.deepEqual(compiler('void(0)'), undefined);
   t.deepEqual(compiler('1, 2 === 1'), false);
@@ -168,3 +171,6 @@ test('execute', (t) => {
     userName: 'test',
   }), true);
 });
+
+// test.only('exec', (t) => {
+// });
