@@ -171,6 +171,3 @@ test('execute', (t) => {
     userName: 'test',
   }), true);
 });
-
-// test.only('exec', (t) => {
-// });
