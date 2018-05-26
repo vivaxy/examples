@@ -1,31 +1,13 @@
 /**
- * @since 2018-05-20 13:59:25
+ * @since 2018-05-26 09:57:46
  * @author vivaxy
  */
 
-const STATES = {
-  NULL: 0,
+import BaseElement from '../../../../../_animation/class/element.js';
 
-};
-
-export default class Element {
-  constructor({ index, value, parent, width, transitionInterval }) {
-    this.value = value;
-    this.index = index;
-    this.parent = parent;
-    this.width = width;
-    this.transitionInterval = transitionInterval;
-
-    this.state = STATES.NULL;
-    this.element = document.createElement('div');
-    this.element.classList.add('item');
-    this.element.style.left = index * width + '%';
-    this.element.style.width = width + '%';
-    this.element.style.height = value * 50 + '%';
-    this.element.style.bottom = '0';
-    this.element.style.transition = 'all ' + transitionInterval + 'ms';
-    this.element.style.animationDuration = `${transitionInterval}ms`;
-    parent.appendChild(this.element);
+export default class Element extends BaseElement {
+  constructor(args) {
+    super(args);
   }
 
   copy() {
@@ -34,7 +16,7 @@ export default class Element {
       value: this.value,
       parent: this.parent,
       width: this.width,
-      transitionInterval: this.transitionInterval,
+      animationDuration: this.animationDuration,
     });
   }
 
@@ -54,19 +36,4 @@ export default class Element {
     }, 0);
   }
 
-  removeMark() {
-    this.element.classList.remove('mark');
-  }
-
-  addMark() {
-    this.element.classList.add('mark');
-  }
-
-  addCompare() {
-    this.element.classList.add('compare');
-  }
-
-  removeCompare() {
-    this.element.classList.remove('compare');
-  }
 }

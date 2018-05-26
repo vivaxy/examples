@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 
-import * as EVENT_TYPES from '../enums/event-types.js';
+import * as EVENT_TYPES from '../../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 
 export default {

@@ -4,7 +4,6 @@
  */
 
 import * as EVENT_TYPES from '../enums/event-types.js';
-import Element from '../class/element.js';
 
 export default {
   init: (events) => {

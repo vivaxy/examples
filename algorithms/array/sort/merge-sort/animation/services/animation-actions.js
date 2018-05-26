@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 
-import * as EVENT_TYPES from '../enums/event-types.js';
+import * as EVENT_TYPES from '../../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
 import NewArray from '../class/new-array.js';
@@ -27,7 +27,7 @@ export default {
           value,
           parent: body,
           width: 100 / eventData.unsortedArray.length,
-          transitionInterval: query.interval,
+          animationDuration: query.interval,
         });
       });
     });
@@ -58,7 +58,7 @@ export default {
               toIndex,
               parent: body,
               arrayName,
-              animationInterval: query.interval,
+              animationDuration: query.interval,
             });
           } else if (arrayName === 'C') {
             newArrayC = new NewArray({
@@ -67,7 +67,7 @@ export default {
               toIndex,
               parent: body,
               arrayName,
-              animationInterval: query.interval,
+              animationDuration: query.interval,
             });
           } else {
             throw new Error('Unexpected array name: ' + arrayName);
