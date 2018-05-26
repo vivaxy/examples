@@ -1,155 +1,52 @@
-// var
-function getQueryStringByName(name, defaultValue) {
-    const result = location.search.match(new RegExp('[?&]' + name + '=([^&]+)', 'i'));
-    if (result === null || result.length < 1) {
-        if (defaultValue !== undefined) {
-            return defaultValue;
-        }
-        return null;
-    }
-    return result[1];
-}
+/**
+ * @since 2018-05-26 10:38:15
+ * @author vivaxy
+ */
 
-const interval = getQueryStringByName('interval', 10);
-const number = getQueryStringByName('number', 100);
+import './debug/assert.js';
+import Query from '../../../../_animation/class/query.js';
+import EventEmitter from '../../../../_animation/class/event-emitter.js';
+import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
+import generateUnsortedArray from '../../../../_animation/services/unsorted-array.js';
+import animationActions from './services/animation-actions.js';
+import algorithm from './services/algorithm.js';
 
-const steps = []; // select compare move
-function quickSort(a, start, end) {
-    let i = start;
-    let j = end;
-    steps.push({ select: [i, j] });
-    while (i < j) {
-        steps.push({ compareTo: i });
-        while (i < j && a[i] <= a[j]) {
-            steps.push({ compare: j });
-            j--;
-        }
-        if (i < j) {
-            steps.push({ compare: j });
-            steps.push({ move: j });
-            const temp1 = a[i];
-            a[i] = a[j];
-            a[j] = temp1;
-        }
-        steps.push({ compareTo: j });
-        while (i < j && a[i] < a[j]) {
-            steps.push({ compare: i });
-            i++;
-        }
-        if (i < j) {
-            steps.push({ compare: i });
-            steps.push({ move: i });
-            const temp2 = a[i];
-            a[i] = a[j];
-            a[j] = temp2;
-        }
-    }
-    if (start < i - 1) {
-        quickSort(a, start, i - 1);
-    }
-    if (end > i + 1) {
-        quickSort(a, i + 1, end);
-    }
-}
+const params = [
+  {
+    name: 'interval',
+    format(input) {
+      const value = Number(input);
+      if (Number.isNaN(value)) {
+        return this.defaultValue;
+      }
+      if (value < 0) {
+        return this.defaultValue;
+      }
+      return value;
+    },
+    defaultValue: 1000,
+  },
+  {
+    name: 'length',
+    format(input) {
+      const value = Number(input);
+      if (Number.isNaN(value)) {
+        return this.defaultValue;
+      }
+      if (value <= 0) {
+        return this.defaultValue;
+      }
+      return value;
+    },
+    defaultValue: 10,
+  },
+];
 
-// define array
-const array = [];
-const arrayInit = [];
-for (let i = 0; i < number; i++) {
-    array[i] = Math.random();
-    arrayInit[i] = array[i];
-}
-// main
-quickSort(array, 0, array.length - 1);
+const query = new Query({ params });
+const events = new EventEmitter();
 
-// css
-function getCssName(name) {
-    const prefixes = ['', '-webkit-', '-ms-', '-moz-'];
-    const target = document.documentElement.style;
-    for (let i = 0; i < prefixes.length; i++) {
-        const test = prefixes[i] + name;
-        if (test in target) {
-            return test;
-        }
-    }
-    return null;
-}
+generateUnsortedArray.init(events);
+animationActions.init(events, query);
+algorithm.init(events);
 
-const transition = getCssName('transition');
-const css = document.styleSheets[0];
-
-function addCss(sheet, selectorText, cssText, position) {
-    const pos = position || sheet.cssRules.length;
-    if (sheet.insertRule) {
-        sheet.insertRule(selectorText + '{' + cssText + '}', pos);
-    } else if (sheet.addRule) { // IE
-        sheet.addRule(selectorText, cssText, pos);
-    }
-}
-
-addCss(css, 'div', 'width: ' + 100 / number + '%; ' + transition + ': background ' + interval / 1000 + 's, left ' + interval / 1000 + 's;');
-for (let i = 0; i < number; i++) {
-    addCss(css, '.div' + i, 'height: ' + 100 * arrayInit[i] + '%;');
-}
-// create div
-const div = [];
-for (let i = 0; i < number; i++) {
-    const d = document.createElement('div');
-    d.classList.add('div' + i);
-    d.style.left = 100 / number * i + '%';
-    document.body.appendChild(d);
-    div.push(d);
-}
-// animate
-let toBeMoved = 0;
-let loopVar = 0;
-
-function loopFunc() {
-    if (loopVar >= steps.length) {
-        clearTimeout(loopVar);
-        for (let i = 0; i < number; i++) {
-            const classList = div[i].classList;
-            classList.remove('select');
-            classList.remove('compare');
-            classList.remove('compareTo');
-        }
-        return;
-    }
-    if (steps[loopVar].hasOwnProperty('select')) {
-        for (let i = 0; i < number; i++) {
-            const classList = div[i].classList;
-            classList.remove('select');
-            classList.remove('compare');
-            classList.remove('compareTo');
-        }
-        for (let i = steps[loopVar].select[0]; i <= steps[loopVar].select[1]; i++) {
-            div[i].classList.add('select');
-        }
-        toBeMoved = steps[loopVar].select[0];
-    }
-    if (steps[loopVar].hasOwnProperty('compareTo')) {
-        for (let i = 0; i < number; i++) {
-            div[i].classList.remove('compareTo');
-        }
-        div[steps[loopVar].compareTo].classList.add('compareTo');
-    }
-    if (steps[loopVar].hasOwnProperty('compare')) {
-        for (let i = 0; i < number; i++) {
-            div[i].classList.remove('compare');
-        }
-        div[steps[loopVar].compare].classList.add('compare');
-    }
-    if (steps[loopVar].hasOwnProperty('move')) {
-        const temp = div[toBeMoved].style.left;
-        div[toBeMoved].style.left = div[steps[loopVar].move].style.left;
-        div[steps[loopVar].move].style.left = temp;
-        const divTemp = div[toBeMoved];
-        div[toBeMoved] = div[steps[loopVar].move];
-        div[steps[loopVar].move] = divTemp;
-        toBeMoved = steps[loopVar].move;
-    }
-    loopVar++;
-    setTimeout(loopFunc, interval);
-}
-
-loopFunc();
+events.emit(EVENT_TYPES.REQUEST_AN_UNSORTED_ARRAY, { arrayLength: query.length });

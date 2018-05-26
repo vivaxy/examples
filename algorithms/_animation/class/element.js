@@ -10,16 +10,21 @@ export default class Element {
     this.parent = parent;
     this.width = width;
     this.animationDuration = animationDuration;
+  }
 
+  _createElement() {
     this.element = document.createElement('div');
     this.element.classList.add('item');
-    this.element.style.left = index * width + '%';
-    this.element.style.width = width + '%';
-    this.element.style.height = value * 50 + '%';
+    this.element.style.left = this.index * this.width + '%';
+    this.element.style.width = this.width + '%';
+    this.element.style.height = this.value * 100 + '%';
     this.element.style.bottom = '0';
-    this.element.style.transition = 'all ' + animationDuration + 'ms';
-    this.element.style.animationDuration = `${animationDuration}ms`;
-    parent.appendChild(this.element);
+    this.element.style.transition = 'all ' + this.animationDuration + 'ms';
+    this.element.style.animationDuration = `${this.animationDuration}ms`;
+  }
+
+  _appendElement() {
+    this.parent.appendChild(this.element);
   }
 
   removeMark() {

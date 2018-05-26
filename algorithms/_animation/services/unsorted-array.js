@@ -5,14 +5,17 @@
 
 import * as EVENT_TYPES from '../enums/event-types.js';
 
-export default {
-  init: (events) => {
-    events.on(EVENT_TYPES.REQUEST_AN_UNSORTED_ARRAY, (eventId, eventData) => {
-      const unsortedArray = Array.from({ length: eventData.arrayLength }, (item, index) => {
-        return Math.random();
-      });
+function init(events) {
+  events.on(EVENT_TYPES.REQUEST_AN_UNSORTED_ARRAY, requestAnUnsortedArray);
 
-      events.emit(EVENT_TYPES.REQUEST_ANIMATION_ACTIONS, { unsortedArray });
+  function requestAnUnsortedArray(eventId, eventData) {
+    const unsortedArray = Array.from({ length: eventData.arrayLength }, (item, index) => {
+      return Math.random();
     });
-  },
-};
+
+    events.emit(EVENT_TYPES.REQUEST_ANIMATION_ACTIONS, { unsortedArray });
+  }
+
+}
+
+export default { init };

@@ -8,6 +8,9 @@ import BaseElement from '../../../../../_animation/class/element.js';
 export default class Element extends BaseElement {
   constructor(args) {
     super(args);
+    this._createElement();
+    this.element.style.height = this.value * 50 + '%';
+    this._appendElement();
   }
 
   copy() {
