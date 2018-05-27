@@ -4,7 +4,11 @@
     "link": "array/index.html"
   },
   {
-    "name": "Tree Node",
-    "link": "tree-node/index.html"
+    "name": "Tree",
+    "link": "tree/index.html"
+  },
+  {
+    "name": "Graph",
+    "link": "graph/index.html"
   }
 ]
