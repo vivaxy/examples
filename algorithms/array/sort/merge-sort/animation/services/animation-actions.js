@@ -44,28 +44,23 @@ function init(events, query) {
   }
 
   function applyAnAnimationAction(eventId, eventData) {
-    // console.log('animation action:', eventData.animationAction);
 
-    if (!elements) {
-      throw new Error('elements not initialized');
-    }
-
-    if (!eventData.animationAction) {
-      throw new Error('missing animationAction');
-    }
+    ASSERT(elements, 'missing elements');
+    ASSERT(eventData, 'missing eventData');
 
     events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_START, eventData);
 
-    const action = eventData.animationAction.action;
-    const actionHandler = actionHandlers[action];
-    if (!actionHandler) {
-      throw new Error('Unexpected action type: ' + action);
-    }
+    const actionType = eventData.type;
+    const actionHandler = actionHandlers[actionType];
+    ASSERT(actionHandler, 'Unexpected action type: ' + actionType);
     actionHandler(eventData);
   }
 
   function createAnArray(eventData) {
-    const { arrayName, fromIndex, toIndex } = eventData.animationAction;
+    const { arrayName, fromIndex, toIndex } = eventData;
+
+    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+
     if (arrayName === 'B') {
       newArrayB = new NewArray({
         arrayLength: elements.length,
@@ -84,8 +79,6 @@ function init(events, query) {
         arrayName,
         animationDuration: query.interval,
       });
-    } else {
-      throw new Error('Unexpected array name: ' + arrayName);
     }
     setTimeout(() => {
       events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
@@ -93,7 +86,10 @@ function init(events, query) {
   }
 
   function pushToAnArray(eventData) {
-    const { arrayName, index, value, elementIndex } = eventData.animationAction;
+    const { arrayName, index, value, elementIndex } = eventData;
+
+    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+
     if (arrayName === 'B') {
       let element = elements[elementIndex];
       element.moveToNewArray({ toArray: newArrayB, arrayName, index, value }, () => {
@@ -110,13 +106,14 @@ function init(events, query) {
         }, query.interval);
       });
       elementsInC.push(element);
-    } else {
-      throw new Error('Unexpected array name: ' + arrayName);
     }
   }
 
   function markArrayIndex(eventData) {
-    const { arrayName, index } = eventData.animationAction;
+    const { arrayName, index } = eventData;
+
+    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+
     if (arrayName === 'B') {
       if (markedArrayBIndex !== null) {
         elementsInB[markedArrayBIndex] && elementsInB[markedArrayBIndex].removeMark();
@@ -129,8 +126,6 @@ function init(events, query) {
       }
       markedArrayCIndex = index;
       elementsInC[markedArrayCIndex] && elementsInC[markedArrayCIndex].addMark();
-    } else {
-      throw new Error('Unexpected array name: ' + arrayName);
     }
     setTimeout(() => {
       events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
@@ -148,7 +143,10 @@ function init(events, query) {
   }
 
   function assign(eventData) {
-    const { fromArrayName, index } = eventData.animationAction;
+    const { fromArrayName, index } = eventData;
+
+    ASSERT(fromArrayName === 'B' || fromArrayName === 'C', 'Unexpected array name: ' + fromArrayName);
+
     if (fromArrayName === 'B') {
       const ele = elementsInB[markedArrayBIndex];
       ele.moveBack({ index }, () => {
@@ -165,8 +163,6 @@ function init(events, query) {
         }, query.interval);
       });
       switchIndex(ele);
-    } else {
-      throw new Error('Unexpected array name: ' + fromArrayName);
     }
 
     function switchIndex(ele) {

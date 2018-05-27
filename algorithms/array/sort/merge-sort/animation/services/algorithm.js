@@ -11,20 +11,20 @@ function init(events) {
 
   function requestAnimationActions(eventId, eventData) {
     const { unsortedArray } = eventData;
-    const animationActions = mergeSort(unsortedArray, 0, unsortedArray.length - 1);
+    const actions = mergeSort(unsortedArray, 0, unsortedArray.length - 1);
 
     let actionIndex = 0;
     events.on(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, () => {
       actionIndex++;
-      if (actionIndex < animationActions.length) {
-        events.emit(EVENT_TYPES.APPLY_AN_ANIMATION_ACTION, { animationAction: animationActions[actionIndex] });
+      if (actionIndex < actions.length) {
+        events.emit(EVENT_TYPES.APPLY_AN_ANIMATION_ACTION, actions[actionIndex]);
       } else {
-        events.emit(EVENT_TYPES.ON_ANIMATION_ACTIONS_END, { animationActions });
+        events.emit(EVENT_TYPES.ON_ANIMATION_ACTIONS_END, actions);
       }
     });
 
-    events.emit(EVENT_TYPES.ON_ANIMATION_ACTIONS_START, { animationActions });
-    events.emit(EVENT_TYPES.APPLY_AN_ANIMATION_ACTION, { animationAction: animationActions[actionIndex] });
+    events.emit(EVENT_TYPES.ON_ANIMATION_ACTIONS_START, actions);
+    events.emit(EVENT_TYPES.APPLY_AN_ANIMATION_ACTION, actions[actionIndex]);
   }
 
   function mergeSort(A, p, r) {
@@ -41,7 +41,7 @@ function init(events) {
     let actions = [];
     let B = [];
     actions.push({
-      action: ACTION_TYPES.CREATE_A_NEW_ARRAY,
+      type: ACTION_TYPES.CREATE_A_NEW_ARRAY,
       arrayName: 'B',
       fromIndex: p,
       toIndex: q,
@@ -49,7 +49,7 @@ function init(events) {
     for (let i = p; i <= q; i++) {
       B.push(A[i]);
       actions.push({
-        action: ACTION_TYPES.PUSH_TO_AN_ARRAY,
+        type: ACTION_TYPES.PUSH_TO_AN_ARRAY,
         arrayName: 'B',
         elementIndex: i,
         index: B.length - 1,
@@ -59,7 +59,7 @@ function init(events) {
     B.push(Infinity);
     let C = [];
     actions.push({
-      action: ACTION_TYPES.CREATE_A_NEW_ARRAY,
+      type: ACTION_TYPES.CREATE_A_NEW_ARRAY,
       arrayName: 'C',
       fromIndex: q + 1,
       toIndex: r,
@@ -67,7 +67,7 @@ function init(events) {
     for (let j = q + 1; j <= r; j++) {
       C.push(A[j]);
       actions.push({
-        action: ACTION_TYPES.PUSH_TO_AN_ARRAY,
+        type: ACTION_TYPES.PUSH_TO_AN_ARRAY,
         arrayName: 'C',
         elementIndex: j,
         index: C.length - 1,
@@ -77,30 +77,30 @@ function init(events) {
     C.push(Infinity);
     let i = 0;
     actions.push({
-      action: ACTION_TYPES.MARK_ARRAY_INDEX,
+      type: ACTION_TYPES.MARK_ARRAY_INDEX,
       arrayName: 'B',
       index: i,
     });
     let j = 0;
     actions.push({
-      action: ACTION_TYPES.MARK_ARRAY_INDEX,
+      type: ACTION_TYPES.MARK_ARRAY_INDEX,
       arrayName: 'C',
       index: j,
     });
     for (let k = p; k <= r; k++) {
       actions.push({
-        action: ACTION_TYPES.COMPARE,
+        type: ACTION_TYPES.COMPARE,
       });
       if (B[i] <= C[j]) {
         A[k] = B[i];
         i++;
         actions.push({
-          action: ACTION_TYPES.ASSIGN,
+          type: ACTION_TYPES.ASSIGN,
           fromArrayName: 'B',
           index: k,
         });
         actions.push({
-          action: ACTION_TYPES.MARK_ARRAY_INDEX,
+          type: ACTION_TYPES.MARK_ARRAY_INDEX,
           arrayName: 'B',
           index: i,
         });
@@ -108,19 +108,19 @@ function init(events) {
         A[k] = C[j];
         j++;
         actions.push({
-          action: ACTION_TYPES.ASSIGN,
+          type: ACTION_TYPES.ASSIGN,
           fromArrayName: 'C',
           index: k,
         });
         actions.push({
-          action: ACTION_TYPES.MARK_ARRAY_INDEX,
+          type: ACTION_TYPES.MARK_ARRAY_INDEX,
           arrayName: 'C',
           index: j,
         });
       }
     }
     actions.push({
-      action: ACTION_TYPES.DESTROY_NEW_ARRAYS,
+      type: ACTION_TYPES.DESTROY_NEW_ARRAYS,
     });
     return actions;
   }

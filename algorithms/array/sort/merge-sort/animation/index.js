@@ -3,6 +3,7 @@
  * @author vivaxy
  */
 
+import './debug/assert.js';
 import Query from '../../../../_animation/class/query.js';
 import EventEmitter from '../../../../_animation/class/event-emitter.js';
 import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
