@@ -1,7 +1,7 @@
 [
   {
     "name": "Animation",
-    "link": "animation/index.html?interval=10&number=100"
+    "link": "animation/index.html?interval=500&length=10"
   },
   {
     "name": "Implements",

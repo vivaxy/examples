@@ -9,4 +9,4 @@ function assert(condition, message) {
   }
 }
 
-window.assert = assert;
+window.ASSERT = assert;
