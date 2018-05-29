@@ -1,38 +1,47 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
-    <link type="text/css" rel="stylesheet" href="index.css">
-    <title>A-Frame Minecraft</title>
-    <script src="../aframe.min.js"></script>
-    <script src="../aframe-teleport-controls.min.js"></script>
-    <script src="../aframe-controller-cursor-component.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./random-color.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./snap.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./intersection-spawn.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
+  <link type="text/css" rel="stylesheet" href="index.css">
+  <title>A-Frame Minecraft</title>
+  <script src="../aframe.min.js"></script>
+  <script src="../aframe-teleport-controls.min.js"></script>
+  <script src="../aframe-controller-cursor-component.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./random-color.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./snap.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./intersection-spawn.js"></script>
 </head>
 <body>
 <a-scene>
-    <a-assets>
-        <img id="groundTexture" src="./floor.jpg">
-        <img id="skyTexture" src="./sky.jpg">
-        <a-mixin
-            id="voxel"
-            geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-            material="shader: standard"
-            random-color
-            snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
-        ></a-mixin>
-    </a-assets>
-    <a-cylinder id="ground" src="#groundTexture" radius="32" height="0.1"></a-cylinder>
-    <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
-    <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"></a-entity>
-    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn="event: click; mixin: voxel"></a-entity>
-    <a-camera>
-        <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
-    </a-camera>
+  <a-assets>
+    <img id="groundTexture" src="./floor.jpg">
+    <img id="skyTexture" src="./sky.jpg">
+    <a-mixin
+      id="voxel"
+      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+      material="shader: standard"
+      random-color
+      snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
+    ></a-mixin>
+  </a-assets>
+  <a-cylinder id="ground" src="#groundTexture" radius="32" height="0.1"></a-cylinder>
+  <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
+  <a-entity
+    id="teleHand"
+    hand-controls="left"
+    teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"
+  ></a-entity>
+  <a-entity
+    id="blockHand"
+    hand-controls="right"
+    controller-cursor
+    intersection-spawn="event: click; mixin: voxel"
+  ></a-entity>
+  <a-camera>
+    <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
+  </a-camera>
 </a-scene>
 <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
 </body>

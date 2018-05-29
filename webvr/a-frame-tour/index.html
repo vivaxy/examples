@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>Tour</title>
+  <script src="../aframe.min.js"></script>
+  <script>
+    var dimension = 1;
+
+    AFRAME.registerComponent('movement-listener', {
+
+      init() {
+        this.currentSky = '';
+      },
+
+      tick() {
+        var position = this.el.getAttribute('position');
+        var rotation = this.el.getAttribute('rotation');
+
+        if (position.x > dimension) {
+          if (position.z > dimension) {
+            this.setImage('#bj1');
+          } else if (position.z < -dimension) {
+            this.setImage('#bj3');
+          } else {
+            this.setImage('#bj2');
+          }
+        } else if (position.x < -dimension) {
+          if (position.z > dimension) {
+            this.setImage('#bj7');
+          } else if (position.z < -dimension) {
+            this.setImage('#bj5');
+          } else {
+            this.setImage('#bj6');
+          }
+        } else {
+          if (position.z > dimension) {
+            this.setImage('#bj8');
+          } else if (position.z < -dimension) {
+            this.setImage('#bj4');
+          } else {
+            this.setImage('');
+          }
+        }
+      },
+
+      remove() {
+        this.currentSky = null;
+      },
+
+      setImage(newImage) {
+        if (newImage === this.currentSky) {
+          return;
+        }
+
+        var skyEl = document.querySelector('#sky');
+        skyEl.setAttribute('src', newImage);
+        this.currentSky = newImage;
+
+      }
+
+    });
+
+    AFRAME.registerComponent('cursor-listener', {
+      init() {
+        this.el.addEventListener('click', handleClick);
+
+        function handleClick(evt) {
+          move(document.querySelector('#camera'), evt);
+          move(document.querySelector('#arrow1'), evt);
+          move(document.querySelector('#arrow2'), evt);
+          move(document.querySelector('#arrow3'), evt);
+          move(document.querySelector('#arrow4'), evt);
+        }
+
+        function move(el, evt) {
+          var pos = AFRAME.utils.coordinates.parse(el.getAttribute('position'));
+          var diffPos = AFRAME.utils.coordinates.parse(evt.target.dataset.movement);
+          pos.x += diffPos.x;
+          pos.y += diffPos.y;
+          pos.z += diffPos.z;
+          el.setAttribute('position', AFRAME.utils.coordinates.stringify(pos));
+        }
+      }
+
+    });
+
+  </script>
+</head>
+<body>
+<a-scene>
+
+  <a-assets>
+    <img id="bj1" src="./images/bj1.jpg">
+    <img id="bj2" src="./images/bj2.jpg">
+    <img id="bj3" src="./images/bj3.jpg">
+    <img id="bj4" src="./images/bj4.jpg">
+    <img id="bj5" src="./images/bj5.jpg">
+    <img id="bj6" src="./images/bj6.jpg">
+    <img id="bj7" src="./images/bj7.jpg">
+    <img id="bj8" src="./images/bj8.jpg">
+
+    <a-asset-item id="arrowObj" src="./models/arrow.obj"></a-asset-item>
+    <a-asset-item id="arrowMtl" src="./models/arrow.mtl"></a-asset-item>
+
+    <a-mixin id="cursor" cursor-listener obj-model="obj: #arrowObj; mtl: #arrowMtl;"></a-mixin>
+  </a-assets>
+
+  <a-sky id="sky" src=""></a-sky>
+
+  <a-entity id="camera" camera movement-listener look-controls wasd-controls position="0 0 0">
+    <a-entity
+      cursor="fuse: false;"
+      position="0 0 -0.5"
+      scale="0.5 0.5 0.5"
+      geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+      material="color: black; shader: flat"
+    >
+    </a-entity>
+  </a-entity>
+
+  <a-entity id="arrow1" mixin="cursor" rotation="0 0 0" position="-1 -0.3 0.7" data-movement="-1 0 0"></a-entity>
+  <a-entity id="arrow2" mixin="cursor" rotation="0 90 0" position="0.7 -0.3 1" data-movement="0 0 1"></a-entity>
+  <a-entity id="arrow3" mixin="cursor" rotation="0 180 0" position="1 -0.3 -0.7" data-movement="1 0 0"></a-entity>
+  <a-entity id="arrow4" mixin="cursor" rotation="0 270 0" position="-0.7 -0.3 -1" data-movement="0 0 -1"></a-entity>
+
+</a-scene>
+</body>
+</html>

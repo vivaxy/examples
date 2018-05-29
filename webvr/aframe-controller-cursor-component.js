@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/* global AFRAME, THREE */
 	var bind = AFRAME.utils.bind;
@@ -78,7 +78,9 @@
 
 	  schema: {
 	    color: {default: '#74BEC1'},
-	    radius: {default: 0.001}
+	    downEvents: {default: ['triggerdown']},
+	    radius: {default: 0.001},
+	    upEvents: {default: ['triggerup']}
 	  },
 
 	  init: function () {
@@ -95,18 +97,22 @@
 	      return;
 	    }
 
+	    // Prevent laser from interfering with raycaster by setting near property
+	    cursorEl.setAttribute('raycaster', {near: 0.03});
+
 	    // Create laser beam.
-	    var cursorGeometry = new THREE.CylinderGeometry(data.radius, data.radius, 1000, 32);
+	    var raycasterLength = cursorEl.getAttribute('raycaster').far;
+	    var laserLength = raycasterLength === Infinity ? 1000 : raycasterLength;
+
+	    var cursorGeometry = new THREE.CylinderBufferGeometry(
+	      data.radius, data.radius, laserLength, 32);
 	    var cursorMaterial = new THREE.MeshBasicMaterial({color: data.color});
 	    var cursorMesh = new THREE.Mesh(cursorGeometry, cursorMaterial);
 	    // Move mesh so beam starts at tip of controller model.
-	    cursorMesh.position.z = -500;
+	    cursorMesh.position.z = -1 * laserLength / 2;
 	    // Rotate mesh to point directly away from controller model.
 	    cursorMesh.rotation.x = 90 * (Math.PI / 180);
 	    cursorEl.setObject3D('cursormesh', cursorMesh);
-
-	    // Prevent laser from interfering with raycaster by setting near property
-	    cursorEl.setAttribute('raycaster', {near: 0.03});
 
 	    // Bind methods.
 	    this.onIntersectionBind = bind(this.onIntersection, this);
@@ -120,22 +126,46 @@
 	   */
 	  play: function () {
 	    var cursorEl = this.el;
+	    var data = this.data;
+	    var self = this;
+
 	    cursorEl.addEventListener('raycaster-intersection', this.onIntersectionBind);
 	    cursorEl.addEventListener('raycaster-intersection-cleared',
 	                              this.onIntersectionClearedBind);
-	    cursorEl.addEventListener('triggerdown', this.onTriggerDownBind);
-	    cursorEl.addEventListener('triggerup', this.onTriggerUpBind);
+
+	    data.downEvents.forEach(function (downEvent) {
+	      cursorEl.addEventListener(downEvent, self.onTriggerDownBind);
+	    });
+	    data.upEvents.forEach(function (upEvent) {
+	      cursorEl.addEventListener(upEvent, self.onTriggerUpBind);
+	    });
 	  },
 
 	  /**
 	   * Remove event listeners.
 	   */
 	  pause: function () {
+	    var cursorEl = this.el;
+	    var data = this.data;
+	    var self = this;
 	    cursorEl.removeEventListener('raycaster-intersection', this.onIntersectionBind);
 	    cursorEl.removeEventListener('raycaster-intersection-cleared',
 	                                 this.onIntersectionClearedBind);
-	    cursorEl.removeEventListener('triggerdown', this.onTriggerDownBind);
-	    cursorEl.removeEventListener('triggerup', this.onTriggerUpBind);
+
+	    data.downEvents.forEach(function (downEvent) {
+	      cursorEl.removeEventListener(downEvent, self.onTriggerDownBind);
+	    });
+	    data.upEvents.forEach(function (upEvent) {
+	      cursorEl.removeEventListener(upEvent, self.onTriggerUpBind);
+	    });
+	  },
+
+	  /**
+	   * Remove mesh.
+	   */
+	  remove: function () {
+	    var cursorEl = this.el;
+	    cursorEl.removeObject3D('cursormesh');
 	  },
 
 	  /**
@@ -238,5 +268,5 @@
 	});
 
 
-/***/ }
+/***/ })
 /******/ ]);

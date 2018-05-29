@@ -1,18 +1,22 @@
 [
-    {
-        "name": "A-Frame Demo",
-        "link": "a-frame-demo/"
-    },
-    {
-        "name": "A-Frame Minecraft",
-        "link": "a-frame-minecraft/"
-    },
-    {
-        "name": "A-Frame Shanghai Oriental Pearl",
-        "link": "a-frame-shanghai-oriental-pearl/"
-    },
-    {
-        "name": "A-Frame Panorama",
-        "link": "a-frame-panorama/"
-    }
+  {
+    "name": "A-Frame Demo",
+    "link": "a-frame-demo/"
+  },
+  {
+    "name": "A-Frame Minecraft",
+    "link": "a-frame-minecraft/"
+  },
+  {
+    "name": "A-Frame Shanghai Oriental Pearl",
+    "link": "a-frame-shanghai-oriental-pearl/"
+  },
+  {
+    "name": "A-Frame Panorama",
+    "link": "a-frame-panorama/"
+  },
+  {
+    "name": "A-Frame Tour",
+    "link": "a-frame-tour/"
+  }
 ]
