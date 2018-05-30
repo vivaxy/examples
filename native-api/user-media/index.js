@@ -8,14 +8,10 @@ const canvas = document.querySelector('#paint');
 const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 
-async function go() {
-  // first ask for get user media
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-  video.srcObject = stream;
-}
+const getUserMediaOptions = { audio: true, video: { width: 1280, height: 720 } };
 
 function takePhoto() {
-  console.log('Taking photo!');
+  alert('Taking photo!');
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
@@ -28,6 +24,37 @@ function takePhoto() {
   strip.insertBefore(link, strip.firstChild);
 }
 
-go().catch(err => {
-  alert(err.message);
-});
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia(getUserMediaOptions)
+    .then(handleStream)
+    .catch(function(ex) {
+      alert('navigator.mediaDevices.getUserMedia error' + ex.stack);
+      legacyUserMedia();
+    });
+} else {
+  legacyUserMedia();
+}
+
+function legacyUserMedia() {
+  navigator.getUserMedia = navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia(getUserMediaOptions,
+      handleStream,
+      function(err) {
+        alert('The following error occurred: ' + err.name);
+      },
+    );
+  } else {
+    alert('getUserMedia not supported');
+  }
+}
+
+function handleStream(stream) {
+  video.srcObject = stream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+}
