@@ -178,5 +178,9 @@
   {
     "name": "paintWorklet",
     "link": "paint-worklet/index.html"
+  },
+  {
+    "name": "User Media",
+    "link": "user-media/index.html"
   }
 ]
