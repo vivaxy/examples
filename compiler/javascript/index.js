@@ -36,70 +36,34 @@ const astTypes = {
   LOGICAL_EXPRESSION: 'LogicalExpression',
   IDENTIFIER: 'Identifier',
   SEQUENCE_EXPRESSION: 'SequenceExpression',
+  CONDITIONAL_EXPRESSION: 'ConditionalExpression',
 };
 
 compiler.astTypes = astTypes;
 
-const operatorPrecedence = {
-  '( ... )': 20,
-  '.': 19,
-  '[ ... ]': 19,
-  'new ... ( ... )': 19,
-  '... (...)': 19,
-  'new': 18,
-  '... ++': 17,
-  '... --': 17,
-  '!': 16,
-  '~': 16,
-  '+?': 16, // + ...
-  '-?': 16, // - ...
-  '++': 16, // ++ ...
-  '--': 16, // -- ...
-  'typeof': 16,
-  'void': 16,
-  'delete': 16,
-  'await': 16,
+/**
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+ */
+const binaryOperatorPrecedence = {
   '**': 15,
   '*': 14,
   '/': 14,
   '%': 14,
   '+': 13,
   '-': 13,
-  '<<': 12,
-  '>>': 12,
-  '>>>': 12,
   '<': 11,
   '<=': 11,
   '>': 11,
   '>=': 11,
-  'in': 11,
-  'instanceof': 11,
   '==': 10,
   '!=': 10,
   '===': 10,
   '!==': 10,
-  '&': 9,
-  '^': 8,
-  '|': 7,
-  '&&': 6,
-  '||': 5,
-  '?:': 4,
-  '=': 3,
-  '+=': 3,
-  '-=': 3,
-  '**=': 3,
-  '*=': 3,
-  '/=': 3,
-  '%=': 3,
-  '<<=': 3,
-  '>>=': 3,
-  '>>>=': 3,
-  '&=': 3,
-  '^=': 3,
-  '|=': 3,
-  'yield': 2,
-  'yield*': 2,
-  ',': 1,
+  '&': 9, // todo
+  '^': 8, // todo
+  '|': 7, // todo
+  '&&': 6, // todo
+  '||': 5, // todo
 };
 
 const astFactory = {
@@ -126,6 +90,9 @@ const astFactory = {
   },
   SEQUENCE_EXPRESSION: (expressions) => {
     return { type: astTypes.SEQUENCE_EXPRESSION, expressions };
+  },
+  CONDITIONAL_EXPRESSION: (test, consequent, alternate) => {
+    return { type: astTypes.CONDITIONAL_EXPRESSION, test, consequent, alternate };
   },
 };
 
@@ -387,7 +354,7 @@ function parser(tokens, args) {
         )
       ) {
         // valid binary operator
-        if (operatorIndex === -1 || operatorPrecedence[tokens[operatorIndex].value] > operatorPrecedence[token.value]) {
+        if (operatorIndex === -1 || binaryOperatorPrecedence[tokens[operatorIndex].value] > binaryOperatorPrecedence[token.value]) {
           operatorIndex = i;
         }
       }
@@ -524,12 +491,26 @@ function parser(tokens, args) {
     return -1;
   }
 
-  /**
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
-   * @param start
-   * @param end
-   * @returns {*}
-   */
+  function getConditionalExpression(start, end) {
+    let questionMarkIndex = -1;
+    let colonIndex = -1;
+    for (let i = start; i <= end; i++) {
+      if (questionMarkIndex !== -1 && colonIndex !== -1) {
+        break;
+      }
+      if (questionMarkIndex === -1 && tokens[i].type === tokenTypes.CONDITIONAL_OPERATOR && tokens[i].value === '?') {
+        questionMarkIndex = i;
+      }
+      if (colonIndex === -1 && tokens[i].type === tokenTypes.CONDITIONAL_OPERATOR && tokens[i].value === ':') {
+        colonIndex = i;
+      }
+    }
+    if (questionMarkIndex === -1 || colonIndex === -1) {
+      return null;
+    }
+    return astFactory.CONDITIONAL_EXPRESSION(walk(start, questionMarkIndex - 1), walk(questionMarkIndex + 1, colonIndex - 1), walk(colonIndex + 1, end));
+  }
+
   function walk(start, end) {
     if (start > end) {
       throw new Error('Walk: start > end');
@@ -540,9 +521,14 @@ function parser(tokens, args) {
       return walk(start + 1, end - 1);
     }
 
-    const sequenceExpression = getSequenceExpressions(start, end);
-    if (sequenceExpression) {
-      return sequenceExpression;
+    const sequenceExpressions = getSequenceExpressions(start, end);
+    if (sequenceExpressions) {
+      return sequenceExpressions;
+    }
+
+    const conditionalExpression = getConditionalExpression(start, end);
+    if (conditionalExpression) {
+      return conditionalExpression;
     }
 
     const literal = getLiteralOrIdentifier(start, end);
@@ -688,6 +674,9 @@ function execute(ast) {
       return undefined;
     }
     throw new Error('Unexpected identifier name: ' + ast.name);
+  }
+  if (ast.type === astTypes.CONDITIONAL_EXPRESSION) {
+    return execute(ast.test) ? execute(ast.consequent) : execute(ast.alternate);
   }
   throw new Error('Unexpected ast type: ' + ast.type);
 }
