@@ -139,6 +139,9 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  t.deepEqual(compiler('1 ^ 2'), 3);
+  t.deepEqual(compiler('1 | 2'), 3);
+  t.deepEqual(compiler('1 & 2'), 0);
   t.deepEqual(compiler('{{a}} === 1 ? "c" : "d"', { a: 1 }), 'c');
   t.deepEqual(compiler('(1 + 1) * ((2))'), 4);
   t.deepEqual(compiler('(1 + 1) * (2)'), 4);

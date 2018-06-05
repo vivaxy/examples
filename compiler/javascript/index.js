@@ -5,7 +5,7 @@
 
 const tokenTypes = {
   ARITHMETIC_OPERATOR: 'arithmeticOperator', // +(二元), -(二元), /, *, %, **, ++, --, -(一元), +(一元)
-  // BITWISE_OPERATOR: 'bitwiseOperator', // &, |, ^, ~, <<, >>, >>>
+  BITWISE_OPERATOR: 'bitwiseOperator', // &, |, ^, ~, <<, >>, >>>
   COMPARISON_OPERATOR: 'comparisonOperator', // ==, ===, >, <, <=, >=, !=, !==
   CONDITIONAL_OPERATOR: 'conditionalOperator', // ? :
   LOGICAL_OPERATOR: 'logicalOperator', // &&, ||, !
@@ -59,11 +59,11 @@ const binaryOperatorPrecedence = {
   '!=': 10,
   '===': 10,
   '!==': 10,
-  '&': 9, // todo
-  '^': 8, // todo
-  '|': 7, // todo
-  '&&': 6, // todo
-  '||': 5, // todo
+  '&': 9,
+  '^': 8,
+  '|': 7,
+  '&&': 6,
+  '||': 5,
 };
 
 const astFactory = {
@@ -153,11 +153,21 @@ function tokenizer(input) {
         pushToken(tokenTypes.LOGICAL_OPERATOR, char + char);
         continue;
       }
+      pushToken(tokenTypes.BITWISE_OPERATOR, char);
+      continue;
+    }
+    if (char === '^' || char === '~') {
+      pushToken(tokenTypes.BITWISE_OPERATOR, char);
+      continue;
     }
     if (char === '<') {
       const nextChar = input[i + 1];
       if (nextChar === '=') {
         pushToken(tokenTypes.COMPARISON_OPERATOR, '<=');
+        continue;
+      }
+      if (nextChar === '<') {
+        pushToken(tokenTypes.COMPARISON_OPERATOR, '<<');
         continue;
       }
       pushToken(tokenTypes.COMPARISON_OPERATOR, char);
@@ -167,6 +177,14 @@ function tokenizer(input) {
       const nextChar = input[i + 1];
       if (nextChar === '=') {
         pushToken(tokenTypes.COMPARISON_OPERATOR, '>=');
+        continue;
+      }
+      if (nextChar === '>') {
+        if (input[i + 2] === '>') {
+          pushToken(tokenTypes.COMPARISON_OPERATOR, '>>>');
+          continue;
+        }
+        pushToken(tokenTypes.COMPARISON_OPERATOR, '>>');
         continue;
       }
       pushToken(tokenTypes.COMPARISON_OPERATOR, char);
@@ -336,7 +354,15 @@ function parser(tokens, args) {
         (
           (
             token.type === tokenTypes.ARITHMETIC_OPERATOR ||
-            token.type === tokenTypes.COMPARISON_OPERATOR
+            token.type === tokenTypes.COMPARISON_OPERATOR ||
+            (
+              token.type === tokenTypes.BITWISE_OPERATOR &&
+              (
+                token.value === '&' ||
+                token.value === '|' ||
+                token.value === '^'
+              )
+            )
           ) &&
           prevToken &&
           (
@@ -648,6 +674,15 @@ function execute(ast) {
     }
     if (ast.operator === '**') {
       return execute(ast.left) ** execute(ast.right);
+    }
+    if (ast.operator === '&') {
+      return execute(ast.left) & execute(ast.right);
+    }
+    if (ast.operator === '|') {
+      return execute(ast.left) | execute(ast.right);
+    }
+    if (ast.operator === '^') {
+      return execute(ast.left) ^ execute(ast.right);
     }
     throw new Error('Unexpected BINARY_EXPRESSION operator: ' + ast.operator);
   }
