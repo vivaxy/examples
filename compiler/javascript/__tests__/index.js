@@ -139,6 +139,14 @@ test('parser', (t) => {
 });
 
 test('execute', (t) => {
+  // operators
+  t.deepEqual(compiler('-1'), -1);
+  t.deepEqual(compiler('+1'), 1);
+  t.deepEqual(compiler('!1'), false);
+  t.deepEqual(compiler('11 >>> 1'), 5);
+  t.deepEqual(compiler('11 >> 1'), 5);
+  t.deepEqual(compiler('2 << 1'), 4);
+  t.deepEqual(compiler('~1'), -2);
   t.deepEqual(compiler('5 || 2'), 5);
   t.deepEqual(compiler('5 && 2'), 2);
   t.deepEqual(compiler('5 !== 2'), true);
@@ -158,7 +166,8 @@ test('execute', (t) => {
   t.deepEqual(compiler('1 ^ 2'), 3);
   t.deepEqual(compiler('1 | 2'), 3);
   t.deepEqual(compiler('1 & 2'), 0);
-  t.deepEqual(compiler('{{a}} === 1 ? "c" : "d"', { a: 1 }), 'c');
+  t.deepEqual(compiler('1 === 1 ? 2 : 3'), 2);
+
   t.deepEqual(compiler('(1 + 1) * ((2))'), 4);
   t.deepEqual(compiler('(1 + 1) * (2)'), 4);
   t.deepEqual(compiler('(1 + 1) * 2'), 4);
@@ -169,12 +178,6 @@ test('execute', (t) => {
   t.deepEqual(compiler('true || true && false'), true);
   t.deepEqual(compiler('false && true || false && true'), false);
   t.deepEqual(compiler('true && false || !true'), false);
-  t.deepEqual(compiler('3 ** 2 === 9'), true);
-  t.deepEqual(compiler('3 % 2 === 1'), true);
-  t.deepEqual(compiler('2 / 2 === 1'), true);
-  t.deepEqual(compiler('2 * 2 === 4'), true);
-  t.deepEqual(compiler('1 - 2 === -1'), true);
-  t.deepEqual(compiler('1 + 2 === 3'), true);
   t.deepEqual(compiler('undefined === undefined'), true);
   t.deepEqual(compiler('undefined === {{test}}', {}), true);
   t.deepEqual(compiler('1 === undefined'), false);

@@ -62,8 +62,6 @@ const binaryOperatorPrecedence = {
   '&': 9,
   '^': 8,
   '|': 7,
-  '&&': 6,
-  '||': 5,
 };
 
 const astFactory = {
@@ -380,8 +378,20 @@ function parser(tokens, args) {
         )
       ) {
         // valid binary operator
-        if (operatorIndex === -1 || binaryOperatorPrecedence[tokens[operatorIndex].value] > binaryOperatorPrecedence[token.value]) {
+        if (operatorIndex === -1) {
           operatorIndex = i;
+        } else if (operatorIndex !== -1) {
+          const prevToken = tokens[operatorIndex].value;
+          const currToken = token.value;
+          if (!binaryOperatorPrecedence[prevToken]) {
+            throw new Error('Missing operator precedence: ' + prevToken);
+          }
+          if (!binaryOperatorPrecedence[currToken]) {
+            throw new Error('Missing operator precedence: ' + currToken);
+          }
+          if (binaryOperatorPrecedence[prevToken] > binaryOperatorPrecedence[currToken]) {
+            operatorIndex = i;
+          }
         }
       }
       i++;
@@ -409,13 +419,17 @@ function parser(tokens, args) {
     }
     const token = tokens[start];
     if (
-      (token.type === tokenTypes.ARITHMETIC_OPERATOR && token.value === '-') ||
-      (token.type === tokenTypes.ARITHMETIC_OPERATOR && token.value === '+') ||
+      (token.type === tokenTypes.ARITHMETIC_OPERATOR && (
+        token.value === '-' ||
+        token.value === '+'
+      )) ||
       (token.type === tokenTypes.LOGICAL_OPERATOR && token.value === '!') ||
-      (token.type === tokenTypes.LABEL && token.value === 'void')
+      (token.type === tokenTypes.LABEL && token.value === 'void') ||
+      (token.type === tokenTypes.BITWISE_OPERATOR && token.value === '~')
     ) {
       return astFactory.UNARY_EXPRESSION(token.value, getLiteralOrIdentifier(start + 1, end));
     }
+    return null;
   }
 
   function getLiteralOrIdentifier(start, end) {
@@ -547,34 +561,34 @@ function parser(tokens, args) {
       return walk(start + 1, end - 1);
     }
 
-    const sequenceExpressions = getSequenceExpressions(start, end);
-    if (sequenceExpressions) {
-      return sequenceExpressions;
-    }
-
-    const conditionalExpression = getConditionalExpression(start, end);
-    if (conditionalExpression) {
-      return conditionalExpression;
-    }
-
     const literal = getLiteralOrIdentifier(start, end);
     if (literal) {
       return literal;
     }
 
-    const unaryExpression = getUnaryExpression(start, end);
-    if (unaryExpression) {
-      return unaryExpression;
+    const sequenceExpressions = getSequenceExpressions(start, end); // 1
+    if (sequenceExpressions) {
+      return sequenceExpressions;
     }
 
-    const logicalExpression = getLogicalExpression(start, end);
+    const conditionalExpression = getConditionalExpression(start, end); // 4
+    if (conditionalExpression) {
+      return conditionalExpression;
+    }
+
+    const logicalExpression = getLogicalExpression(start, end); // 5, 6
     if (logicalExpression) {
       return logicalExpression;
     }
 
-    const binaryExpression = getBinaryExpression(start, end);
+    const binaryExpression = getBinaryExpression(start, end); // 7, 8, 9, 10, 11, 12, 13, 14, 15
     if (binaryExpression) {
       return binaryExpression;
+    }
+
+    const unaryExpression = getUnaryExpression(start, end); // 16
+    if (unaryExpression) {
+      return unaryExpression;
     }
 
     throw new Error('Unexpected expression');
@@ -684,6 +698,15 @@ function execute(ast) {
     if (ast.operator === '^') {
       return execute(ast.left) ^ execute(ast.right);
     }
+    if (ast.operator === '>>') {
+      return execute(ast.left) >> execute(ast.right);
+    }
+    if (ast.operator === '<<') {
+      return execute(ast.left) << execute(ast.right);
+    }
+    if (ast.operator === '>>>') {
+      return execute(ast.left) >>> execute(ast.right);
+    }
     throw new Error('Unexpected BINARY_EXPRESSION operator: ' + ast.operator);
   }
   if (ast.type === astTypes.LITERAL) {
@@ -701,6 +724,9 @@ function execute(ast) {
     }
     if (ast.operator === 'void') {
       return undefined;
+    }
+    if (ast.operator === '~') {
+      return ~ast.argument.value;
     }
     throw new Error('Unexpected UNARY_EXPRESSION operator: ' + ast.operator);
   }
