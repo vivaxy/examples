@@ -628,7 +628,7 @@ function execute(ast) {
       return execute(ast.left) && execute(ast.right);
     }
     if (ast.operator === '||') {
-      return execute(ast.left) && execute(ast.right);
+      return execute(ast.left) || execute(ast.right);
     }
     throw new Error('Unexpected LOGICAL_EXPRESSION operator: ' + ast.operator);
   }
