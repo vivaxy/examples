@@ -7,6 +7,7 @@ var dimension = 0.8;
 var arrows = null;
 var sceneEl = null;
 var skyEl = null;
+var buttonEls = null;
 
 AFRAME.registerComponent('movement-listener', {
 
@@ -17,30 +18,47 @@ AFRAME.registerComponent('movement-listener', {
   tick() {
 
     var position = this.el.getAttribute('position');
+    // console.log(this.el.getAttribute('rotation'));
 
     if (position.x > dimension) {
       if (position.z > dimension) {
-        this.setImage('#bj1');
+        this.setSurroundings('#bj1');
       } else if (position.z < -dimension) {
-        this.setImage('#bj3');
+        this.setSurroundings('#bj3');
       } else {
-        this.setImage('#bj2');
+        this.setSurroundings('#bj2');
       }
     } else if (position.x < -dimension) {
       if (position.z > dimension) {
-        this.setImage('#bj7');
+        this.setSurroundings('#bj7');
       } else if (position.z < -dimension) {
-        this.setImage('#bj5');
+        this.setSurroundings('#bj5');
       } else {
-        this.setImage('#bj6');
+        this.setSurroundings('#bj6');
       }
     } else {
       if (position.z > dimension) {
-        this.setImage('#bj8');
+        this.setSurroundings('#bj8');
       } else if (position.z < -dimension) {
-        this.setImage('#bj4');
+
+        this.setSurroundings('#bj4', [
+          {
+            tag: 'a-plane',
+            props: {
+              'hover-entry': true,
+              line__1: 'start: 1.22 -1.32 0; end: 1.22 1.32 0; color: #08c;',
+              line__2: 'start: 1.22, 1.32, 0; end: -1.22 1.32 0; color: #08c;',
+              line__3: 'start: -1.22, 1.32, 0; end: -1.22 -1.32 0; color: #08c;',
+              line__4: 'start: -1.22 -1.32; end: 1.22 -1.32; color: #08c;',
+              position: '0.457 -4.08 -5.957',
+              rotation: '-41.711 -6 0',
+              geometry: 'height: 2.65; width: 2.43;',
+              material: 'opacity: 0.5; color: #fff;'
+            }
+          }
+        ]);
       } else {
-        this.setImage('');
+        this.setSurroundings('');
       }
     }
   },
@@ -49,10 +67,16 @@ AFRAME.registerComponent('movement-listener', {
     this.currentSky = null;
   },
 
-  setImage(newImage) {
+  setSurroundings(newImage, buttons) {
     var _this = this;
     if (newImage === this.currentSky) {
       return;
+    }
+
+    if (buttonEls) {
+      buttonEls.forEach(function(el) {
+        el.parentNode.removeChild(el);
+      });
     }
 
     var dur = 1000;
@@ -61,7 +85,18 @@ AFRAME.registerComponent('movement-listener', {
 
     var newSky = createSky(newImage);
 
-    setTimeout(function () {
+    if (buttons) {
+      buttonEls = buttons.map(function(button) {
+        var el = document.createElement(button.tag);
+        for (var prop in button.props) {
+          el.setAttribute(prop, button.props[prop]);
+        }
+        sceneEl.appendChild(el);
+        return el;
+      });
+    }
+
+    setTimeout(function() {
       skyEl.parentNode.removeChild(skyEl);
       _this.currentSky = newImage;
       skyEl = newSky;
@@ -153,6 +188,29 @@ AFRAME.registerComponent('ready', {
   }
 });
 
+AFRAME.registerComponent('hover-entry', {
+  init() {
+    this.el.addEventListener('click', handleClick);
+    this.el.addEventListener('mouseenter', handleMouseEnter);
+    this.el.addEventListener('mouseleave', handleMouseLeave);
+
+    var el = this.el;
+    var animation = { property: 'material.opacity', from: 0.5, to: 0, loop: true, dir: 'alternate' };
+
+    function handleClick() {
+      alert('Clicked');
+    }
+
+    function handleMouseEnter() {
+      el.setAttribute('animation', animation);
+    }
+
+    function handleMouseLeave() {
+      el.removeAttribute('animation');
+    }
+  }
+});
+
 function createArrows(position) {
 
   var dur = 1000;
@@ -223,7 +281,7 @@ function createSky(src) {
   }
   var animation = { property: 'opacity', from: 0, to: 1, dur: dur };
   skyEl.setAttribute('animation', animation);
-  setTimeout(function () {
+  setTimeout(function() {
     skyEl.removeAttribute('animation');
   }, dur);
   sceneEl.appendChild(skyEl);
