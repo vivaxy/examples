@@ -5,91 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <title>Tour</title>
   <script src="../aframe.min.js"></script>
-  <script>
-    var dimension = 1;
-
-    AFRAME.registerComponent('movement-listener', {
-
-      init() {
-        this.currentSky = '';
-      },
-
-      tick() {
-        var position = this.el.getAttribute('position');
-        var rotation = this.el.getAttribute('rotation');
-
-        if (position.x > dimension) {
-          if (position.z > dimension) {
-            this.setImage('#bj1');
-          } else if (position.z < -dimension) {
-            this.setImage('#bj3');
-          } else {
-            this.setImage('#bj2');
-          }
-        } else if (position.x < -dimension) {
-          if (position.z > dimension) {
-            this.setImage('#bj7');
-          } else if (position.z < -dimension) {
-            this.setImage('#bj5');
-          } else {
-            this.setImage('#bj6');
-          }
-        } else {
-          if (position.z > dimension) {
-            this.setImage('#bj8');
-          } else if (position.z < -dimension) {
-            this.setImage('#bj4');
-          } else {
-            this.setImage('');
-          }
-        }
-      },
-
-      remove() {
-        this.currentSky = null;
-      },
-
-      setImage(newImage) {
-        if (newImage === this.currentSky) {
-          return;
-        }
-
-        var skyEl = document.querySelector('#sky');
-        skyEl.setAttribute('src', newImage);
-        this.currentSky = newImage;
-
-      }
-
-    });
-
-    AFRAME.registerComponent('cursor-listener', {
-      init() {
-        this.el.addEventListener('click', handleClick);
-
-        function handleClick(evt) {
-          move(document.querySelector('#camera'), evt);
-          move(document.querySelector('#arrow1'), evt);
-          move(document.querySelector('#arrow2'), evt);
-          move(document.querySelector('#arrow3'), evt);
-          move(document.querySelector('#arrow4'), evt);
-        }
-
-        function move(el, evt) {
-          var pos = AFRAME.utils.coordinates.parse(el.getAttribute('position'));
-          var diffPos = AFRAME.utils.coordinates.parse(evt.target.dataset.movement);
-          pos.x += diffPos.x;
-          pos.y += diffPos.y;
-          pos.z += diffPos.z;
-          el.setAttribute('position', AFRAME.utils.coordinates.stringify(pos));
-        }
-      }
-
-    });
-
-  </script>
+  <script src="../aframe-animation-component.min.js"></script>
+  <script src="index.js"></script>
 </head>
 <body>
-<a-scene>
+<a-scene ready>
 
   <a-assets>
     <img id="bj1" src="./images/bj1.jpg">
@@ -107,8 +27,6 @@
     <a-mixin id="cursor" cursor-listener obj-model="obj: #arrowObj; mtl: #arrowMtl;"></a-mixin>
   </a-assets>
 
-  <a-sky id="sky" src=""></a-sky>
-
   <a-entity id="camera" camera movement-listener look-controls wasd-controls position="0 0 0">
     <a-entity
       cursor="fuse: false;"
@@ -120,11 +38,7 @@
     </a-entity>
   </a-entity>
 
-  <a-entity id="arrow1" mixin="cursor" rotation="0 0 0" position="-1 -0.3 0.7" data-movement="-1 0 0"></a-entity>
-  <a-entity id="arrow2" mixin="cursor" rotation="0 90 0" position="0.7 -0.3 1" data-movement="0 0 1"></a-entity>
-  <a-entity id="arrow3" mixin="cursor" rotation="0 180 0" position="1 -0.3 -0.7" data-movement="1 0 0"></a-entity>
-  <a-entity id="arrow4" mixin="cursor" rotation="0 270 0" position="-0.7 -0.3 -1" data-movement="0 0 -1"></a-entity>
-
 </a-scene>
+
 </body>
 </html>
