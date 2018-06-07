@@ -1,60 +1,62 @@
 /**
- * @since 20180530 16:32
+ * @since 2016-08-20 11:09
  * @author vivaxy
  */
 
-const video = document.querySelector('.handsome');
-const canvas = document.querySelector('#paint');
-const ctx = canvas.getContext('2d');
-const strip = document.querySelector('.strip');
+var promisifiedOldGUM = function(constraints) {
 
-const getUserMediaOptions = { audio: true, video: { width: 1280, height: 720 } };
-
-function takePhoto() {
-  alert('Taking photo!');
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-  const data = canvas.toDataURL('image/jpeg');
-  const link = document.createElement('a');
-  // link.href = data;
-  link.setAttribute('download', 'handsome');
-  link.innerHTML = `<img src="${data}" alt="Handsome Man" />`;
-  strip.insertBefore(link, strip.firstChild);
-}
-
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia(getUserMediaOptions)
-    .then(handleStream)
-    .catch(function(ex) {
-      alert('navigator.mediaDevices.getUserMedia error' + ex.stack);
-      legacyUserMedia();
-    });
-} else {
-  legacyUserMedia();
-}
-
-function legacyUserMedia() {
-  navigator.getUserMedia = navigator.getUserMedia ||
+  // First get ahold of getUserMedia, if present
+  var getUserMedia = (navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia;
+    navigator.mozGetUserMedia);
 
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia(getUserMediaOptions,
-      handleStream,
-      function(err) {
-        alert('The following error occurred: ' + err.name);
-      },
-    );
-  } else {
-    alert('getUserMedia not supported');
+  // Some browsers just don't implement it - return a rejected promise with an error
+  // to keep a consistent interface
+  if (!getUserMedia) {
+    return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
   }
+
+  // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+  return new Promise(function(resolve, reject) {
+    getUserMedia.call(navigator, constraints, resolve, reject);
+  });
+
+};
+
+if (navigator.mediaDevices === undefined) {
+  navigator.mediaDevices = {};
 }
 
-function handleStream(stream) {
-  video.srcObject = stream;
-  video.onloadedmetadata = function(e) {
-    video.play();
-  };
+if (navigator.mediaDevices.getUserMedia === undefined) {
+  navigator.mediaDevices.getUserMedia = promisifiedOldGUM;
 }
+
+var constraints = {
+  audio: true,
+  video: {
+    width: {
+      min: 128,
+      ideal: window.innerWidth,
+      max: window.innerWidth,
+    },
+    height: {
+      min: 128,
+      ideal: window.innerHeight,
+      max: window.innerHeight,
+    },
+    facingMode: 'user',
+  },
+};
+
+navigator.mediaDevices.getUserMedia(constraints)
+  .then(function(mediaStream) {
+    var video = document.querySelector('video');
+    video.src = window.URL.createObjectURL(mediaStream);
+    video.onloadedmetadata = function(e) {
+      // Do something with the video here.
+      video.play();
+    };
+  })
+  .catch(function(err) {
+    console.log(err.name);
+  }); // always check for errors at the end.

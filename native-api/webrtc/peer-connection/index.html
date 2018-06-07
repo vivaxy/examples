@@ -1,43 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
-    <title>Peer Connection</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
+  <title>Peer Connection</title>
 </head>
 <body>
-<div id="container">
 
-    <div class="highlight">
-        <p>New codelab: <a href="https://codelabs.developers.google.com/codelabs/webrtc-web">Realtime communication with
-            WebRTC</a></p>
-    </div>
+<video id="localVideo" autoplay muted width="40" height="40"></video>
+<video id="remoteVideo" autoplay width="40" height="40"></video>
 
-    <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a>
-        <span>Peer connection</span></h1>
-
-    <video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
-
-    <div>
-        <button id="startButton">Start</button>
-        <button id="callButton">Call</button>
-        <button id="hangupButton">Hang Up</button>
-    </div>
-
-    <p>View the console to see logging. The <code>MediaStream</code> object <code>localStream</code>, and the <code>RTCPeerConnection</code>
-        objects <code>pc1</code> and <code>pc2</code> are in global scope, so you can inspect them in the console as
-        well.</p>
-
-    <p>For more information about RTCPeerConnection, see <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/"
-                                                            title="HTML5 Rocks article about WebRTC by Sam Dutton">Getting
-        Started With WebRTC</a>.</p>
-
-
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/peerconnection/pc1"
-       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
-
+<div>
+  <button id="startButton">Start</button>
+  <button id="callButton">Call</button>
+  <button id="hangupButton">Hang Up</button>
+  <button id="stopButton">Stop</button>
 </div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
