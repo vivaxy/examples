@@ -6,9 +6,9 @@
 var promisifiedOldGUM = function(constraints) {
 
   // First get ahold of getUserMedia, if present
-  var getUserMedia = (navigator.getUserMedia ||
+  var getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia);
+    navigator.mozGetUserMedia;
 
   // Some browsers just don't implement it - return a rejected promise with an error
   // to keep a consistent interface
@@ -62,5 +62,5 @@ navigator.mediaDevices.getUserMedia(constraints)
     };
   })
   .catch(function(err) {
-    console.log(err.name);
+    alert(err.stack);
   }); // always check for errors at the end.
