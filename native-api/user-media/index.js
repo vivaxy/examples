@@ -51,7 +51,7 @@ var constraints = {
 navigator.mediaDevices.getUserMedia(constraints)
   .then(function(mediaStream) {
     var video = document.querySelector('video');
-    video.src = window.URL.createObjectURL(mediaStream);
+    video.srcObject = mediaStream;
     video.onloadedmetadata = function(e) {
       // Do something with the video here.
       video.play();

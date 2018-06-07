@@ -2,9 +2,5 @@
   {
     "name": "RTCPeerConnection",
     "link": "peer-connection/index.html"
-  },
-  {
-    "name": "getUserMedia",
-    "link": "user-media/index.html"
   }
 ]
