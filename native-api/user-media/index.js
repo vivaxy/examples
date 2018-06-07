@@ -62,5 +62,5 @@ navigator.mediaDevices.getUserMedia(constraints)
     };
   })
   .catch(function(err) {
-    alert(err.stack);
+    alert(err.message);
   }); // always check for errors at the end.

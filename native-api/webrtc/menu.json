@@ -1,6 +1,10 @@
 [
   {
-    "name": "RTCPeerConnection",
-    "link": "peer-connection/index.html"
+    "name": "Local Media",
+    "link": "local-media/index.html"
+  },
+  {
+    "name": "Local Data",
+    "link": "local-data/index.html"
   }
 ]
