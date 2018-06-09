@@ -68,7 +68,6 @@ AFRAME.registerComponent('movement-listener', {
   },
 
   setSurroundings(newImage, buttons) {
-    var _this = this;
     if (newImage === this.currentSky) {
       return;
     }
@@ -94,13 +93,16 @@ AFRAME.registerComponent('movement-listener', {
         sceneEl.appendChild(el);
         return el;
       });
+    } else {
+      buttonEls = null;
     }
 
     setTimeout(function() {
       skyEl.parentNode.removeChild(skyEl);
-      _this.currentSky = newImage;
       skyEl = newSky;
     }, dur);
+
+    this.currentSky = newImage;
   }
 
 });
