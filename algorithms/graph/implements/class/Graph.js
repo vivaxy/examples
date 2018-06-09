@@ -35,13 +35,11 @@ module.exports = class Graph {
     if (!startVertex) {
       this.addVertex(edge.startVertex);
       startVertex = edge.startVertex;
-      // startVertex = this.getVertexByKey(edge.startVertex.getKey());
     }
 
     if (!endVertex) {
       this.addVertex(edge.endVertex);
       endVertex = edge.endVertex;
-      // endVertex = this.getVertexByKey(edge.endVertex.getKey());
     }
 
     if (this.edges[edge.getKey()]) {
@@ -61,22 +59,6 @@ module.exports = class Graph {
     }
 
     return this;
-  }
-
-  deleteEdge(edge) {
-    // Delete edge from the list of edges.
-    if (this.edges[edge.getKey()]) {
-      delete this.edges[edge.getKey()];
-    } else {
-      throw new Error('Edge not found in graph');
-    }
-
-    // Try to find and end start vertices and delete edge from them.
-    const startVertex = this.getVertexByKey(edge.startVertex.getKey());
-    const endVertex = this.getVertexByKey(edge.endVertex.getKey());
-
-    startVertex.deleteEdge(edge);
-    endVertex.deleteEdge(edge);
   }
 
   getAllEdges() {
