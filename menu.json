@@ -202,5 +202,9 @@
   {
     "name": "bmp-js-lib",
     "link": "bmp-js-lib/index.js"
+  },
+  {
+    "name": "KerasJS",
+    "link": "kerasjs/index.html"
   }
 ]
