@@ -10,5 +10,9 @@
   {
     "name": "RegExp vs String Edit",
     "link": "regExp-vs-stringEdit/index.html"
+  },
+  {
+    "name": "String.prototype.indexOf vs For Loop",
+    "link": "String.prototype.indexOf-vs-forLoop/index.html"
   }
 ]

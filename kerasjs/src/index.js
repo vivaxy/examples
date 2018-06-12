@@ -28,26 +28,31 @@ model.events.on('loadingProgress', (progress) => {
 input.addEventListener('change', (e) => {
   const reader = new FileReader();
   reader.addEventListener('load', (_e) => {
+    log('Receive file success');
+
     const img = new Image();
     img.addEventListener('load', () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
+      log('Load image success');
+
       ctx.drawImage(img, 0, 0, 128, 128);
       const imageData = ctx.getImageData(0, 0, 128, 128);
-      const dataTensor = ndarray(new Float32Array(imageData.data), [imageData.width, imageData.height, 4])
-      const dataProcessedTensor = ndarray(new Float32Array(imageData.width * imageData.height * 3), [imageData.width, imageData.height, 3])
-      ops.divseq(dataTensor, 255)
-      ops.assign(dataProcessedTensor.pick(null,null,0),dataTensor.pick(null,null,0))
-      ops.assign(dataProcessedTensor.pick(null,null,1),dataTensor.pick(null,null,1))
-      ops.assign(dataProcessedTensor.pick(null,null,2),dataTensor.pick(null,null,2))
+      const dataTensor = ndarray(new Float32Array(imageData.data), [imageData.width, imageData.height, 4]);
+      const dataProcessedTensor = ndarray(new Float32Array(imageData.width * imageData.height * 3), [imageData.width, imageData.height, 3]);
+      ops.divseq(dataTensor, 255);
+      ops.assign(dataProcessedTensor.pick(null, null, 0), dataTensor.pick(null, null, 0));
+      ops.assign(dataProcessedTensor.pick(null, null, 1), dataTensor.pick(null, null, 1));
+      ops.assign(dataProcessedTensor.pick(null, null, 2), dataTensor.pick(null, null, 2));
       const preprocessedData = dataProcessedTensor.data;
 
       model.predict({
         [model.inputLayerNames[0]]: new Float32Array(preprocessedData),
       })
-      .then((outputData) => {
-        log('Result: ' + outputData.output[0]);
-      });
+        .then((outputData) => {
+          log('Predict result: ' + outputData.output[0]);
+        })
+        .catch((ex) => {
+          log('Predict error: ' + ex.stack);
+        });
     });
     img.src = _e.target.result;
   });
