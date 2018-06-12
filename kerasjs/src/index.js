@@ -12,7 +12,7 @@ const ctx = canvas.getContext('2d');
 const logEl = document.querySelector('log');
 
 function log(c) {
-  logEl.innerHTML += c + '\n';
+  logEl.innerHTML = c;
   console.log(c);
 }
 
@@ -22,7 +22,7 @@ const model = new KerasJS.Model({
 });
 
 model.events.on('loadingProgress', (progress) => {
-  log('LoadingProgress: ' + progress);
+  log('LoadingProgress: ' + progress + '%');
 });
 
 input.addEventListener('change', (e) => {
