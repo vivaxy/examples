@@ -1,10 +1,14 @@
 [
-    {
-        "name": "getBoundingClientRect vs innerWidth vs clientWidth",
-        "link": "getBoundingClientRect-vs-innerWidth-vs-clientWidth/"
-    },
-    {
-        "name": "classFunctionDeclaration vs classPrototypeFunctionBind",
-        "link": "classFunctionDeclaration-vs-classPrototypeFunctionBind/"
-    }
+  {
+    "name": "getBoundingClientRect vs innerWidth vs clientWidth",
+    "link": "getBoundingClientRect-vs-innerWidth-vs-clientWidth/"
+  },
+  {
+    "name": "classFunctionDeclaration vs classPrototypeFunctionBind",
+    "link": "classFunctionDeclaration-vs-classPrototypeFunctionBind/"
+  },
+  {
+    "name": "RegExp vs String Edit",
+    "link": "regExp-vs-stringEdit/index.html"
+  }
 ]

@@ -1,0 +1,9 @@
+/**
+ * @since 20180612 17:28
+ * @author vivaxy
+ */
+
+log {
+  display: block;
+  white-space: pre;
+}
