@@ -9,6 +9,12 @@ import ops from 'ndarray-ops';
 const input = document.getElementById('file');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const logEl = document.querySelector('log');
+
+function log(c) {
+  logEl.innerHTML += c + '\n';
+  console.log(c);
+}
 
 const model = new KerasJS.Model({
   filepath: './training/dog.bin',
@@ -16,7 +22,7 @@ const model = new KerasJS.Model({
 });
 
 model.events.on('loadingProgress', (progress) => {
-  console.log('loadingProgress', progress);
+  log('LoadingProgress: ' + progress);
 });
 
 input.addEventListener('change', (e) => {
@@ -40,7 +46,7 @@ input.addEventListener('change', (e) => {
         [model.inputLayerNames[0]]: new Float32Array(preprocessedData),
       })
       .then((outputData) => {
-        console.log(outputData.output[0]);
+        log('Result: ' + outputData.output[0]);
       });
     });
     img.src = _e.target.result;
