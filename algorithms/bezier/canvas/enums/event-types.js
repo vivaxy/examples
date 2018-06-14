@@ -3,7 +3,6 @@
  * @author vivaxy
  */
 
-export const ON_CANVAS_CLICK = 'ON_CANVAS_CLICK';
 export const ON_CANVAS_TOUCH_START = 'ON_CANVAS_TOUCH_START';
 export const ON_CANVAS_TOUCH_MOVE = 'ON_CANVAS_TOUCH_MOVE';
 export const ON_CANVAS_TOUCH_END = 'ON_CANVAS_TOUCH_END';
@@ -14,5 +13,6 @@ export const ON_RENDER_PREPARED = 'ON_RENDER_PREPARED';
 export const ON_RENDERING = 'ON_RENDERING';
 export const ON_RENDERED = 'ON_RENDERED';
 
-export const ON_BUTTON_CLICK = 'ON_BUTTON_CLICK';
-export const ON_EMPTY_SPACE_CLICK = 'ON_EMPTY_SPACE_CLICK';
+export const ON_DRAG_START = 'ON_DRAG_START';
+export const ON_DRAG_MOVE = 'ON_DRAG_MOVE';
+export const ON_DRAG_END = 'ON_DRAG_END';

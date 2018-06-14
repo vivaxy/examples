@@ -21,7 +21,12 @@ export default class Button {
       {
         type: layerActions.PROPERTY,
         prop: layerProperties.STROKE_STYLE,
-        value: '#ccc',
+        value: '#333',
+      },
+      {
+        type: layerActions.PROPERTY,
+        prop: layerProperties.LINE_WIDTH,
+        value: 2,
       },
       {
         type: layerActions.FUNCTION,

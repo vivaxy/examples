@@ -18,28 +18,40 @@ function init(events) {
       if (layer.actions) {
         layer.actions.forEach((action) => {
           if (action.type === actionTypes.FUNCTION) {
+            let indexes = [];
             switch (action.func) {
+              case layerFunctions.MOVE_TO:
+              case layerFunctions.LINE_TO:
+                indexes = [0, 1];
+                break;
               case layerFunctions.FILL_TEXT:
-                action.params[1] *= dpr; // x
-                action.params[2] *= dpr; // y
-                if (action.params[3] !== undefined) {
-                  action.params[3] *= dpr; // maxWidth
-                }
+                indexes = [1, 2, 3];
                 break;
               case layerFunctions.RECT:
               case layerFunctions.FILL_RECT:
               case layerFunctions.STROKE_RECT:
-                action.params[0] *= dpr; // x
-                action.params[1] *= dpr; // y
-                action.params[2] *= dpr; // w
-                action.params[3] *= dpr; // h
+                indexes = [0, 1, 2, 3];
+                break;
+              case layerFunctions.BEZIER_CURVE_TO:
+                indexes = [0, 1, 2, 3, 4, 5];
+                break;
+              case layerFunctions.ARC:
+                indexes = [0, 1, 2];
                 break;
               default:
                 // do nothing
                 break;
             }
+            indexes.forEach((index) => {
+              if (typeof action.params[index] === 'number') {
+                action.params[index] *= dpr;
+              }
+            });
           } else if (action.type === actionTypes.PROPERTY) {
             switch (action.prop) {
+              case layerProperties.LINE_WIDTH:
+                action.value *= dpr;
+                break;
               default:
                 // do nothing
                 break;
@@ -48,7 +60,7 @@ function init(events) {
             action.fontSize *= dpr;
             action.lineHeight *= dpr;
           } else {
-            ASSERT(false, 'Unexpected action.type: '+ action.type);
+            ASSERT(false, 'Unexpected action.type: ' + action.type);
           }
         });
       }

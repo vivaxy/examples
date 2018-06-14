@@ -29,7 +29,6 @@ function init(events) {
   const startEvent = isMobile ? 'touchstart' : 'mousedown';
   const moveEvent = isMobile ? 'touchmove' : 'mousemove';
   const endEvent = isMobile ? 'touchend' : 'mouseup';
-  canvas.addEventListener('click', onCanvasClick);
   canvas.addEventListener(startEvent, onCanvasTouchStart);
   canvas.addEventListener(moveEvent, onCanvasTouchMove);
   canvas.addEventListener(endEvent, onCanvasTouchEnd);
@@ -38,10 +37,6 @@ function init(events) {
 
   events.on(eventTypes.ON_RENDER_PREPARING, onRenderPreparing);
   events.on(eventTypes.ON_RENDERING, onRendering);
-
-  function onCanvasClick(e) {
-    events.emit(eventTypes.ON_CANVAS_CLICK, getCoords(e));
-  }
 
   function onCanvasTouchStart(e) {
     events.emit(eventTypes.ON_CANVAS_TOUCH_START, getCoords(e));
@@ -74,15 +69,21 @@ function init(events) {
       ASSERT(Array.isArray(layer.actions), 'Missing actions');
 
       layer.actions.forEach((action) => {
-        console.log('layer.action:', action);
+        // console.log('layer.action:', action);
         switch (action.type) {
           case layerActions.FUNCTION:
+            ASSERT(action.func, 'Missing action.func');
+            ASSERT(Array.isArray(action.params), 'Missing action.params');
             ctx[action.func].apply(ctx, action.params);
             break;
           case layerActions.PROPERTY:
+            ASSERT(action.prop, 'Missing action.prop');
+            ASSERT(action.value, 'Missing action.value');
             ctx[action.prop] = action.value;
             break;
           case layerActions.SET_FONT:
+            ASSERT(action.fontSize, 'Missing action.fontSize');
+            ASSERT(action.lineHeight, 'Missing action.lineHeight');
             ctx.font = `${action.fontSize}px/${action.lineHeight}px serif`;
             break;
           default:
