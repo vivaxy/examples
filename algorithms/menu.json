@@ -10,9 +10,5 @@
   {
     "name": "Graph",
     "link": "graph/index.html"
-  },
-  {
-    "name": "Bezier",
-    "link": "bezier/index.html"
   }
 ]
