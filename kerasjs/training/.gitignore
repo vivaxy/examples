@@ -1,0 +1,7 @@
+bin
+images
+include
+lib
+.Python
+dog.model
+pip-selfcheck.json

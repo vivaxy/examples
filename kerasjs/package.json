@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "ndarray": "^1.0.18",
+    "ndarray-ops": "^1.2.2",
+    "webpack": "^4.12.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.0.3"
+  }
+}
