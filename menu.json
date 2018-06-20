@@ -12,6 +12,10 @@
     "link": "functional-programming/index.html"
   },
   {
+    "name": "Network",
+    "link": "network/index.html"
+  },
+  {
     "name": "Native API",
     "link": "native-api/index.html"
   },
