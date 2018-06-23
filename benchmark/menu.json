@@ -1,5 +1,9 @@
 [
   {
+    "name": "split vs String Edit",
+    "link": "split-vs-stringEdit/index.html"
+  },
+  {
     "name": "Number vs parseInt",
     "link": "number-vs-parseInt/index.html"
   },
