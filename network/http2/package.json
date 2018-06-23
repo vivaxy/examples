@@ -1,0 +1,12 @@
+{
+  "name": "http2-demo",
+  "version": "0.0.0",
+  "description": "http2",
+  "main": "index.js",
+  "scripts": {},
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "dependencies": {
+    "pem": "^1.12.5"
+  }
+}
