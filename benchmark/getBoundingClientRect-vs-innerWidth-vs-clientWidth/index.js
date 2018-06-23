@@ -9,31 +9,31 @@ const documentElement = document.documentElement;
 
 // getBoundingClientRect
 const testGetBoundingClientRect = () => {
-    return documentElement.getBoundingClientRect().width;
+  return documentElement.getBoundingClientRect().width;
 };
 
 // innerWidth
 const testInnerWidth = () => {
-    return window.innerWidth;
+  return window.innerWidth;
 };
 
 // clientWidth
 const testClientWidth = () => {
-    return documentElement.clientWidth;
+  return documentElement.clientWidth;
 };
 
 const getNow = () => {
-    return new Date().getTime();
+  return new Date().getTime();
 };
 
 const count = 1000000;
 const run = (func) => {
-    const beginTime = getNow();
-    for (let i = 0; i < count; i++) {
-        func();
-    }
-    const endTime = getNow();
-    return endTime - beginTime;
+  const beginTime = getNow();
+  for (let i = 0; i < count; i++) {
+    func();
+  }
+  const endTime = getNow();
+  return endTime - beginTime;
 };
 
 root.innerHTML = `
