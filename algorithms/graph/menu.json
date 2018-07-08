@@ -1,6 +1,10 @@
 [
   {
     "name": "Implements",
-    "link": "implements/index.js"
+    "link": "implements/class/Graph.js"
+  },
+  {
+    "name": "Sort",
+    "link": "sort/index.html"
   }
 ]

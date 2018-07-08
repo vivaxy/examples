@@ -4,9 +4,9 @@
  */
 
 const test = require('ava');
-const Graph = require('../class/Graph.js');
-const GraphEdge = require('../class/GraphEdge.js');
-const GraphVertex = require('../class/GraphVertex.js');
+const Graph = require('../../../../implements/class/Graph.js');
+const GraphEdge = require('../../../../implements/class/GraphEdge.js');
+const GraphVertex = require('../../../../implements/class/GraphVertex.js');
 const { topologicalSort } = require('../index.js');
 
 test('topological sort', (t) => {
@@ -48,6 +48,6 @@ test('topological sort', (t) => {
 
   t.deepEqual(topologicalSort(graph), [
     'undershorts', 'socks', 'T-shirt', 'compression shorts', 'chest pad', 'hose',
-    'cup', 'pants', 'skates', 'sweater', 'leg pads', 'mask', 'catch glove', 'blocker'
+    'cup', 'pants', 'skates', 'sweater', 'leg pads', 'mask', 'catch glove', 'blocker',
   ]);
 });

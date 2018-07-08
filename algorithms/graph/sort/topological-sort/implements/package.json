@@ -1,7 +1,7 @@
 {
   "name": "implements",
   "version": "0.0.0",
-  "description": "Graph implements",
+  "description": "Topological Sort Implements",
   "main": "index.js",
   "scripts": {
     "test": "ava"
