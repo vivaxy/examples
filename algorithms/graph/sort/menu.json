@@ -2,5 +2,9 @@
   {
     "name": "Topological Sort",
     "link": "topological-sort/index.html"
+  },
+  {
+    "name": "Dijkstra",
+    "link": "dijkstra/index.html"
   }
 ]
