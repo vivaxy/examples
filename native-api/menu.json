@@ -8,6 +8,10 @@
     "link": "custom-elements/index.html"
   },
   {
+    "name": "IndexedDB",
+    "link": "indexed-db/index.html"
+  },
+  {
     "name": "FontFace",
     "link": "font-face/"
   },

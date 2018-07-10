@@ -1,0 +1,33 @@
+<template>
+  <style></style>
+  <button>Add Table</button>
+</template>
+<script>
+  const addTableDocument = document.currentScript.ownerDocument;
+
+  class AddTable extends HTMLElement {
+
+    static get ELEMENT_NAME() {
+      return 'add-table';
+    };
+
+    static get EVENT_ADD_TABLE() {
+      return 'add-table';
+    }
+
+    constructor() {
+      super();
+      const shadow = this.attachShadow({ mode: 'closed' });
+      const content = addTableDocument.querySelector('template').content.cloneNode(true);
+      shadow.appendChild(content);
+      const button = shadow.querySelector('button');
+      button.addEventListener('click', () => {
+        const tableName = prompt('Table name:');
+
+        document.dispatchEvent(new CustomEvent(AddTable.EVENT_ADD_TABLE, { detail: { tableName } }));
+      });
+    }
+  }
+
+  customElements.define(AddTable.ELEMENT_NAME, AddTable);
+</script>

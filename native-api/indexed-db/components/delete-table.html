@@ -1,0 +1,41 @@
+<template>
+  <style></style>
+  <button>Delete Table</button>
+</template>
+<script>
+  const deleteTableDocument = document.currentScript.ownerDocument;
+
+  class DeleteTable extends HTMLElement {
+
+    static get ELEMENT_NAME() {
+      return 'delete-table';
+    };
+
+    static get DATA_TABLE_NAME() {
+      return 'data-table-name';
+    }
+
+    static get EVENT_DELETE_TABLE() {
+      return 'delete-table';
+    }
+
+    static get observedAttributes() {
+      return [DeleteTable.DATA_TABLE_NAME];
+    }
+
+    constructor() {
+      super();
+      const shadow = this.attachShadow({ mode: 'closed' });
+      const content = deleteTableDocument.querySelector('template').content.cloneNode(true);
+      shadow.appendChild(content);
+      const button = shadow.querySelector('button');
+      button.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent(DeleteTable.EVENT_DELETE_TABLE, {
+          detail: { tableName: this.getAttribute(DeleteTable.DATA_TABLE_NAME) },
+        }));
+      });
+    }
+  }
+
+  customElements.define(DeleteTable.ELEMENT_NAME, DeleteTable);
+</script>
