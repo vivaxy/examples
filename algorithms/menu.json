@@ -10,5 +10,9 @@
   {
     "name": "Graph",
     "link": "graph/index.html"
+  },
+  {
+    "name": "Heap",
+    "link": "heap/index.html"
   }
 ]
