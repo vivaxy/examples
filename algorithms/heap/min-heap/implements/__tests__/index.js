@@ -6,7 +6,7 @@
 const test = require('ava');
 const MinHeap = require('../index.js');
 
-test('insert', (t) => {
+test('min heap', (t) => {
   const minHeap = new MinHeap();
 
   minHeap.add(11).add(5);

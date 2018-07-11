@@ -21,12 +21,38 @@ module.exports = class MinHeap {
     return childIndex > 0;
   }
 
-  constructor() {
+  static defaultComparator(a) {
+    function compare(_a, _b) {
+      if (_a === _b) {
+        return 0;
+      }
+      if (_a < _b) {
+        return -1;
+      }
+      return 1;
+    }
+
+    return {
+      greaterThan(b) {
+        return compare(a, b) > 0;
+      },
+      lessThan(b) {
+        return compare(a, b) < 0;
+      },
+      equals(b) {
+        return compare(a, b) === 0;
+      },
+    };
+  };
+
+  constructor(comparator) {
     /**
      *  [root, nL, nR, nLL, nLR, nRL, nRR]
      * @type {Array}
      */
     this.heap = [];
+
+    this.comparator = comparator || MinHeap.defaultComparator;
   }
 
   add(value) {
@@ -52,7 +78,7 @@ module.exports = class MinHeap {
     } else {
       this.heap[index] = this.heap.pop();
 
-      if (this.hasLeftChild(index) && MinHeap.hasParent(index) && this.getParent(index) < this.heap[index]) {
+      if (this.hasLeftChild(index) && MinHeap.hasParent(index) && this.comparator(this.getParent(index)).lessThan(this.heap[index])) {
         this.downHeap(index);
       } else {
         this.upHeap(index);
@@ -93,7 +119,7 @@ module.exports = class MinHeap {
   upHeap(fromIndex) {
     let index = fromIndex || this.heap.length - 1;
 
-    while (MinHeap.hasParent(index) && this.getParent(index) > this.heap[index]) {
+    while (MinHeap.hasParent(index) && this.comparator(this.getParent(index)).greaterThan(this.heap[index])) {
       const parentIndex = MinHeap.getParentIndex(index);
       this.swap(index, parentIndex);
       index = parentIndex;
@@ -105,7 +131,7 @@ module.exports = class MinHeap {
     let nextIndex = null;
 
     while (this.hasLeftChild(index)) {
-      if (this.hasRightChild(index) && this.getRightChild(index) < this.getLeftChild(index)) {
+      if (this.hasRightChild(index) && this.comparator(this.getRightChild(index)).lessThan(this.getLeftChild(index))) {
         nextIndex = MinHeap.getRightChildIndex(index);
       } else {
         nextIndex = MinHeap.getLeftChildIndex(index);

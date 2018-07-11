@@ -1,0 +1,14 @@
+{
+  "name": "implements",
+  "version": "1.0.0",
+  "description": "Priority Queue Implements",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.25.0"
+  }
+}
