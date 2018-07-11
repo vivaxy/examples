@@ -5,7 +5,7 @@
  */
 
 module.exports = class GraphEdge {
-  constructor({ startVertex, endVertex, weight }) {
+  constructor(startVertex, endVertex, weight) {
 
     if (startVertex === endVertex) {
       throw new Error('startVertex cannot be same to endVertex');

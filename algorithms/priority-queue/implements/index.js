@@ -50,4 +50,10 @@ module.exports = class PriorityQueue extends MinHeap {
 
     return this;
   }
+
+  changePriority(value, priority) {
+    this.remove(value);
+    this.add(value, priority);
+  }
+
 };

@@ -4,7 +4,11 @@
     "link": "implements/index.js"
   },
   {
-    "name": "Search",
-    "link": "search/index.html"
+    "name": "Depth First Search",
+    "link": "depth-first-search/index.html"
+  },
+  {
+    "name": "Breadth First Search",
+    "link": "breadth-first-search/index.html"
   }
 ]

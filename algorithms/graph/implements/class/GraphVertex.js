@@ -5,7 +5,7 @@
  */
 
 module.exports = class GraphVertex {
-  constructor({ value }) {
+  constructor(value) {
     if (value === undefined) {
       throw new Error('Graph vertex must have a value');
     }
@@ -24,6 +24,23 @@ module.exports = class GraphVertex {
 
   getEdges() {
     return Object.values(this.edges);
+  }
+
+  getNeighbors() {
+    const edges = Object.values(this.edges);
+
+    // Return either start or end vertex.
+    // For undirected graphs it is possible that current vertex will be the end one.
+    return edges.map((edge) => {
+      return edge.startVertex === this ? edge.endVertex : edge.startVertex;
+    });
+  }
+
+  findEdge(vertex) {
+
+    return Object.values(this.edges).find((edge) => {
+      return edge.startVertex === vertex || edge.endVertex === vertex;
+    }) || null;
   }
 
 };

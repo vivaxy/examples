@@ -71,6 +71,27 @@ module.exports = class MinHeap {
     return this;
   }
 
+  /**
+   * Get first
+   * @returns {*}
+   */
+  poll() {
+    if (this.heap.length === 0) {
+      return null;
+    }
+
+    if (this.heap.length === 1) {
+      return this.heap.pop();
+    }
+
+    const value = this.heap[0];
+
+    this.heap[0] = this.heap.pop();
+    this.downHeap();
+
+    return value;
+  }
+
   removeIndex(index) {
 
     if (index === this.heap.length - 1) {
@@ -154,6 +175,14 @@ module.exports = class MinHeap {
 
   toString() {
     return this.heap.toString();
+  }
+
+  isEmpty() {
+    return this.heap.length === 0;
+  }
+
+  hasValue(value) {
+    return this.heap.includes(value);
   }
 
 };

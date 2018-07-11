@@ -5,7 +5,7 @@
  */
 
 module.exports = class Graph {
-  constructor({ isDirected }) {
+  constructor(isDirected = true) {
     // 顶点
     this.vertices = {};
 
@@ -18,6 +18,8 @@ module.exports = class Graph {
 
   addVertex(newVertex) {
     this.vertices[newVertex.getKey()] = newVertex;
+
+    return this;
   }
 
   getVertexByKey(vertexKey) {
@@ -63,6 +65,16 @@ module.exports = class Graph {
 
   getAllEdges() {
     return Object.values(this.edges);
+  }
+
+  findEdge(startVertex, endVertex) {
+    const vertex = this.getVertexByKey(startVertex.getKey());
+
+    if (!vertex) {
+      return null;
+    }
+
+    return vertex.findEdge(endVertex);
   }
 
 };
