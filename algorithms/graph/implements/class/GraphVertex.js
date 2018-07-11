@@ -43,4 +43,8 @@ module.exports = class GraphVertex {
     }) || null;
   }
 
+  toString() {
+    return this.getKey();
+  }
+
 };

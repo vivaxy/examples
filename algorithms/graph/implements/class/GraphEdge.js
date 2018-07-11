@@ -24,4 +24,8 @@ module.exports = class GraphEdge {
     return `${startVertexKey}_${endVertexKey}`;
   }
 
+  toString() {
+    return this.getKey();
+  }
+
 };
