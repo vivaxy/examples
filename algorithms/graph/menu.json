@@ -10,5 +10,9 @@
   {
     "name": "Dijkstra",
     "link": "dijkstra/index.html"
+  },
+  {
+    "name": "Bellman-Ford",
+    "link": "bellman-ford/index.html"
   }
 ]
