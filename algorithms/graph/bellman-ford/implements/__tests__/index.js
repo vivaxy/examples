@@ -33,7 +33,7 @@ test('find minimum paths to all vertices for undirected graph', (t) => {
   const edgeFG = new GraphEdge(vertexF, vertexG, 3);
   const edgeEG = new GraphEdge(vertexE, vertexG, 5);
 
-  const graph = new Graph(false);
+  const graph = new Graph();
   graph
     .addVertex(vertexH)
     .addEdge(edgeAB)

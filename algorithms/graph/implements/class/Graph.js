@@ -5,7 +5,7 @@
  */
 
 module.exports = class Graph {
-  constructor(isDirected = true) {
+  constructor(isDirected = false) {
     // 顶点
     this.vertices = {};
 

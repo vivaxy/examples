@@ -41,10 +41,23 @@ test('topological sort', (t) => {
   const edge14 = new GraphEdge(vertex12, vertex13);
   const edge15 = new GraphEdge(vertex13, vertex14);
 
-  const graph = new Graph();
-  graph.addEdge(edge1).addEdge(edge2).addEdge(edge3).addEdge(edge4).addEdge(edge5)
-    .addEdge(edge6).addEdge(edge7).addEdge(edge8).addEdge(edge9).addEdge(edge10)
-    .addEdge(edge11).addEdge(edge12).addEdge(edge13).addEdge(edge14).addEdge(edge15);
+  const graph = new Graph(false);
+  graph
+    .addEdge(edge1)
+    .addEdge(edge2)
+    .addEdge(edge3)
+    .addEdge(edge4)
+    .addEdge(edge5)
+    .addEdge(edge6)
+    .addEdge(edge7)
+    .addEdge(edge8)
+    .addEdge(edge9)
+    .addEdge(edge10)
+    .addEdge(edge11)
+    .addEdge(edge12)
+    .addEdge(edge13)
+    .addEdge(edge14)
+    .addEdge(edge15);
 
   t.deepEqual(topologicalSort(graph), [
     'undershorts', 'socks', 'T-shirt', 'compression shorts', 'chest pad', 'hose',
