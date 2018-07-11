@@ -19,7 +19,7 @@
 
   class TableData extends HTMLElement {
 
-    static get ELEMENT_NAME() {
+    static get TAG_NAME() {
       return 'table-data';
     };
 
@@ -70,7 +70,7 @@
           nameEl.innerHTML = columnName;
           td.appendChild(nameEl);
 
-          const deleteColumn = document.createElement('delete-column');
+          const deleteColumn = document.createElement(DeleteColumn.TAG_NAME);
           deleteColumn.setAttribute(DeleteColumn.DATA_TABLE_NAME, this.getAttribute(TableData.DATA_TABLE_NAME));
           deleteColumn.setAttribute(DeleteColumn.DATA_COLUMN_NAME, columnName);
 
@@ -92,7 +92,7 @@
           columnNames.forEach((columnName) => {
             const td = document.createElement('td');
 
-            const tableCellEl = document.createElement('table-cell');
+            const tableCellEl = document.createElement(TableCell.TAG_NAME);
             tableCellEl.setAttribute(TableCell.DATA_TABLE_NAME, this.getAttribute(TableData.DATA_TABLE_NAME));
             tableCellEl.setAttribute(TableCell.DATA_COLUMN_NAME, columnName);
             tableCellEl.setAttribute(TableCell.DATA_KEY, String(row._key));
@@ -102,7 +102,7 @@
             tr.appendChild(td);
           });
 
-          const deleteRow = document.createElement(DeleteRow.ELEMENT_NAME);
+          const deleteRow = document.createElement(DeleteRow.TAG_NAME);
           deleteRow.setAttribute(DeleteRow.DATA_TABLE_NAME, this.getAttribute(TableData.DATA_TABLE_NAME));
           deleteRow.setAttribute(DeleteRow.DATA_KEY, String(row._key));
           tr.appendChild(deleteRow);
@@ -122,5 +122,5 @@
     }
   }
 
-  customElements.define(TableData.ELEMENT_NAME, TableData);
+  customElements.define(TableData.TAG_NAME, TableData);
 </script>

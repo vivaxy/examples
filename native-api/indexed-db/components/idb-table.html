@@ -7,17 +7,21 @@
     }
   </style>
   <div class="idb-table">
-    <span class="js-table-name"></span>
+    <span></span>
     <delete-table></delete-table>
-    <table-data></table-data>
     <add-column></add-column>
     <add-row></add-row>
+    <table-data></table-data>
   </div>
 </template>
 <script>
   const idbTableDocument = document.currentScript.ownerDocument;
 
   class IDBTable extends HTMLElement {
+
+    static get TAG_NAME() {
+      return 'idb-table';
+    };
 
     static get DATA_TABLE_NAME() {
       return 'data-table-name';
@@ -35,10 +39,6 @@
       return 'data-rows';
     }
 
-    static get ELEMENT_NAME() {
-      return 'idb-table';
-    };
-
     static get observedAttributes() {
       return [IDBTable.DATA_TABLE_NAME, IDBTable.DATA_COLUMN_NAMES, IDBTable.DATA_NEXT_KEY, IDBTable.DATA_ROWS];
     }
@@ -52,20 +52,20 @@
 
     attributeChangedCallback(name, oldValue, newValue) {
       if (name === IDBTable.DATA_TABLE_NAME) {
-        this.shadow.querySelector('.js-table-name').innerHTML = newValue;
-        this.shadow.querySelector(DeleteTable.ELEMENT_NAME).setAttribute(DeleteTable.DATA_TABLE_NAME, newValue);
-        this.shadow.querySelector(TableData.ELEMENT_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
-        this.shadow.querySelector(AddColumn.ELEMENT_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
-        this.shadow.querySelector(AddRow.ELEMENT_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
+        this.shadow.querySelector('span').innerHTML = newValue;
+        this.shadow.querySelector(DeleteTable.TAG_NAME).setAttribute(DeleteTable.DATA_TABLE_NAME, newValue);
+        this.shadow.querySelector(TableData.TAG_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
+        this.shadow.querySelector(AddColumn.TAG_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
+        this.shadow.querySelector(AddRow.TAG_NAME).setAttribute(TableData.DATA_TABLE_NAME, newValue);
       } else if (name === IDBTable.DATA_COLUMN_NAMES) {
-        this.shadow.querySelector(TableData.ELEMENT_NAME).setAttribute(TableData.DATA_COLUMN_NAMES, newValue);
+        this.shadow.querySelector(TableData.TAG_NAME).setAttribute(TableData.DATA_COLUMN_NAMES, newValue);
       } else if (name === IDBTable.DATA_NEXT_KEY) {
-        this.shadow.querySelector(AddRow.ELEMENT_NAME).setAttribute(AddRow.DATA_NEXT_KEY, newValue);
+        this.shadow.querySelector(AddRow.TAG_NAME).setAttribute(AddRow.DATA_NEXT_KEY, newValue);
       } else if (name === IDBTable.DATA_ROWS) {
-        this.shadow.querySelector(TableData.ELEMENT_NAME).setAttribute(TableData.DATA_ROWS, newValue);
+        this.shadow.querySelector(TableData.TAG_NAME).setAttribute(TableData.DATA_ROWS, newValue);
       }
     }
   }
 
-  customElements.define(IDBTable.ELEMENT_NAME, IDBTable);
+  customElements.define(IDBTable.TAG_NAME, IDBTable);
 </script>

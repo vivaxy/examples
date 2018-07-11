@@ -35,10 +35,10 @@ function init(events) {
 
       request.addEventListener('success', (e) => {
 
-        let idbTableEl = document.querySelector(`${IDBTable.ELEMENT_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
+        let idbTableEl = document.querySelector(`${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
 
         if (!idbTableEl) {
-          idbTableEl = document.createElement(IDBTable.ELEMENT_NAME);
+          idbTableEl = document.createElement(IDBTable.TAG_NAME);
           idbTableEl.setAttribute(IDBTable.DATA_TABLE_NAME, tableName);
           document.body.appendChild(idbTableEl);
         }
@@ -64,7 +64,7 @@ function init(events) {
 
     renderedTableNames.forEach((tableName) => {
       if (!objectStoreNames.includes(tableName)) {
-        const tableContainerEl = document.querySelector(`${IDBTable.ELEMENT_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
+        const tableContainerEl = document.querySelector(`${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
         document.body.removeChild(tableContainerEl);
       }
     });
