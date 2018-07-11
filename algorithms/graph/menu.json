@@ -14,5 +14,9 @@
   {
     "name": "Bellman-Ford",
     "link": "bellman-ford/index.html"
+  },
+  {
+    "name": "Floyd-Warshall",
+    "link": "floyd-warshall/index.html"
   }
 ]
