@@ -25,16 +25,16 @@ module.exports = function floydWarshall(graph) {
           previousVertices[i][j] = [];
 
           if (vertex === endVertex) {
-            distances[i][j][0] = 0;
-            previousVertices[i][j][0] = null;
+            distances[i][j][k] = 0;
+            previousVertices[i][j][k] = null;
           } else {
             const edge = graph.findEdge(vertex, endVertex);
             if (edge) {
-              distances[i][j][0] = edge.weight;
-              previousVertices[i][j][0] = vertex;
+              distances[i][j][k] = edge.weight;
+              previousVertices[i][j][k] = vertex;
             } else {
-              distances[i][j][0] = Infinity;
-              previousVertices[i][j][0] = null;
+              distances[i][j][k] = Infinity;
+              previousVertices[i][j][k] = null;
             }
           }
         } else {

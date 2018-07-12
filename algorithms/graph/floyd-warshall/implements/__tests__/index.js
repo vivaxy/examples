@@ -9,7 +9,7 @@ const Graph = require('../../../implements/class/Graph.js');
 const GraphEdge = require('../../../implements/class/GraphEdge.js');
 const GraphVertex = require('../../../implements/class/GraphVertex.js');
 
-test('test weight matrix', (t) => {
+test('weight matrix', (t) => {
 
   const vertex1 = new GraphVertex(1);
   const vertex2 = new GraphVertex(2);
