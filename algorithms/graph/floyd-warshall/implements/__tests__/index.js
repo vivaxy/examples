@@ -9,30 +9,32 @@ const Graph = require('../../../implements/class/Graph.js');
 const GraphEdge = require('../../../implements/class/GraphEdge.js');
 const GraphVertex = require('../../../implements/class/GraphVertex.js');
 
-test.only('test weight matrix', (t) => {
+test('test weight matrix', (t) => {
 
   const vertex1 = new GraphVertex(1);
   const vertex2 = new GraphVertex(2);
   const vertex3 = new GraphVertex(3);
   const vertex4 = new GraphVertex(4);
 
-  const edge12 = new GraphEdge(vertex1, vertex2, 3);
-  const edge13 = new GraphEdge(vertex1, vertex3, 8);
-  const edge24 = new GraphEdge(vertex2, vertex4, 1);
-  const edge32 = new GraphEdge(vertex3, vertex2, 4);
-  const edge41 = new GraphEdge(vertex4, vertex1, 2);
-  const edge43 = new GraphEdge(vertex4, vertex3, -5);
+  const edge13 = new GraphEdge(vertex1, vertex3, -2);
+  const edge21 = new GraphEdge(vertex2, vertex1, 4);
+  const edge23 = new GraphEdge(vertex2, vertex3, 3);
+  const edge34 = new GraphEdge(vertex3, vertex4, 2);
+  const edge42 = new GraphEdge(vertex4, vertex2, -1);
 
   const graph = new Graph(true);
   graph
-    .addEdge(edge12)
     .addEdge(edge13)
-    .addEdge(edge24)
-    .addEdge(edge32)
-    .addEdge(edge41)
-    .addEdge(edge43);
+    .addEdge(edge21)
+    .addEdge(edge23)
+    .addEdge(edge34)
+    .addEdge(edge42);
 
-  floydWarshall(graph);
+  const { distances, previousVertices } = floydWarshall(graph);
+
+  const vertices = graph.getAllVertices();
+  t.is(distances[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][vertices.length], 0);
+  t.is(previousVertices[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][vertices.length], vertex3);
 
 });
 
@@ -76,26 +78,25 @@ test('find minimum paths to all vertices for undirected graph', (t) => {
     .addEdge(edgeFG)
     .addEdge(edgeEG);
 
-  const { distances, previousVertices } = floydWarshall(graph, vertexA);
+  const { distances, previousVertices } = floydWarshall(graph);
 
-  t.deepEqual(distances, {
-    H: Infinity,
-    A: 0,
-    B: 4,
-    E: 7,
-    C: 3,
-    D: 9,
-    G: 12,
-    F: 11,
-  });
+  const vertices = graph.getAllVertices();
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][vertices.length], Infinity);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][vertices.length], 0);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][vertices.length], 4);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexE)][vertices.length], 7);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][vertices.length], 3);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][vertices.length], 9);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][vertices.length], 12);
+  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][vertices.length], 11);
 
-  t.is(previousVertices.F.getKey(), 'D');
-  t.is(previousVertices.D.getKey(), 'B');
-  t.is(previousVertices.B.getKey(), 'A');
-  t.is(previousVertices.G.getKey(), 'E');
-  t.is(previousVertices.C.getKey(), 'A');
-  t.is(previousVertices.A, null);
-  t.is(previousVertices.H, null);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][vertices.length], vertexD);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][vertices.length], vertexB);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][vertices.length], vertexA);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][vertices.length], vertexE);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][vertices.length], vertexA);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][vertices.length], null);
+  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][vertices.length], null);
 
 });
 
@@ -131,23 +132,22 @@ test('find minimum paths to all vertices for directed graph with negative edge w
     .addEdge(edgeCB)
     .addEdge(edgeBA);
 
-  const { distances, previousVertices } = floydWarshall(graph, vertexS);
+  const { distances, previousVertices } = floydWarshall(graph);
 
-  t.deepEqual(distances, {
-    H: Infinity,
-    S: 0,
-    A: 5,
-    B: 5,
-    C: 7,
-    D: 9,
-    E: 8,
-  });
+  const vertices = graph.getAllVertices();
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][vertices.length], Infinity);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][vertices.length], 0);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][vertices.length], 5);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][vertices.length], 5);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][vertices.length], 7);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][vertices.length], 9);
+  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexE)][vertices.length], 8);
 
-  t.is(previousVertices.H, null);
-  t.is(previousVertices.S, null);
-  t.is(previousVertices.B.getKey(), 'C');
-  t.is(previousVertices.C.getKey(), 'A');
-  t.is(previousVertices.A.getKey(), 'D');
-  t.is(previousVertices.D.getKey(), 'E');
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][vertices.length], null);
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][vertices.length], null);
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][vertices.length], vertexC);
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][vertices.length], vertexA);
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][vertices.length], vertexD);
+  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][vertices.length], vertexE);
 
 });
