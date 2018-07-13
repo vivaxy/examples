@@ -14,5 +14,9 @@
   {
     "name": "Heap",
     "link": "heap/index.html"
+  },
+  {
+    "name": "String",
+    "link": "string/index.html"
   }
 ]
