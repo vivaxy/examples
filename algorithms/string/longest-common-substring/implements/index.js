@@ -39,12 +39,14 @@ module.exports = function longestCommonSubstring(s1, s2) {
     return '';
   }
 
-  let lcs = '';
-  while (matrix[lcsI][lcsJ] > 0) {
-    lcs = s1[lcsI - 1] + lcs;
-    lcsI--;
-    lcsJ--;
-  }
+  return s1.slice(lcsI - lcsLength, lcsI);
 
-  return lcs;
+  // let lcs = '';
+  // while (matrix[lcsI][lcsJ] > 0) {
+  //   lcs = s1[lcsI - 1] + lcs;
+  //   lcsI--;
+  //   lcsJ--;
+  // }
+  //
+  // return lcs;
 };
