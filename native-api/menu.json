@@ -186,5 +186,9 @@
   {
     "name": "User Media",
     "link": "user-media/index.html"
+  },
+  {
+    "name": "Error Event",
+    "link": "error-event/index.html"
   }
 ]
