@@ -1,22 +1,26 @@
 [
-    {
-        "name": "nextTick",
-        "link": "next-tick/"
-    },
-    {
-        "name": "setImmediate",
-        "link": "set-immediate/"
-    },
-    {
-        "name": "stdout",
-        "link": "stdout/"
-    },
-    {
-        "name": "readline",
-        "link": "readline/"
-    },
-    {
-        "name": "require",
-        "link": "require/"
-    }
+  {
+    "name": "nextTick",
+    "link": "next-tick/index.js"
+  },
+  {
+    "name": "setImmediate",
+    "link": "set-immediate/index.js"
+  },
+  {
+    "name": "stdout",
+    "link": "stdout/index.js"
+  },
+  {
+    "name": "readline",
+    "link": "readline/index.js"
+  },
+  {
+    "name": "require",
+    "link": "require/index.js"
+  },
+  {
+    "name": "Custom Require",
+    "link": "custom-require/index.js"
+  }
 ]
