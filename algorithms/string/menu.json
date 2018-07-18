@@ -2,5 +2,9 @@
   {
     "name": "Longest Common Substring",
     "link": "longest-common-substring/index.html"
+  },
+  {
+    "name": "Longest Common Sequence",
+    "link": "longest-common-sequence/index.html"
   }
 ]
