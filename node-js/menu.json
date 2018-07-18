@@ -22,5 +22,9 @@
   {
     "name": "Custom Require",
     "link": "custom-require/index.js"
+  },
+  {
+    "name": "Promise.all Profile",
+    "link": "promise-all-profile/index.js"
   }
 ]
