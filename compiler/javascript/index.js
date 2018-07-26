@@ -14,7 +14,7 @@ const tokenTypes = {
   STRING: 'string',
   BOOLEAN: 'boolean',
   PARENTHESIS: 'parenthesis',
-  LABEL: 'label', // ;, ,
+  LABEL: 'label', // ;, ,, .
   NULL: 'null',
   IDENTIFIER: 'identifier', // 变量, undefined
 };
@@ -37,6 +37,8 @@ const astTypes = {
   IDENTIFIER: 'Identifier',
   SEQUENCE_EXPRESSION: 'SequenceExpression',
   CONDITIONAL_EXPRESSION: 'ConditionalExpression',
+
+  MEMBER_EXPRESSION: 'MemberExpression',
 };
 
 compiler.astTypes = astTypes;
@@ -91,6 +93,9 @@ const astFactory = {
   },
   CONDITIONAL_EXPRESSION: (test, consequent, alternate) => {
     return { type: astTypes.CONDITIONAL_EXPRESSION, test, consequent, alternate };
+  },
+  MEMBER_EXPRESSION: (object, property) => {
+    return { type: astTypes.MEMBER_EXPRESSION, object, property };
   },
 };
 
@@ -237,7 +242,7 @@ function tokenizer(input) {
       }
     }
     const NUMBERS = /[0-9]/;
-    if (NUMBERS.test(char) || char === '.') {
+    if (NUMBERS.test(char) || (char === '.' && NUMBERS.test(input[i + 1]))) {
       let value = '';
       let j = 0;
       while (NUMBERS.test(char) || char === '.') {
@@ -248,6 +253,13 @@ function tokenizer(input) {
       pushToken(tokenTypes.NUMBER, value);
       continue;
     }
+
+    // match label after number
+    if (char === '.') {
+      pushToken(tokenTypes.LABEL, '.');
+      continue;
+    }
+
     if (char === '"') {
       let value = '';
       let j = 1;
@@ -291,6 +303,9 @@ function tokenizer(input) {
     if (matchToken('undefined', tokenTypes.IDENTIFIER)) {
       continue;
     }
+    if (matchIdentifier()) {
+      continue;
+    }
 
     function matchToken(pattern, tokenType) {
       if (input.slice(i, i + pattern.length) === pattern) {
@@ -298,6 +313,20 @@ function tokenizer(input) {
         return true;
       }
       return false;
+    }
+
+    function matchIdentifier() {
+      let value = char;
+      let j = i + 1;
+      let nextChar = input[j];
+      const breakChars = [';', '+', '-', '*', '/', '<', '>', '=', '(', ')', '%', '&', '|', '^', '~', '!', '?', ':', ',', '.'];
+      while (nextChar && breakChars.indexOf(nextChar) === -1) {
+        value += nextChar;
+        j++;
+        nextChar = input[j];
+      }
+      pushToken(tokenTypes.IDENTIFIER, value);
+      return true;
     }
 
     throw new Error('Unexpected token: ' + char);
@@ -551,12 +580,52 @@ function parser(tokens, args) {
     return astFactory.CONDITIONAL_EXPRESSION(walk(start, questionMarkIndex - 1), walk(questionMarkIndex + 1, colonIndex - 1), walk(colonIndex + 1, end));
   }
 
+  function getMemberExpression(start, end) {
+    if (end - start < 2) {
+      return null;
+    }
+    // identifier + label(.) + identify + ...
+    if (tokens[start].type !== tokenTypes.IDENTIFIER || tokens[end].type !== tokenTypes.IDENTIFIER) {
+      return null;
+    }
+    let expecting = tokenTypes.IDENTIFIER;
+    let identifiers = [];
+    let i = start;
+    while (
+      i <= end && (
+        (tokens[i].type === expecting && expecting === tokenTypes.LABEL && tokens[i].value === '.')
+        || (tokens[i].type === expecting && expecting === tokenTypes.IDENTIFIER)
+      )
+      ) {
+      if (tokens[i].type === tokenTypes.IDENTIFIER) {
+        identifiers.push(tokens[i]);
+      }
+      i++;
+      if (expecting === tokenTypes.LABEL) {
+        expecting = tokenTypes.IDENTIFIER;
+      } else {
+        expecting = tokenTypes.LABEL;
+      }
+    }
+
+    if (expecting === tokenTypes.IDENTIFIER && i !== end) {
+      return null;
+    }
+
+    let object = astFactory.IDENTIFIER(identifiers[0].value);
+
+    for (let j = 1; j < identifiers.length; j++) {
+      object = astFactory.MEMBER_EXPRESSION(object, astFactory.IDENTIFIER(identifiers[j].value));
+    }
+    return object;
+  }
+
   function walk(start, end) {
     if (start > end) {
       throw new Error('Walk: start > end');
     }
 
-    const groupEnd = getGroupingEnd(start, end);
+    const groupEnd = getGroupingEnd(start, end); // 20
     if (groupEnd === end) {
       return walk(start + 1, end - 1);
     }
@@ -589,6 +658,11 @@ function parser(tokens, args) {
     const unaryExpression = getUnaryExpression(start, end); // 16
     if (unaryExpression) {
       return unaryExpression;
+    }
+
+    const memberExpression = getMemberExpression(start, end); // 19
+    if (memberExpression) {
+      return memberExpression;
     }
 
     throw new Error('Unexpected expression');

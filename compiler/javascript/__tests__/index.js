@@ -136,6 +136,7 @@ test('parser', (t) => {
       },
     ],
   });
+
 });
 
 test('execute', (t) => {
@@ -193,4 +194,57 @@ test('execute', (t) => {
     userGrade: 1,
     userName: 'test',
   }), true);
+});
+
+test('member expression', (t) => {
+  t.deepEqual(tokenizer('"note-" + item.noteId'), [
+    {
+      type: tokenTypes.STRING,
+      value: 'note-',
+    },
+    {
+      type: tokenTypes.ARITHMETIC_OPERATOR,
+      value: '+',
+    },
+    {
+      type: tokenTypes.IDENTIFIER,
+      value: 'item',
+    },
+    {
+      type: tokenTypes.LABEL,
+      value: '.',
+    },
+    {
+      type: tokenTypes.IDENTIFIER,
+      value: 'noteId',
+    },
+  ]);
+
+  t.deepEqual(parser(tokenizer('"note-" + item.noteId')), {
+    type: astTypes.PROGRAM,
+    body: [
+      {
+        type: astTypes.EXPRESSION_STATEMENT,
+        expression: {
+          type: astTypes.BINARY_EXPRESSION,
+          operator: '+',
+          left: {
+            type: astTypes.LITERAL,
+            value: 'note-',
+          },
+          right: {
+            type: astTypes.MEMBER_EXPRESSION,
+            object: {
+              type: astTypes.IDENTIFIER,
+              name: 'item',
+            },
+            property: {
+              type: astTypes.IDENTIFIER,
+              name: 'noteId',
+            },
+          },
+        },
+      },
+    ],
+  });
 });
