@@ -4,10 +4,6 @@
     "link": "chinese-to-javascript/index.js"
   },
   {
-    "name": "javascript",
-    "link": "javascript/index.js"
-  },
-  {
     "name": "css",
     "link": "css/index.js"
   }
