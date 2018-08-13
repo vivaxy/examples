@@ -1,1 +1,1 @@
-[course](https://vivaxy.github.io/course/)
+[Course](https://vivaxy.github.io/course/index.html)
