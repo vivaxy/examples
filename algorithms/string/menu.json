@@ -6,5 +6,9 @@
   {
     "name": "Longest Common Sequence",
     "link": "longest-common-sequence/index.html"
+  },
+  {
+    "name": "Compute Transform Tables",
+    "link": "compute-transform-tables/index.html"
   }
 ]
