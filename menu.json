@@ -210,5 +210,9 @@
   {
     "name": "KerasJS",
     "link": "kerasjs/index.html"
+  },
+  {
+    "name": "Vue.js",
+    "link": "vue-js/index.html"
   }
 ]
