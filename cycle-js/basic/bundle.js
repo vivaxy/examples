@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var isValue = __webpack_require__(8);
+var isValue = __webpack_require__(4);
 
 module.exports = function (value) {
 	if (!isValue(value)) throw new TypeError("Cannot use null or undefined");
@@ -99,10 +99,19 @@ module.exports = function (fn) {
 "use strict";
 
 
+module.exports = __webpack_require__(88)() ? Symbol : __webpack_require__(90);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var assign = __webpack_require__(14),
-    normalizeOpts = __webpack_require__(22),
-    isCallable = __webpack_require__(65),
-    contains = __webpack_require__(25),
+    normalizeOpts = __webpack_require__(23),
+    isCallable = __webpack_require__(69),
+    contains = __webpack_require__(26),
     d;
 
 d = module.exports = function (dscr, value /*, options*/) {
@@ -161,7 +170,81 @@ d.gs = function (dscr, get, set /*, options*/) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _undefined = __webpack_require__(21)(); // Support ES3 engines
+
+module.exports = function (val) {
+  return val !== _undefined && val !== null;
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var vnode_1 = __webpack_require__(12);
+var is = __webpack_require__(31);
+function addNS(data, children, sel) {
+    data.ns = 'http://www.w3.org/2000/svg';
+    if (sel !== 'foreignObject' && children !== undefined) {
+        for (var i = 0; i < children.length; ++i) {
+            var childData = children[i].data;
+            if (childData !== undefined) {
+                addNS(childData, children[i].children, children[i].sel);
+            }
+        }
+    }
+}
+function h(sel, b, c) {
+    var data = {},
+        children,
+        text,
+        i;
+    if (c !== undefined) {
+        data = b;
+        if (is.array(c)) {
+            children = c;
+        } else if (is.primitive(c)) {
+            text = c;
+        } else if (c && c.sel) {
+            children = [c];
+        }
+    } else if (b !== undefined) {
+        if (is.array(b)) {
+            children = b;
+        } else if (is.primitive(b)) {
+            text = b;
+        } else if (b && b.sel) {
+            children = [b];
+        } else {
+            data = b;
+        }
+    }
+    if (is.array(children)) {
+        for (i = 0; i < children.length; ++i) {
+            if (is.primitive(children[i])) children[i] = vnode_1.vnode(undefined, undefined, undefined, children[i]);
+        }
+    }
+    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' && (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {
+        addNS(data, children, sel);
+    }
+    return vnode_1.vnode(sel, data, children, text, undefined);
+}
+exports.h = h;
+;
+exports.default = h;
+//# sourceMappingURL=h.js.map
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -175,7 +258,7 @@ var __extends = undefined && undefined.__extends || function (d, b) {
     }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(98);
+var symbol_observable_1 = __webpack_require__(32);
 var NO = {};
 exports.NO = NO;
 function noop() {}
@@ -1514,7 +1597,7 @@ var Stream = function () {
     };
     /**
      * Returns an output stream that identically behaves like the input stream,
-     * but also runs a `spy` function fo each event, to help you debug your app.
+     * but also runs a `spy` function for each event, to help you debug your app.
      *
      * *debug* takes a `spy` function as argument, and runs that for each event
      * happening on the input stream. If you don't provide the `spy` argument,
@@ -1826,77 +1909,7 @@ exports.default = Stream;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(84)() ? Symbol : __webpack_require__(86);
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(30);
-function addNS(data, children, sel) {
-    data.ns = 'http://www.w3.org/2000/svg';
-    if (sel !== 'foreignObject' && children !== undefined) {
-        for (var i = 0; i < children.length; ++i) {
-            var childData = children[i].data;
-            if (childData !== undefined) {
-                addNS(childData, children[i].children, children[i].sel);
-            }
-        }
-    }
-}
-function h(sel, b, c) {
-    var data = {},
-        children,
-        text,
-        i;
-    if (c !== undefined) {
-        data = b;
-        if (is.array(c)) {
-            children = c;
-        } else if (is.primitive(c)) {
-            text = c;
-        } else if (c && c.sel) {
-            children = [c];
-        }
-    } else if (b !== undefined) {
-        if (is.array(b)) {
-            children = b;
-        } else if (is.primitive(b)) {
-            text = b;
-        } else if (b && b.sel) {
-            children = [b];
-        } else {
-            data = b;
-        }
-    }
-    if (is.array(children)) {
-        for (i = 0; i < children.length; ++i) {
-            if (is.primitive(children[i])) children[i] = vnode_1.vnode(undefined, undefined, undefined, children[i]);
-        }
-    }
-    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' && (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {
-        addNS(data, children, sel);
-    }
-    return vnode_1.vnode(sel, data, children, text, undefined);
-}
-exports.h = h;
-;
-exports.default = h;
-//# sourceMappingURL=h.js.map
-
-/***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1947,38 +1960,39 @@ exports.getSelectors = getSelectors;
 //# sourceMappingURL=utils.js.map
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var adaptStream = function adaptStream(x) {
-    return x;
-};
-function setAdapt(f) {
-    adaptStream = f;
-}
-exports.setAdapt = setAdapt;
-function adapt(stream) {
-    return adaptStream(stream);
-}
-exports.adapt = adapt;
-//# sourceMappingURL=adapt.js.map
-
-/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
 
-
-var _undefined = __webpack_require__(20)(); // Support ES3 engines
-
-module.exports = function (val) {
-  return val !== _undefined && val !== null;
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+function getGlobal() {
+    var globalObj;
+    if (typeof window !== 'undefined') {
+        globalObj = window;
+    } else if (typeof global !== 'undefined') {
+        globalObj = global;
+    } else {
+        globalObj = this;
+    }
+    globalObj.Cyclejs = globalObj.Cyclejs || {};
+    globalObj = globalObj.Cyclejs;
+    globalObj.adaptStream = globalObj.adaptStream || function (x) {
+        return x;
+    };
+    return globalObj;
+}
+function setAdapt(f) {
+    getGlobal().adaptStream = f;
+}
+exports.setAdapt = setAdapt;
+function adapt(stream) {
+    return getGlobal().adaptStream(stream);
+}
+exports.adapt = adapt;
+//# sourceMappingURL=adapt.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
 
 /***/ }),
 /* 9 */
@@ -2003,7 +2017,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(23)() ? Object.setPrototypeOf : __webpack_require__(24);
+module.exports = __webpack_require__(24)() ? Object.setPrototypeOf : __webpack_require__(25);
 
 /***/ }),
 /* 11 */
@@ -2046,7 +2060,7 @@ exports.default = vnode;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
+var xstream_1 = __webpack_require__(6);
 function fromEvent(element, eventName, useCapture, preventDefault) {
     if (useCapture === void 0) {
         useCapture = false;
@@ -2085,7 +2099,7 @@ exports.fromEvent = fromEvent;
 "use strict";
 
 
-module.exports = __webpack_require__(60)() ? Object.assign : __webpack_require__(61);
+module.exports = __webpack_require__(64)() ? Object.assign : __webpack_require__(65);
 
 /***/ }),
 /* 15 */
@@ -2094,42 +2108,46 @@ module.exports = __webpack_require__(60)() ? Object.assign : __webpack_require__
 "use strict";
 
 
-var clear = __webpack_require__(19),
+var clear = __webpack_require__(20),
     assign = __webpack_require__(14),
     callable = __webpack_require__(1),
     value = __webpack_require__(0),
-    d = __webpack_require__(2),
-    autoBind = __webpack_require__(46),
-    _Symbol = __webpack_require__(4),
-    defineProperty = Object.defineProperty,
+    d = __webpack_require__(3),
+    autoBind = __webpack_require__(50),
+    _Symbol = __webpack_require__(2);
+
+var defineProperty = Object.defineProperty,
     defineProperties = Object.defineProperties,
     _Iterator;
 
 module.exports = _Iterator = function Iterator(list, context) {
-	if (!(this instanceof _Iterator)) return new _Iterator(list, context);
+	if (!(this instanceof _Iterator)) throw new TypeError("Constructor requires 'new'");
 	defineProperties(this, {
-		__list__: d('w', value(list)),
-		__context__: d('w', context),
-		__nextIndex__: d('w', 0)
+		__list__: d("w", value(list)),
+		__context__: d("w", context),
+		__nextIndex__: d("w", 0)
 	});
 	if (!context) return;
 	callable(context.on);
-	context.on('_add', this._onAdd);
-	context.on('_delete', this._onDelete);
-	context.on('_clear', this._onClear);
+	context.on("_add", this._onAdd);
+	context.on("_delete", this._onDelete);
+	context.on("_clear", this._onClear);
 };
 
+// Internal %IteratorPrototype% doesn't expose its constructor
+delete _Iterator.prototype.constructor;
+
 defineProperties(_Iterator.prototype, assign({
-	constructor: d(_Iterator),
 	_next: d(function () {
 		var i;
-		if (!this.__list__) return;
+		if (!this.__list__) return undefined;
 		if (this.__redo__) {
 			i = this.__redo__.shift();
 			if (i !== undefined) return i;
 		}
 		if (this.__nextIndex__ < this.__list__.length) return this.__nextIndex__++;
 		this._unBind();
+		return undefined;
 	}),
 	next: d(function () {
 		return this._createResult(this._next());
@@ -2145,20 +2163,20 @@ defineProperties(_Iterator.prototype, assign({
 		this.__list__ = null;
 		delete this.__redo__;
 		if (!this.__context__) return;
-		this.__context__.off('_add', this._onAdd);
-		this.__context__.off('_delete', this._onDelete);
-		this.__context__.off('_clear', this._onClear);
+		this.__context__.off("_add", this._onAdd);
+		this.__context__.off("_delete", this._onDelete);
+		this.__context__.off("_clear", this._onClear);
 		this.__context__ = null;
 	}),
 	toString: d(function () {
-		return '[object Iterator]';
+		return "[object " + (this[_Symbol.toStringTag] || "Object") + "]";
 	})
 }, autoBind({
 	_onAdd: d(function (index) {
 		if (index >= this.__nextIndex__) return;
 		++this.__nextIndex__;
 		if (!this.__redo__) {
-			defineProperty(this, '__redo__', d('c', [index]));
+			defineProperty(this, "__redo__", d("c", [index]));
 			return;
 		}
 		this.__redo__.forEach(function (redo, i) {
@@ -2173,8 +2191,8 @@ defineProperties(_Iterator.prototype, assign({
 		if (!this.__redo__) return;
 		i = this.__redo__.indexOf(index);
 		if (i !== -1) this.__redo__.splice(i, 1);
-		this.__redo__.forEach(function (redo, i) {
-			if (redo > index) this.__redo__[i] = --redo;
+		this.__redo__.forEach(function (redo, j) {
+			if (redo > index) this.__redo__[j] = --redo;
 		}, this);
 	}),
 	_onClear: d(function () {
@@ -2186,7 +2204,6 @@ defineProperties(_Iterator.prototype, assign({
 defineProperty(_Iterator.prototype, _Symbol.iterator, d(function () {
 	return this;
 }));
-defineProperty(_Iterator.prototype, _Symbol.toStringTag, d('', 'Iterator'));
 
 /***/ }),
 /* 16 */
@@ -2195,15 +2212,45 @@ defineProperty(_Iterator.prototype, _Symbol.toStringTag, d('', 'Iterator'));
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var g;
+
+// This works in non-strict mode
+g = function () {
+	return this;
+}();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", { value: true });
-var adapt_1 = __webpack_require__(7);
-var DocumentDOMSource_1 = __webpack_require__(35);
-var BodyDOMSource_1 = __webpack_require__(34);
-var ElementFinder_1 = __webpack_require__(36);
+var adapt_1 = __webpack_require__(8);
+var DocumentDOMSource_1 = __webpack_require__(37);
+var BodyDOMSource_1 = __webpack_require__(36);
+var ElementFinder_1 = __webpack_require__(38);
 var fromEvent_1 = __webpack_require__(13);
-var isolate_1 = __webpack_require__(41);
-var EventDelegator_1 = __webpack_require__(37);
-var utils_1 = __webpack_require__(6);
+var isolate_1 = __webpack_require__(43);
+var EventDelegator_1 = __webpack_require__(39);
+var utils_1 = __webpack_require__(7);
 var eventTypesThatDontBubble = ["blur", "canplay", "canplaythrough", "change", "durationchange", "emptied", "ended", "focus", "load", "loadeddata", "loadedmetadata", "mouseenter", "mouseleave", "pause", "play", "playing", "ratechange", "reset", "scroll", "seeked", "seeking", "stalled", "submit", "suspend", "timeupdate", "unload", "volumechange", "waiting"];
 function determineUseCapture(eventType, options) {
     var result = false;
@@ -2355,7 +2402,7 @@ exports.MainDOMSource = MainDOMSource;
 //# sourceMappingURL=MainDOMSource.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2391,7 +2438,7 @@ exports.ScopeChecker = ScopeChecker;
 //# sourceMappingURL=ScopeChecker.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2426,7 +2473,7 @@ exports.matchesSelector = createMatchesSelector();
 //# sourceMappingURL=matchesSelector.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2444,7 +2491,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2455,13 +2502,13 @@ module.exports = function () {
 module.exports = function () {};
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(58),
+var toInteger = __webpack_require__(62),
     max = Math.max;
 
 module.exports = function (value) {
@@ -2469,13 +2516,13 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isValue = __webpack_require__(8);
+var isValue = __webpack_require__(4);
 
 var forEach = Array.prototype.forEach,
     create = Object.create;
@@ -2498,7 +2545,7 @@ module.exports = function (opts1 /*, …options*/) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2516,7 +2563,7 @@ module.exports = function () /* CustomCreate*/{
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2527,9 +2574,9 @@ module.exports = function () /* CustomCreate*/{
 
 
 
-var isObject = __webpack_require__(66),
+var isObject = __webpack_require__(70),
     value = __webpack_require__(0),
-    objIsPrototypOf = Object.prototype.isPrototypeOf,
+    objIsPrototypeOf = Object.prototype.isPrototypeOf,
     defineProperty = Object.defineProperty,
     nullDesc = {
 	configurable: true,
@@ -2565,7 +2612,7 @@ module.exports = function (status) {
 		fn = function self(obj, prototype) {
 			var isNullBase;
 			validate(obj, prototype);
-			isNullBase = objIsPrototypOf.call(self.nullPolyfill, obj);
+			isNullBase = objIsPrototypeOf.call(self.nullPolyfill, obj);
 			if (isNullBase) delete self.nullPolyfill.__proto__;
 			if (prototype === null) prototype = self.nullPolyfill;
 			obj.__proto__ = prototype;
@@ -2603,16 +2650,7 @@ module.exports = function (status) {
 	return false;
 }());
 
-__webpack_require__(63);
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(72)() ? String.prototype.contains : __webpack_require__(73);
+__webpack_require__(67);
 
 /***/ }),
 /* 26 */
@@ -2621,12 +2659,7 @@ module.exports = __webpack_require__(72)() ? String.prototype.contains : __webpa
 "use strict";
 
 
-var isIterable = __webpack_require__(77);
-
-module.exports = function (value) {
-	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
-	return value;
-};
+module.exports = __webpack_require__(76)() ? String.prototype.contains : __webpack_require__(77);
 
 /***/ }),
 /* 27 */
@@ -2635,10 +2668,24 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(79)() ? Map : __webpack_require__(83);
+var isIterable = __webpack_require__(81);
+
+module.exports = function (value) {
+	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
+	return value;
+};
 
 /***/ }),
 /* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(83)() ? Map : __webpack_require__(87);
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2670,7 +2717,7 @@ exports.selectorParser = selectorParser;
 //# sourceMappingURL=selectorParser.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2743,7 +2790,7 @@ exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2758,16 +2805,52 @@ exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global, module) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ponyfill = __webpack_require__(102);
+
+var _ponyfill2 = _interopRequireDefault(_ponyfill);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var root; /* global window */
+
+
+if (typeof self !== 'undefined') {
+  root = self;
+} else if (typeof window !== 'undefined') {
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else if (true) {
+  root = module;
+} else {
+  root = Function('return this')();
+}
+
+var result = (0, _ponyfill2.default)(root);
+exports.default = result;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(103)(module)))
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var thunk_1 = __webpack_require__(45);
+var thunk_1 = __webpack_require__(47);
 exports.thunk = thunk_1.thunk;
-var MainDOMSource_1 = __webpack_require__(16);
+var MainDOMSource_1 = __webpack_require__(17);
 exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
 /**
  * A factory for the DOM driver function.
@@ -2813,7 +2896,7 @@ exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(42);
+var makeDOMDriver_1 = __webpack_require__(44);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -2857,7 +2940,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(43);
+var mockDOMSource_1 = __webpack_require__(45);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -2902,7 +2985,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(5);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(40);
+var hyperscript_helpers_1 = __webpack_require__(42);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -3007,17 +3090,29 @@ exports.video = hyperscript_helpers_1.default.video;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
-var adapt_1 = __webpack_require__(7);
+exports.setup = setup;
+exports.run = run;
+
+var _xstream = __webpack_require__(49);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _adapt = __webpack_require__(48);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function logToConsoleError(err) {
     var target = err.stack || err;
     if (console && console.error) {
@@ -3030,7 +3125,7 @@ function makeSinkProxies(drivers) {
     var sinkProxies = {};
     for (var name_1 in drivers) {
         if (drivers.hasOwnProperty(name_1)) {
-            sinkProxies[name_1] = xstream_1.default.createWithMemory();
+            sinkProxies[name_1] = _xstream2.default.createWithMemory();
         }
     }
     return sinkProxies;
@@ -3051,7 +3146,7 @@ function callDrivers(drivers, sinkProxies) {
 function adaptSources(sources) {
     for (var name_3 in sources) {
         if (sources.hasOwnProperty(name_3) && sources[name_3] && typeof sources[name_3]['shamefullySendNext'] === 'function') {
-            sources[name_3] = adapt_1.adapt(sources[name_3]);
+            sources[name_3] = (0, _adapt.adapt)(sources[name_3]);
         }
     }
     return sources;
@@ -3075,7 +3170,7 @@ function replicateMany(sinks, sinkProxies) {
         };
     });
     var subscriptions = sinkNames.map(function (name) {
-        return xstream_1.default.fromObservable(sinks[name]).subscribe(replicators[name]);
+        return _xstream2.default.fromObservable(sinks[name]).subscribe(replicators[name]);
     });
     sinkNames.forEach(function (name) {
         var listener = sinkProxies[name];
@@ -3083,7 +3178,8 @@ function replicateMany(sinks, sinkProxies) {
             listener._n(x);
         };
         var error = function error(err) {
-            logToConsoleError(err);listener._e(err);
+            logToConsoleError(err);
+            listener._e(err);
         };
         buffers[name]._n.forEach(next);
         buffers[name]._e.forEach(error);
@@ -3146,7 +3242,7 @@ function setup(main, drivers) {
     if (typeof main !== "function") {
         throw new Error("First argument given to Cycle must be the 'main' " + "function.");
     }
-    if ((typeof drivers === "undefined" ? "undefined" : _typeof(drivers)) !== "object" || drivers === null) {
+    if ((typeof drivers === 'undefined' ? 'undefined' : _typeof(drivers)) !== "object" || drivers === null) {
         throw new Error("Second argument given to Cycle must be an object " + "with driver functions as properties.");
     }
     if (isObjectEmpty(drivers)) {
@@ -3160,17 +3256,15 @@ function setup(main, drivers) {
         window.Cyclejs = window.Cyclejs || {};
         window.Cyclejs.sinks = sinks;
     }
-    function run() {
+    function _run() {
         var disposeReplication = replicateMany(sinks, sinkProxies);
         return function dispose() {
             disposeSources(sources);
             disposeReplication();
         };
     }
-    ;
-    return { sinks: sinks, sources: sources, run: run };
+    return { sinks: sinks, sources: sources, run: _run };
 }
-exports.setup = setup;
 /**
  * Takes a `main` function and circularly connects it to the given collection
  * of driver functions.
@@ -3199,55 +3293,52 @@ exports.setup = setup;
  * @function run
  */
 function run(main, drivers) {
-    var _a = setup(main, drivers),
-        run = _a.run,
-        sinks = _a.sinks;
+    var program = setup(main, drivers);
     if (typeof window !== 'undefined' && window['CyclejsDevTool_startGraphSerializer']) {
-        window['CyclejsDevTool_startGraphSerializer'](sinks);
+        window['CyclejsDevTool_startGraphSerializer'](program.sinks);
     }
-    return run();
+    return program.run();
 }
-exports.run = run;
 exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _run = __webpack_require__(32);
+var _run = __webpack_require__(34);
 
-var _dom = __webpack_require__(31);
+var _dom = __webpack_require__(33);
 
 function main(sources) {
-    var input$ = sources.DOM.select('.field').events('input');
+  var input$ = sources.DOM.select('.field').events('input');
 
-    var name$ = input$.map(function (ev) {
-        return ev.target.value;
-    }).startWith('');
+  var name$ = input$.map(function (ev) {
+    return ev.target.value;
+  }).startWith('');
 
-    var vdom$ = name$.map(function (name) {
-        return (0, _dom.div)([(0, _dom.label)('Name:'), (0, _dom.input)('.field', { attrs: { type: 'text' } }), (0, _dom.hr)(), (0, _dom.h1)('Hello ' + name)]);
-    });
+  var vdom$ = name$.map(function (name) {
+    return (0, _dom.div)([(0, _dom.label)('Name:'), (0, _dom.input)('.field', { attrs: { type: 'text' } }), (0, _dom.hr)(), (0, _dom.h1)('Hello ' + name)]);
+  });
 
-    return { DOM: vdom$ };
+  return { DOM: vdom$ };
 }
 
 (0, _run.run)(main, { DOM: (0, _dom.makeDOMDriver)('#app-container') });
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
-var adapt_1 = __webpack_require__(7);
+var xstream_1 = __webpack_require__(6);
+var adapt_1 = __webpack_require__(8);
 var fromEvent_1 = __webpack_require__(13);
 var BodyDOMSource = function () {
     function BodyDOMSource(_name) {
@@ -3278,15 +3369,15 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
-var adapt_1 = __webpack_require__(7);
+var xstream_1 = __webpack_require__(6);
+var adapt_1 = __webpack_require__(8);
 var fromEvent_1 = __webpack_require__(13);
 var DocumentDOMSource = function () {
     function DocumentDOMSource(_name) {
@@ -3317,16 +3408,16 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ScopeChecker_1 = __webpack_require__(17);
-var utils_1 = __webpack_require__(6);
-var matchesSelector_1 = __webpack_require__(18);
+var ScopeChecker_1 = __webpack_require__(18);
+var utils_1 = __webpack_require__(7);
+var matchesSelector_1 = __webpack_require__(19);
 function toElArray(input) {
     return Array.prototype.slice.call(input);
 }
@@ -3353,17 +3444,17 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
-var ScopeChecker_1 = __webpack_require__(17);
-var utils_1 = __webpack_require__(6);
-var matchesSelector_1 = __webpack_require__(18);
+var xstream_1 = __webpack_require__(6);
+var ScopeChecker_1 = __webpack_require__(18);
+var utils_1 = __webpack_require__(7);
+var matchesSelector_1 = __webpack_require__(19);
 /**
  * Finds (with binary search) index of the destination that id equal to searchId
  * among the destinations in the given array.
@@ -3539,14 +3630,14 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MapPolyfill = __webpack_require__(27);
+var MapPolyfill = __webpack_require__(28);
 var IsolateModule = function () {
     function IsolateModule() {
         this.elementsByFullScope = new MapPolyfill();
@@ -3667,7 +3758,7 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3675,8 +3766,8 @@ exports.IsolateModule = IsolateModule;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var h_1 = __webpack_require__(5);
-var classNameFromVNode_1 = __webpack_require__(89);
-var selectorParser_1 = __webpack_require__(28);
+var classNameFromVNode_1 = __webpack_require__(93);
+var selectorParser_1 = __webpack_require__(29);
 var VNodeWrapper = function () {
     function VNodeWrapper(rootElement) {
         this.rootElement = rootElement;
@@ -3714,7 +3805,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3773,7 +3864,7 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3781,7 +3872,7 @@ exports.default = exported;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = __webpack_require__(12);
-var utils_1 = __webpack_require__(6);
+var utils_1 = __webpack_require__(7);
 function totalIsolateSource(source, scope) {
     return source.select(utils_1.SCOPE_PREFIX + scope);
 }
@@ -3832,22 +3923,22 @@ exports.totalIsolateSink = totalIsolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom_1 = __webpack_require__(95);
-var xstream_1 = __webpack_require__(3);
-var MainDOMSource_1 = __webpack_require__(16);
-var tovnode_1 = __webpack_require__(97);
-var VNodeWrapper_1 = __webpack_require__(39);
-var utils_1 = __webpack_require__(6);
-var modules_1 = __webpack_require__(44);
-var IsolateModule_1 = __webpack_require__(38);
-var MapPolyfill = __webpack_require__(27);
+var snabbdom_1 = __webpack_require__(99);
+var xstream_1 = __webpack_require__(6);
+var MainDOMSource_1 = __webpack_require__(17);
+var tovnode_1 = __webpack_require__(101);
+var VNodeWrapper_1 = __webpack_require__(41);
+var utils_1 = __webpack_require__(7);
+var modules_1 = __webpack_require__(46);
+var IsolateModule_1 = __webpack_require__(40);
+var MapPolyfill = __webpack_require__(28);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
         throw new Error("Optional modules option must be " + "an array for snabbdom modules");
@@ -3907,15 +3998,15 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(3);
-var adapt_1 = __webpack_require__(7);
+var xstream_1 = __webpack_require__(6);
+var adapt_1 = __webpack_require__(8);
 var SCOPE_PREFIX = '___';
 var MockedDOMSource = function () {
     function MockedDOMSource(_mockConfig) {
@@ -3964,29 +4055,29 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var class_1 = __webpack_require__(91);
+var class_1 = __webpack_require__(95);
 exports.ClassModule = class_1.default;
-var props_1 = __webpack_require__(93);
+var props_1 = __webpack_require__(97);
 exports.PropsModule = props_1.default;
-var attributes_1 = __webpack_require__(90);
+var attributes_1 = __webpack_require__(94);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(94);
+var style_1 = __webpack_require__(98);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(92);
+var dataset_1 = __webpack_require__(96);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 exports.default = modules;
 //# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4043,16 +4134,1712 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 46 */
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setAdapt = setAdapt;
+exports.adapt = adapt;
+function getGlobal() {
+    var globalObj;
+    if (typeof window !== 'undefined') {
+        globalObj = window;
+    } else if (typeof global !== 'undefined') {
+        globalObj = global;
+    } else {
+        globalObj = this;
+    }
+    globalObj.Cyclejs = globalObj.Cyclejs || {};
+    globalObj = globalObj.Cyclejs;
+    globalObj.adaptStream = globalObj.adaptStream || function (x) {
+        return x;
+    };
+    return globalObj;
+}
+function setAdapt(f) {
+    getGlobal().adaptStream = f;
+}
+function adapt(stream) {
+    return getGlobal().adaptStream(stream);
+}
+//# sourceMappingURL=adapt.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var copy = __webpack_require__(62),
-    normalizeOptions = __webpack_require__(22),
+var __extends = undefined && undefined.__extends || function () {
+    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+        d.__proto__ = b;
+    } || function (d, b) {
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+Object.defineProperty(exports, "__esModule", { value: true });
+var symbol_observable_1 = __webpack_require__(32);
+var NO = {};
+exports.NO = NO;
+function noop() {}
+function cp(a) {
+    var l = a.length;
+    var b = Array(l);
+    for (var i = 0; i < l; ++i) {
+        b[i] = a[i];
+    }return b;
+}
+function and(f1, f2) {
+    return function andFn(t) {
+        return f1(t) && f2(t);
+    };
+}
+function _try(c, t, u) {
+    try {
+        return c.f(t);
+    } catch (e) {
+        u._e(e);
+        return NO;
+    }
+}
+var NO_IL = {
+    _n: noop,
+    _e: noop,
+    _c: noop
+};
+exports.NO_IL = NO_IL;
+// mutates the input
+function internalizeProducer(producer) {
+    producer._start = function _start(il) {
+        il.next = il._n;
+        il.error = il._e;
+        il.complete = il._c;
+        this.start(il);
+    };
+    producer._stop = producer.stop;
+}
+var StreamSub = /** @class */function () {
+    function StreamSub(_stream, _listener) {
+        this._stream = _stream;
+        this._listener = _listener;
+    }
+    StreamSub.prototype.unsubscribe = function () {
+        this._stream._remove(this._listener);
+    };
+    return StreamSub;
+}();
+var Observer = /** @class */function () {
+    function Observer(_listener) {
+        this._listener = _listener;
+    }
+    Observer.prototype.next = function (value) {
+        this._listener._n(value);
+    };
+    Observer.prototype.error = function (err) {
+        this._listener._e(err);
+    };
+    Observer.prototype.complete = function () {
+        this._listener._c();
+    };
+    return Observer;
+}();
+var FromObservable = /** @class */function () {
+    function FromObservable(observable) {
+        this.type = 'fromObservable';
+        this.ins = observable;
+        this.active = false;
+    }
+    FromObservable.prototype._start = function (out) {
+        this.out = out;
+        this.active = true;
+        this._sub = this.ins.subscribe(new Observer(out));
+        if (!this.active) this._sub.unsubscribe();
+    };
+    FromObservable.prototype._stop = function () {
+        if (this._sub) this._sub.unsubscribe();
+        this.active = false;
+    };
+    return FromObservable;
+}();
+var Merge = /** @class */function () {
+    function Merge(insArr) {
+        this.type = 'merge';
+        this.insArr = insArr;
+        this.out = NO;
+        this.ac = 0;
+    }
+    Merge.prototype._start = function (out) {
+        this.out = out;
+        var s = this.insArr;
+        var L = s.length;
+        this.ac = L;
+        for (var i = 0; i < L; i++) {
+            s[i]._add(this);
+        }
+    };
+    Merge.prototype._stop = function () {
+        var s = this.insArr;
+        var L = s.length;
+        for (var i = 0; i < L; i++) {
+            s[i]._remove(this);
+        }this.out = NO;
+    };
+    Merge.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        u._n(t);
+    };
+    Merge.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Merge.prototype._c = function () {
+        if (--this.ac <= 0) {
+            var u = this.out;
+            if (u === NO) return;
+            u._c();
+        }
+    };
+    return Merge;
+}();
+var CombineListener = /** @class */function () {
+    function CombineListener(i, out, p) {
+        this.i = i;
+        this.out = out;
+        this.p = p;
+        p.ils.push(this);
+    }
+    CombineListener.prototype._n = function (t) {
+        var p = this.p,
+            out = this.out;
+        if (out === NO) return;
+        if (p.up(t, this.i)) {
+            var a = p.vals;
+            var l = a.length;
+            var b = Array(l);
+            for (var i = 0; i < l; ++i) {
+                b[i] = a[i];
+            }out._n(b);
+        }
+    };
+    CombineListener.prototype._e = function (err) {
+        var out = this.out;
+        if (out === NO) return;
+        out._e(err);
+    };
+    CombineListener.prototype._c = function () {
+        var p = this.p;
+        if (p.out === NO) return;
+        if (--p.Nc === 0) p.out._c();
+    };
+    return CombineListener;
+}();
+var Combine = /** @class */function () {
+    function Combine(insArr) {
+        this.type = 'combine';
+        this.insArr = insArr;
+        this.out = NO;
+        this.ils = [];
+        this.Nc = this.Nn = 0;
+        this.vals = [];
+    }
+    Combine.prototype.up = function (t, i) {
+        var v = this.vals[i];
+        var Nn = !this.Nn ? 0 : v === NO ? --this.Nn : this.Nn;
+        this.vals[i] = t;
+        return Nn === 0;
+    };
+    Combine.prototype._start = function (out) {
+        this.out = out;
+        var s = this.insArr;
+        var n = this.Nc = this.Nn = s.length;
+        var vals = this.vals = new Array(n);
+        if (n === 0) {
+            out._n([]);
+            out._c();
+        } else {
+            for (var i = 0; i < n; i++) {
+                vals[i] = NO;
+                s[i]._add(new CombineListener(i, out, this));
+            }
+        }
+    };
+    Combine.prototype._stop = function () {
+        var s = this.insArr;
+        var n = s.length;
+        var ils = this.ils;
+        for (var i = 0; i < n; i++) {
+            s[i]._remove(ils[i]);
+        }this.out = NO;
+        this.ils = [];
+        this.vals = [];
+    };
+    return Combine;
+}();
+var FromArray = /** @class */function () {
+    function FromArray(a) {
+        this.type = 'fromArray';
+        this.a = a;
+    }
+    FromArray.prototype._start = function (out) {
+        var a = this.a;
+        for (var i = 0, n = a.length; i < n; i++) {
+            out._n(a[i]);
+        }out._c();
+    };
+    FromArray.prototype._stop = function () {};
+    return FromArray;
+}();
+var FromPromise = /** @class */function () {
+    function FromPromise(p) {
+        this.type = 'fromPromise';
+        this.on = false;
+        this.p = p;
+    }
+    FromPromise.prototype._start = function (out) {
+        var prod = this;
+        this.on = true;
+        this.p.then(function (v) {
+            if (prod.on) {
+                out._n(v);
+                out._c();
+            }
+        }, function (e) {
+            out._e(e);
+        }).then(noop, function (err) {
+            setTimeout(function () {
+                throw err;
+            });
+        });
+    };
+    FromPromise.prototype._stop = function () {
+        this.on = false;
+    };
+    return FromPromise;
+}();
+var Periodic = /** @class */function () {
+    function Periodic(period) {
+        this.type = 'periodic';
+        this.period = period;
+        this.intervalID = -1;
+        this.i = 0;
+    }
+    Periodic.prototype._start = function (out) {
+        var self = this;
+        function intervalHandler() {
+            out._n(self.i++);
+        }
+        this.intervalID = setInterval(intervalHandler, this.period);
+    };
+    Periodic.prototype._stop = function () {
+        if (this.intervalID !== -1) clearInterval(this.intervalID);
+        this.intervalID = -1;
+        this.i = 0;
+    };
+    return Periodic;
+}();
+var Debug = /** @class */function () {
+    function Debug(ins, arg) {
+        this.type = 'debug';
+        this.ins = ins;
+        this.out = NO;
+        this.s = noop;
+        this.l = '';
+        if (typeof arg === 'string') this.l = arg;else if (typeof arg === 'function') this.s = arg;
+    }
+    Debug.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    Debug.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    Debug.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        var s = this.s,
+            l = this.l;
+        if (s !== noop) {
+            try {
+                s(t);
+            } catch (e) {
+                u._e(e);
+            }
+        } else if (l) console.log(l + ':', t);else console.log(t);
+        u._n(t);
+    };
+    Debug.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Debug.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return Debug;
+}();
+var Drop = /** @class */function () {
+    function Drop(max, ins) {
+        this.type = 'drop';
+        this.ins = ins;
+        this.out = NO;
+        this.max = max;
+        this.dropped = 0;
+    }
+    Drop.prototype._start = function (out) {
+        this.out = out;
+        this.dropped = 0;
+        this.ins._add(this);
+    };
+    Drop.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    Drop.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        if (this.dropped++ >= this.max) u._n(t);
+    };
+    Drop.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Drop.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return Drop;
+}();
+var EndWhenListener = /** @class */function () {
+    function EndWhenListener(out, op) {
+        this.out = out;
+        this.op = op;
+    }
+    EndWhenListener.prototype._n = function () {
+        this.op.end();
+    };
+    EndWhenListener.prototype._e = function (err) {
+        this.out._e(err);
+    };
+    EndWhenListener.prototype._c = function () {
+        this.op.end();
+    };
+    return EndWhenListener;
+}();
+var EndWhen = /** @class */function () {
+    function EndWhen(o, ins) {
+        this.type = 'endWhen';
+        this.ins = ins;
+        this.out = NO;
+        this.o = o;
+        this.oil = NO_IL;
+    }
+    EndWhen.prototype._start = function (out) {
+        this.out = out;
+        this.o._add(this.oil = new EndWhenListener(out, this));
+        this.ins._add(this);
+    };
+    EndWhen.prototype._stop = function () {
+        this.ins._remove(this);
+        this.o._remove(this.oil);
+        this.out = NO;
+        this.oil = NO_IL;
+    };
+    EndWhen.prototype.end = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    EndWhen.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        u._n(t);
+    };
+    EndWhen.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    EndWhen.prototype._c = function () {
+        this.end();
+    };
+    return EndWhen;
+}();
+var Filter = /** @class */function () {
+    function Filter(passes, ins) {
+        this.type = 'filter';
+        this.ins = ins;
+        this.out = NO;
+        this.f = passes;
+    }
+    Filter.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    Filter.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    Filter.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        var r = _try(this, t, u);
+        if (r === NO || !r) return;
+        u._n(t);
+    };
+    Filter.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Filter.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return Filter;
+}();
+var FlattenListener = /** @class */function () {
+    function FlattenListener(out, op) {
+        this.out = out;
+        this.op = op;
+    }
+    FlattenListener.prototype._n = function (t) {
+        this.out._n(t);
+    };
+    FlattenListener.prototype._e = function (err) {
+        this.out._e(err);
+    };
+    FlattenListener.prototype._c = function () {
+        this.op.inner = NO;
+        this.op.less();
+    };
+    return FlattenListener;
+}();
+var Flatten = /** @class */function () {
+    function Flatten(ins) {
+        this.type = 'flatten';
+        this.ins = ins;
+        this.out = NO;
+        this.open = true;
+        this.inner = NO;
+        this.il = NO_IL;
+    }
+    Flatten.prototype._start = function (out) {
+        this.out = out;
+        this.open = true;
+        this.inner = NO;
+        this.il = NO_IL;
+        this.ins._add(this);
+    };
+    Flatten.prototype._stop = function () {
+        this.ins._remove(this);
+        if (this.inner !== NO) this.inner._remove(this.il);
+        this.out = NO;
+        this.open = true;
+        this.inner = NO;
+        this.il = NO_IL;
+    };
+    Flatten.prototype.less = function () {
+        var u = this.out;
+        if (u === NO) return;
+        if (!this.open && this.inner === NO) u._c();
+    };
+    Flatten.prototype._n = function (s) {
+        var u = this.out;
+        if (u === NO) return;
+        var _a = this,
+            inner = _a.inner,
+            il = _a.il;
+        if (inner !== NO && il !== NO_IL) inner._remove(il);
+        (this.inner = s)._add(this.il = new FlattenListener(u, this));
+    };
+    Flatten.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Flatten.prototype._c = function () {
+        this.open = false;
+        this.less();
+    };
+    return Flatten;
+}();
+var Fold = /** @class */function () {
+    function Fold(f, seed, ins) {
+        var _this = this;
+        this.type = 'fold';
+        this.ins = ins;
+        this.out = NO;
+        this.f = function (t) {
+            return f(_this.acc, t);
+        };
+        this.acc = this.seed = seed;
+    }
+    Fold.prototype._start = function (out) {
+        this.out = out;
+        this.acc = this.seed;
+        out._n(this.acc);
+        this.ins._add(this);
+    };
+    Fold.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+        this.acc = this.seed;
+    };
+    Fold.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        var r = _try(this, t, u);
+        if (r === NO) return;
+        u._n(this.acc = r);
+    };
+    Fold.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Fold.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return Fold;
+}();
+var Last = /** @class */function () {
+    function Last(ins) {
+        this.type = 'last';
+        this.ins = ins;
+        this.out = NO;
+        this.has = false;
+        this.val = NO;
+    }
+    Last.prototype._start = function (out) {
+        this.out = out;
+        this.has = false;
+        this.ins._add(this);
+    };
+    Last.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+        this.val = NO;
+    };
+    Last.prototype._n = function (t) {
+        this.has = true;
+        this.val = t;
+    };
+    Last.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Last.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        if (this.has) {
+            u._n(this.val);
+            u._c();
+        } else u._e(new Error('last() failed because input stream completed'));
+    };
+    return Last;
+}();
+var MapOp = /** @class */function () {
+    function MapOp(project, ins) {
+        this.type = 'map';
+        this.ins = ins;
+        this.out = NO;
+        this.f = project;
+    }
+    MapOp.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    MapOp.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    MapOp.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        var r = _try(this, t, u);
+        if (r === NO) return;
+        u._n(r);
+    };
+    MapOp.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    MapOp.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return MapOp;
+}();
+var Remember = /** @class */function () {
+    function Remember(ins) {
+        this.type = 'remember';
+        this.ins = ins;
+        this.out = NO;
+    }
+    Remember.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(out);
+    };
+    Remember.prototype._stop = function () {
+        this.ins._remove(this.out);
+        this.out = NO;
+    };
+    return Remember;
+}();
+var ReplaceError = /** @class */function () {
+    function ReplaceError(replacer, ins) {
+        this.type = 'replaceError';
+        this.ins = ins;
+        this.out = NO;
+        this.f = replacer;
+    }
+    ReplaceError.prototype._start = function (out) {
+        this.out = out;
+        this.ins._add(this);
+    };
+    ReplaceError.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    ReplaceError.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        u._n(t);
+    };
+    ReplaceError.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        try {
+            this.ins._remove(this);
+            (this.ins = this.f(err))._add(this);
+        } catch (e) {
+            u._e(e);
+        }
+    };
+    ReplaceError.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return ReplaceError;
+}();
+var StartWith = /** @class */function () {
+    function StartWith(ins, val) {
+        this.type = 'startWith';
+        this.ins = ins;
+        this.out = NO;
+        this.val = val;
+    }
+    StartWith.prototype._start = function (out) {
+        this.out = out;
+        this.out._n(this.val);
+        this.ins._add(out);
+    };
+    StartWith.prototype._stop = function () {
+        this.ins._remove(this.out);
+        this.out = NO;
+    };
+    return StartWith;
+}();
+var Take = /** @class */function () {
+    function Take(max, ins) {
+        this.type = 'take';
+        this.ins = ins;
+        this.out = NO;
+        this.max = max;
+        this.taken = 0;
+    }
+    Take.prototype._start = function (out) {
+        this.out = out;
+        this.taken = 0;
+        if (this.max <= 0) out._c();else this.ins._add(this);
+    };
+    Take.prototype._stop = function () {
+        this.ins._remove(this);
+        this.out = NO;
+    };
+    Take.prototype._n = function (t) {
+        var u = this.out;
+        if (u === NO) return;
+        var m = ++this.taken;
+        if (m < this.max) u._n(t);else if (m === this.max) {
+            u._n(t);
+            u._c();
+        }
+    };
+    Take.prototype._e = function (err) {
+        var u = this.out;
+        if (u === NO) return;
+        u._e(err);
+    };
+    Take.prototype._c = function () {
+        var u = this.out;
+        if (u === NO) return;
+        u._c();
+    };
+    return Take;
+}();
+var Stream = /** @class */function () {
+    function Stream(producer) {
+        this._prod = producer || NO;
+        this._ils = [];
+        this._stopID = NO;
+        this._dl = NO;
+        this._d = false;
+        this._target = NO;
+        this._err = NO;
+    }
+    Stream.prototype._n = function (t) {
+        var a = this._ils;
+        var L = a.length;
+        if (this._d) this._dl._n(t);
+        if (L == 1) a[0]._n(t);else if (L == 0) return;else {
+            var b = cp(a);
+            for (var i = 0; i < L; i++) {
+                b[i]._n(t);
+            }
+        }
+    };
+    Stream.prototype._e = function (err) {
+        if (this._err !== NO) return;
+        this._err = err;
+        var a = this._ils;
+        var L = a.length;
+        this._x();
+        if (this._d) this._dl._e(err);
+        if (L == 1) a[0]._e(err);else if (L == 0) return;else {
+            var b = cp(a);
+            for (var i = 0; i < L; i++) {
+                b[i]._e(err);
+            }
+        }
+        if (!this._d && L == 0) throw this._err;
+    };
+    Stream.prototype._c = function () {
+        var a = this._ils;
+        var L = a.length;
+        this._x();
+        if (this._d) this._dl._c();
+        if (L == 1) a[0]._c();else if (L == 0) return;else {
+            var b = cp(a);
+            for (var i = 0; i < L; i++) {
+                b[i]._c();
+            }
+        }
+    };
+    Stream.prototype._x = function () {
+        if (this._ils.length === 0) return;
+        if (this._prod !== NO) this._prod._stop();
+        this._err = NO;
+        this._ils = [];
+    };
+    Stream.prototype._stopNow = function () {
+        // WARNING: code that calls this method should
+        // first check if this._prod is valid (not `NO`)
+        this._prod._stop();
+        this._err = NO;
+        this._stopID = NO;
+    };
+    Stream.prototype._add = function (il) {
+        var ta = this._target;
+        if (ta !== NO) return ta._add(il);
+        var a = this._ils;
+        a.push(il);
+        if (a.length > 1) return;
+        if (this._stopID !== NO) {
+            clearTimeout(this._stopID);
+            this._stopID = NO;
+        } else {
+            var p = this._prod;
+            if (p !== NO) p._start(this);
+        }
+    };
+    Stream.prototype._remove = function (il) {
+        var _this = this;
+        var ta = this._target;
+        if (ta !== NO) return ta._remove(il);
+        var a = this._ils;
+        var i = a.indexOf(il);
+        if (i > -1) {
+            a.splice(i, 1);
+            if (this._prod !== NO && a.length <= 0) {
+                this._err = NO;
+                this._stopID = setTimeout(function () {
+                    return _this._stopNow();
+                });
+            } else if (a.length === 1) {
+                this._pruneCycles();
+            }
+        }
+    };
+    // If all paths stemming from `this` stream eventually end at `this`
+    // stream, then we remove the single listener of `this` stream, to
+    // force it to end its execution and dispose resources. This method
+    // assumes as a precondition that this._ils has just one listener.
+    Stream.prototype._pruneCycles = function () {
+        if (this._hasNoSinks(this, [])) this._remove(this._ils[0]);
+    };
+    // Checks whether *there is no* path starting from `x` that leads to an end
+    // listener (sink) in the stream graph, following edges A->B where B is a
+    // listener of A. This means these paths constitute a cycle somehow. Is given
+    // a trace of all visited nodes so far.
+    Stream.prototype._hasNoSinks = function (x, trace) {
+        if (trace.indexOf(x) !== -1) return true;else if (x.out === this) return true;else if (x.out && x.out !== NO) return this._hasNoSinks(x.out, trace.concat(x));else if (x._ils) {
+            for (var i = 0, N = x._ils.length; i < N; i++) {
+                if (!this._hasNoSinks(x._ils[i], trace.concat(x))) return false;
+            }return true;
+        } else return false;
+    };
+    Stream.prototype.ctor = function () {
+        return this instanceof MemoryStream ? MemoryStream : Stream;
+    };
+    /**
+     * Adds a Listener to the Stream.
+     *
+     * @param {Listener} listener
+     */
+    Stream.prototype.addListener = function (listener) {
+        listener._n = listener.next || noop;
+        listener._e = listener.error || noop;
+        listener._c = listener.complete || noop;
+        this._add(listener);
+    };
+    /**
+     * Removes a Listener from the Stream, assuming the Listener was added to it.
+     *
+     * @param {Listener<T>} listener
+     */
+    Stream.prototype.removeListener = function (listener) {
+        this._remove(listener);
+    };
+    /**
+     * Adds a Listener to the Stream returning a Subscription to remove that
+     * listener.
+     *
+     * @param {Listener} listener
+     * @returns {Subscription}
+     */
+    Stream.prototype.subscribe = function (listener) {
+        this.addListener(listener);
+        return new StreamSub(this, listener);
+    };
+    /**
+     * Add interop between most.js and RxJS 5
+     *
+     * @returns {Stream}
+     */
+    Stream.prototype[symbol_observable_1.default] = function () {
+        return this;
+    };
+    /**
+     * Creates a new Stream given a Producer.
+     *
+     * @factory true
+     * @param {Producer} producer An optional Producer that dictates how to
+     * start, generate events, and stop the Stream.
+     * @return {Stream}
+     */
+    Stream.create = function (producer) {
+        if (producer) {
+            if (typeof producer.start !== 'function' || typeof producer.stop !== 'function') throw new Error('producer requires both start and stop functions');
+            internalizeProducer(producer); // mutates the input
+        }
+        return new Stream(producer);
+    };
+    /**
+     * Creates a new MemoryStream given a Producer.
+     *
+     * @factory true
+     * @param {Producer} producer An optional Producer that dictates how to
+     * start, generate events, and stop the Stream.
+     * @return {MemoryStream}
+     */
+    Stream.createWithMemory = function (producer) {
+        if (producer) internalizeProducer(producer); // mutates the input
+        return new MemoryStream(producer);
+    };
+    /**
+     * Creates a Stream that does nothing when started. It never emits any event.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     *          never
+     * -----------------------
+     * ```
+     *
+     * @factory true
+     * @return {Stream}
+     */
+    Stream.never = function () {
+        return new Stream({ _start: noop, _stop: noop });
+    };
+    /**
+     * Creates a Stream that immediately emits the "complete" notification when
+     * started, and that's it.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * empty
+     * -|
+     * ```
+     *
+     * @factory true
+     * @return {Stream}
+     */
+    Stream.empty = function () {
+        return new Stream({
+            _start: function _start(il) {
+                il._c();
+            },
+            _stop: noop
+        });
+    };
+    /**
+     * Creates a Stream that immediately emits an "error" notification with the
+     * value you passed as the `error` argument when the stream starts, and that's
+     * it.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * throw(X)
+     * -X
+     * ```
+     *
+     * @factory true
+     * @param error The error event to emit on the created stream.
+     * @return {Stream}
+     */
+    Stream.throw = function (error) {
+        return new Stream({
+            _start: function _start(il) {
+                il._e(error);
+            },
+            _stop: noop
+        });
+    };
+    /**
+     * Creates a stream from an Array, Promise, or an Observable.
+     *
+     * @factory true
+     * @param {Array|PromiseLike|Observable} input The input to make a stream from.
+     * @return {Stream}
+     */
+    Stream.from = function (input) {
+        if (typeof input[symbol_observable_1.default] === 'function') return Stream.fromObservable(input);else if (typeof input.then === 'function') return Stream.fromPromise(input);else if (Array.isArray(input)) return Stream.fromArray(input);
+        throw new TypeError("Type of input to from() must be an Array, Promise, or Observable");
+    };
+    /**
+     * Creates a Stream that immediately emits the arguments that you give to
+     * *of*, then completes.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * of(1,2,3)
+     * 123|
+     * ```
+     *
+     * @factory true
+     * @param a The first value you want to emit as an event on the stream.
+     * @param b The second value you want to emit as an event on the stream. One
+     * or more of these values may be given as arguments.
+     * @return {Stream}
+     */
+    Stream.of = function () {
+        var items = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            items[_i] = arguments[_i];
+        }
+        return Stream.fromArray(items);
+    };
+    /**
+     * Converts an array to a stream. The returned stream will emit synchronously
+     * all the items in the array, and then complete.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * fromArray([1,2,3])
+     * 123|
+     * ```
+     *
+     * @factory true
+     * @param {Array} array The array to be converted as a stream.
+     * @return {Stream}
+     */
+    Stream.fromArray = function (array) {
+        return new Stream(new FromArray(array));
+    };
+    /**
+     * Converts a promise to a stream. The returned stream will emit the resolved
+     * value of the promise, and then complete. However, if the promise is
+     * rejected, the stream will emit the corresponding error.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * fromPromise( ----42 )
+     * -----------------42|
+     * ```
+     *
+     * @factory true
+     * @param {PromiseLike} promise The promise to be converted as a stream.
+     * @return {Stream}
+     */
+    Stream.fromPromise = function (promise) {
+        return new Stream(new FromPromise(promise));
+    };
+    /**
+     * Converts an Observable into a Stream.
+     *
+     * @factory true
+     * @param {any} observable The observable to be converted as a stream.
+     * @return {Stream}
+     */
+    Stream.fromObservable = function (obs) {
+        if (obs.endWhen) return obs;
+        var o = typeof obs[symbol_observable_1.default] === 'function' ? obs[symbol_observable_1.default]() : obs;
+        return new Stream(new FromObservable(o));
+    };
+    /**
+     * Creates a stream that periodically emits incremental numbers, every
+     * `period` milliseconds.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     *     periodic(1000)
+     * ---0---1---2---3---4---...
+     * ```
+     *
+     * @factory true
+     * @param {number} period The interval in milliseconds to use as a rate of
+     * emission.
+     * @return {Stream}
+     */
+    Stream.periodic = function (period) {
+        return new Stream(new Periodic(period));
+    };
+    Stream.prototype._map = function (project) {
+        return new (this.ctor())(new MapOp(project, this));
+    };
+    /**
+     * Transforms each event from the input Stream through a `project` function,
+     * to get a Stream that emits those transformed events.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1---3--5-----7------
+     *    map(i => i * 10)
+     * --10--30-50----70-----
+     * ```
+     *
+     * @param {Function} project A function of type `(t: T) => U` that takes event
+     * `t` of type `T` from the input Stream and produces an event of type `U`, to
+     * be emitted on the output Stream.
+     * @return {Stream}
+     */
+    Stream.prototype.map = function (project) {
+        return this._map(project);
+    };
+    /**
+     * It's like `map`, but transforms each input event to always the same
+     * constant value on the output Stream.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1---3--5-----7-----
+     *       mapTo(10)
+     * --10--10-10----10----
+     * ```
+     *
+     * @param projectedValue A value to emit on the output Stream whenever the
+     * input Stream emits any value.
+     * @return {Stream}
+     */
+    Stream.prototype.mapTo = function (projectedValue) {
+        var s = this.map(function () {
+            return projectedValue;
+        });
+        var op = s._prod;
+        op.type = 'mapTo';
+        return s;
+    };
+    /**
+     * Only allows events that pass the test given by the `passes` argument.
+     *
+     * Each event from the input stream is given to the `passes` function. If the
+     * function returns `true`, the event is forwarded to the output stream,
+     * otherwise it is ignored and not forwarded.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1---2--3-----4-----5---6--7-8--
+     *     filter(i => i % 2 === 0)
+     * ------2--------4---------6----8--
+     * ```
+     *
+     * @param {Function} passes A function of type `(t: T) => boolean` that takes
+     * an event from the input stream and checks if it passes, by returning a
+     * boolean.
+     * @return {Stream}
+     */
+    Stream.prototype.filter = function (passes) {
+        var p = this._prod;
+        if (p instanceof Filter) return new Stream(new Filter(and(p.f, passes), p.ins));
+        return new Stream(new Filter(passes, this));
+    };
+    /**
+     * Lets the first `amount` many events from the input stream pass to the
+     * output stream, then makes the output stream complete.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --a---b--c----d---e--
+     *    take(3)
+     * --a---b--c|
+     * ```
+     *
+     * @param {number} amount How many events to allow from the input stream
+     * before completing the output stream.
+     * @return {Stream}
+     */
+    Stream.prototype.take = function (amount) {
+        return new (this.ctor())(new Take(amount, this));
+    };
+    /**
+     * Ignores the first `amount` many events from the input stream, and then
+     * after that starts forwarding events from the input stream to the output
+     * stream.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --a---b--c----d---e--
+     *       drop(3)
+     * --------------d---e--
+     * ```
+     *
+     * @param {number} amount How many events to ignore from the input stream
+     * before forwarding all events from the input stream to the output stream.
+     * @return {Stream}
+     */
+    Stream.prototype.drop = function (amount) {
+        return new Stream(new Drop(amount, this));
+    };
+    /**
+     * When the input stream completes, the output stream will emit the last event
+     * emitted by the input stream, and then will also complete.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --a---b--c--d----|
+     *       last()
+     * -----------------d|
+     * ```
+     *
+     * @return {Stream}
+     */
+    Stream.prototype.last = function () {
+        return new Stream(new Last(this));
+    };
+    /**
+     * Prepends the given `initial` value to the sequence of events emitted by the
+     * input stream. The returned stream is a MemoryStream, which means it is
+     * already `remember()`'d.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * ---1---2-----3---
+     *   startWith(0)
+     * 0--1---2-----3---
+     * ```
+     *
+     * @param initial The value or event to prepend.
+     * @return {MemoryStream}
+     */
+    Stream.prototype.startWith = function (initial) {
+        return new MemoryStream(new StartWith(this, initial));
+    };
+    /**
+     * Uses another stream to determine when to complete the current stream.
+     *
+     * When the given `other` stream emits an event or completes, the output
+     * stream will complete. Before that happens, the output stream will behaves
+     * like the input stream.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * ---1---2-----3--4----5----6---
+     *   endWhen( --------a--b--| )
+     * ---1---2-----3--4--|
+     * ```
+     *
+     * @param other Some other stream that is used to know when should the output
+     * stream of this operator complete.
+     * @return {Stream}
+     */
+    Stream.prototype.endWhen = function (other) {
+        return new (this.ctor())(new EndWhen(other, this));
+    };
+    /**
+     * "Folds" the stream onto itself.
+     *
+     * Combines events from the past throughout
+     * the entire execution of the input stream, allowing you to accumulate them
+     * together. It's essentially like `Array.prototype.reduce`. The returned
+     * stream is a MemoryStream, which means it is already `remember()`'d.
+     *
+     * The output stream starts by emitting the `seed` which you give as argument.
+     * Then, when an event happens on the input stream, it is combined with that
+     * seed value through the `accumulate` function, and the output value is
+     * emitted on the output stream. `fold` remembers that output value as `acc`
+     * ("accumulator"), and then when a new input event `t` happens, `acc` will be
+     * combined with that to produce the new `acc` and so forth.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * ------1-----1--2----1----1------
+     *   fold((acc, x) => acc + x, 3)
+     * 3-----4-----5--7----8----9------
+     * ```
+     *
+     * @param {Function} accumulate A function of type `(acc: R, t: T) => R` that
+     * takes the previous accumulated value `acc` and the incoming event from the
+     * input stream and produces the new accumulated value.
+     * @param seed The initial accumulated value, of type `R`.
+     * @return {MemoryStream}
+     */
+    Stream.prototype.fold = function (accumulate, seed) {
+        return new MemoryStream(new Fold(accumulate, seed, this));
+    };
+    /**
+     * Replaces an error with another stream.
+     *
+     * When (and if) an error happens on the input stream, instead of forwarding
+     * that error to the output stream, *replaceError* will call the `replace`
+     * function which returns the stream that the output stream will replicate.
+     * And, in case that new stream also emits an error, `replace` will be called
+     * again to get another stream to start replicating.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1---2-----3--4-----X
+     *   replaceError( () => --10--| )
+     * --1---2-----3--4--------10--|
+     * ```
+     *
+     * @param {Function} replace A function of type `(err) => Stream` that takes
+     * the error that occurred on the input stream or on the previous replacement
+     * stream and returns a new stream. The output stream will behave like the
+     * stream that this function returns.
+     * @return {Stream}
+     */
+    Stream.prototype.replaceError = function (replace) {
+        return new (this.ctor())(new ReplaceError(replace, this));
+    };
+    /**
+     * Flattens a "stream of streams", handling only one nested stream at a time
+     * (no concurrency).
+     *
+     * If the input stream is a stream that emits streams, then this operator will
+     * return an output stream which is a flat stream: emits regular events. The
+     * flattening happens without concurrency. It works like this: when the input
+     * stream emits a nested stream, *flatten* will start imitating that nested
+     * one. However, as soon as the next nested stream is emitted on the input
+     * stream, *flatten* will forget the previous nested one it was imitating, and
+     * will start imitating the new nested one.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --+--------+---------------
+     *   \        \
+     *    \       ----1----2---3--
+     *    --a--b----c----d--------
+     *           flatten
+     * -----a--b------1----2---3--
+     * ```
+     *
+     * @return {Stream}
+     */
+    Stream.prototype.flatten = function () {
+        var p = this._prod;
+        return new Stream(new Flatten(this));
+    };
+    /**
+     * Passes the input stream to a custom operator, to produce an output stream.
+     *
+     * *compose* is a handy way of using an existing function in a chained style.
+     * Instead of writing `outStream = f(inStream)` you can write
+     * `outStream = inStream.compose(f)`.
+     *
+     * @param {function} operator A function that takes a stream as input and
+     * returns a stream as well.
+     * @return {Stream}
+     */
+    Stream.prototype.compose = function (operator) {
+        return operator(this);
+    };
+    /**
+     * Returns an output stream that behaves like the input stream, but also
+     * remembers the most recent event that happens on the input stream, so that a
+     * newly added listener will immediately receive that memorised event.
+     *
+     * @return {MemoryStream}
+     */
+    Stream.prototype.remember = function () {
+        return new MemoryStream(new Remember(this));
+    };
+    /**
+     * Returns an output stream that identically behaves like the input stream,
+     * but also runs a `spy` function for each event, to help you debug your app.
+     *
+     * *debug* takes a `spy` function as argument, and runs that for each event
+     * happening on the input stream. If you don't provide the `spy` argument,
+     * then *debug* will just `console.log` each event. This helps you to
+     * understand the flow of events through some operator chain.
+     *
+     * Please note that if the output stream has no listeners, then it will not
+     * start, which means `spy` will never run because no actual event happens in
+     * that case.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1----2-----3-----4--
+     *         debug
+     * --1----2-----3-----4--
+     * ```
+     *
+     * @param {function} labelOrSpy A string to use as the label when printing
+     * debug information on the console, or a 'spy' function that takes an event
+     * as argument, and does not need to return anything.
+     * @return {Stream}
+     */
+    Stream.prototype.debug = function (labelOrSpy) {
+        return new (this.ctor())(new Debug(this, labelOrSpy));
+    };
+    /**
+     * *imitate* changes this current Stream to emit the same events that the
+     * `other` given Stream does. This method returns nothing.
+     *
+     * This method exists to allow one thing: **circular dependency of streams**.
+     * For instance, let's imagine that for some reason you need to create a
+     * circular dependency where stream `first$` depends on stream `second$`
+     * which in turn depends on `first$`:
+     *
+     * <!-- skip-example -->
+     * ```js
+     * import delay from 'xstream/extra/delay'
+     *
+     * var first$ = second$.map(x => x * 10).take(3);
+     * var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
+     * ```
+     *
+     * However, that is invalid JavaScript, because `second$` is undefined
+     * on the first line. This is how *imitate* can help solve it:
+     *
+     * ```js
+     * import delay from 'xstream/extra/delay'
+     *
+     * var secondProxy$ = xs.create();
+     * var first$ = secondProxy$.map(x => x * 10).take(3);
+     * var second$ = first$.map(x => x + 1).startWith(1).compose(delay(100));
+     * secondProxy$.imitate(second$);
+     * ```
+     *
+     * We create `secondProxy$` before the others, so it can be used in the
+     * declaration of `first$`. Then, after both `first$` and `second$` are
+     * defined, we hook `secondProxy$` with `second$` with `imitate()` to tell
+     * that they are "the same". `imitate` will not trigger the start of any
+     * stream, it just binds `secondProxy$` and `second$` together.
+     *
+     * The following is an example where `imitate()` is important in Cycle.js
+     * applications. A parent component contains some child components. A child
+     * has an action stream which is given to the parent to define its state:
+     *
+     * <!-- skip-example -->
+     * ```js
+     * const childActionProxy$ = xs.create();
+     * const parent = Parent({...sources, childAction$: childActionProxy$});
+     * const childAction$ = parent.state$.map(s => s.child.action$).flatten();
+     * childActionProxy$.imitate(childAction$);
+     * ```
+     *
+     * Note, though, that **`imitate()` does not support MemoryStreams**. If we
+     * would attempt to imitate a MemoryStream in a circular dependency, we would
+     * either get a race condition (where the symptom would be "nothing happens")
+     * or an infinite cyclic emission of values. It's useful to think about
+     * MemoryStreams as cells in a spreadsheet. It doesn't make any sense to
+     * define a spreadsheet cell `A1` with a formula that depends on `B1` and
+     * cell `B1` defined with a formula that depends on `A1`.
+     *
+     * If you find yourself wanting to use `imitate()` with a
+     * MemoryStream, you should rework your code around `imitate()` to use a
+     * Stream instead. Look for the stream in the circular dependency that
+     * represents an event stream, and that would be a candidate for creating a
+     * proxy Stream which then imitates the target Stream.
+     *
+     * @param {Stream} target The other stream to imitate on the current one. Must
+     * not be a MemoryStream.
+     */
+    Stream.prototype.imitate = function (target) {
+        if (target instanceof MemoryStream) throw new Error('A MemoryStream was given to imitate(), but it only ' + 'supports a Stream. Read more about this restriction here: ' + 'https://github.com/staltz/xstream#faq');
+        this._target = target;
+        for (var ils = this._ils, N = ils.length, i = 0; i < N; i++) {
+            target._add(ils[i]);
+        }this._ils = [];
+    };
+    /**
+     * Forces the Stream to emit the given value to its listeners.
+     *
+     * As the name indicates, if you use this, you are most likely doing something
+     * The Wrong Way. Please try to understand the reactive way before using this
+     * method. Use it only when you know what you are doing.
+     *
+     * @param value The "next" value you want to broadcast to all listeners of
+     * this Stream.
+     */
+    Stream.prototype.shamefullySendNext = function (value) {
+        this._n(value);
+    };
+    /**
+     * Forces the Stream to emit the given error to its listeners.
+     *
+     * As the name indicates, if you use this, you are most likely doing something
+     * The Wrong Way. Please try to understand the reactive way before using this
+     * method. Use it only when you know what you are doing.
+     *
+     * @param {any} error The error you want to broadcast to all the listeners of
+     * this Stream.
+     */
+    Stream.prototype.shamefullySendError = function (error) {
+        this._e(error);
+    };
+    /**
+     * Forces the Stream to emit the "completed" event to its listeners.
+     *
+     * As the name indicates, if you use this, you are most likely doing something
+     * The Wrong Way. Please try to understand the reactive way before using this
+     * method. Use it only when you know what you are doing.
+     */
+    Stream.prototype.shamefullySendComplete = function () {
+        this._c();
+    };
+    /**
+     * Adds a "debug" listener to the stream. There can only be one debug
+     * listener, that's why this is 'setDebugListener'. To remove the debug
+     * listener, just call setDebugListener(null).
+     *
+     * A debug listener is like any other listener. The only difference is that a
+     * debug listener is "stealthy": its presence/absence does not trigger the
+     * start/stop of the stream (or the producer inside the stream). This is
+     * useful so you can inspect what is going on without changing the behavior
+     * of the program. If you have an idle stream and you add a normal listener to
+     * it, the stream will start executing. But if you set a debug listener on an
+     * idle stream, it won't start executing (not until the first normal listener
+     * is added).
+     *
+     * As the name indicates, we don't recommend using this method to build app
+     * logic. In fact, in most cases the debug operator works just fine. Only use
+     * this one if you know what you're doing.
+     *
+     * @param {Listener<T>} listener
+     */
+    Stream.prototype.setDebugListener = function (listener) {
+        if (!listener) {
+            this._d = false;
+            this._dl = NO;
+        } else {
+            this._d = true;
+            listener._n = listener.next || noop;
+            listener._e = listener.error || noop;
+            listener._c = listener.complete || noop;
+            this._dl = listener;
+        }
+    };
+    /**
+     * Blends multiple streams together, emitting events from all of them
+     * concurrently.
+     *
+     * *merge* takes multiple streams as arguments, and creates a stream that
+     * behaves like each of the argument streams, in parallel.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1----2-----3--------4---
+     * ----a-----b----c---d------
+     *            merge
+     * --1-a--2--b--3-c---d--4---
+     * ```
+     *
+     * @factory true
+     * @param {Stream} stream1 A stream to merge together with other streams.
+     * @param {Stream} stream2 A stream to merge together with other streams. Two
+     * or more streams may be given as arguments.
+     * @return {Stream}
+     */
+    Stream.merge = function merge() {
+        var streams = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            streams[_i] = arguments[_i];
+        }
+        return new Stream(new Merge(streams));
+    };
+    /**
+     * Combines multiple input streams together to return a stream whose events
+     * are arrays that collect the latest events from each input stream.
+     *
+     * *combine* internally remembers the most recent event from each of the input
+     * streams. When any of the input streams emits an event, that event together
+     * with all the other saved events are combined into an array. That array will
+     * be emitted on the output stream. It's essentially a way of joining together
+     * the events from multiple streams.
+     *
+     * Marble diagram:
+     *
+     * ```text
+     * --1----2-----3--------4---
+     * ----a-----b-----c--d------
+     *          combine
+     * ----1a-2a-2b-3b-3c-3d-4d--
+     * ```
+     *
+     * @factory true
+     * @param {Stream} stream1 A stream to combine together with other streams.
+     * @param {Stream} stream2 A stream to combine together with other streams.
+     * Multiple streams, not just two, may be given as arguments.
+     * @return {Stream}
+     */
+    Stream.combine = function combine() {
+        var streams = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            streams[_i] = arguments[_i];
+        }
+        return new Stream(new Combine(streams));
+    };
+    return Stream;
+}();
+exports.Stream = Stream;
+var MemoryStream = /** @class */function (_super) {
+    __extends(MemoryStream, _super);
+    function MemoryStream(producer) {
+        var _this = _super.call(this, producer) || this;
+        _this._has = false;
+        return _this;
+    }
+    MemoryStream.prototype._n = function (x) {
+        this._v = x;
+        this._has = true;
+        _super.prototype._n.call(this, x);
+    };
+    MemoryStream.prototype._add = function (il) {
+        var ta = this._target;
+        if (ta !== NO) return ta._add(il);
+        var a = this._ils;
+        a.push(il);
+        if (a.length > 1) {
+            if (this._has) il._n(this._v);
+            return;
+        }
+        if (this._stopID !== NO) {
+            if (this._has) il._n(this._v);
+            clearTimeout(this._stopID);
+            this._stopID = NO;
+        } else if (this._has) il._n(this._v);else {
+            var p = this._prod;
+            if (p !== NO) p._start(this);
+        }
+    };
+    MemoryStream.prototype._stopNow = function () {
+        this._has = false;
+        _super.prototype._stopNow.call(this);
+    };
+    MemoryStream.prototype._x = function () {
+        this._has = false;
+        _super.prototype._x.call(this);
+    };
+    MemoryStream.prototype.map = function (project) {
+        return this._map(project);
+    };
+    MemoryStream.prototype.mapTo = function (projectedValue) {
+        return _super.prototype.mapTo.call(this, projectedValue);
+    };
+    MemoryStream.prototype.take = function (amount) {
+        return _super.prototype.take.call(this, amount);
+    };
+    MemoryStream.prototype.endWhen = function (other) {
+        return _super.prototype.endWhen.call(this, other);
+    };
+    MemoryStream.prototype.replaceError = function (replace) {
+        return _super.prototype.replaceError.call(this, replace);
+    };
+    MemoryStream.prototype.remember = function () {
+        return this;
+    };
+    MemoryStream.prototype.debug = function (labelOrSpy) {
+        return _super.prototype.debug.call(this, labelOrSpy);
+    };
+    return MemoryStream;
+}(Stream);
+exports.MemoryStream = MemoryStream;
+var xs = Stream;
+exports.default = xs;
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var copy = __webpack_require__(66),
+    normalizeOptions = __webpack_require__(23),
     ensureCallable = __webpack_require__(1),
-    map = __webpack_require__(70),
+    map = __webpack_require__(74),
     callable = __webpack_require__(1),
     validValue = __webpack_require__(0),
     bind = Function.prototype.bind,
@@ -4084,14 +5871,14 @@ module.exports = function (props /*, options*/) {
 };
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var numberIsNaN = __webpack_require__(55),
-    toPosInt = __webpack_require__(21),
+var numberIsNaN = __webpack_require__(59),
+    toPosInt = __webpack_require__(22),
     value = __webpack_require__(0),
     indexOf = Array.prototype.indexOf,
     objHasOwnProperty = Object.prototype.hasOwnProperty,
@@ -4116,16 +5903,16 @@ module.exports = function (searchElement /*, fromIndex*/) {
 };
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(49)() ? Array.from : __webpack_require__(50);
+module.exports = __webpack_require__(53)() ? Array.from : __webpack_require__(54);
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4142,19 +5929,19 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var iteratorSymbol = __webpack_require__(4).iterator,
+var iteratorSymbol = __webpack_require__(2).iterator,
     isArguments = __webpack_require__(9),
-    isFunction = __webpack_require__(51),
-    toPosInt = __webpack_require__(21),
+    isFunction = __webpack_require__(55),
+    toPosInt = __webpack_require__(22),
     callable = __webpack_require__(1),
     validValue = __webpack_require__(0),
-    isValue = __webpack_require__(8),
+    isValue = __webpack_require__(4),
     isString = __webpack_require__(11),
     isArray = Array.isArray,
     call = Function.prototype.call,
@@ -4268,30 +6055,30 @@ module.exports = function (arrayLike /*, mapFn, thisArg*/) {
 };
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var objToString = Object.prototype.toString,
-    id = objToString.call(__webpack_require__(20));
+    id = objToString.call(__webpack_require__(21));
 
 module.exports = function (value) {
 	return typeof value === "function" && objToString.call(value) === id;
 };
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(53)() ? Math.sign : __webpack_require__(54);
+module.exports = __webpack_require__(57)() ? Math.sign : __webpack_require__(58);
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4304,7 +6091,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4317,16 +6104,16 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(56)() ? Number.isNaN : __webpack_require__(57);
+module.exports = __webpack_require__(60)() ? Number.isNaN : __webpack_require__(61);
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4339,7 +6126,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4351,13 +6138,13 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(52),
+var sign = __webpack_require__(56),
     abs = Math.abs,
     floor = Math.floor;
 
@@ -4369,7 +6156,7 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4407,7 +6194,7 @@ module.exports = function (method, defVal) {
 };
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4423,13 +6210,13 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys = __webpack_require__(67),
+var keys = __webpack_require__(71),
     value = __webpack_require__(0),
     max = Math.max;
 
@@ -4455,13 +6242,13 @@ module.exports = function (dest, src /*, …srcn*/) {
 };
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var aFrom = __webpack_require__(48),
+var aFrom = __webpack_require__(52),
     assign = __webpack_require__(14),
     value = __webpack_require__(0);
 
@@ -4482,7 +6269,7 @@ module.exports = function (obj /*, propertyNames, options*/) {
 };
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4493,8 +6280,8 @@ module.exports = function (obj /*, propertyNames, options*/) {
 var create = Object.create,
     shim;
 
-if (!__webpack_require__(23)()) {
-	shim = __webpack_require__(24);
+if (!__webpack_require__(24)()) {
+	shim = __webpack_require__(25);
 }
 
 module.exports = function () {
@@ -4537,16 +6324,16 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(59)("forEach");
+module.exports = __webpack_require__(63)("forEach");
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4559,7 +6346,7 @@ module.exports = function (obj) {
 };
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4567,7 +6354,7 @@ module.exports = function (obj) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isValue = __webpack_require__(8);
+var isValue = __webpack_require__(4);
 
 var map = { function: true, object: true };
 
@@ -4576,16 +6363,16 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(68)() ? Object.keys : __webpack_require__(69);
+module.exports = __webpack_require__(72)() ? Object.keys : __webpack_require__(73);
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4601,29 +6388,29 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isValue = __webpack_require__(8);
+var isValue = __webpack_require__(4);
 
 var keys = Object.keys;
 
 module.exports = function (object) {
-	return keys(isValue(object) ? Object(object) : object);
+  return keys(isValue(object) ? Object(object) : object);
 };
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(1),
-    forEach = __webpack_require__(64),
+    forEach = __webpack_require__(68),
     call = Function.prototype.call;
 
 module.exports = function (obj, cb /*, thisArg*/) {
@@ -4637,7 +6424,7 @@ module.exports = function (obj, cb /*, thisArg*/) {
 };
 
 /***/ }),
-/* 71 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4656,7 +6443,7 @@ module.exports = function (arg /*, …args*/) {
 };
 
 /***/ }),
-/* 72 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4670,7 +6457,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 73 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4683,41 +6470,43 @@ module.exports = function (searchString /*, position*/) {
 };
 
 /***/ }),
-/* 74 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var setPrototypeOf = __webpack_require__(10),
-    contains = __webpack_require__(25),
-    d = __webpack_require__(2),
-    Iterator = __webpack_require__(15),
-    defineProperty = Object.defineProperty,
+    contains = __webpack_require__(26),
+    d = __webpack_require__(3),
+    _Symbol = __webpack_require__(2),
+    Iterator = __webpack_require__(15);
+
+var defineProperty = Object.defineProperty,
     ArrayIterator;
 
 ArrayIterator = module.exports = function (arr, kind) {
-	if (!(this instanceof ArrayIterator)) return new ArrayIterator(arr, kind);
+	if (!(this instanceof ArrayIterator)) throw new TypeError("Constructor requires 'new'");
 	Iterator.call(this, arr);
-	if (!kind) kind = 'value';else if (contains.call(kind, 'key+value')) kind = 'key+value';else if (contains.call(kind, 'key')) kind = 'key';else kind = 'value';
-	defineProperty(this, '__kind__', d('', kind));
+	if (!kind) kind = "value";else if (contains.call(kind, "key+value")) kind = "key+value";else if (contains.call(kind, "key")) kind = "key";else kind = "value";
+	defineProperty(this, "__kind__", d("", kind));
 };
 if (setPrototypeOf) setPrototypeOf(ArrayIterator, Iterator);
 
+// Internal %ArrayIteratorPrototype% doesn't expose its constructor
+delete ArrayIterator.prototype.constructor;
+
 ArrayIterator.prototype = Object.create(Iterator.prototype, {
-	constructor: d(ArrayIterator),
 	_resolve: d(function (i) {
-		if (this.__kind__ === 'value') return this.__list__[i];
-		if (this.__kind__ === 'key+value') return [i, this.__list__[i]];
+		if (this.__kind__ === "value") return this.__list__[i];
+		if (this.__kind__ === "key+value") return [i, this.__list__[i]];
 		return i;
-	}),
-	toString: d(function () {
-		return '[object Array Iterator]';
 	})
 });
+defineProperty(ArrayIterator.prototype, _Symbol.toStringTag, d("c", "Array Iterator"));
 
 /***/ }),
-/* 75 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4726,8 +6515,9 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(9),
     callable = __webpack_require__(1),
     isString = __webpack_require__(11),
-    get = __webpack_require__(76),
-    isArray = Array.isArray,
+    get = __webpack_require__(80);
+
+var isArray = Array.isArray,
     call = Function.prototype.call,
     some = Array.prototype.some;
 
@@ -4738,29 +6528,29 @@ module.exports = function (iterable, cb /*, thisArg*/) {
 	    doBreak,
 	    broken,
 	    i,
-	    l,
+	    length,
 	    char,
 	    code;
-	if (isArray(iterable) || isArguments(iterable)) mode = 'array';else if (isString(iterable)) mode = 'string';else iterable = get(iterable);
+	if (isArray(iterable) || isArguments(iterable)) mode = "array";else if (isString(iterable)) mode = "string";else iterable = get(iterable);
 
 	callable(cb);
 	doBreak = function doBreak() {
 		broken = true;
 	};
-	if (mode === 'array') {
+	if (mode === "array") {
 		some.call(iterable, function (value) {
 			call.call(cb, thisArg, value, doBreak);
-			if (broken) return true;
+			return broken;
 		});
 		return;
 	}
-	if (mode === 'string') {
-		l = iterable.length;
-		for (i = 0; i < l; ++i) {
+	if (mode === "string") {
+		length = iterable.length;
+		for (i = 0; i < length; ++i) {
 			char = iterable[i];
-			if (i + 1 < l) {
+			if (i + 1 < length) {
 				code = char.charCodeAt(0);
-				if (code >= 0xD800 && code <= 0xDBFF) char += iterable[++i];
+				if (code >= 0xd800 && code <= 0xdbff) char += iterable[++i];
 			}
 			call.call(cb, thisArg, char, doBreak);
 			if (broken) break;
@@ -4777,7 +6567,7 @@ module.exports = function (iterable, cb /*, thisArg*/) {
 };
 
 /***/ }),
-/* 76 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4785,40 +6575,42 @@ module.exports = function (iterable, cb /*, thisArg*/) {
 
 var isArguments = __webpack_require__(9),
     isString = __webpack_require__(11),
-    ArrayIterator = __webpack_require__(74),
-    StringIterator = __webpack_require__(78),
-    iterable = __webpack_require__(26),
-    iteratorSymbol = __webpack_require__(4).iterator;
+    ArrayIterator = __webpack_require__(78),
+    StringIterator = __webpack_require__(82),
+    iterable = __webpack_require__(27),
+    iteratorSymbol = __webpack_require__(2).iterator;
 
 module.exports = function (obj) {
-  if (typeof iterable(obj)[iteratorSymbol] === 'function') return obj[iteratorSymbol]();
+  if (typeof iterable(obj)[iteratorSymbol] === "function") return obj[iteratorSymbol]();
   if (isArguments(obj)) return new ArrayIterator(obj);
   if (isString(obj)) return new StringIterator(obj);
   return new ArrayIterator(obj);
 };
 
 /***/ }),
-/* 77 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var isArguments = __webpack_require__(9),
-    isString = __webpack_require__(11),
-    iteratorSymbol = __webpack_require__(4).iterator,
+    isValue = __webpack_require__(4),
+    isString = __webpack_require__(11);
+
+var iteratorSymbol = __webpack_require__(2).iterator,
     isArray = Array.isArray;
 
 module.exports = function (value) {
-	if (value == null) return false;
-	if (isArray(value)) return true;
-	if (isString(value)) return true;
-	if (isArguments(value)) return true;
-	return typeof value[iteratorSymbol] === 'function';
+		if (!isValue(value)) return false;
+		if (isArray(value)) return true;
+		if (isString(value)) return true;
+		if (isArguments(value)) return true;
+		return typeof value[iteratorSymbol] === "function";
 };
 
 /***/ }),
-/* 78 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4828,41 +6620,44 @@ module.exports = function (value) {
 
 
 var setPrototypeOf = __webpack_require__(10),
-    d = __webpack_require__(2),
-    Iterator = __webpack_require__(15),
-    defineProperty = Object.defineProperty,
+    d = __webpack_require__(3),
+    _Symbol = __webpack_require__(2),
+    Iterator = __webpack_require__(15);
+
+var defineProperty = Object.defineProperty,
     StringIterator;
 
 StringIterator = module.exports = function (str) {
-	if (!(this instanceof StringIterator)) return new StringIterator(str);
+	if (!(this instanceof StringIterator)) throw new TypeError("Constructor requires 'new'");
 	str = String(str);
 	Iterator.call(this, str);
-	defineProperty(this, '__length__', d('', str.length));
+	defineProperty(this, "__length__", d("", str.length));
 };
 if (setPrototypeOf) setPrototypeOf(StringIterator, Iterator);
 
+// Internal %ArrayIteratorPrototype% doesn't expose its constructor
+delete StringIterator.prototype.constructor;
+
 StringIterator.prototype = Object.create(Iterator.prototype, {
-	constructor: d(StringIterator),
 	_next: d(function () {
-		if (!this.__list__) return;
+		if (!this.__list__) return undefined;
 		if (this.__nextIndex__ < this.__length__) return this.__nextIndex__++;
 		this._unBind();
+		return undefined;
 	}),
 	_resolve: d(function (i) {
 		var char = this.__list__[i],
 		    code;
 		if (this.__nextIndex__ === this.__length__) return char;
 		code = char.charCodeAt(0);
-		if (code >= 0xD800 && code <= 0xDBFF) return char + this.__list__[this.__nextIndex__++];
+		if (code >= 0xd800 && code <= 0xdbff) return char + this.__list__[this.__nextIndex__++];
 		return char;
-	}),
-	toString: d(function () {
-		return '[object String Iterator]';
 	})
 });
+defineProperty(StringIterator.prototype, _Symbol.toStringTag, d("c", "String Iterator"));
 
 /***/ }),
-/* 79 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4900,7 +6695,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 80 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4915,26 +6710,26 @@ module.exports = function () {
 }();
 
 /***/ }),
-/* 81 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(71)('key', 'value', 'key+value');
+module.exports = __webpack_require__(75)('key', 'value', 'key+value');
 
 /***/ }),
-/* 82 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var setPrototypeOf = __webpack_require__(10),
-    d = __webpack_require__(2),
+    d = __webpack_require__(3),
     Iterator = __webpack_require__(15),
-    toStringTagSymbol = __webpack_require__(4).toStringTag,
-    kinds = __webpack_require__(81),
+    toStringTagSymbol = __webpack_require__(2).toStringTag,
+    kinds = __webpack_require__(85),
     defineProperties = Object.defineProperties,
     unBind = Iterator.prototype._unBind,
     MapIterator;
@@ -4968,24 +6763,24 @@ MapIterator.prototype = Object.create(Iterator.prototype, {
 Object.defineProperty(MapIterator.prototype, toStringTagSymbol, d('c', 'Map Iterator'));
 
 /***/ }),
-/* 83 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var clear = __webpack_require__(19),
-    eIndexOf = __webpack_require__(47),
+var clear = __webpack_require__(20),
+    eIndexOf = __webpack_require__(51),
     setPrototypeOf = __webpack_require__(10),
     callable = __webpack_require__(1),
     validValue = __webpack_require__(0),
-    d = __webpack_require__(2),
-    ee = __webpack_require__(88),
-    _Symbol = __webpack_require__(4),
-    iterator = __webpack_require__(26),
-    forOf = __webpack_require__(75),
-    Iterator = __webpack_require__(82),
-    isNative = __webpack_require__(80),
+    d = __webpack_require__(3),
+    ee = __webpack_require__(92),
+    _Symbol = __webpack_require__(2),
+    iterator = __webpack_require__(27),
+    forOf = __webpack_require__(79),
+    Iterator = __webpack_require__(86),
+    isNative = __webpack_require__(84),
     call = Function.prototype.call,
     defineProperties = Object.defineProperties,
     getPrototypeOf = Object.getPrototypeOf,
@@ -5093,7 +6888,7 @@ Object.defineProperty(_MapPoly.prototype, _Symbol.iterator, d(function () {
 Object.defineProperty(_MapPoly.prototype, _Symbol.toStringTag, d('c', 'Map'));
 
 /***/ }),
-/* 84 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5122,7 +6917,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 85 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5139,7 +6934,7 @@ module.exports = function (x) {
 };
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5149,8 +6944,8 @@ module.exports = function (x) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var d = __webpack_require__(2),
-    validateSymbol = __webpack_require__(87),
+var d = __webpack_require__(3),
+    validateSymbol = __webpack_require__(91),
     create = Object.create,
     defineProperties = Object.defineProperties,
     defineProperty = Object.defineProperty,
@@ -5277,13 +7072,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toStringTag, d('c', Symbol
 defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive, d('c', SymbolPolyfill.prototype[SymbolPolyfill.toPrimitive]));
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(85);
+var isSymbol = __webpack_require__(89);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -5291,7 +7086,7 @@ module.exports = function (value) {
 };
 
 /***/ }),
-/* 88 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5299,7 +7094,7 @@ module.exports = function (value) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var d = __webpack_require__(2),
+var d = __webpack_require__(3),
     callable = __webpack_require__(1),
     apply = Function.prototype.apply,
     call = Function.prototype.call,
@@ -5432,13 +7227,13 @@ module.exports = exports = function exports(o) {
 exports.methods = methods;
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var selectorParser_1 = __webpack_require__(28);
+var selectorParser_1 = __webpack_require__(29);
 function classNameFromVNode(vNode) {
     var _a = selectorParser_1.selectorParser(vNode).className,
         cn = _a === void 0 ? '' : _a;
@@ -5463,7 +7258,7 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5528,7 +7323,7 @@ exports.default = exports.attributesModule;
 //# sourceMappingURL=attributes.js.map
 
 /***/ }),
-/* 91 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5562,7 +7357,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 92 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5604,7 +7399,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5640,7 +7435,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5743,7 +7538,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5751,8 +7546,8 @@ exports.default = exports.styleModule;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(30);
-var htmldomapi_1 = __webpack_require__(29);
+var is = __webpack_require__(31);
+var htmldomapi_1 = __webpack_require__(30);
 function isUndef(s) {
     return s === undefined;
 }
@@ -5783,7 +7578,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(5);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(96);
+var thunk_1 = __webpack_require__(100);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i,
@@ -6042,7 +7837,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6099,7 +7894,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6107,7 +7902,7 @@ exports.default = exports.thunk;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = __webpack_require__(12);
-var htmldomapi_1 = __webpack_require__(29);
+var htmldomapi_1 = __webpack_require__(30);
 function toVNode(node, domApi) {
     var api = domApi !== undefined ? domApi : htmldomapi_1.default;
     var text;
@@ -6148,53 +7943,7 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(99);
-
-/***/ }),
-/* 99 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global, module) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _ponyfill = __webpack_require__(100);
-
-var _ponyfill2 = _interopRequireDefault(_ponyfill);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { 'default': obj };
-}
-
-var root; /* global window */
-
-if (typeof self !== 'undefined') {
-  root = self;
-} else if (typeof window !== 'undefined') {
-  root = window;
-} else if (typeof global !== 'undefined') {
-  root = global;
-} else if (true) {
-  root = module;
-} else {
-  root = Function('return this')();
-}
-
-var result = (0, _ponyfill2['default'])(root);
-exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(101), __webpack_require__(102)(module)))
-
-/***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6203,7 +7952,7 @@ exports['default'] = result;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports['default'] = symbolObservablePonyfill;
+exports.default = symbolObservablePonyfill;
 function symbolObservablePonyfill(root) {
 	var result;
 	var _Symbol = root.Symbol;
@@ -6223,37 +7972,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 101 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var g;
-
-// This works in non-strict mode
-g = function () {
-	return this;
-}();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-/***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,6 +1,6 @@
 [
-    {
-        "name": "basic",
-        "link": "basic/"
-    }
+  {
+    "name": "Cycle.js Basic Example",
+    "link": "basic/index.js"
+  }
 ]
