@@ -7,7 +7,21 @@
  *  - delete
  *  - insert
  */
-module.exports = function computeTransformTables(s1, s2, operation, cost) {
+
+function assembleTransformation(operation, cost, s1, s2, operations, i, j) {
+  if (i === 0 && j === 0) {
+    return [];
+  }
+  if (operations[i][j] === operation.COPY || operations[i][j] === operation.REPLACE) {
+    return assembleTransformation(operation, cost, operations, i - 1, j - 1).concat(operations[i][j]);
+  }
+  if (operations[i][j] === operation.DELETE) {
+    return assembleTransformation(operation, cost, operations, i - 1, j).concat(operations[i][j]);
+  }
+  return assembleTransformation(operation, cost, operations, i, j - 1).concat(operations[i][j]);
+}
+
+module.exports = function computeTransformTables(operation, cost, s1, s2) {
 
   let costs = [];
   let operations = [];
