@@ -1,66 +1,70 @@
 [
   {
-    "name": "svg",
-    "link": "svg/"
+    "name": "Scroll Snap",
+    "link": "scroll-snap/index.html"
   },
   {
-    "name": "background-attachment",
-    "link": "background-attachment/"
+    "name": "SVG",
+    "link": "svg/index.html"
   },
   {
-    "name": "target",
-    "link": "target/"
+    "name": "Background Attachment",
+    "link": "background-attachment/index.html"
   },
   {
-    "name": "touch-action",
-    "link": "touch-action/"
+    "name": "Target",
+    "link": "target/index.html"
   },
   {
-    "name": "backdrop-filter",
-    "link": "backdrop-filter/"
+    "name": "Touch Action",
+    "link": "touch-action/index.html"
   },
   {
-    "name": "column layout",
-    "link": "column-layout/"
+    "name": "Backdrop Filter",
+    "link": "backdrop-filter/index.html"
   },
   {
-    "name": "clear fix",
-    "link": "clear-fix/"
+    "name": "Column Layout",
+    "link": "column-layout/index.html"
   },
   {
-    "name": "border-box",
-    "link": "border-box/"
+    "name": "Clear Fix",
+    "link": "clear-fix/index.html"
   },
   {
-    "name": "writing-mode",
-    "link": "writing-mode/"
+    "name": "Border Box",
+    "link": "border-box/index.html"
   },
   {
-    "name": "counter",
-    "link": "counter/"
+    "name": "Writing Mode",
+    "link": "writing-mode/index.html"
   },
   {
-    "name": "counters",
-    "link": "counters/"
+    "name": "Counter",
+    "link": "counter/index.html"
   },
   {
-    "name": "live edit style",
-    "link": "live-edit-style/"
+    "name": "Counters",
+    "link": "counters/index.html"
   },
   {
-    "name": "flex-bug",
-    "link": "flex-bug/"
+    "name": "Live Edit Style",
+    "link": "live-edit-style/index.html"
   },
   {
-    "name": "offset-path",
-    "link": "offset-path/"
+    "name": "Flex Bug",
+    "link": "flex-bug/index.html"
   },
   {
-    "name": ":focus-within",
-    "link": "focus-within/"
+    "name": "Offset Path",
+    "link": "offset-path/index.html"
   },
   {
-    "name": "will-change",
+    "name": "Focus Within",
+    "link": "focus-within/index.html"
+  },
+  {
+    "name": "Will Change",
     "link": "will-change/index.html"
   }
 ]
