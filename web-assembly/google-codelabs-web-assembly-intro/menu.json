@@ -1,14 +1,14 @@
 [
   {
-    "name": "MDN Basic Example",
-    "link": "mdn-basic-example/hello.html"
+    "name": "Game of Life",
+    "link": "lyff/index.html"
   },
   {
-    "name": "Standalone Example",
-    "link": "standalone-example/index.html"
+    "name": "Mandelbrot Simple",
+    "link": "mandelbrot-simple/index.html"
   },
   {
-    "name": "Google Codelabs Web Assembly Intro",
-    "link": "google-codelabs-web-assembly-intro/index.html"
+    "name": "Mandelbrot Tiled",
+    "link": "mandelbrot-tiled/index.html"
   }
 ]
