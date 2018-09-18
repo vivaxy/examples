@@ -18,5 +18,9 @@
   {
     "name": "String",
     "link": "string/index.html"
+  },
+  {
+    "name": "Compression",
+    "link": "compression/index.html"
   }
 ]

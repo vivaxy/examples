@@ -72,6 +72,7 @@ module.exports = class MinHeap {
   }
 
   /**
+   * O(lgn)
    * Get first
    * @returns {*}
    */

@@ -3,6 +3,6 @@
  * @author vivaxy
  */
 
-exports.treeNode = (val) => {
-    return { val, left: null, right: null };
+exports.treeNode = function tree(val) {
+  return { val, left: null, right: null };
 };

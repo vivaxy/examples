@@ -35,6 +35,12 @@ module.exports = class PriorityQueue extends MinHeap {
     this.priorities = {};
   }
 
+  /**
+   * O(lgn)
+   * @param value
+   * @param priority
+   * @returns {module.PriorityQueue}
+   */
   add(value, priority = 0) {
     this.priorities[value] = priority;
 
