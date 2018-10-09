@@ -1,0 +1,16 @@
+Arithmetic {
+  Exp
+    = AddExp
+
+  AddExp
+    = AddExp "加" PriExp  -- plus
+    | AddExp "减" PriExp  -- minus
+    | PriExp
+
+  PriExp
+    = "左括号" Exp "右括号"  -- paren
+    | number
+
+  number
+    = digit+
+}
