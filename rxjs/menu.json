@@ -1,18 +1,30 @@
 [
   {
     "name": "fromEvent",
-    "link": "from-event/index.js"
+    "link": "from-event/index.html"
   },
   {
     "name": "scan",
-    "link": "scan/index.js"
+    "link": "scan/index.html"
   },
   {
     "name": "throttleTime",
-    "link": "throttle-time/index.js"
+    "link": "throttle-time/index.html"
   },
   {
     "name": "map",
-    "link": "map/index.js"
+    "link": "map/index.html"
+  },
+  {
+    "name": "Observables",
+    "link": "observable/index.html"
+  },
+  {
+    "name": "Subscription",
+    "link": "subscription/index.html"
+  },
+  {
+    "name": "Subjects",
+    "link": "subject/index.html"
   }
 ]
