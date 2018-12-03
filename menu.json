@@ -214,5 +214,9 @@
   {
     "name": "Vue.js",
     "link": "vue-js/index.html"
+  },
+  {
+    "name": "rxjs",
+    "link": "rxjs/index.html"
   }
 ]
