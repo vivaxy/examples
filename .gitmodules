@@ -1,0 +1,3 @@
+[submodule "event-based-framework"]
+	path = event-based-framework
+	url = https://github.com/vivaxy/event-based-framework.git
