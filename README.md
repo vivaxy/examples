@@ -2,7 +2,7 @@
 
 # Initialize submodules
 
-`git submodule init --update`
+`git submodule update --init`
 
 # Update submodules
 
