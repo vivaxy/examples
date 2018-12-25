@@ -1,0 +1,53 @@
+/**
+ * @since 2018-12-25 10:00
+ * @author vivaxy
+ */
+
+body {
+  margin: 0;
+  background-color: #fefefe;
+}
+
+.input-wrapper {
+  position: relative;
+  font-size: 12px;
+  line-height: 24px;
+  margin: 40px 0 0 40px;
+}
+
+.label {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  pointer-events: none;
+  transition: all 0.1s;
+  color: #999;
+  line-height: 12px;
+}
+
+.input {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  height: 24px;
+  padding: 0 4px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+.input:focus {
+  border: 1px solid #f63;
+}
+
+.input:not(:placeholder-shown) {
+  border: 1px solid #f63;
+}
+
+.input:focus ~ .label, .input:not(:placeholder-shown) ~ .label {
+  transform: scale(0.75) translate(-8px, -22px);
+  color: #f63;
+  background-color: #fefefe;
+  padding: 2px;
+}

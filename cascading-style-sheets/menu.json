@@ -66,5 +66,9 @@
   {
     "name": "Will Change",
     "link": "will-change/index.html"
+  },
+  {
+    "name": ":placeholder-shown",
+    "link": "placeholder-shown/index.html"
   }
 ]
