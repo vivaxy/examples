@@ -1,0 +1,22 @@
+/**
+ * @since 2019-02-02 16:16
+ * @author vivaxy
+ */
+
+.flex-container {
+  width: 100%;
+  display: flex;
+  background-color: #ccc;
+}
+
+.flex-item {
+  flex: 1;
+  border: 1px solid #ff6633;
+  background-color: #6F2A13;
+  color: #fff;
+  text-align: center;
+}
+
+.display-contents {
+  display: contents;
+}

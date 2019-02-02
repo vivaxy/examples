@@ -1,5 +1,9 @@
 [
   {
+    "name": "display: contents;",
+    "link": "display-contents"
+  },
+  {
     "name": "Scroll Snap",
     "link": "scroll-snap/index.html"
   },
