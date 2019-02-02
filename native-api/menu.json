@@ -1,5 +1,9 @@
 [
   {
+    "name": "ReportingObserver",
+    "link": "reporting-observer/"
+  },
+  {
     "name": "WebRTC",
     "link": "webrtc/"
   },
