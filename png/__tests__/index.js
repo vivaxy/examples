@@ -4,7 +4,7 @@
  */
 
 const test = require('ava');
-const { PNG } = require('pngjs3');
+const { PNG } = require('pngjs');
 const getBuffer = require('./helpers/get-buffer.js');
 
 const decode = require('../decode/index.js');

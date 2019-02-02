@@ -11,8 +11,8 @@
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.25.0",
-    "pngjs3": "^3.4.3"
+    "ava": "^1.2.0",
+    "pngjs": "^3.3.3"
   },
   "dependencies": {
     "pako": "^1.0.6"
