@@ -1,0 +1,9 @@
+/**
+ * @since 2019-02-03 15:27
+ * @author vivaxy
+ */
+
+.styled-element {
+  padding-top: 1rem;
+  font: 1px solid red;
+}
