@@ -1,5 +1,9 @@
 [
   {
+    "name": "PaymentRequest",
+    "link": "payment-request"
+  },
+  {
     "name": "ReportingObserver",
     "link": "reporting-observer/"
   },
