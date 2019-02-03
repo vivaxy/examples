@@ -1,5 +1,9 @@
 [
   {
+    "name": "Clipboard",
+    "link": "clipboard/index.html"
+  },
+  {
     "name": "PaymentRequest",
     "link": "payment-request/index.html"
   },
