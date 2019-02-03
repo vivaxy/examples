@@ -1,15 +1,15 @@
 [
   {
     "name": "PaymentRequest",
-    "link": "payment-request"
+    "link": "payment-request/index.html"
   },
   {
     "name": "ReportingObserver",
-    "link": "reporting-observer/"
+    "link": "reporting-observer/index.html"
   },
   {
     "name": "WebRTC",
-    "link": "webrtc/"
+    "link": "webrtc/index.html"
   },
   {
     "name": "Custom Elements",
@@ -21,167 +21,167 @@
   },
   {
     "name": "FontFace",
-    "link": "font-face/"
+    "link": "font-face/index.html"
   },
   {
     "name": "Pointer Lock",
-    "link": "pointer-lock/"
+    "link": "pointer-lock/index.html"
   },
   {
     "name": "CompositionEvent",
-    "link": "composition-event/"
+    "link": "composition-event/index.html"
   },
   {
     "name": "script type=\"module\"",
-    "link": "script-type-module/"
+    "link": "script-type-module/index.html"
   },
   {
     "name": "designMode",
-    "link": "design-mode/"
+    "link": "design-mode/index.html"
   },
   {
     "name": "selection",
-    "link": "selection/"
+    "link": "selection/index.html"
   },
   {
     "name": "animate",
-    "link": "animate/"
+    "link": "animate/index.html"
   },
   {
     "name": "base",
-    "link": "base/"
+    "link": "base/index.html"
   },
   {
     "name": "browser message",
-    "link": "browser-message/"
+    "link": "browser-message/index.html"
   },
   {
     "name": "cache manifest",
-    "link": "cache-manifest/"
+    "link": "cache-manifest/index.html"
   },
   {
     "name": "device motion",
-    "link": "device-motion/"
+    "link": "device-motion/index.html"
   },
   {
     "name": "draggable",
-    "link": "draggable/"
+    "link": "draggable/index.html"
   },
   {
     "name": "geolocation",
-    "link": "geolocation/"
+    "link": "geolocation/index.html"
   },
   {
     "name": "gesture",
-    "link": "gesture/"
+    "link": "gesture/index.html"
   },
   {
     "name": "hash change",
-    "link": "hash-change/"
+    "link": "hash-change/index.html"
   },
   {
     "name": "local storage",
-    "link": "local-storage/"
+    "link": "local-storage/index.html"
   },
   {
     "name": "svg",
-    "link": "svg/"
+    "link": "svg/index.html"
   },
   {
     "name": "transition",
-    "link": "transition/"
+    "link": "transition/index.html"
   },
   {
     "name": "visibility",
-    "link": "visibility/"
+    "link": "visibility/index.html"
   },
   {
     "name": "web worker",
-    "link": "web-worker/"
+    "link": "web-worker/index.html"
   },
   {
     "name": "object",
-    "link": "object/"
+    "link": "object/index.html"
   },
   {
     "name": "object-oriented",
-    "link": "object-oriented/"
+    "link": "object-oriented/index.html"
   },
   {
     "name": "popstate",
-    "link": "popstate/"
+    "link": "popstate/index.html"
   },
   {
     "name": "refresh",
-    "link": "refresh/"
+    "link": "refresh/index.html"
   },
   {
     "name": "promise",
-    "link": "promise/"
+    "link": "promise/index.html"
   },
   {
     "name": "audio",
-    "link": "audio/"
+    "link": "audio/index.html"
   },
   {
     "name": "animation steps",
-    "link": "animation-steps/"
+    "link": "animation-steps/index.html"
   },
   {
     "name": "attributes",
-    "link": "attributes/"
+    "link": "attributes/index.html"
   },
   {
     "name": "indeterminate",
-    "link": "indeterminate/"
+    "link": "indeterminate/index.html"
   },
   {
     "name": "details summary",
-    "link": "details-summary/"
+    "link": "details-summary/index.html"
   },
   {
     "name": "battery status",
-    "link": "battery-status/"
+    "link": "battery-status/index.html"
   },
   {
     "name": "send beacon",
-    "link": "send-beacon/"
+    "link": "send-beacon/index.html"
   },
   {
     "name": "analyser node",
-    "link": "analyser-node/"
+    "link": "analyser-node/index.html"
   },
   {
     "name": "vibrate",
-    "link": "vibrate/"
+    "link": "vibrate/index.html"
   },
   {
     "name": "date input",
-    "link": "date-input/"
+    "link": "date-input/index.html"
   },
   {
     "name": "generators",
-    "link": "generators/"
+    "link": "generators/index.html"
   },
   {
     "name": "event source",
-    "link": "event-source/"
+    "link": "event-source/index.html"
   },
   {
     "name": "replace",
-    "link": "replace/"
+    "link": "replace/index.html"
   },
   {
     "name": "3d touch",
-    "link": "3d-touch/"
+    "link": "3d-touch/index.html"
   },
   {
     "name": "notification",
-    "link": "notification/"
+    "link": "notification/index.html"
   },
   {
     "name": "service worker",
-    "link": "service-worker/"
+    "link": "service-worker/index.html"
   },
   {
     "name": "sourceMappingURL and sourceURL",

@@ -1,7 +1,11 @@
 [
   {
+    "name": "background: conic-gradient(...);",
+    "link": "conic-gradient/index.html"
+  },
+  {
     "name": "display: contents;",
-    "link": "display-contents"
+    "link": "display-contents/index.html"
   },
   {
     "name": "Scroll Snap",
