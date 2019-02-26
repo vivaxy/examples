@@ -1,5 +1,9 @@
 [
   {
+    "name": "Sniff Animated Image",
+    "link": "sniff-animated-image"
+  },
+  {
     "name": "compose",
     "link": "compose/"
   },
