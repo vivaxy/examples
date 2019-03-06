@@ -2,7 +2,7 @@
  * @since 150628 11:09
  * @author vivaxy
  */
-var myEfficientFn = debounce(function () {
+var myEfficientFn = debounceWithClearTimeout(function () {
     console.log('debounce');
 }, 2000);
 
