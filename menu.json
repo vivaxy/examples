@@ -40,6 +40,10 @@
     "link": "benchmark/index.html"
   },
   {
+    "name": "Memory Leak",
+    "link": "memory-leak/index.html"
+  },
+  {
     "name": "WebVR",
     "link": "webvr/index.html"
   },

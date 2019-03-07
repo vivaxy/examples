@@ -8,7 +8,11 @@
   <title>Debounce</title>
 </head>
 <body>
+1. Type `testDebounceWithClearMemory();` or `testDebounceWithoutClearMemory()` in console.
+2. In browser memory tab, you should see no difference.
 
+Conclusion: closure like `debounce` will not cause memory leak.
+P.S. You should close console to see the difference, maybe because console retains objects.
 <script type="module" src="index.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
 </body>

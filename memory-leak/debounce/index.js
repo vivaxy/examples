@@ -5,17 +5,13 @@
 
 function debounceWithClearMemory(handler, timeout) {
   let timer = null;
-  let ret =  (params) => {
+  return (params) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       handler(params);
-      params = null;
-      handler = null;
       timer = null;
-      ret = null;
     }, timeout);
   };
-  return ret;
 }
 
 function debounceWithoutClearMemory(handler, timeout) {
@@ -72,7 +68,6 @@ window.testDebounceWithoutClearMemory = function() {
     let a = new TestDebounceWithoutCleatMemory();
     a.move();
     a.destroy();
-    a = null;
   }
 
 };
