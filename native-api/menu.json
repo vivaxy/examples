@@ -1,5 +1,9 @@
 [
   {
+    "name": "USB",
+    "link": "usb/index.html"
+  },
+  {
     "name": "CSS Typed Object Model",
     "link": "css-typed-om/index.html"
   },
