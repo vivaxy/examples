@@ -3,7 +3,10 @@
  * @author vivaxy
  * @see https://www.youtube.com/watch?v=IpfZ8Nj3uiE
  */
-(async() => {
+
+const requestDeviceButton = document.querySelector('.js-request-device');
+
+requestDeviceButton.addEventListener('click', async() => {
   try {
     const options = {
       /**
@@ -26,4 +29,4 @@
   } catch (exception) {
     console.log('exception', exception);
   }
-})();
+});
