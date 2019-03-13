@@ -23,8 +23,14 @@ requestDeviceButton.addEventListener('click', async() => {
     await device.selectConfiguration(1);
     await device.claimInterface(0);
 
-    await device.transferOut(1, 0x1a);
-    const response = await device.transferIn(2, 5);
+    await device.controlTransferOut({
+      requestType: 'class',
+      recipient: 'interface',
+      request: 0x22,
+      value: 0x01,
+      index: 0x02,
+    });
+    const response = await device.transferIn(5, 64);
     console.log('response', response);
   } catch (exception) {
     console.log('exception.code', exception.code, 'exception.name', exception.name, 'exception.message', exception.message);
