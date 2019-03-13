@@ -27,6 +27,6 @@ requestDeviceButton.addEventListener('click', async() => {
     const response = await device.transferIn(2, 5);
     console.log('response', response);
   } catch (exception) {
-    console.log('exception', exception);
+    console.log('exception.code', exception.code, 'exception.name', exception.name, 'exception.message', exception.message);
   }
 });
