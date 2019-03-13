@@ -5,6 +5,10 @@
  */
 
 const requestDeviceButton = document.querySelector('.js-request-device');
+const urlSearchParams = new URL(location.href).searchParams;
+const vendorId = Number(urlSearchParams.get('vendorId')) || 0x2a45;
+const configurationNumber = Number(urlSearchParams.get('configurationNumber')) || 1;
+const interfaceNumber = Number(urlSearchParams.get('interfaceNumber')) || 0;
 
 requestDeviceButton.addEventListener('click', async() => {
   try {
@@ -12,7 +16,7 @@ requestDeviceButton.addEventListener('click', async() => {
       /**
        * @see http://www.linux-usb.org/usb.ids
        */
-      filters: [{ vendorId: 0x2a45 }],
+      filters: [{ vendorId }],
     };
 
     const device = await navigator.usb.requestDevice(options);
@@ -20,8 +24,8 @@ requestDeviceButton.addEventListener('click', async() => {
 
     await device.open();
 
-    await device.selectConfiguration(1);
-    await device.claimInterface(0);
+    await device.selectConfiguration(configurationNumber);
+    await device.claimInterface(interfaceNumber);
 
     await device.controlTransferOut({
       requestType: 'class',
