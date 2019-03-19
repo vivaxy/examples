@@ -1,5 +1,9 @@
 [
   {
+    "name": "Symbol",
+    "link": "symbol/index.html"
+  },
+  {
     "name": "Is Animated Image",
     "link": "is-animated-image/index.html"
   },
