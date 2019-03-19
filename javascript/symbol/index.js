@@ -110,7 +110,7 @@ const symbolReplace = {
   [Symbol.replace](string) {
     console.log('Symbol.replace string:', string);
     return 'replace!!!';
-  }
+  },
 };
 console.log('\'replace???\'.replace(symbolReplace) ===', 'replace???'.replace(symbolReplace));
 
@@ -122,7 +122,7 @@ console.log('\'replace???\'.replace(symbolReplace) ===', 'replace???'.replace(sy
 
 // Symbol.iterator
 const symbolIterator = {
-  *[Symbol.iterator](value) {
+  * [Symbol.iterator](value) {
     console.log('Symbol.iterator value:', value);
     yield 's';
     yield 'y';
@@ -130,8 +130,69 @@ const symbolIterator = {
     yield 'b';
     yield 'o';
     yield 'l';
-  }
+  },
 };
 console.log('[...symbolIterator] ===', [...symbolIterator]);
 
 // Symbol.toPrimitive
+const symbolToPrimitive = {
+  [Symbol.toPrimitive](type) {
+    console.log('Symbol.toPrimitive type:', type);
+    switch (type) {
+      case 'number':
+        return Infinity;
+      case 'string':
+        return 'string';
+      case 'default':
+        return 'default';
+      default:
+        throw new Error('Unexpected type: ' + type);
+    }
+  },
+};
+console.log('String(symbolToPrimitive) ===', String(symbolToPrimitive));
+console.log('Number(symbolToPrimitive) ===', Number(symbolToPrimitive));
+console.log('Boolean(symbolToPrimitive) ===', Boolean(symbolToPrimitive));
+console.log('+symbolToPrimitive ===', +symbolToPrimitive);
+console.log('\'\' + symbolToPrimitive ===', '' + symbolToPrimitive);
+
+// Symbol.toStringTag
+console.log('{ [Symbol.toStringTag]: \'SymbolToStringTag\' }.toString() ===', { [Symbol.toStringTag]: 'SymbolToStringTag' }.toString());
+
+class SymbolToStringTagClass {
+  [Symbol.toStringTag] = 'SymbolToStringTagClass';
+}
+
+console.log('(new SymbolToStringTagClass()).toString() ===', (new SymbolToStringTagClass()).toString());
+console.log('JSON[Symbol.toStringTag] ===', JSON[Symbol.toStringTag]);
+console.log('Math[Symbol.toStringTag] ===', Math[Symbol.toStringTag]);
+console.log('ArrayBuffer.prototype[Symbol.toStringTag] ===', ArrayBuffer.prototype[Symbol.toStringTag]);
+console.log('DataView.prototype[Symbol.toStringTag] ===', DataView.prototype[Symbol.toStringTag]);
+console.log('Map.prototype[Symbol.toStringTag] ===', Map.prototype[Symbol.toStringTag]);
+console.log('Promise.prototype[Symbol.toStringTag] ===', Promise.prototype[Symbol.toStringTag]);
+console.log('Set.prototype[Symbol.toStringTag] ===', Set.prototype[Symbol.toStringTag]);
+console.log('WeakMap.prototype[Symbol.toStringTag] ===', WeakMap.prototype[Symbol.toStringTag]);
+console.log('WeakSet.prototype[Symbol.toStringTag] ===', WeakSet.prototype[Symbol.toStringTag]);
+console.log('Symbol.prototype[Symbol.toStringTag] ===', Symbol.prototype[Symbol.toStringTag]);
+console.log('(function * () {}).prototype[Symbol.toStringTag] ===', (function* () {
+}).prototype[Symbol.toStringTag]);
+console.log('(function * () {}).constructor.prototype[Symbol.toStringTag] ===', (function* () {
+}).constructor.prototype[Symbol.toStringTag]);
+
+// Symbol.unscopables
+const symbolUnscopable = {
+  scope: 'scope',
+  unscopabled: 'unscopabled',
+  [Symbol.unscopables]: {
+    unscopabled: true,
+  },
+};
+
+with (symbolUnscopable) {
+  console.log('scope ===', scope);
+  try {
+    console.log('unscopabled ===', unscopabled);
+  } catch (e) {
+    console.error(e);
+  }
+}
