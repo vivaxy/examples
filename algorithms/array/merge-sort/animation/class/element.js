@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 
-import BaseElement from '../../../../../_animation/class/element.js';
+import BaseElement from '../../../../_animation/class/element.js';
 
 export default class Element extends BaseElement {
   constructor(args) {

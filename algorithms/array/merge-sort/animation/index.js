@@ -3,11 +3,10 @@
  * @author vivaxy
  */
 
-import './debug/assert.js';
-import Query from '../../../../../_framework/class/query.js';
-import EventEmitter from '../../../../../_framework/class/event-emitter.js';
-import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
-import generateUnsortedArray from '../../../../_animation/services/unsorted-array.js';
+import Query from '../../../../event-based-framework/class/query.js';
+import EventEmitter from '../../../../event-based-framework/class/event-emitter.js';
+import * as EVENT_TYPES from '../../../_animation/enums/event-types.js';
+import generateUnsortedArray from '../../../_animation/services/unsorted-array.js';
 import animationActions from './services/animation-actions.js';
 import algorithm from './services/algorithm.js';
 

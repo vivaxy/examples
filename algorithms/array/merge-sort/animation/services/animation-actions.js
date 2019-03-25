@@ -3,10 +3,11 @@
  * @author vivaxy
  */
 
-import * as EVENT_TYPES from '../../../../../_animation/enums/event-types.js';
+import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
 import NewArray from '../class/new-array.js';
+import assert from '../../../../../event-based-framework/utils/assert.js'
 
 function init(events, query) {
   let elements = null;
@@ -45,21 +46,21 @@ function init(events, query) {
 
   function applyAnAnimationAction(eventId, eventData) {
 
-    ASSERT(elements, 'missing elements');
-    ASSERT(eventData, 'missing eventData');
+    assert(elements, 'missing elements');
+    assert(eventData, 'missing eventData');
 
     events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_START, eventData);
 
     const actionType = eventData.type;
     const actionHandler = actionHandlers[actionType];
-    ASSERT(actionHandler, 'Unexpected action type: ' + actionType);
+    assert(actionHandler, 'Unexpected action type: ' + actionType);
     actionHandler(eventData);
   }
 
   function createAnArray(eventData) {
     const { arrayName, fromIndex, toIndex } = eventData;
 
-    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
 
     if (arrayName === 'B') {
       newArrayB = new NewArray({
@@ -88,7 +89,7 @@ function init(events, query) {
   function pushToAnArray(eventData) {
     const { arrayName, index, value, elementIndex } = eventData;
 
-    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
 
     if (arrayName === 'B') {
       let element = elements[elementIndex];
@@ -112,7 +113,7 @@ function init(events, query) {
   function markArrayIndex(eventData) {
     const { arrayName, index } = eventData;
 
-    ASSERT(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
 
     if (arrayName === 'B') {
       if (markedArrayBIndex !== null) {
@@ -145,7 +146,7 @@ function init(events, query) {
   function assign(eventData) {
     const { fromArrayName, index } = eventData;
 
-    ASSERT(fromArrayName === 'B' || fromArrayName === 'C', 'Unexpected array name: ' + fromArrayName);
+    assert(fromArrayName === 'B' || fromArrayName === 'C', 'Unexpected array name: ' + fromArrayName);
 
     if (fromArrayName === 'B') {
       const ele = elementsInB[markedArrayBIndex];

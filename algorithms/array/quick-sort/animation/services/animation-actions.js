@@ -3,9 +3,10 @@
  * @author vivaxy
  */
 
-import * as EVENT_TYPES from '../../../../../_animation/enums/event-types.js';
+import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
+import assert from '../../../../../event-based-framework/utils/assert.js'
 
 function init(events, query) {
 
@@ -18,8 +19,8 @@ function init(events, query) {
 
   const actionHandlers = {
     [ACTION_TYPES.MARK_ARRAY]: (eventData) => {
-      ASSERT(eventData.fromIndex !== undefined, 'missing fromIndex');
-      ASSERT(eventData.toIndex !== undefined, 'missing toIndex');
+      assert(eventData.fromIndex !== undefined, 'missing fromIndex');
+      assert(eventData.toIndex !== undefined, 'missing toIndex');
 
       removeArrayMark();
 
@@ -38,7 +39,7 @@ function init(events, query) {
     },
 
     [ACTION_TYPES.MARK_PIVOT]: (eventData) => {
-      ASSERT(eventData.index !== undefined, 'missing index');
+      assert(eventData.index !== undefined, 'missing index');
 
       removePivotIndexMark();
 
@@ -51,7 +52,7 @@ function init(events, query) {
     },
 
     [ACTION_TYPES.MARK_LOOP_INDEX]: (eventData) => {
-      ASSERT(eventData.index !== undefined, 'missing index');
+      assert(eventData.index !== undefined, 'missing index');
 
       removeLoopIndexMark();
 
@@ -65,8 +66,8 @@ function init(events, query) {
     },
 
     [ACTION_TYPES.COMPARE]: (eventData) => {
-      ASSERT(eventData.fromIndex !== undefined, 'missing fromIndex');
-      ASSERT(eventData.toIndex !== undefined, 'missing toIndex');
+      assert(eventData.fromIndex !== undefined, 'missing fromIndex');
+      assert(eventData.toIndex !== undefined, 'missing toIndex');
 
       elements[eventData.fromIndex].addCompareMark();
       elements[eventData.toIndex].addCompareMark();
@@ -78,8 +79,8 @@ function init(events, query) {
     },
 
     [ACTION_TYPES.SWAP]: (eventData) => {
-      ASSERT(eventData.fromIndex !== undefined, 'missing fromIndex');
-      ASSERT(eventData.toIndex !== undefined, 'missing toIndex');
+      assert(eventData.fromIndex !== undefined, 'missing fromIndex');
+      assert(eventData.toIndex !== undefined, 'missing toIndex');
 
       const fromEl = elements[eventData.fromIndex];
       const toEl = elements[eventData.toIndex];
@@ -130,8 +131,8 @@ function init(events, query) {
   function applyAnAnimationAction(eventId, eventData) {
 
     // console.log('animation action:', eventData.animationAction);
-    ASSERT(elements, 'missing elements');
-    ASSERT(eventData, 'missing eventData');
+    assert(elements, 'missing elements');
+    assert(eventData, 'missing eventData');
 
     events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_START, eventData);
 
@@ -150,7 +151,7 @@ function init(events, query) {
   }
 
   function removeArrayMark() {
-    ASSERT(elements, 'missing elements');
+    assert(elements, 'missing elements');
 
     elements.forEach((el) => {
       el.removeArrayMark();
@@ -158,7 +159,7 @@ function init(events, query) {
   }
 
   function removePivotIndexMark() {
-    ASSERT(elements, 'missing elements');
+    assert(elements, 'missing elements');
 
     if (pivotIndex !== null) {
       elements[pivotIndex].removePivotMark();
@@ -166,7 +167,7 @@ function init(events, query) {
   }
 
   function removeLoopIndexMark() {
-    ASSERT(elements, 'missing elements');
+    assert(elements, 'missing elements');
 
     if (loopIndex !== null) {
       elements[loopIndex].removeLoopMark();
