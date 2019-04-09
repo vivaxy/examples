@@ -1,5 +1,9 @@
 [
   {
+    "name": "IntersectionObserver",
+    "link": "/intersection-observer/index.html"
+  },
+  {
     "name": "USB",
     "link": "usb/index.html"
   },

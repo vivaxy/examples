@@ -1,0 +1,32 @@
+/**
+ * @since 2019-04-09 14:11
+ * @author vivaxy
+ */
+
+body {
+  margin: 0;
+}
+
+.placeholder {
+  height: 100px;
+  width: 100px;
+  background: #eee;
+}
+
+.to-be-observed {
+  height: 100px;
+  width: 100px;
+  background: #f63;
+}
+
+.buttons {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 1px solid #eee;
+  border-radius: 2px;
+}
+
+button {
+  display: block;
+}
