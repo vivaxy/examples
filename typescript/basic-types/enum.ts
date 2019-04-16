@@ -7,7 +7,7 @@ enum Color {
   Green,
   Blue,
 }
-let c: Color = Color.Green;
+const c: Color = Color.Green;
 console.log(c);
 
 enum Color2 {
@@ -15,5 +15,5 @@ enum Color2 {
   Green,
   Blue,
 }
-let c2: Color2 = Color2.Red;
+const c2: Color2 = Color2.Red;
 console.log(c2);

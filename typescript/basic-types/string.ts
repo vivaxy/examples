@@ -3,6 +3,6 @@
  * @author vivaxy
  */
 
-let color: string = 'red';
+const color: string = 'red';
 
 console.log(color)

@@ -3,6 +3,6 @@
  * @author vivaxy
  */
 
-let isDone: boolean = false;
+const isDone: boolean = false;
 
 console.log(isDone);

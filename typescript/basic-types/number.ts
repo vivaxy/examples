@@ -3,6 +3,6 @@
  * @author vivaxy
  */
 
- let value: number = 0o744;
+const value: number = 0o744;
 
- console.log(value)
+console.log(value)
