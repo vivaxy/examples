@@ -1,6 +1,10 @@
 [
   {
     "name": "Hello World",
-    "link": "./hello-world/index.ts"
+    "link": "./hello-world/build.sh"
+  },
+  {
+    "name": "Basic Types",
+    "link": "./basic-types/build.sh"
   }
 ]
