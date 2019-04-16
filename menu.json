@@ -24,6 +24,10 @@
     "link": "javascript/index.html"
   },
   {
+    "name": "TypeScript",
+    "link": "typescript/index.html"
+  },
+  {
     "name": "Cascading Style Sheets",
     "link": "cascading-style-sheets/index.html"
   },
