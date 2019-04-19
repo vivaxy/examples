@@ -1,5 +1,9 @@
 [
   {
+    "name": "new Function vs compiler",
+    "link": "newFunction-vs-compiler/index.js"
+  },
+  {
     "name": "split vs String Edit",
     "link": "split-vs-stringEdit/index.html"
   },

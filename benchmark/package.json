@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vivaxy/javascript": "^0.14.1",
+    "benchmark": "^2.1.4"
+  }
+}
