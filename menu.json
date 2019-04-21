@@ -40,6 +40,10 @@
     "link": "webgl/index.html"
   },
   {
+    "name": "ml5",
+    "link": "ml5/index.html"
+  },
+  {
     "name": "Benchmark",
     "link": "benchmark/index.html"
   },
