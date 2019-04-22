@@ -154,5 +154,9 @@
   {
     "name": "Swap Values",
     "link": "swap-values/index.js"
+  },
+  {
+    "name": "prototype.constructor",
+    "link": "prototype-constructor/index.html"
   }
 ]
