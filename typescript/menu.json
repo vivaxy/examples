@@ -6,5 +6,9 @@
   {
     "name": "Basic Types",
     "link": "./basic-types/build.sh"
+  },
+  {
+    "name": "Interface",
+    "link": "./interface/build.sh"
   }
 ]
