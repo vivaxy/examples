@@ -1,5 +1,9 @@
 [
   {
+    "name": "Pricate class field",
+    "link": "private-class-field/index.html"
+  },
+  {
     "name": "Symbol",
     "link": "symbol/index.html"
   },
