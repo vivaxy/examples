@@ -10,5 +10,13 @@
   {
     "name": "Interface",
     "link": "./interface/build.sh"
+  },
+  {
+    "name": "Classes",
+    "link": "./classes/build.sh"
+  },
+  {
+    "name": "Functions",
+    "link": "./functions/build.sh"
   }
 ]
