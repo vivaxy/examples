@@ -16,3 +16,11 @@ const addOfFunctionTypesSpec: (argumentNameCanBeDifferent: number, y: number) =>
 ): number {
   return x + theTypeIsInferred;
 };
+
+interface AddOfFunctionTypes {
+  (x: number, y: number): number
+}
+
+const addOfFunctionTypesByInterface: AddOfFunctionTypes = (x, y) => {
+  return x + y;
+};
