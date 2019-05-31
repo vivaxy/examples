@@ -12,11 +12,11 @@
     "link": "stdout/index.js"
   },
   {
-    "name": "readline",
+    "name": "Readline",
     "link": "readline/index.js"
   },
   {
-    "name": "require",
+    "name": "Require",
     "link": "require/index.js"
   },
   {
@@ -26,5 +26,9 @@
   {
     "name": "Promise.all Profile",
     "link": "promise-all-profile/index.js"
+  },
+  {
+    "name": "Timing",
+    "link": "timing/timing.js"
   }
 ]
