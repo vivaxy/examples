@@ -18,5 +18,9 @@
   {
     "name": "Functions",
     "link": "./functions/build.sh"
+  },
+  {
+    "name": "Generics",
+    "link": "./generics/build.sh"
   }
 ]
