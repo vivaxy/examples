@@ -26,5 +26,9 @@
   {
     "name": "String.prototype.indexOf vs For Loop",
     "link": "String.prototype.indexOf-vs-forLoop/index.html"
+  },
+  {
+    "name": "Store data as an object vs Store data as an array",
+    "link": "objectKey-vs-hashIndex/index.js"
   }
 ]
