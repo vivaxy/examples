@@ -162,5 +162,9 @@
   {
     "name": "prototype.constructor",
     "link": "prototype-constructor/index.html"
+  },
+  {
+    "name": "shapes",
+    "link": "run.sh"
   }
 ]
