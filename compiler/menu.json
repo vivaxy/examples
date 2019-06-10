@@ -4,7 +4,7 @@
     "link": "chinese-to-javascript/index.js"
   },
   {
-    "name": "css",
-    "link": "css/index.js"
+    "name": "sql",
+    "link": "sql/index.ts"
   }
 ]
