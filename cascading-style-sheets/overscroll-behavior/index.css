@@ -1,0 +1,33 @@
+/**
+ * @since 2019-06-12 01:39
+ * @author vivaxy
+ */
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.1);
+  overscroll-behavior: none;
+}
+
+main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* hack chrome to disable bouncing */
+  bottom: 1px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  background-color: rgba(200,255,200,0.4);
+}
+
+item {
+  display: block;
+  width: 100%;
+  height: 200vh;
+  background-color: rgba(255,200,200,0.4);
+}
