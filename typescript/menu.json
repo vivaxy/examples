@@ -22,5 +22,9 @@
   {
     "name": "Generics",
     "link": "./generics/build.sh"
+  },
+  {
+    "name": "Enums",
+    "link": "./enums/build.sh"
   }
 ]
