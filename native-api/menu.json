@@ -112,8 +112,12 @@
     "link": "visibility/index.html"
   },
   {
-    "name": "web worker",
+    "name": "Web Worker",
     "link": "web-worker/index.html"
+  },
+  {
+    "name": "Web Worker transfer",
+    "link": "web-worker-transfer/index.html"
   },
   {
     "name": "object",
