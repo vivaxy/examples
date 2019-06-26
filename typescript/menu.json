@@ -26,5 +26,9 @@
   {
     "name": "Enums",
     "link": "./enums/build.sh"
+  },
+  {
+    "name": "Tricks",
+    "link": "./tricks/build.sh"
   }
 ]
