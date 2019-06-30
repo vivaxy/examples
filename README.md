@@ -252,6 +252,7 @@ Table of contents
       * [Local media](https://vivaxy.github.io/course/native-api/webrtc/local-media/index.html) Local media
   * [Network](https://vivaxy.github.io/course/network/index.html) Network
   * [Node js](https://vivaxy.github.io/course/node-js/index.html) Node js
+    * [Execa](https://vivaxy.github.io/course/node-js/execa/index.html) Execa
   * [Ohm](https://vivaxy.github.io/course/ohm/index.html) Ohm
   * [On screen](https://vivaxy.github.io/course/on-screen/index.html) On screen
   * [Pitfall](https://vivaxy.github.io/course/pitfall/index.html) Pitfall
