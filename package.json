@@ -1,0 +1,46 @@
+{
+  "name": "course",
+  "version": "0.0.0",
+  "description": "[Course](https://vivaxy.github.io/course/index.html)",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivaxy/course.git"
+  },
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vivaxy/course/issues"
+  },
+  "homepage": "https://github.com/vivaxy/course#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "@vivaxy/github-demo-scripts": "^0.1.0",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "gds && git add README.md && lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,css,less,json,md,html,yml,yaml,pcss,jsx,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "gds": {
+    "keywords": [
+      "vivaxy",
+      "course",
+      "github",
+      "demo"
+    ],
+    "readme": "# [Course](https://vivaxy.github.io/course/index.html)\n\n# Initialize submodules\n\n`git submodule update --init`\n\n# Update submodules\n\n`git submodule foreach git pull`\n",
+    "link-prefix": "https://vivaxy.github.io/design/"
+  }
+}
