@@ -163,9 +163,9 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
 
-"@vivaxy/github-demo-scripts@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.2.2.tgz#83cf742cc40256bc0294e111962cc9a8c702a290"
+"@vivaxy/github-demo-scripts@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.2.3.tgz#16971157e54c0f2fde4fc2513a55abe09b90c48c"
   dependencies:
     cheerio "^1.0.0-rc.3"
     cosmiconfig "^5.2.1"
