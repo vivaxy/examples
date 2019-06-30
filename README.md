@@ -52,15 +52,15 @@ Table of contents
     * [zoom](https://vivaxy.github.io/course/amap/zoom/index.html) Zoom
     * [zoom with circle](https://vivaxy.github.io/course/amap/zoom-with-circle/index.html) Zoom with circle
   * [AngularJS](https://vivaxy.github.io/course/angular/index.html) Angular
-  * [vivaxy](https://vivaxy.github.io/course/angular-material/index.html) Angular material
+  * [Angular material](https://vivaxy.github.io/course/angular-material/index.html) Angular material demo
   * [async](https://vivaxy.github.io/course/async/index.html) Async
-  * [share](https://vivaxy.github.io/course/baidu-map/index.html) Baidu map
-    * [创建了一个地图并以公司作为地图的中心](https://vivaxy.github.io/course/baidu-map/jsextreme/index.html) Jsextreme
-    * [创建了一个地图并以公司作为地图的中心](https://vivaxy.github.io/course/baidu-map/jspopular1/index.html) Jspopular1
-    * [定位](https://vivaxy.github.io/course/baidu-map/jspopular2/index.html) Jspopular2
+  * [Baidu Map](https://vivaxy.github.io/course/baidu-map/index.html) Baidu map demo
+    * [jsextreme](https://vivaxy.github.io/course/baidu-map/jsextreme/index.html) 创建了一个地图并以公司作为地图的中心
+    * [Jspopular1](https://vivaxy.github.io/course/baidu-map/jspopular1/index.html) 创建了一个地图并以公司作为地图的中心
+    * [Jspopular2](https://vivaxy.github.io/course/baidu-map/jspopular2/index.html) 定位
   * [benchmark](https://vivaxy.github.io/course/benchmark/index.html) Benchmark
     * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/course/benchmark/String.prototype.indexOf-vs-forLoop/index.html) String.prototype.index of vs for loop
-    * [vivaxy](https://vivaxy.github.io/course/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/index.html) Class function declaration vs class prototype function bind
+    * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/course/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/index.html) Benchmark between class function declaration and class prototype function bind 
     * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/course/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/index.html) Get bounding client rect vs inner width vs client width
     * [Number vs parseInt](https://vivaxy.github.io/course/benchmark/number-vs-parseInt/index.html) Number vs parse int
     * [RegExp vs String Edit](https://vivaxy.github.io/course/benchmark/regExp-vs-stringEdit/index.html) Reg exp vs string edit
@@ -72,12 +72,13 @@ Table of contents
     * [mark polygon area](https://vivaxy.github.io/course/bmap/mark-polygon-area/index.html) Mark polygon area
     * [zoom](https://vivaxy.github.io/course/bmap/zoom/index.html) Zoom
   * [bootstrap-datetimepicker](https://vivaxy.github.io/course/bootstrap-datetimepicker/index.html) Bootstrap datetimepicker
-  * [vivaxy](https://vivaxy.github.io/course/browserify/index.html) Browserify
+  * [Browserify](https://vivaxy.github.io/course/browserify/index.html) Browserify demo
   * [cascading style sheets](https://vivaxy.github.io/course/cascading-style-sheets/index.html) Cascading style sheets
+    * [Animation steps](https://vivaxy.github.io/course/cascading-style-sheets/animation-steps/index.html) CSS Animation steps API demo
     * [backdrop-filter](https://vivaxy.github.io/course/cascading-style-sheets/backdrop-filter/index.html) Backdrop filter
     * [background-attachment](https://vivaxy.github.io/course/cascading-style-sheets/background-attachment/index.html) Background attachment
-    * [vivaxy](https://vivaxy.github.io/course/cascading-style-sheets/border-box/index.html) Border box
-    * [vivaxy](https://vivaxy.github.io/course/cascading-style-sheets/clear-fix/index.html) Clear fix
+    * [border-box](https://vivaxy.github.io/course/cascading-style-sheets/border-box/index.html) CSS border-box demo
+    * [Clear fix](https://vivaxy.github.io/course/cascading-style-sheets/clear-fix/index.html) CSS clear fix demo
     * [column layout](https://vivaxy.github.io/course/cascading-style-sheets/column-layout/index.html) Column layout
     * [background: conic-gradient(...)](https://vivaxy.github.io/course/cascading-style-sheets/conic-gradient/index.html) Conic gradient
     * [counter](https://vivaxy.github.io/course/cascading-style-sheets/counter/index.html) Counter
@@ -100,7 +101,6 @@ Table of contents
   * [compiler](https://vivaxy.github.io/course/compiler/index.html) Compiler
   * [cycle.js](https://vivaxy.github.io/course/cycle-js/index.html) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/course/cycle-js/basic/index.html) Basic
-  * [文章标题](https://vivaxy.github.io/course/dp-share/index.html) Dp share
   * [dragula](https://vivaxy.github.io/course/dragula/index.html) Dragula
   * [echarts](https://vivaxy.github.io/course/echarts/index.html) Echarts
     * [horizontal scroll](https://vivaxy.github.io/course/echarts/horizontal-scroll/index.html) Horizontal scroll
@@ -111,8 +111,8 @@ Table of contents
     * [const](https://vivaxy.github.io/course/ecma-script-6/const/index.html) Const
     * [default](https://vivaxy.github.io/course/ecma-script-6/default/index.html) Default
     * [destructuring](https://vivaxy.github.io/course/ecma-script-6/destructuring/index.html) Destructuring
-    * [vivaxy](https://vivaxy.github.io/course/ecma-script-6/generators/index.html) Generators
-    * [vivaxy](https://vivaxy.github.io/course/ecma-script-6/iterators/index.html) Iterators
+    * [Generators](https://vivaxy.github.io/course/ecma-script-6/generators/index.html) Generators demo
+    * [Iterators](https://vivaxy.github.io/course/ecma-script-6/iterators/index.html) Iterators demo
     * [let](https://vivaxy.github.io/course/ecma-script-6/let/index.html) Let
     * [rest](https://vivaxy.github.io/course/ecma-script-6/rest/index.html) Rest
     * [spread](https://vivaxy.github.io/course/ecma-script-6/spread/index.html) Spread
@@ -125,9 +125,9 @@ Table of contents
   * [hammer](https://vivaxy.github.io/course/hammer/index.html) Hammer
   * [HTML](https://vivaxy.github.io/course/html/index.html) Html
     * [datalist](https://vivaxy.github.io/course/html/datalist/index.html) Datalist
-    * [vivaxy](https://vivaxy.github.io/course/html/meta-scale/index.html) Meta scale
+    * [Meta Scale](https://vivaxy.github.io/course/html/meta-scale/index.html) Meta scale demo
     * [Meta Width](https://vivaxy.github.io/course/html/meta-width/index.html) Meta width
-    * [vivaxy](https://vivaxy.github.io/course/html/playsinline/index.html) Playsinline
+    * [Playsinline](https://vivaxy.github.io/course/html/playsinline/index.html) Video playsinline demo
     * [select multiple](https://vivaxy.github.io/course/html/select-multiple/index.html) Select multiple
   * [JavaScript](https://vivaxy.github.io/course/javascript/index.html) Javascript
     * [append script](https://vivaxy.github.io/course/javascript/append-script/index.html) Append script
@@ -140,23 +140,23 @@ Table of contents
     * [common list](https://vivaxy.github.io/course/javascript/drag-to-load/index.html) Drag to load
     * [eventuality](https://vivaxy.github.io/course/javascript/eventuality/index.html) Eventuality
     * [eventuality](https://vivaxy.github.io/course/javascript/eventuality-complex/index.html) Eventuality complex
-    * [vivaxy](https://vivaxy.github.io/course/javascript/extend/index.html) Extend
+    * [Extend](https://vivaxy.github.io/course/javascript/extend/index.html) Extend implementation
     * [extend](https://vivaxy.github.io/course/javascript/function-string-extend/index.html) Function string extend
     * [queue](https://vivaxy.github.io/course/javascript/hippo/index.html) Hippo
     * [inline script context](https://vivaxy.github.io/course/javascript/inline-script-context/index.html) Inline script context
     * [Is Animated Image](https://vivaxy.github.io/course/javascript/is-animated-image/index.html) Is animated image
     * [is element on screen](https://vivaxy.github.io/course/javascript/is-element-on-screen/index.html) Is element on screen
     * [is native](https://vivaxy.github.io/course/javascript/is-native/index.html) Is native
-    * [vivaxy](https://vivaxy.github.io/course/javascript/load-resource-as-array-buffer/index.html) Load resource as array buffer
+    * [Load Resource as ArrayBuffer](https://vivaxy.github.io/course/javascript/load-resource-as-array-buffer/index.html) How to load resource as arrayBuffer
     * [load script](https://vivaxy.github.io/course/javascript/load-script/index.html) Load script
     * [matches-selector](https://vivaxy.github.io/course/javascript/matches-selector/index.html) Matches selector
-    * [vivaxy](https://vivaxy.github.io/course/javascript/mixin/index.html) Mixin
+    * [Mixin](https://vivaxy.github.io/course/javascript/mixin/index.html) Mixin implementation
     * [mobile input change](https://vivaxy.github.io/course/javascript/mobile-input-change/index.html) Mobile input change
     * [module view](https://vivaxy.github.io/course/javascript/module-view/index.html) Module view
     * [once](https://vivaxy.github.io/course/javascript/once/index.html) Once
     * [poll](https://vivaxy.github.io/course/javascript/poll/index.html) Poll
-    * [vivaxy](https://vivaxy.github.io/course/javascript/polling/index.html) Polling
-    * [vivaxy](https://vivaxy.github.io/course/javascript/post-message/index.html) Post message
+    * [Polling](https://vivaxy.github.io/course/javascript/polling/index.html) Polling implementation
+    * [Post message](https://vivaxy.github.io/course/javascript/post-message/index.html) Post message demo
     * [prevent webview scroll](https://vivaxy.github.io/course/javascript/prevent-webview-scroll/index.html) Prevent webview scroll
     * [Private class field](https://vivaxy.github.io/course/javascript/private-class-field/index.html) Private class field
     * [probability](https://vivaxy.github.io/course/javascript/probability/index.html) Probability
@@ -167,7 +167,7 @@ Table of contents
     * [return value of new](https://vivaxy.github.io/course/javascript/return-value-of-new/index.html) Return value of new
     * [scroll bar width](https://vivaxy.github.io/course/javascript/scroll-bar-width/index.html) Scroll bar width
     * [stack](https://vivaxy.github.io/course/javascript/stack/index.html) Stack
-    * [vivaxy](https://vivaxy.github.io/course/javascript/style-set-property/index.html) Style set property
+    * [Style set property](https://vivaxy.github.io/course/javascript/style-set-property/index.html) Style set property demo
     * [style-sheet](https://vivaxy.github.io/course/javascript/style-sheet/index.html) Style sheet
     * [Symbol](https://vivaxy.github.io/course/javascript/symbol/index.html) Symbol
     * [tap](https://vivaxy.github.io/course/javascript/tap/index.html) Tap
@@ -194,21 +194,21 @@ Table of contents
     * [3d touch](https://vivaxy.github.io/course/native-api/3d-touch/index.html) 3d touch
     * [audio AnalyserNode](https://vivaxy.github.io/course/native-api/analyser-node/index.html) Analyser node
     * [Web Animation API](https://vivaxy.github.io/course/native-api/animate/index.html) Animate
-    * [vivaxy](https://vivaxy.github.io/course/native-api/animation-steps/index.html) Animation steps
     * [attributes](https://vivaxy.github.io/course/native-api/attributes/index.html) Attributes
     * [audio](https://vivaxy.github.io/course/native-api/audio/index.html) Audio
     * [base](https://vivaxy.github.io/course/native-api/base/index.html) Base
     * [battery status](https://vivaxy.github.io/course/native-api/battery-status/index.html) Battery status
-    * [vivaxy](https://vivaxy.github.io/course/native-api/browser-message/index.html) Browser message
+    * [Browser message](https://vivaxy.github.io/course/native-api/browser-message/index.html) Browser message demo by Notifications API
     * [cache manifest demo page](https://vivaxy.github.io/course/native-api/cache-manifest/index.html) Cache manifest
     * [Clipboard](https://vivaxy.github.io/course/native-api/clipboard/index.html) Clipboard
     * [CompositionEvent](https://vivaxy.github.io/course/native-api/composition-event/index.html) Composition event
     * [CSS Typed Object Model](https://vivaxy.github.io/course/native-api/css-typed-om/index.html) Css typed om
     * [Custom Element](https://vivaxy.github.io/course/native-api/custom-elements/index.html) Custom elements
-    * [vivaxy](https://vivaxy.github.io/course/native-api/date-input/index.html) Date input
+    * [Date input](https://vivaxy.github.io/course/native-api/date-input/index.html) Date input demo
     * [designMode](https://vivaxy.github.io/course/native-api/design-mode/index.html) Design mode
     * [details summary](https://vivaxy.github.io/course/native-api/details-summary/index.html) Details summary
     * [device motion demo page](https://vivaxy.github.io/course/native-api/device-motion/index.html) Device motion
+    * [DP Share](https://vivaxy.github.io/course/native-api/dp-share/index.html) DP share demo
     * [draggable demo page](https://vivaxy.github.io/course/native-api/draggable/index.html) Draggable
     * [Error Event](https://vivaxy.github.io/course/native-api/error-event/index.html) Error event
     * [event source](https://vivaxy.github.io/course/native-api/event-source/index.html) Event source
@@ -216,13 +216,13 @@ Table of contents
     * [generators](https://vivaxy.github.io/course/native-api/generators/index.html) Generators
     * [geolocation demo page](https://vivaxy.github.io/course/native-api/geolocation/index.html) Geolocation
     * [gesture](https://vivaxy.github.io/course/native-api/gesture/index.html) Gesture
-    * [vivaxy](https://vivaxy.github.io/course/native-api/hash-change/index.html) Hash change
+    * [Hash change](https://vivaxy.github.io/course/native-api/hash-change/index.html) Hash change API demo
     * [indeterminate](https://vivaxy.github.io/course/native-api/indeterminate/index.html) Indeterminate
     * [IndexedDB](https://vivaxy.github.io/course/native-api/indexed-db/index.html) Indexed db
     * [Intersection Observer](https://vivaxy.github.io/course/native-api/intersection-observer/index.html) Intersection observer
     * [localStorage demo page](https://vivaxy.github.io/course/native-api/local-storage/index.html) Local storage
     * [notification](https://vivaxy.github.io/course/native-api/notification/index.html) Notification
-    * [vivaxy](https://vivaxy.github.io/course/native-api/object/index.html) Object
+    * [Object](https://vivaxy.github.io/course/native-api/object/index.html) Object.defineProperty demo
     * [object oriented](https://vivaxy.github.io/course/native-api/object-oriented/index.html) Object oriented
     * [paintWorklet](https://vivaxy.github.io/course/native-api/paint-worklet/index.html) Paint worklet
     * [Payment Request](https://vivaxy.github.io/course/native-api/payment-request/index.html) Payment request
@@ -250,6 +250,8 @@ Table of contents
     * [WebRTC](https://vivaxy.github.io/course/native-api/webrtc/index.html) Webrtc
       * [Local Data](https://vivaxy.github.io/course/native-api/webrtc/local-data/index.html) Local data
       * [Local Media](https://vivaxy.github.io/course/native-api/webrtc/local-media/index.html) Local media
+    * [WeChat share](https://vivaxy.github.io/course/native-api/wechat-share/index.html) WeChat share demo
+    * [wechat token](https://vivaxy.github.io/course/native-api/wechat-token/index.html) Wechat token
   * [Network](https://vivaxy.github.io/course/network/index.html) Network
   * [node.js](https://vivaxy.github.io/course/node-js/index.html) Node js
     * [execa](https://vivaxy.github.io/course/node-js/execa/index.html) execa demo
@@ -258,7 +260,7 @@ Table of contents
   * [pitfall](https://vivaxy.github.io/course/pitfall/index.html) Pitfall
     * [click event on label with input](https://vivaxy.github.io/course/pitfall/click-event-on-label-with-input/index.html) Click event on label with input
     * [event delegation on ios safari](https://vivaxy.github.io/course/pitfall/event-delegation-on-ios-safari/index.html) Event delegation on ios safari
-    * [vivaxy](https://vivaxy.github.io/course/pitfall/ios-double-click-fixed-position-error-on-webview/index.html) Ios double click fixed position error on webview
+    * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/course/pitfall/ios-double-click-fixed-position-error-on-webview/index.html) iOS Double Click Fixed Position Error on WebView example
   * [qq maps](https://vivaxy.github.io/course/qq-maps/index.html) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/qq-maps/mark-polygon-area/index.html) Mark polygon area
   * [qrcode](https://vivaxy.github.io/course/qrcode/index.html) Qrcode
@@ -305,5 +307,3 @@ Table of contents
     * [A-Frame Panorama](https://vivaxy.github.io/course/webvr/a-frame-panorama/index.html) A frame panorama
     * [A-Frame Shanghai Oriental Pearl](https://vivaxy.github.io/course/webvr/a-frame-shanghai-oriental-pearl/index.html) A frame shanghai oriental pearl
     * [Tour](https://vivaxy.github.io/course/webvr/a-frame-tour/index.html) A frame tour
-  * [文章标题](https://vivaxy.github.io/course/wechat-share/index.html) Wechat share
-  * [wechat token](https://vivaxy.github.io/course/wechat-token/index.html) Wechat token

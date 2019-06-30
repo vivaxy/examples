@@ -136,16 +136,8 @@
     "link": "baidu-map/index.html"
   },
   {
-    "name": "dp share",
-    "link": "dp-share/index.html"
-  },
-  {
     "name": "QRCode",
     "link": "qrcode/index.html"
-  },
-  {
-    "name": "WeChat Share",
-    "link": "wechat-share/index.html"
   },
   {
     "name": "react js",

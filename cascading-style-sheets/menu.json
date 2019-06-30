@@ -82,5 +82,9 @@
   {
     "name": "overscroll-behavior",
     "link": "overscroll-behavior/index.html"
+  },
+  {
+    "name": "Animation Steps",
+    "link": "animation-steps/index.html"
   }
 ]

@@ -144,10 +144,6 @@
     "link": "audio/index.html"
   },
   {
-    "name": "animation steps",
-    "link": "animation-steps/index.html"
-  },
-  {
     "name": "attributes",
     "link": "attributes/index.html"
   },
@@ -218,5 +214,17 @@
   {
     "name": "Error Event",
     "link": "error-event/index.html"
+  },
+  {
+    "name": "DP Share",
+    "link": "dp-share/index.html"
+  },
+  {
+    "name": "WeChat Share",
+    "link": "wechat-share/index.html"
+  },
+  {
+    "name": "WeChat Token",
+    "link": "wechat-token/index.html"
   }
 ]
