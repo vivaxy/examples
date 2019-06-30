@@ -1,54 +1,60 @@
-<!doctype html>
-<html>
-
-<head>
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .canvas {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
-  <title>Mandelbrot Tiled</title>
-</head>
-
-<body>
-<canvas id="canvas" class="canvas"></canvas>
-<script src="./mandelbrot.js"></script>
-<script>
-  Module.addOnPostRun(() => {
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-
-    // Canvas resizing from http://stackoverflow.com/a/43364730/2142626
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    if (canvas.width !== width || canvas.height !== height) {
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    const mandelbrot = new Module.Mandelbrot(width, height, 1, -0.5, 0);
-
-    function drawTile() {
-      const tile = mandelbrot.nextTile();
-      if (tile) {
-        const imageData = new ImageData(new Uint8ClampedArray(tile.data), tile.width, tile.height);
-        context.putImageData(imageData, tile.x, tile.y);
-        window.requestAnimationFrame(drawTile);
+<!DOCTYPE html
+><html
+  ><head>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
       }
-    }
 
-    window.requestAnimationFrame(drawTile);
+      .canvas {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+    <title>Mandelbrot Tiled</title>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>"/><meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,mandelbrot-tiled"/><meta
+      name="description"
+      content="Mandelbrot tiled"
+  /></head>
 
-  });
-</script>
-</body>
+  <body>
+    <canvas id="canvas" class="canvas"></canvas>
+    <script src="./mandelbrot.js"></script>
+    <script>
+      Module.addOnPostRun(() => {
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
 
-</html>
+        // Canvas resizing from http://stackoverflow.com/a/43364730/2142626
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+        }
+
+        const mandelbrot = new Module.Mandelbrot(width, height, 1, -0.5, 0);
+
+        function drawTile() {
+          const tile = mandelbrot.nextTile();
+          if (tile) {
+            const imageData = new ImageData(
+              new Uint8ClampedArray(tile.data),
+              tile.width,
+              tile.height,
+            );
+            context.putImageData(imageData, tile.x, tile.y);
+            window.requestAnimationFrame(drawTile);
+          }
+        }
+
+        window.requestAnimationFrame(drawTile);
+      });
+    </script>
+  </body></html
+>

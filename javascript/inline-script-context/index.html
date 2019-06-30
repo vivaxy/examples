@@ -1,24 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
+<!DOCTYPE html
+><html
+  ><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png"/>
     <title>inline script context</title>
     <script src="./test/1.js"></script>
-</head>
-<body>
-<p>See console.</p>
-<p>Inline scripts will block html rendering, and it can only has access to contents above itself.</p>
-<div class="1">1</div>
-<script src="test/2.js"></script>
-<div class="2">2</div>
-<script>
-    log('begin', 'inline js');
-    logLastScript();
-    logLastElement();
-    log('end', 'inline js');
-</script>
-<script type="text/javascript" src="/ba.js"></script>
-</body>
-</html>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>"/><meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,inline-script-context"/><meta
+      name="description"
+      content="Inline script context"
+  /></head>
+
+  <body>
+    <p>See console.</p>
+    <p
+      >Inline scripts will block html rendering, and it can only has access to
+      contents above itself.</p
+    >
+    <div class="1">1</div>
+    <script src="test/2.js"></script>
+    <div class="2">2</div>
+    <script>
+      log("begin", "inline js");
+      logLastScript();
+      logLastElement();
+      log("end", "inline js");
+    </script>
+    <script type="text/javascript" src="/ba.js"></script> </body
+></html>

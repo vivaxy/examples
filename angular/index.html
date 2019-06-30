@@ -1,240 +1,281 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png">
-    <link type="text/css" rel="stylesheet" href="index.css">
+<!DOCTYPE html
+><html
+  ><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png"/>
+    <link type="text/css" rel="stylesheet" href="index.css"/>
     <title>AngularJS</title>
-</head>
-<body data-ng-app="">
-<div class="card">
-    <h1>model & bind</h1>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>"/><meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,angular"/><meta
+      name="description"
+      content="Angular"
+  /></head>
 
-    <p>Name: <input type="text" data-ng-model="name"></p>
+  <body data-ng-app>
+    <div class="card">
+      <h1>model & bind</h1>
 
-    <p data-ng-bind="name"></p>
-</div>
-<div class="card" data-ng-init="initName='John'">
-    <h1>init & bind</h1>
+      <p>Name: <input type="text" data-ng-model="name"/></p>
 
-    <p>The initName is <span data-ng-bind="initName"></span></p>
-</div>
-<div class="card">
-    <h1>plain expression</h1>
+      <p data-ng-bind="name"></p>
+    </div>
+    <div class="card" data-ng-init="initName='John'">
+      <h1>init & bind</h1>
 
-    <p>My first expression: {{ 1 + 2 }}</p>
-</div>
-<div class="card" data-ng-init="a=1;b=2">
-    <h1>expression & init</h1>
+      <p>The initName is <span data-ng-bind="initName"></span></p>
+    </div>
+    <div class="card">
+      <h1>plain expression</h1>
 
-    <p>Total in dollar: {{ a+b }}</p>
-</div>
-<div class="card" data-ng-controller="personController">
-    <h1>controller & model & expression</h1>
+      <p>My first expression: {{ 1 + 2 }}</p>
+    </div>
+    <div class="card" data-ng-init="a=1;b=2">
+      <h1>expression & init</h1>
 
-    <p>First Name: <input type="text" data-ng-model="firstName"></p>
+      <p>Total in dollar: {{ a+b }}</p>
+    </div>
+    <div class="card" data-ng-controller="personController">
+      <h1>controller & model & expression</h1>
 
-    <p>Last Name: <input type="text" data-ng-model="lastName"></p>
+      <p>First Name: <input type="text" data-ng-model="firstName"/></p>
 
-    <p>Full Name : {{ firstName + " " + lastName }}</p>
-    <script>
+      <p>Last Name: <input type="text" data-ng-model="lastName"/></p>
+
+      <p>Full Name : {{ firstName + " " + lastName }}</p>
+      <script>
         function personController($scope) {
-            $scope.firstName = "John";
-            $scope.lastName = "Doe";
+          $scope.firstName = "John";
+          $scope.lastName = "Doe";
         }
-    </script>
-</div>
-<div class="card" data-ng-init="c=1;d=2">
-    <h1>init & bind</h1>
+      </script>
+    </div>
+    <div class="card" data-ng-init="c=1;d=2">
+      <h1>init & bind</h1>
 
-    <p data-ng-bind="c+d"></p>
-</div>
-<div class="card" data-ng-init="person={firstName:'John',lastName:'Doe'}">
-    <h1>object & expression & init</h1>
+      <p data-ng-bind="c+d"></p>
+    </div>
+    <div class="card" data-ng-init="person={firstName:'John',lastName:'Doe'}">
+      <h1>object & expression & init</h1>
 
-    <p>The Name is {{ person.firstName + " " + person.lastName }}</p>
-</div>
-<div class="card" data-ng-init="points=[1,15,19,2,40]">
-    <h1>array & init & expression</h1>
+      <p>The Name is {{ person.firstName + " " + person.lastName }}</p>
+    </div>
+    <div class="card" data-ng-init="points=[1,15,19,2,40]">
+      <h1>array & init & expression</h1>
 
-    <p>The third point is {{ points[2] }}</p>
-</div>
-<div class="card" data-ng-init="names=['Jani','Hege','Kai']">
-    <h1>repeat & init</h1>
-    <ul>
+      <p>The third point is {{ points[2] }}</p>
+    </div>
+    <div class="card" data-ng-init="names=['Jani','Hege','Kai']">
+      <h1>repeat & init</h1>
+      <ul>
         <li data-ng-repeat="x in names">
-            {{ x }}
+          {{ x }}
         </li>
-    </ul>
-</div>
-<div class="card" data-ng-controller="personController2">
-    <h1>method & controller & model</h1>
+      </ul>
+    </div>
+    <div class="card" data-ng-controller="personController2">
+      <h1>method & controller & model</h1>
 
-    <p>First Name: <input type="text" data-ng-model="person2.firstName"></p>
+      <p>First Name: <input type="text" data-ng-model="person2.firstName"/></p>
 
-    <p>Last Name: <input type="text" data-ng-model="person2.lastName"></p>
+      <p>Last Name: <input type="text" data-ng-model="person2.lastName"/></p>
 
-    <p>Full Name: {{ fullName() }}</p>
-    <script>
+      <p>Full Name: {{ fullName() }}</p>
+      <script>
         function personController2($scope) {
-            $scope.person2 = {
-                firstName: "John",
-                lastName: "Doe"
-            };
-            $scope.fullName = function () {
-                var x = $scope.person2;
-                return x.firstName + " " + x.lastName;
-            };
+          $scope.person2 = {
+            firstName: "John",
+            lastName: "Doe",
+          };
+          $scope.fullName = function() {
+            var x = $scope.person2;
+            return x.firstName + " " + x.lastName;
+          };
         }
-    </script>
-</div>
-<div class="card" data-ng-init="vivaxy={name:'Vivaxy',age:24}">
-    <h1>filter:uppercase</h1>
-    <p>{{ vivaxy.name | uppercase }}</p>
-</div>
-<div class="card">
-    <h1>filter:lowercase</h1>
-    <p>{{ vivaxy.name | lowercase }}</p>
-</div>
-<div class="card">
-    <h1>filter:currency</h1>
-    <p>{{ vivaxy.age | currency }}</p>
-</div>
-<div class="card" data-ng-init="namesArray=[{name:'b',country:'BB'},{name:'c',country:'CC'},{name:'a',country:'AA'}]">
-    <h1>filter:orderBy</h1>
-    <ul>
+      </script>
+    </div>
+    <div class="card" data-ng-init="vivaxy={name:'Vivaxy',age:24}">
+      <h1>filter:uppercase</h1>
+      <p>{{ vivaxy.name | uppercase }}</p>
+    </div>
+    <div class="card">
+      <h1>filter:lowercase</h1>
+      <p>{{ vivaxy.name | lowercase }}</p>
+    </div>
+    <div class="card">
+      <h1>filter:currency</h1>
+      <p>{{ vivaxy.age | currency }}</p>
+    </div>
+    <div
+      class="card"
+      data-ng-init="namesArray=[{name:'b',country:'BB'},{name:'c',country:'CC'},{name:'a',country:'AA'}]"
+    >
+      <h1>filter:orderBy</h1>
+      <ul>
         <li data-ng-repeat="x in namesArray | filter:name | orderBy:'country'">
-            {{ "name: " + (x.name | uppercase) + ", country: " + x.country }}
+          {{ "name: " + (x.name | uppercase) + ", country: " + x.country }}
         </li>
-    </ul>
-</div>
-<div class="card" data-ng-controller="namesController">
-    <h1>filter:orderBy</h1>
+      </ul>
+    </div>
+    <div class="card" data-ng-controller="namesController">
+      <h1>filter:orderBy</h1>
 
-    <p><input type="text" data-ng-model="name"></p>
-    <ul>
+      <p><input type="text" data-ng-model="name"/></p>
+      <ul>
         <li data-ng-repeat="x in names | filter:name | orderBy:'country'">
-            {{ (x.name | uppercase) + ', ' + x.country }}
+          {{ (x.name | uppercase) + ', ' + x.country }}
         </li>
-    </ul>
-</div>
-<div class="card" data-ng-controller="customersController">
-    <h1>http.get</h1>
+      </ul>
+    </div>
+    <div class="card" data-ng-controller="customersController">
+      <h1>http.get</h1>
 
-    <ul>
+      <ul>
         <li data-ng-repeat="x in customersNames">
-            {{ x.Name + ', ' + x.Country }}
+          {{ x.Name + ', ' + x.Country }}
         </li>
-    </ul>
-    <script>
-
-    </script>
-</div>
-<div class="card" data-ng-controller="customersController">
-    <h1>table</h1>
-    <table>
-        <tr data-ng-repeat="x in customersNames">
+      </ul>
+      <script></script>
+    </div>
+    <div class="card" data-ng-controller="customersController">
+      <h1>table</h1>
+      <table>
+        <tbody
+          ><tr data-ng-repeat="x in customersNames">
             <td>{{ x.Name }}</td>
             <td>{{ x.Country }}</td>
-        </tr>
-    </table>
-</div>
-<div class="card">
-    <h1>disabled & model</h1>
+          </tr>
+        </tbody></table
+      >
+    </div>
+    <div class="card">
+      <h1>disabled & model</h1>
 
-    <p>
+      <p>
         <button data-ng-disabled="!mySwitch">Click!</button>
-    </p>
-    <p><input type="checkbox" data-ng-model="mySwitch">Button</p>
-</div>
-<div class="card">
-    <h1>show</h1>
+      </p>
+      <p><input type="checkbox" data-ng-model="mySwitch" />Button</p>
+    </div>
+    <div class="card">
+      <h1>show</h1>
 
-    <p data-ng-show="true">I am visible.</p>
+      <p data-ng-show="true">I am visible.</p>
 
-    <p data-ng-show="false">I am not visible.</p>
+      <p data-ng-show="false">I am not visible.</p>
 
-    <p data-ng-show="!false">I am visible.</p>
-</div>
-<div class="card" data-ng-init="count=0">
-    <h1>click</h1>
+      <p data-ng-show="!false">I am visible.</p>
+    </div>
+    <div class="card" data-ng-init="count=0">
+      <h1>click</h1>
 
-    <p>
+      <p>
         <button data-ng-click="count = count + 1">Click!</button>
-    </p>
-    <p>{{ count }}</p>
-</div>
-<div class="card">
-    <h1>hide</h1>
+      </p>
+      <p>{{ count }}</p>
+    </div>
+    <div class="card">
+      <h1>hide</h1>
 
-    <p data-ng-hide="false">I am not hidden.</p>
+      <p data-ng-hide="false">I am not hidden.</p>
 
-    <p data-ng-hide="true">I am hidden.</p>
-</div>
-<div class="card">
-    <h1><a href="app.html">app & angular.module</a></h1>
-</div>
-<div class="card" data-ng-controller="formController">
-    <h1>angular.copy</h1>
+      <p data-ng-hide="true">I am hidden.</p>
+    </div>
+    <div class="card">
+      <h1><a href="app.html">app & angular.module</a></h1>
+    </div>
+    <div class="card" data-ng-controller="formController">
+      <h1>angular.copy</h1>
 
-    <form novalidate="novalidate">
-        First Name: <input type="text" data-ng-model="user.firstName"><br>
-        Last Name: <input type="text" data-ng-model="user.lastName"><br>
+      <form novalidate="novalidate">
+        First Name: <input type="text" data-ng-model="user.firstName" /><br />
+        Last Name: <input type="text" data-ng-model="user.lastName" /><br />
         <button data-ng-click="reset()">reset</button>
-    </form>
-    <p>form = {{ user }}</p>
+      </form>
+      <p>form = {{ user }}</p>
 
-    <p>master = {{ master }}</p>
-    <script>
+      <p>master = {{ master }}</p>
+      <script>
         function formController($scope) {
-            $scope.master = {
-                firstName: "John",
-                lastName: "Doe"
-            };
-            $scope.reset = function () {
-                $scope.user = angular.copy($scope.master);
-            };
-            $scope.reset();
+          $scope.master = {
+            firstName: "John",
+            lastName: "Doe",
+          };
+          $scope.reset = function() {
+            $scope.user = angular.copy($scope.master);
+          };
+          $scope.reset();
         }
-    </script>
-</div>
-<div class="card">
-    <form data-ng-controller="validateController" name="testForm" novalidate="novalidate">
-        <p>Username:
-            <input type="text" name="username" data-ng-model="username" required="true">
-            <span style="color:red" data-ng-show="testForm.username.$dirty && testForm.username.$invalid">
-                <span data-ng-show="testForm.username.$error.required">Username is required.</span>
-            </span>
+      </script>
+    </div>
+    <div class="card">
+      <form
+        data-ng-controller="validateController"
+        name="testForm"
+        novalidate="novalidate"
+      >
+        <p
+          >Username:
+          <input
+            type="text"
+            name="username"
+            data-ng-model="username"
+            required="true"
+          />
+          <span
+            style="color:red"
+            data-ng-show="testForm.username.$dirty && testForm.username.$invalid"
+          >
+            <span data-ng-show="testForm.username.$error.required"
+              >Username is required.</span
+            >
+          </span>
         </p>
 
-        <p>Email:
-            <input type="email" name="email" data-ng-model="email" required="true">
-            <span style="color:red" data-ng-show="testForm.email.$dirty && testForm.email.$invalid">
-                <span data-ng-show="testForm.email.$error.required">Email is required.</span>
-                <span data-ng-show="testForm.email.$error.email">Invalid email address.</span>
-            </span>
+        <p
+          >Email:
+          <input
+            type="email"
+            name="email"
+            data-ng-model="email"
+            required="true"
+          />
+          <span
+            style="color:red"
+            data-ng-show="testForm.email.$dirty && testForm.email.$invalid"
+          >
+            <span data-ng-show="testForm.email.$error.required"
+              >Email is required.</span
+            >
+            <span data-ng-show="testForm.email.$error.email"
+              >Invalid email address.</span
+            >
+          </span>
         </p>
 
-        <p><input type="submit"
-                  data-ng-disabled="testForm.username.$dirty && testForm.username.$invalid || testForm.email.$dirty && testForm.email.$invalid">
+        <p
+          ><input
+            type="submit"
+            data-ng-disabled="testForm.username.$dirty && testForm.username.$invalid || testForm.email.$dirty && testForm.email.$invalid"
+          />
         </p>
-    </form>
-    <script>
+      </form>
+      <script>
         function validateController($scope) {
-            $scope.username = "John Doe";
-            $scope.email = "john.doe@gmail.com";
+          $scope.username = "John Doe";
+          $scope.email = "john.doe@gmail.com";
         }
-    </script>
-</div>
-<div class="card" data-ng-init="initName='John'">
-    <h1>include</h1>
+      </script>
+    </div>
+    <div class="card" data-ng-init="initName='John'">
+      <h1>include</h1>
 
-    <div data-ng-include="'include.html'"></div>
-</div>
-<script type="text/javascript" src="names_controller.js"></script>
-<script type="text/javascript" src="customers_controller.js"></script>
-<script type="text/javascript" src="angular.min.js"></script>
-<script type="text/javascript" src="/ba.js"></script>
-</body>
-</html>
+      <div data-ng-include="'include.html'"></div>
+    </div>
+    <script type="text/javascript" src="names_controller.js"></script>
+    <script type="text/javascript" src="customers_controller.js"></script>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="/ba.js"></script> </body
+></html>

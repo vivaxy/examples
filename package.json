@@ -1,9 +1,14 @@
 {
   "name": "course",
   "version": "0.0.0",
-  "description": "[Course](https://vivaxy.github.io/course/index.html)",
-  "main": "index.js",
-  "scripts": {},
+  "description": "Demo",
+  "keywords": [
+    "vivaxy",
+    "course",
+    "github",
+    "demo",
+    "playground"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vivaxy/course.git"
@@ -17,7 +22,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
-    "@vivaxy/github-demo-scripts": "^0.1.0",
+    "@vivaxy/github-demo-scripts": "^0.2.1",
+    "husky": "^2.7.0",
     "lint-staged": "^8.2.1",
     "prettier": "^1.18.2"
   },
@@ -34,12 +40,6 @@
     ]
   },
   "gds": {
-    "keywords": [
-      "vivaxy",
-      "course",
-      "github",
-      "demo"
-    ],
     "readme": "# [Course](https://vivaxy.github.io/course/index.html)\n\n# Initialize submodules\n\n`git submodule update --init`\n\n# Update submodules\n\n`git submodule foreach git pull`\n",
     "link-prefix": "https://vivaxy.github.io/design/"
   }
