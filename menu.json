@@ -222,5 +222,9 @@
   {
     "name": "rxjs",
     "link": "rxjs/index.html"
+  },
+  {
+    "name": "Node.js Packages",
+    "link": "node-js-packages/index.html"
   }
 ]

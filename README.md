@@ -253,7 +253,9 @@ Table of contents
   * [wechat token](https://vivaxy.github.io/course/native-api/wechat-token/index.html) Wechat token
 * [Network](https://vivaxy.github.io/course/network/index.html) Network
 * [node.js](https://vivaxy.github.io/course/node-js/index.html) Node js
-  * [execa](https://vivaxy.github.io/course/node-js/execa/index.html) execa demo
+* [Node.js Packages Demos](https://vivaxy.github.io/course/node-js-packages/index.html) Node.js packages demos
+  * [execa](https://vivaxy.github.io/course/node-js-packages/execa/index.html) execa demo
+  * [Prompts Demo](https://vivaxy.github.io/course/node-js-packages/prompts/index.html) Prompts Demo
 * [pitfall](https://vivaxy.github.io/course/ohm/index.html) Ohm
 * [on screen](https://vivaxy.github.io/course/on-screen/index.html) On screen
 * [pitfall](https://vivaxy.github.io/course/pitfall/index.html) Pitfall
