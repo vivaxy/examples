@@ -231,6 +231,7 @@ Table of contents
   * [index.html](https://vivaxy.github.io/course/native-api/refresh/index.html) Refresh
   * [replace](https://vivaxy.github.io/course/native-api/replace/index.html) Replace
   * [ReportingObserver](https://vivaxy.github.io/course/native-api/reporting-observer/index.html) Reporting observer
+  * [script error](https://vivaxy.github.io/course/native-api/script-error/index.html) script error
   * [script type module](https://vivaxy.github.io/course/native-api/script-type-module/index.html) Script type module
   * [selection](https://vivaxy.github.io/course/native-api/selection/index.html) Selection
   * [sendBeacon](https://vivaxy.github.io/course/native-api/send-beacon/index.html) Send beacon
