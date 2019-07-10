@@ -9,8 +9,9 @@ function loadScript(url) {
     script.src = url;
     // script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
-    script.addEventListener('load', reslove);
-    script.addEventListener('error', reject);
+    // script.addEventListener('load', reslove);
+    // script.addEventListener('error', reject);
+    reject(new Error('my error'));
   });
 }
 
@@ -23,5 +24,5 @@ window.addEventListener('unhandledrejection', function(err) {
 });
 
 (async function() {
-  await loadScript('http://192.168.0.105:3002/script.js');
+  await loadScript('http://192.168.0.105:3002/script1.js');
 })();
