@@ -16,11 +16,13 @@ function loadScript(url) {
 }
 
 window.addEventListener('error', function(err) {
-  console.log('error', err);
+  console.log('error' + err.stack);
+  alert('error ' + err.stack);
 });
 
 window.addEventListener('unhandledrejection', function(err) {
-  console.log('unhandledrejection', err);
+  console.log('unhandledrejection ' + err.reason);
+  alert('unhandledrejection ' + err.reason);
 });
 
 (async function() {
