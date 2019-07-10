@@ -23,5 +23,5 @@ window.addEventListener('unhandledrejection', function(err) {
 });
 
 (async function() {
-  await loadScript('http://192.168.0.106:3001/script.js');
+  await loadScript('http://192.168.0.105:3002/script.js');
 })();
