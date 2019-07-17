@@ -227,6 +227,7 @@ Table of contents
   * [Payment Request](https://vivaxy.github.io/course/native-api/payment-request/index.html) Payment request
   * [Pointer Lock](https://vivaxy.github.io/course/native-api/pointer-lock/index.html) Pointer lock
   * [popstate](https://vivaxy.github.io/course/native-api/popstate/index.html) Popstate
+  * [prefetch](https://vivaxy.github.io/course/native-api/prefetch/index.html) prefetch resources
   * [promise ajax](https://vivaxy.github.io/course/native-api/promise/index.html) Promise
   * [index.html](https://vivaxy.github.io/course/native-api/refresh/index.html) Refresh
   * [replace](https://vivaxy.github.io/course/native-api/replace/index.html) Replace
