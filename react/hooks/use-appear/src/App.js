@@ -1,54 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
-
-window.ref = null;
-
-function useAppear(fn) {
-  window.ref = useRef(null);
-
-  let mounted = false;
-
-  useEffect(function() {
-    if (!mounted) {
-      console.log('mount');
-      mounted = true;
-    }
-    return function() {
-      if (mounted) {
-        console.log('unmount');
-        mounted = false;
-      }
-    };
-  });
-
-  console.log(window.ref);
-  return [window.ref];
-}
+import React, { useState } from 'react';
+import Component from './Component';
 
 export default function App() {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
+  const [mount, setMount] = useState(true);
 
-  useEffect(
-    function() {
-      console.log('effect');
-    },
-    [name],
-  );
-
-  const [rootRef] = useAppear(function() {});
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleMailChange(e) {
-    setMail(e.target.value);
+  function handleMountClick() {
+    setMount(!mount);
   }
 
   return (
-    <div className="App" ref={rootRef}>
-      <input type="text" value={name} onChange={handleNameChange} />
-      <input type="text" value={mail} onChange={handleMailChange} />
-    </div>
+    <>
+      {mount && <Component />}
+      <button onClick={handleMountClick}>{mount ? 'unmount' : 'mount'}</button>
+    </>
   );
 }

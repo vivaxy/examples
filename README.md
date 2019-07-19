@@ -270,7 +270,8 @@ Table of contents
   * [multiple lines qrcode](https://vivaxy.github.io/course/qrcode/multiple-lines/index.html) Multiple lines
 * [react](https://vivaxy.github.io/course/react/index.html) React
   * [react](https://vivaxy.github.io/course/react/basic/index.html) Basic
-  * [Hooks implement](https://vivaxy.github.io/course/react/hooks-implement/index.html) Implement hooks API
+  * [React Hooks](https://vivaxy.github.io/course/react/hooks/index.html) React Hooks
+    * [React Hooks Implement](https://vivaxy.github.io/course/react/hooks/implement/index.html) Implement React Hooks API
 * [react native](https://vivaxy.github.io/course/react-native/index.html) React native
 * [react redux](https://vivaxy.github.io/course/react-redux/index.html) React redux
 * [RSA](https://vivaxy.github.io/course/rsa/index.html) Rsa
