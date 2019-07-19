@@ -30,5 +30,9 @@
   {
     "name": "Store data as an object vs Store data as an array",
     "link": "objectKey-vs-hashIndex/index.js"
+  },
+  {
+    "name": "performance cost on await resolved promise",
+    "link": "await-resolved-promise/index.js"
   }
 ]
