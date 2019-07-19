@@ -2,29 +2,29 @@
  * @since 2019-07-19 19:13
  * @author vivaxy
  */
-import React, { useState } from 'react';
+import React from 'react';
 import useAppear from './useAppear';
 
 export default function Component() {
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-
-  const [rootRef] = useAppear(function() {
-    // console.log('appear');
+  const [ref1] = useAppear(function() {
+    console.log('appear 1');
   });
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleMailChange(e) {
-    setMail(e.target.value);
-  }
+  const [ref2] = useAppear(function() {
+    console.log('appear 2');
+  });
 
   return (
-    <div ref={rootRef}>
-      <input type="text" value={name} onChange={handleNameChange} />
-      <input type="text" value={mail} onChange={handleMailChange} />
+    <div>
+      <div className="item" ref={ref1} />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="placeholder" />
+      <div className="item" ref={ref2} />
     </div>
   );
 }
