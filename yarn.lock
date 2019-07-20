@@ -175,13 +175,14 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
 
-"@vivaxy/github-demo-scripts@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.3.1.tgz#5c8ffb67942ae31901d7c3bc065ca481dc1b582a"
-  integrity sha512-IqO+OjGifkSQ7EJIHUd+LrdNj0Mly0YAiQYh7f+OavP3+6iTkteA+GW1zKOPh9bwii7gONUvMT8A1SfAWNjPDQ==
+"@vivaxy/github-demo-scripts@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.3.2.tgz#9622eab2c82d09ba1fb782183dfb4c92585b4f0f"
+  integrity sha512-0l03cLWX+jILAYxHXyw1B6NFdB7LTaoP033hsII1TxxENAiBPDucuqcp9fWeJRXvNujKr+JNdpR81bNM6sAp8Q==
   dependencies:
     cheerio "^1.0.0-rc.3"
     cosmiconfig "^5.2.1"
+    fast-equals "^2.0.0"
     fast-glob "^3.0.3"
     fs-extra "^8.1.0"
     humanize-string "^2.1.0"
@@ -886,6 +887,11 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+fast-equals@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/fast-equals/-/fast-equals-2.0.0.tgz#bef2c423af3939f2c54310df54c57e64cd2adefc"
+  integrity sha512-u6RBd8cSiLLxAiC04wVsLV6GBFDOXcTCgWkd3wEoFXgidPSoAJENqC9m7Jb2vewSvjBIfXV6icKeh3GTKfIaXA==
 
 fast-glob@^3.0.3:
   version "3.0.3"
