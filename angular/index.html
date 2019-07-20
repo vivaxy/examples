@@ -1,25 +1,27 @@
-<!DOCTYPE html
-><html
-  ><head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png"/>
-    <link type="text/css" rel="stylesheet" href="index.css"/>
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
     <title>AngularJS</title>
-    <meta name="author" content="vivaxy <xyxuye2007@126.com>"/><meta
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
+    <meta
       name="keywords"
-      content="vivaxy,course,github,demo,playground,angular"/><meta
-      name="description"
-      content="Angular"
-  /></head>
+      content="vivaxy,course,github,demo,playground,angular"
+    />
+    <meta name="description" content="Angular" />
+  </head>
 
   <body data-ng-app>
     <div class="card">
       <h1>model & bind</h1>
 
-      <p>Name: <input type="text" data-ng-model="name"/></p>
+      <p>Name: <input type="text" data-ng-model="name" /></p>
 
       <p data-ng-bind="name"></p>
     </div>
@@ -41,9 +43,9 @@
     <div class="card" data-ng-controller="personController">
       <h1>controller & model & expression</h1>
 
-      <p>First Name: <input type="text" data-ng-model="firstName"/></p>
+      <p>First Name: <input type="text" data-ng-model="firstName" /></p>
 
-      <p>Last Name: <input type="text" data-ng-model="lastName"/></p>
+      <p>Last Name: <input type="text" data-ng-model="lastName" /></p>
 
       <p>Full Name : {{ firstName + " " + lastName }}</p>
       <script>
@@ -79,9 +81,9 @@
     <div class="card" data-ng-controller="personController2">
       <h1>method & controller & model</h1>
 
-      <p>First Name: <input type="text" data-ng-model="person2.firstName"/></p>
+      <p>First Name: <input type="text" data-ng-model="person2.firstName" /></p>
 
-      <p>Last Name: <input type="text" data-ng-model="person2.lastName"/></p>
+      <p>Last Name: <input type="text" data-ng-model="person2.lastName" /></p>
 
       <p>Full Name: {{ fullName() }}</p>
       <script>
@@ -123,7 +125,7 @@
     <div class="card" data-ng-controller="namesController">
       <h1>filter:orderBy</h1>
 
-      <p><input type="text" data-ng-model="name"/></p>
+      <p><input type="text" data-ng-model="name" /></p>
       <ul>
         <li data-ng-repeat="x in names | filter:name | orderBy:'country'">
           {{ (x.name | uppercase) + ', ' + x.country }}
@@ -143,13 +145,13 @@
     <div class="card" data-ng-controller="customersController">
       <h1>table</h1>
       <table>
-        <tbody
-          ><tr data-ng-repeat="x in customersNames">
+        <tbody>
+          <tr data-ng-repeat="x in customersNames">
             <td>{{ x.Name }}</td>
             <td>{{ x.Country }}</td>
           </tr>
-        </tbody></table
-      >
+        </tbody>
+      </table>
     </div>
     <div class="card">
       <h1>disabled & model</h1>
@@ -216,8 +218,8 @@
         name="testForm"
         novalidate="novalidate"
       >
-        <p
-          >Username:
+        <p>
+          Username:
           <input
             type="text"
             name="username"
@@ -234,8 +236,8 @@
           </span>
         </p>
 
-        <p
-          >Email:
+        <p>
+          Email:
           <input
             type="email"
             name="email"
@@ -255,8 +257,8 @@
           </span>
         </p>
 
-        <p
-          ><input
+        <p>
+          <input
             type="submit"
             data-ng-disabled="testForm.username.$dirty && testForm.username.$invalid || testForm.email.$dirty && testForm.email.$invalid"
           />
@@ -277,5 +279,6 @@
     <script type="text/javascript" src="names_controller.js"></script>
     <script type="text/javascript" src="customers_controller.js"></script>
     <script type="text/javascript" src="angular.min.js"></script>
-    <script type="text/javascript" src="/ba.js"></script> </body
-></html>
+    <script type="text/javascript" src="/ba.js"></script>
+  </body>
+</html>

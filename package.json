@@ -22,7 +22,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
-    "@vivaxy/github-demo-scripts": "^0.2.4",
+    "@vivaxy/github-demo-scripts": "^0.3.1",
     "husky": "^2.7.0",
     "lint-staged": "^8.2.1",
     "prettier": "^1.18.2"
