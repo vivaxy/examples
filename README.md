@@ -273,6 +273,7 @@ Table of contents
   * [react](https://vivaxy.github.io/course/react/basic/index.html) Basic
   * [React Hooks](https://vivaxy.github.io/course/react/hooks/index.html) React Hooks
     * [React Hooks Implement](https://vivaxy.github.io/course/react/hooks/implement/index.html) Implement React Hooks API
+    * [React.useReducer](https://vivaxy.github.io/course/react/hooks/use-reducer/index.html) react reducer implementation with context
 * [react native](https://vivaxy.github.io/course/react-native/index.html) React native
 * [react redux](https://vivaxy.github.io/course/react-redux/index.html) React redux
 * [RSA](https://vivaxy.github.io/course/rsa/index.html) Rsa

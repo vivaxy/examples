@@ -2,5 +2,9 @@
   {
     "name": "React Hooks Implement",
     "link": "implement/"
+  },
+  {
+    "name": "React Reducer Implementation With Context",
+    "link": "use-reducer/"
   }
 ]
