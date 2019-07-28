@@ -1,7 +1,11 @@
 [
   {
+    "name": "window.matchMedia",
+    "link": "match-media/index.html"
+  },
+  {
     "name": "IntersectionObserver",
-    "link": "/intersection-observer/index.html"
+    "link": "intersection-observer/index.html"
   },
   {
     "name": "USB",

@@ -220,6 +220,7 @@ Table of contents
   * [IndexedDB](https://vivaxy.github.io/course/native-api/indexed-db/index.html) Indexed db
   * [Intersection Observer](https://vivaxy.github.io/course/native-api/intersection-observer/index.html) Intersection observer
   * [localStorage demo page](https://vivaxy.github.io/course/native-api/local-storage/index.html) Local storage
+  * [matchMedia](https://vivaxy.github.io/course/native-api/match-media/index.html) window.matchMedia API
   * [notification](https://vivaxy.github.io/course/native-api/notification/index.html) Notification
   * [Object](https://vivaxy.github.io/course/native-api/object/index.html) Object.defineProperty demo
   * [object oriented](https://vivaxy.github.io/course/native-api/object-oriented/index.html) Object oriented
