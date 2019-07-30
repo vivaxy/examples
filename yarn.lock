@@ -175,10 +175,10 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
 
-"@vivaxy/github-demo-scripts@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.npmjs.org/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.3.2.tgz#9622eab2c82d09ba1fb782183dfb4c92585b4f0f"
-  integrity sha512-0l03cLWX+jILAYxHXyw1B6NFdB7LTaoP033hsII1TxxENAiBPDucuqcp9fWeJRXvNujKr+JNdpR81bNM6sAp8Q==
+"@vivaxy/github-demo-scripts@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/@vivaxy/github-demo-scripts/-/github-demo-scripts-0.4.0.tgz#ad7ad7e9d377c76ae83f664a7aab1d3cf172f9d8"
+  integrity sha512-PHT/C2Q12rvDookzQHt3QmKZdtpjt8cM/RFxbZBplJYN2pn6LYU9RJqAkEyYv0QgFQbjc54WYWr52xTccJdieQ==
   dependencies:
     cheerio "^1.0.0-rc.3"
     cosmiconfig "^5.2.1"

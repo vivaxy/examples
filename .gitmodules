@@ -3,4 +3,4 @@
 	url = https://github.com/vivaxy/event-based-framework.git
 [submodule "NiB"]
 	path = NiB
-	url = git@github.com:vivaxy/NiB.git
+	url = https://github.com/vivaxy/NiB.git
