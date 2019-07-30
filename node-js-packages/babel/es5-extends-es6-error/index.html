@@ -21,7 +21,7 @@
   <body>
     <script type="text/javascript" src="../../../NiB/index.js"></script>
     <script>
-      window.node.init();
+      window.node.init({ base: ".", nodeBuiltInBase: "./NiB/node-built-in" });
       window.node.require("./child.es5.js");
     </script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
