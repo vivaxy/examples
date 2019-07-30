@@ -1,10 +1,14 @@
 [
   {
     "name": "execa",
-    "link": "execa/index.html"
+    "link": "execa/"
   },
   {
     "name": "prompts",
-    "link": "prompts/index.html"
+    "link": "prompts/"
+  },
+  {
+    "name": "babel",
+    "link": "babel/"
   }
 ]

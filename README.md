@@ -257,6 +257,8 @@ Table of contents
 * [Network](https://vivaxy.github.io/course/network/index.html) Network
 * [node.js](https://vivaxy.github.io/course/node-js/index.html) Node js
 * [Node.js Packages Demos](https://vivaxy.github.io/course/node-js-packages/index.html) Node.js packages demos
+  * [Babel Demos](https://vivaxy.github.io/course/node-js-packages/babel/index.html) Babel Demos
+    * [es5 extends es6 error](https://vivaxy.github.io/course/node-js-packages/babel/es5-extends-es6-error/index.html) es5 extends es6 error: Class constructor Parent cannot be invoked without 'new'
   * [execa](https://vivaxy.github.io/course/node-js-packages/execa/index.html) execa demo
   * [Prompts Demo](https://vivaxy.github.io/course/node-js-packages/prompts/index.html) Prompts Demo
 * [pitfall](https://vivaxy.github.io/course/ohm/index.html) Ohm

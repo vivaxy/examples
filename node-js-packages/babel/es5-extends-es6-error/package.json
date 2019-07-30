@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5"
+  },
+  "scripts": {
+    "build": "babel child.js -o child.es5.js"
+  },
+  "browserslist": [
+    "ios_saf 6"
+  ]
+}
