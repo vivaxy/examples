@@ -1,5 +1,9 @@
 [
   {
+    "name": "prefers-color-scheme",
+    "link": "prefers-color-scheme/"
+  },
+  {
     "name": "background: conic-gradient(...);",
     "link": "conic-gradient/index.html"
   },

@@ -81,6 +81,7 @@ Table of contents
   * [offset-path](https://vivaxy.github.io/course/cascading-style-sheets/offset-path/index.html) Offset path
   * [overscroll-behavior](https://vivaxy.github.io/course/cascading-style-sheets/overscroll-behavior/index.html) Overscroll behavior
   * [:placeholder-shown](https://vivaxy.github.io/course/cascading-style-sheets/placeholder-shown/index.html) Placeholder shown
+  * [prefers-color-scheme](https://vivaxy.github.io/course/cascading-style-sheets/prefers-color-scheme/index.html) prefers-color-scheme
   * [:default](https://vivaxy.github.io/course/cascading-style-sheets/pseudo-default/index.html) Pseudo default
   * [Scroll Snap](https://vivaxy.github.io/course/cascading-style-sheets/scroll-snap/index.html) Scroll snap
   * [SVG](https://vivaxy.github.io/course/cascading-style-sheets/svg/index.html) Svg
