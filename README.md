@@ -194,7 +194,7 @@ Table of contents
   * [cache manifest demo page](https://vivaxy.github.io/course/native-api/cache-manifest/index.html) Cache manifest
   * [Clipboard](https://vivaxy.github.io/course/native-api/clipboard/index.html) Clipboard
   * [CompositionEvent](https://vivaxy.github.io/course/native-api/composition-event/index.html) Composition event
-  * [CSS Typed Object Model](https://vivaxy.github.io/course/native-api/css-typed-om/index.html) Css typed om
+  * [CSS Typed Object Model](https://vivaxy.github.io/course/native-api/css-typed-om/index.html) CSS Typed Object Module
   * [Custom Element](https://vivaxy.github.io/course/native-api/custom-elements/index.html) Custom elements
   * [Date input](https://vivaxy.github.io/course/native-api/date-input/index.html) Date input demo
   * [designMode](https://vivaxy.github.io/course/native-api/design-mode/index.html) Design mode

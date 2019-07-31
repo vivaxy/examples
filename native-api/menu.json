@@ -1,242 +1,242 @@
 [
   {
     "name": "window.matchMedia",
-    "link": "match-media/index.html"
+    "link": "match-media/"
   },
   {
     "name": "IntersectionObserver",
-    "link": "intersection-observer/index.html"
+    "link": "intersection-observer/"
   },
   {
     "name": "USB",
-    "link": "usb/index.html"
+    "link": "usb/"
   },
   {
     "name": "CSS Typed Object Model",
-    "link": "css-typed-om/index.html"
+    "link": "css-typed-om/"
   },
   {
     "name": "Clipboard",
-    "link": "clipboard/index.html"
+    "link": "clipboard/"
   },
   {
     "name": "PaymentRequest",
-    "link": "payment-request/index.html"
+    "link": "payment-request/"
   },
   {
     "name": "ReportingObserver",
-    "link": "reporting-observer/index.html"
+    "link": "reporting-observer/"
   },
   {
     "name": "WebRTC",
-    "link": "webrtc/index.html"
+    "link": "webrtc/"
   },
   {
     "name": "Custom Elements",
-    "link": "custom-elements/index.html"
+    "link": "custom-elements/"
   },
   {
     "name": "IndexedDB",
-    "link": "indexed-db/index.html"
+    "link": "indexed-db/"
   },
   {
     "name": "FontFace",
-    "link": "font-face/index.html"
+    "link": "font-face/"
   },
   {
     "name": "Pointer Lock",
-    "link": "pointer-lock/index.html"
+    "link": "pointer-lock/"
   },
   {
     "name": "CompositionEvent",
-    "link": "composition-event/index.html"
+    "link": "composition-event/"
   },
   {
     "name": "script type=\"module\"",
-    "link": "script-type-module/index.html"
+    "link": "script-type-module/"
   },
   {
     "name": "designMode",
-    "link": "design-mode/index.html"
+    "link": "design-mode/"
   },
   {
     "name": "selection",
-    "link": "selection/index.html"
+    "link": "selection/"
   },
   {
     "name": "animate",
-    "link": "animate/index.html"
+    "link": "animate/"
   },
   {
     "name": "base",
-    "link": "base/index.html"
+    "link": "base/"
   },
   {
     "name": "browser message",
-    "link": "browser-message/index.html"
+    "link": "browser-message/"
   },
   {
     "name": "cache manifest",
-    "link": "cache-manifest/index.html"
+    "link": "cache-manifest/"
   },
   {
     "name": "device motion",
-    "link": "device-motion/index.html"
+    "link": "device-motion/"
   },
   {
     "name": "draggable",
-    "link": "draggable/index.html"
+    "link": "draggable/"
   },
   {
     "name": "geolocation",
-    "link": "geolocation/index.html"
+    "link": "geolocation/"
   },
   {
     "name": "gesture",
-    "link": "gesture/index.html"
+    "link": "gesture/"
   },
   {
     "name": "hash change",
-    "link": "hash-change/index.html"
+    "link": "hash-change/"
   },
   {
     "name": "local storage",
-    "link": "local-storage/index.html"
+    "link": "local-storage/"
   },
   {
     "name": "svg",
-    "link": "svg/index.html"
+    "link": "svg/"
   },
   {
     "name": "transition",
-    "link": "transition/index.html"
+    "link": "transition/"
   },
   {
     "name": "visibility",
-    "link": "visibility/index.html"
+    "link": "visibility/"
   },
   {
     "name": "Web Worker",
-    "link": "web-worker/index.html"
+    "link": "web-worker/"
   },
   {
     "name": "Web Worker transfer",
-    "link": "web-worker-transfer/index.html"
+    "link": "web-worker-transfer/"
   },
   {
     "name": "object",
-    "link": "object/index.html"
+    "link": "object/"
   },
   {
     "name": "object-oriented",
-    "link": "object-oriented/index.html"
+    "link": "object-oriented/"
   },
   {
     "name": "popstate",
-    "link": "popstate/index.html"
+    "link": "popstate/"
   },
   {
     "name": "refresh",
-    "link": "refresh/index.html"
+    "link": "refresh/"
   },
   {
     "name": "promise",
-    "link": "promise/index.html"
+    "link": "promise/"
   },
   {
     "name": "audio",
-    "link": "audio/index.html"
+    "link": "audio/"
   },
   {
     "name": "attributes",
-    "link": "attributes/index.html"
+    "link": "attributes/"
   },
   {
     "name": "indeterminate",
-    "link": "indeterminate/index.html"
+    "link": "indeterminate/"
   },
   {
     "name": "details summary",
-    "link": "details-summary/index.html"
+    "link": "details-summary/"
   },
   {
     "name": "battery status",
-    "link": "battery-status/index.html"
+    "link": "battery-status/"
   },
   {
     "name": "send beacon",
-    "link": "send-beacon/index.html"
+    "link": "send-beacon/"
   },
   {
     "name": "analyser node",
-    "link": "analyser-node/index.html"
+    "link": "analyser-node/"
   },
   {
     "name": "vibrate",
-    "link": "vibrate/index.html"
+    "link": "vibrate/"
   },
   {
     "name": "date input",
-    "link": "date-input/index.html"
+    "link": "date-input/"
   },
   {
     "name": "generators",
-    "link": "generators/index.html"
+    "link": "generators/"
   },
   {
     "name": "event source",
-    "link": "event-source/index.html"
+    "link": "event-source/"
   },
   {
     "name": "replace",
-    "link": "replace/index.html"
+    "link": "replace/"
   },
   {
     "name": "3d touch",
-    "link": "3d-touch/index.html"
+    "link": "3d-touch/"
   },
   {
     "name": "notification",
-    "link": "notification/index.html"
+    "link": "notification/"
   },
   {
     "name": "service worker",
-    "link": "service-worker/index.html"
+    "link": "service-worker/"
   },
   {
     "name": "sourceMappingURL and sourceURL",
-    "link": "source-mapping-url-and-source-url/index.html"
+    "link": "source-mapping-url-and-source-url/"
   },
   {
     "name": "paintWorklet",
-    "link": "paint-worklet/index.html"
+    "link": "paint-worklet/"
   },
   {
     "name": "User Media",
-    "link": "user-media/index.html"
+    "link": "user-media/"
   },
   {
     "name": "Error Event",
-    "link": "error-event/index.html"
+    "link": "error-event/"
   },
   {
     "name": "DP Share",
-    "link": "dp-share/index.html"
+    "link": "dp-share/"
   },
   {
     "name": "WeChat Share",
-    "link": "wechat-share/index.html"
+    "link": "wechat-share/"
   },
   {
     "name": "WeChat Token",
-    "link": "wechat-token/index.html"
+    "link": "wechat-token/"
   },
   {
     "name": "Script Error",
-    "link": "script-error/index.html"
+    "link": "script-error/"
   },
   {
     "name": "prefetch",
-    "link": "prefetch/index.html"
+    "link": "prefetch/"
   }
 ]
