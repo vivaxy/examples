@@ -13,6 +13,10 @@ body {
   color: #000;
 }
 
+body:after {
+  content: "Your browser does not support prefers-color-scheme.";
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background: #000;
