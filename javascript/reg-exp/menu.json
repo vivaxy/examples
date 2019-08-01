@@ -6,5 +6,9 @@
   {
     "name": "Named Capture Groups",
     "link": "named-capture-groups/"
+  },
+  {
+    "name": "Unicode Property Escapes",
+    "link": "unicode-property-escapes/"
   }
 ]

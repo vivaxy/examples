@@ -12,3 +12,10 @@ console.log('match', match); // → 2020-03-04
 console.log('year', year); // → 2020
 console.log('month', month); // → 03
 console.log('day', day); // → 04
+
+// \1 代表 (\w\w) 匹配的内容而非 (\w\w) 本身，所以当 (\w\w) 匹配了 'ab' 后，\1 表示的就是对 'ab' 的匹配了
+console.log("/(\\w\\w)\\1/.test('abab')", /(\w\w)\1/.test('abab')); // → true
+console.log(
+  "/(?<ab>\\w\\w)\\k<ab>/.test('abab')",
+  /(?<ab>\w\w)\k<ab>/.test('abab'),
+); // → true

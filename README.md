@@ -158,6 +158,7 @@ Table of contents
   * [RegExp](https://vivaxy.github.io/course/javascript/reg-exp/) reg-exp
     * [lookbehind-assertions](https://vivaxy.github.io/course/javascript/reg-exp/lookbehind-assertions/) lookbehind-assertions
     * [Named Capture Groups](https://vivaxy.github.io/course/javascript/reg-exp/named-capture-groups/) 命名捕获组
+    * [Unicode Property Escapes](https://vivaxy.github.io/course/javascript/reg-exp/unicode-property-escapes/) Unicode Property Escapes
   * [request animation frame](https://vivaxy.github.io/course/javascript/request-animation-frame/) Request animation frame
   * [return value of new](https://vivaxy.github.io/course/javascript/return-value-of-new/) Return value of new
   * [scroll bar width](https://vivaxy.github.io/course/javascript/scroll-bar-width/) Scroll bar width
