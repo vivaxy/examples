@@ -1,159 +1,163 @@
 [
   {
-    "name": "Pricate class field",
-    "link": "private-class-field/index.html"
+    "name": "RegExp",
+    "link": "reg-exp/"
+  },
+  {
+    "name": "Private class field",
+    "link": "private-class-field/"
   },
   {
     "name": "Symbol",
-    "link": "symbol/index.html"
+    "link": "symbol/"
   },
   {
     "name": "Is Animated Image",
-    "link": "is-animated-image/index.html"
+    "link": "is-animated-image/"
   },
   {
     "name": "compose",
-    "link": "compose/index.html"
+    "link": "compose/"
   },
   {
     "name": "canvas polyfill",
-    "link": "canvas-polyfill/index.html"
+    "link": "canvas-polyfill/"
   },
   {
     "name": "eventuality",
-    "link": "eventuality/index.html"
+    "link": "eventuality/"
   },
   {
     "name": "eventuality-complex",
-    "link": "eventuality-complex/index.html"
+    "link": "eventuality-complex/"
   },
   {
     "name": "tap",
-    "link": "tap/index.html"
+    "link": "tap/"
   },
   {
     "name": "drag to load",
-    "link": "drag-to-load/index.html"
+    "link": "drag-to-load/"
   },
   {
     "name": "module view",
-    "link": "module-view/index.html"
+    "link": "module-view/"
   },
   {
     "name": "load script",
-    "link": "load-script/index.html"
+    "link": "load-script/"
   },
   {
     "name": "promise",
-    "link": "promise/index.html"
+    "link": "promise/"
   },
   {
     "name": "extend",
-    "link": "extend/index.html"
+    "link": "extend/"
   },
   {
     "name": "mixin",
-    "link": "mixin/index.html"
+    "link": "mixin/"
   },
   {
     "name": "probability",
-    "link": "probability/index.html"
+    "link": "probability/"
   },
   {
     "name": "use blob to create web worker",
-    "link": "use-blob-to-create-web-worker/index.html"
+    "link": "use-blob-to-create-web-worker/"
   },
   {
     "name": "template engine",
-    "link": "template-engine/index.html"
+    "link": "template-engine/"
   },
   {
     "name": "scroll bar width",
-    "link": "scroll-bar-width/index.html"
+    "link": "scroll-bar-width/"
   },
   {
     "name": "debounce",
-    "link": "debounce/index.html"
+    "link": "debounce/"
   },
   {
     "name": "poll",
-    "link": "poll/index.html"
+    "link": "poll/"
   },
   {
     "name": "once",
-    "link": "once/index.html"
+    "link": "once/"
   },
   {
     "name": "is native",
-    "link": "is-native/index.html"
+    "link": "is-native/"
   },
   {
     "name": "style sheet",
-    "link": "style-sheet/index.html"
+    "link": "style-sheet/"
   },
   {
     "name": "matches selector",
-    "link": "matches-selector/index.html"
+    "link": "matches-selector/"
   },
   {
     "name": "request animation frame",
-    "link": "request-animation-frame/index.html"
+    "link": "request-animation-frame/"
   },
   {
     "name": "function string extend",
-    "link": "function-string-extend/index.html"
+    "link": "function-string-extend/"
   },
   {
     "name": "referrer killer",
-    "link": "referrer-killer/index.html"
+    "link": "referrer-killer/"
   },
   {
     "name": "append script",
-    "link": "append-script/index.html"
+    "link": "append-script/"
   },
   {
     "name": "delegate event",
-    "link": "delegate-event/index.html"
+    "link": "delegate-event/"
   },
   {
     "name": "inline script context",
-    "link": "inline-script-context/index.html"
+    "link": "inline-script-context/"
   },
   {
     "name": "return value of new",
-    "link": "return-value-of-new/index.html"
+    "link": "return-value-of-new/"
   },
   {
     "name": "hippo",
-    "link": "hippo/index.html"
+    "link": "hippo/"
   },
   {
     "name": "mobile input change",
-    "link": "mobile-input-change/index.html"
+    "link": "mobile-input-change/"
   },
   {
     "name": "load resource as array buffer",
-    "link": "load-resource-as-array-buffer/index.html"
+    "link": "load-resource-as-array-buffer/"
   },
   {
     "name": "is element on screen",
-    "link": "is-element-on-screen/index.html"
+    "link": "is-element-on-screen/"
   },
   {
     "name": "create element",
-    "link": "create-element/index.html"
+    "link": "create-element/"
   },
   {
     "name": "clipboard",
-    "link": "clipboard/index.html"
+    "link": "clipboard/"
   },
   {
     "name": "style.setProperty",
-    "link": "style-set-property/index.html"
+    "link": "style-set-property/"
   },
   {
     "name": "postMessage",
-    "link": "post-message/index.html"
+    "link": "post-message/"
   },
   {
     "name": "Swap Values",
@@ -161,7 +165,7 @@
   },
   {
     "name": "prototype.constructor",
-    "link": "prototype-constructor/index.html"
+    "link": "prototype-constructor/"
   },
   {
     "name": "shapes",

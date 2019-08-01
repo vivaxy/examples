@@ -1,159 +1,159 @@
 [
   {
     "name": "Algorithms",
-    "link": "algorithms/index.html"
+    "link": "algorithms/"
   },
   {
     "name": "Compiler",
-    "link": "compiler/index.html"
+    "link": "compiler/"
   },
   {
     "name": "Functional Programming",
-    "link": "functional-programming/index.html"
+    "link": "functional-programming/"
   },
   {
     "name": "Network",
-    "link": "network/index.html"
+    "link": "network/"
   },
   {
     "name": "Native API",
-    "link": "native-api/index.html"
+    "link": "native-api/"
   },
   {
     "name": "JavaScript",
-    "link": "javascript/index.html"
+    "link": "javascript/"
   },
   {
     "name": "TypeScript",
-    "link": "typescript/index.html"
+    "link": "typescript/"
   },
   {
     "name": "Cascading Style Sheets",
-    "link": "cascading-style-sheets/index.html"
+    "link": "cascading-style-sheets/"
   },
   {
     "name": "HTML",
-    "link": "html/index.html"
+    "link": "html/"
   },
   {
     "name": "WebGL",
-    "link": "webgl/index.html"
+    "link": "webgl/"
   },
   {
     "name": "ml5",
-    "link": "ml5/index.html"
+    "link": "ml5/"
   },
   {
     "name": "Benchmark",
-    "link": "benchmark/index.html"
+    "link": "benchmark/"
   },
   {
     "name": "Memory Leak",
-    "link": "memory-leak/index.html"
+    "link": "memory-leak/"
   },
   {
     "name": "WebVR",
-    "link": "webvr/index.html"
+    "link": "webvr/"
   },
   {
     "name": "WebAssembly",
-    "link": "web-assembly/index.html"
+    "link": "web-assembly/"
   },
   {
     "name": "Layout",
-    "link": "layout/index.html"
+    "link": "layout/"
   },
   {
     "name": "cycle.js",
-    "link": "cycle-js/index.html"
+    "link": "cycle-js/"
   },
   {
     "name": "three.js",
-    "link": "three-js/index.html"
+    "link": "three-js/"
   },
   {
     "name": "react-native",
-    "link": "react-native/index.html"
+    "link": "react-native/"
   },
   {
     "name": "webpack",
-    "link": "webpack/index.html"
+    "link": "webpack/"
   },
   {
     "name": "tinymce",
-    "link": "tinymce/index.html"
+    "link": "tinymce/"
   },
   {
     "name": "Pitfall",
-    "link": "pitfall/index.html"
+    "link": "pitfall/"
   },
   {
     "name": "ECMAScript 6",
-    "link": "ecma-script-6/index.html"
+    "link": "ecma-script-6/"
   },
   {
     "name": "Echarts",
-    "link": "echarts/index.html"
+    "link": "echarts/"
   },
   {
     "name": "amap",
-    "link": "amap/index.html"
+    "link": "amap/"
   },
   {
     "name": "bmap",
-    "link": "bmap/index.html"
+    "link": "bmap/"
   },
   {
     "name": "angular js",
-    "link": "angular/index.html"
+    "link": "angular/"
   },
   {
     "name": "async js",
-    "link": "async/index.html"
+    "link": "async/"
   },
   {
     "name": "bootstrap datetimepicker",
-    "link": "bootstrap-datetimepicker/index.html"
+    "link": "bootstrap-datetimepicker/"
   },
   {
     "name": "knockout js",
-    "link": "knockout/index.html"
+    "link": "knockout/"
   },
   {
     "name": "mathjax",
-    "link": "mathjax/index.html"
+    "link": "mathjax/"
   },
   {
     "name": "moment",
-    "link": "moment/index.html"
+    "link": "moment/"
   },
   {
     "name": "underscore",
-    "link": "underscore/index.html"
+    "link": "underscore/"
   },
   {
     "name": "baidu map",
-    "link": "baidu-map/index.html"
+    "link": "baidu-map/"
   },
   {
     "name": "QRCode",
-    "link": "qrcode/index.html"
+    "link": "qrcode/"
   },
   {
     "name": "react js",
-    "link": "react/index.html"
+    "link": "react/"
   },
   {
     "name": "Hammer",
-    "link": "hammer/index.html"
+    "link": "hammer/"
   },
   {
     "name": "browserify",
-    "link": "browserify/index.html"
+    "link": "browserify/"
   },
   {
     "name": "Angular Material",
-    "link": "angular-material/index.html"
+    "link": "angular-material/"
   },
   {
     "name": "koa",
@@ -161,31 +161,31 @@
   },
   {
     "name": "react-redux",
-    "link": "react-redux/release/index.html"
+    "link": "react-redux/release/"
   },
   {
     "name": "Sliding Tiles Puzzle",
-    "link": "sliding-tiles-puzzle/index.html"
+    "link": "sliding-tiles-puzzle/"
   },
   {
     "name": "On Screen",
-    "link": "on-screen/index.html"
+    "link": "on-screen/"
   },
   {
     "name": "QQ Maps",
-    "link": "qq-maps/index.html"
+    "link": "qq-maps/"
   },
   {
     "name": "babel-plugin-import",
-    "link": "babel-plugin-import/index.html"
+    "link": "babel-plugin-import/"
   },
   {
     "name": "dragula",
-    "link": "dragula/index.html"
+    "link": "dragula/"
   },
   {
     "name": "mobx",
-    "link": "mobx/index.html"
+    "link": "mobx/"
   },
   {
     "name": "ArgTypes",
@@ -193,7 +193,7 @@
   },
   {
     "name": "RSA",
-    "link": "rsa/index.html"
+    "link": "rsa/"
   },
   {
     "name": "PNG",
@@ -213,18 +213,18 @@
   },
   {
     "name": "KerasJS",
-    "link": "kerasjs/index.html"
+    "link": "kerasjs/"
   },
   {
     "name": "Vue.js",
-    "link": "vue-js/index.html"
+    "link": "vue-js/"
   },
   {
     "name": "rxjs",
-    "link": "rxjs/index.html"
+    "link": "rxjs/"
   },
   {
     "name": "Node.js Packages",
-    "link": "node-js-packages/index.html"
+    "link": "node-js-packages/"
   }
 ]
