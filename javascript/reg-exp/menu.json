@@ -2,5 +2,9 @@
   {
     "name": "Lookbehind assertions",
     "link": "lookbehind-assertions/"
+  },
+  {
+    "name": "Named Capture Groups",
+    "link": "named-capture-groups/"
   }
 ]
