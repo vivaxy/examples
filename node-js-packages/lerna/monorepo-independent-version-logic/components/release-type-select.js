@@ -49,14 +49,14 @@ export default class ReleaseTypeSelect extends HTMLElement {
       this.getAttribute(ReleaseTypeSelect.DATA_RELEASE_TYPES) || '{}',
     );
     this.shadow.innerHTML = `<style></style>
-<label for="${name}">${name}</label>
+<label for="${name}"><code>${name}:</code></label>
 <select id="${name}" class="${ReleaseTypeSelect.TAG_NAME}">${Object.keys(
       UPDATE_TYPES,
     ).map(function(key) {
       const releaseType = UPDATE_TYPES[key];
       return `<option${
         releaseType === currentReleaseType ? ' selected' : ''
-      }>${releaseType}</option>`;
+      }><code>${releaseType}</code></option>`;
     })}</select>`;
     if (name) {
       this.shadow.querySelector(`#${name}`).addEventListener('change', (e) => {

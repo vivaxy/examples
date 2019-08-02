@@ -44,15 +44,15 @@ export default class ModuleItem extends HTMLElement {
 
     this.shadow.innerHTML = `<style></style>
 <div class="${ModuleItem.TAG_NAME}">
-<pre>
-${name}@${version}
-dependencies: {
+<pre>"name": "${name}",
+"version": "${version}",
+"dependencies": {
 ${Object.keys(dependencies)
   .map(function(name) {
     const version = dependencies[name];
     return `  "${name}": "${version}"`;
   })
-  .join('\n')}
+  .join(',\n')}
 }</pre>
 </div>`;
   }

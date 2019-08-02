@@ -14,22 +14,22 @@ const RELEASE_TYPES = {
 };
 
 const modules = {
-  moduleA: {
+  'module-a': {
     version: '1.0.0',
     dependencies: {
-      moduleB: '^1.0.0',
-      moduleC: '^1.0.0',
+      'module-b': '^1.0.0',
+      'module-c': '^1.0.0',
     },
     releaseType: RELEASE_TYPES.NONE,
   },
-  moduleB: {
+  'module-b': {
     version: '1.0.0',
     dependencies: {
-      moduleC: '^1.0.0',
+      'module-c': '^1.0.0',
     },
     releaseType: RELEASE_TYPES.NONE,
   },
-  moduleC: {
+  'module-c': {
     version: '1.0.0',
     dependencies: {},
     releaseType: RELEASE_TYPES.NONE,
