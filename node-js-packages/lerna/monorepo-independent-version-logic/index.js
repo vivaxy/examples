@@ -72,6 +72,7 @@ function update(_modules) {
   Object.keys(m).forEach(function(name) {
     if (m[name].releaseType !== RELEASE_TYPES.NONE) {
       m[name].version = semver.inc(m[name].version, m[name].releaseType);
+      m[name].updated = true;
       updatedModules.push(name);
     }
   });
@@ -81,11 +82,12 @@ function update(_modules) {
         !semver.satisfies(m[name].version, m[dependentName].dependencies[name])
       ) {
         m[dependentName].dependencies[name] = `^${m[name].version}`;
-        if (!updatedModules.includes(m[dependentName])) {
+        if (!m[dependentName].updated) {
           m[dependentName].version = semver.inc(
             m[dependentName].version,
             RELEASE_TYPES.PATCH,
           );
+          m[dependentName].updated = true;
         }
       }
     });

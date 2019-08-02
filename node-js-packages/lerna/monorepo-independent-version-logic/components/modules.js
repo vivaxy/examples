@@ -33,7 +33,7 @@ export default class Modules extends HTMLElement {
 <div class="${Modules.TAG_NAME}"></div>`;
     const root = this.shadow.querySelector(`.${Modules.TAG_NAME}`);
     Object.keys(modules).forEach(function(name) {
-      const { version, dependencies } = modules[name];
+      const { version, dependencies, updated } = modules[name];
       const moduleItem = document.createElement(ModuleItem.TAG_NAME);
       moduleItem.setAttribute(ModuleItem.DATA_NAME, name);
       moduleItem.setAttribute(ModuleItem.DATA_VERSION, version);
@@ -41,6 +41,9 @@ export default class Modules extends HTMLElement {
         ModuleItem.DATA_DEPENDENCIES,
         JSON.stringify(dependencies),
       );
+      if (updated) {
+        moduleItem.setAttribute(ModuleItem.DATA_UPDATED, '');
+      }
       root.appendChild(moduleItem);
     });
   }
