@@ -257,6 +257,8 @@ Table of contents
   * [Babel Demos](https://vivaxy.github.io/course/node-js-packages/babel/) Babel Demos
     * [es5 extends es6 error](https://vivaxy.github.io/course/node-js-packages/babel/es5-extends-es6-error/) es5 extends es6 error: Class constructor Parent cannot be invoked without 'new'
   * [execa](https://vivaxy.github.io/course/node-js-packages/execa/) execa demo
+  * [Lerna](https://vivaxy.github.io/course/node-js-packages/lerna/) lerna
+    * [Monorepo Independent Version Logic](https://vivaxy.github.io/course/node-js-packages/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
   * [Prompts Demo](https://vivaxy.github.io/course/node-js-packages/prompts/) Prompts Demo
 * [pitfall](https://vivaxy.github.io/course/ohm/) Ohm
 * [on screen](https://vivaxy.github.io/course/on-screen/) On screen

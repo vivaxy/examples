@@ -10,5 +10,9 @@
   {
     "name": "babel",
     "link": "babel/"
+  },
+  {
+    "name": "lerna",
+    "link": "lerna/"
   }
 ]
