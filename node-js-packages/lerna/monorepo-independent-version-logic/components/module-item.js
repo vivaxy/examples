@@ -56,89 +56,54 @@ export default function ModuleItem(props) {
   }
 
   return html`
-    <div>
-      <style>
-        .module-item {
-          margin: 12px;
-          font-family: monospace;
-          font-size: 12px;
-          line-height: 14px;
-        }
-        .module-item-updated {
-          color: red;
-        }
-        .value-input {
-          font-family: monospace;
-          font-size: 12px;
-          line-height: 12px;
-          border: 1px solid #efefef;
-          margin: 0;
-          padding: 0;
-        }
-        .dependency {
-          margin-left: 14px;
-        }
-      </style>
-      <div class="module-item ${updated && 'module-item-updated'}">
-        <div>
-          "name":
-          "${editable
-            ? html`
-                <input
-                  class="value-input"
-                  value="${name}"
-                  onChange="${handleNameChange}"
-                />
-              `
-            : name}",${editable &&
-            html`
-              <button onClick="${handleDelete}">-</button>
-            `}
-        </div>
-        <div>
-          "version":
-          "${editable
-            ? html`
-                <input
-                  class="value-input"
-                  value="${version}"
-                  onChange="${handleVersionChange}"
-                />
-              `
-            : version}",
-        </div>
-        <div>"dependencies": {</div>
-        ${Object.keys(dependencies).map(function(dependencyName, index, array) {
-          const version = dependencies[dependencyName];
-          return html`
-            <div class="dependency">
-              ${editable &&
-                html`
-                  <button
-                    onClick="${handleDeleteDependency({ dependencyName })}"
-                  >
-                    -
-                  </button>
-                `}"${dependencyName}":
-              "${editable
-                ? html`
-                    <input
-                      class="value-input"
-                      value="${version}"
-                      onChange="${handleDependencyVersionChange({
-                        dependencyName,
-                      })}"
-                    />
-                  `
-                : version}"${array.length - 1 === index ? '' : ','}
-            </div>
-          `;
-        })}
-        }${editable &&
+    <div class="module-item${updated ? ' module-item-updated' : ''}">
+      <div>
+        "name":
+        "${editable
+          ? html`
+              <input value="${name}" onChange="${handleNameChange}" />
+            `
+          : name}",${editable &&
           html`
-            <button onClick="${handleAddDependency}">+</button>
+            <button onClick="${handleDelete}">-</button>
           `}
       </div>
+      <div>
+        "version":
+        "${editable
+          ? html`
+              <input value="${version}" onChange="${handleVersionChange}" />
+            `
+          : version}",
+      </div>
+      <div>"dependencies": {</div>
+      ${Object.keys(dependencies).map(function(dependencyName, index, array) {
+        const version = dependencies[dependencyName];
+        return html`
+          <div class="dependency">
+            "${dependencyName}":
+            "${editable
+              ? html`
+                  <input
+                    value="${version}"
+                    onChange="${handleDependencyVersionChange({
+                      dependencyName,
+                    })}"
+                  />
+                `
+              : version}"${array.length - 1 === index ? '' : ','}${editable &&
+              html`
+                <button onClick="${handleDeleteDependency({ dependencyName })}">
+                  -
+                </button>
+              `}
+          </div>
+        `;
+      })}
+      }${editable &&
+        html`
+          <button onClick="${handleAddDependency}">+</button>
+        `}
     </div>
   `;
 }

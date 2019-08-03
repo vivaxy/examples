@@ -18,31 +18,24 @@ export default function Modules(props) {
   }
 
   return html`
-    <div>
-      <style>
-        .edit-button {
-          margin: 12px;
-        }
-      </style>
-      <div class="modules">
-        ${Object.keys(modules).map(function(name) {
-          const { version, dependencies, updated } = modules[name];
-          return html`
-            <${ModuleItem}
-              name="${name}"
-              version="${version}"
-              dependencies="${dependencies}"
-              updated="${updated}"
-              editable="${editable}"
-              onChange="${handleChange}"
-            />
-          `;
-        })}
-        ${editable &&
-          html`
-            <button class="edit-button" onClick="${handleAdd}">+</button>
-          `}
-      </div>
+    <div class="modules">
+      ${Object.keys(modules).map(function(name) {
+        const { version, dependencies, updated } = modules[name];
+        return html`
+          <${ModuleItem}
+            name="${name}"
+            version="${version}"
+            dependencies="${dependencies}"
+            updated="${updated}"
+            editable="${editable}"
+            onChange="${handleChange}"
+          />
+        `;
+      })}
+      ${editable &&
+        html`
+          <button class="edit-button" onClick="${handleAdd}">+</button>
+        `}
     </div>
   `;
 }

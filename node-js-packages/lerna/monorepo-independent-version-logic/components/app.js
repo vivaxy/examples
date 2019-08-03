@@ -245,6 +245,47 @@ export default class App extends Component {
         <style>
           body {
             margin: 0;
+            font-size: 14px;
+            font-family: monospace;
+            line-height: 18px;
+            box-sizing: border-box;
+          }
+
+          button,
+          input,
+          select {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            padding: 0 4px;
+            font-size: 12px;
+            line-height: 16px;
+            font-family: monospace;
+          }
+
+          button {
+            margin-left: 8px;
+          }
+
+          input {
+            margin: 0;
+            width: 60px;
+          }
+
+          .release-type-select {
+            margin: 12px;
+          }
+
+          .module-item {
+            margin: 12px;
+          }
+          .module-item-updated {
+            color: red;
+          }
+          .dependency {
+            margin-left: 14px;
           }
         </style>
         <${Modules}

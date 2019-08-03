@@ -16,27 +16,16 @@ export default function ReleaseTypeSelect(props) {
   }
 
   return html`
-    <div>
-      <style>
-        .release-type-select {
-          font-family: monospace;
-          font-size: 12px;
-          line-height: 14px;
-          margin: 12px;
-          display: inline-block;
-        }
-      </style>
-      <div class="release-type-select">
-        <label for="${name}">${name}:</label>
-        <select id="${name}" onChange="${handleChange}">
-          ${Object.keys(RELEASE_TYPES).map(function(key) {
-            const rt = RELEASE_TYPES[key];
-            return html`
-              <option selected="${rt === releaseType}">${rt}</option>
-            `;
-          })}
-        </select>
-      </div>
+    <div class="release-type-select">
+      <label for="${name}">${name}:</label>
+      <select id="${name}" onChange="${handleChange}">
+        ${Object.keys(RELEASE_TYPES).map(function(key) {
+          const rt = RELEASE_TYPES[key];
+          return html`
+            <option selected="${rt === releaseType}">${rt}</option>
+          `;
+        })}
+      </select>
     </div>
   `;
 }
