@@ -1,5 +1,9 @@
 [
   {
+    "name": "LockManager",
+    "link": "lock-manager/"
+  },
+  {
     "name": "window.matchMedia",
     "link": "match-media/"
   },
