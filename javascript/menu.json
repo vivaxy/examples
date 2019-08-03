@@ -170,5 +170,53 @@
   {
     "name": "shapes",
     "link": "run.sh"
+  },
+  {
+    "name": "Arrow Function",
+    "link": "arrow-function/"
+  },
+  {
+    "name": "Class",
+    "link": "class/"
+  },
+  {
+    "name": "Const",
+    "link": "const/"
+  },
+  {
+    "name": "Template Strings",
+    "link": "template-strings/"
+  },
+  {
+    "name": "Default Parameters",
+    "link": "default-parameters/"
+  },
+  {
+    "name": "Destructuring",
+    "link": "destructuring/"
+  },
+  {
+    "name": "Generators",
+    "link": "generators/"
+  },
+  {
+    "name": "Iterators",
+    "link": "iterators/"
+  },
+  {
+    "name": "Let",
+    "link": "let/"
+  },
+  {
+    "name": "Rest",
+    "link": "rest/"
+  },
+  {
+    "name": "Spread",
+    "link": "spread/"
+  },
+  {
+    "name": "Unicode",
+    "link": "unicode/"
   }
 ]

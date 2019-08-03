@@ -1,0 +1,42 @@
+/**
+ * @since 150215 14:31
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+  background: #eee;
+}
+
+.text {
+  text-align: center;
+  padding: 10px 0;
+}
+
+textarea,
+input {
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+textarea {
+  width: 90%;
+}
+
+.action {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.link {
+  text-align: center;
+  padding: 10px 0;
+}
+
+#qrcode-canvas {
+  text-align: center;
+}
+
+#qrcode-canvas canvas {
+  width: 300px;
+  height: 300px;
+}

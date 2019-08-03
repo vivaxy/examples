@@ -1,5 +1,9 @@
 [
   {
+    "name": "Libraries",
+    "link": "libraries/"
+  },
+  {
     "name": "Algorithms",
     "link": "algorithms/"
   },
@@ -40,10 +44,6 @@
     "link": "webgl/"
   },
   {
-    "name": "ml5",
-    "link": "ml5/"
-  },
-  {
     "name": "Benchmark",
     "link": "benchmark/"
   },
@@ -64,167 +64,15 @@
     "link": "layout/"
   },
   {
-    "name": "cycle.js",
-    "link": "cycle-js/"
-  },
-  {
-    "name": "three.js",
-    "link": "three-js/"
-  },
-  {
-    "name": "react-native",
-    "link": "react-native/"
-  },
-  {
-    "name": "webpack",
-    "link": "webpack/"
-  },
-  {
-    "name": "tinymce",
-    "link": "tinymce/"
-  },
-  {
     "name": "Pitfall",
     "link": "pitfall/"
-  },
-  {
-    "name": "ECMAScript 6",
-    "link": "ecma-script-6/"
-  },
-  {
-    "name": "Echarts",
-    "link": "echarts/"
-  },
-  {
-    "name": "amap",
-    "link": "amap/"
-  },
-  {
-    "name": "bmap",
-    "link": "bmap/"
-  },
-  {
-    "name": "angular js",
-    "link": "angular/"
-  },
-  {
-    "name": "async js",
-    "link": "async/"
-  },
-  {
-    "name": "bootstrap datetimepicker",
-    "link": "bootstrap-datetimepicker/"
-  },
-  {
-    "name": "knockout js",
-    "link": "knockout/"
-  },
-  {
-    "name": "mathjax",
-    "link": "mathjax/"
-  },
-  {
-    "name": "moment",
-    "link": "moment/"
-  },
-  {
-    "name": "underscore",
-    "link": "underscore/"
-  },
-  {
-    "name": "baidu map",
-    "link": "baidu-map/"
-  },
-  {
-    "name": "QRCode",
-    "link": "qrcode/"
-  },
-  {
-    "name": "react js",
-    "link": "react/"
-  },
-  {
-    "name": "Hammer",
-    "link": "hammer/"
-  },
-  {
-    "name": "browserify",
-    "link": "browserify/"
-  },
-  {
-    "name": "Angular Material",
-    "link": "angular-material/"
-  },
-  {
-    "name": "koa",
-    "link": "koa/"
-  },
-  {
-    "name": "react-redux",
-    "link": "react-redux/release/"
   },
   {
     "name": "Sliding Tiles Puzzle",
     "link": "sliding-tiles-puzzle/"
   },
   {
-    "name": "On Screen",
-    "link": "on-screen/"
-  },
-  {
-    "name": "QQ Maps",
-    "link": "qq-maps/"
-  },
-  {
-    "name": "babel-plugin-import",
-    "link": "babel-plugin-import/"
-  },
-  {
-    "name": "dragula",
-    "link": "dragula/"
-  },
-  {
-    "name": "mobx",
-    "link": "mobx/"
-  },
-  {
-    "name": "ArgTypes",
-    "link": "arg-types/index.js"
-  },
-  {
-    "name": "RSA",
-    "link": "rsa/"
-  },
-  {
     "name": "PNG",
     "link": "png/index.js"
-  },
-  {
-    "name": "jpeg-js-lib",
-    "link": "jpeg-js-lib/index.js"
-  },
-  {
-    "name": "pngjs3-lib",
-    "link": "pngjs3-lib/index.js"
-  },
-  {
-    "name": "bmp-js-lib",
-    "link": "bmp-js-lib/index.js"
-  },
-  {
-    "name": "KerasJS",
-    "link": "kerasjs/"
-  },
-  {
-    "name": "Vue.js",
-    "link": "vue-js/"
-  },
-  {
-    "name": "rxjs",
-    "link": "rxjs/"
-  },
-  {
-    "name": "Node.js Packages",
-    "link": "node-js-packages/"
   }
 ]

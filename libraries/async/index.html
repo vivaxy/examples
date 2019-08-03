@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>async</title>
+    <script type="text/javascript" src="async.js"></script>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
+    <meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,async,test,libraries"
+    />
+    <meta name="description" content="Async" />
+  </head>
+
+  <body>
+    <h1><a href="https://github.com/caolan/async">async</a></h1>
+    <p>each</p>
+    <script>
+      console.group("each");
+      var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      async.each(
+        array,
+        function(item, cb) {
+          if (item > 5) {
+            cb(">5");
+          }
+          console.log(item);
+        },
+        function(err) {
+          // this only called once
+          console.log("message: " + err);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>eachSeries</p>
+    <script>
+      console.group("eachSeries");
+      async.eachSeries(
+        array,
+        function(item, cb) {
+          console.log(item); // this is called when all iterators end
+          cb(item);
+        },
+        function(err) {
+          console.log("message: " + err);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>eachLimit</p>
+    <script>
+      console.group("eachLimit");
+      async.eachLimit(
+        array,
+        5,
+        function(item, cb) {
+          console.log(item);
+          cb(item);
+        },
+        function(err) {
+          console.log("message: " + err);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>map</p>
+    <script>
+      console.group("map");
+      async.map(
+        array,
+        function(item) {
+          return item * 2;
+        },
+        function(err, result) {
+          console.log("err: " + err);
+          console.log("result: " + result);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>mapSeries</p>
+    <script>
+      console.group("mapSeries");
+      async.mapSeries(
+        array,
+        function(item) {
+          return item * 2;
+        },
+        function(err, result) {
+          console.log("err: " + err);
+          console.log("result: " + result);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>mapLimit</p>
+    <script>
+      console.group("mapLimit");
+      async.mapLimit(
+        array,
+        5,
+        function(item) {
+          return item * 2;
+        },
+        function(err, result) {
+          console.log("err: " + err);
+          console.log("result: " + result);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>filter</p>
+    <script>
+      console.group("filter");
+      async.filter(
+        array,
+        function(item) {
+          return item > 5;
+        },
+        function(result) {
+          console.log("result: " + result);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <p>filterSeries</p>
+    <script>
+      console.group("filterSeries");
+      async.filterSeries(
+        array,
+        function(item) {
+          return item > 5;
+        },
+        function(result) {
+          console.log("result: " + result);
+        },
+      );
+      console.groupEnd();
+    </script>
+    <script type="text/javascript" src="/ba.js"></script>
+  </body>
+</html>

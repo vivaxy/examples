@@ -36,19 +36,6 @@ Table of contents
   * [Tree](https://vivaxy.github.io/course/algorithms/tree/) Tree
     * [Breadth First Search](https://vivaxy.github.io/course/algorithms/tree/breadth-first-search/) Breadth first search
     * [Depth First Search](https://vivaxy.github.io/course/algorithms/tree/depth-first-search/) Depth first search
-* [amap](https://vivaxy.github.io/course/amap/) Amap
-  * [mark circle area](https://vivaxy.github.io/course/amap/mark-circle-area/) Mark circle area
-  * [mark point](https://vivaxy.github.io/course/amap/mark-point/) Mark point
-  * [mark polygon area](https://vivaxy.github.io/course/amap/mark-polygon-area/) Mark polygon area
-  * [zoom](https://vivaxy.github.io/course/amap/zoom/) Zoom
-  * [zoom with circle](https://vivaxy.github.io/course/amap/zoom-with-circle/) Zoom with circle
-* [AngularJS](https://vivaxy.github.io/course/angular/) Angular
-* [Angular material](https://vivaxy.github.io/course/angular-material/) Angular material demo
-* [async](https://vivaxy.github.io/course/async/) Async
-* [Baidu Map](https://vivaxy.github.io/course/baidu-map/) Baidu map demo
-  * [jsextreme](https://vivaxy.github.io/course/baidu-map/jsextreme/) 创建了一个地图并以公司作为地图的中心
-  * [Jspopular1](https://vivaxy.github.io/course/baidu-map/jspopular1/) 创建了一个地图并以公司作为地图的中心
-  * [Jspopular2](https://vivaxy.github.io/course/baidu-map/jspopular2/) 定位
 * [benchmark](https://vivaxy.github.io/course/benchmark/) Benchmark
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/course/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/course/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
@@ -57,13 +44,6 @@ Table of contents
   * [RegExp vs String Edit](https://vivaxy.github.io/course/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
   * [split vs String Edit](https://vivaxy.github.io/course/benchmark/split-vs-stringEdit/) Split vs string edit
   * [unregisterWithReturnedFunction vs unregister](https://vivaxy.github.io/course/benchmark/unregisterWithReturnedFunction-vs-unregister/) Unregister with returned function vs unregister
-* [bmap](https://vivaxy.github.io/course/bmap/) Bmap
-  * [mark circle area](https://vivaxy.github.io/course/bmap/mark-circle-area/) Mark circle area
-  * [mark point](https://vivaxy.github.io/course/bmap/mark-point/) Mark point
-  * [mark polygon area](https://vivaxy.github.io/course/bmap/mark-polygon-area/) Mark polygon area
-  * [zoom](https://vivaxy.github.io/course/bmap/zoom/) Zoom
-* [bootstrap-datetimepicker](https://vivaxy.github.io/course/bootstrap-datetimepicker/) Bootstrap datetimepicker
-* [Browserify](https://vivaxy.github.io/course/browserify/) Browserify demo
 * [cascading style sheets](https://vivaxy.github.io/course/cascading-style-sheets/) Cascading style sheets
   * [Animation steps](https://vivaxy.github.io/course/cascading-style-sheets/animation-steps/) CSS Animation steps API demo
   * [backdrop-filter](https://vivaxy.github.io/course/cascading-style-sheets/backdrop-filter/) Backdrop filter
@@ -91,30 +71,9 @@ Table of contents
   * [Will Change](https://vivaxy.github.io/course/cascading-style-sheets/will-change/) Will change
   * [writing mode](https://vivaxy.github.io/course/cascading-style-sheets/writing-mode/) Writing mode
 * [compiler](https://vivaxy.github.io/course/compiler/) Compiler
-* [cycle.js](https://vivaxy.github.io/course/cycle-js/) Cycle js
-  * [Cycle.js Basic Example](https://vivaxy.github.io/course/cycle-js/basic/) Basic
-* [dragula](https://vivaxy.github.io/course/dragula/) Dragula
-* [echarts](https://vivaxy.github.io/course/echarts/) Echarts
-  * [horizontal scroll](https://vivaxy.github.io/course/echarts/horizontal-scroll/) Horizontal scroll
-  * [with current index](https://vivaxy.github.io/course/echarts/with-current-index/) With current index
-* [ECMAScript 6](https://vivaxy.github.io/course/ecma-script-6/) Ecma script 6
-  * [arrow](https://vivaxy.github.io/course/ecma-script-6/arrow/) Arrow
-  * [class](https://vivaxy.github.io/course/ecma-script-6/class/) Class
-  * [const](https://vivaxy.github.io/course/ecma-script-6/const/) Const
-  * [default](https://vivaxy.github.io/course/ecma-script-6/default/) Default
-  * [destructuring](https://vivaxy.github.io/course/ecma-script-6/destructuring/) Destructuring
-  * [Generators](https://vivaxy.github.io/course/ecma-script-6/generators/) Generators demo
-  * [Iterators](https://vivaxy.github.io/course/ecma-script-6/iterators/) Iterators demo
-  * [let](https://vivaxy.github.io/course/ecma-script-6/let/) Let
-  * [rest](https://vivaxy.github.io/course/ecma-script-6/rest/) Rest
-  * [spread](https://vivaxy.github.io/course/ecma-script-6/spread/) Spread
-  * [template strings](https://vivaxy.github.io/course/ecma-script-6/template-strings/) Template strings
-  * [test](https://vivaxy.github.io/course/ecma-script-6/test/) Test
-  * [test](https://vivaxy.github.io/course/ecma-script-6/unicode/) Unicode
 * [Functional Programming](https://vivaxy.github.io/course/functional-programming/) Functional programming
   * [Etc.](https://vivaxy.github.io/course/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/course/functional-programming/manipulate-functions/) Manipulate functions
-* [hammer](https://vivaxy.github.io/course/hammer/) Hammer
 * [HTML](https://vivaxy.github.io/course/html/) Html
   * [datalist](https://vivaxy.github.io/course/html/datalist/) Datalist
   * [Meta Scale](https://vivaxy.github.io/course/html/meta-scale/) Meta scale demo
@@ -123,22 +82,30 @@ Table of contents
   * [select multiple](https://vivaxy.github.io/course/html/select-multiple/) Select multiple
 * [JavaScript](https://vivaxy.github.io/course/javascript/) Javascript
   * [append script](https://vivaxy.github.io/course/javascript/append-script/) Append script
+  * [Arrow Function](https://vivaxy.github.io/course/javascript/arrow-function/) Arrow Function
   * [canvas polyfill](https://vivaxy.github.io/course/javascript/canvas-polyfill/) Canvas polyfill
+  * [class](https://vivaxy.github.io/course/javascript/class/) Class
   * [Clipboard](https://vivaxy.github.io/course/javascript/clipboard/) Clipboard
   * [compose](https://vivaxy.github.io/course/javascript/compose/) Compose
+  * [const](https://vivaxy.github.io/course/javascript/const/) Const
   * [create element](https://vivaxy.github.io/course/javascript/create-element/) Create element
   * [debounce](https://vivaxy.github.io/course/javascript/debounce/) Debounce
+  * [Default Parameters](https://vivaxy.github.io/course/javascript/default-parameters/) Default Parameters
   * [delegate event](https://vivaxy.github.io/course/javascript/delegate-event/) Delegate event
+  * [destructuring](https://vivaxy.github.io/course/javascript/destructuring/) Destructuring
   * [common list](https://vivaxy.github.io/course/javascript/drag-to-load/) Drag to load
   * [eventuality](https://vivaxy.github.io/course/javascript/eventuality/) Eventuality
   * [eventuality](https://vivaxy.github.io/course/javascript/eventuality-complex/) Eventuality complex
   * [Extend](https://vivaxy.github.io/course/javascript/extend/) Extend implementation
   * [extend](https://vivaxy.github.io/course/javascript/function-string-extend/) Function string extend
+  * [Generators](https://vivaxy.github.io/course/javascript/generators/) Generators
   * [queue](https://vivaxy.github.io/course/javascript/hippo/) Hippo
   * [inline script context](https://vivaxy.github.io/course/javascript/inline-script-context/) Inline script context
   * [Is Animated Image](https://vivaxy.github.io/course/javascript/is-animated-image/) Is animated image
   * [is element on screen](https://vivaxy.github.io/course/javascript/is-element-on-screen/) Is element on screen
   * [is native](https://vivaxy.github.io/course/javascript/is-native/) Is native
+  * [Iterators](https://vivaxy.github.io/course/javascript/iterators/) Iterators demo
+  * [let](https://vivaxy.github.io/course/javascript/let/) Let
   * [Load Resource as ArrayBuffer](https://vivaxy.github.io/course/javascript/load-resource-as-array-buffer/) How to load resource as arrayBuffer
   * [load script](https://vivaxy.github.io/course/javascript/load-script/) Load script
   * [matches-selector](https://vivaxy.github.io/course/javascript/matches-selector/) Matches selector
@@ -160,18 +127,19 @@ Table of contents
     * [Named Capture Groups](https://vivaxy.github.io/course/javascript/reg-exp/named-capture-groups/) 命名捕获组
     * [Unicode Property Escapes](https://vivaxy.github.io/course/javascript/reg-exp/unicode-property-escapes/) Unicode Property Escapes
   * [request animation frame](https://vivaxy.github.io/course/javascript/request-animation-frame/) Request animation frame
+  * [rest](https://vivaxy.github.io/course/javascript/rest/) Rest
   * [return value of new](https://vivaxy.github.io/course/javascript/return-value-of-new/) Return value of new
   * [scroll bar width](https://vivaxy.github.io/course/javascript/scroll-bar-width/) Scroll bar width
+  * [spread](https://vivaxy.github.io/course/javascript/spread/) Spread
   * [stack](https://vivaxy.github.io/course/javascript/stack/) Stack
   * [Style set property](https://vivaxy.github.io/course/javascript/style-set-property/) Style set property demo
   * [style-sheet](https://vivaxy.github.io/course/javascript/style-sheet/) Style sheet
   * [Symbol](https://vivaxy.github.io/course/javascript/symbol/) Symbol
   * [tap](https://vivaxy.github.io/course/javascript/tap/) Tap
   * [template engine](https://vivaxy.github.io/course/javascript/template-engine/) Template engine
+  * [template strings](https://vivaxy.github.io/course/javascript/template-strings/) Template strings
+  * [test](https://vivaxy.github.io/course/javascript/unicode/) Unicode
   * [use blob to create web worker](https://vivaxy.github.io/course/javascript/use-blob-to-create-web-worker/) Use blob to create web worker
-* [KerasJS](https://vivaxy.github.io/course/kerasjs/) Kerasjs
-* [knockout](https://vivaxy.github.io/course/knockout/) Knockout
-* [koa](https://vivaxy.github.io/course/koa/) Koa
 * [layout](https://vivaxy.github.io/course/layout/) Layout
   * [0.5px border](https://vivaxy.github.io/course/layout/0.5px-border/) 0.5px border
   * [columns](https://vivaxy.github.io/course/layout/columns/) Columns
@@ -179,13 +147,81 @@ Table of contents
   * [fixed-bar](https://vivaxy.github.io/course/layout/fixed-bar/) Fixed bar
   * [modal](https://vivaxy.github.io/course/layout/modal/) Modal
   * [popover](https://vivaxy.github.io/course/layout/popover/) Popover
-* [mathjax](https://vivaxy.github.io/course/mathjax/) Mathjax
+* [Node.js Packages Demos](https://vivaxy.github.io/course/libraries/) Node.js packages demos
+  * [amap](https://vivaxy.github.io/course/libraries/amap/) Amap
+    * [mark circle area](https://vivaxy.github.io/course/libraries/amap/mark-circle-area/) Mark circle area
+    * [mark point](https://vivaxy.github.io/course/libraries/amap/mark-point/) Mark point
+    * [mark polygon area](https://vivaxy.github.io/course/libraries/amap/mark-polygon-area/) Mark polygon area
+    * [zoom](https://vivaxy.github.io/course/libraries/amap/zoom/) Zoom
+    * [zoom with circle](https://vivaxy.github.io/course/libraries/amap/zoom-with-circle/) Zoom with circle
+  * [AngularJS](https://vivaxy.github.io/course/libraries/angular/) Angular
+  * [Angular material](https://vivaxy.github.io/course/libraries/angular-material/) Angular material demo
+  * [async](https://vivaxy.github.io/course/libraries/async/) Async
+  * [Babel Demos](https://vivaxy.github.io/course/libraries/babel/) Babel Demos
+    * [es5 extends es6 error](https://vivaxy.github.io/course/libraries/babel/es5-extends-es6-error/) es5 extends es6 error: Class constructor Parent cannot be invoked without 'new'
+  * [bmap](https://vivaxy.github.io/course/libraries/bmap/) Bmap
+    * [jsextreme](https://vivaxy.github.io/course/libraries/bmap/jsextreme/) 创建了一个地图并以公司作为地图的中心
+    * [Jspopular1](https://vivaxy.github.io/course/libraries/bmap/jspopular1/) 创建了一个地图并以公司作为地图的中心
+    * [Jspopular2](https://vivaxy.github.io/course/libraries/bmap/jspopular2/) 定位
+    * [mark circle area](https://vivaxy.github.io/course/libraries/bmap/mark-circle-area/) Mark circle area
+    * [mark point](https://vivaxy.github.io/course/libraries/bmap/mark-point/) Mark point
+    * [mark polygon area](https://vivaxy.github.io/course/libraries/bmap/mark-polygon-area/) Mark polygon area
+    * [zoom](https://vivaxy.github.io/course/libraries/bmap/zoom/) Zoom
+  * [bootstrap-datetimepicker](https://vivaxy.github.io/course/libraries/bootstrap-datetimepicker/) Bootstrap datetimepicker
+  * [Browserify](https://vivaxy.github.io/course/libraries/browserify/) Browserify demo
+  * [cycle.js](https://vivaxy.github.io/course/libraries/cycle-js/) Cycle js
+    * [Cycle.js Basic Example](https://vivaxy.github.io/course/libraries/cycle-js/basic/) Basic
+  * [dragula](https://vivaxy.github.io/course/libraries/dragula/) Dragula
+  * [echarts](https://vivaxy.github.io/course/libraries/echarts/) Echarts
+    * [horizontal scroll](https://vivaxy.github.io/course/libraries/echarts/horizontal-scroll/) Horizontal scroll
+    * [with current index](https://vivaxy.github.io/course/libraries/echarts/with-current-index/) With current index
+  * [execa](https://vivaxy.github.io/course/libraries/execa/) execa demo
+  * [hammer](https://vivaxy.github.io/course/libraries/hammer/) Hammer
+  * [KerasJS](https://vivaxy.github.io/course/libraries/kerasjs/) Kerasjs
+  * [knockout](https://vivaxy.github.io/course/libraries/knockout/) Knockout
+  * [koa](https://vivaxy.github.io/course/libraries/koa/) Koa
+  * [Lerna](https://vivaxy.github.io/course/libraries/lerna/) lerna
+    * [Monorepo Independent Version Logic](https://vivaxy.github.io/course/libraries/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
+  * [mathjax](https://vivaxy.github.io/course/libraries/mathjax/) Mathjax
+  * [ml5](https://vivaxy.github.io/course/libraries/ml5/) Ml5
+    * [Hello ml5](https://vivaxy.github.io/course/libraries/ml5/hello-world/) Hello world
+  * [mobx](https://vivaxy.github.io/course/libraries/mobx/) Mobx
+  * [moment](https://vivaxy.github.io/course/libraries/moment/) Moment
+  * [pitfall](https://vivaxy.github.io/course/libraries/ohm/) Ohm
+  * [on screen](https://vivaxy.github.io/course/libraries/on-screen/) On screen
+  * [Prompts Demo](https://vivaxy.github.io/course/libraries/prompts/) Prompts Demo
+  * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
+    * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
+  * [qrcode](https://vivaxy.github.io/course/libraries/qrcode/) Qrcode
+    * [multiple lines qrcode](https://vivaxy.github.io/course/libraries/qrcode/multiple-lines/) Multiple lines
+  * [react](https://vivaxy.github.io/course/libraries/react/) React
+    * [react](https://vivaxy.github.io/course/libraries/react/basic/) Basic
+    * [React Hooks](https://vivaxy.github.io/course/libraries/react/hooks/) React Hooks
+      * [React Hooks Implement](https://vivaxy.github.io/course/libraries/react/hooks/implement/) Implement React Hooks API
+      * [React.useReducer](https://vivaxy.github.io/course/libraries/react/hooks/use-reducer/) react reducer implementation with context
+  * [React Native](https://vivaxy.github.io/course/libraries/react-native/) React Native
+  * [React Redux](https://vivaxy.github.io/course/libraries/react-redux/) React Redux
+  * [RxJS](https://vivaxy.github.io/course/libraries/rxjs/) Rxjs
+    * [fromEvent](https://vivaxy.github.io/course/libraries/rxjs/from-event/) From event
+    * [map](https://vivaxy.github.io/course/libraries/rxjs/map/) Map
+    * [multicast](https://vivaxy.github.io/course/libraries/rxjs/multicast/) Multicast
+    * [RxJS Observables](https://vivaxy.github.io/course/libraries/rxjs/observable/) Observable
+    * [scan](https://vivaxy.github.io/course/libraries/rxjs/scan/) Scan
+    * [Subjects](https://vivaxy.github.io/course/libraries/rxjs/subject/) Subject
+    * [Subscription](https://vivaxy.github.io/course/libraries/rxjs/subscription/) Subscription
+    * [throttleTime](https://vivaxy.github.io/course/libraries/rxjs/throttle-time/) Throttle time
+  * [Three.js](https://vivaxy.github.io/course/libraries/three-js/) Three.js
+    * [Basic](https://vivaxy.github.io/course/libraries/three-js/basic/) Basic
+    * [Drawing lines](https://vivaxy.github.io/course/libraries/three-js/drawing-lines/) Drawing lines
+  * [tinymce](https://vivaxy.github.io/course/libraries/tinymce/) Tinymce
+    * [basic setup](https://vivaxy.github.io/course/libraries/tinymce/basic-setup/) Basic setup
+  * [underscore](https://vivaxy.github.io/course/libraries/underscore/) Underscore
+  * [Vue.js](https://vivaxy.github.io/course/libraries/vue-js/) Vue js
+    * [Updating Nested Object](https://vivaxy.github.io/course/libraries/vue-js/updating-nested-object/) Updating nested object
+  * [webpack](https://vivaxy.github.io/course/libraries/webpack/) Webpack
+    * [require.context](https://vivaxy.github.io/course/libraries/webpack/require-context/) Require context
 * [Memory Leak](https://vivaxy.github.io/course/memory-leak/) Memory leak
   * [Debounce](https://vivaxy.github.io/course/memory-leak/debounce/) Debounce
-* [ml5](https://vivaxy.github.io/course/ml5/) Ml5
-  * [Hello ml5](https://vivaxy.github.io/course/ml5/hello-world/) Hello world
-* [mobx](https://vivaxy.github.io/course/mobx/) Mobx
-* [moment](https://vivaxy.github.io/course/moment/) Moment
 * [Native API](https://vivaxy.github.io/course/native-api/) Native api
   * [3d touch](https://vivaxy.github.io/course/native-api/3d-touch/) 3d touch
   * [audio AnalyserNode](https://vivaxy.github.io/course/native-api/analyser-node/) Analyser node
@@ -256,50 +292,12 @@ Table of contents
   * [wechat token](https://vivaxy.github.io/course/native-api/wechat-token/) Wechat token
 * [Network](https://vivaxy.github.io/course/network/) Network
 * [node.js](https://vivaxy.github.io/course/node-js/) Node js
-* [Node.js Packages Demos](https://vivaxy.github.io/course/node-js-packages/) Node.js packages demos
-  * [Babel Demos](https://vivaxy.github.io/course/node-js-packages/babel/) Babel Demos
-    * [es5 extends es6 error](https://vivaxy.github.io/course/node-js-packages/babel/es5-extends-es6-error/) es5 extends es6 error: Class constructor Parent cannot be invoked without 'new'
-  * [execa](https://vivaxy.github.io/course/node-js-packages/execa/) execa demo
-  * [Lerna](https://vivaxy.github.io/course/node-js-packages/lerna/) lerna
-    * [Monorepo Independent Version Logic](https://vivaxy.github.io/course/node-js-packages/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
-  * [Prompts Demo](https://vivaxy.github.io/course/node-js-packages/prompts/) Prompts Demo
-* [pitfall](https://vivaxy.github.io/course/ohm/) Ohm
-* [on screen](https://vivaxy.github.io/course/on-screen/) On screen
 * [pitfall](https://vivaxy.github.io/course/pitfall/) Pitfall
   * [click event on label with input](https://vivaxy.github.io/course/pitfall/click-event-on-label-with-input/) Click event on label with input
   * [event delegation on ios safari](https://vivaxy.github.io/course/pitfall/event-delegation-on-ios-safari/) Event delegation on ios safari
   * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/course/pitfall/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
-* [qq maps](https://vivaxy.github.io/course/qq-maps/) Qq maps
-  * [mark polygon area](https://vivaxy.github.io/course/qq-maps/mark-polygon-area/) Mark polygon area
-* [qrcode](https://vivaxy.github.io/course/qrcode/) Qrcode
-  * [multiple lines qrcode](https://vivaxy.github.io/course/qrcode/multiple-lines/) Multiple lines
-* [react](https://vivaxy.github.io/course/react/) React
-  * [react](https://vivaxy.github.io/course/react/basic/) Basic
-  * [React Hooks](https://vivaxy.github.io/course/react/hooks/) React Hooks
-    * [React Hooks Implement](https://vivaxy.github.io/course/react/hooks/implement/) Implement React Hooks API
-    * [React.useReducer](https://vivaxy.github.io/course/react/hooks/use-reducer/) react reducer implementation with context
-* [react native](https://vivaxy.github.io/course/react-native/) React native
-* [react redux](https://vivaxy.github.io/course/react-redux/) React redux
-* [RSA](https://vivaxy.github.io/course/rsa/) Rsa
-* [RxJS](https://vivaxy.github.io/course/rxjs/) Rxjs
-  * [fromEvent](https://vivaxy.github.io/course/rxjs/from-event/) From event
-  * [map](https://vivaxy.github.io/course/rxjs/map/) Map
-  * [multicast](https://vivaxy.github.io/course/rxjs/multicast/) Multicast
-  * [RxJS Observables](https://vivaxy.github.io/course/rxjs/observable/) Observable
-  * [scan](https://vivaxy.github.io/course/rxjs/scan/) Scan
-  * [Subjects](https://vivaxy.github.io/course/rxjs/subject/) Subject
-  * [Subscription](https://vivaxy.github.io/course/rxjs/subscription/) Subscription
-  * [throttleTime](https://vivaxy.github.io/course/rxjs/throttle-time/) Throttle time
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/course/sliding-tiles-puzzle/) Sliding tiles puzzle
-* [three.js](https://vivaxy.github.io/course/three-js/) Three js
-  * [Basic](https://vivaxy.github.io/course/three-js/basic/) Basic
-  * [Drawing lines](https://vivaxy.github.io/course/three-js/drawing-lines/) Drawing lines
-* [tinymce](https://vivaxy.github.io/course/tinymce/) Tinymce
-  * [basic setup](https://vivaxy.github.io/course/tinymce/basic-setup/) Basic setup
 * [TypeScript](https://vivaxy.github.io/course/typescript/) Typescript
-* [underscore](https://vivaxy.github.io/course/underscore/) Underscore
-* [Vue.js](https://vivaxy.github.io/course/vue-js/) Vue js
-  * [Updating Nested Object](https://vivaxy.github.io/course/vue-js/updating-nested-object/) Updating nested object
 * [WebAssembly](https://vivaxy.github.io/course/web-assembly/) Web assembly
   * [Google Codelabs Web Assembly Intro](https://vivaxy.github.io/course/web-assembly/google-codelabs-web-assembly-intro/) Google codelabs web assembly intro
     * [Game of Life](https://vivaxy.github.io/course/web-assembly/google-codelabs-web-assembly-intro/lyff/) Lyff
@@ -310,8 +308,6 @@ Table of contents
   * [webgl fundamentals](https://vivaxy.github.io/course/webgl/fundamentals/) Fundamentals
   * [webgl fundamentals](https://vivaxy.github.io/course/webgl/fundamentals-2/) Fundamentals 2
   * [mdn example 1](https://vivaxy.github.io/course/webgl/mdn-example-1/) Mdn example 1
-* [webpack](https://vivaxy.github.io/course/webpack/) Webpack
-  * [require.context](https://vivaxy.github.io/course/webpack/require-context/) Require context
 * [webvr](https://vivaxy.github.io/course/webvr/) Webvr
   * [A-Frame Demo](https://vivaxy.github.io/course/webvr/a-frame-demo/) A frame demo
   * [A-Frame Minecraft](https://vivaxy.github.io/course/webvr/a-frame-minecraft/) A frame minecraft

@@ -1,0 +1,39 @@
+/**
+ * @since 2017-04-13 11:41:54
+ * @author vivaxy
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+}
+
+.dragula-room-1 {
+  flex: 1 1 auto;
+}
+
+.dragula-room-2 {
+  flex: 1 1 auto;
+}
+
+.drag-wrapper {
+  background-color: #d7d7d7;
+  padding: 2px;
+}
+
+.drag-item {
+  display: block;
+  background-color: #90daff;
+  color: #08c;
+  border: 1px solid #08c;
+  margin: 2px;
+}

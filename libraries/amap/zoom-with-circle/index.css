@@ -1,0 +1,35 @@
+/**
+ * @since 2016-10-10 20:36
+ * @author vivaxy
+ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  height: 500px;
+}
+
+.button-group button {
+  width: 100px;
+  height: 50px;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  color: #333;
+}
+
+.button-group button[disabled] {
+  color: #ddd;
+}
