@@ -1,14 +1,14 @@
 [
   {
     "name": "Longest Common Substring",
-    "link": "longest-common-substring/index.html"
+    "link": "longest-common-substring/"
   },
   {
     "name": "Longest Common Sequence",
-    "link": "longest-common-sequence/index.html"
+    "link": "longest-common-sequence/"
   },
   {
     "name": "Compute Transform Tables",
-    "link": "compute-transform-tables/index.html"
+    "link": "compute-transform-tables/"
   }
 ]

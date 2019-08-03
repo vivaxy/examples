@@ -1,14 +1,14 @@
 [
   {
     "name": "Game of Life",
-    "link": "lyff/index.html"
+    "link": "lyff/"
   },
   {
     "name": "Mandelbrot Simple",
-    "link": "mandelbrot-simple/index.html"
+    "link": "mandelbrot-simple/"
   },
   {
     "name": "Mandelbrot Tiled",
-    "link": "mandelbrot-tiled/index.html"
+    "link": "mandelbrot-tiled/"
   }
 ]

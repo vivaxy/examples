@@ -196,6 +196,8 @@ Table of contents
   * [battery status](https://vivaxy.github.io/course/native-api/battery-status/) Battery status
   * [Browser message](https://vivaxy.github.io/course/native-api/browser-message/) Browser message demo by Notifications API
   * [cache manifest demo page](https://vivaxy.github.io/course/native-api/cache-manifest/) Cache manifest
+  * [Canvas](https://vivaxy.github.io/course/native-api/canvas/) Native api
+    * [Canvas bitmaprenderer](https://vivaxy.github.io/course/native-api/canvas/bitmaprenderer/) Canvas bitmaprenderer
   * [Clipboard](https://vivaxy.github.io/course/native-api/clipboard/) Clipboard
   * [CompositionEvent](https://vivaxy.github.io/course/native-api/composition-event/) Composition event
   * [CSS Typed Object Model](https://vivaxy.github.io/course/native-api/css-typed-om/) CSS Typed Object Module

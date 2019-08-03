@@ -1,14 +1,14 @@
 [
   {
     "name": "Click Event on Label with Input",
-    "link": "click-event-on-label-with-input/index.html"
+    "link": "click-event-on-label-with-input/"
   },
   {
     "name": "Event Delegation on iOS Safari",
-    "link": "event-delegation-on-ios-safari/index.html"
+    "link": "event-delegation-on-ios-safari/"
   },
   {
     "name": "iOS Double Click Fixed Position Error on Webview",
-    "link": "ios-double-click-fixed-position-error-on-webview/index.html"
+    "link": "ios-double-click-fixed-position-error-on-webview/"
   }
 ]

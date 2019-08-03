@@ -5,18 +5,18 @@
   },
   {
     "name": "Topological Sort",
-    "link": "topological-sort/index.html"
+    "link": "topological-sort/"
   },
   {
     "name": "Dijkstra",
-    "link": "dijkstra/index.html"
+    "link": "dijkstra/"
   },
   {
     "name": "Bellman-Ford",
-    "link": "bellman-ford/index.html"
+    "link": "bellman-ford/"
   },
   {
     "name": "Floyd-Warshall",
-    "link": "floyd-warshall/index.html"
+    "link": "floyd-warshall/"
   }
 ]

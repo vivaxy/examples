@@ -1,30 +1,30 @@
 [
   {
     "name": "Linear Search",
-    "link": "linear-search/index.html"
+    "link": "linear-search/"
   },
   {
     "name": "Binary Search",
-    "link": "binary-search/index.html"
+    "link": "binary-search/"
   },
   {
     "name": "Bubble Sort",
-    "link": "bubble-sort/index.html"
+    "link": "bubble-sort/"
   },
   {
     "name": "Insertion Sort",
-    "link": "insertion-sort/index.html"
+    "link": "insertion-sort/"
   },
   {
     "name": "Selection Sort",
-    "link": "selection-sort/index.html"
+    "link": "selection-sort/"
   },
   {
     "name": "Merge Sort",
-    "link": "merge-sort/index.html"
+    "link": "merge-sort/"
   },
   {
     "name": "Quick Sort",
-    "link": "quick-sort/index.html"
+    "link": "quick-sort/"
   }
 ]

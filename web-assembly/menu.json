@@ -5,10 +5,10 @@
   },
   {
     "name": "Standalone Example",
-    "link": "standalone-example/index.html"
+    "link": "standalone-example/"
   },
   {
     "name": "Google Codelabs Web Assembly Intro",
-    "link": "google-codelabs-web-assembly-intro/index.html"
+    "link": "google-codelabs-web-assembly-intro/"
   }
 ]

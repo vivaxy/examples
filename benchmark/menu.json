@@ -5,11 +5,11 @@
   },
   {
     "name": "split vs String Edit",
-    "link": "split-vs-stringEdit/index.html"
+    "link": "split-vs-stringEdit/"
   },
   {
     "name": "Number vs parseInt",
-    "link": "number-vs-parseInt/index.html"
+    "link": "number-vs-parseInt/"
   },
   {
     "name": "getBoundingClientRect vs innerWidth vs clientWidth",
@@ -21,11 +21,11 @@
   },
   {
     "name": "RegExp vs String Edit",
-    "link": "regExp-vs-stringEdit/index.html"
+    "link": "regExp-vs-stringEdit/"
   },
   {
     "name": "String.prototype.indexOf vs For Loop",
-    "link": "String.prototype.indexOf-vs-forLoop/index.html"
+    "link": "String.prototype.indexOf-vs-forLoop/"
   },
   {
     "name": "Store data as an object vs Store data as an array",

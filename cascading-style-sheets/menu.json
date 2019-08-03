@@ -5,90 +5,90 @@
   },
   {
     "name": "background: conic-gradient(...);",
-    "link": "conic-gradient/index.html"
+    "link": "conic-gradient/"
   },
   {
     "name": "display: contents;",
-    "link": "display-contents/index.html"
+    "link": "display-contents/"
   },
   {
     "name": "Scroll Snap",
-    "link": "scroll-snap/index.html"
+    "link": "scroll-snap/"
   },
   {
     "name": "SVG",
-    "link": "svg/index.html"
+    "link": "svg/"
   },
   {
     "name": "Background Attachment",
-    "link": "background-attachment/index.html"
+    "link": "background-attachment/"
   },
   {
     "name": "Target",
-    "link": "target/index.html"
+    "link": "target/"
   },
   {
     "name": "Touch Action",
-    "link": "touch-action/index.html"
+    "link": "touch-action/"
   },
   {
     "name": "Backdrop Filter",
-    "link": "backdrop-filter/index.html"
+    "link": "backdrop-filter/"
   },
   {
     "name": "Column Layout",
-    "link": "column-layout/index.html"
+    "link": "column-layout/"
   },
   {
     "name": "Clear Fix",
-    "link": "clear-fix/index.html"
+    "link": "clear-fix/"
   },
   {
     "name": "Border Box",
-    "link": "border-box/index.html"
+    "link": "border-box/"
   },
   {
     "name": "Writing Mode",
-    "link": "writing-mode/index.html"
+    "link": "writing-mode/"
   },
   {
     "name": "Counter",
-    "link": "counter/index.html"
+    "link": "counter/"
   },
   {
     "name": "Counters",
-    "link": "counters/index.html"
+    "link": "counters/"
   },
   {
     "name": "Live Edit Style",
-    "link": "live-edit-style/index.html"
+    "link": "live-edit-style/"
   },
   {
     "name": "Flex Bug",
-    "link": "flex-bug/index.html"
+    "link": "flex-bug/"
   },
   {
     "name": "Offset Path",
-    "link": "offset-path/index.html"
+    "link": "offset-path/"
   },
   {
     "name": "Focus Within",
-    "link": "focus-within/index.html"
+    "link": "focus-within/"
   },
   {
     "name": "Will Change",
-    "link": "will-change/index.html"
+    "link": "will-change/"
   },
   {
     "name": ":placeholder-shown",
-    "link": "placeholder-shown/index.html"
+    "link": "placeholder-shown/"
   },
   {
     "name": "overscroll-behavior",
-    "link": "overscroll-behavior/index.html"
+    "link": "overscroll-behavior/"
   },
   {
     "name": "Animation Steps",
-    "link": "animation-steps/index.html"
+    "link": "animation-steps/"
   }
 ]

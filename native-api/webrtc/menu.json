@@ -1,10 +1,10 @@
 [
   {
     "name": "Local Media",
-    "link": "local-media/index.html"
+    "link": "local-media/"
   },
   {
     "name": "Local Data",
-    "link": "local-data/index.html"
+    "link": "local-data/"
   }
 ]

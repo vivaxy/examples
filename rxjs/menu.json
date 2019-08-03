@@ -1,34 +1,34 @@
 [
   {
     "name": "fromEvent",
-    "link": "from-event/index.html"
+    "link": "from-event/"
   },
   {
     "name": "scan",
-    "link": "scan/index.html"
+    "link": "scan/"
   },
   {
     "name": "throttleTime",
-    "link": "throttle-time/index.html"
+    "link": "throttle-time/"
   },
   {
     "name": "map",
-    "link": "map/index.html"
+    "link": "map/"
   },
   {
     "name": "Observables",
-    "link": "observable/index.html"
+    "link": "observable/"
   },
   {
     "name": "Subscription",
-    "link": "subscription/index.html"
+    "link": "subscription/"
   },
   {
     "name": "Subjects",
-    "link": "subject/index.html"
+    "link": "subject/"
   },
   {
     "name": "multicast",
-    "link": "multicast/index.html"
+    "link": "multicast/"
   }
 ]
