@@ -1,69 +1,144 @@
-export default class ModuleItem extends HTMLElement {
-  static get TAG_NAME() {
-    return 'module-item';
+import { html } from '//unpkg.com/htm/preact/standalone.module.js';
+import CHANGE_TYPES from '../enums/change-types.js';
+
+export default function ModuleItem(props) {
+  const { name, version, dependencies, updated, editable, onChange } = props;
+
+  function handleNameChange(e) {
+    onChange({
+      type: CHANGE_TYPES.NAME,
+      name,
+      value: e.target.value,
+    });
   }
 
-  static get DATA_NAME() {
-    return 'data-name';
+  function handleVersionChange(e) {
+    onChange({
+      type: CHANGE_TYPES.VERSION,
+      name,
+      value: e.target.value,
+    });
   }
 
-  static get DATA_VERSION() {
-    return 'data-version';
+  function handleDependencyVersionChange({ dependencyName }) {
+    return function(e) {
+      onChange({
+        type: CHANGE_TYPES.DEPENDENCY_VERSION,
+        name,
+        dependencyName,
+        value: e.target.value,
+      });
+    };
   }
 
-  static get DATA_DEPENDENCIES() {
-    return 'data-dependencies';
+  function handleDeleteDependency({ dependencyName }) {
+    return function() {
+      onChange({
+        type: CHANGE_TYPES.DELETE_DEPENDENCY,
+        name,
+        dependencyName,
+      });
+    };
   }
 
-  static get DATA_UPDATED() {
-    return 'data-updated';
+  function handleAddDependency() {
+    onChange({
+      type: CHANGE_TYPES.ADD_DEPENDENCY,
+      name,
+    });
   }
 
-  static get observedAttributes() {
-    return [
-      ModuleItem.DATA_NAME,
-      ModuleItem.DATA_VERSION,
-      ModuleItem.DATA_DEPENDENCIES,
-      ModuleItem.DATA_UPDATED,
-    ];
+  function handleDelete() {
+    onChange({
+      type: CHANGE_TYPES.DELETE,
+      name,
+    });
   }
 
-  constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: 'closed' });
-    this.render();
-  }
-
-  attributeChangedCallback() {
-    this.render();
-  }
-
-  render() {
-    const name = this.getAttribute(ModuleItem.DATA_NAME);
-    const version = this.getAttribute(ModuleItem.DATA_VERSION);
-    const dependencies = JSON.parse(
-      decodeURIComponent(
-        this.getAttribute(ModuleItem.DATA_DEPENDENCIES) || '[]',
-      ),
-    );
-    const updated = this.hasAttribute(ModuleItem.DATA_UPDATED);
-
-    this.shadow.innerHTML = `<style> * {
-  ${updated ? 'color: red;' : ''}
-}</style>
-<div class="${ModuleItem.TAG_NAME}">
-<pre>"name": "${name}",
-"version": "${version}",
-"dependencies": {
-${Object.keys(dependencies)
-  .map(function(name) {
-    const version = dependencies[name];
-    return `  "${name}": "${version}"`;
-  })
-  .join(',\n')}
-}</pre>
-</div>`;
-  }
+  return html`
+    <div>
+      <style>
+        .module-item {
+          margin: 12px;
+          font-family: monospace;
+          font-size: 12px;
+          line-height: 14px;
+        }
+        .module-item-updated {
+          color: red;
+        }
+        .value-input {
+          font-family: monospace;
+          font-size: 12px;
+          line-height: 12px;
+          border: 1px solid #efefef;
+          margin: 0;
+          padding: 0;
+        }
+        .dependency {
+          margin-left: 14px;
+        }
+      </style>
+      <div class="module-item ${updated && 'module-item-updated'}">
+        <div>
+          "name":
+          "${editable
+            ? html`
+                <input
+                  class="value-input"
+                  value="${name}"
+                  onChange="${handleNameChange}"
+                />
+              `
+            : name}",${editable &&
+            html`
+              <button onClick="${handleDelete}">-</button>
+            `}
+        </div>
+        <div>
+          "version":
+          "${editable
+            ? html`
+                <input
+                  class="value-input"
+                  value="${version}"
+                  onChange="${handleVersionChange}"
+                />
+              `
+            : version}",
+        </div>
+        <div>"dependencies": {</div>
+        ${Object.keys(dependencies).map(function(dependencyName, index, array) {
+          const version = dependencies[dependencyName];
+          return html`
+            <div class="dependency">
+              ${editable &&
+                html`
+                  <button
+                    onClick="${handleDeleteDependency({ dependencyName })}"
+                  >
+                    -
+                  </button>
+                `}"${dependencyName}":
+              "${editable
+                ? html`
+                    <input
+                      class="value-input"
+                      value="${version}"
+                      onChange="${handleDependencyVersionChange({
+                        dependencyName,
+                      })}"
+                    />
+                  `
+                : version}"${array.length - 1 === index ? '' : ','}
+            </div>
+          `;
+        })}
+        }${editable &&
+          html`
+            <button onClick="${handleAddDependency}">+</button>
+          `}
+      </div>
+    </div>
+  `;
 }
-
-customElements.define(ModuleItem.TAG_NAME, ModuleItem);

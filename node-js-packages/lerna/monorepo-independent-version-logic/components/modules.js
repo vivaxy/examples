@@ -2,51 +2,47 @@
  * @since 2019-08-02 19:01
  * @author vivaxy
  */
+import { html } from '//unpkg.com/htm/preact/standalone.module.js';
 import ModuleItem from './module-item.js';
+import CHANGE_TYPES from '../enums/change-types.js';
 
-export default class Modules extends HTMLElement {
-  static get TAG_NAME() {
-    return 'module-s';
+export default function Modules(props) {
+  const { modules, editable, onChange } = props;
+
+  function handleChange({ type, name, value, dependencyName }) {
+    onChange({ type, name, value, dependencyName });
   }
 
-  static get DATA_MODULES() {
-    return 'data-modules';
+  function handleAdd() {
+    onChange({ type: CHANGE_TYPES.ADD });
   }
 
-  static get observedAttributes() {
-    return [Modules.DATA_MODULES];
-  }
-
-  constructor() {
-    super();
-    this.shadow = this.attachShadow({ mode: 'closed' });
-    this.render();
-  }
-
-  attributeChangedCallback() {
-    this.render();
-  }
-
-  render() {
-    const modules = JSON.parse(this.getAttribute(Modules.DATA_MODULES) || '[]');
-    this.shadow.innerHTML = `<style></style>
-<div class="${Modules.TAG_NAME}"></div>`;
-    const root = this.shadow.querySelector(`.${Modules.TAG_NAME}`);
-    Object.keys(modules).forEach(function(name) {
-      const { version, dependencies, updated } = modules[name];
-      const moduleItem = document.createElement(ModuleItem.TAG_NAME);
-      moduleItem.setAttribute(ModuleItem.DATA_NAME, name);
-      moduleItem.setAttribute(ModuleItem.DATA_VERSION, version);
-      moduleItem.setAttribute(
-        ModuleItem.DATA_DEPENDENCIES,
-        JSON.stringify(dependencies),
-      );
-      if (updated) {
-        moduleItem.setAttribute(ModuleItem.DATA_UPDATED, '');
-      }
-      root.appendChild(moduleItem);
-    });
-  }
+  return html`
+    <div>
+      <style>
+        .edit-button {
+          margin: 12px;
+        }
+      </style>
+      <div class="modules">
+        ${Object.keys(modules).map(function(name) {
+          const { version, dependencies, updated } = modules[name];
+          return html`
+            <${ModuleItem}
+              name="${name}"
+              version="${version}"
+              dependencies="${dependencies}"
+              updated="${updated}"
+              editable="${editable}"
+              onChange="${handleChange}"
+            />
+          `;
+        })}
+        ${editable &&
+          html`
+            <button class="edit-button" onClick="${handleAdd}">+</button>
+          `}
+      </div>
+    </div>
+  `;
 }
-
-customElements.define(Modules.TAG_NAME, Modules);
