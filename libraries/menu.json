@@ -162,5 +162,9 @@
   {
     "name": "QRCode",
     "link": "qrcode/"
+  },
+  {
+    "name": "Tidy JSON Structure",
+    "link": "tidy-json-structure/index.js"
   }
 ]

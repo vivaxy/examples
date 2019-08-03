@@ -8,22 +8,18 @@
  */
 
 module.exports = function tidyJsonStructure(data, parentObjects = []) {
-
   let visitedObjects = [];
   let traverse = null;
   let newData = null;
 
   if (Object.prototype.toString.call(data) === '[object Array]') {
-
     newData = [];
     traverse = function(array, visitor) {
       array.forEach((value, index) => {
         visitor(value, index);
       });
     };
-
   } else if (Object.prototype.toString.call(data) === '[object Object]') {
-
     newData = {};
     traverse = function(object, visitor) {
       for (let key in object) {
@@ -32,7 +28,6 @@ module.exports = function tidyJsonStructure(data, parentObjects = []) {
         }
       }
     };
-
   } else {
     return data;
   }
@@ -50,7 +45,10 @@ module.exports = function tidyJsonStructure(data, parentObjects = []) {
 
   traverse(newData, (item, key) => {
     if (typeof item === 'object') {
-      newData[key] = tidyJsonStructure(item, parentObjects.concat(visitedObjects));
+      newData[key] = tidyJsonStructure(
+        item,
+        parentObjects.concat(visitedObjects),
+      );
     }
   });
 
