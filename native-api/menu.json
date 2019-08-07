@@ -1,5 +1,9 @@
 [
   {
+    "name": "document.createNodeIterator",
+    "link": "create-node-iterator/"
+  },
+  {
     "name": "LockManager",
     "link": "lock-manager/"
   },

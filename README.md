@@ -236,6 +236,7 @@ Table of contents
     * [Canvas bitmaprenderer](https://vivaxy.github.io/course/native-api/canvas/bitmaprenderer/) Canvas bitmaprenderer
   * [Clipboard](https://vivaxy.github.io/course/native-api/clipboard/) Clipboard
   * [CompositionEvent](https://vivaxy.github.io/course/native-api/composition-event/) Composition event
+  * [document.createNodeIterator](https://vivaxy.github.io/course/native-api/create-node-iterator/) 遍历文档节点
   * [CSS Typed Object Model](https://vivaxy.github.io/course/native-api/css-typed-om/) CSS Typed Object Module
   * [Custom Element](https://vivaxy.github.io/course/native-api/custom-elements/) Custom elements
   * [Date input](https://vivaxy.github.io/course/native-api/date-input/) Date input demo

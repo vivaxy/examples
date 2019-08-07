@@ -1,0 +1,12 @@
+/**
+ * @since 2019-08-07 18:53
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+}
+
+.item {
+  background: rgba(255, 0, 0, 0.3);
+  height: 100px;
+}
