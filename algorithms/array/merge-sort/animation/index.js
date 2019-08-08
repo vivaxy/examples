@@ -3,8 +3,8 @@
  * @author vivaxy
  */
 
-import Query from '../../../../event-based-framework/class/query.js';
-import EventEmitter from '../../../../event-based-framework/class/event-emitter.js';
+import Query from 'https://unpkg.com/event-based-framework/class/query.js';
+import EventEmitter from 'https://unpkg.com/event-based-framework/class/event-emitter.js';
 import * as EVENT_TYPES from '../../../_animation/enums/event-types.js';
 import generateUnsortedArray from '../../../_animation/services/unsorted-array.js';
 import animationActions from './services/animation-actions.js';
@@ -48,4 +48,6 @@ generateUnsortedArray.init(events);
 animationActions.init(events, query);
 algorithm.init(events);
 
-events.emit(EVENT_TYPES.REQUEST_AN_UNSORTED_ARRAY, { arrayLength: query.length });
+events.emit(EVENT_TYPES.REQUEST_AN_UNSORTED_ARRAY, {
+  arrayLength: query.length,
+});

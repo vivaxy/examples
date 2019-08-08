@@ -2,3 +2,11 @@
  * @since 20180710 15:56
  * @author vivaxy
  */
+button {
+  background-color: #fff;
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-radius: 4px;
+}

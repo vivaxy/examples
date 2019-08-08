@@ -1,22 +1,23 @@
 <template>
-  <style></style>
+  <style>
+    @import "index.css";
+  </style>
   <button>Delete Table</button>
 </template>
 <script>
   const deleteTableDocument = document.currentScript.ownerDocument;
 
   class DeleteTable extends HTMLElement {
-
     static get TAG_NAME() {
-      return 'delete-table';
-    };
+      return "delete-table";
+    }
 
     static get DATA_TABLE_NAME() {
-      return 'data-table-name';
+      return "data-table-name";
     }
 
     static get EVENT_DELETE_TABLE() {
-      return 'delete-table';
+      return "delete-table";
     }
 
     static get observedAttributes() {
@@ -25,14 +26,20 @@
 
     constructor() {
       super();
-      const shadow = this.attachShadow({ mode: 'closed' });
-      const content = deleteTableDocument.querySelector('template').content.cloneNode(true);
+      const shadow = this.attachShadow({ mode: "closed" });
+      const content = deleteTableDocument
+        .querySelector("template")
+        .content.cloneNode(true);
       shadow.appendChild(content);
-      const button = shadow.querySelector('button');
-      button.addEventListener('click', () => {
-        document.dispatchEvent(new CustomEvent(DeleteTable.EVENT_DELETE_TABLE, {
-          detail: { tableName: this.getAttribute(DeleteTable.DATA_TABLE_NAME) },
-        }));
+      const button = shadow.querySelector("button");
+      button.addEventListener("click", () => {
+        document.dispatchEvent(
+          new CustomEvent(DeleteTable.EVENT_DELETE_TABLE, {
+            detail: {
+              tableName: this.getAttribute(DeleteTable.DATA_TABLE_NAME),
+            },
+          }),
+        );
       });
     }
   }

@@ -6,10 +6,9 @@
 import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
-import assert from '../../../../../event-based-framework/utils/assert.js'
+import assert from 'https://unpkg.com/event-based-framework/utils/assert.js';
 
 function init(events, query) {
-
   let elements = [];
 
   let markedArrayFromIndex = null;
@@ -129,7 +128,6 @@ function init(events, query) {
   }
 
   function applyAnAnimationAction(eventId, eventData) {
-
     // console.log('animation action:', eventData.animationAction);
     assert(elements, 'missing elements');
     assert(eventData, 'missing eventData');
@@ -173,7 +171,6 @@ function init(events, query) {
       elements[loopIndex].removeLoopMark();
     }
   }
-
 }
 
 export default { init };

@@ -7,7 +7,7 @@ import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
 import NewArray from '../class/new-array.js';
-import assert from '../../../../../event-based-framework/utils/assert.js'
+import assert from 'https://unpkg.com/event-based-framework/utils/assert.js';
 
 function init(events, query) {
   let elements = null;
@@ -45,7 +45,6 @@ function init(events, query) {
   }
 
   function applyAnAnimationAction(eventId, eventData) {
-
     assert(elements, 'missing elements');
     assert(eventData, 'missing eventData');
 
@@ -60,7 +59,10 @@ function init(events, query) {
   function createAnArray(eventData) {
     const { arrayName, fromIndex, toIndex } = eventData;
 
-    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(
+      arrayName === 'B' || arrayName === 'C',
+      'Unexpected array name: ' + arrayName,
+    );
 
     if (arrayName === 'B') {
       newArrayB = new NewArray({
@@ -89,23 +91,32 @@ function init(events, query) {
   function pushToAnArray(eventData) {
     const { arrayName, index, value, elementIndex } = eventData;
 
-    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(
+      arrayName === 'B' || arrayName === 'C',
+      'Unexpected array name: ' + arrayName,
+    );
 
     if (arrayName === 'B') {
       let element = elements[elementIndex];
-      element.moveToNewArray({ toArray: newArrayB, arrayName, index, value }, () => {
-        setTimeout(() => {
-          events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
-        }, query.interval);
-      });
+      element.moveToNewArray(
+        { toArray: newArrayB, arrayName, index, value },
+        () => {
+          setTimeout(() => {
+            events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
+          }, query.interval);
+        },
+      );
       elementsInB.push(element);
     } else if (arrayName === 'C') {
       const element = elements[elementIndex];
-      element.moveToNewArray({ toArray: newArrayC, arrayName, index, value }, () => {
-        setTimeout(() => {
-          events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
-        }, query.interval);
-      });
+      element.moveToNewArray(
+        { toArray: newArrayC, arrayName, index, value },
+        () => {
+          setTimeout(() => {
+            events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
+          }, query.interval);
+        },
+      );
       elementsInC.push(element);
     }
   }
@@ -113,20 +124,27 @@ function init(events, query) {
   function markArrayIndex(eventData) {
     const { arrayName, index } = eventData;
 
-    assert(arrayName === 'B' || arrayName === 'C', 'Unexpected array name: ' + arrayName);
+    assert(
+      arrayName === 'B' || arrayName === 'C',
+      'Unexpected array name: ' + arrayName,
+    );
 
     if (arrayName === 'B') {
       if (markedArrayBIndex !== null) {
-        elementsInB[markedArrayBIndex] && elementsInB[markedArrayBIndex].removeMark();
+        elementsInB[markedArrayBIndex] &&
+          elementsInB[markedArrayBIndex].removeMark();
       }
       markedArrayBIndex = index;
-      elementsInB[markedArrayBIndex] && elementsInB[markedArrayBIndex].addMark();
+      elementsInB[markedArrayBIndex] &&
+        elementsInB[markedArrayBIndex].addMark();
     } else if (arrayName === 'C') {
       if (markedArrayCIndex !== null) {
-        elementsInC[markedArrayCIndex] && elementsInC[markedArrayCIndex].removeMark();
+        elementsInC[markedArrayCIndex] &&
+          elementsInC[markedArrayCIndex].removeMark();
       }
       markedArrayCIndex = index;
-      elementsInC[markedArrayCIndex] && elementsInC[markedArrayCIndex].addMark();
+      elementsInC[markedArrayCIndex] &&
+        elementsInC[markedArrayCIndex].addMark();
     }
     setTimeout(() => {
       events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
@@ -134,11 +152,15 @@ function init(events, query) {
   }
 
   function compare(eventData) {
-    elementsInB[markedArrayBIndex] && elementsInB[markedArrayBIndex].addCompare();
-    elementsInC[markedArrayCIndex] && elementsInC[markedArrayCIndex].addCompare();
+    elementsInB[markedArrayBIndex] &&
+      elementsInB[markedArrayBIndex].addCompare();
+    elementsInC[markedArrayCIndex] &&
+      elementsInC[markedArrayCIndex].addCompare();
     setTimeout(() => {
-      elementsInB[markedArrayBIndex] && elementsInB[markedArrayBIndex].removeCompare();
-      elementsInC[markedArrayCIndex] && elementsInC[markedArrayCIndex].removeCompare();
+      elementsInB[markedArrayBIndex] &&
+        elementsInB[markedArrayBIndex].removeCompare();
+      elementsInC[markedArrayCIndex] &&
+        elementsInC[markedArrayCIndex].removeCompare();
       events.emit(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, eventData);
     }, query.interval);
   }
@@ -146,7 +168,10 @@ function init(events, query) {
   function assign(eventData) {
     const { fromArrayName, index } = eventData;
 
-    assert(fromArrayName === 'B' || fromArrayName === 'C', 'Unexpected array name: ' + fromArrayName);
+    assert(
+      fromArrayName === 'B' || fromArrayName === 'C',
+      'Unexpected array name: ' + fromArrayName,
+    );
 
     if (fromArrayName === 'B') {
       const ele = elementsInB[markedArrayBIndex];
