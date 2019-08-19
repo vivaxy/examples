@@ -248,6 +248,7 @@ Table of contents
   * [Error Event](https://vivaxy.github.io/course/native-api/error-event/) Error event
   * [event source](https://vivaxy.github.io/course/native-api/event-source/) Event source
   * [FontFace](https://vivaxy.github.io/course/native-api/font-face/) Font face
+  * [Form Validation by JavaScript](https://vivaxy.github.io/course/native-api/form-validation/) JavaScript 控制表单验证
   * [generators](https://vivaxy.github.io/course/native-api/generators/) Generators
   * [geolocation demo page](https://vivaxy.github.io/course/native-api/geolocation/) Geolocation
   * [gesture](https://vivaxy.github.io/course/native-api/gesture/) Gesture
