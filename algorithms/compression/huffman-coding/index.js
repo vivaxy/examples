@@ -2,7 +2,6 @@
  * @since 20180918 13:40
  * @author vivaxy
  */
-
 function buildCharsAndFreqs(input) {
   let chars = [];
   let freqs = [];

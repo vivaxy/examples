@@ -2,7 +2,6 @@
  * @since 2018-04-22 09:30:32
  * @author vivaxy
  */
-
 import * as actionTypes from './actionTypes.js';
 
 const stateTypes = {
@@ -24,9 +23,12 @@ const removeNoteFromElement = (element, note) => {
   if (!content.includes(note)) {
     return false;
   }
-  element.innerHTML = content.split('\n').filter((n) => {
-    return n !== note;
-  }).join('\n');
+  element.innerHTML = content
+    .split('\n')
+    .filter((n) => {
+      return n !== note;
+    })
+    .join('\n');
 };
 
 export default (steps, interval) => {
@@ -96,7 +98,9 @@ export default (steps, interval) => {
       }
       case actionTypes.MARK: {
         if (markedIndex !== undefined) {
-          const prevElement = document.querySelector(`[data-index="${markedIndex}"]`);
+          const prevElement = document.querySelector(
+            `[data-index="${markedIndex}"]`,
+          );
           prevElement.classList.remove('mark');
           removeNoteFromElement(prevElement, 'smallest');
         }
@@ -109,14 +113,18 @@ export default (steps, interval) => {
         break;
       }
       case actionTypes.COMPARE: {
-        const fromElement = document.querySelector(`[data-index="${fromIndex}"]`);
+        const fromElement = document.querySelector(
+          `[data-index="${fromIndex}"]`,
+        );
         const toElement = document.querySelector(`[data-index="${toIndex}"]`);
         fromElement.classList.add('compare');
         toElement.classList.add('compare');
         break;
       }
       case actionTypes.SWAP: {
-        const fromElement = document.querySelector(`[data-index="${fromIndex}"]`);
+        const fromElement = document.querySelector(
+          `[data-index="${fromIndex}"]`,
+        );
         const toElement = document.querySelector(`[data-index="${toIndex}"]`);
         const fromLeft = fromElement.style.left;
         const toLeft = toElement.style.left;
@@ -149,7 +157,9 @@ export default (steps, interval) => {
         case actionTypes.MARK:
           break;
         case actionTypes.COMPARE: {
-          const fromElement = document.querySelector(`[data-index="${fromIndex}"]`);
+          const fromElement = document.querySelector(
+            `[data-index="${fromIndex}"]`,
+          );
           const toElement = document.querySelector(`[data-index="${toIndex}"]`);
           fromElement.classList.remove('compare');
           toElement.classList.remove('compare');
@@ -193,7 +203,6 @@ export default (steps, interval) => {
       });
     } else {
       state = stateTypes.PAUSED;
-
     }
   };
 

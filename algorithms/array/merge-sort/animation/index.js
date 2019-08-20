@@ -2,9 +2,8 @@
  * @since 2018-05-20 13:52:37
  * @author vivaxy
  */
-
-import Query from 'https://unpkg.com/event-based-framework/class/query.js';
-import EventEmitter from 'https://unpkg.com/event-based-framework/class/event-emitter.js';
+import Query from 'https://unpkg.com/@vivaxy/framework/class/query.js';
+import EventEmitter from 'https://unpkg.com/@vivaxy/framework/class/event-emitter.js';
 import * as EVENT_TYPES from '../../../_animation/enums/event-types.js';
 import generateUnsortedArray from '../../../_animation/services/unsorted-array.js';
 import animationActions from './services/animation-actions.js';

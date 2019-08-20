@@ -2,12 +2,11 @@
  * @since 2018-05-20 14:56:12
  * @author vivaxy
  */
-
+import assert from 'https://unpkg.com/@vivaxy/framework/utils/assert.js';
 import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 import Element from '../class/element.js';
 import NewArray from '../class/new-array.js';
-import assert from 'https://unpkg.com/event-based-framework/utils/assert.js';
 
 function init(events, query) {
   let elements = null;

@@ -4,38 +4,38 @@ Table of contents
 =================
 
 * [Algorithms](https://vivaxy.github.io/course/algorithms/) 算法
-  * [Array Algorithms](https://vivaxy.github.io/course/algorithms/array/) Array
+  * [Array Algorithms](https://vivaxy.github.io/course/algorithms/array/) 数组算法
     * [Linear Search](https://vivaxy.github.io/course/algorithms/array/binary-search/) Binary search
     * [Bubble Sort](https://vivaxy.github.io/course/algorithms/array/bubble-sort/) Bubble sort
-      * [bubble sort](https://vivaxy.github.io/course/algorithms/array/bubble-sort/animation/) Animation
+      * [bubble sort](https://vivaxy.github.io/course/algorithms/array/bubble-sort/animation/) 冒泡排序动画演示
     * [Heap Sort](https://vivaxy.github.io/course/algorithms/array/heap-sort/) Heap sort
     * [Insertion Sort](https://vivaxy.github.io/course/algorithms/array/insertion-sort/) Insertion sort
-      * [Insertion Sort](https://vivaxy.github.io/course/algorithms/array/insertion-sort/animation/) Animation
+      * [Insertion Sort](https://vivaxy.github.io/course/algorithms/array/insertion-sort/animation/) 插入排序动画演示
     * [Linear Search](https://vivaxy.github.io/course/algorithms/array/linear-search/) Linear search
     * [Merge Sort](https://vivaxy.github.io/course/algorithms/array/merge-sort/) Merge sort
-      * [Merge Sort](https://vivaxy.github.io/course/algorithms/array/merge-sort/animation/) Animation
+      * [Merge Sort](https://vivaxy.github.io/course/algorithms/array/merge-sort/animation/) 归并排序动画演示
     * [Quick Sort](https://vivaxy.github.io/course/algorithms/array/quick-sort/) Quick sort
-      * [Quick Sort](https://vivaxy.github.io/course/algorithms/array/quick-sort/animation/) Animation
+      * [Quick Sort](https://vivaxy.github.io/course/algorithms/array/quick-sort/animation/) 快速排序动画演示
     * [Selection Sort](https://vivaxy.github.io/course/algorithms/array/selection-sort/) Selection sort
-      * [Selection Sort](https://vivaxy.github.io/course/algorithms/array/selection-sort/animation/) Animation
-  * [Compression](https://vivaxy.github.io/course/algorithms/compression/) Compression
-  * [Graph](https://vivaxy.github.io/course/algorithms/graph/) Graph
-    * [Bellman-Ford](https://vivaxy.github.io/course/algorithms/graph/bellman-ford/) Bellman ford
-    * [Dijkstra](https://vivaxy.github.io/course/algorithms/graph/dijkstra/) Dijkstra
-    * [Floyd-Warshall](https://vivaxy.github.io/course/algorithms/graph/floyd-warshall/) Floyd warshall
-    * [Topological Sort](https://vivaxy.github.io/course/algorithms/graph/topological-sort/) Topological sort
-  * [Heap](https://vivaxy.github.io/course/algorithms/heap/) Heap
+      * [Selection Sort](https://vivaxy.github.io/course/algorithms/array/selection-sort/animation/) 选择排序动画演示
+  * [Compression](https://vivaxy.github.io/course/algorithms/compression/) 压缩算法
+  * [Graph](https://vivaxy.github.io/course/algorithms/graph/) 图论算法
+    * [Bellman-Ford](https://vivaxy.github.io/course/algorithms/graph/bellman-ford/) 贝尔曼-福特算法
+    * [Dijkstra](https://vivaxy.github.io/course/algorithms/graph/dijkstra/) 迪克斯特拉算法
+    * [Floyd-Warshall](https://vivaxy.github.io/course/algorithms/graph/floyd-warshall/) 弗洛伊德算法
+    * [Topological Sort](https://vivaxy.github.io/course/algorithms/graph/topological-sort/) 拓撲排序
+  * [Heap](https://vivaxy.github.io/course/algorithms/heap/) 堆算法
     * [Min Heap](https://vivaxy.github.io/course/algorithms/heap/min-heap/) Min heap
-  * [Linked List](https://vivaxy.github.io/course/algorithms/linked-list/) Linked list
-  * [Priority Queue](https://vivaxy.github.io/course/algorithms/priority-queue/) Priority queue
-  * [String](https://vivaxy.github.io/course/algorithms/string/) String
+  * [Linked List](https://vivaxy.github.io/course/algorithms/linked-list/) 链表算法
+  * [Priority Queue](https://vivaxy.github.io/course/algorithms/priority-queue/) 优先队列算法
+  * [String](https://vivaxy.github.io/course/algorithms/string/) 字符串算法
     * [Compute Transform Tables](https://vivaxy.github.io/course/algorithms/string/compute-transform-tables/) Compute transform tables
     * [Knuth Morris Pratt](https://vivaxy.github.io/course/algorithms/string/knuth-morris-pratt/) Knuth morris pratt
     * [Longest Common Sequence](https://vivaxy.github.io/course/algorithms/string/longest-common-sequence/) Longest common sequence
     * [Longest Common Substring](https://vivaxy.github.io/course/algorithms/string/longest-common-substring/) Longest common substring
-  * [Tree](https://vivaxy.github.io/course/algorithms/tree/) Tree
-    * [Breadth First Search](https://vivaxy.github.io/course/algorithms/tree/breadth-first-search/) Breadth first search
-    * [Depth First Search](https://vivaxy.github.io/course/algorithms/tree/depth-first-search/) Depth first search
+  * [Tree](https://vivaxy.github.io/course/algorithms/tree/) 树算法
+    * [Breadth First Search](https://vivaxy.github.io/course/algorithms/tree/breadth-first-search/) 广度优先遍历算法
+    * [Depth First Search](https://vivaxy.github.io/course/algorithms/tree/depth-first-search/) 深度优先遍历算法
 * [Benchmark](https://vivaxy.github.io/course/benchmark/) 性能
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/course/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/course/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
