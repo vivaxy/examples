@@ -218,5 +218,9 @@
   {
     "name": "Unicode",
     "link": "unicode/"
+  },
+  {
+    "name": "Memorize",
+    "link": "memorize/"
   }
 ]

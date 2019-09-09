@@ -109,6 +109,7 @@ Table of contents
   * [Load Resource as ArrayBuffer](https://vivaxy.github.io/course/javascript/load-resource-as-array-buffer/) How to load resource as arrayBuffer
   * [load script](https://vivaxy.github.io/course/javascript/load-script/) Load script
   * [matches-selector](https://vivaxy.github.io/course/javascript/matches-selector/) Matches selector
+  * [memorize](https://vivaxy.github.io/course/javascript/memorize/) memorize
   * [Mixin](https://vivaxy.github.io/course/javascript/mixin/) Mixin implementation
   * [mobile input change](https://vivaxy.github.io/course/javascript/mobile-input-change/) Mobile input change
   * [module view](https://vivaxy.github.io/course/javascript/module-view/) Module view
