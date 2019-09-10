@@ -6,7 +6,7 @@ const button = document.querySelector('button');
 button.addEventListener('click', async function() {
   if (navigator.share) {
     try {
-      navigator.share({
+      await navigator.share({
         title: 'Web Share',
         text: 'Web share demo page',
         url: location.href,
