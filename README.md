@@ -286,6 +286,7 @@ Table of contents
   * [getUserMedia](https://vivaxy.github.io/course/native-api/user-media/) User media
   * [vibrate](https://vivaxy.github.io/course/native-api/vibrate/) Vibrate
   * [visibility](https://vivaxy.github.io/course/native-api/visibility/) Visibility
+  * [Web Share](https://vivaxy.github.io/course/native-api/web-share/) Web Share
   * [web worker demo page](https://vivaxy.github.io/course/native-api/web-worker/) Web worker
   * [Web Worker transfer](https://vivaxy.github.io/course/native-api/web-worker-transfer/) Web worker transfer
   * [WebRTC](https://vivaxy.github.io/course/native-api/webrtc/) Webrtc
