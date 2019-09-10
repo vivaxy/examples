@@ -3,15 +3,17 @@
  * @author vivaxy
  */
 const button = document.querySelector('button');
-button.addEventListener('click', function() {
+button.addEventListener('click', async function() {
   if (navigator.share) {
-    navigator
-      .share({
+    try {
+      navigator.share({
         title: 'Web Share',
         text: 'Web share demo page',
         url: location.href,
-      })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing', error));
+      });
+      console.log('Successful share');
+    } catch (e) {
+      console.log('Error sharing', e);
+    }
   }
 });
