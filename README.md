@@ -185,7 +185,7 @@ Table of contents
     * [Monorepo Independent Version Logic](https://vivaxy.github.io/course/libraries/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
   * [mathjax](https://vivaxy.github.io/course/libraries/mathjax/) Mathjax
   * [ml5](https://vivaxy.github.io/course/libraries/ml5/) Ml5
-    * [Hello ml5](https://vivaxy.github.io/course/libraries/ml5/hello-world/) Hello world
+    * [Pose - ml5](https://vivaxy.github.io/course/libraries/ml5/pose/) Pose Net
   * [mobx](https://vivaxy.github.io/course/libraries/mobx/) Mobx
   * [moment](https://vivaxy.github.io/course/libraries/moment/) Moment
   * [pitfall](https://vivaxy.github.io/course/libraries/ohm/) Ohm
