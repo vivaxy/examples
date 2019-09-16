@@ -1,5 +1,9 @@
 [
   {
+    "name": "Update Props",
+    "link": "update-props/src/Child1.js"
+  },
+  {
     "name": "componentWillReceiveProps",
     "link": "component-will-receive-props/"
   },
