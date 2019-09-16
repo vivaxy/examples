@@ -1,5 +1,9 @@
 [
   {
+    "name": "prop-types",
+    "link": "prop-types/"
+  },
+  {
     "name": "execa",
     "link": "execa/"
   },

@@ -191,6 +191,7 @@ Table of contents
   * [pitfall](https://vivaxy.github.io/course/libraries/ohm/) Ohm
   * [on screen](https://vivaxy.github.io/course/libraries/on-screen/) On screen
   * [Prompts Demo](https://vivaxy.github.io/course/libraries/prompts/) Prompts Demo
+  * [prop-types](https://vivaxy.github.io/course/libraries/prop-types/) prop-types
   * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/course/libraries/qrcode/) Qrcode
