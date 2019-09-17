@@ -41,7 +41,6 @@
   },
   "gds": {
     "readmePrefix": "# [Course](https://vivaxy.github.io/course/index.html)",
-    "readmeSuffix": "# Initialize submodules\n\n`git submodule update --init`\n\n# Update submodules\n\n`git submodule foreach git pull`\n",
     "link-prefix": "https://vivaxy.github.io/course/"
   },
   "dependencies": {}
