@@ -1,0 +1,19 @@
+/**
+ * @since 2019-09-19 01:49
+ * @author vivaxy
+ */
+div {
+  margin: 10px;
+}
+
+.entry-list:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.entry-item {
+  float: left;
+  white-space: pre;
+  font-family: monospace;
+}

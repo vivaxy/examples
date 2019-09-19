@@ -1,5 +1,9 @@
 [
   {
+    "name": "User Timing",
+    "link": "user-timing/"
+  },
+  {
     "name": "Web Share",
     "link": "web-share/"
   },

@@ -285,6 +285,7 @@ Table of contents
   * [transition](https://vivaxy.github.io/course/native-api/transition/) Transition
   * [USB](https://vivaxy.github.io/course/native-api/usb/) Usb
   * [getUserMedia](https://vivaxy.github.io/course/native-api/user-media/) User media
+  * [User Timing](https://vivaxy.github.io/course/native-api/user-timing/) User Timing
   * [vibrate](https://vivaxy.github.io/course/native-api/vibrate/) Vibrate
   * [visibility](https://vivaxy.github.io/course/native-api/visibility/) Visibility
   * [Web Share](https://vivaxy.github.io/course/native-api/web-share/) Web Share
