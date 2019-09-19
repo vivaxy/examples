@@ -18,6 +18,7 @@ $readMark.addEventListener('click', function() {
 });
 $clearMarks.addEventListener('click', function() {
   performance.clearMarks($markName.value);
+  updateMeasureMarks();
 });
 
 function outputEntries(type, filterName, $list) {
