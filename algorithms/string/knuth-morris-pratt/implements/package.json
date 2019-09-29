@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "jest"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.25.0"
+    "jest": "^24.9.0"
   }
 }

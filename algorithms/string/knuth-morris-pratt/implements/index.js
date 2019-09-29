@@ -15,7 +15,7 @@ module.exports = function knuthMorrisPratt(text, pattern) {
   while (textIndex < text.length) {
     if (text[textIndex] === pattern[patternIndex]) {
       if (patternIndex === pattern.length - 1) {
-        return textIndex - pattern.length + 1;
+        return textIndex - patternIndex;
       }
       textIndex++;
       patternIndex++;
@@ -29,27 +29,27 @@ module.exports = function knuthMorrisPratt(text, pattern) {
   }
 
   return -1;
+};
 
-  function buildPatternTable(pattern) {
-    let patternTable = [0];
-    let i = 1;
-    let j = 0;
+function buildPatternTable(pattern) {
+  let patternTable = [0];
+  let i = 1;
+  let j = 0;
 
-    while (i < pattern.length) {
-      if (pattern[i] === pattern[j]) {
-        patternTable[i] = j + 1;
+  while (i < pattern.length) {
+    if (pattern[i] === pattern[j]) {
+      patternTable[i] = j + 1;
+      i++;
+      j++;
+    } else {
+      if (j === 0) {
+        patternTable[i] = 0;
         i++;
-        j++;
       } else {
-        if (j === 0) {
-          patternTable[i] = 0;
-          i++;
-        } else {
-          j = patternTable[j - 1];
-        }
+        j = patternTable[j - 1];
       }
     }
-
-    return patternTable;
   }
-};
+
+  return patternTable;
+}

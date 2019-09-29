@@ -2,11 +2,9 @@
  * @since 20180906 11:35
  * @author vivaxy
  */
-
-const test = require('ava');
 const knuthMorrisPratt = require('../index.js');
 
-test('Knuth Morris Pratt', (t) => {
+test('Knuth Morris Pratt', function() {
   [
     ['', ''],
     ['a', ''],
@@ -19,6 +17,6 @@ test('Knuth Morris Pratt', (t) => {
     ['abcxabcdabxaabaabaaaabcdabcdabcy', 'aabaabaaa'],
     ['bacabdabcdabcab', 'abcab'],
   ].forEach(function([text, pattern]) {
-    t.is(knuthMorrisPratt(text, pattern), text.indexOf(pattern));
+    expect(knuthMorrisPratt(text, pattern)).toBe(text.indexOf(pattern));
   });
 });
