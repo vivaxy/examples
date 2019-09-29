@@ -30,7 +30,7 @@ Table of contents
   * [Priority Queue](https://vivaxy.github.io/course/algorithms/priority-queue/) 优先队列
   * [String](https://vivaxy.github.io/course/algorithms/string/) 字符串
     * [Compute Transform Tables](https://vivaxy.github.io/course/algorithms/string/compute-transform-tables/) Compute transform tables
-    * [Knuth Morris Pratt](https://vivaxy.github.io/course/algorithms/string/knuth-morris-pratt/) Knuth morris pratt
+    * [Knuth Morris Pratt](https://vivaxy.github.io/course/algorithms/string/knuth-morris-pratt/) Knuth-Morris-Pratt 字符串查找算法
     * [Longest Common Sequence](https://vivaxy.github.io/course/algorithms/string/longest-common-sequence/) Longest common sequence
     * [Longest Common Substring](https://vivaxy.github.io/course/algorithms/string/longest-common-substring/) Longest common substring
   * [Tree](https://vivaxy.github.io/course/algorithms/tree/) 树
