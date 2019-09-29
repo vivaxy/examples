@@ -4,7 +4,6 @@
  * O(n + m)
  */
 module.exports = function knuthMorrisPratt(text, pattern) {
-
   if (pattern.length === 0) {
     return 0;
   }
@@ -18,14 +17,14 @@ module.exports = function knuthMorrisPratt(text, pattern) {
       if (patternIndex === pattern.length - 1) {
         return textIndex - pattern.length + 1;
       }
-
       textIndex++;
       patternIndex++;
-    } else if (patternIndex > 0) {
-      patternIndex = patternTable[patternIndex - 1];
     } else {
-      patternIndex = 0;
-      textIndex++;
+      if (patternIndex === 0) {
+        textIndex++;
+      } else {
+        patternIndex = patternTable[patternIndex - 1];
+      }
     }
   }
 
@@ -41,15 +40,16 @@ module.exports = function knuthMorrisPratt(text, pattern) {
         patternTable[i] = j + 1;
         i++;
         j++;
-      } else if (j === 0) {
-        patternTable[i] = 0;
-        i++;
       } else {
-        j = patternTable[j - 1];
+        if (j === 0) {
+          patternTable[i] = 0;
+          i++;
+        } else {
+          j = patternTable[j - 1];
+        }
       }
     }
 
     return patternTable;
   }
-
 };
