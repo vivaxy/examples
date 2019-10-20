@@ -244,6 +244,7 @@ Table of contents
   * [Date input](https://vivaxy.github.io/course/native-api/date-input/) Date input demo
   * [designMode](https://vivaxy.github.io/course/native-api/design-mode/) Design mode
   * [details summary](https://vivaxy.github.io/course/native-api/details-summary/) Details summary
+  * [Device Information"](https://vivaxy.github.io/course/native-api/device-information/) Device Information
   * [device motion demo page](https://vivaxy.github.io/course/native-api/device-motion/) Device motion
   * [DP Share](https://vivaxy.github.io/course/native-api/dp-share/) DP share demo
   * [draggable demo page](https://vivaxy.github.io/course/native-api/draggable/) Draggable

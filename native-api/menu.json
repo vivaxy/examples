@@ -1,5 +1,9 @@
 [
   {
+    "name": "Device Information",
+    "link": "device-information"
+  },
+  {
     "name": "User Timing",
     "link": "user-timing/"
   },
