@@ -2,7 +2,7 @@
  * @since 2019-10-28 12:43
  * @author vivaxy
  */
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementsByTagName('canvas')[0];
 const imageURL = '/vivaxy.icon.png';
 
 document
