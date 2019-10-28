@@ -170,5 +170,9 @@
   {
     "name": "Tidy JSON Structure",
     "link": "tidy-json-structure/index.js"
+  },
+  {
+    "name": "Download Image",
+    "link": "download-image/"
   }
 ]

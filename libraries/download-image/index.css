@@ -1,0 +1,15 @@
+/**
+ * @since 2019-10-28 12:43
+ * @author vivaxy
+ */
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

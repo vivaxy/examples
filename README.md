@@ -172,6 +172,7 @@ Table of contents
   * [Browserify](https://vivaxy.github.io/course/libraries/browserify/) Browserify demo
   * [cycle.js](https://vivaxy.github.io/course/libraries/cycle-js/) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/course/libraries/cycle-js/basic/) Basic
+  * [Download Image](https://vivaxy.github.io/course/libraries/download-image/) Download Image
   * [dragula](https://vivaxy.github.io/course/libraries/dragula/) Dragula
   * [echarts](https://vivaxy.github.io/course/libraries/echarts/) Echarts
     * [horizontal scroll](https://vivaxy.github.io/course/libraries/echarts/horizontal-scroll/) Horizontal scroll
