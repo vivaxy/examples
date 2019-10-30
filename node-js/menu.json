@@ -1,5 +1,9 @@
 [
   {
+    "name": "buffer",
+    "link": "buffer/Buffer.from.js"
+  },
+  {
     "name": "nextTick",
     "link": "next-tick/index.js"
   },
