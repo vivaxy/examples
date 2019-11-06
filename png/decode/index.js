@@ -106,7 +106,9 @@ module.exports = function decode(buffer, options = {}) {
     const signature = constants.PNG_SIGNATURE;
     for (let i = 0; i < signature.length; i++) {
       if (data[i] !== signature[i]) {
-        throw new Error(`Invalid file signature, at position ${i}: ${data[i]} !== ${signature[i]}`);
+        throw new Error(
+          `Invalid file signature, at position ${i}: ${data[i]} !== ${signature[i]}`,
+        );
       }
     }
     read(8, parseChunkBegin);
@@ -117,7 +119,6 @@ module.exports = function decode(buffer, options = {}) {
   }
 
   function parseIHDR(data) {
-
     crc.write(data);
 
     const width = data.readUInt32BE(0);
@@ -128,7 +129,13 @@ module.exports = function decode(buffer, options = {}) {
     const filter = data[11];
     const interlace = data[12];
 
-    if (depth !== 8 && depth !== 4 && depth !== 2 && depth !== 1 && depth !== 16) {
+    if (
+      depth !== 8 &&
+      depth !== 4 &&
+      depth !== 2 &&
+      depth !== 1 &&
+      depth !== 16
+    ) {
       throw new Error('Unsupported bit depth ' + depth);
     }
     if (!(colorType in constants.COLORTYPE_TO_BPP_MAP)) {
@@ -152,7 +159,9 @@ module.exports = function decode(buffer, options = {}) {
     metadata.height = height;
     metadata.depth = depth;
     metadata.interlace = Boolean(interlace);
-    metadata.palette = Boolean(colorType & constants.COLORTYPE_PALETTE);
+    metadata.palette = Boolean(colorType & constants.COLORTYPE_PALETTE)
+      ? []
+      : false;
     metadata.color = Boolean(colorType & constants.COLORTYPE_COLOR);
     metadata.alpha = Boolean(colorType & constants.COLORTYPE_ALPHA);
     metadata.bpp = bpp;
@@ -168,7 +177,10 @@ module.exports = function decode(buffer, options = {}) {
   function parseIDAT(length, data) {
     crc.write(data);
 
-    if (metadata.colorType === constants.COLORTYPE_PALETTE_COLOR && metadata.palette.length === 0) {
+    if (
+      metadata.colorType === constants.COLORTYPE_PALETTE_COLOR &&
+      metadata.palette.length === 0
+    ) {
       throw new Error('Expected palette not found');
     }
 
@@ -230,7 +242,11 @@ module.exports = function decode(buffer, options = {}) {
       metadata.transColor = [data.readUInt16BE(0)];
     }
     if (metadata.colorType === constants.COLORTYPE_COLOR) {
-      metadata.transColor = [data.readUInt16BE(0), data.readUInt16BE(2), data.readUInt16BE(4)];
+      metadata.transColor = [
+        data.readUInt16BE(0),
+        data.readUInt16BE(2),
+        data.readUInt16BE(4),
+      ];
     }
 
     handleChunkEnd();
@@ -241,7 +257,6 @@ module.exports = function decode(buffer, options = {}) {
   }
 
   function parseGAMA(data) {
-
     crc.write(data);
     metadata.gamma = data.readUInt32BE(0) / constants.GAMMA_DIVISION;
 
