@@ -1,0 +1,12 @@
+/**
+ * @since 2019-11-23 03:24
+ * @author vivaxy
+ */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  text-align: center;
+}

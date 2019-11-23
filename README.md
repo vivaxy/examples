@@ -223,6 +223,9 @@ Table of contents
     * [Updating Nested Object](https://vivaxy.github.io/course/libraries/vue-js/updating-nested-object/) Updating nested object
   * [webpack](https://vivaxy.github.io/course/libraries/webpack/) Webpack
     * [require.context](https://vivaxy.github.io/course/libraries/webpack/require-context/) Require context
+* [Machine Learning](https://vivaxy.github.io/course/machine-learning/) Machine Learning
+  * [TensorFlow](https://vivaxy.github.io/course/machine-learning/tensorflow/) TensorFlow
+    * [Tensorflow.js Demo 0](https://vivaxy.github.io/course/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js
 * [Memory Leak](https://vivaxy.github.io/course/memory-leak/) 内存泄漏
   * [Debounce](https://vivaxy.github.io/course/memory-leak/debounce/) Debounce
 * [Native API](https://vivaxy.github.io/course/native-api/) 原生接口

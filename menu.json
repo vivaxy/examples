@@ -1,5 +1,9 @@
 [
   {
+    "name": "Machine Learning",
+    "link": "machine-learning"
+  },
+  {
     "name": "Libraries",
     "link": "libraries/"
   },
