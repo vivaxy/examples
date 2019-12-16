@@ -1,6 +1,10 @@
 [
   {
-    "name": "buffer",
+    "name": "Stream",
+    "link": "stream/readable.js"
+  },
+  {
+    "name": "Buffer",
     "link": "buffer/Buffer.from.js"
   },
   {
