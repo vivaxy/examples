@@ -1,5 +1,9 @@
 [
   {
+    "name": "Take Last Promise",
+    "link": "take-last-promise/"
+  },
+  {
     "name": "RegExp",
     "link": "reg-exp/"
   },

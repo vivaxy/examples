@@ -136,6 +136,7 @@ Table of contents
   * [Style set property](https://vivaxy.github.io/course/javascript/style-set-property/) Style set property demo
   * [style-sheet](https://vivaxy.github.io/course/javascript/style-sheet/) Style sheet
   * [Symbol](https://vivaxy.github.io/course/javascript/symbol/) Symbol
+  * [Take Last Promise](https://vivaxy.github.io/course/javascript/take-last-promise/) Take Last Promise
   * [tap](https://vivaxy.github.io/course/javascript/tap/) Tap
   * [template engine](https://vivaxy.github.io/course/javascript/template-engine/) Template engine
   * [template strings](https://vivaxy.github.io/course/javascript/template-strings/) Template strings
