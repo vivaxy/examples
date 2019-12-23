@@ -1,5 +1,9 @@
 [
   {
+    "name": "Bit Operations vs Math Operations",
+    "link": "bit-operations-vs-math-operations/index.js"
+  },
+  {
     "name": "forLoop vs tailRecurse vs recurse",
     "link": "forLoop-vs-tailRecurse-vs-recurse/"
   },
