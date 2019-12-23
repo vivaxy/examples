@@ -1,5 +1,9 @@
 [
   {
+    "name": "Unresolved Promise",
+    "link": "unresolved-promise/index.js"
+  },
+  {
     "name": "Take Last Promise",
     "link": "take-last-promise/"
   },
