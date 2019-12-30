@@ -74,9 +74,5 @@
   {
     "name": "Sliding Tiles Puzzle",
     "link": "sliding-tiles-puzzle/"
-  },
-  {
-    "name": "PNG",
-    "link": "png/index.js"
   }
 ]

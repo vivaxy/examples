@@ -308,6 +308,7 @@ Table of contents
   * [click event on label with input](https://vivaxy.github.io/course/pitfall/click-event-on-label-with-input/) Click event on label with input
   * [event delegation on ios safari](https://vivaxy.github.io/course/pitfall/event-delegation-on-ios-safari/) Event delegation on ios safari
   * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/course/pitfall/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
+* [Shell](https://vivaxy.github.io/course/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/course/sliding-tiles-puzzle/) 数字推盘游戏
 * [TypeScript](https://vivaxy.github.io/course/typescript/) TypeScript
 * [WebAssembly](https://vivaxy.github.io/course/web-assembly/) Web Assembly
