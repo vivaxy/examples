@@ -74,5 +74,9 @@
   {
     "name": "Sliding Tiles Puzzle",
     "link": "sliding-tiles-puzzle/"
+  },
+  {
+    "name": "Shell",
+    "link": "shell/"
   }
 ]
