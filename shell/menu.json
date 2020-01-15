@@ -6,5 +6,9 @@
   {
     "name": "trap",
     "link": "trap/index.sh"
+  },
+  {
+    "name": "if",
+    "link": "if/index.sh"
   }
 ]
