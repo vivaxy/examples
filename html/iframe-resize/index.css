@@ -1,0 +1,25 @@
+/**
+ * @since 2020-02-06 12:06
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+}
+
+iframe {
+  border: none;
+  display: block;
+  flex: 1;
+}
+
+iframe:nth-child(1) {
+  background: #e99;
+}
+
+iframe:nth-child(2) {
+  background: #9e9;
+}

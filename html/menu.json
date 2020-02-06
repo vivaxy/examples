@@ -18,5 +18,9 @@
   {
     "name": "Meta Width",
     "link": "meta-width/"
+  },
+  {
+    "name": "iframe Resize",
+    "link": "iframe-resize/"
   }
 ]

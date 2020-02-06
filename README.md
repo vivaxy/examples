@@ -76,6 +76,7 @@ Table of contents
   * [Manipulate Functions](https://vivaxy.github.io/course/functional-programming/manipulate-functions/) Manipulate functions
 * [HTML](https://vivaxy.github.io/course/html/) HTML
   * [datalist](https://vivaxy.github.io/course/html/datalist/) Datalist
+  * [iframe Resize](https://vivaxy.github.io/course/html/iframe-resize/) iframe-resize
   * [Meta Scale](https://vivaxy.github.io/course/html/meta-scale/) Meta scale demo
   * [Meta Width](https://vivaxy.github.io/course/html/meta-width/) Meta width
   * [Playsinline](https://vivaxy.github.io/course/html/playsinline/) Video playsinline demo
