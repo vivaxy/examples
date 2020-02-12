@@ -93,7 +93,10 @@ function parser(tokens) {
     if (token.type === 'paren' && token.value === '(') {
       let params = [];
       token = tokens[++current];
-      while ((token.type !== 'paren') || (token.type === 'paren' && token.value !== ')')) {
+      while (
+        token.type !== 'paren' ||
+        (token.type === 'paren' && token.value !== ')')
+      ) {
         params.push(walk());
         token = tokens[current];
       }
@@ -118,7 +121,7 @@ function parser(tokens) {
 
 function traverser(ast, visitor) {
   function traverseArray(array, parent) {
-    array.forEach(child => {
+    array.forEach((child) => {
       traverseNode(child, parent);
     });
   }
@@ -208,20 +211,15 @@ function transformer(ast) {
 function codeGenerator(node) {
   switch (node.type) {
     case 'Program':
-      return node.body.map(codeGenerator)
-        .join(' ');
+      return node.body.map(codeGenerator).join(' ');
     case 'ExpressionStatement':
       return (
-        codeGenerator(node.expression) +
-        ';' // << (...because we like to code the *correct* way)
+        codeGenerator(node.expression) + ';' // << (...because we like to code the *correct* way)
       );
     case 'CallExpression':
       return (
         // codeGenerator(node.callee) +
-        '(' +
-        node.arguments.map(codeGenerator)
-          .join(' ') +
-        ')'
+        '(' + node.arguments.map(codeGenerator).join(' ') + ')'
       );
     case 'Identifier':
       return node.name;

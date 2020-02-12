@@ -2,7 +2,7 @@
  * @since 2019-06-07 14:04:05
  * @author vivaxy
  *
- * @see https://github.com/dt-fe/weekly/blob/master/64.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%89%8B%E5%86%99%20SQL%20%E7%BC%96%E8%AF%91%E5%99%A8%20-%20%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B.md
+ * @see https://github.com/dt-fe/weekly/blob/v2/064.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%89%8B%E5%86%99%20SQL%20%E7%BC%96%E8%AF%91%E5%99%A8%20-%20%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B.md
  * 4 Steps
  *  1. 词法分析，将 SQL 字符串拆分成包含关键词识别的字符段（Tokens）。
  *  2. 语法分析，利用自顶向下或自底向上的算法，将 Tokens 解析为 AST，可以手动，也可以自动。
@@ -35,11 +35,11 @@ export enum TYPES {
 }
 
 interface Token {
-  type: TYPES,
-  value: any
+  type: TYPES;
+  value: any;
 }
 
-function getTokenWhitespace(restStr: string, token?) {
+function getTokenWhitespace(restStr: string) {
   const matches = restStr.match(/^(\s+)/);
 
   if (matches) {
@@ -47,7 +47,7 @@ function getTokenWhitespace(restStr: string, token?) {
   }
 }
 
-function getTokenBlockComment(restStr: string, token?) {
+function getTokenBlockComment(restStr: string) {
   const matches = restStr.match(/^(\/\*[^]*?(?:\*\/|$))/);
 
   if (matches) {
@@ -55,25 +55,70 @@ function getTokenBlockComment(restStr: string, token?) {
   }
 }
 
-export function tokenizer(sqlStr: string) {
+function getTokenKeyword(restStr: string) {
+  const keywords = ['select', 'from'];
+  for (const keyword of keywords) {
+    if (restStr.startsWith(keyword)) {
+      return {
+        type: TYPES.KEYWORD,
+        value: keyword,
+      };
+    }
+  }
+}
 
+function getTokenLiteral(restStr: string) {
+  const matches = restStr.match(/^/);
+}
+
+export function tokenize(sqlStr: string) {
   let tokens: Token[] = [];
   let token: Token;
 
   while (sqlStr) {
-    token = getTokenWhitespace(sqlStr, token) || getTokenBlockComment(sqlStr, token);
+    const _token =
+      getTokenWhitespace(sqlStr) ||
+      getTokenBlockComment(sqlStr) ||
+      getTokenKeyword(sqlStr);
 
+    if (!_token) {
+      throw new Error('Unexpected token: ' + sqlStr);
+    }
+
+    token = _token;
     sqlStr = sqlStr.substring(token.value.length);
 
     tokens.push(token);
   }
 
   return tokens;
-
 }
 
 /**
  * @see https://github.com/dt-fe/weekly/blob/v2/065.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%89%8B%E5%86%99%20SQL%20%E7%BC%96%E8%AF%91%E5%99%A8%20-%20%E6%96%87%E6%B3%95%E4%BB%8B%E7%BB%8D%E3%80%8B.md
  * 文法：描述语言的语法规则
- * 一块语法规则称为 产生式，使用 “Left → Right” 表示任意产生式，用 “Left => Right” 表示产生式的推导过程
+ * 一块语法规则称为 产生式，使用 “Left → Right” 表示任意产生式，用 “Left ⇒ Right” 表示产生式的推导过程
  */
+export function parse(tokens: Token[]) {
+  let tokenIndex = 0;
+
+  function match(word: string) {
+    const currentToken = tokens[tokenIndex]; // 拿到当前所在的 Token
+
+    if (currentToken.value === word) {
+      // 如果 Token 匹配上了，则下移一位，同时返回 true
+      tokenIndex++;
+      return true;
+    }
+
+    // 没有匹配上，不消耗 Token，但是返回 false
+    return false;
+  }
+
+  const root = () =>
+    match('select') && match('a') && match('from') && match('b');
+
+  if (root() && tokenIndex === tokens.length) {
+    // sql 解析成功
+  }
+}
