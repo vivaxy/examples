@@ -68,7 +68,10 @@ function getTokenKeyword(restStr: string) {
 }
 
 function getTokenLiteral(restStr: string) {
-  const matches = restStr.match(/^/);
+  const matches = restStr.match(/^([a-zA-Z0-9]+)/);
+  if (matches) {
+    return { type: TYPES.LITERAL, value: matches[1] };
+  }
 }
 
 export function tokenize(sqlStr: string) {
@@ -79,7 +82,8 @@ export function tokenize(sqlStr: string) {
     const _token =
       getTokenWhitespace(sqlStr) ||
       getTokenBlockComment(sqlStr) ||
-      getTokenKeyword(sqlStr);
+      getTokenKeyword(sqlStr) ||
+      getTokenLiteral(sqlStr);
 
     if (!_token) {
       throw new Error('Unexpected token: ' + sqlStr);
@@ -102,8 +106,16 @@ export function tokenize(sqlStr: string) {
 export function parse(tokens: Token[]) {
   let tokenIndex = 0;
 
-  function match(word: string) {
+  function match(word: string): boolean {
     const currentToken = tokens[tokenIndex]; // 拿到当前所在的 Token
+
+    if (
+      currentToken.type === TYPES.WHITE_SPACE ||
+      currentToken.type === TYPES.BLOCK_COMMENT
+    ) {
+      tokenIndex++;
+      return match(word);
+    }
 
     if (currentToken.value === word) {
       // 如果 Token 匹配上了，则下移一位，同时返回 true
@@ -119,6 +131,7 @@ export function parse(tokens: Token[]) {
     match('select') && match('a') && match('from') && match('b');
 
   if (root() && tokenIndex === tokens.length) {
-    // sql 解析成功
+    return true;
   }
+  return false;
 }

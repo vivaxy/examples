@@ -6,8 +6,8 @@ import { tokenize, parse, TYPES } from '../index';
 
 test('tokenize', function() {
   const tokens = tokenize(`
-  /* comment */
-  `);
+/* comment */
+`);
   expect(tokens).toStrictEqual([
     {
       type: TYPES.WHITE_SPACE,
@@ -27,5 +27,5 @@ test('tokenize', function() {
 test('parse', function() {
   const tokens = tokenize('select a from b');
   const parsed = parse(tokens);
-  expect(parsed).toStrictEqual({});
+  expect(parsed).toStrictEqual(true);
 });
