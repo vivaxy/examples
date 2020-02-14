@@ -106,7 +106,7 @@ export function tokenize(sqlStr: string) {
 export function parse(tokens: Token[]) {
   let tokenIndex = 0;
 
-  function match(word: string): boolean {
+  function match(word: string | RegExp): boolean {
     const currentToken = tokens[tokenIndex]; // 拿到当前所在的 Token
 
     if (
@@ -117,7 +117,10 @@ export function parse(tokens: Token[]) {
       return match(word);
     }
 
-    if (currentToken.value === word) {
+    if (
+      (typeof word === 'string' && currentToken.value === word) ||
+      (word instanceof RegExp && word.test(currentToken.value))
+    ) {
       // 如果 Token 匹配上了，则下移一位，同时返回 true
       tokenIndex++;
       return true;
@@ -127,8 +130,15 @@ export function parse(tokens: Token[]) {
     return false;
   }
 
+  const word = () => match(/[a-zA-Z]*/);
+
+  const optional = (value: any) => !!value;
+
+  const selectList: () => boolean = () =>
+    word() && optional(match(',') && selectList());
+
   const root = () =>
-    match('select') && match('a') && match('from') && match('b');
+    match('select') && selectList() && match('from') && match('b');
 
   if (root() && tokenIndex === tokens.length) {
     return true;
