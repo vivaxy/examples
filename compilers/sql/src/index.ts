@@ -32,6 +32,7 @@ export enum TYPES {
   WHITE_SPACE = 6,
   LITERAL = 7,
   DIALECT = 8,
+  COMMA = 9,
 }
 
 interface Token {
@@ -74,6 +75,13 @@ function getTokenLiteral(restStr: string) {
   }
 }
 
+function getTokenComma(restStr: string) {
+  const matches = restStr.match(/,/);
+  if (matches) {
+    return { type: TYPES.COMMA, value: matches[0] };
+  }
+}
+
 export function tokenize(sqlStr: string) {
   let tokens: Token[] = [];
   let token: Token;
@@ -83,7 +91,8 @@ export function tokenize(sqlStr: string) {
       getTokenWhitespace(sqlStr) ||
       getTokenBlockComment(sqlStr) ||
       getTokenKeyword(sqlStr) ||
-      getTokenLiteral(sqlStr);
+      getTokenLiteral(sqlStr) ||
+      getTokenComma(sqlStr);
 
     if (!_token) {
       throw new Error('Unexpected token: ' + sqlStr);
@@ -130,12 +139,29 @@ export function parse(tokens: Token[]) {
     return false;
   }
 
+  function tree(...args: any[]) {
+    const startTokenIndex = tokenIndex;
+    return args.some((arg) => {
+      const result = arg();
+
+      if (!result) {
+        tokenIndex = startTokenIndex; // 执行失败则还原 TokenIndex
+      }
+
+      return result;
+    });
+  }
+
   const word = () => match(/[a-zA-Z]*/);
 
-  const optional = (value: any) => !!value;
+  const functional = () => false;
+
+  const field = () => tree(word, functional);
+
+  const optional = (val: boolean) => tree(() => val, () => true);
 
   const selectList: () => boolean = () =>
-    word() && optional(match(',') && selectList());
+    field() && optional(match(',') && selectList());
 
   const root = () =>
     match('select') && selectList() && match('from') && match('b');
@@ -143,5 +169,6 @@ export function parse(tokens: Token[]) {
   if (root() && tokenIndex === tokens.length) {
     return true;
   }
+
   return false;
 }

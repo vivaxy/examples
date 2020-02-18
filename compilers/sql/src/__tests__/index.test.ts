@@ -25,7 +25,13 @@ test('tokenize', function() {
 });
 
 test('parse', function() {
-  const tokens = tokenize('select a from b');
-  const parsed = parse(tokens);
-  expect(parsed).toStrictEqual(true);
+  const sqls = ['select a from b', 'select a, b, c from b'];
+  sqls.forEach(function(sql) {
+    const tokens = tokenize(sql);
+    const parsed = parse(tokens);
+    if (!parsed) {
+      console.log(sql);
+    }
+    expect(parsed).toStrictEqual(true);
+  });
 });
