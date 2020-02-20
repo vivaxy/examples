@@ -1,5 +1,5 @@
 /**
- * @since 20180719 11:51
+ * @since 20200220 11:51
  * @author vivaxy
  */
 const {
@@ -9,6 +9,7 @@ const {
   prepend,
   remove,
   find,
+  insert,
 } = require('..');
 
 test('Should create an empty linked list', function() {
@@ -45,4 +46,9 @@ test('should remove node by value from linked list', function() {
 test('should find node by value in linked list', function() {
   const linkedList = createLinkedList(1, 2, 3);
   expect(toString(find(2, linkedList))).toBe('2,3');
+});
+
+test('should insert val before node in linked list', function() {
+  expect(toString(insert(2, 3, createLinkedList(1, 3)))).toBe('1,2,3');
+  expect(toString(insert(1, 2, createLinkedList(2, 3)))).toBe('1,2,3');
 });

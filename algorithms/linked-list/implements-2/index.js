@@ -1,8 +1,8 @@
 /**
- * @since 20180719 11:40
+ * @since 20200220 11:40
  * @author vivaxy
  */
-function prepend(val, node) {
+function createNode(val, node) {
   return function(flag) {
     if (flag) {
       return val;
@@ -35,6 +35,10 @@ function toString(node) {
     return getValue(node);
   }
   return getValue(node) + ',' + toString(getNext(node));
+}
+
+function prepend(val, node) {
+  return createNode(val, node);
 }
 
 function append(val, node) {
@@ -75,12 +79,23 @@ function remove(val, node) {
   return prepend(getValue(node), remove(val, getNext(node)));
 }
 
-exports.prepend = prepend;
-exports.append = append;
+function insert(val, target, linkedList) {
+  if (getValue(linkedList) === target) {
+    return prepend(val, linkedList);
+  }
+  return prepend(
+    getValue(linkedList),
+    insert(val, target, getNext(linkedList)),
+  );
+}
+
 exports.getValue = getValue;
 exports.getNext = getNext;
-exports.createLinkedList = createLinkedList;
 exports.toJS = toJS;
 exports.toString = toString;
+exports.prepend = prepend;
+exports.append = append;
+exports.createLinkedList = createLinkedList;
 exports.remove = remove;
 exports.find = find;
+exports.insert = insert;
