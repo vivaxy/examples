@@ -2,5 +2,9 @@
   {
     "name": "Linked List Implements",
     "link": "implements/index.js"
+  },
+  {
+    "name": "Linked List Implements 2",
+    "link": "implements-2/index.js"
   }
 ]
