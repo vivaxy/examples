@@ -37,6 +37,9 @@ test('should remove node by value from linked list', function() {
   expect(toString(remove(2, linkedList))).toBe('1,3');
   expect(toString(remove(3, linkedList))).toBe('1,2');
   expect(toString(remove(4, linkedList))).toBe('1,2,3');
+
+  const linkedList2 = createLinkedList(1, 2, 1, 3);
+  expect(toString(remove(1, linkedList2))).toBe('2,3');
 });
 
 test('should find node by value in linked list', function() {
