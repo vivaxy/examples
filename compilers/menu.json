@@ -5,6 +5,10 @@
   },
   {
     "name": "sql",
-    "link": "sql/index.ts"
+    "link": "sql/src/index.ts"
+  },
+  {
+    "name": "traverse",
+    "link": "traverse/src/index.ts"
   }
 ]
