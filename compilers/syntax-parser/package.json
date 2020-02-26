@@ -20,6 +20,9 @@
     "preset": "ts-jest",
     "collectCoverageFrom": [
       "src/**/*.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.test.ts?(x)"
     ]
   },
   "devDependencies": {
