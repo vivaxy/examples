@@ -5,6 +5,8 @@ Array [
   Object {
     "position": Array [
       0,
+      0,
+      0,
       1,
     ],
     "type": "Number",
@@ -12,7 +14,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       2,
+      0,
       3,
     ],
     "type": "Operator",
@@ -20,7 +24,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       4,
+      0,
       5,
     ],
     "type": "Number",
@@ -34,6 +40,8 @@ Array [
   Object {
     "position": Array [
       0,
+      0,
+      0,
       1,
     ],
     "type": "Number",
@@ -41,7 +49,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       2,
+      0,
       3,
     ],
     "type": "Operator",
@@ -49,7 +59,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       4,
+      0,
       5,
     ],
     "type": "Number",
@@ -57,7 +69,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       6,
+      0,
       7,
     ],
     "type": "Operator",
@@ -65,11 +79,88 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       8,
+      0,
       9,
     ],
     "type": "Number",
     "value": "3",
+  },
+]
+`;
+
+exports[`binary operation 3`] = `
+Array [
+  Object {
+    "position": Array [
+      0,
+      0,
+      0,
+      1,
+    ],
+    "type": "Number",
+    "value": "1",
+  },
+  Object {
+    "position": Array [
+      0,
+      1,
+      0,
+      2,
+    ],
+    "type": "Operator",
+    "value": "+",
+  },
+  Object {
+    "position": Array [
+      0,
+      2,
+      0,
+      3,
+    ],
+    "type": "Number",
+    "value": "2",
+  },
+  Object {
+    "position": Array [
+      1,
+      0,
+      1,
+      1,
+    ],
+    "type": "Operator",
+    "value": "-",
+  },
+  Object {
+    "position": Array [
+      1,
+      1,
+      1,
+      2,
+    ],
+    "type": "Number",
+    "value": "3",
+  },
+  Object {
+    "position": Array [
+      3,
+      0,
+      3,
+      1,
+    ],
+    "type": "Operator",
+    "value": "+",
+  },
+  Object {
+    "position": Array [
+      3,
+      1,
+      3,
+      2,
+    ],
+    "type": "Number",
+    "value": "4",
   },
 ]
 `;
@@ -79,6 +170,8 @@ Array [
   Object {
     "position": Array [
       0,
+      0,
+      0,
       3,
     ],
     "type": "Declarator",
@@ -86,7 +179,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       4,
+      0,
       5,
     ],
     "type": "Identifier",
@@ -94,7 +189,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       6,
+      0,
       7,
     ],
     "type": "Operator",
@@ -102,7 +199,9 @@ Array [
   },
   Object {
     "position": Array [
+      0,
       8,
+      0,
       9,
     ],
     "type": "Identifier",

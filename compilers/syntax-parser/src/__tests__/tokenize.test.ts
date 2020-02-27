@@ -22,6 +22,10 @@ test('binary operation', function() {
   ];
   expect(tokenize(patterns, `1 + 2`)).toMatchSnapshot();
   expect(tokenize(patterns, `1 + 2 - 3`)).toMatchSnapshot();
+  expect(tokenize(patterns, `1+2
+-3
+
++4`)).toMatchSnapshot();
 });
 
 test('variable declaration', function() {
