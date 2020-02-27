@@ -43,11 +43,17 @@ function getNewColumnNumber(lines: string[], columnNumber: number) {
   return columnNumber + lines[0].length;
 }
 
+export interface Token {
+  type: string;
+  value: string;
+  position: [number, number, number, number]
+}
+
 export default function tokenize(patterns: Pattern[], code: string) {
   let index = 0;
   let lineNumber = 0;
   let columnNumber = 0;
-  const tokens = [];
+  const tokens: Token[] = [];
   while (index < code.length) {
     const matched = getMatched(patterns, code.slice(index));
     if (!matched) {
