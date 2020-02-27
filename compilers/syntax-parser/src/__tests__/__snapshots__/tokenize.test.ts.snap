@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`binary operation 1`] = `
+Array [
+  Object {
+    "position": Array [
+      0,
+      1,
+    ],
+    "type": "Number",
+    "value": "1",
+  },
+  Object {
+    "position": Array [
+      2,
+      3,
+    ],
+    "type": "Operator",
+    "value": "+",
+  },
+  Object {
+    "position": Array [
+      4,
+      5,
+    ],
+    "type": "Number",
+    "value": "2",
+  },
+]
+`;
+
+exports[`binary operation 2`] = `
+Array [
+  Object {
+    "position": Array [
+      0,
+      1,
+    ],
+    "type": "Number",
+    "value": "1",
+  },
+  Object {
+    "position": Array [
+      2,
+      3,
+    ],
+    "type": "Operator",
+    "value": "+",
+  },
+  Object {
+    "position": Array [
+      4,
+      5,
+    ],
+    "type": "Number",
+    "value": "2",
+  },
+  Object {
+    "position": Array [
+      6,
+      7,
+    ],
+    "type": "Operator",
+    "value": "-",
+  },
+  Object {
+    "position": Array [
+      8,
+      9,
+    ],
+    "type": "Number",
+    "value": "3",
+  },
+]
+`;
+
+exports[`variable declaration 1`] = `
+Array [
+  Object {
+    "position": Array [
+      0,
+      3,
+    ],
+    "type": "Declarator",
+    "value": "var",
+  },
+  Object {
+    "position": Array [
+      4,
+      5,
+    ],
+    "type": "Identifier",
+    "value": "a",
+  },
+  Object {
+    "position": Array [
+      6,
+      7,
+    ],
+    "type": "Operator",
+    "value": "=",
+  },
+  Object {
+    "position": Array [
+      8,
+      9,
+    ],
+    "type": "Identifier",
+    "value": "b",
+  },
+]
+`;

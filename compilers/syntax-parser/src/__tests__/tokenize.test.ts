@@ -20,24 +20,33 @@ test('binary operation', function() {
       ignore: true,
     },
   ];
-  const code = `1 + 2`;
-  const tokens = tokenize(patterns, code);
-  const expected = [
+  expect(tokenize(patterns, `1 + 2`)).toMatchSnapshot();
+  expect(tokenize(patterns, `1 + 2 - 3`)).toMatchSnapshot();
+});
+
+test('variable declaration', function() {
+  const patterns = [
     {
-      type: 'Number',
-      value: '1',
-      position: [0, 1],
+      type: 'Declarator',
+      regExps: [/let|var|const/],
+    },
+    {
+      type: 'Identifier',
+      regExps: [/[a-zA-Z0-9]+/],
     },
     {
       type: 'Operator',
-      value: '+',
-      position: [2, 3],
+      regExps: [/=/],
     },
     {
-      type: 'Number',
-      value: '2',
-      position: [4, 5],
+      type: 'WhiteSpace',
+      regExps: [/\s+/],
+      ignore: true,
     },
   ];
-  expect(tokens).toStrictEqual(expected);
+  expect(tokenize(patterns, `var a = b`)).toMatchSnapshot();
 });
+
+test('unexpected token', function () {
+  expect(tokenize.bind(null, [], `unexpected token`)).toThrow('Unexpected token');
+})
