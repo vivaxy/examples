@@ -4,11 +4,11 @@
   "description": "A Chinese to JavaScript Compiler",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "jest"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.25.0"
+    "jest": "^25.1.0"
   }
 }
