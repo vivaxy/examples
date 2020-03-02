@@ -1,34 +1,34 @@
 [
   {
     "name": "Hello World",
-    "link": "./hello-world/build.sh"
+    "link": "hello-world/build.sh"
   },
   {
     "name": "Basic Types",
-    "link": "./basic-types/build.sh"
+    "link": "basic-types/build.sh"
   },
   {
     "name": "Interface",
-    "link": "./interface/build.sh"
+    "link": "interface/build.sh"
   },
   {
     "name": "Classes",
-    "link": "./classes/build.sh"
+    "link": "classes/build.sh"
   },
   {
     "name": "Functions",
-    "link": "./functions/build.sh"
+    "link": "functions/build.sh"
   },
   {
     "name": "Generics",
-    "link": "./generics/build.sh"
+    "link": "generics/build.sh"
   },
   {
     "name": "Enums",
-    "link": "./enums/build.sh"
+    "link": "enums/build.sh"
   },
   {
     "name": "Tricks",
-    "link": "./tricks/build.sh"
+    "link": "tricks/build.sh"
   }
 ]
