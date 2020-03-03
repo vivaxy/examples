@@ -30,5 +30,9 @@
   {
     "name": "Tricks",
     "link": "tricks/build.sh"
+  },
+  {
+    "name": "Type and Interface",
+    "link": "type-and-interface/src/index.ts"
   }
 ]
