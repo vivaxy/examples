@@ -2,13 +2,13 @@
  * @since 20180911 17:16
  * @author vivaxy
  */
-import traverse from '..';
+import parse from '../parse';
 
 test('keyword', function() {
   const rule = `
 Null ::= 'null' ;
 `;
-  expect(traverse(rule, 'null')).toStrictEqual({
+  expect(parse(rule, 'null')).toStrictEqual({
     type: 'Null',
     value: ['null'],
   });

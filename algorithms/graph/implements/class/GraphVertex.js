@@ -16,6 +16,7 @@ module.exports = class GraphVertex {
 
   addEdge(edge) {
     this.edges[edge.getKey()] = edge;
+    return this;
   }
 
   getKey() {

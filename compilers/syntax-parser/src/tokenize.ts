@@ -2,13 +2,13 @@
  * @since 2020-02-26 02:39
  * @author vivaxy
  */
-interface Pattern {
+export interface TokenPattern {
   type: string;
   regExps: RegExp[];
   ignore?: boolean;
 }
 
-function getMatched(patterns: Pattern[], code: string) {
+function getMatched(patterns: TokenPattern[], code: string) {
   for (const pattern of patterns) {
     for (const regExp of pattern.regExps) {
       const formattedRegExp = new RegExp(`^(${regExp.source})`);
@@ -46,10 +46,10 @@ function getNewColumnNumber(lines: string[], columnNumber: number) {
 export interface Token {
   type: string;
   value: string;
-  position: [number, number, number, number]
+  position: [number, number, number, number];
 }
 
-export default function tokenize(patterns: Pattern[], code: string) {
+export default function tokenize(patterns: TokenPattern[], code: string) {
   let index = 0;
   let lineNumber = 0;
   let columnNumber = 0;
