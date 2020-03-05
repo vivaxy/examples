@@ -10,6 +10,8 @@
  * Node can be same
  * Node can be recursed
  */
+import { Token } from './tokenize';
+
 enum NodeType {
   RegExp = 'RegExp',
   String = 'String',
@@ -38,16 +40,20 @@ function trim(v: string) {
 
 export class Rule {
   startNode: Node;
-  currentPath: Node[];
+  paths: Node[][];
 
-  constructor(rules: string) {
+  constructor(ruleText: string) {
     this.startNode = new Node(NodeType.Start);
-    this.currentPath = [];
-    this.parse(rules);
+    const startNodes = this.parse(ruleText);
+    this.startNode.nextNodes = [...startNodes];
+    this.paths = this.startNode.nextNodes.map(function(node) {
+      return [node];
+    });
   }
 
   parse(rules: string) {
     // TODO: support ; | ::= within quotes
+    const startNodes: Node[] = [];
     for (const rule of rules
       .split(';')
       .map(trim)
@@ -88,8 +94,55 @@ export class Rule {
           ruleNode.nextNodes.push(rootNode);
         }
       }
-      this.startNode.nextNodes.push(ruleNode);
+      startNodes.push(ruleNode);
     }
+    return startNodes;
+  }
+
+  getRules() {
+    const rules: Record<string, Node[]> = {};
+    this.startNode.nextNodes.forEach(function(node) {
+      rules[node.value as string] = node.nextNodes;
+    });
+    return rules;
+  }
+
+  match(node: Node, token: Token): boolean {
+    if (node.type === NodeType.Rule) {
+      const matchedNodes = node.nextNodes.filter((nextNode) => {
+        return this.match(nextNode, token);
+      });
+      return matchedNodes.length > 0;
+    } else if (node.type === NodeType.String) {
+      return node.value === token.value;
+    } else if (node.type === NodeType.RegExp) {
+      return (node.value as RegExp).test(token.value);
+    }
+    throw new Error(
+      'Unexpected node: type: ' + node.type + ', value: ' + node.value,
+    );
+  }
+
+  takeToken(token: Token): boolean {
+    let pathIndex = 0;
+    while (pathIndex < this.paths.length) {
+      const path = this.paths[pathIndex];
+      const lastNode = path[path.length - 1];
+      const matchedNextNodes: Node[] = [];
+      for (const nextNode of lastNode.nextNodes) {
+        if (this.match(nextNode, token)) {
+          matchedNextNodes.push(nextNode);
+        }
+      }
+      const newPaths: Node[][] = matchedNextNodes.map(function(
+        matchedNextNode,
+      ) {
+        return [...path, matchedNextNode];
+      });
+      this.paths.splice(pathIndex, 1, ...newPaths);
+      pathIndex += newPaths.length;
+    }
+    return this.paths.length > 0;
   }
 }
 

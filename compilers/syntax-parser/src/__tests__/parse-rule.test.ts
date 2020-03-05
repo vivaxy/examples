@@ -9,7 +9,8 @@ test('parse simple rule', function() {
     parseRule(`
 String ::= /[a-z][A-Z][0-9]/;
 Null ::= 'null';
-NullP ::= Null 'p';
+NullAndUndefined ::= Null 'undefined';
+NullOrUndefined ::= Null | 'undefined'
 `),
   ).toMatchSnapshot();
 });

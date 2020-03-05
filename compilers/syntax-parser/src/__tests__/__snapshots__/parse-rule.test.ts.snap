@@ -2,7 +2,71 @@
 
 exports[`parse simple rule 1`] = `
 Rule {
-  "currentPath": Array [],
+  "paths": Array [
+    Array [
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "RegExp",
+            "value": /\\^\\(\\[a-z\\]\\[A-Z\\]\\[0-9\\]\\)/,
+          },
+        ],
+        "type": "Rule",
+        "value": "String",
+      },
+    ],
+    Array [
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "String",
+            "value": "null",
+          },
+        ],
+        "type": "Rule",
+        "value": "Null",
+      },
+    ],
+    Array [
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [
+              Node {
+                "nextNodes": Array [],
+                "type": "String",
+                "value": "undefined",
+              },
+            ],
+            "type": "Rule",
+            "value": "Null",
+          },
+        ],
+        "type": "Rule",
+        "value": "NullAndUndefined",
+      },
+    ],
+    Array [
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "Rule",
+            "value": "Null",
+          },
+          Node {
+            "nextNodes": Array [],
+            "type": "String",
+            "value": "undefined",
+          },
+        ],
+        "type": "Rule",
+        "value": "NullOrUndefined",
+      },
+    ],
+  ],
   "startNode": Node {
     "nextNodes": Array [
       Node {
@@ -34,7 +98,7 @@ Rule {
               Node {
                 "nextNodes": Array [],
                 "type": "String",
-                "value": "p",
+                "value": "undefined",
               },
             ],
             "type": "Rule",
@@ -42,7 +106,23 @@ Rule {
           },
         ],
         "type": "Rule",
-        "value": "NullP",
+        "value": "NullAndUndefined",
+      },
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "Rule",
+            "value": "Null",
+          },
+          Node {
+            "nextNodes": Array [],
+            "type": "String",
+            "value": "undefined",
+          },
+        ],
+        "type": "Rule",
+        "value": "NullOrUndefined",
       },
     ],
     "type": "Start",
