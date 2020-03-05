@@ -11,11 +11,11 @@
  * Node can be recursed
  */
 enum NodeType {
-  RegExp,
-  String,
-  Rule,
-  Start,
-  End,
+  RegExp = 'RegExp',
+  String = 'String',
+  Rule = 'Rule',
+  Start = 'Start',
+  End = 'End',
 }
 
 type NodeValue = RegExp | String | null;
@@ -47,7 +47,11 @@ export class Rule {
   }
 
   parse(rules: string) {
-    for (const rule of rules.split(';').filter(Boolean)) {
+    // TODO: support ; | ::= within quotes
+    for (const rule of rules
+      .split(';')
+      .map(trim)
+      .filter(Boolean)) {
       const [name, detail] = rule.split('::=').map(trim);
       const ruleNode = new Node(NodeType.Rule, name);
       for (const optionPath of detail.split('|')) {
@@ -65,7 +69,10 @@ export class Rule {
           ) {
             n = new Node(NodeType.String, optionNode.slice(1, -1));
           } else if (optionNode.startsWith('/') && optionNode.endsWith('/')) {
-            n = new Node(NodeType.RegExp, new RegExp(optionNode.slice(1, -1)));
+            n = new Node(
+              NodeType.RegExp,
+              new RegExp(`^(${optionNode.slice(1, -1)})`),
+            );
           } else {
             n = new Node(NodeType.Rule, optionNode);
           }

@@ -3,7 +3,6 @@
  * @author vivaxy
  */
 import { Token } from './tokenize';
+import { Rule } from './parse-rule';
 
-export default function parse(rule: string, tokens: Token[]) {
-
-}
+export default function parse(rule: Rule, tokens: Token[]) {}

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse simple rule 1`] = `
+Rule {
+  "currentPath": Array [],
+  "startNode": Node {
+    "nextNodes": Array [
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "RegExp",
+            "value": /\\^\\(\\[a-z\\]\\[A-Z\\]\\[0-9\\]\\)/,
+          },
+        ],
+        "type": "Rule",
+        "value": "String",
+      },
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [],
+            "type": "String",
+            "value": "null",
+          },
+        ],
+        "type": "Rule",
+        "value": "Null",
+      },
+      Node {
+        "nextNodes": Array [
+          Node {
+            "nextNodes": Array [
+              Node {
+                "nextNodes": Array [],
+                "type": "String",
+                "value": "p",
+              },
+            ],
+            "type": "Rule",
+            "value": "Null",
+          },
+        ],
+        "type": "Rule",
+        "value": "NullP",
+      },
+    ],
+    "type": "Start",
+    "value": null,
+  },
+}
+`;
