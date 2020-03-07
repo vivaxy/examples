@@ -1,19 +1,23 @@
 [
   {
-    "name": "Machine Learning",
-    "link": "machine-learning"
-  },
-  {
-    "name": "Libraries",
-    "link": "libraries/"
-  },
-  {
     "name": "Algorithms",
     "link": "algorithms/"
   },
   {
     "name": "Compilers",
     "link": "compilers/"
+  },
+  {
+    "name": "Coding",
+    "link": "coding/"
+  },
+  {
+    "name": "Machine Learning",
+    "link": "machine-learning"
+  },
+  {
+    "name": "Libraries",
+    "link": "libraries/"
   },
   {
     "name": "Functional Programming",
