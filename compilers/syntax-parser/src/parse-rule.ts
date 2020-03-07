@@ -17,10 +17,15 @@ enum NodeType {
   String = 'String',
   Rule = 'Rule',
   Start = 'Start',
-  End = 'End',
 }
 
 type NodeValue = RegExp | String | null;
+
+type AST = {
+  type: string;
+  value: string;
+  children: AST[];
+};
 
 export class Node {
   type: NodeType;
@@ -39,7 +44,15 @@ function trim(v: string) {
 }
 
 export class Rule {
+  /**
+   * - type
+   * - value
+   * - nextNodes
+   */
   startNode: Node;
+  /**
+   *
+   */
   paths: Node[][];
 
   constructor(ruleText: string) {
@@ -107,6 +120,10 @@ export class Rule {
     return rules;
   }
 
+  toGraph(): string {
+    return '';
+  }
+
   match(node: Node, token: Token): boolean {
     if (node.type === NodeType.Rule) {
       const matchedNodes = node.nextNodes.filter((nextNode) => {
@@ -143,6 +160,23 @@ export class Rule {
       pathIndex += newPaths.length;
     }
     return this.paths.length > 0;
+  }
+
+  getAST() {
+    const ast: AST = {
+      type: 'ROOT',
+      value: '',
+      children: [],
+    };
+    let currentASTNode = ast;
+    if (this.paths.length !== 1) {
+      throw new Error('Invalid ast');
+    }
+    this.paths[0].forEach(function(node) {
+      if (node.type === NodeType.Rule) {
+        currentASTNode.type = node.value as string;
+      }
+    });
   }
 }
 

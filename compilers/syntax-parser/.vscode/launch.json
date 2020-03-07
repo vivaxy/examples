@@ -10,7 +10,7 @@
       "name": "Test",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["parse-rule"],
+      "args": ["parse.test"],
       "console": "integratedTerminal"
     }
   ]
