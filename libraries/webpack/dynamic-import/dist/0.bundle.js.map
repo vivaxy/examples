@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/dynamic-module.js"],"names":[],"mappings":";;;;;;;;;;AAAA;AAAA;AACA;AACA;AACA;AACe,gEAAC,EAAC","file":"0.bundle.js","sourcesContent":["/**\n * @since 2020-03-08 08:04\n * @author vivaxy\n */\nexport default 1;\n"],"sourceRoot":""}

@@ -6,5 +6,9 @@
   {
     "name": "require.context",
     "link": "require-context/"
+  },
+  {
+    "name": "Dynamic Import",
+    "link": "dynamic-import/package.json"
   }
 ]
