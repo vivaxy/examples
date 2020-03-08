@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["index.js"],
+  "names": ["get", "value"],
+  "mappings": "AAAA,SAASA,IAAKC,GACZ,OAAOC"
+}

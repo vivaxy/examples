@@ -230,5 +230,9 @@
   {
     "name": "Memorize",
     "link": "memorize/"
+  },
+  {
+    "name": "source-map",
+    "link": "source-map/"
   }
 ]
