@@ -1,3 +1,1 @@
-function get(n) {
-  return n;
-}
+function get(n){return n;}

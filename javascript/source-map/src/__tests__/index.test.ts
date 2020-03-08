@@ -7,14 +7,14 @@ import * as fse from 'fs-extra';
 import * as webpack from 'webpack';
 import parse from '../index';
 
-function build() {
+function buildWebpack() {
   return new Promise(function(resolve, reject) {
     webpack(
       {
         entry: './index.js',
-        context: path.join(__dirname, 'fixtures', 'src'),
+        context: path.join(__dirname, 'fixtures', 'webpack', 'src'),
         output: {
-          path: path.join(__dirname, 'fixtures', 'dist'),
+          path: path.join(__dirname, 'fixtures', 'webpack', 'dist'),
           filename: 'bundle.js',
         },
         mode: 'production',
@@ -52,7 +52,7 @@ test('uglify', async function() {
 });
 
 test('webpack', async function() {
-  // await build();
+  // await buildWebpack();
   const sourceMap = await getSourceMap('webpack', 'bundle.js.map');
   expect(parse(sourceMap)).toMatchSnapshot();
 });

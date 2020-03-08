@@ -1,3 +1,3 @@
-function get(value) {
+function get (value) {
   return value;
 }
