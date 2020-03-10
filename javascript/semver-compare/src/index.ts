@@ -7,14 +7,11 @@ export default function semverCompare(a: string, b: string) {
     function createInvalidVersion() {
       return new Error(`Invalid version (${str})`);
     }
-    const [major, minor, ...etc] = str.split('.');
-    if (!major || !minor || !etc.length) {
-      throw createInvalidVersion();
+    const [major = '0', minor = '0', ...etc] = str.split('.');
+    if (!etc.length) {
+      etc.push('0');
     }
     const [patch, prerelease] = etc.join('.').split('-');
-    if (!patch) {
-      throw createInvalidVersion();
-    }
     if (patch.includes('.')) {
       throw createInvalidVersion();
     }
