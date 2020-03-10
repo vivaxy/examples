@@ -1,9 +1,5 @@
 [
   {
-    "name": "semverCompare",
-    "link": "semver-compare/README.md"
-  },
-  {
     "name": "Unresolved Promise",
     "link": "unresolved-promise/index.js"
   },

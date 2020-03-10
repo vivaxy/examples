@@ -224,6 +224,7 @@ Table of contents
   * [Vue.js](https://vivaxy.github.io/course/libraries/vue-js/) Vue js
     * [Updating Nested Object](https://vivaxy.github.io/course/libraries/vue-js/updating-nested-object/) Updating nested object
   * [webpack](https://vivaxy.github.io/course/libraries/webpack/) Webpack
+    * [Dynamic import](https://vivaxy.github.io/course/libraries/webpack/dynamic-import/) Dynamic import
     * [require.context](https://vivaxy.github.io/course/libraries/webpack/require-context/) Require context
 * [Machine Learning](https://vivaxy.github.io/course/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/course/machine-learning/tensorflow/) TensorFlow
