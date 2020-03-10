@@ -18,7 +18,11 @@ export default function semverCompare(a: string, b: string) {
     if (patch.includes('.')) {
       throw createInvalidVersion();
     }
-    return [parseInt(major), parseInt(minor), parseInt(patch), prerelease];
+    const versions = [parseInt(major), parseInt(minor), parseInt(patch)];
+    if (versions.some(isNaN)) {
+      throw createInvalidVersion();
+    }
+    return [...versions, prerelease];
   }
 
   const va = parseVersion(a);

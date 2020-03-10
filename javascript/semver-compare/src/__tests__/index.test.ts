@@ -8,6 +8,7 @@ test('compare invalid version', function() {
   expect(() => semverCompare('a', 'b')).toThrow('Invalid version (a)');
   expect(() => semverCompare('1.0.0', 'b')).toThrow('Invalid version (b)');
   expect(() => semverCompare('1.0.', 'b')).toThrow('Invalid version (1.0.)');
+  expect(() => semverCompare('1.a.0', 'b')).toThrow('Invalid version (1.a.0)');
 });
 
 test('compare stable version', function() {
