@@ -38,9 +38,11 @@ test('compare between prerelease versions', function() {
   expect(semverCompare('1.0.0-1', '1.0.0-2')).toBe(1);
   expect(semverCompare('1.0.0-alpha', '1.0.0-beta')).toBe(1);
   expect(semverCompare('1.0.0-beta.1', '1.0.0-beta.2')).toBe(1);
+  expect(semverCompare('1.0.0', '1.0.0+1')).toBe(0);
 });
 
 test('compare partial version', function() {
   expect(semverCompare('1', '1.0.1')).toBe(1);
   expect(semverCompare('1.0', '1.0.1')).toBe(1);
+  expect(semverCompare('1.0.0', '1.0-beta')).toBe(-1);
 });
