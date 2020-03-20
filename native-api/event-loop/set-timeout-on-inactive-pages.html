@@ -29,12 +29,14 @@
 
       function runTimeout() {
         document.title = 'running';
+        console.log('running');
         console.time(timerName);
         timeout = setTimeout(callback, 0);
       }
 
       function stopTimeout() {
         document.title = 'stopped';
+        console.log('stopped');
         console.timeEnd(timerName);
         clearTimeout(timeout);
         timeout = null;

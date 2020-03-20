@@ -8,9 +8,13 @@
     </style>
   </head>
   <body>
-    <img src="./javascript-blocks-rendering.gif" />
-    1234567890
+    <img
+      src="./javascript-blocks-rendering.gif"
+      alt="Click the button, and gif will stop."
+    />
+    <p>Click the button, and you cannot select me.</p>
     <button>while (true);</button>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script>
       document.querySelector('button').addEventListener('click', function() {
         while (true);
