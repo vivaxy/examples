@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>setTimeout on inactive pages</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script>
+      window.addEventListener('visibilitychange', handleVisibilitychange);
+
+      let timeout = null;
+      const timerName = 'set-timeout-on-inactive-page';
+      function callback() {
+        console.timeEnd(timerName);
+        if (!timeout) {
+          return;
+        }
+        console.time(timerName);
+        clearTimeout(timeout);
+        timeout = setTimeout(callback, 0);
+      }
+
+      function handleVisibilitychange() {
+        if (document.hidden) {
+          runTimeout();
+        } else {
+          stopTimeout();
+        }
+      }
+
+      function runTimeout() {
+        document.title = 'running';
+        console.time(timerName);
+        timeout = setTimeout(callback, 0);
+      }
+
+      function stopTimeout() {
+        document.title = 'stopped';
+        console.timeEnd(timerName);
+        clearTimeout(timeout);
+        timeout = null;
+      }
+    </script>
+  </body>
+</html>

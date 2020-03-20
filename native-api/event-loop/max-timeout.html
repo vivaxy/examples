@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Max timeout</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script>
+      const timerName = 'max-timeout';
+      console.time(timerName);
+      setTimeout(function() {
+        console.timeEnd(timerName);
+      }, 2 ** 31);
+    </script>
+  </body>
+</html>

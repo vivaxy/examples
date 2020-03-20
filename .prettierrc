@@ -15,7 +15,7 @@
   "endOfLine": "lf",
   "overrides": [
     {
-      "files": "*.{css,less,json,html,yml,yaml,pcss}",
+      "files": "*.{css,less,yml,yaml,pcss}",
       "options": {
         "singleQuote": false
       }

@@ -256,6 +256,7 @@ Table of contents
   * [DP Share](https://vivaxy.github.io/course/native-api/dp-share/) DP share demo
   * [draggable demo page](https://vivaxy.github.io/course/native-api/draggable/) Draggable
   * [Error Event](https://vivaxy.github.io/course/native-api/error-event/) Error event
+  * [Event Loop](https://vivaxy.github.io/course/native-api/event-loop/) Event Loop
   * [event source](https://vivaxy.github.io/course/native-api/event-source/) Event source
   * [FontFace](https://vivaxy.github.io/course/native-api/font-face/) Font face
   * [Form Validation by JavaScript](https://vivaxy.github.io/course/native-api/form-validation/) JavaScript 控制表单验证

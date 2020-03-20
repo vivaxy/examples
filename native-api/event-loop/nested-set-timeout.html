@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Nested setTimeout</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script>
+      const timerName = 'nested-set-timeout';
+      function callback() {
+        console.timeEnd(timerName);
+        console.time(timerName);
+        setTimeout(callback, 0);
+      }
+      function start() {
+        console.time(timerName);
+        setTimeout(callback, 0);
+      }
+      start();
+    </script>
+  </body>
+</html>
