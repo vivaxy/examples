@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Promise, requestAnimationFrame and setTimeout</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <button>Run</button>
+    <script>
+      document.querySelector('button').addEventListener('click', function() {
+        setTimeout(function() {
+          console.log('timeout');
+        }, 0);
+        requestAnimationFrame(function() {
+          console.log('animation');
+        });
+        new Promise(function(resolve) {
+          console.log('promise');
+          resolve();
+        }).then(function() {
+          console.log('then');
+        });
+        console.log('main');
+      });
+    </script>
+  </body>
+</html>
