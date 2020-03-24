@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Microtask sequence</title>
+    <!-- JavaScript stack should be empty before calling microtasks. -->
+  </head>
+  <body>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <button id="button">Click me!</button>
+    <button id="trigger">Trigger click!</button>
+    <script>
+      const button = document.querySelector('#button');
+      button.addEventListener('click', function() {
+        Promise.resolve().then(function() {
+          console.log('Microtask 1');
+        });
+        console.log('Task 1');
+      });
+      button.addEventListener('click', function() {
+        Promise.resolve().then(function() {
+          console.log('Microtask 2');
+        });
+        console.log('Task 2');
+      });
+      document.querySelector('#trigger').addEventListener('click', function() {
+        button.click();
+      });
+    </script>
+  </body>
+</html>
