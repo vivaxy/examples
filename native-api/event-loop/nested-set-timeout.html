@@ -4,6 +4,7 @@
   </head>
   <body>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <button>Start</button>
     <script>
       const timerName = 'nested-set-timeout';
       function callback() {
@@ -11,11 +12,10 @@
         console.time(timerName);
         setTimeout(callback, 0);
       }
-      function start() {
+      document.querySelector('button').addEventListener('click', function() {
         console.time(timerName);
         setTimeout(callback, 0);
-      }
-      start();
+      });
     </script>
   </body>
 </html>

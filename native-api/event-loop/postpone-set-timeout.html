@@ -3,17 +3,20 @@
     <title>Postpone setTimeout</title>
   </head>
   <body>
+    <button>Start</button>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script>
-      const timerName = 'postpone-set-timeout';
-      console.time(timerName);
-      setTimeout(function() {
-        console.timeEnd(timerName);
-      }, 0);
-      for (let i = 0; i < 5000; i++) {
-        const j = 5 + 8 + 8 + 8;
-        console.log(j);
-      }
+      document.querySelector('button').addEventListener('click', function() {
+        const timerName = 'postpone-set-timeout';
+        console.time(timerName);
+        setTimeout(function() {
+          console.timeEnd(timerName);
+        }, 200);
+        let j = 0;
+        for (let i = 0; i < 2e8; i++) {
+          j++;
+        }
+      });
     </script>
   </body>
 </html>
