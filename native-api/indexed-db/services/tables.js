@@ -2,9 +2,16 @@
  * @since 20180709 18:58
  * @author vivaxy
  */
-
 import * as eventTypes from '../enums/event-types.js';
 import * as upgradeTypes from '../enums/upgrade-types.js';
+import AddTable from '../components/add-table.js';
+import DeleteTable from '../components/delete-table.js';
+import AddColumn from '../components/add-column.js';
+import TableData from '../components/table-data.js';
+import AddRow from '../components/add-row.js';
+import TableCell from '../components/table-cell.js';
+import DeleteRow from '../components/delete-row.js';
+import IDBTable from '../components/idb-table.js';
 
 function init(events) {
   let db = null;
@@ -20,7 +27,10 @@ function init(events) {
   document.addEventListener(AddColumn.EVENT_ADD_COLUMN, onAddColumn);
   document.addEventListener(TableData.EVENT_DELETE_COLUMN, onDeleteColumn);
   document.addEventListener(AddRow.EVENT_ADD_ROW, onAddRow);
-  document.addEventListener(TableCell.EVENT_UPDATE_CELL_VALUE, onUpdateCellValue);
+  document.addEventListener(
+    TableCell.EVENT_UPDATE_CELL_VALUE,
+    onUpdateCellValue,
+  );
   document.addEventListener(DeleteRow.EVENT_DELETE_ROW, onDeleteRow);
 
   function applyRenderTable() {
@@ -34,8 +44,9 @@ function init(events) {
       const request = objectStore.getAll();
 
       request.addEventListener('success', (e) => {
-
-        let idbTableEl = document.querySelector(`${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
+        let idbTableEl = document.querySelector(
+          `${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`,
+        );
 
         if (!idbTableEl) {
           idbTableEl = document.createElement(IDBTable.TAG_NAME);
@@ -44,12 +55,16 @@ function init(events) {
         }
 
         const newColumnNames = JSON.stringify(indexNames);
-        if (idbTableEl.getAttribute(IDBTable.DATA_COLUMN_NAMES) !== newColumnNames) {
+        if (
+          idbTableEl.getAttribute(IDBTable.DATA_COLUMN_NAMES) !== newColumnNames
+        ) {
           idbTableEl.setAttribute(IDBTable.DATA_COLUMN_NAMES, newColumnNames);
         }
 
         const rows = e.target.result;
-        const newNextKey = JSON.stringify(Math.max.apply(Math, rows.map(row => row._key).concat(-1)) + 1);
+        const newNextKey = JSON.stringify(
+          Math.max.apply(Math, rows.map((row) => row._key).concat(-1)) + 1,
+        );
         if (idbTableEl.getAttribute(IDBTable.DATA_NEXT_KEY) !== newNextKey) {
           idbTableEl.setAttribute(IDBTable.DATA_NEXT_KEY, newNextKey);
         }
@@ -58,13 +73,14 @@ function init(events) {
         if (idbTableEl.getAttribute(IDBTable.DATA_ROWS) !== newRows) {
           idbTableEl.setAttribute(IDBTable.DATA_ROWS, newRows);
         }
-
       });
     });
 
     renderedTableNames.forEach((tableName) => {
       if (!objectStoreNames.includes(tableName)) {
-        const tableContainerEl = document.querySelector(`${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`);
+        const tableContainerEl = document.querySelector(
+          `${IDBTable.TAG_NAME}[${IDBTable.DATA_TABLE_NAME}="${tableName}"]`,
+        );
         document.body.removeChild(tableContainerEl);
       }
     });
@@ -107,7 +123,6 @@ function init(events) {
   }
 
   function onIDBOpenSuccess(eventId, eventData) {
-
     db = eventData.db;
 
     switch (eventData.upgradeType) {
