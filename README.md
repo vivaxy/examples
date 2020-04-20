@@ -122,7 +122,6 @@ Table of contents
   * [prevent webview scroll](https://vivaxy.github.io/course/javascript/prevent-webview-scroll/) Prevent webview scroll
   * [Private class field](https://vivaxy.github.io/course/javascript/private-class-field/) Private class field
   * [probability](https://vivaxy.github.io/course/javascript/probability/) Probability
-  * [promise](https://vivaxy.github.io/course/javascript/promise/) Promise
   * [prototype.constructor](https://vivaxy.github.io/course/javascript/prototype-constructor/) Prototype constructor
   * [referrer killer](https://vivaxy.github.io/course/javascript/referrer-killer/) Referrer killer
   * [RegExp](https://vivaxy.github.io/course/javascript/reg-exp/) reg-exp
