@@ -1,5 +1,9 @@
 [
   {
+    "name": "position: fixed;",
+    "link": "position-fixed/"
+  },
+  {
     "name": "prefers-color-scheme",
     "link": "prefers-color-scheme/"
   },

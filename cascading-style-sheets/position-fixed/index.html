@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="position: fixed;" />
+    <meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,test,position: fixed;,cascading-style-sheets,position-fixed"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>position: fixed;</title>
+  </head>
+  <body>
+    <p></p>
+    <pre>position: fixed;</pre>
+    <p>
+      It is positioned relative to the initial containing block established by
+      the viewport, except when one of its ancestors has a transform,
+      perspective, or filter property set to something other than none (see the
+      CSS Transforms Spec), in which case that ancestor behaves as the
+      containing block. (Note that there are browser inconsistencies with
+      perspective and filter contributing to containing block formation.)
+    </p>
+    <p></p>
+    <div
+      style="transform: translate3d(0, 0, 0); position: absolute; top: 100px; border: 1px solid #f99;"
+    >
+      <pre>transform: translate3d(0, 0, 0);</pre>
+      <div style="position: fixed; top: 100px; border: 1px solid #9f9;">
+        <pre>position: fixed;</pre>
+      </div>
+    </div>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

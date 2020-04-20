@@ -1,3 +1,6 @@
 {
-  "conventionalCommits.scopes": ["native-api/indexed-db"]
+  "conventionalCommits.scopes": [
+    "native-api/indexed-db",
+    "cascading-style-sheets/position-fixed"
+  ]
 }
