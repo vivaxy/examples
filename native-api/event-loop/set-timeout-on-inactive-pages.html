@@ -35,12 +35,13 @@
       }
 
       function stopTimeout() {
-        document.title = 'stopped';
-        console.log('stopped');
         console.timeEnd(timerName);
         clearTimeout(timeout);
         timeout = null;
+        document.title = 'stopped';
+        console.log('stopped');
       }
     </script>
   </body>
 </html>
+<!-- on inactive page, setTimeout minimum timeout is set to 1000ms -->

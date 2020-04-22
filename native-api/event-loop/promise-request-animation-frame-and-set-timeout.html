@@ -13,14 +13,13 @@
         requestAnimationFrame(function() {
           console.log('animation');
         });
-        new Promise(function(resolve) {
+        Promise.resolve().then(function() {
           console.log('promise');
-          resolve();
-        }).then(function() {
-          console.log('then');
         });
         console.log('main');
       });
     </script>
   </body>
 </html>
+<!-- sequence of promise, requestAnimationFrame and setTimeout -->
+<!-- main, promise, animation, timeout -->
