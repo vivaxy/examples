@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Timeout Sequence" />
+    <meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,test,Timeout Sequence"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Timeout Sequence</title>
+  </head>
+  <body>
+    <button>Click me!</button>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script>
+      document.querySelector('button').addEventListener('click', function() {
+        setTimeout(function() {
+          console.log(1);
+        }, 200);
+        setTimeout(function() {
+          console.log(2);
+        }, 100);
+        let j = 0;
+        for (let i = 0; i < 2e9; i++) {
+          j++;
+        }
+      });
+    </script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>
+<!-- timeout sequence is: first till first run, not first queue, first run -->
