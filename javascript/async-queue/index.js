@@ -2,36 +2,27 @@
  * @since 2020-04-26 18:52
  * @author vivaxy
  */
-const queue = [];
+import addTask from './async-queue.js';
 
-window.addTask = function addTask(args) {
-  return new Promise(function(resolve, reject) {
-    queue.push(function() {
-      return runTask(args).then(resolve, reject);
-    });
-    loop();
-  });
-};
-
-function runTask(timeout) {
+function sleep(timeout) {
   return new Promise((resolve) => {
-    console.log('start task with timeout: ' + timeout);
+    console.log(' start sleep with timeout: ' + timeout);
     setTimeout(function() {
-      console.log('finish task with timeout: ' + timeout);
+      console.log('finish sleep with timeout: ' + timeout);
       resolve();
     }, timeout);
   });
 }
 
-async function loop() {
-  while (queue.length) {
-    await queue.shift()();
-  }
-}
+window.addSleepTask = async function addSleepTask(timeout) {
+  await addTask(async function() {
+    await sleep(timeout);
+  });
+};
 
 (async function() {
-  await addTask(1000);
+  await addSleepTask(1000);
   console.log(1000);
-  await addTask(2000);
+  await addSleepTask(2000);
   console.log(2000);
 })();
