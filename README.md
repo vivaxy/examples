@@ -85,6 +85,7 @@ Table of contents
 * [JavaScript](https://vivaxy.github.io/course/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/course/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/course/javascript/arrow-function/) Arrow Function
+  * [Async Queue](https://vivaxy.github.io/course/javascript/async-queue/) Async Queue
   * [canvas polyfill](https://vivaxy.github.io/course/javascript/canvas-polyfill/) Canvas polyfill
   * [class](https://vivaxy.github.io/course/javascript/class/) Class
   * [Clipboard](https://vivaxy.github.io/course/javascript/clipboard/) Clipboard

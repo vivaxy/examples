@@ -3,6 +3,7 @@
     "native-api/indexed-db",
     "cascading-style-sheets/position-fixed",
     "javascript/promise/implements",
-    "native-api/event-loop"
+    "native-api/event-loop",
+    "javascript/async-queue"
   ]
 }

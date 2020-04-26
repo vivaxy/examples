@@ -1,5 +1,9 @@
 [
   {
+    "name": "Async Queue",
+    "link": "async-queue/"
+  },
+  {
     "name": "Unresolved Promise",
     "link": "unresolved-promise/index.js"
   },
