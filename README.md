@@ -185,7 +185,8 @@ Table of contents
   * [hammer](https://vivaxy.github.io/course/libraries/hammer/) Hammer
   * [KerasJS](https://vivaxy.github.io/course/libraries/kerasjs/) Kerasjs
   * [knockout](https://vivaxy.github.io/course/libraries/knockout/) Knockout
-  * [koa](https://vivaxy.github.io/course/libraries/koa/) Koa
+  * [Koa](https://vivaxy.github.io/course/libraries/koa/) koa
+    * [koa](https://vivaxy.github.io/course/libraries/koa/static-server/) Koa
   * [Lerna](https://vivaxy.github.io/course/libraries/lerna/) lerna
     * [Monorepo Independent Version Logic](https://vivaxy.github.io/course/libraries/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
   * [mathjax](https://vivaxy.github.io/course/libraries/mathjax/) Mathjax
