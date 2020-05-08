@@ -4,6 +4,7 @@
     "cascading-style-sheets/position-fixed",
     "javascript/promise/implements",
     "native-api/event-loop",
-    "javascript/async-queue"
+    "javascript/async-queue",
+    "html/inner-text-vs-text-content"
   ]
 }

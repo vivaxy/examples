@@ -78,6 +78,7 @@ Table of contents
 * [HTML](https://vivaxy.github.io/course/html/) HTML
   * [datalist](https://vivaxy.github.io/course/html/datalist/) Datalist
   * [iframe Resize](https://vivaxy.github.io/course/html/iframe-resize/) iframe-resize
+  * [innerText v.s. textContent](https://vivaxy.github.io/course/html/inner-text-vs-text-content/) innerText v.s. textContent
   * [Meta Scale](https://vivaxy.github.io/course/html/meta-scale/) Meta scale demo
   * [Meta Width](https://vivaxy.github.io/course/html/meta-width/) Meta width
   * [Playsinline](https://vivaxy.github.io/course/html/playsinline/) Video playsinline demo

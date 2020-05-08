@@ -1,5 +1,9 @@
 [
   {
+    "name": "innerText v.s. textContent",
+    "link": "inner-text-vs-text-content/"
+  },
+  {
     "name": "Multiple Select",
     "link": "select-multiple/"
   },
