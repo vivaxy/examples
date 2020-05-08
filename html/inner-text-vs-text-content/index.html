@@ -14,16 +14,24 @@
     <meta name="author" content="vivaxy" />
     <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
     <title>innerText v.s. textContent</title>
+    <style>
+      #after:after {
+        content: '6';
+      }
+    </style>
   </head>
   <body>
     <div id="main">
-      <span>1</span>
-      <span style="display: none;">2</span>
-      <span style="opacity: 0;">3</span>
-      <span style="visibility: hidden;">4</span>
-      <span style="position: fixed; top: 200vh;">5</span>
+      <span>1</span><span style="display: none;">2</span
+      ><span style="opacity: 0;">3</span
+      ><span style="visibility: hidden;">4</span
+      ><span style="position: fixed; top: 200vh;">5</span
+      ><span id="after"></span>
+      <ol start="7">
+        <li></li>
+      </ol>
       <script>
-        6;
+        8;
       </script>
     </div>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
