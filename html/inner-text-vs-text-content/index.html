@@ -19,10 +19,14 @@
       #after:after {
         content: '6';
       }
+      #list-style {
+        display: list-item;
+        list-style-type: '7';
+      }
     </style>
   </head>
   <body>
-    <div id="main"><span>1</span><span style="display: none;">2</span><span style="opacity: 0;">3</span><span style="visibility: hidden;">4</span><span style="position: fixed; top: 200vh;">5</span><span id="after"></span><ol start="7"><li></li></ol><script>8</script></div>
+    <div id="main"><span>1</span><span style="display: none;">2</span><span style="opacity: 0;">3</span><span style="visibility: hidden;">4</span><span style="position: fixed; top: 200vh;">5</span><span id="after"></span><span id="list-style"></span><script>8</script></div>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script>
       const main = document.querySelector('#main');
