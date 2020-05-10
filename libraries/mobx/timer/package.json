@@ -41,7 +41,7 @@
     "jest": "18.1.0",
     "json-loader": "0.5.7",
     "object-assign": "4.1.1",
-    "postcss-loader": "1.2.2",
+    "postcss-loader": "3.0.0",
     "promise": "7.3.1",
     "react-dev-utils": "^0.5.2",
     "style-loader": "0.23.1",
