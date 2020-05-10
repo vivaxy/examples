@@ -37,7 +37,7 @@
     "file-loader": "0.10.0",
     "fs-extra": "0.30.0",
     "html-webpack-plugin": "2.24.0",
-    "http-proxy-middleware": "0.17.3",
+    "http-proxy-middleware": "0.21.0",
     "jest": "18.1.0",
     "json-loader": "0.5.7",
     "object-assign": "4.1.1",
