@@ -14,9 +14,9 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-jpeg-js@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.3.4.tgz#dc2ba501ee3d58b7bb893c5d1fab47294917e7e7"
+jpeg-js@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npm.taobao.org/jpeg-js/download/jpeg-js-0.4.0.tgz?cache=0&sync_timestamp=1587651455233&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjpeg-js%2Fdownload%2Fjpeg-js-0.4.0.tgz#39adab7245b6d11e918ba5d4b49263ff2fc6a2f9"
 
 js-base64@^2.4.3:
   version "2.4.3"
