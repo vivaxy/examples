@@ -21,6 +21,6 @@
     "babel-preset-env": "^1.6.0",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.5.1",
-    "xstream": "^10.8.0"
+    "xstream": "^11.0.0"
   }
 }
