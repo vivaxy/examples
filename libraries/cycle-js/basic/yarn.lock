@@ -18,10 +18,11 @@
     quicktask "1.1.0"
     xstream "10.x || 11.x"
 
-"@cycle/run@^3.1.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@cycle/run/-/run-3.4.0.tgz#113844add669ace91d245842522f3733ba5bd393"
+"@cycle/run@^5.0.0":
+  version "5.4.0"
+  resolved "https://registry.npm.taobao.org/@cycle/run/download/@cycle/run-5.4.0.tgz#d4bdeb9eb7f40ec14c924b96bbfae0fe08f5d710"
   dependencies:
+    quicktask "1.1.0"
     xstream "10.x || 11.x"
 
 abbrev@1:
