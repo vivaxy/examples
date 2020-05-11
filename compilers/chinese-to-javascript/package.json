@@ -9,6 +9,6 @@
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^26.0.0"
   }
 }
