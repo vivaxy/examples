@@ -5253,9 +5253,10 @@ mobx-react@^4.1.8:
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
-mobx@^3.1.9:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.1.9.tgz#ed4af9d874ff6032c7af91fc1b87d9d33122a557"
+mobx@^5.0.0:
+  version "5.15.4"
+  resolved "https://registry.npm.taobao.org/mobx/download/mobx-5.15.4.tgz#9da1a84e97ba624622f4e55a0bf3300fb931c2ab"
+  integrity sha1-naGoTpe6YkYi9OVaC/MwD7kxwqs=
 
 ms@0.7.1:
   version "0.7.1"
