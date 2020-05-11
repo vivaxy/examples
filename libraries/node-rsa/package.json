@@ -12,6 +12,6 @@
   "dependencies": {
     "ava": "^3.0.0",
     "fs-extra": "^9.0.0",
-    "node-rsa": "^0.4.2"
+    "node-rsa": "^1.0.0"
   }
 }
