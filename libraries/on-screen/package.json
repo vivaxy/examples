@@ -7,7 +7,7 @@
     "es3ify-loader": "^0.2.0",
     "es5-shim": "^4.5.9",
     "onscreen": "^1.2.0",
-    "webpack": "^1.13.2"
+    "webpack": "^4.0.0"
   },
   "scripts": {
     "build": "webpack"
