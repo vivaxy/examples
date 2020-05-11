@@ -7,6 +7,13 @@ at-least-node@^1.0.0:
   resolved "https://registry.npm.taobao.org/at-least-node/download/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha1-YCzUtG6EStTv/JKoARo8RuAjjcI=
 
+browserify-zlib@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/browserify-zlib/download/browserify-zlib-0.2.0.tgz#2869459d9aa3be245fe8fe2ca1f46e2e7f54d73f"
+  integrity sha1-KGlFnZqjviRf6P4sofRuLn9U1z8=
+  dependencies:
+    pako "~1.0.5"
+
 fs-extra@^9.0.0:
   version "9.0.0"
   resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-9.0.0.tgz?cache=0&sync_timestamp=1584632171258&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-9.0.0.tgz#b6afc31036e247b2466dc99c29ae797d5d4580a3"
@@ -26,6 +33,11 @@ graceful-fs@^4.2.0:
   resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.4.tgz?cache=0&sync_timestamp=1588087063358&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fgraceful-fs%2Fdownload%2Fgraceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha1-Ila94U02MpWMRl68ltxGfKB6Kfs=
 
+immer@^6.0.3:
+  version "6.0.5"
+  resolved "https://registry.npm.taobao.org/immer/download/immer-6.0.5.tgz#77187d13b71c6cee40dde3b8e87a50a7a636d630"
+  integrity sha1-dxh9E7ccbO5A3eO46HpQp6Y21jA=
+
 jsonfile@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npm.taobao.org/jsonfile/download/jsonfile-6.0.1.tgz#98966cba214378c8c84b82e085907b40bf614179"
@@ -35,9 +47,18 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-pngjs3@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/pngjs3/-/pngjs3-3.5.1.tgz#ec3799870e0ede0b77ba05b8d7d4c3d58fc6cbe1"
+pako@~1.0.5:
+  version "1.0.11"
+  resolved "https://registry.npm.taobao.org/pako/download/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
+  integrity sha1-bJWZ00DVTf05RjgCUqNXBaa5kr8=
+
+pngjs3@^5.0.0:
+  version "5.1.8"
+  resolved "https://registry.npm.taobao.org/pngjs3/download/pngjs3-5.1.8.tgz#bafc1cc3cc09df7a63c6a3751c7eb2c9bb1314ff"
+  integrity sha1-uvwcw8wJ33pjxqN1HH6yybsTFP8=
+  dependencies:
+    browserify-zlib "^0.2.0"
+    immer "^6.0.3"
 
 universalify@^1.0.0:
   version "1.0.0"
