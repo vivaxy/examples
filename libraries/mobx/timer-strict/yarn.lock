@@ -3350,11 +3350,12 @@ eslint-module-utils@^1.0.0:
     debug "2.2.0"
     pkg-dir "^1.0.0"
 
-eslint-plugin-flowtype@2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.21.0.tgz#a47e85abcdd181d37a336054bd552149ae387d9c"
+eslint-plugin-flowtype@2.50.3:
+  version "2.50.3"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-2.50.3.tgz?cache=0&sync_timestamp=1585076206209&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-plugin-flowtype%2Fdownload%2Feslint-plugin-flowtype-2.50.3.tgz#61379d6dce1d010370acd6681740fd913d68175f"
+  integrity sha1-YTedbc4dAQNwrNZoF0D9kT1oF18=
   dependencies:
-    lodash "^4.15.0"
+    lodash "^4.17.10"
 
 eslint-plugin-import@2.0.1:
   version "2.0.1"
@@ -5497,11 +5498,11 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.npm.taobao.org/lodash.sortby/download/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-"lodash@>=3.5 <5", lodash@^4.15.0, lodash@^4.16.4, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+"lodash@>=3.5 <5", lodash@^4.16.4, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
-lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.15.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
 
