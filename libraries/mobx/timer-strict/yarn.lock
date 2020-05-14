@@ -8026,12 +8026,13 @@ strip-json-comments@^3.1.0:
   resolved "https://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-3.1.0.tgz#7638d31422129ecf4457440009fba03f9f9ac180"
   integrity sha1-djjTFCISns9EV0QACfugP5+awYA=
 
-style-loader@0.23.1:
-  version "0.23.1"
-  resolved "https://registry.npm.taobao.org/style-loader/download/style-loader-0.23.1.tgz?cache=0&sync_timestamp=1588082068423&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fstyle-loader%2Fdownload%2Fstyle-loader-0.23.1.tgz#cb9154606f3e771ab6c4ab637026a1049174d925"
+style-loader@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/style-loader/download/style-loader-1.2.1.tgz?cache=0&sync_timestamp=1588082068423&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fstyle-loader%2Fdownload%2Fstyle-loader-1.2.1.tgz#c5cbbfbf1170d076cfdd86e0109c5bba114baa1a"
+  integrity sha1-xcu/vxFw0HbP3YbgEJxbuhFLqho=
   dependencies:
-    loader-utils "^1.1.0"
-    schema-utils "^1.0.0"
+    loader-utils "^2.0.0"
+    schema-utils "^2.6.6"
 
 supports-color@^2.0.0:
   version "2.0.0"
