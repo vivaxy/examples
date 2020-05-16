@@ -3416,12 +3416,13 @@ eslint-module-utils@^2.4.1:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-flowtype@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-4.7.0.tgz?cache=0&sync_timestamp=1585076206209&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-plugin-flowtype%2Fdownload%2Feslint-plugin-flowtype-4.7.0.tgz#903a6ea3eb5cbf4c7ba7fa73cc43fc39ab7e4a70"
-  integrity sha1-kDpuo+tcv0x7p/pzzEP8Oat+SnA=
+eslint-plugin-flowtype@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-5.0.3.tgz#eff9c2b01df3f182f6d6984565e5c1dd73a7c6ad"
+  integrity sha1-7/nCsB3z8YL21phFZeXB3XOnxq0=
   dependencies:
     lodash "^4.17.15"
+    string-natural-compare "^3.0.1"
 
 eslint-plugin-import@2.20.2:
   version "2.20.2"
@@ -7963,6 +7964,11 @@ string-length@^4.0.1:
   dependencies:
     char-regex "^1.0.2"
     strip-ansi "^6.0.0"
+
+string-natural-compare@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/string-natural-compare/download/string-natural-compare-3.0.1.tgz#7a42d58474454963759e8e8b7ae63d71c1e7fdf4"
+  integrity sha1-ekLVhHRFSWN1no6LeuY9ccHn/fQ=
 
 string-width@^3.0.0, string-width@^3.1.0:
   version "3.1.0"
