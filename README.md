@@ -75,14 +75,6 @@ Table of contents
 * [Functional Programming](https://vivaxy.github.io/course/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/course/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/course/functional-programming/manipulate-functions/) Manipulate functions
-* [HTML](https://vivaxy.github.io/course/html/) HTML
-  * [datalist](https://vivaxy.github.io/course/html/datalist/) Datalist
-  * [iframe Resize](https://vivaxy.github.io/course/html/iframe-resize/) iframe-resize
-  * [innerText v.s. textContent](https://vivaxy.github.io/course/html/inner-text-vs-text-content/) innerText v.s. textContent
-  * [Meta Scale](https://vivaxy.github.io/course/html/meta-scale/) Meta scale demo
-  * [Meta Width](https://vivaxy.github.io/course/html/meta-width/) Meta width
-  * [Playsinline](https://vivaxy.github.io/course/html/playsinline/) Video playsinline demo
-  * [select multiple](https://vivaxy.github.io/course/html/select-multiple/) Select multiple
 * [JavaScript](https://vivaxy.github.io/course/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/course/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/course/javascript/arrow-function/) Arrow Function
@@ -317,6 +309,15 @@ Table of contents
 * [Shell](https://vivaxy.github.io/course/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/course/sliding-tiles-puzzle/) 数字推盘游戏
 * [TypeScript](https://vivaxy.github.io/course/typescript/) TypeScript
+* [Web APIs](https://vivaxy.github.io/course/web-apis/) Web APIs
+  * [datalist](https://vivaxy.github.io/course/web-apis/datalist/) Datalist
+  * [DOMParser](https://vivaxy.github.io/course/web-apis/dom-parser/) DOMParser
+  * [iframe Resize](https://vivaxy.github.io/course/web-apis/iframe-resize/) iframe-resize
+  * [innerText v.s. textContent](https://vivaxy.github.io/course/web-apis/inner-text-vs-text-content/) innerText v.s. textContent
+  * [Meta Scale](https://vivaxy.github.io/course/web-apis/meta-scale/) Meta scale demo
+  * [Meta Width](https://vivaxy.github.io/course/web-apis/meta-width/) Meta width
+  * [Playsinline](https://vivaxy.github.io/course/web-apis/playsinline/) Video playsinline demo
+  * [select multiple](https://vivaxy.github.io/course/web-apis/select-multiple/) Select multiple
 * [WebAssembly](https://vivaxy.github.io/course/web-assembly/) Web Assembly
   * [Google Codelabs Web Assembly Intro](https://vivaxy.github.io/course/web-assembly/google-codelabs-web-assembly-intro/) Google codelabs web assembly intro
     * [Game of Life](https://vivaxy.github.io/course/web-assembly/google-codelabs-web-assembly-intro/lyff/) Lyff

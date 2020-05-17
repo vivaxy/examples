@@ -5,7 +5,8 @@
     "javascript/promise/implements",
     "native-api/event-loop",
     "javascript/async-queue",
-    "html/inner-text-vs-text-content",
-    "koa/redirect-server"
+    "web-apis/inner-text-vs-text-content",
+    "koa/redirect-server",
+    "web-apis/dom-parser"
   ]
 }

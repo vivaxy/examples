@@ -15,7 +15,10 @@ const setMeta = () => {
     width = Number(width);
   }
   const scale = window.screen.width / width;
-  meta.setAttribute('content', `width=${width}, initial-scale=${scale}, user-scalable=0`);
+  meta.setAttribute(
+    'content',
+    `width=${width}, initial-scale=${scale}, user-scalable=0`,
+  );
   meta.setAttribute('name', 'viewport');
 };
 

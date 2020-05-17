@@ -1,5 +1,9 @@
 [
   {
+    "name": "DOMParser",
+    "link": "dom-parser/"
+  },
+  {
     "name": "innerText v.s. textContent",
     "link": "inner-text-vs-text-content/"
   },
