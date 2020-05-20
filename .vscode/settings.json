@@ -7,6 +7,7 @@
     "javascript/async-queue",
     "web-apis/inner-text-vs-text-content",
     "koa/redirect-server",
-    "web-apis/dom-parser"
+    "web-apis/dom-parser",
+    "html/video"
   ]
 }

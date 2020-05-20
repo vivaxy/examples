@@ -75,6 +75,8 @@ Table of contents
 * [Functional Programming](https://vivaxy.github.io/course/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/course/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/course/functional-programming/manipulate-functions/) Manipulate functions
+* [HTML](https://vivaxy.github.io/course/html/) HTML
+  * [Video](https://vivaxy.github.io/course/html/video/) Video
 * [JavaScript](https://vivaxy.github.io/course/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/course/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/course/javascript/arrow-function/) Arrow Function
