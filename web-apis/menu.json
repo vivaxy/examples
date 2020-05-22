@@ -1,5 +1,9 @@
 [
   {
+    "name": "Scroll into view",
+    "link": "scroll-into-view/"
+  },
+  {
     "name": "DOMParser",
     "link": "dom-parser/"
   },

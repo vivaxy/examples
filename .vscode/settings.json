@@ -8,6 +8,7 @@
     "web-apis/inner-text-vs-text-content",
     "koa/redirect-server",
     "web-apis/dom-parser",
-    "html/video"
+    "html/video",
+    "web-apis/scroll-into-view"
   ]
 }

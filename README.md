@@ -319,6 +319,7 @@ Table of contents
   * [Meta Scale](https://vivaxy.github.io/course/web-apis/meta-scale/) Meta scale demo
   * [Meta Width](https://vivaxy.github.io/course/web-apis/meta-width/) Meta width
   * [Playsinline](https://vivaxy.github.io/course/web-apis/playsinline/) Video playsinline demo
+  * [ScrollIntoView](https://vivaxy.github.io/course/web-apis/scroll-into-view/) ScrollIntoView
   * [select multiple](https://vivaxy.github.io/course/web-apis/select-multiple/) Select multiple
 * [WebAssembly](https://vivaxy.github.io/course/web-assembly/) Web Assembly
   * [Google Codelabs Web Assembly Intro](https://vivaxy.github.io/course/web-assembly/google-codelabs-web-assembly-intro/) Google codelabs web assembly intro
