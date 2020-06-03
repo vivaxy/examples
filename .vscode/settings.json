@@ -9,6 +9,7 @@
     "koa/redirect-server",
     "web-apis/dom-parser",
     "html/video",
-    "web-apis/scroll-into-view"
+    "web-apis/scroll-into-view",
+    "javascript/call-site"
   ]
 }
