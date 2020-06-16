@@ -6,9 +6,15 @@ function getCallSites() {
   const _prepareStackTrace = Error.prepareStackTrace;
   Error.prepareStackTrace = (_, stack) => stack;
   const stack = new Error().stack;
+  const stacks =
+    typeof stack === 'string'
+      ? stack.split('\n').map(function(s) {
+          return s.trim();
+        })
+      : stack;
   Error.prepareStackTrace = _prepareStackTrace;
-  stack.shift();
-  return stack;
+  stacks.shift();
+  return stacks;
 }
 
 function a() {
