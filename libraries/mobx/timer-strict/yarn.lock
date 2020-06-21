@@ -1738,17 +1738,17 @@ atob@^2.1.2:
   resolved "https://registry.npm.taobao.org/atob/download/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
 
-autoprefixer@9.8.0:
-  version "9.8.0"
-  resolved "https://registry.npm.taobao.org/autoprefixer/download/autoprefixer-9.8.0.tgz?cache=0&sync_timestamp=1589691903843&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fautoprefixer%2Fdownload%2Fautoprefixer-9.8.0.tgz#68e2d2bef7ba4c3a65436f662d0a56a741e56511"
-  integrity sha1-aOLSvve6TDplQ29mLQpWp0HlZRE=
+autoprefixer@9.8.2:
+  version "9.8.2"
+  resolved "https://registry.npm.taobao.org/autoprefixer/download/autoprefixer-9.8.2.tgz?cache=0&sync_timestamp=1592701649828&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fautoprefixer%2Fdownload%2Fautoprefixer-9.8.2.tgz#7347396ee576b18687041bfbacd76d78e27baa56"
+  integrity sha1-c0c5buV2sYaHBBv7rNdteOJ7qlY=
   dependencies:
     browserslist "^4.12.0"
-    caniuse-lite "^1.0.30001061"
-    chalk "^2.4.2"
+    caniuse-lite "^1.0.30001084"
+    kleur "^4.0.1"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^7.0.30"
+    postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
 aws-sign2@~0.7.0:
@@ -2422,10 +2422,10 @@ caniuse-lite@^1.0.30001043:
   version "1.0.30001054"
   resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001054.tgz#7e82fc42d927980b0ce1426c4813df12381e1a75"
 
-caniuse-lite@^1.0.30001061:
-  version "1.0.30001061"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001061.tgz#80ca87ef14eb543a7458e7fd2b5e2face3458c9f"
-  integrity sha1-gMqH7xTrVDp0WOf9K14vrONFjJ8=
+caniuse-lite@^1.0.30001084:
+  version "1.0.30001084"
+  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001084.tgz?cache=0&sync_timestamp=1592288334837&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001084.tgz#00e471931eaefbeef54f46aa2203914d3c165669"
+  integrity sha1-AORxkx6u++71T0aqIgORTTwWVmk=
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -5696,6 +5696,11 @@ kleur@^3.0.3:
   resolved "https://registry.npm.taobao.org/kleur/download/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha1-p5yezIbuHOP6YgbRIWxQHxR/wH4=
 
+kleur@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npm.taobao.org/kleur/download/kleur-4.0.1.tgz#3d4948534b666e2578f93b6fafb62108e64f05ef"
+  integrity sha1-PUlIU0tmbiV4+Ttvr7YhCOZPBe8=
+
 language-subtag-registry@~0.3.2:
   version "0.3.20"
   resolved "https://registry.npm.taobao.org/language-subtag-registry/download/language-subtag-registry-0.3.20.tgz#a00a37121894f224f763268e431c55556b0c0755"
@@ -6866,7 +6871,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.1.0:
   resolved "https://registry.npm.taobao.org/postcss-value-parser/download/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
   integrity sha1-RD9qIM7WSBor2k+oUypuVdeJoss=
 
-postcss@^7.0.0, postcss@^7.0.30:
+postcss@^7.0.0:
   version "7.0.30"
   resolved "https://registry.npm.taobao.org/postcss/download/postcss-7.0.30.tgz?cache=0&sync_timestamp=1589234124143&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss%2Fdownload%2Fpostcss-7.0.30.tgz#cc9378beffe46a02cbc4506a0477d05fcea9a8e2"
   integrity sha1-zJN4vv/kagLLxFBqBHfQX86pqOI=
