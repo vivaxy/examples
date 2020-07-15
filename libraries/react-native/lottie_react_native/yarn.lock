@@ -5046,10 +5046,10 @@ react-native-safe-modules@^1.0.0:
   dependencies:
     dedent "^0.6.0"
 
-react-native@0.63.0:
-  version "0.63.0"
-  resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.63.0.tgz?cache=0&sync_timestamp=1594231790644&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native%2Fdownload%2Freact-native-0.63.0.tgz#1444aa04c34b65ca1dce589db166bd112e982b96"
-  integrity sha1-FESqBMNLZcodzlidsWa9ES6YK5Y=
+react-native@0.63.1:
+  version "0.63.1"
+  resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.63.1.tgz?cache=0&sync_timestamp=1594758621308&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native%2Fdownload%2Freact-native-0.63.1.tgz#af814c47fc6b9e938b1c3b11e9d1555b7e8c669b"
+  integrity sha1-r4FMR/xrnpOLHDsR6dFVW36MZps=
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^4.7.0"
