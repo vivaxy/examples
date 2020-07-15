@@ -30,9 +30,10 @@ jpeg-js@^0.4.0:
   version "0.4.0"
   resolved "https://registry.npm.taobao.org/jpeg-js/download/jpeg-js-0.4.0.tgz?cache=0&sync_timestamp=1587651455233&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjpeg-js%2Fdownload%2Fjpeg-js-0.4.0.tgz#39adab7245b6d11e918ba5d4b49263ff2fc6a2f9"
 
-js-base64@^2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
+js-base64@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/js-base64/download/js-base64-3.0.0.tgz?cache=0&sync_timestamp=1594827191482&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-base64%2Fdownload%2Fjs-base64-3.0.0.tgz#7e0d3174b3d77c286a38124b104e5789683f8211"
+  integrity sha1-fg0xdLPXfChqOBJLEE5XiWg/ghE=
 
 jsonfile@^6.0.1:
   version "6.0.1"
