@@ -11,9 +11,9 @@
 		"react-native": "0.63.2"
 	},
 	"devDependencies": {
-		"babel-jest": "26.2.1",
+		"babel-jest": "26.2.2",
 		"babel-preset-react-native": "4.0.1",
-		"jest": "26.2.1",
+		"jest": "26.2.2",
 		"react-test-renderer": "~16.13.0"
 	},
 	"jest": {
