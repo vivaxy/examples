@@ -2089,13 +2089,13 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@16.9.43":
-  version "16.9.43"
-  resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.43.tgz#c287f23f6189666ee3bebc2eb8d0f84bcb6cdb6b"
-  integrity sha1-wofyP2GJZm7jvrwuuND4S8ts22s=
+"@types/react@16.9.44":
+  version "16.9.44"
+  resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.44.tgz?cache=0&sync_timestamp=1596226908379&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact%2Fdownload%2F%40types%2Freact-16.9.44.tgz#da84b179c031aef67dc92c33bd3401f1da2fa3bc"
+  integrity sha1-2oSxecAxrvZ9ySwzvTQB8dovo7w=
   dependencies:
     "@types/prop-types" "*"
-    csstype "^2.2.0"
+    csstype "^3.0.2"
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -4052,6 +4052,11 @@ csstype@^2.2.0:
   version "2.6.6"
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
   integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
+
+csstype@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/csstype/download/csstype-3.0.2.tgz?cache=0&sync_timestamp=1596103370837&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcsstype%2Fdownload%2Fcsstype-3.0.2.tgz#ee5ff8f208c8cd613b389f7b222c9801ca62b3f7"
+  integrity sha1-7l/48gjIzWE7OJ97IiyYAcpis/c=
 
 cyclist@^1.0.1:
   version "1.0.1"
