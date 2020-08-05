@@ -1,5 +1,9 @@
 [
   {
+    "name": "Walk Through DOM Tree",
+    "link": "walk-through-dom-tree/"
+  },
+  {
     "name": "Bit Operations vs Math Operations",
     "link": "bit-operations-vs-math-operations/index.js"
   },

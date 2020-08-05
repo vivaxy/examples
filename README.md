@@ -44,6 +44,7 @@ Table of contents
   * [RegExp vs String Edit](https://vivaxy.github.io/course/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
   * [split vs String Edit](https://vivaxy.github.io/course/benchmark/split-vs-stringEdit/) Split vs string edit
   * [unregisterWithReturnedFunction vs unregister](https://vivaxy.github.io/course/benchmark/unregisterWithReturnedFunction-vs-unregister/) Unregister with returned function vs unregister
+  * [Walk through DOM tree](https://vivaxy.github.io/course/benchmark/walk-through-dom-tree/) Walk through DOM tree
 * [cascading style sheets](https://vivaxy.github.io/course/cascading-style-sheets/) CSS 样式
   * [Animation steps](https://vivaxy.github.io/course/cascading-style-sheets/animation-steps/) CSS Animation steps API demo
   * [backdrop-filter](https://vivaxy.github.io/course/cascading-style-sheets/backdrop-filter/) Backdrop filter

@@ -10,6 +10,7 @@
     "web-apis/dom-parser",
     "html/video",
     "web-apis/scroll-into-view",
-    "javascript/call-site"
+    "javascript/call-site",
+    "benchmark/walk-through-dom-tree"
   ]
 }
