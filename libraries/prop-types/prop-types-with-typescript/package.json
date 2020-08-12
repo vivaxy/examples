@@ -9,7 +9,7 @@
     "@types/react-dom": "16.9.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.4.2",
+    "react-scripts": "3.4.3",
     "typescript": "3.9.7"
   },
   "scripts": {
