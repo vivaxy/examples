@@ -43,9 +43,10 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-ohm-js@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/ohm-js/-/ohm-js-0.14.0.tgz#ef5dbe33d493407916f8c4c12115161872c2bc0d"
+ohm-js@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.npm.taobao.org/ohm-js/download/ohm-js-15.0.0.tgz#9a1988ec416ed03440fd1a93947e176451c0c1c5"
+  integrity sha1-mhmI7EFu0DRA/RqTlH4XZFHAwcU=
   dependencies:
     es6-symbol "^3.1.0"
     inherits "^2.0.3"
