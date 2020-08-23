@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "ohm-js": "^0.14.0"
+    "ohm-js": "^15.0.0"
   }
 }
