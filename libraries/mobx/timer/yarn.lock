@@ -1234,7 +1234,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
+"@types/json-schema@^7.0.5":
   version "7.0.5"
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.5.tgz?cache=0&sync_timestamp=1591720741205&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
   integrity sha1-3M5EMOZLRDuolF8CkPtWStW6xt0=
@@ -1550,7 +1550,7 @@ ajv@^5.0.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0, ajv@^6.12.2, ajv@^6.5.5:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0, ajv@^6.5.5:
   version "6.12.2"
   resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.2.tgz?cache=0&sync_timestamp=1587338746649&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-6.12.2.tgz#c629c5eced17baf314437918d2da88c99d5958cd"
   dependencies:
@@ -2954,10 +2954,10 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-css-loader@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-4.2.2.tgz?cache=0&sync_timestamp=1598285813744&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcss-loader%2Fdownload%2Fcss-loader-4.2.2.tgz#b668b3488d566dc22ebcf9425c5f254a05808c89"
-  integrity sha1-tmizSI1WbcIuvPlCXF8lSgWAjIk=
+css-loader@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-4.3.0.tgz#c888af64b2a5b2e85462c72c0f4a85c7e2e0821e"
+  integrity sha1-yIivZLKlsuhUYscsD0qFx+Lggh4=
   dependencies:
     camelcase "^6.0.0"
     cssesc "^3.0.0"
@@ -2969,7 +2969,7 @@ css-loader@4.2.2:
     postcss-modules-scope "^2.2.0"
     postcss-modules-values "^3.0.0"
     postcss-value-parser "^4.1.0"
-    schema-utils "^2.7.0"
+    schema-utils "^2.7.1"
     semver "^7.3.2"
 
 css-select@^1.1.0:
@@ -7668,15 +7668,6 @@ schema-utils@^2.6.5, schema-utils@^2.6.6:
   resolved "https://registry.npm.taobao.org/schema-utils/download/schema-utils-2.6.6.tgz?cache=0&sync_timestamp=1587138209923&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fschema-utils%2Fdownload%2Fschema-utils-2.6.6.tgz#299fe6bd4a3365dc23d99fd446caff8f1d6c330c"
   dependencies:
     ajv "^6.12.0"
-    ajv-keywords "^3.4.1"
-
-schema-utils@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.npm.taobao.org/schema-utils/download/schema-utils-2.7.0.tgz#17151f76d8eae67fbbf77960c33c676ad9f4efc7"
-  integrity sha1-FxUfdtjq5n+793lgwzxnatn078c=
-  dependencies:
-    "@types/json-schema" "^7.0.4"
-    ajv "^6.12.2"
     ajv-keywords "^3.4.1"
 
 schema-utils@^2.7.1:
