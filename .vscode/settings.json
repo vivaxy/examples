@@ -11,6 +11,7 @@
     "html/video",
     "web-apis/scroll-into-view",
     "javascript/call-site",
-    "benchmark/walk-through-dom-tree"
+    "benchmark/walk-through-dom-tree",
+    "node-js/module-run-main"
   ]
 }

@@ -1,5 +1,9 @@
 [
   {
+    "name": "Module.runMain",
+    "link": "module-run-main/index.js"
+  },
+  {
     "name": "Stream",
     "link": "stream/readable.js"
   },
