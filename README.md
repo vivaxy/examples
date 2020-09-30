@@ -94,6 +94,7 @@ Table of contents
   * [delegate event](https://vivaxy.github.io/course/javascript/delegate-event/) Delegate event
   * [destructuring](https://vivaxy.github.io/course/javascript/destructuring/) Destructuring
   * [common list](https://vivaxy.github.io/course/javascript/drag-to-load/) Drag to load
+  * [Error Boundary](https://vivaxy.github.io/course/javascript/error-boundary/) Error Boundary
   * [eventuality](https://vivaxy.github.io/course/javascript/eventuality/) Eventuality
   * [eventuality](https://vivaxy.github.io/course/javascript/eventuality-complex/) Eventuality complex
   * [Extend](https://vivaxy.github.io/course/javascript/extend/) Extend implementation

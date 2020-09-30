@@ -13,6 +13,7 @@
     "javascript/call-site",
     "benchmark/walk-through-dom-tree",
     "node-js/module-run-main",
-    "javascript/new-async-function"
+    "javascript/new-async-function",
+    "javascript/error-boundary"
   ]
 }
