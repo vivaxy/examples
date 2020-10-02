@@ -6155,10 +6155,10 @@ mobx-react@^7.0.0:
   dependencies:
     mobx-react-lite "^3.0.0"
 
-mobx@^5.0.0:
-  version "5.15.4"
-  resolved "https://registry.npm.taobao.org/mobx/download/mobx-5.15.4.tgz#9da1a84e97ba624622f4e55a0bf3300fb931c2ab"
-  integrity sha1-naGoTpe6YkYi9OVaC/MwD7kxwqs=
+mobx@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npm.taobao.org/mobx/download/mobx-6.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmobx%2Fdownload%2Fmobx-6.0.0.tgz#676fc8dd225d26485d354ff44a1f8d00938b32dc"
+  integrity sha1-Z2/I3SJdJkhdNU/0Sh+NAJOLMtw=
 
 move-concurrently@^1.0.1:
   version "1.0.1"
