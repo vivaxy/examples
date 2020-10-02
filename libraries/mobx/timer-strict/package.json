@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "mobx": "^5.0.0",
+    "mobx": "^6.0.0",
     "mobx-react": "^7.0.0",
     "mobx-react-devtools": "^6.0.0",
     "react": "^16.0.0",
