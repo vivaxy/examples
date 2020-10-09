@@ -2059,10 +2059,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
   integrity sha1-luw7Cvr9ZKTM6pEHt1v4SJ8OV2U=
 
-"@types/node@12.12.66":
-  version "12.12.66"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.66.tgz?cache=0&sync_timestamp=1602191640683&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.66.tgz#5a2650f5c25e9f24d8f65d06f39a4650249bd5fc"
-  integrity sha1-WiZQ9cJenyTY9l0G85pGUCSb1fw=
+"@types/node@12.12.67":
+  version "12.12.67"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.67.tgz?cache=0&sync_timestamp=1602226649814&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.67.tgz#4f86badb292e822e3b13730a1f9713ed2377f789"
+  integrity sha1-T4a62ykugi47E3MKH5cT7SN394k=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
