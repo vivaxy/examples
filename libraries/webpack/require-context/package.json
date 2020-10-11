@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/vivaxy/course#readme",
   "dependencies": {
-    "webpack": "^4.0.0",
+    "webpack": "^5.0.0",
     "webpack-dev-server": "^3.0.0"
   }
 }

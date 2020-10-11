@@ -9,7 +9,7 @@
   "author": "vivaxy",
   "license": "MIT",
   "dependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^5.0.0"
   },
   "devDependencies": {
     "uglifyjs-webpack-plugin": "^2.0.0"
