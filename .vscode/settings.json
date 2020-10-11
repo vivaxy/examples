@@ -14,6 +14,7 @@
     "benchmark/walk-through-dom-tree",
     "node-js/module-run-main",
     "javascript/new-async-function",
-    "javascript/error-boundary"
+    "javascript/error-boundary",
+    "javascript/file-system-access/open-and-save-file"
   ]
 }
