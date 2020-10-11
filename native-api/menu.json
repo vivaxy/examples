@@ -1,5 +1,13 @@
 [
   {
+    "name": "WebHID",
+    "link": "web-hid/"
+  },
+  {
+    "name": "File System Access",
+    "link": "file-system-access/"
+  },
+  {
     "name": "Event Loop",
     "link": "event-loop/"
   },

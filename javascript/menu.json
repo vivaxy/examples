@@ -1,9 +1,5 @@
 [
   {
-    "name": "File System Access",
-    "link": "file-system-access/"
-  },
-  {
     "name": "Error Boundary",
     "link": "error-boundary/"
   },
