@@ -5163,9 +5163,10 @@ react-refresh@^0.4.0:
   version "0.4.2"
   resolved "https://registry.npm.taobao.org/react-refresh/download/react-refresh-0.4.2.tgz#54a277a6caaac2803d88f1d6f13c1dcfbd81e334"
 
-react-test-renderer@16.13.1:
-  version "16.13.1"
-  resolved "https://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-16.13.1.tgz#de25ea358d9012606de51e012d9742e7f0deabc1"
+react-test-renderer@16.14.0:
+  version "16.14.0"
+  resolved "https://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-16.14.0.tgz#e98360087348e260c56d4fe2315e970480c228ae"
+  integrity sha1-6YNgCHNI4mDFbU/iMV6XBIDCKK4=
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
@@ -5179,9 +5180,10 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@16.13.1:
-  version "16.13.1"
-  resolved "https://registry.npm.taobao.org/react/download/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
+react@16.14.0:
+  version "16.14.0"
+  resolved "https://registry.npm.taobao.org/react/download/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha1-lNd23dCqo32j7aj8W2sYpMmjEU0=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
