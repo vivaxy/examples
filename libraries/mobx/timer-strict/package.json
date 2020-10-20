@@ -6,8 +6,8 @@
     "mobx": "^6.0.0",
     "mobx-react": "^7.0.0",
     "mobx-react-devtools": "^6.0.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "react-hot-loader": "next"
   },
   "devDependencies": {

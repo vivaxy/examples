@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "prop-types": "^15.5.9",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
     "react-scripts": "3.4.4"
