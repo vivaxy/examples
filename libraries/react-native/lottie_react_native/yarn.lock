@@ -5112,10 +5112,15 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
 
-"react-is@^16.12.0 || ^17.0.0", react-is@^17.0.0:
+"react-is@^16.12.0 || ^17.0.0":
   version "17.0.0"
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-17.0.0.tgz?cache=0&sync_timestamp=1603225573835&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-17.0.0.tgz#7d6ec2a5c3de3ae2c0bfa7586305115ec1192110"
   integrity sha1-fW7CpcPeOuLAv6dYYwURXsEZIRA=
+
+react-is@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.npm.taobao.org/react-is/download/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
+  integrity sha1-WzUxvXamRaTJ+25pPtNkGeMwEzk=
 
 react-native-safe-modules@^1.0.0:
   version "1.0.0"
@@ -5176,15 +5181,15 @@ react-shallow-renderer@^16.13.1:
     object-assign "^4.1.1"
     react-is "^16.12.0 || ^17.0.0"
 
-react-test-renderer@17.0.0:
-  version "17.0.0"
-  resolved "https://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-17.0.0.tgz?cache=0&sync_timestamp=1603223587246&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-test-renderer%2Fdownload%2Freact-test-renderer-17.0.0.tgz#d538162e430aa960e126ba9934a9656ded0e7523"
-  integrity sha1-1TgWLkMKqWDhJrqZNKllbe0OdSM=
+react-test-renderer@17.0.1:
+  version "17.0.1"
+  resolved "https://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-17.0.1.tgz?cache=0&sync_timestamp=1603371150034&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-test-renderer%2Fdownload%2Freact-test-renderer-17.0.1.tgz#3187e636c3063e6ae498aedf21ecf972721574c7"
+  integrity sha1-MYfmNsMGPmrkmK7fIez5cnIVdMc=
   dependencies:
     object-assign "^4.1.1"
-    react-is "^17.0.0"
+    react-is "^17.0.1"
     react-shallow-renderer "^16.13.1"
-    scheduler "^0.20.0"
+    scheduler "^0.20.1"
 
 react-transform-hmr@^1.0.4:
   version "1.0.4"
@@ -5193,10 +5198,10 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@17.0.0:
-  version "17.0.0"
-  resolved "https://registry.npm.taobao.org/react/download/react-17.0.0.tgz?cache=0&sync_timestamp=1603223222115&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-17.0.0.tgz#ad96d5fa1a33bb9b06d0cc52672f7992d84aa662"
-  integrity sha1-rZbV+hozu5sG0MxSZy95kthKpmI=
+react@17.0.1:
+  version "17.0.1"
+  resolved "https://registry.npm.taobao.org/react/download/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
+  integrity sha1-bgYAQWvVdXTj+G2S7bo9kAhyYSc=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -5501,10 +5506,10 @@ scheduler@0.19.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-scheduler@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.npm.taobao.org/scheduler/download/scheduler-0.20.0.tgz?cache=0&sync_timestamp=1603225573589&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fscheduler%2Fdownload%2Fscheduler-0.20.0.tgz#3ff543696b169613afadb09d3fb3fe998d234dd2"
-  integrity sha1-P/VDaWsWlhOvrbCdP7P+mY0jTdI=
+scheduler@^0.20.1:
+  version "0.20.1"
+  resolved "https://registry.npm.taobao.org/scheduler/download/scheduler-0.20.1.tgz#da0b907e24026b01181ecbc75efdc7f27b5a000c"
+  integrity sha1-2guQfiQCawEYHsvHXv3H8ntaAAw=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
