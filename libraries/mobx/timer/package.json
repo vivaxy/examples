@@ -43,7 +43,7 @@
     "object-assign": "4.1.1",
     "postcss-loader": "4.0.4",
     "promise": "8.1.0",
-    "react-dev-utils": "^10.0.0",
+    "react-dev-utils": "^11.0.0",
     "style-loader": "2.0.0",
     "url-loader": "4.1.1",
     "webpack": "5.2.0",
