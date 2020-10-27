@@ -1881,10 +1881,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
   integrity sha1-luw7Cvr9ZKTM6pEHt1v4SJ8OV2U=
 
-"@types/node@12.19.1":
-  version "12.19.1"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.19.1.tgz#303f74c8a2b35644594139e948b2be470ae1186f"
-  integrity sha1-MD90yKKzVkRZQTnpSLK+RwrhGG8=
+"@types/node@12.19.2":
+  version "12.19.2"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.19.2.tgz?cache=0&sync_timestamp=1603751613993&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.19.2.tgz#9565ed5c72ba96038fc3add643edd5e7820598e7"
+  integrity sha1-lWXtXHK6lgOPw63WQ+3V54IFmOc=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
