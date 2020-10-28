@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "fs-extra": "^9.0.0",
-    "pngjs3": "^5.0.0"
+    "pngjs3": "^6.0.0"
   }
 }
