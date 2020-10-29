@@ -33,10 +33,10 @@ graceful-fs@^4.2.0:
   resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.4.tgz?cache=0&sync_timestamp=1588087063358&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fgraceful-fs%2Fdownload%2Fgraceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha1-Ila94U02MpWMRl68ltxGfKB6Kfs=
 
-immer@^6.0.3:
-  version "6.0.5"
-  resolved "https://registry.npm.taobao.org/immer/download/immer-6.0.5.tgz#77187d13b71c6cee40dde3b8e87a50a7a636d630"
-  integrity sha1-dxh9E7ccbO5A3eO46HpQp6Y21jA=
+immer@^7.0.14:
+  version "7.0.14"
+  resolved "https://registry.npm.taobao.org/immer/download/immer-7.0.14.tgz#3e605f8584b15a9520d2f2f3fda9441cc9170d25"
+  integrity sha1-PmBfhYSxWpUg0vLz/alEHMkXDSU=
 
 jsonfile@^6.0.1:
   version "6.0.1"
@@ -52,13 +52,13 @@ pako@~1.0.5:
   resolved "https://registry.npm.taobao.org/pako/download/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha1-bJWZ00DVTf05RjgCUqNXBaa5kr8=
 
-pngjs3@^5.0.0:
-  version "5.1.8"
-  resolved "https://registry.npm.taobao.org/pngjs3/download/pngjs3-5.1.8.tgz#bafc1cc3cc09df7a63c6a3751c7eb2c9bb1314ff"
-  integrity sha1-uvwcw8wJ33pjxqN1HH6yybsTFP8=
+pngjs3@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npm.taobao.org/pngjs3/download/pngjs3-6.0.0.tgz#f6ccc46f2d3cca15d8c3669210888a735a0c38e6"
+  integrity sha1-9szEby08yhXYw2aSEIiKc1oMOOY=
   dependencies:
     browserify-zlib "^0.2.0"
-    immer "^6.0.3"
+    immer "^7.0.14"
 
 universalify@^1.0.0:
   version "1.0.0"
