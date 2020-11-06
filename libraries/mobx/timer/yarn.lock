@@ -8635,10 +8635,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.3.1:
-  version "5.3.1"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.3.1.tgz?cache=0&sync_timestamp=1603999502606&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.3.1.tgz#733b2ab9e556bad5c29724a6d562b93e98694bbc"
-  integrity sha1-czsqueVWutXClySm1WK5PphpS7w=
+webpack@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.4.0.tgz?cache=0&sync_timestamp=1604553344323&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.4.0.tgz#4fdc6ec8a0ff9160701fb8f2eb8d06b33ecbae0f"
+  integrity sha1-T9xuyKD/kWBwH7jy640Gsz7Lrg8=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
@@ -8682,10 +8682,10 @@ whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-3.4.1.tgz?cache=0&sync_timestamp=1599473275962&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwhatwg-fetch%2Fdownload%2Fwhatwg-fetch-3.4.1.tgz#e5f871572d6879663fa5674c8f833f15a8425ab3"
-  integrity sha1-5fhxVy1oeWY/pWdMj4M/FahCWrM=
+whatwg-fetch@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-3.5.0.tgz?cache=0&sync_timestamp=1604659061553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwhatwg-fetch%2Fdownload%2Fwhatwg-fetch-3.5.0.tgz#605a2cd0a7146e5db141e29d1c62ab84c0c4c868"
+  integrity sha1-YFos0KcUbl2xQeKdHGKrhMDEyGg=
 
 whatwg-fetch@>=0.10.0:
   version "2.0.2"
