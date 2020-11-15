@@ -273,6 +273,7 @@ Table of contents
   * [localStorage demo page](https://vivaxy.github.io/course/native-api/local-storage/) Local storage
   * [LockManager](https://vivaxy.github.io/course/native-api/lock-manager/) LockManager
   * [matchMedia](https://vivaxy.github.io/course/native-api/match-media/) window.matchMedia API
+  * [MIDI](https://vivaxy.github.io/course/native-api/midi/) MIDI
   * [notification](https://vivaxy.github.io/course/native-api/notification/) Notification
   * [Object](https://vivaxy.github.io/course/native-api/object/) Object.defineProperty demo
   * [object oriented](https://vivaxy.github.io/course/native-api/object-oriented/) Object oriented

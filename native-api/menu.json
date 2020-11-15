@@ -1,5 +1,9 @@
 [
   {
+    "name": "MIDI",
+    "link": "midi/"
+  },
+  {
     "name": "WebHID",
     "link": "web-hid/"
   },
