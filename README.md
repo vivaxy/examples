@@ -238,6 +238,7 @@ Table of contents
   * [Web Animation API](https://vivaxy.github.io/course/native-api/animate/) Animate
   * [attributes](https://vivaxy.github.io/course/native-api/attributes/) Attributes
   * [audio](https://vivaxy.github.io/course/native-api/audio/) Audio
+  * [AudioContext](https://vivaxy.github.io/course/native-api/audio-context/) AudioContext
   * [base](https://vivaxy.github.io/course/native-api/base/) Base
   * [battery status](https://vivaxy.github.io/course/native-api/battery-status/) Battery status
   * [Browser message](https://vivaxy.github.io/course/native-api/browser-message/) Browser message demo by Notifications API
