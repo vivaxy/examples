@@ -8651,10 +8651,10 @@ webpack-sources@^2.1.1, webpack-sources@^2.2.0:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.15.0:
-  version "5.15.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.15.0.tgz?cache=0&sync_timestamp=1610727506797&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.15.0.tgz#63d7b6228a4e15ee8c89899c2cfdd993e809bdd2"
-  integrity sha1-Y9e2IopOFe6MiYmcLP3Zk+gJvdI=
+webpack@5.16.0:
+  version "5.16.0"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.16.0.tgz?cache=0&sync_timestamp=1611081747722&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.16.0.tgz#796e093c2d92c229f013aefefde82b50c0572570"
+  integrity sha1-eW4JPC2SwinwE67+/egrUMBXJXA=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.45"
