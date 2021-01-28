@@ -10,7 +10,7 @@ const STATUS = {
 
 function createMicroTaskCallback(fn) {
   let iterations = 0;
-  let mo = new MutationObserver(function() {
+  let mo = new MutationObserver(function () {
     fn();
   });
   let node = document.createTextNode('');
@@ -30,7 +30,7 @@ function createMicroTaskCallback(fn) {
 
 class XPromise {
   static resolve(value) {
-    return new XPromise(function(resolve) {
+    return new XPromise(function (resolve) {
       resolve(value);
     });
   }
@@ -45,8 +45,9 @@ class XPromise {
       while (this.resolves.length) {
         if (this.value instanceof XPromise) {
           this.value.then(this.resolves.shift());
+        } else {
+          this.value = this.resolves.shift()(this.value);
         }
-        this.value = this.resolves.shift()(this.value);
       }
     };
 
@@ -107,21 +108,21 @@ class XPromise {
 
 window.Promise = XPromise;
 
-const p = new Promise(function(resolve) {
-  setTimeout(function() {
+const p = new Promise(function (resolve) {
+  setTimeout(function () {
     resolve(1);
   }, 1);
 })
-  .then(function(value) {
+  .then(function (value) {
     console.log(value === 1);
     return value;
   })
-  .then(function() {
+  .then(function () {
     return Promise.resolve(2);
   });
 
-setTimeout(function() {
-  p.then(function(value) {
+setTimeout(function () {
+  p.then(function (value) {
     console.log(value === 2);
   });
 }, 10);
