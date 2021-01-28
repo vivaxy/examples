@@ -12,6 +12,6 @@
   "dependencies": {},
   "devDependencies": {
     "browserify": "^17.0.0",
-    "watchify": "^3.2.1"
+    "watchify": "^4.0.0"
   }
 }
