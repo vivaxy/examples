@@ -114,6 +114,7 @@ Table of contents
   * [Mixin](https://vivaxy.github.io/course/javascript/mixin/) Mixin implementation
   * [mobile input change](https://vivaxy.github.io/course/javascript/mobile-input-change/) Mobile input change
   * [module view](https://vivaxy.github.io/course/javascript/module-view/) Module view
+  * [Mutex](https://vivaxy.github.io/course/javascript/mutex/) Mutex
   * [new AsyncFunction](https://vivaxy.github.io/course/javascript/new-async-function/) new AsyncFunction
   * [once](https://vivaxy.github.io/course/javascript/once/) Once
   * [poll](https://vivaxy.github.io/course/javascript/poll/) Poll

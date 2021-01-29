@@ -1,5 +1,9 @@
 [
   {
+    "name": "Mutex",
+    "link": "mutex/"
+  },
+  {
     "name": "Error Boundary",
     "link": "error-boundary/"
   },
