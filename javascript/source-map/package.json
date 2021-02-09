@@ -12,9 +12,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "coverage": "jest --collect-coverage",
-    "release:beta": "npm run test && npm run build && standard-version --prerelease beta && npm publish --tag beta --access=public && git push --follow-tags",
-    "release": "npm run test && npm run build && standard-version && npm publish --access=public && git push --follow-tags"
+    "coverage": "jest --collect-coverage"
   },
   "repository": {
     "type": "git",
@@ -26,17 +24,6 @@
     "url": "https://github.com/vivaxy/course/issues"
   },
   "homepage": "https://github.com/vivaxy/course#readme",
-  "lint-staged": {
-    "*.{js,ts,css,less,json,md,html,yml,yaml,pcss,jsx,tsx}": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "jest": {
     "testEnvironment": "node",
     "preset": "ts-jest",
@@ -48,47 +35,12 @@
       "!src/**/__tests__/**/*.ts"
     ]
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "prettier": {
-    "printWidth": 80,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "singleQuote": true,
-    "quoteProps": "as-needed",
-    "jsxSingleQuote": false,
-    "trailingComma": "all",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": false,
-    "arrowParens": "always",
-    "proseWrap": "always",
-    "htmlWhitespaceSensitivity": "css",
-    "endOfLine": "lf",
-    "overrides": [
-      {
-        "files": "*.{css,less,json,html,yml,yaml,pcss}",
-        "options": {
-          "singleQuote": false
-        }
-      }
-    ]
-  },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
     "@types/fs-extra": "^9.0.0",
     "@types/jest": "^26.0.0",
     "@types/webpack": "^4.41.7",
     "fs-extra": "^9.0.0",
-    "husky": "^5.0.0",
     "jest": "^26.0.0",
-    "lint-staged": "^10.0.8",
-    "prettier": "^2.0.0",
-    "standard-version": "^9.0.0",
     "ts-jest": "^26.0.0",
     "typescript": "^4.0.0",
     "uglifyjs": "^2.4.11",
