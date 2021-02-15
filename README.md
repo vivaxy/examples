@@ -58,6 +58,7 @@ Table of contents
   * [display: contents;](https://vivaxy.github.io/course/cascading-style-sheets/display-contents/) Display contents
   * [flex bug](https://vivaxy.github.io/course/cascading-style-sheets/flex-bug/) Flex bug
   * [:focus-within](https://vivaxy.github.io/course/cascading-style-sheets/focus-within/) Focus within
+  * [Heart with Crossed Arrows](https://vivaxy.github.io/course/cascading-style-sheets/heart-with-crossed-arrows/) Heart with Crossed Arrows
   * [live edit style](https://vivaxy.github.io/course/cascading-style-sheets/live-edit-style/) Live edit style
   * [offset-path](https://vivaxy.github.io/course/cascading-style-sheets/offset-path/) Offset path
   * [overscroll-behavior](https://vivaxy.github.io/course/cascading-style-sheets/overscroll-behavior/) Overscroll behavior

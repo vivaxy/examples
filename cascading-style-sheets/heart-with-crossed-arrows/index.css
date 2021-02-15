@@ -1,0 +1,20 @@
+/**
+ * @since 2021-02-15 10:04
+ * @author vivaxy
+ */
+.heart-with-crossed-arrow {
+  display: inline-block;
+  font-size: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.heart-with-crossed-arrow:before {
+  content: "→";
+  position: absolute;
+  transform: rotate3d(0, 1, 1, -30deg);
+}
+
+.heart-with-crossed-arrow:after {
+  content: "❤️";
+}
