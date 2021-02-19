@@ -2623,10 +2623,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
   integrity sha1-luw7Cvr9ZKTM6pEHt1v4SJ8OV2U=
 
-"@types/node@12.20.3":
-  version "12.20.3"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.20.3.tgz?cache=0&sync_timestamp=1613695492183&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.20.3.tgz#fbabde59d96c23a80e337ca6a71b464da2a0a824"
-  integrity sha1-+6veWdlsI6gOM3ympxtGTaKgqCQ=
+"@types/node@12.20.4":
+  version "12.20.4"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.20.4.tgz?cache=0&sync_timestamp=1613758023673&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.20.4.tgz#73687043dd00fcb6962c60fbf499553a24d6bdf2"
+  integrity sha1-c2hwQ90A/LaWLGD79JlVOiTWvfI=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
