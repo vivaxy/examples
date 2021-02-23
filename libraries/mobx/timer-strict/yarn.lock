@@ -3625,10 +3625,10 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-flowtype@5.2.2:
-  version "5.2.2"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-5.2.2.tgz#c6e5dd2fad4e757a1c63e652da6cff597659554f"
-  integrity sha1-xuXdL61OdXocY+ZS2mz/WXZZVU8=
+eslint-plugin-flowtype@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-flowtype/download/eslint-plugin-flowtype-5.3.0.tgz#5cd1f222633294444d695202e3322ce0262f5a41"
+  integrity sha1-XNHyImMylERNaVIC4zIs4CYvWkE=
   dependencies:
     lodash "^4.17.15"
     string-natural-compare "^3.0.1"
