@@ -10,11 +10,10 @@ const { Buffer } = require('buffer');
 
 const PORT = 3000;
 const server = http.createServer(function (req, res) {
-  res.end(
-    'size: ' +
-      (res.socket.bytesRead - (res.socket._lastBytesRead || 0)) +
-      ' bytes',
-  );
+  const size = res.socket.bytesRead - (res.socket._lastBytesRead || 0);
+  const responseText = `size: ${size} bytes`;
+  console.log(responseText);
+  res.end(responseText);
   res.socket._lastBytesRead = res.socket.bytesRead;
 });
 
