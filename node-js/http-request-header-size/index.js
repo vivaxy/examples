@@ -8,10 +8,14 @@
 const http = require('http');
 const { Buffer } = require('buffer');
 
-let lastBytesRead = 0;
+const PORT = 3000;
 const server = http.createServer(function (req, res) {
-  res.end('size: ' + (res.socket.bytesRead - lastBytesRead) + ' bytes');
-  lastBytesRead = res.socket.bytesRead;
+  res.end(
+    'size: ' +
+      (res.socket.bytesRead - (res.socket._lastBytesRead || 0)) +
+      ' bytes',
+  );
+  res.socket._lastBytesRead = res.socket.bytesRead;
 });
 
 // server.on('connection', function (socket) {
@@ -24,4 +28,6 @@ const server = http.createServer(function (req, res) {
 //   });
 // });
 
-server.listen(8000);
+server.listen(PORT, function () {
+  console.log(`server started on ${PORT}`);
+});
