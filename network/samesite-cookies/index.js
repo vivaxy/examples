@@ -10,6 +10,9 @@
  *    - Website B requests website A resource as `Cross Site Resources`.
  *    - Website B navigates to website A as `Cross Site Navigation`.
  *    - Website B includes website A as `Cross Site iFrame`.
+ *
+ * - Questions:
+ *  - When cookie is strict, navigate to website A from website B will not go with cookie, but request from the same page session will go with cookie.
  */
 const fs = require('fs');
 const path = require('path');
@@ -52,7 +55,7 @@ function getCookies(cookies = '') {
 
 const COOKIE_NAME = 'CookieName';
 const COOKIE_VALUE = 'OK';
-const SAMESITE_VALUE = 'Lax';
+const SAMESITE_VALUE = 'Strict';
 
 const router = {
   '/': function (req, res) {
