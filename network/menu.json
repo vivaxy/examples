@@ -2,5 +2,9 @@
   {
     "name": "http2",
     "link": "http2/index.js"
+  },
+  {
+    "name": "SameSite Cookies",
+    "link": "samesite-cookies/index.js"
   }
 ]
