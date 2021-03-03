@@ -10,11 +10,12 @@ const { Buffer } = require('buffer');
 
 const PORT = 3000;
 const server = http.createServer(function (req, res) {
-  const size = res.socket.bytesRead - (res.socket._lastBytesRead || 0);
+  const { socket } = req;
+  const size = socket.bytesRead - (socket._lastBytesRead || 0);
   const responseText = `size: ${size} bytes`;
   console.log(responseText);
   res.end(responseText);
-  res.socket._lastBytesRead = res.socket.bytesRead;
+  socket._lastBytesRead = socket.bytesRead;
 });
 
 // server.on('connection', function (socket) {
@@ -28,5 +29,5 @@ const server = http.createServer(function (req, res) {
 // });
 
 server.listen(PORT, function () {
-  console.log(`server started on ${PORT}`);
+  console.log(`server started on http://127.0.0.1:${PORT}`);
 });
