@@ -18,7 +18,7 @@ async function checkNFCPermission() {
   }
 }
 
-function scan(abortController) {
+function scan(ndef, abortController) {
   return new Promise(function (resolve, reject) {
     ndef
       .scan({ signal: abortController.signal })
@@ -148,7 +148,7 @@ async function readNFC() {
     checkNFCCompatible();
     await checkNFCPermission();
     const ndef = new NDEFReader();
-    const nfcReadingEvent = await scan(abortController);
+    const nfcReadingEvent = await scan(ndef, abortController);
     handleNFCReadingEvent(nfcReadingEvent);
   } catch (e) {
     console.log('Failed with error:', e);
