@@ -1,5 +1,13 @@
 [
   {
+    "name": "Device Information",
+    "link": "device-information"
+  },
+  {
+    "name": "Web NFC",
+    "link": "web-nfc/"
+  },
+  {
     "name": "AudioContext",
     "link": "audio-context/"
   },
@@ -18,10 +26,6 @@
   {
     "name": "Event Loop",
     "link": "event-loop/"
-  },
-  {
-    "name": "Device Information",
-    "link": "device-information"
   },
   {
     "name": "User Timing",
