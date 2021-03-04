@@ -156,7 +156,7 @@ async function readNFC() {
   }
 }
 
-function abortScanNFC() {
+function abortReadNFC() {
   if (!abortController) {
     return;
   }
@@ -164,7 +164,7 @@ function abortScanNFC() {
   abortController = null;
 }
 
-document.getElementById('#read-nfc').addEventListener('click', readNFC);
+document.getElementById('read-nfc').addEventListener('click', readNFC);
 document
-  .getElementById('#abort-read-nfc')
+  .getElementById('abort-read-nfc')
   .addEventListener('click', abortReadNFC);
