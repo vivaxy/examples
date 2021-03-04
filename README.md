@@ -305,6 +305,7 @@ Table of contents
   * [vibrate](https://vivaxy.github.io/course/native-api/vibrate/) Vibrate
   * [visibility](https://vivaxy.github.io/course/native-api/visibility/) Visibility
   * [WebHID](https://vivaxy.github.io/course/native-api/web-hid/) WebHID
+  * [Web NFC](https://vivaxy.github.io/course/native-api/web-nfc/) Web NFC
   * [Web Share](https://vivaxy.github.io/course/native-api/web-share/) Web Share
   * [web worker demo page](https://vivaxy.github.io/course/native-api/web-worker/) Web worker
   * [Web Worker transfer](https://vivaxy.github.io/course/native-api/web-worker-transfer/) Web worker transfer
