@@ -25,7 +25,11 @@ function scan(ndef, abortController) {
       .then(function () {
         console.log('Scan started successfully.');
         ndef.addEventListener('readingerror', reject);
-        ndef.addEventListener('reading', resolve);
+        ndef.addEventListener('reading', function (e) {
+          abortController.abort();
+          abortController = null;
+          resolve(e);
+        });
       })
       .catch(reject);
   });
@@ -146,7 +150,6 @@ async function readNFC() {
     }
     abortController = new AbortController();
     checkNFCCompatible();
-    // await checkNFCPermission();
     const ndef = new NDEFReader();
     const nfcReadingEvent = await scan(ndef, abortController);
     handleNFCReadingEvent(nfcReadingEvent);
