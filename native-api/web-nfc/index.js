@@ -146,7 +146,7 @@ async function readNFC() {
     }
     abortController = new AbortController();
     checkNFCCompatible();
-    await checkNFCPermission();
+    // await checkNFCPermission();
     const ndef = new NDEFReader();
     const nfcReadingEvent = await scan(ndef, abortController);
     handleNFCReadingEvent(nfcReadingEvent);
