@@ -161,6 +161,7 @@ function abortScanNFC() {
     return;
   }
   abortController.abort();
+  abortController = null;
 }
 
 document.getElementById('#read-nfc').addEventListener('click', readNFC);
