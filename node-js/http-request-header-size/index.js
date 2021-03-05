@@ -18,6 +18,10 @@ const server = http.createServer(function (req, res) {
   socket._lastBytesRead = socket.bytesRead;
 });
 
+server.on('clientError', function (err) {
+  console.log('clientError', err);
+});
+
 // server.on('connection', function (socket) {
 //   let data = '';
 //   socket.on('data', function (chunk) {
