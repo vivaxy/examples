@@ -4,6 +4,8 @@
  * 2 ways of getting request header size
  * 1. bytesRead - previousBytesRead
  * 2. byteLength(socket.data)
+ *
+ * use `node --max-http-header-size=100 ./index.js` to test (only on node.js v10 or above)
  */
 const http = require('http');
 const { Buffer } = require('buffer');
