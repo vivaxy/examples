@@ -18,8 +18,10 @@ const server = http.createServer(function (req, res) {
   socket._lastBytesRead = socket.bytesRead;
 });
 
-server.on('clientError', function (err) {
+// if clientError is attached, it will override the original handler
+server.on('clientError', function (err, socket) {
   console.log('clientError', err);
+  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 
 // server.on('connection', function (socket) {
