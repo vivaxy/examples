@@ -8563,10 +8563,10 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-manifest-plugin@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/webpack-manifest-plugin/download/webpack-manifest-plugin-3.0.0.tgz#426644300e5dc41a75a9c996c4d4f876eb3c2b5b"
-  integrity sha1-QmZEMA5dxBp1qcmWxNT4dus8K1s=
+webpack-manifest-plugin@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/webpack-manifest-plugin/download/webpack-manifest-plugin-3.1.0.tgz?cache=0&sync_timestamp=1615391774273&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-manifest-plugin%2Fdownload%2Fwebpack-manifest-plugin-3.1.0.tgz#9030b8839bed093d93930a9d1d3a7ab00f7ac4f7"
+  integrity sha1-kDC4g5vtCT2TkwqdHTp6sA96xPc=
   dependencies:
     tapable "^2.0.0"
     webpack-sources "^2.2.0"
