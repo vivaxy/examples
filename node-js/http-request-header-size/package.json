@@ -8,7 +8,7 @@
     "jest": "^26.6.3"
   },
   "scripts": {
-    "test": "jest --testTimeout=10000"
+    "test": "jest --runInBand"
   },
   "jest": {
     "testEnvironment": "node",
@@ -18,7 +18,6 @@
     "testTimeout": 1000,
     "testMatch": [
       "<rootDir>/**/__tests__/**/*.test.js"
-    ],
-    "maxConcurrency": 1
+    ]
   }
 }

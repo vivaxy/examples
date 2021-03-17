@@ -8,7 +8,6 @@
       "type": "node",
       "request": "launch",
       "name": "node-js/http-request-header-size",
-      "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/node-js/http-request-header-size/index.js"
     }
   ]

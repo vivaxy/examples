@@ -31,37 +31,38 @@ function start({ maxHTTPHeaderSize = 8 * 1024 } = {}) {
 }
 
 function stop() {
-  serverProcess.cancel();
-  serverProcess = null;
+  if (serverProcess) {
+    serverProcess.cancel();
+    serverProcess = null;
+  }
 }
+
+afterEach(function () {
+  stop();
+});
 
 test('should respond 200 when get', async function () {
   await start();
   const res = await request();
   expect(res.statusCode).toBe(200);
   expect(res.body).toBe('size: 59 bytes');
-  stop();
 });
 
 test('should respond 400 when get', async function () {
   await start({ maxHTTPHeaderSize: 59 });
   const res = await request({ path: '/a' });
   expect(res.statusCode).toBe(400);
-  stop();
 });
 
 test('should respond 200 when post', async function () {
   await start();
   const res = await request({ method: 'POST' });
   expect(res.statusCode).toBe(200);
-  expect(res.body).toBe('size: 93 bytes');
-  stop();
+  expect(res.body).toBe('size: 88 bytes');
 });
 
-test('should respond 400 when post and Transfer-Encoding is chunked', async function () {
-  await start({ maxHTTPHeaderSize: 89 });
-  const res = await request({ method: 'POST', path: '/a' });
-  expect(res.statusCode).toBe(200);
-  expect(res.body).toBe('');
-  stop();
+test('should respond 400 when post', async function () {
+  await start({ maxHTTPHeaderSize: 87 });
+  const res = await request({ method: 'POST' });
+  expect(res.statusCode).toBe(400);
 });

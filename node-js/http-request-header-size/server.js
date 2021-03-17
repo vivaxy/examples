@@ -48,16 +48,6 @@ server.on('clientError', function (err, socket) {
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 
-// server.on('connection', function (socket) {
-//   let data = '';
-//   socket.on('data', function (chunk) {
-//     data += String(chunk);
-//   });
-//   socket.on('end', function () {
-//     console.log('size', Buffer.byteLength(data));
-//   });
-// });
-
 module.exports = {
   start() {
     return new Promise(function (resolve, reject) {
@@ -69,7 +59,7 @@ module.exports = {
       });
     });
   },
-  close() {
+  stop() {
     return new Promise(function (resolve, reject) {
       server.on('error', reject);
       server.close(function () {
