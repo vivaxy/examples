@@ -6,6 +6,9 @@
  * 2. byteLength(socket.data)
  *
  * use `node --max-http-header-size=100 ./index.js` to test (only on node.js v10 or above)
+ *
+ * Limitations:
+ *  - not support `Transfer-Encoding: chunked`
  */
 const http = require('http');
 const { Buffer } = require('buffer');
