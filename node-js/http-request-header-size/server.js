@@ -53,7 +53,9 @@ module.exports = {
     return new Promise(function (resolve, reject) {
       server.on('error', reject);
       server.listen(PORT, function () {
-        console.log(`server started on http://127.0.0.1:${PORT}`);
+        console.log(
+          `server started on http://127.0.0.1:${PORT} with maxHeaderSize=${http.maxHeaderSize}`,
+        );
         resolve();
         server.off('error', reject);
       });

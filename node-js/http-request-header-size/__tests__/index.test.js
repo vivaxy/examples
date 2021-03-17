@@ -4,6 +4,7 @@
  */
 const path = require('path');
 const execa = require('execa');
+const { Buffer } = require('buffer');
 const request = require('./helpers/request.js');
 
 let serverProcess = null;
@@ -42,7 +43,7 @@ afterEach(function () {
 });
 
 test('should respond 200 when get', async function () {
-  await start();
+  await start({ maxHTTPHeaderSize: 59 });
   const res = await request();
   expect(res.statusCode).toBe(200);
   expect(res.body).toBe('size: 59 bytes');
@@ -55,14 +56,60 @@ test('should respond 400 when get', async function () {
 });
 
 test('should respond 200 when post', async function () {
-  await start();
-  const res = await request({ method: 'POST' });
+  await start({ maxHTTPHeaderSize: 79 });
+  const res = await request({
+    method: 'POST',
+    headers: { 'Content-Length': 0 },
+  });
+  expect(res.statusCode).toBe(200);
+  expect(res.body).toBe('size: 79 bytes');
+});
+
+test('should respond 400 when post', async function () {
+  await start({ maxHTTPHeaderSize: 78 });
+  const res = await request({
+    method: 'POST',
+    headers: { 'Content-Length': 0 },
+  });
+  expect(res.statusCode).toBe(400);
+});
+
+test('should respond 200 when post with body', async function () {
+  await start({ maxHTTPHeaderSize: 79 });
+  const postData = '1';
+  const res = await request({
+    method: 'POST',
+    headers: { 'Content-Length': Buffer.byteLength(postData) },
+    postData,
+  });
+  expect(res.statusCode).toBe(200);
+  expect(res.body).toBe('size: 79 bytes');
+});
+
+test('should respond 400 when post with body', async function () {
+  await start({ maxHTTPHeaderSize: 78 });
+  const postData = '1';
+  const res = await request({
+    method: 'POST',
+    headers: { 'Content-Length': Buffer.byteLength(postData) },
+    postData,
+  });
+  expect(res.statusCode).toBe(400);
+});
+
+test('should respond 200 when transfer-encoding=chunked', async function () {
+  await start({ maxHTTPHeaderSize: 88 });
+  const res = await request({
+    method: 'POST',
+  });
   expect(res.statusCode).toBe(200);
   expect(res.body).toBe('size: 88 bytes');
 });
 
-test('should respond 400 when post', async function () {
+test('should respond 200 when transfer-encoding=chunked', async function () {
   await start({ maxHTTPHeaderSize: 87 });
-  const res = await request({ method: 'POST' });
+  const res = await request({
+    method: 'POST',
+  });
   expect(res.statusCode).toBe(400);
 });

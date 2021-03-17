@@ -3,11 +3,13 @@
  * @author vivaxy
  */
 const http = require('http');
+const { Buffer } = require('buffer');
 
 module.exports = function request({
   method = 'GET',
   path = '/',
   postData = '',
+  headers = {},
 } = {}) {
   return new Promise(function (resolve, reject) {
     const req = http.request(
@@ -15,6 +17,7 @@ module.exports = function request({
         port: 3000,
         method,
         path,
+        headers,
       },
       function (res) {
         let body = '';
