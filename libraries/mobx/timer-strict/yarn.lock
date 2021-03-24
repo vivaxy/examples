@@ -3715,10 +3715,10 @@ eslint-plugin-jsx-a11y@6.4.1:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-react@7.23.0:
-  version "7.23.0"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-7.23.0.tgz#082512fc3538c7a688b24ea2f407cba1e9a7f463"
-  integrity sha1-CCUS/DU4x6aIsk6i9AfLoemn9GM=
+eslint-plugin-react@7.23.1:
+  version "7.23.1"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-react/download/eslint-plugin-react-7.23.1.tgz#f1a2e844c0d1967c822388204a8bc4dee8415b11"
+  integrity sha1-8aLoRMDRlnyCI4ggSovE3uhBWxE=
   dependencies:
     array-includes "^3.1.3"
     array.prototype.flatmap "^1.2.4"
