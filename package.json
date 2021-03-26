@@ -41,5 +41,6 @@
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
-  }
+  },
+  "dependencies": {}
 }

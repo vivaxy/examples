@@ -1,5 +1,9 @@
 [
   {
+    "name": "prosemirror",
+    "link": "prosemirror/"
+  },
+  {
     "name": "prop-types",
     "link": "prop-types/"
   },
