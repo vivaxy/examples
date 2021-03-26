@@ -7030,8 +7030,9 @@
     }),
     (vr.prototype.onSelectionChange = function () {
       if (
-        (!(e = this.view).editable || e.root.activeElement == e.dom) &&
-        Ln(e)
+        (function (t) {
+          return (!t.editable || t.root.activeElement == t.dom) && Ln(t);
+        })(this.view)
       ) {
         if (this.suppressingSelectionUpdates) return Pn(this.view);
         if (Oe.ie && Oe.ie_version <= 11 && !this.view.state.selection.empty) {
@@ -7044,7 +7045,6 @@
         }
         this.flush();
       }
-      var e;
     }),
     (vr.prototype.setCurSelection = function () {
       this.currentSelection.set(this.view.root.getSelection());
@@ -7099,20 +7099,20 @@
         (r > -1 || n) &&
           (r > -1 &&
             (this.view.docView.markDirty(r, o),
-            (f = this.view),
-            gr ||
-              ((gr = !0),
-              'normal' == getComputedStyle(f.dom).whiteSpace &&
-                console.warn(
-                  "ProseMirror expects the CSS white-space property to be set, preferably to 'pre-wrap'. It is recommended to load style/prosemirror.css from the prosemirror-view package.",
-                ))),
+            (function (t) {
+              gr ||
+                ((gr = !0),
+                'normal' == getComputedStyle(t.dom).whiteSpace &&
+                  console.warn(
+                    "ProseMirror expects the CSS white-space property to be set, preferably to 'pre-wrap'. It is recommended to load style/prosemirror.css from the prosemirror-view package.",
+                  ));
+            })(this.view)),
           this.handleDOMChange(r, o, i, s),
           this.view.docView.dirty
             ? this.view.updateState(this.view.state)
             : this.currentSelection.eq(e) || Pn(this.view),
           this.currentSelection.set(e));
       }
-      var f;
     }),
     (vr.prototype.registerMutation = function (t, e) {
       if (e.indexOf(t.target) > -1) return null;
@@ -8877,10 +8877,7 @@
         m,
         v,
         g,
-        y,
-        w,
-        b,
-        k =
+        y =
           'preserve' == h &&
           i &&
           null == this.dom.style.overflowAnchor &&
@@ -8908,7 +8905,7 @@
           })(this);
       if (i) {
         this.domObserver.stop();
-        var x =
+        var w =
           p &&
           (Oe.ie || Oe.chrome) &&
           !this.composing &&
@@ -8922,31 +8919,32 @@
           )),
           l.$anchor.start(u) != f.$anchor.start(u));
         if (p) {
-          var S = Oe.chrome
+          var b = Oe.chrome
             ? (this.trackWrites = this.root.getSelection().focusNode)
             : null;
           (!o && this.docView.update(t.doc, c, a, this)) ||
             (this.docView.updateOuterDeco([]),
             this.docView.destroy(),
             (this.docView = vn(t.doc, c, a, this.dom, this))),
-            S && !this.trackWrites && (x = !0);
+            b && !this.trackWrites && (w = !0);
         }
-        x ||
+        w ||
         !(
           this.mouseDown &&
           this.domObserver.currentSelection.eq(this.root.getSelection()) &&
-          ((y = this),
-          (w = y.docView.domFromPos(y.state.selection.anchor, 0)),
-          (b = y.root.getSelection()),
-          Pe(w.node, w.offset, b.anchorNode, b.anchorOffset))
+          (function (t) {
+            var e = t.docView.domFromPos(t.state.selection.anchor, 0),
+              n = t.root.getSelection();
+            return Pe(e.node, e.offset, n.anchorNode, n.anchorOffset);
+          })(this)
         )
-          ? Pn(this, x)
+          ? Pn(this, w)
           : (_n(this, t.selection), this.domObserver.setCurSelection()),
           this.domObserver.start();
       }
       if ((this.updatePluginViews(r), 'reset' == h)) this.dom.scrollTop = 0;
       else if ('to selection' == h) {
-        var O = this.root.getSelection().focusNode;
+        var k = this.root.getSelection().focusNode;
         this.someProp('handleScrollToSelection', function (t) {
           return t(n);
         }) ||
@@ -8956,12 +8954,12 @@
                 this.docView
                   .domAfterPos(t.selection.from)
                   .getBoundingClientRect(),
-                O,
+                k,
               )
-            : qe(this, this.coordsAtPos(t.selection.head, 1), O));
+            : qe(this, this.coordsAtPos(t.selection.head, 1), k));
       } else
-        k &&
-          ((m = (d = k).refDOM),
+        y &&
+          ((m = (d = y).refDOM),
           (v = d.refTop),
           Ke(
             d.stack,
@@ -9170,6 +9168,19 @@
       e ? e.call(this, t) : this.updateState(this.state.apply(t));
     }),
     Object.defineProperties(so.prototype, ao);
-  let fo = ge.create({ schema: Mt });
-  new so(document.body, { state: fo });
+  let fo = ge.create({ schema: Mt }),
+    uo = new so(document.body, {
+      state: fo,
+      dispatchTransaction(t) {
+        console.log('Transaction', t),
+          console.log(
+            'Document size went from',
+            t.before.content.size,
+            'to',
+            t.doc.content.size,
+          );
+        let e = uo.state.apply(t);
+        uo.updateState(e);
+      },
+    });
 })();

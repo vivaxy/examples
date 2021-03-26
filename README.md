@@ -199,7 +199,7 @@ Table of contents
   * [Prompts Demo](https://vivaxy.github.io/course/libraries/prompts/) Prompts Demo
   * [prop-types](https://vivaxy.github.io/course/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/course/libraries/prosemirror/) ProseMirror 示例
-    * [Basic](https://vivaxy.github.io/course/libraries/prosemirror/basic/) Basic
+    * [ProseMirror Basic Editor](https://vivaxy.github.io/course/libraries/prosemirror/basic/) Basic
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
   * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
