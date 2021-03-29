@@ -10,7 +10,6 @@ let state = EditorState.create({ schema });
 let view = new EditorView(document.body, {
   state,
   dispatchTransaction(transaction) {
-    console.log('Transaction', transaction);
     console.log(
       'Document size went from',
       transaction.before.content.size,

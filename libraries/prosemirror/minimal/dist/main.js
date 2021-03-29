@@ -9172,13 +9172,12 @@
     uo = new so(document.body, {
       state: fo,
       dispatchTransaction(t) {
-        console.log('Transaction', t),
-          console.log(
-            'Document size went from',
-            t.before.content.size,
-            'to',
-            t.doc.content.size,
-          );
+        console.log(
+          'Document size went from',
+          t.before.content.size,
+          'to',
+          t.doc.content.size,
+        );
         let e = uo.state.apply(t);
         uo.updateState(e);
       },
