@@ -1118,10 +1118,10 @@ humanize-string@^2.1.0:
   dependencies:
     decamelize "^2.0.0"
 
-husky@5:
-  version "5.0.9"
-  resolved "https://registry.npm.taobao.org/husky/download/husky-5.0.9.tgz#6d38706643d66ed395bcd4ee952d02e3f15eb3a3"
-  integrity sha1-bThwZkPWbtOVvNTulS0C4/Fes6M=
+husky@6:
+  version "6.0.0"
+  resolved "https://registry.npm.taobao.org/husky/download/husky-6.0.0.tgz#810f11869adf51604c32ea577edbc377d7f9319e"
+  integrity sha1-gQ8RhprfUWBMMupXftvDd9f5MZ4=
 
 import-fresh@^2.0.0:
   version "2.0.0"
