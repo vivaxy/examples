@@ -1,5 +1,13 @@
 [
   {
+    "name": "Custom Schema",
+    "link": "custom-schema/"
+  },
+  {
+    "name": "Minimal",
+    "link": "minimal/"
+  },
+  {
     "name": "basic",
     "link": "basic/"
   }
