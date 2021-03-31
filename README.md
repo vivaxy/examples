@@ -290,6 +290,7 @@ Table of contents
   * [popstate](https://vivaxy.github.io/course/native-api/popstate/) Popstate
   * [prefetch](https://vivaxy.github.io/course/native-api/prefetch/) prefetch resources
   * [promise ajax](https://vivaxy.github.io/course/native-api/promise/) Promise
+  * [Range](https://vivaxy.github.io/course/native-api/range/) Range
   * [index.html](https://vivaxy.github.io/course/native-api/refresh/) Refresh
   * [replace](https://vivaxy.github.io/course/native-api/replace/) Replace
   * [ReportingObserver](https://vivaxy.github.io/course/native-api/reporting-observer/) Reporting observer

@@ -1,7 +1,11 @@
 [
   {
     "name": "Device Information",
-    "link": "device-information"
+    "link": "device-information/"
+  },
+  {
+    "name": "Range",
+    "link": "range/"
   },
   {
     "name": "Web NFC",
