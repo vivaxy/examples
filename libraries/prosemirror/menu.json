@@ -1,7 +1,11 @@
 [
   {
     "name": "ProseMirror Transaction",
-    "link": "transaction/"
+    "link": "transaction/build"
+  },
+  {
+    "name": "Not Contenteditable Table",
+    "link": "not-contenteditable-table/"
   },
   {
     "name": "Custom Schema",
@@ -9,10 +13,10 @@
   },
   {
     "name": "Minimal",
-    "link": "minimal/"
+    "link": "minimal/build"
   },
   {
     "name": "basic",
-    "link": "basic/"
+    "link": "basic/build"
   }
 ]

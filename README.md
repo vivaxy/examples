@@ -200,6 +200,7 @@ Table of contents
   * [prop-types](https://vivaxy.github.io/course/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/course/libraries/prosemirror/) ProseMirror 示例
     * [ProseMirror Basic Editor](https://vivaxy.github.io/course/libraries/prosemirror/basic/) Basic
+      * [ProseMirror Basic Editor](https://vivaxy.github.io/course/libraries/prosemirror/basic/build/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/course/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
       * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/build/) ProseMirror Minimal Editor
