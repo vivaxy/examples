@@ -202,6 +202,9 @@ Table of contents
     * [ProseMirror Basic Editor](https://vivaxy.github.io/course/libraries/prosemirror/basic/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/course/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
+      * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/build/) ProseMirror Minimal Editor
+    * [ProseMirror Transaction](https://vivaxy.github.io/course/libraries/prosemirror/transaction/) ProseMirror Transaction
+      * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/transaction/build/) ProseMirror Minimal Editor
   * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/course/libraries/qrcode/) Qrcode

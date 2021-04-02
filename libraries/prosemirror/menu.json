@@ -1,5 +1,9 @@
 [
   {
+    "name": "ProseMirror Transaction",
+    "link": "transaction/"
+  },
+  {
     "name": "Custom Schema",
     "link": "custom-schema/"
   },
