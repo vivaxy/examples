@@ -202,6 +202,7 @@ Table of contents
     * [ProseMirror Basic Editor](https://vivaxy.github.io/course/libraries/prosemirror/basic/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/course/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
+    * [Not Contenteditable Table](https://vivaxy.github.io/course/libraries/prosemirror/not-contenteditable-table/) Not Contenteditable Table
   * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/course/libraries/qrcode/) Qrcode
@@ -296,7 +297,9 @@ Table of contents
   * [ReportingObserver](https://vivaxy.github.io/course/native-api/reporting-observer/) Reporting observer
   * [Chrome 忽略跨域脚本中的 unhandledrejection 错误](https://vivaxy.github.io/course/native-api/script-error/) Chrome 忽略跨域脚本中的 unhandledrejection 错误
   * [script type module](https://vivaxy.github.io/course/native-api/script-type-module/) Script type module
-  * [selection](https://vivaxy.github.io/course/native-api/selection/) Selection
+  * [Selection](https://vivaxy.github.io/course/native-api/selection/) Selection API
+    * [selection](https://vivaxy.github.io/course/native-api/selection/basic/) Selection
+    * [selection Manipulation](https://vivaxy.github.io/course/native-api/selection/selection-manipulation/) selection Manipulation
   * [sendBeacon](https://vivaxy.github.io/course/native-api/send-beacon/) Send beacon
   * [service worker](https://vivaxy.github.io/course/native-api/service-worker/) Service worker
     * [Cache](https://vivaxy.github.io/course/native-api/service-worker/cache/) Cache
