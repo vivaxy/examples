@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Selection within Table" />
+    <meta
+      name="keywords"
+      content="vivaxy,course,github,demo,playground,test,Selection within Table,selection,native-api,selection-within-table"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Selection within Table</title>
+  </head>
+  <body>
+    <h1>
+      <pre>
+div[contenteditable="true"]
+  p 1234567890
+  div
+    table
+      </pre>
+    </h1>
+    <div contenteditable="true">
+      <p>1234567890</p>
+      <div>
+        <p>content editable true</p>
+        <table>
+          <tbody>
+            <tr>
+              <td><p>Row 1 / Cell 1</p></td>
+              <td><p>Row 2 / Cell 2</p></td>
+            </tr>
+            <tr>
+              <td><p>Row 2 / Cell 1</p></td>
+              <td><p>Row 2 / Cell 2</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <h1>
+      <pre>
+div[contenteditable="true"]
+  p 1234567890
+  div[contenteditable="fasle"]
+    table
+      </pre>
+    </h1>
+    <div contenteditable="true">
+      <p>1234567890</p>
+      <div contenteditable="false">
+        <p>content editable false</p>
+        <table>
+          <tbody>
+            <tr>
+              <td><p>Row 1 / Cell 1</p></td>
+              <td><p>Row 2 / Cell 2</p></td>
+            </tr>
+            <tr>
+              <td><p>Row 2 / Cell 1</p></td>
+              <td><p>Row 2 / Cell 2</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

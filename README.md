@@ -304,6 +304,7 @@ Table of contents
   * [Selection](https://vivaxy.github.io/course/native-api/selection/) Selection API
     * [selection](https://vivaxy.github.io/course/native-api/selection/basic/) Selection
     * [Selection Manipulation](https://vivaxy.github.io/course/native-api/selection/selection-manipulation/) selection Manipulation
+    * [Selection within Table](https://vivaxy.github.io/course/native-api/selection/selection-within-table/) Selection within Table
   * [sendBeacon](https://vivaxy.github.io/course/native-api/send-beacon/) Send beacon
   * [service worker](https://vivaxy.github.io/course/native-api/service-worker/) Service worker
     * [Cache](https://vivaxy.github.io/course/native-api/service-worker/cache/) Cache

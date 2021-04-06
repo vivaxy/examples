@@ -1,5 +1,9 @@
 [
   {
+    "name": "Selection within Table",
+    "link": "selection-within-table/"
+  },
+  {
     "name": "Basic",
     "link": "basic/"
   },
