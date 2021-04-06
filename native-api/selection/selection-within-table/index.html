@@ -25,63 +25,42 @@
       the not-contenteditable nodes, an user click on the selection will reset
       the selection into a proper one.
     </p>
-    <h1>Example 1</h1>
-    <p>ℹ️DOM Structureℹ️</p>
+    <h1>DOM Structure</h1>
     <pre>
 div[contenteditable="true"]
-  p 1234567890
-  div
+  p[id="content-editable"] contenteditable="true"
+  div[id="table-wrapper"]
+    p ?
     table
     </pre>
-    <p>⬇️Example⬇️</p>
+    <h1>Example</h1>
     <div contenteditable="true">
-      <p>1234567890</p>
-      <div>
-        <p>content editable true</p>
+      <p id="content-editable">contenteditable="true"</p>
+      <div id="table-wrapper">
+        <p>contenteditable="true"; user-select: auto;</p>
         <table>
           <tbody>
             <tr>
-              <td><p>Row 1 / Cell 1</p></td>
-              <td><p>Row 2 / Cell 2</p></td>
+              <td><p>1</p></td>
+              <td><p>2</p></td>
             </tr>
             <tr>
-              <td><p>Row 2 / Cell 1</p></td>
-              <td><p>Row 2 / Cell 2</p></td>
+              <td><p>3</p></td>
+              <td><p>4</p></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <h1>Example 2</h1>
-    <p>ℹ️DOM Structureℹ️</p>
-    <pre>
-div[contenteditable="true"]
-  p 1234567890
-  div[contenteditable="fasle"]
-    table
-    </pre>
-    <p>⬇️Example⬇️</p>
-    <div contenteditable="true">
-      <p id="content-editable">1234567890</p>
-      <div contenteditable="false">
-        <p id="content-not-editable">content editable false</p>
-        <table>
-          <tbody>
-            <tr>
-              <td><p>Row 1 / Cell 1</p></td>
-              <td><p>Row 2 / Cell 2</p></td>
-            </tr>
-            <tr>
-              <td><p>Row 2 / Cell 1</p></td>
-              <td><p>Row 2 / Cell 2</p></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <h1>Button to test JavaScript selection</h1>
+    <h1>Buttons</h1>
     <button id="select-into-not-contentediable-nodes">
       Select into not contenteditable nodes
+    </button>
+    <button id="toggle-contenteditable-on-table-wrapper">
+      Toggle contenteditable on #table-wrapper
+    </button>
+    <button id="toggle-user-select-on-table-wrapper">
+      Toggle user-select: none on #table-wrapper
     </button>
     <h1>Console</h1>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
