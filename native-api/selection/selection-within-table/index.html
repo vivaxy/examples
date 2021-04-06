@@ -17,6 +17,13 @@
     <title>Selection within Table</title>
   </head>
   <body>
+    <p>
+      This example shows that contenteditable attribute can control wether the
+      users can select the nodes. And JavaScript codes can enfore the selection
+      into the user-unselectable nodes. If some JavaScript codes selects into
+      the not-contenteditable nodes, an user click on the selection will reset
+      the selection into a proper one.
+    </p>
     <h1>
       <pre>
 div[contenteditable="true"]
@@ -52,9 +59,9 @@ div[contenteditable="true"]
       </pre>
     </h1>
     <div contenteditable="true">
-      <p>1234567890</p>
+      <p id="content-editable">1234567890</p>
       <div contenteditable="false">
-        <p>content editable false</p>
+        <p id="content-not-editable">content editable false</p>
         <table>
           <tbody>
             <tr>
@@ -69,6 +76,9 @@ div[contenteditable="true"]
         </table>
       </div>
     </div>
+    <button id="select-into-not-contentediable-nodes">
+      Select into not contenteditable nodes
+    </button>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
