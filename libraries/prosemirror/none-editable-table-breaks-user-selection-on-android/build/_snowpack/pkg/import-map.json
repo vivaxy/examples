@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "prosemirror-model": "./prosemirror-model.js",
+    "prosemirror-schema-basic": "./prosemirror-schema-basic.js",
+    "prosemirror-state": "./prosemirror-state.js",
+    "prosemirror-view": "./prosemirror-view.js"
+  }
+}
