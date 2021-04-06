@@ -304,6 +304,7 @@ Table of contents
   * [script type module](https://vivaxy.github.io/course/native-api/script-type-module/) Script type module
   * [Selection](https://vivaxy.github.io/course/native-api/selection/) Selection API
     * [selection](https://vivaxy.github.io/course/native-api/selection/basic/) Selection
+    * [Is Selecting](https://vivaxy.github.io/course/native-api/selection/is-selecting/) Is Selecting
     * [Selection Manipulation](https://vivaxy.github.io/course/native-api/selection/selection-manipulation/) selection Manipulation
     * [Selection within Table](https://vivaxy.github.io/course/native-api/selection/selection-within-table/) Selection within Table
   * [sendBeacon](https://vivaxy.github.io/course/native-api/send-beacon/) Send beacon
