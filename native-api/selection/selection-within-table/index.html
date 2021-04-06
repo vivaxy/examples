@@ -28,10 +28,11 @@
     <h1>DOM Structure</h1>
     <pre>
 div[contenteditable="true"]
-  p[id="content-editable"] contenteditable="true"
+  p[id="content-editable"]
   div[id="table-wrapper"]
-    p ?
+    p
     table
+  p
     </pre>
     <h1>Example</h1>
     <div contenteditable="true">
@@ -51,6 +52,7 @@ div[contenteditable="true"]
           </tbody>
         </table>
       </div>
+      <p>Something after the table</p>
     </div>
     <h1>Buttons</h1>
     <button id="select-into-not-contentediable-nodes">
