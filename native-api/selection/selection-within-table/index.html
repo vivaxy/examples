@@ -17,6 +17,7 @@
     <title>Selection within Table</title>
   </head>
   <body>
+    <h1>Introduction</h1>
     <p>
       This example shows that contenteditable attribute can control wether the
       users can select the nodes. And JavaScript codes can enfore the selection
@@ -24,14 +25,15 @@
       the not-contenteditable nodes, an user click on the selection will reset
       the selection into a proper one.
     </p>
-    <h1>
-      <pre>
+    <h1>Example 1</h1>
+    <p>ℹ️DOM Structureℹ️</p>
+    <pre>
 div[contenteditable="true"]
   p 1234567890
   div
     table
-      </pre>
-    </h1>
+    </pre>
+    <p>⬇️Example⬇️</p>
     <div contenteditable="true">
       <p>1234567890</p>
       <div>
@@ -50,14 +52,15 @@ div[contenteditable="true"]
         </table>
       </div>
     </div>
-    <h1>
-      <pre>
+    <h1>Example 2</h1>
+    <p>ℹ️DOM Structureℹ️</p>
+    <pre>
 div[contenteditable="true"]
   p 1234567890
   div[contenteditable="fasle"]
     table
-      </pre>
-    </h1>
+    </pre>
+    <p>⬇️Example⬇️</p>
     <div contenteditable="true">
       <p id="content-editable">1234567890</p>
       <div contenteditable="false">
@@ -76,9 +79,11 @@ div[contenteditable="true"]
         </table>
       </div>
     </div>
+    <h1>Button to test JavaScript selection</h1>
     <button id="select-into-not-contentediable-nodes">
       Select into not contenteditable nodes
     </button>
+    <h1>Console</h1>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
