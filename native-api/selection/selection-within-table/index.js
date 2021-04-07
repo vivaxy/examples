@@ -14,11 +14,11 @@ function getExplanationParagraphNode() {
 function updateDetailedParagraph() {
   const tableWrapper = getTableWrapperNode();
   const explanation = getExplanationParagraphNode();
-  explanation.innerHTML = `table.isContentEditable = "${
+  explanation.innerHTML = `tableWrapper.isContentEditable: ${
     tableWrapper.isContentEditable
-  }"<br>user-select: ${
+  }<br>user-select: ${
     tableWrapper.style.userSelect || 'auto'
-  }<br>tableCellPNode.isContentEditable = ${
+  }<br>tableCellPNode.isContentEditable: ${
     tableWrapper.querySelector('table').querySelector('p').isContentEditable
   }`;
 }
@@ -71,6 +71,16 @@ document
         getExplanationParagraphNode().childNodes[0],
         2,
       );
+  });
+
+document
+  .querySelector('#toggle-table-height')
+  .addEventListener('click', function () {
+    const tdList = Array.from(getTableWrapperNode().querySelectorAll('td'));
+    tdList.forEach(function (td) {
+      const height = td.height === '1000' ? '30' : '1000';
+      td.height = height;
+    });
   });
 
 updateDetailedParagraph();

@@ -2,6 +2,14 @@
  * @since 2021-04-06 11:22
  * @author vivaxy
  */
-.content-editable-false {
+.example {
+  border: 1px solid #f63;
+}
+
+#table-wrapper {
   border: 1px solid #ccc;
+}
+
+button {
+  height: 30px;
 }
