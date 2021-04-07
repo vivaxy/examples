@@ -2,15 +2,24 @@
  * @since 2021-04-06 11:22
  * @author vivaxy
  */
-function getDetailedParagraphNode() {
-  const el = document.querySelector('#table-wrapper');
-  return el.querySelector('p');
+function getTableWrapperNode() {
+  return document.querySelector('#table-wrapper');
+}
+
+function getExplanationParagraphNode() {
+  const tableWarpper = getTableWrapperNode();
+  return tableWarpper.querySelector('p');
 }
 
 function updateDetailedParagraph() {
-  const el = getDetailedParagraphNode();
-  el.textContent = `contenteditable="${el.isContentEditable}"; user-select: ${
-    el.style.userSelect || 'auto'
+  const tableWrapper = getTableWrapperNode();
+  const explanation = getExplanationParagraphNode();
+  explanation.innerHTML = `table.isContentEditable = "${
+    tableWrapper.isContentEditable
+  }"<br>user-select: ${
+    tableWrapper.style.userSelect || 'auto'
+  }<br>tableCellPNode.isContentEditable = ${
+    tableWrapper.querySelector('table').querySelector('p').isContentEditable
   }`;
 }
 
@@ -22,19 +31,32 @@ document.addEventListener('selectionchange', function () {
 document
   .querySelector('#toggle-contenteditable-on-table-wrapper')
   .addEventListener('click', function () {
-    const el = document.querySelector('#table-wrapper');
-    const contentediable = String(!el.isContentEditable);
-    el.setAttribute('contenteditable', contentediable);
-
+    const tableWrapper = getTableWrapperNode();
+    const contentediable = String(!tableWrapper.isContentEditable);
+    tableWrapper.setAttribute('contenteditable', contentediable);
     updateDetailedParagraph();
   });
 
 document
   .querySelector('#toggle-user-select-on-table-wrapper')
   .addEventListener('click', function () {
-    const el = document.querySelector('#table-wrapper');
-    const userSelect = el.style.userSelect === 'none' ? 'auto' : 'none';
-    el.style.userSelect = userSelect;
+    const tableWrapper = getTableWrapperNode();
+    const userSelect =
+      tableWrapper.style.userSelect === 'none' ? 'auto' : 'none';
+    tableWrapper.style.userSelect = userSelect;
+    updateDetailedParagraph();
+  });
+
+document
+  .querySelector('#toggle-table-cell-editable')
+  .addEventListener('click', function () {
+    const tableWrapper = getTableWrapperNode();
+    Array.from(
+      tableWrapper.querySelector('table').querySelectorAll('p'),
+    ).forEach(function (pNode) {
+      const contentediable = !pNode.isContentEditable;
+      pNode.setAttribute('contenteditable', contentediable);
+    });
     updateDetailedParagraph();
   });
 
@@ -46,7 +68,9 @@ document
       .setBaseAndExtent(
         document.querySelector('#content-editable').childNodes[0],
         1,
-        getDetailedParagraphNode().childNodes[0],
+        getExplanationParagraphNode().childNodes[0],
         2,
       );
   });
+
+updateDetailedParagraph();

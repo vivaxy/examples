@@ -18,27 +18,44 @@
   </head>
   <body>
     <h1>Introduction</h1>
-    <p>
-      This example shows that contenteditable attribute can control wether the
-      users can select the nodes. And JavaScript codes can enfore the selection
-      into the user-unselectable nodes. If some JavaScript codes selects into
-      the not-contenteditable nodes, an user click on the selection will reset
-      the selection into a proper one.
-    </p>
+    <p>This example shows:</p>
+    <ol>
+      <li>
+        `contenteditable="false"` may cause the user selection into the node
+        with offset 0.
+      </li>
+      <li>
+        `user-select: none` forbids the user selection into the
+        `contenteditable="false"` nodes.
+      </li>
+      <li>
+        `contenteditable="true"` inside a `contenteditable="false"` and
+        `user-select: none` node will still cause the user selection into the
+        node with offset 0.
+      </li>
+      <li>
+        JavaScript codes can enfore the selection into the user-unselectable
+        nodes.
+      </li>
+      <li>
+        If some JavaScript codes selects into the not-contenteditable nodes, an
+        user click on the selection will reset the selection into a proper one.
+      </li>
+    </ol>
     <h1>DOM Structure</h1>
     <pre>
 div[contenteditable="true"]
-  p[id="content-editable"]
+  p[id="content-editable"] (contenteditable="true")
   div[id="table-wrapper"]
-    p
+    p (Loading or Status)
     table
-  p
+  p (cell index)
     </pre>
     <h1>Example</h1>
     <div contenteditable="true">
       <p id="content-editable">contenteditable="true"</p>
       <div id="table-wrapper">
-        <p>contenteditable="true"; user-select: auto;</p>
+        <p>Loading...</p>
         <table>
           <tbody>
             <tr>
@@ -63,6 +80,9 @@ div[contenteditable="true"]
     </button>
     <button id="toggle-user-select-on-table-wrapper">
       Toggle user-select: none on #table-wrapper
+    </button>
+    <button id="toggle-table-cell-editable">
+      Toggle contenteditable on table cell p node
     </button>
     <h1>Console</h1>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
