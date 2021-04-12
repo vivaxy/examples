@@ -207,7 +207,7 @@ Table of contents
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/course/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
       * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/course/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/build/) None-editable Table Breaks User Selection on Android
     * [ProseMirror Transaction](https://vivaxy.github.io/course/libraries/prosemirror/transaction/) ProseMirror Transaction
-      * [ProseMirror Minimal Editor](https://vivaxy.github.io/course/libraries/prosemirror/transaction/build/) ProseMirror Minimal Editor
+      * [ProseMirror Transaction](https://vivaxy.github.io/course/libraries/prosemirror/transaction/build/) ProseMirror Transaction
   * [qq maps](https://vivaxy.github.io/course/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/course/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/course/libraries/qrcode/) Qrcode

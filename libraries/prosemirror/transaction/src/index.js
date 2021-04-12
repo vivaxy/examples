@@ -5,7 +5,7 @@
 import { schema } from 'prosemirror-schema-basic';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { ReplaceStep } from 'prosemirror-transform';
+import { ReplaceStep, Transform } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
 const UPDATED_SEL = 1,
@@ -41,5 +41,17 @@ document.querySelector('#replace').addEventListener('click', function () {
     console.log('failed', result.failed);
   } else {
     console.log(result.doc.toString());
+  }
+});
+
+document.querySelector('#transform').addEventListener('click', function () {
+  try {
+    const tr = new Transform(view.state.doc);
+    tr.delete(5, 7); // Delete between position 5 and 7
+    tr.split(5); // Split the parent node at position 5
+    console.log(tr.doc.toString()); // The modified document
+    console.log(tr.steps.length);
+  } catch (e) {
+    console.error(e);
   }
 });

@@ -276,7 +276,9 @@ Fragment.prototype.descendants = function descendants(f) {
   this.nodesBetween(0, this.size, f);
 };
 
-// : (number, number, ?string, ?string) → string
+// :: (number, number, ?string, ?string) → string
+// Extract the text between `from` and `to`. See the same method on
+// [`Node`](#model.Node.textBetween).
 Fragment.prototype.textBetween = function textBetween(
   from,
   to,
@@ -1947,6 +1949,20 @@ Node.prototype.check = function check() {
         this.type.name +
         ': ' +
         this.content.toString().slice(0, 50),
+    );
+  }
+  var copy = Mark.none;
+  for (var i = 0; i < this.marks.length; i++) {
+    copy = this.marks[i].addToSet(copy);
+  }
+  if (!Mark.sameSet(copy, this.marks)) {
+    throw new RangeError(
+      'Invalid collection of marks for node ' +
+        this.type.name +
+        ': ' +
+        this.marks.map(function (m) {
+          return m.type.name;
+        }),
     );
   }
   this.content.forEach(function (node) {
@@ -3901,6 +3917,8 @@ ParseContext.prototype.addTextNode = function addTextNode(dom) {
       }
     } else if (!(top.options & OPT_PRESERVE_WS_FULL)) {
       value = value.replace(/\r?\n|\r/g, ' ');
+    } else {
+      value = value.replace(/\r\n?/g, '\n');
     }
     if (value) {
       this.insertNode(this.parser.schema.text(value));
@@ -3925,6 +3943,7 @@ ParseContext.prototype.addElement = function addElement(dom, matchAfter) {
     (ruleID = this.parser.matchTag(dom, this, matchAfter));
   if (rule ? rule.ignore : ignoreTags.hasOwnProperty(name)) {
     this.findInside(dom);
+    this.ignoreFallback(dom);
   } else if (!rule || rule.skip || rule.closeParent) {
     if (rule && rule.closeParent) {
       this.open = Math.max(0, this.open - 1);
@@ -3957,6 +3976,17 @@ ParseContext.prototype.addElement = function addElement(dom, matchAfter) {
 ParseContext.prototype.leafFallback = function leafFallback(dom) {
   if (dom.nodeName == 'BR' && this.top.type && this.top.type.inlineContent) {
     this.addTextNode(dom.ownerDocument.createTextNode('\n'));
+  }
+};
+
+// Called for ignored nodes
+ParseContext.prototype.ignoreFallback = function ignoreFallback(dom) {
+  // Ignored BR nodes should at least create an inline context
+  if (
+    dom.nodeName == 'BR' &&
+    (!this.top.type || !this.top.type.inlineContent)
+  ) {
+    this.findPlace(this.parser.schema.text('-'));
   }
 };
 
@@ -4734,11 +4764,11 @@ function doc(options) {
 export {
   DOMSerializer as D,
   Fragment as F,
-  MarkType as M,
+  Mark as M,
   Node as N,
   ReplaceError as R,
-  Schema as S,
-  Slice as a,
-  Mark as b,
+  Slice as S,
+  Schema as a,
+  MarkType as b,
   DOMParser as c,
 };

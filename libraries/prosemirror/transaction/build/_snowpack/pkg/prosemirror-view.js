@@ -2,16 +2,16 @@ import {
   N as NodeSelection,
   T as TextSelection,
   S as Selection,
-  d as dropPoint,
   A as AllSelection,
-} from './common/index.es-50caae3e.js';
+} from './common/index.es-5be6a622.js';
 import {
   D as DOMSerializer,
-  a as Slice,
+  S as Slice,
   F as Fragment,
-  b as Mark,
+  M as Mark,
   c as DOMParser,
-} from './common/index.es-dc0cb314.js';
+} from './common/index.es-74098e08.js';
+import { d as dropPoint } from './common/index.es-b29c04e7.js';
 
 var result = {};
 
