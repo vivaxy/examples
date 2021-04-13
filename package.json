@@ -1,24 +1,27 @@
 {
-  "name": "course",
+  "name": "samples",
   "version": "0.0.0",
-  "description": "Demo",
+  "description": "Samples",
   "keywords": [
     "vivaxy",
-    "course",
+    "sample",
+    "samples",
     "github",
     "demo",
+    "demos",
+    "test",
     "playground"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vivaxy/course.git"
+    "url": "git+https://github.com/vivaxy/samples.git"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vivaxy/course/issues"
+    "url": "https://github.com/vivaxy/samples/issues"
   },
-  "homepage": "https://github.com/vivaxy/course#readme",
+  "homepage": "https://github.com/vivaxy/samples#readme",
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",
     "@commitlint/config-conventional": "^12.0.0",
@@ -34,13 +37,12 @@
     ]
   },
   "gds": {
-    "readmePrefix": "# [Course](https://vivaxy.github.io/course/index.html)",
-    "link-prefix": "https://vivaxy.github.io/course/"
+    "readmePrefix": "# [Samples](https://vivaxy.github.io/samples/index.html)",
+    "link-prefix": "https://vivaxy.github.io/samples/"
   },
   "scripts": {
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
     "postpublish": "pinst --enable"
-  },
-  "dependencies": {}
+  }
 }

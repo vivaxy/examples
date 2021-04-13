@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vivaxy/course.git"
+    "url": "git+https://github.com/vivaxy/samples.git"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vivaxy/course/issues"
+    "url": "https://github.com/vivaxy/samples/issues"
   },
-  "homepage": "https://github.com/vivaxy/course#readme",
+  "homepage": "https://github.com/vivaxy/samples#readme",
   "jest": {
     "preset": "ts-jest",
     "collectCoverageFrom": [

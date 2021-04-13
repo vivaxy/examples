@@ -13,7 +13,7 @@ query.addEventListener('click', async function() {
 
 const requestExclusive = document.querySelector('.js-request-exclusive');
 requestExclusive.addEventListener('click', async function() {
-  lockManager.request('vivaxy-course', async function(lock) {
+  lockManager.request('vivaxy-samples', async function(lock) {
     console.log('callback start lock', lock);
     await sleep();
     console.log('callback end lock', lock);
@@ -22,7 +22,7 @@ requestExclusive.addEventListener('click', async function() {
 
 const requestShared = document.querySelector('.js-request-shared');
 requestShared.addEventListener('click', async function() {
-  lockManager.request('vivaxy-course', { mode: 'shared' }, async function(
+  lockManager.request('vivaxy-samples', { mode: 'shared' }, async function(
     lock,
   ) {
     console.log('callback start lock', lock);
@@ -33,7 +33,7 @@ requestShared.addEventListener('click', async function() {
 
 const requestIfAvailable = document.querySelector('.js-request-if-available');
 requestIfAvailable.addEventListener('click', async function() {
-  lockManager.request('vivaxy-course', { ifAvailable: true }, async function(
+  lockManager.request('vivaxy-samples', { ifAvailable: true }, async function(
     lock,
   ) {
     console.log('callback start lock', lock);

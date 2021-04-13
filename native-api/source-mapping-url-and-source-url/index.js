@@ -3,8 +3,8 @@
  * @author vivaxy
  */
 
-//# sourceURL=course:///mock.js
+//# sourceURL=samples:///mock.js
 //# sourceMappingURL=http://172.24.236.146:3001/index.js.map
 
-const func = new Function('console.log(0); //# sourceURL=course:///console.js');
+const func = new Function('console.log(0); //# sourceURL=samples:///console.js');
 func();

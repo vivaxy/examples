@@ -10,7 +10,7 @@
   "author": "vivaxy",
   "repository": {
     "type": "git",
-    "url": "git@github.com:vivaxy/course.git"
+    "url": "git@github.com:vivaxy/samples.git"
   },
   "license": "MIT",
   "dependencies": {
