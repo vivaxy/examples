@@ -18,7 +18,7 @@
     <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
     <meta
       name="keywords"
-      content="vivaxy,samples,github,demo,playground,mandelbrot-simple,test,web-assembly,google-codelabs-web-assembly-intro"
+      content="vivaxy,samples,github,demo,playground,mandelbrot-simple,test,web-assembly,google-codelabs-web-assembly-intro,sample,demos"
     />
     <meta name="description" content="Mandelbrot simple" />
   </head>
@@ -28,7 +28,7 @@
     <script src="./mandelbrot.js"></script>
     <script>
       Module.addOnPostRun(() => {
-        const canvas = document.getElementById("canvas");
+        const canvas = document.getElementById('canvas');
 
         // Canvas resizing from http://stackoverflow.com/a/43364730/2142626
         const width = canvas.clientWidth;
@@ -38,19 +38,19 @@
           canvas.height = height;
         }
 
-        console.time("mandelbrot");
+        console.time('mandelbrot');
         const mandelbrot = Module.mandelbrot(width, height, 1, -0.5, 0);
-        console.timeEnd("mandelbrot");
+        console.timeEnd('mandelbrot');
 
-        console.time("canvas put image data");
+        console.time('canvas put image data');
         const imageData = new ImageData(
           new Uint8ClampedArray(mandelbrot),
           width,
           height,
         );
-        const context = canvas.getContext("2d");
+        const context = canvas.getContext('2d');
         context.putImageData(imageData, 0, 0);
-        console.timeEnd("canvas put image data");
+        console.timeEnd('canvas put image data');
       });
     </script>
   </body>

@@ -18,7 +18,7 @@
     <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
     <meta
       name="keywords"
-      content="vivaxy,samples,github,demo,playground,mandelbrot-tiled,test,web-assembly,google-codelabs-web-assembly-intro"
+      content="vivaxy,samples,github,demo,playground,mandelbrot-tiled,test,web-assembly,google-codelabs-web-assembly-intro,sample,demos"
     />
     <meta name="description" content="Mandelbrot tiled" />
   </head>
@@ -28,8 +28,8 @@
     <script src="./mandelbrot.js"></script>
     <script>
       Module.addOnPostRun(() => {
-        const canvas = document.getElementById("canvas");
-        const context = canvas.getContext("2d");
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
 
         // Canvas resizing from http://stackoverflow.com/a/43364730/2142626
         const width = canvas.clientWidth;

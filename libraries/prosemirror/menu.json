@@ -16,7 +16,11 @@
     "link": "minimal/build"
   },
   {
-    "name": "basic",
+    "name": "Basic",
     "link": "basic/build"
+  },
+  {
+    "name": "Marks",
+    "link": "marks/build"
   }
 ]

@@ -1,4 +1,4 @@
-# [samples](https://vivaxy.github.io/samples/index.html)
+# [Samples](https://vivaxy.github.io/samples/index.html)
 
 Table of contents
 =================
@@ -38,7 +38,7 @@ Table of contents
     * [Depth First Search](https://vivaxy.github.io/samples/algorithms/tree/depth-first-search/) 深度优先遍历算法
 * [Benchmark](https://vivaxy.github.io/samples/benchmark/) 性能
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/samples/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
-  * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/samples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind
+  * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/samples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/samples/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/) Get bounding client rect vs inner width vs client width
   * [Number vs parseInt](https://vivaxy.github.io/samples/benchmark/number-vs-parseInt/) Number vs parse int
   * [RegExp vs String Edit](https://vivaxy.github.io/samples/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
@@ -202,6 +202,7 @@ Table of contents
     * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/) Basic
       * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/build/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
+    * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
       * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/build/) ProseMirror Minimal Editor
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android

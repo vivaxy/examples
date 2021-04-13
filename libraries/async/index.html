@@ -13,7 +13,7 @@
     <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
     <meta
       name="keywords"
-      content="vivaxy,samples,github,demo,playground,async,test,libraries,Node.js Packages Demos,node-js-packages"
+      content="vivaxy,samples,github,demo,playground,async,test,libraries,Node.js Packages Demos,node-js-packages,sample,demos"
     />
     <meta name="description" content="Async" />
   </head>
@@ -22,124 +22,124 @@
     <h1><a href="https://github.com/caolan/async">async</a></h1>
     <p>each</p>
     <script>
-      console.group("each");
+      console.group('each');
       var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
       async.each(
         array,
-        function(item, cb) {
+        function (item, cb) {
           if (item > 5) {
-            cb(">5");
+            cb('>5');
           }
           console.log(item);
         },
-        function(err) {
+        function (err) {
           // this only called once
-          console.log("message: " + err);
+          console.log('message: ' + err);
         },
       );
       console.groupEnd();
     </script>
     <p>eachSeries</p>
     <script>
-      console.group("eachSeries");
+      console.group('eachSeries');
       async.eachSeries(
         array,
-        function(item, cb) {
+        function (item, cb) {
           console.log(item); // this is called when all iterators end
           cb(item);
         },
-        function(err) {
-          console.log("message: " + err);
+        function (err) {
+          console.log('message: ' + err);
         },
       );
       console.groupEnd();
     </script>
     <p>eachLimit</p>
     <script>
-      console.group("eachLimit");
+      console.group('eachLimit');
       async.eachLimit(
         array,
         5,
-        function(item, cb) {
+        function (item, cb) {
           console.log(item);
           cb(item);
         },
-        function(err) {
-          console.log("message: " + err);
+        function (err) {
+          console.log('message: ' + err);
         },
       );
       console.groupEnd();
     </script>
     <p>map</p>
     <script>
-      console.group("map");
+      console.group('map');
       async.map(
         array,
-        function(item) {
+        function (item) {
           return item * 2;
         },
-        function(err, result) {
-          console.log("err: " + err);
-          console.log("result: " + result);
+        function (err, result) {
+          console.log('err: ' + err);
+          console.log('result: ' + result);
         },
       );
       console.groupEnd();
     </script>
     <p>mapSeries</p>
     <script>
-      console.group("mapSeries");
+      console.group('mapSeries');
       async.mapSeries(
         array,
-        function(item) {
+        function (item) {
           return item * 2;
         },
-        function(err, result) {
-          console.log("err: " + err);
-          console.log("result: " + result);
+        function (err, result) {
+          console.log('err: ' + err);
+          console.log('result: ' + result);
         },
       );
       console.groupEnd();
     </script>
     <p>mapLimit</p>
     <script>
-      console.group("mapLimit");
+      console.group('mapLimit');
       async.mapLimit(
         array,
         5,
-        function(item) {
+        function (item) {
           return item * 2;
         },
-        function(err, result) {
-          console.log("err: " + err);
-          console.log("result: " + result);
+        function (err, result) {
+          console.log('err: ' + err);
+          console.log('result: ' + result);
         },
       );
       console.groupEnd();
     </script>
     <p>filter</p>
     <script>
-      console.group("filter");
+      console.group('filter');
       async.filter(
         array,
-        function(item) {
+        function (item) {
           return item > 5;
         },
-        function(result) {
-          console.log("result: " + result);
+        function (result) {
+          console.log('result: ' + result);
         },
       );
       console.groupEnd();
     </script>
     <p>filterSeries</p>
     <script>
-      console.group("filterSeries");
+      console.group('filterSeries');
       async.filterSeries(
         array,
-        function(item) {
+        function (item) {
           return item > 5;
         },
-        function(result) {
-          console.log("result: " + result);
+        function (result) {
+          console.log('result: ' + result);
         },
       );
       console.groupEnd();
