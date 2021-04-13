@@ -2,14 +2,14 @@
  * @since 2021-03-26 16:27
  * @author vivaxy
  */
-import { schema } from '../_snowpack/pkg/prosemirror-schema-basic.js';
-import { EditorState } from '../_snowpack/pkg/prosemirror-state.js';
-import { EditorView } from '../_snowpack/pkg/prosemirror-view.js';
+import { schema } from 'https://cdn.skypack.dev/prosemirror-schema-basic';
+import { EditorState } from 'https://cdn.skypack.dev/prosemirror-state';
+import { EditorView } from 'https://cdn.skypack.dev/prosemirror-view';
 import {
   ReplaceStep,
   Transform,
-} from '../_snowpack/pkg/prosemirror-transform.js';
-import { Slice } from '../_snowpack/pkg/prosemirror-model.js';
+} from 'https://cdn.skypack.dev/prosemirror-transform';
+import { Slice } from 'https://cdn.skypack.dev/prosemirror-model';
 
 const UPDATED_SEL = 1,
   UPDATED_MARKS = 2,

@@ -2,10 +2,10 @@
  * @since 2021-04-06 17:13
  * @author vivaxy
  */
-import { schema as baseSchema } from 'prosemirror-schema-basic';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { DOMParser, Schema } from 'prosemirror-model';
+import { schema as baseSchema } from 'https://cdn.skypack.dev/prosemirror-schema-basic';
+import { EditorState } from 'https://cdn.skypack.dev/prosemirror-state';
+import { EditorView } from 'https://cdn.skypack.dev/prosemirror-view';
+import { DOMParser, Schema } from 'https://cdn.skypack.dev/prosemirror-model';
 
 const schema = new Schema({
   nodes: baseSchema.spec.nodes.append({

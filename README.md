@@ -200,15 +200,11 @@ Table of contents
   * [prop-types](https://vivaxy.github.io/samples/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/samples/libraries/prosemirror/) ProseMirror 示例
     * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/) Basic
-      * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/build/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
-      * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/build/) ProseMirror Minimal Editor
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
-      * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/build/) None-editable Table Breaks User Selection on Android
     * [ProseMirror Transaction](https://vivaxy.github.io/samples/libraries/prosemirror/transaction/) ProseMirror Transaction
-      * [ProseMirror Transaction](https://vivaxy.github.io/samples/libraries/prosemirror/transaction/build/) ProseMirror Transaction
   * [qq maps](https://vivaxy.github.io/samples/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/samples/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/samples/libraries/qrcode/) Qrcode
