@@ -9,7 +9,7 @@
     <meta name="description" content="ProseMirror Marks" />
     <meta
       name="keywords"
-      content="vivaxy,sample,samples,github,demo,demos,playground,test,ProseMirror Marks,libraries,prosemirror,marks"
+      content="vivaxy,sample,samples,github,demo,demos,playground,test,ProseMirror Marks,libraries,prosemirror,marks,ProseMirror,Node.js Packages Demos,node-js-packages"
     />
     <meta name="author" content="vivaxy" />
     <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
@@ -19,10 +19,28 @@
   </head>
   <body>
     <div id="editor"></div>
-    <div id="content">
+    <div id="content" hidden>
       <p>1234567890</p>
-      <p>123<strong data-id="-1">4567</strong></p>
+      <p>
+        1<span
+          data-background-id="b-1"
+          style="background-color: rgba(255, 255, 0, 0.1);"
+          >23</span
+        ><strong data-id="a-1"
+          ><span
+            data-background-id="b-2"
+            style="background-color: rgba(255, 255, 0, 0.1);"
+            >45</span
+          >67</strong
+        >890
+      </p>
     </div>
+    <label>Mark start</label>
+    <input type="number" value="2" id="mark-start" />
+    <label>Mark end</label>
+    <input type="number" value="9" id="mark-end" />
+    <button id="add-mark">add background mark</button>
+    <button id="remove-mark">remove background mark</button>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="src/index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
