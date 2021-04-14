@@ -326,6 +326,7 @@ Table of contents
     * [mock server](https://vivaxy.github.io/samples/web-api/service-worker/mock-server/) Mock server
   * [sourceMappingURL and sourceURL](https://vivaxy.github.io/samples/web-api/source-mapping-url-and-source-url/) Source mapping url and source url
   * [svg demo page](https://vivaxy.github.io/samples/web-api/svg/) Svg
+  * [Text.splitText()](https://vivaxy.github.io/samples/web-api/text-split-text/) Text.splitText()
   * [transition](https://vivaxy.github.io/samples/web-api/transition/) Transition
   * [USB](https://vivaxy.github.io/samples/web-api/usb/) Usb
   * [getUserMedia](https://vivaxy.github.io/samples/web-api/user-media/) User media
