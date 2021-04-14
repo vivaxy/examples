@@ -1,5 +1,9 @@
 [
   {
+    "name": "Mapping",
+    "link": "mapping/"
+  },
+  {
     "name": "ProseMirror Transaction",
     "link": "transaction/"
   },
