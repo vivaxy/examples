@@ -358,5 +358,9 @@
   {
     "name": "is element on screen",
     "link": "is-element-on-screen/"
+  },
+  {
+    "name": "Text.splitText",
+    "link": "text-split-text/"
   }
 ]
