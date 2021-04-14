@@ -244,7 +244,7 @@ Table of contents
 * [Shell](https://vivaxy.github.io/samples/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/samples/sliding-tiles-puzzle/) 数字推盘游戏
 * [TypeScript](https://vivaxy.github.io/samples/typescript/) TypeScript
-* [Native API](https://vivaxy.github.io/samples/web-api/) 原生接口
+* [Web API](https://vivaxy.github.io/samples/web-api/) Web 接口
   * [3d touch](https://vivaxy.github.io/samples/web-api/3d-touch/) 3d touch
   * [audio AnalyserNode](https://vivaxy.github.io/samples/web-api/analyser-node/) Analyser node
   * [Web Animation API](https://vivaxy.github.io/samples/web-api/animate/) Animate
