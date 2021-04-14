@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <style>
+      button {
+        font-size: 30px;
+        font-family: menlo;
+      }
+    </style>
+    <title>While loop</title>
+  </head>
+  <body>
+    <img
+      src="./animation.gif"
+      alt="Click the button, the gif animation will stop."
+    />
+    <p>Click the button, you cannot select me.</p>
+    <button>while (true);</button>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script>
+      document.querySelector('button').addEventListener('click', function () {
+        while (true);
+      });
+    </script>
+  </body>
+</html>
+<!-- use while loop to stop rendering and selection -->

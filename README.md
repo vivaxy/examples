@@ -77,8 +77,6 @@ Table of contents
 * [Functional Programming](https://vivaxy.github.io/samples/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/samples/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/samples/functional-programming/manipulate-functions/) Manipulate functions
-* [HTML](https://vivaxy.github.io/samples/html/) HTML
-  * [Video](https://vivaxy.github.io/samples/html/video/) Video
 * [JavaScript](https://vivaxy.github.io/samples/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/samples/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/samples/javascript/arrow-function/) Arrow Function
@@ -242,126 +240,125 @@ Table of contents
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/samples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js
 * [Memory Leak](https://vivaxy.github.io/samples/memory-leak/) 内存泄漏
   * [Debounce](https://vivaxy.github.io/samples/memory-leak/debounce/) Debounce
-* [Native API](https://vivaxy.github.io/samples/native-api/) 原生接口
-  * [3d touch](https://vivaxy.github.io/samples/native-api/3d-touch/) 3d touch
-  * [audio AnalyserNode](https://vivaxy.github.io/samples/native-api/analyser-node/) Analyser node
-  * [Web Animation API](https://vivaxy.github.io/samples/native-api/animate/) Animate
-  * [attributes](https://vivaxy.github.io/samples/native-api/attributes/) Attributes
-  * [audio](https://vivaxy.github.io/samples/native-api/audio/) Audio
-  * [AudioContext](https://vivaxy.github.io/samples/native-api/audio-context/) AudioContext
-  * [base](https://vivaxy.github.io/samples/native-api/base/) Base
-  * [battery status](https://vivaxy.github.io/samples/native-api/battery-status/) Battery status
-  * [Browser message](https://vivaxy.github.io/samples/native-api/browser-message/) Browser message demo by Notifications API
-  * [cache manifest demo page](https://vivaxy.github.io/samples/native-api/cache-manifest/) Cache manifest
-  * [Canvas](https://vivaxy.github.io/samples/native-api/canvas/) Native api
-    * [Canvas bitmaprenderer](https://vivaxy.github.io/samples/native-api/canvas/bitmaprenderer/) Canvas bitmaprenderer
-  * [Clipboard](https://vivaxy.github.io/samples/native-api/clipboard/) Clipboard
-  * [CompositionEvent](https://vivaxy.github.io/samples/native-api/composition-event/) Composition event
-  * [document.createNodeIterator](https://vivaxy.github.io/samples/native-api/create-node-iterator/) 遍历文档节点
-  * [CSS Typed Object Model](https://vivaxy.github.io/samples/native-api/css-typed-om/) CSS Typed Object Module
-  * [Custom Element](https://vivaxy.github.io/samples/native-api/custom-elements/) Custom elements
-  * [Date input](https://vivaxy.github.io/samples/native-api/date-input/) Date input demo
-  * [designMode](https://vivaxy.github.io/samples/native-api/design-mode/) Design mode
-  * [details summary](https://vivaxy.github.io/samples/native-api/details-summary/) Details summary
-  * [Device Information](https://vivaxy.github.io/samples/native-api/device-information/) Device Information
-  * [device motion demo page](https://vivaxy.github.io/samples/native-api/device-motion/) Device motion
-  * [DP Share](https://vivaxy.github.io/samples/native-api/dp-share/) DP share demo
-  * [draggable demo page](https://vivaxy.github.io/samples/native-api/draggable/) Draggable
-  * [Error Event](https://vivaxy.github.io/samples/native-api/error-event/) Error event
-  * [Event Loop](https://vivaxy.github.io/samples/native-api/event-loop/) Event Loop
-  * [event source](https://vivaxy.github.io/samples/native-api/event-source/) Event source
-  * [File System Access](https://vivaxy.github.io/samples/native-api/file-system-access/) File System Access
-    * [Open And Save File](https://vivaxy.github.io/samples/native-api/file-system-access/open-and-save-file/) Open And Save File
-  * [FontFace](https://vivaxy.github.io/samples/native-api/font-face/) Font face
-  * [Form Validation by JavaScript](https://vivaxy.github.io/samples/native-api/form-validation/) JavaScript 控制表单验证
-  * [generators](https://vivaxy.github.io/samples/native-api/generators/) Generators
-  * [geolocation demo page](https://vivaxy.github.io/samples/native-api/geolocation/) Geolocation
-  * [gesture](https://vivaxy.github.io/samples/native-api/gesture/) Gesture
-  * [Hash change](https://vivaxy.github.io/samples/native-api/hash-change/) Hash change API demo
-  * [indeterminate](https://vivaxy.github.io/samples/native-api/indeterminate/) Indeterminate
-  * [IndexedDB](https://vivaxy.github.io/samples/native-api/indexed-db/) Indexed db
-  * [Intersection Observer](https://vivaxy.github.io/samples/native-api/intersection-observer/) Intersection observer
-  * [localStorage demo page](https://vivaxy.github.io/samples/native-api/local-storage/) Local storage
-  * [LockManager](https://vivaxy.github.io/samples/native-api/lock-manager/) LockManager
-  * [matchMedia](https://vivaxy.github.io/samples/native-api/match-media/) window.matchMedia API
-  * [MIDI](https://vivaxy.github.io/samples/native-api/midi/) MIDI
-  * [notification](https://vivaxy.github.io/samples/native-api/notification/) Notification
-  * [Object](https://vivaxy.github.io/samples/native-api/object/) Object.defineProperty demo
-  * [object oriented](https://vivaxy.github.io/samples/native-api/object-oriented/) Object oriented
-  * [paintWorklet](https://vivaxy.github.io/samples/native-api/paint-worklet/) Paint worklet
-  * [Payment Request](https://vivaxy.github.io/samples/native-api/payment-request/) Payment request
-  * [Pointer Lock](https://vivaxy.github.io/samples/native-api/pointer-lock/) Pointer lock
-  * [popstate](https://vivaxy.github.io/samples/native-api/popstate/) Popstate
-  * [prefetch](https://vivaxy.github.io/samples/native-api/prefetch/) prefetch resources
-  * [promise ajax](https://vivaxy.github.io/samples/native-api/promise/) Promise
-  * [Range](https://vivaxy.github.io/samples/native-api/range/) Range
-  * [index.html](https://vivaxy.github.io/samples/native-api/refresh/) Refresh
-  * [replace](https://vivaxy.github.io/samples/native-api/replace/) Replace
-  * [ReportingObserver](https://vivaxy.github.io/samples/native-api/reporting-observer/) Reporting observer
-  * [Chrome 忽略跨域脚本中的 unhandledrejection 错误](https://vivaxy.github.io/samples/native-api/script-error/) Chrome 忽略跨域脚本中的 unhandledrejection 错误
-  * [script type module](https://vivaxy.github.io/samples/native-api/script-type-module/) Script type module
-  * [Selection](https://vivaxy.github.io/samples/native-api/selection/) Selection API
-    * [selection](https://vivaxy.github.io/samples/native-api/selection/basic/) Selection
-    * [Is Selecting](https://vivaxy.github.io/samples/native-api/selection/is-selecting/) Is Selecting
-    * [Selection Manipulation](https://vivaxy.github.io/samples/native-api/selection/selection-manipulation/) selection Manipulation
-    * [Selection within Table](https://vivaxy.github.io/samples/native-api/selection/selection-within-table/) Selection within Table
-  * [sendBeacon](https://vivaxy.github.io/samples/native-api/send-beacon/) Send beacon
-  * [service worker](https://vivaxy.github.io/samples/native-api/service-worker/) Service worker
-    * [Cache](https://vivaxy.github.io/samples/native-api/service-worker/cache/) Cache
-    * [mock server](https://vivaxy.github.io/samples/native-api/service-worker/mock-server/) Mock server
-  * [sourceMappingURL and sourceURL](https://vivaxy.github.io/samples/native-api/source-mapping-url-and-source-url/) Source mapping url and source url
-  * [svg demo page](https://vivaxy.github.io/samples/native-api/svg/) Svg
-  * [transition](https://vivaxy.github.io/samples/native-api/transition/) Transition
-  * [USB](https://vivaxy.github.io/samples/native-api/usb/) Usb
-  * [getUserMedia](https://vivaxy.github.io/samples/native-api/user-media/) User media
-  * [User Timing](https://vivaxy.github.io/samples/native-api/user-timing/) User Timing
-  * [vibrate](https://vivaxy.github.io/samples/native-api/vibrate/) Vibrate
-  * [visibility](https://vivaxy.github.io/samples/native-api/visibility/) Visibility
-  * [WebHID](https://vivaxy.github.io/samples/native-api/web-hid/) WebHID
-  * [Web NFC](https://vivaxy.github.io/samples/native-api/web-nfc/) Web NFC
-  * [Web Share](https://vivaxy.github.io/samples/native-api/web-share/) Web Share
-  * [web worker demo page](https://vivaxy.github.io/samples/native-api/web-worker/) Web worker
-  * [Web Worker transfer](https://vivaxy.github.io/samples/native-api/web-worker-transfer/) Web worker transfer
-  * [WebRTC](https://vivaxy.github.io/samples/native-api/webrtc/) Webrtc
-    * [Local Data](https://vivaxy.github.io/samples/native-api/webrtc/local-data/) Local data
-    * [Local Media](https://vivaxy.github.io/samples/native-api/webrtc/local-media/) Local media
-  * [WeChat share](https://vivaxy.github.io/samples/native-api/wechat-share/) WeChat share demo
-  * [wechat token](https://vivaxy.github.io/samples/native-api/wechat-token/) Wechat token
 * [Network](https://vivaxy.github.io/samples/network/) 网络
 * [Node.js](https://vivaxy.github.io/samples/node-js/) Node.js
-* [Pitfall](https://vivaxy.github.io/samples/pitfall/) 坑
-  * [click event on label with input](https://vivaxy.github.io/samples/pitfall/click-event-on-label-with-input/) Click event on label with input
-  * [event delegation on ios safari](https://vivaxy.github.io/samples/pitfall/event-delegation-on-ios-safari/) Event delegation on ios safari
-  * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/samples/pitfall/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
 * [Shell](https://vivaxy.github.io/samples/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/samples/sliding-tiles-puzzle/) 数字推盘游戏
 * [TypeScript](https://vivaxy.github.io/samples/typescript/) TypeScript
-* [Web APIs](https://vivaxy.github.io/samples/web-apis/) Web APIs
-  * [datalist](https://vivaxy.github.io/samples/web-apis/datalist/) Datalist
-  * [DOMParser](https://vivaxy.github.io/samples/web-apis/dom-parser/) DOMParser
-  * [iframe Resize](https://vivaxy.github.io/samples/web-apis/iframe-resize/) iframe-resize
-  * [innerText v.s. textContent](https://vivaxy.github.io/samples/web-apis/inner-text-vs-text-content/) innerText v.s. textContent
-  * [Meta Scale](https://vivaxy.github.io/samples/web-apis/meta-scale/) Meta scale demo
-  * [Meta Width](https://vivaxy.github.io/samples/web-apis/meta-width/) Meta width
-  * [Playsinline](https://vivaxy.github.io/samples/web-apis/playsinline/) Video playsinline demo
-  * [ScrollIntoView](https://vivaxy.github.io/samples/web-apis/scroll-into-view/) ScrollIntoView
-  * [select multiple](https://vivaxy.github.io/samples/web-apis/select-multiple/) Select multiple
-* [WebAssembly](https://vivaxy.github.io/samples/web-assembly/) Web Assembly
-  * [Google Codelabs Web Assembly Intro](https://vivaxy.github.io/samples/web-assembly/google-codelabs-web-assembly-intro/) Google codelabs web assembly intro
-    * [Game of Life](https://vivaxy.github.io/samples/web-assembly/google-codelabs-web-assembly-intro/lyff/) Lyff
-    * [Mandelbrot Simple](https://vivaxy.github.io/samples/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-simple/) Mandelbrot simple
-    * [Mandelbrot Tiled](https://vivaxy.github.io/samples/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-tiled/) Mandelbrot tiled
-  * [WebAssembly](https://vivaxy.github.io/samples/web-assembly/standalone-example/) Standalone example
-* [WebGL](https://vivaxy.github.io/samples/webgl/) WebGL
-  * [webgl fundamentals](https://vivaxy.github.io/samples/webgl/fundamentals/) Fundamentals
-  * [webgl fundamentals](https://vivaxy.github.io/samples/webgl/fundamentals-2/) Fundamentals 2
-  * [mdn example 1](https://vivaxy.github.io/samples/webgl/mdn-example-1/) Mdn example 1
-* [WebVR](https://vivaxy.github.io/samples/webvr/) WebVR
-  * [A-Frame Demo](https://vivaxy.github.io/samples/webvr/a-frame-demo/) A frame demo
-  * [A-Frame Minecraft](https://vivaxy.github.io/samples/webvr/a-frame-minecraft/) A frame minecraft
-  * [A-Frame Panorama](https://vivaxy.github.io/samples/webvr/a-frame-panorama/) A frame panorama
-  * [A-Frame Shanghai Oriental Pearl](https://vivaxy.github.io/samples/webvr/a-frame-shanghai-oriental-pearl/) A frame shanghai oriental pearl
-  * [Tour](https://vivaxy.github.io/samples/webvr/a-frame-tour/) A frame tour
+* [Native API](https://vivaxy.github.io/samples/web-api/) 原生接口
+  * [3d touch](https://vivaxy.github.io/samples/web-api/3d-touch/) 3d touch
+  * [audio AnalyserNode](https://vivaxy.github.io/samples/web-api/analyser-node/) Analyser node
+  * [Web Animation API](https://vivaxy.github.io/samples/web-api/animate/) Animate
+  * [attributes](https://vivaxy.github.io/samples/web-api/attributes/) Attributes
+  * [audio](https://vivaxy.github.io/samples/web-api/audio/) Audio
+  * [AudioContext](https://vivaxy.github.io/samples/web-api/audio-context/) AudioContext
+  * [base](https://vivaxy.github.io/samples/web-api/base/) Base
+  * [battery status](https://vivaxy.github.io/samples/web-api/battery-status/) Battery status
+  * [Browser message](https://vivaxy.github.io/samples/web-api/browser-message/) Browser message demo by Notifications API
+  * [cache manifest demo page](https://vivaxy.github.io/samples/web-api/cache-manifest/) Cache manifest
+  * [Canvas](https://vivaxy.github.io/samples/web-api/canvas/) Native api
+    * [Canvas bitmaprenderer](https://vivaxy.github.io/samples/web-api/canvas/bitmaprenderer/) Canvas bitmaprenderer
+  * [click event on label with input](https://vivaxy.github.io/samples/web-api/click-event-on-label-with-input/) Click event on label with input
+  * [Clipboard](https://vivaxy.github.io/samples/web-api/clipboard/) Clipboard
+  * [CompositionEvent](https://vivaxy.github.io/samples/web-api/composition-event/) Composition event
+  * [document.createNodeIterator](https://vivaxy.github.io/samples/web-api/create-node-iterator/) 遍历文档节点
+  * [CSS Typed Object Model](https://vivaxy.github.io/samples/web-api/css-typed-om/) CSS Typed Object Module
+  * [Custom Element](https://vivaxy.github.io/samples/web-api/custom-elements/) Custom elements
+  * [datalist](https://vivaxy.github.io/samples/web-api/datalist/) Datalist
+  * [Date input](https://vivaxy.github.io/samples/web-api/date-input/) Date input demo
+  * [designMode](https://vivaxy.github.io/samples/web-api/design-mode/) Design mode
+  * [details summary](https://vivaxy.github.io/samples/web-api/details-summary/) Details summary
+  * [Device Information](https://vivaxy.github.io/samples/web-api/device-information/) Device Information
+  * [device motion demo page](https://vivaxy.github.io/samples/web-api/device-motion/) Device motion
+  * [DOMParser](https://vivaxy.github.io/samples/web-api/dom-parser/) DOMParser
+  * [DP Share](https://vivaxy.github.io/samples/web-api/dp-share/) DP share demo
+  * [draggable demo page](https://vivaxy.github.io/samples/web-api/draggable/) Draggable
+  * [Error Event](https://vivaxy.github.io/samples/web-api/error-event/) Error event
+  * [event delegation on ios safari](https://vivaxy.github.io/samples/web-api/event-delegation-on-ios-safari/) Event delegation on ios safari
+  * [Event Loop](https://vivaxy.github.io/samples/web-api/event-loop/) Event Loop
+  * [event source](https://vivaxy.github.io/samples/web-api/event-source/) Event source
+  * [File System Access](https://vivaxy.github.io/samples/web-api/file-system-access/) File System Access
+    * [Open And Save File](https://vivaxy.github.io/samples/web-api/file-system-access/open-and-save-file/) Open And Save File
+  * [FontFace](https://vivaxy.github.io/samples/web-api/font-face/) Font face
+  * [Form Validation by JavaScript](https://vivaxy.github.io/samples/web-api/form-validation/) JavaScript 控制表单验证
+  * [generators](https://vivaxy.github.io/samples/web-api/generators/) Generators
+  * [geolocation demo page](https://vivaxy.github.io/samples/web-api/geolocation/) Geolocation
+  * [gesture](https://vivaxy.github.io/samples/web-api/gesture/) Gesture
+  * [Hash change](https://vivaxy.github.io/samples/web-api/hash-change/) Hash change API demo
+  * [iframe Resize](https://vivaxy.github.io/samples/web-api/iframe-resize/) iframe-resize
+  * [indeterminate](https://vivaxy.github.io/samples/web-api/indeterminate/) Indeterminate
+  * [IndexedDB](https://vivaxy.github.io/samples/web-api/indexed-db/) Indexed db
+  * [innerText v.s. textContent](https://vivaxy.github.io/samples/web-api/inner-text-vs-text-content/) innerText v.s. textContent
+  * [Intersection Observer](https://vivaxy.github.io/samples/web-api/intersection-observer/) Intersection observer
+  * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/samples/web-api/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
+  * [localStorage demo page](https://vivaxy.github.io/samples/web-api/local-storage/) Local storage
+  * [LockManager](https://vivaxy.github.io/samples/web-api/lock-manager/) LockManager
+  * [matchMedia](https://vivaxy.github.io/samples/web-api/match-media/) window.matchMedia API
+  * [Meta Scale](https://vivaxy.github.io/samples/web-api/meta-scale/) Meta scale demo
+  * [Meta Width](https://vivaxy.github.io/samples/web-api/meta-width/) Meta width
+  * [MIDI](https://vivaxy.github.io/samples/web-api/midi/) MIDI
+  * [notification](https://vivaxy.github.io/samples/web-api/notification/) Notification
+  * [Object](https://vivaxy.github.io/samples/web-api/object/) Object.defineProperty demo
+  * [object oriented](https://vivaxy.github.io/samples/web-api/object-oriented/) Object oriented
+  * [paintWorklet](https://vivaxy.github.io/samples/web-api/paint-worklet/) Paint worklet
+  * [Payment Request](https://vivaxy.github.io/samples/web-api/payment-request/) Payment request
+  * [Playsinline](https://vivaxy.github.io/samples/web-api/playsinline/) Video playsinline demo
+  * [Pointer Lock](https://vivaxy.github.io/samples/web-api/pointer-lock/) Pointer lock
+  * [popstate](https://vivaxy.github.io/samples/web-api/popstate/) Popstate
+  * [prefetch](https://vivaxy.github.io/samples/web-api/prefetch/) prefetch resources
+  * [promise ajax](https://vivaxy.github.io/samples/web-api/promise/) Promise
+  * [Range](https://vivaxy.github.io/samples/web-api/range/) Range
+  * [index.html](https://vivaxy.github.io/samples/web-api/refresh/) Refresh
+  * [replace](https://vivaxy.github.io/samples/web-api/replace/) Replace
+  * [ReportingObserver](https://vivaxy.github.io/samples/web-api/reporting-observer/) Reporting observer
+  * [Chrome 忽略跨域脚本中的 unhandledrejection 错误](https://vivaxy.github.io/samples/web-api/script-error/) Chrome 忽略跨域脚本中的 unhandledrejection 错误
+  * [script type module](https://vivaxy.github.io/samples/web-api/script-type-module/) Script type module
+  * [ScrollIntoView](https://vivaxy.github.io/samples/web-api/scroll-into-view/) ScrollIntoView
+  * [select multiple](https://vivaxy.github.io/samples/web-api/select-multiple/) Select multiple
+  * [Selection](https://vivaxy.github.io/samples/web-api/selection/) Selection API
+    * [selection](https://vivaxy.github.io/samples/web-api/selection/basic/) Selection
+    * [Is Selecting](https://vivaxy.github.io/samples/web-api/selection/is-selecting/) Is Selecting
+    * [Selection Manipulation](https://vivaxy.github.io/samples/web-api/selection/selection-manipulation/) selection Manipulation
+    * [Selection within Table](https://vivaxy.github.io/samples/web-api/selection/selection-within-table/) Selection within Table
+  * [sendBeacon](https://vivaxy.github.io/samples/web-api/send-beacon/) Send beacon
+  * [service worker](https://vivaxy.github.io/samples/web-api/service-worker/) Service worker
+    * [Cache](https://vivaxy.github.io/samples/web-api/service-worker/cache/) Cache
+    * [mock server](https://vivaxy.github.io/samples/web-api/service-worker/mock-server/) Mock server
+  * [sourceMappingURL and sourceURL](https://vivaxy.github.io/samples/web-api/source-mapping-url-and-source-url/) Source mapping url and source url
+  * [svg demo page](https://vivaxy.github.io/samples/web-api/svg/) Svg
+  * [transition](https://vivaxy.github.io/samples/web-api/transition/) Transition
+  * [USB](https://vivaxy.github.io/samples/web-api/usb/) Usb
+  * [getUserMedia](https://vivaxy.github.io/samples/web-api/user-media/) User media
+  * [User Timing](https://vivaxy.github.io/samples/web-api/user-timing/) User Timing
+  * [vibrate](https://vivaxy.github.io/samples/web-api/vibrate/) Vibrate
+  * [Video](https://vivaxy.github.io/samples/web-api/video/) Video
+  * [visibility](https://vivaxy.github.io/samples/web-api/visibility/) Visibility
+  * [WebAssembly](https://vivaxy.github.io/samples/web-api/web-assembly/) Web Assembly
+    * [Google Codelabs Web Assembly Intro](https://vivaxy.github.io/samples/web-api/web-assembly/google-codelabs-web-assembly-intro/) Google codelabs web assembly intro
+      * [Game of Life](https://vivaxy.github.io/samples/web-api/web-assembly/google-codelabs-web-assembly-intro/lyff/) Lyff
+      * [Mandelbrot Simple](https://vivaxy.github.io/samples/web-api/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-simple/) Mandelbrot simple
+      * [Mandelbrot Tiled](https://vivaxy.github.io/samples/web-api/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-tiled/) Mandelbrot tiled
+    * [WebAssembly](https://vivaxy.github.io/samples/web-api/web-assembly/standalone-example/) Standalone example
+  * [WebHID](https://vivaxy.github.io/samples/web-api/web-hid/) WebHID
+  * [Web NFC](https://vivaxy.github.io/samples/web-api/web-nfc/) Web NFC
+  * [Web Share](https://vivaxy.github.io/samples/web-api/web-share/) Web Share
+  * [web worker demo page](https://vivaxy.github.io/samples/web-api/web-worker/) Web worker
+  * [Web Worker transfer](https://vivaxy.github.io/samples/web-api/web-worker-transfer/) Web worker transfer
+  * [WebGL](https://vivaxy.github.io/samples/web-api/webgl/) WebGL
+    * [webgl fundamentals](https://vivaxy.github.io/samples/web-api/webgl/fundamentals/) Fundamentals
+    * [webgl fundamentals](https://vivaxy.github.io/samples/web-api/webgl/fundamentals-2/) Fundamentals 2
+    * [mdn example 1](https://vivaxy.github.io/samples/web-api/webgl/mdn-example-1/) Mdn example 1
+  * [WebRTC](https://vivaxy.github.io/samples/web-api/webrtc/) Webrtc
+    * [Local Data](https://vivaxy.github.io/samples/web-api/webrtc/local-data/) Local data
+    * [Local Media](https://vivaxy.github.io/samples/web-api/webrtc/local-media/) Local media
+  * [WebVR](https://vivaxy.github.io/samples/web-api/webvr/) WebVR
+    * [A-Frame Demo](https://vivaxy.github.io/samples/web-api/webvr/a-frame-demo/) A frame demo
+    * [A-Frame Minecraft](https://vivaxy.github.io/samples/web-api/webvr/a-frame-minecraft/) A frame minecraft
+    * [A-Frame Panorama](https://vivaxy.github.io/samples/web-api/webvr/a-frame-panorama/) A frame panorama
+    * [A-Frame Shanghai Oriental Pearl](https://vivaxy.github.io/samples/web-api/webvr/a-frame-shanghai-oriental-pearl/) A frame shanghai oriental pearl
+    * [Tour](https://vivaxy.github.io/samples/web-api/webvr/a-frame-tour/) A frame tour
+  * [WeChat share](https://vivaxy.github.io/samples/web-api/wechat-share/) WeChat share demo
+  * [wechat token](https://vivaxy.github.io/samples/web-api/wechat-token/) Wechat token
 
 #
 

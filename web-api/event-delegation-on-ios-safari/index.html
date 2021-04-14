@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>event delegation on ios safari</title>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
+    <meta
+      name="keywords"
+      content="vivaxy,samples,github,demo,playground,event-delegation-on-ios-safari,test,pitfall,sample,demos,web-api"
+    />
+    <meta name="description" content="Event delegation on ios safari" />
+  </head>
+
+  <body>
+    <p>Q: event delegation not available on body</p>
+
+    <p>$('body').on('click', '.J_button', function(e){alert('clicked');});</p>
+
+    <p class="J_button">click here</p>
+
+    <p>A: `J_button` should has `cursor: pointer;` style!</p>
+
+    <p class="J_button fix">click here</p>
+
+    <p>
+      reference:
+      http://www.quirksmode.org/blog/archives/2010/10/click_event_del_1.html
+    </p>
+    <script type="text/javascript" src="zepto.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="/ba.js"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+/**
+ * @since 14/12/2017 12:13
+ * @author vivaxy
+ */
+
+:root {
+  --primary-color: #f63;
+}
+
+body {
+  margin: 0;
+}
+
+.root {
+  background: var(--primary-color);
+  height: 100px;
+}

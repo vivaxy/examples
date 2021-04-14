@@ -1,0 +1,54 @@
+/**
+ * @since 2014/8/27 14:49
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.bucket {
+  height: 100px;
+  width: 200px;
+  background: rgb(50, 50, 50);
+}
+
+.ball {
+  height: 50px;
+  width: 50px;
+  background: rgb(100, 100, 100);
+  border-radius: 100%;
+  display: inline-block;
+}
+
+.bucket1 {
+  background: rgb(0, 100, 100);
+}
+
+.bucket2 {
+  background: rgb(100, 0, 100);
+}
+
+.bucket3 {
+  background: rgb(100, 100, 0);
+}
+
+.ball1 {
+  background: rgb(0, 200, 200);
+}
+
+.ball2 {
+  background: rgb(200, 0, 200);
+}
+
+.ball3 {
+  background: rgb(200, 200, 0);
+}

@@ -1,0 +1,11 @@
+/**
+ * @since 15-09-04 18:17
+ * @author vivaxy
+ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

@@ -1,0 +1,24 @@
+/**
+ * @since 2017-03-02 12:57
+ * @author vivaxy
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

@@ -24,8 +24,8 @@
     "link": "network/"
   },
   {
-    "name": "Native API",
-    "link": "native-api/"
+    "name": "Web API",
+    "link": "web-api/"
   },
   {
     "name": "JavaScript",
@@ -40,14 +40,6 @@
     "link": "cascading-style-sheets/"
   },
   {
-    "name": "Web APIs",
-    "link": "web-apis/"
-  },
-  {
-    "name": "WebGL",
-    "link": "webgl/"
-  },
-  {
     "name": "Benchmark",
     "link": "benchmark/"
   },
@@ -56,20 +48,8 @@
     "link": "memory-leak/"
   },
   {
-    "name": "WebVR",
-    "link": "webvr/"
-  },
-  {
-    "name": "WebAssembly",
-    "link": "web-assembly/"
-  },
-  {
     "name": "Layout",
     "link": "layout/"
-  },
-  {
-    "name": "Pitfall",
-    "link": "pitfall/"
   },
   {
     "name": "Sliding Tiles Puzzle",
