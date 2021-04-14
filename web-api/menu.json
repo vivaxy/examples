@@ -354,5 +354,9 @@
   {
     "name": "WebAssembly",
     "link": "web-assembly/"
+  },
+  {
+    "name": "is element on screen",
+    "link": "is-element-on-screen/"
   }
 ]

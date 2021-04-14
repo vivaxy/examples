@@ -1,0 +1,23 @@
+/**
+ * @since 2016-08-16 22:25
+ * @author vivaxy
+ */
+* {
+  box-sizing: border-box;
+}
+
+p {
+  height: 100px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 1000px;
+}
+
+a {
+  height: 100px;
+  display: block;
+  margin-left: 400px;
+  width: 100px;
+  background-color: red;
+}

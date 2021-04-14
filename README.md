@@ -102,7 +102,6 @@ Table of contents
   * [queue](https://vivaxy.github.io/samples/javascript/hippo/) Hippo
   * [inline script context](https://vivaxy.github.io/samples/javascript/inline-script-context/) Inline script context
   * [Is Animated Image](https://vivaxy.github.io/samples/javascript/is-animated-image/) Is animated image
-  * [is element on screen](https://vivaxy.github.io/samples/javascript/is-element-on-screen/) Is element on screen
   * [is native](https://vivaxy.github.io/samples/javascript/is-native/) Is native
   * [Iterators](https://vivaxy.github.io/samples/javascript/iterators/) Iterators demo
   * [let](https://vivaxy.github.io/samples/javascript/let/) Let
@@ -291,6 +290,7 @@ Table of contents
   * [innerText v.s. textContent](https://vivaxy.github.io/samples/web-api/inner-text-vs-text-content/) innerText v.s. textContent
   * [Intersection Observer](https://vivaxy.github.io/samples/web-api/intersection-observer/) Intersection observer
   * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/samples/web-api/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
+  * [is element on screen](https://vivaxy.github.io/samples/web-api/is-element-on-screen/) Is element on screen
   * [localStorage demo page](https://vivaxy.github.io/samples/web-api/local-storage/) Local storage
   * [LockManager](https://vivaxy.github.io/samples/web-api/lock-manager/) LockManager
   * [matchMedia](https://vivaxy.github.io/samples/web-api/match-media/) window.matchMedia API
