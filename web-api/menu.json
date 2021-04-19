@@ -1,5 +1,9 @@
 [
   {
+    "name": "highlight",
+    "link": "highlight/"
+  },
+  {
     "name": "Device Information",
     "link": "device-information/"
   },
