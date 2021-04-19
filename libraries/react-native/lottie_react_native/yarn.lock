@@ -4181,18 +4181,18 @@ loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-lottie-ios@^3.1.3:
-  version "3.1.8"
-  resolved "https://registry.npm.taobao.org/lottie-ios/download/lottie-ios-3.1.8.tgz#2e9b1f4eae0dfc10bf4c0b3ab6b402c1d590d0fa"
-  integrity sha1-LpsfTq4N/BC/TAs6trQCwdWQ0Po=
+lottie-ios@^3.1.8:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/lottie-ios/download/lottie-ios-3.2.0.tgz#0a0f229e065833c3b54169f5ee6a2624b8fd9c94"
+  integrity sha1-Cg8ingZYM8O1QWn17momJLj9nJQ=
 
-lottie-react-native@^3.0.0:
-  version "3.3.2"
-  resolved "https://registry.npm.taobao.org/lottie-react-native/download/lottie-react-native-3.3.2.tgz#de832d4d3207e4e5c92a55ec4cf0ce0fd03e02f3"
-  integrity sha1-3oMtTTIH5OXJKlXsTPDOD9A+AvM=
+lottie-react-native@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.npm.taobao.org/lottie-react-native/download/lottie-react-native-3.5.0.tgz#749fed964bdc9fabfae24ef81696f90f4d758f59"
+  integrity sha1-dJ/tlkvcn6v64k74Fpb5D011j1k=
   dependencies:
     invariant "^2.2.2"
-    lottie-ios "^3.1.3"
+    lottie-ios "^3.1.8"
     prop-types "^15.5.10"
     react-native-safe-modules "^1.0.0"
 
