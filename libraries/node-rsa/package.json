@@ -10,7 +10,7 @@
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "dependencies": {
-    "ava": "^3.0.0",
+    "ava": "^3.15.0",
     "fs-extra": "^9.0.0",
     "node-rsa": "^1.0.0"
   }
