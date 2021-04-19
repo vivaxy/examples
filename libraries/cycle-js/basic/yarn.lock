@@ -11,9 +11,17 @@
     snabbdom-selector "^4.2.0"
     xstream "11.x"
 
-"@cycle/run@^5.0.0", "@cycle/run@^5.2.0":
+"@cycle/run@^5.2.0":
   version "5.4.0"
   resolved "https://registry.npmjs.org/@cycle/run/-/run-5.4.0.tgz#d4bdeb9eb7f40ec14c924b96bbfae0fe08f5d710"
+  dependencies:
+    quicktask "1.1.0"
+    xstream "10.x || 11.x"
+
+"@cycle/run@^5.4.0":
+  version "5.5.0"
+  resolved "https://registry.nlark.com/@cycle/run/download/@cycle/run-5.5.0.tgz#9b18ec1227a8b0babfd11b1c2cab34dd8f09c2a8"
+  integrity sha1-mxjsEieosLq/0RscLKs03Y8Jwqg=
   dependencies:
     quicktask "1.1.0"
     xstream "10.x || 11.x"
