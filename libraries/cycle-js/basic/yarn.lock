@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@cycle/dom@^22.0.0":
-  version "22.7.0"
-  resolved "https://registry.npmjs.org/@cycle/dom/-/dom-22.7.0.tgz#91b97fdc90129f3a2a73d908adb101c2a5abbf94"
+"@cycle/dom@^22.7.0":
+  version "22.8.0"
+  resolved "https://registry.nlark.com/@cycle/dom/download/@cycle/dom-22.8.0.tgz#c97aa888b23de2e8efc6f5595fcc8dd3abacb69a"
+  integrity sha1-yXqoiLI94ujvxvVZX8yN06ustpo=
   dependencies:
     "@cycle/run" "^5.2.0"
     snabbdom "^0.7.4"
