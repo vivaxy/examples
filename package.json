@@ -29,7 +29,7 @@
     "husky": "6",
     "lint-staged": "^10.0.8",
     "pinst": "^2.1.4",
-    "prettier": "^2.0.0"
+    "prettier": "^2.2.1"
   },
   "lint-staged": {
     "*.{js,ts,css,less,json,md,html,yml,yaml,pcss,jsx,tsx}": [
