@@ -173,6 +173,7 @@ Table of contents
   * [Browserify](https://vivaxy.github.io/samples/libraries/browserify/) Browserify demo
   * [cycle.js](https://vivaxy.github.io/samples/libraries/cycle-js/) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/samples/libraries/cycle-js/basic/) Basic
+  * [Disable multi selection](https://vivaxy.github.io/samples/libraries/disable-multi-selection/) Disable multi selection
   * [Download Image](https://vivaxy.github.io/samples/libraries/download-image/) Download Image
   * [dragula](https://vivaxy.github.io/samples/libraries/dragula/) Dragula
   * [echarts](https://vivaxy.github.io/samples/libraries/echarts/) Echarts

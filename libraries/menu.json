@@ -1,5 +1,9 @@
 [
   {
+    "name": "Disable multi selection",
+    "link": "disable-multi-selection/"
+  },
+  {
     "name": "ProseMirror",
     "link": "prosemirror/"
   },
