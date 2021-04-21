@@ -1,5 +1,9 @@
 [
   {
+    "name": "Selection",
+    "link": "selection/"
+  },
+  {
     "name": "Mapping",
     "link": "mapping/"
   },
