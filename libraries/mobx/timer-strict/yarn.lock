@@ -8789,10 +8789,10 @@ webpack-sources@^2.1.1, webpack-sources@^2.2.0:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.34.0:
-  version "5.34.0"
-  resolved "https://registry.nlark.com/webpack/download/webpack-5.34.0.tgz#8f12bfd3474e7543232345b89294cfe8a5191c10"
-  integrity sha1-jxK/00dOdUMjI0W4kpTP6KUZHBA=
+webpack@5.35.0:
+  version "5.35.0"
+  resolved "https://registry.nlark.com/webpack/download/webpack-5.35.0.tgz?cache=0&sync_timestamp=1618987224786&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fwebpack%2Fdownload%2Fwebpack-5.35.0.tgz#4db23c2b96c4e53a90c5732d7cdb301a84a33576"
+  integrity sha1-TbI8K5bE5TqQxXMtfNswGoSjNXY=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
