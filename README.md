@@ -197,8 +197,10 @@ Table of contents
   * [Prompts Demo](https://vivaxy.github.io/samples/libraries/prompts/) Prompts Demo
   * [prop-types](https://vivaxy.github.io/samples/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/samples/libraries/prosemirror/) ProseMirror 示例
+    * [ProseMirror Annotation](https://vivaxy.github.io/samples/libraries/prosemirror/annotation/) ProseMirror Annotation
     * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
+    * [ProseMirror Decoration](https://vivaxy.github.io/samples/libraries/prosemirror/decoration/) ProseMirror Decoration
     * [ProseMirror Mapping](https://vivaxy.github.io/samples/libraries/prosemirror/mapping/) ProseMirror Mapping
     * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor

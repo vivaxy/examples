@@ -1,5 +1,9 @@
 [
   {
+    "name": "Decoration",
+    "link": "decoration/"
+  },
+  {
     "name": "Selection",
     "link": "selection/"
   },
