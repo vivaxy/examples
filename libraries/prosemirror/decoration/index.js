@@ -11,6 +11,10 @@ import {
 } from 'https://cdn.skypack.dev/prosemirror-view';
 import { DOMParser } from 'https://cdn.skypack.dev/prosemirror-model';
 
+const ACTION_TYPE = {
+  ADD_DECORATION: 'add-decoration',
+};
+
 function nodeRange(doc, index) {
   if (index >= doc.content.content.length) {
     throw RangeError('unexpected index');
@@ -55,17 +59,22 @@ const decorationsPlugin = new Plugin({
       ]);
     },
     apply(tr, decorationSet) {
-      return decorationSet.map(tr.mapping, tr.doc);
+      decorationSet = decorationSet.map(tr.mapping, tr.doc);
+      const action = tr.getMeta(decorationsPlugin);
+      if (action?.type === ACTION_TYPE.ADD_DECORATION) {
+        decorationSet = decorationSet.add(tr.doc, action.decorations);
+      }
+      return decorationSet;
     },
   },
   props: {
     decorations(state) {
-      return decorationsPlugin.getState(state);
+      return this.getState(state);
     },
   },
 });
 
-const state = EditorState.create({
+let state = EditorState.create({
   schema,
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
   plugins: [decorationsPlugin],
@@ -73,4 +82,19 @@ const state = EditorState.create({
 
 const view = new EditorView(document.querySelector('#editor'), {
   state,
+});
+
+const $addDecoration = document.querySelector('#add-decoration');
+$addDecoration.addEventListener('click', function () {
+  const [node4From, node4To] = nodeRange(state.doc, 4);
+  const tr = state.tr.setMeta(decorationsPlugin, {
+    type: ACTION_TYPE.ADD_DECORATION,
+    decorations: [
+      Decoration.inline(node4To - 1 - 5, node4To - 1 - 1, {
+        style: 'background-color: rgba(255, 255, 0, 0.3)',
+      }),
+    ],
+  });
+  state = state.apply(tr);
+  view.updateState(state);
 });

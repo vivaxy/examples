@@ -2,3 +2,49 @@
  * @since 2021-03-26 16:27
  * @author vivaxy
  */
+.annotation-handle {
+  width: 0;
+  height: 0;
+  position: relative;
+  display: inline;
+  user-select: none;
+}
+
+.annotation-add-button {
+  position: absolute;
+  bottom: 30px;
+  width: 112px;
+  height: 24px;
+}
+
+.annotation-highlight {
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+.annotation-tooltip {
+  display: inline;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.annotation-tooltip-list {
+  position: absolute;
+  bottom: 30px;
+  width: 112px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 2px;
+  padding-left: 0;
+  margin: 0;
+}
+
+.annotation-tooltip-item {
+  list-style-type: none;
+  line-height: 24px;
+}
+
+.annotation-delete-button {
+  height: 24px;
+  float: right;
+}
