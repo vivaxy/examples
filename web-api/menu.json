@@ -1,6 +1,6 @@
 [
   {
-    "name": "highlight",
+    "name": "Highlight",
     "link": "highlight/"
   },
   {
@@ -116,59 +116,59 @@
     "link": "design-mode/"
   },
   {
-    "name": "selection",
+    "name": "Selection",
     "link": "selection/"
   },
   {
-    "name": "animate",
+    "name": "Animate",
     "link": "animate/"
   },
   {
-    "name": "base",
+    "name": "Base",
     "link": "base/"
   },
   {
-    "name": "browser message",
+    "name": "Browser Message",
     "link": "browser-message/"
   },
   {
-    "name": "cache manifest",
+    "name": "Cache Manifest",
     "link": "cache-manifest/"
   },
   {
-    "name": "device motion",
+    "name": "Device Motion",
     "link": "device-motion/"
   },
   {
-    "name": "draggable",
+    "name": "Draggable",
     "link": "draggable/"
   },
   {
-    "name": "geolocation",
+    "name": "Geolocation",
     "link": "geolocation/"
   },
   {
-    "name": "gesture",
+    "name": "Gesture",
     "link": "gesture/"
   },
   {
-    "name": "hash change",
+    "name": "Hash Change",
     "link": "hash-change/"
   },
   {
-    "name": "local storage",
+    "name": "Local Storage",
     "link": "local-storage/"
   },
   {
-    "name": "svg",
+    "name": "SVG",
     "link": "svg/"
   },
   {
-    "name": "transition",
+    "name": "Transition",
     "link": "transition/"
   },
   {
-    "name": "visibility",
+    "name": "Visibility",
     "link": "visibility/"
   },
   {
@@ -180,11 +180,11 @@
     "link": "web-worker-transfer/"
   },
   {
-    "name": "object",
+    "name": "Object",
     "link": "object/"
   },
   {
-    "name": "object-oriented",
+    "name": "Object Oriented",
     "link": "object-oriented/"
   },
   {
@@ -192,71 +192,71 @@
     "link": "popstate/"
   },
   {
-    "name": "refresh",
+    "name": "Refresh",
     "link": "refresh/"
   },
   {
-    "name": "promise",
+    "name": "Promise",
     "link": "promise/"
   },
   {
-    "name": "audio",
+    "name": "Audio",
     "link": "audio/"
   },
   {
-    "name": "attributes",
+    "name": "Attributes",
     "link": "attributes/"
   },
   {
-    "name": "indeterminate",
+    "name": "Indeterminate",
     "link": "indeterminate/"
   },
   {
-    "name": "details summary",
+    "name": "Details Summary",
     "link": "details-summary/"
   },
   {
-    "name": "battery status",
+    "name": "Battery Status",
     "link": "battery-status/"
   },
   {
-    "name": "send beacon",
+    "name": "Send Beacon",
     "link": "send-beacon/"
   },
   {
-    "name": "analyser node",
+    "name": "Analyser Node",
     "link": "analyser-node/"
   },
   {
-    "name": "vibrate",
+    "name": "Vibrate",
     "link": "vibrate/"
   },
   {
-    "name": "date input",
+    "name": "Date Input",
     "link": "date-input/"
   },
   {
-    "name": "generators",
+    "name": "Generators",
     "link": "generators/"
   },
   {
-    "name": "event source",
+    "name": "Event Source",
     "link": "event-source/"
   },
   {
-    "name": "replace",
+    "name": "Replace",
     "link": "replace/"
   },
   {
-    "name": "3d touch",
+    "name": "3D Touch",
     "link": "3d-touch/"
   },
   {
-    "name": "notification",
+    "name": "Notification",
     "link": "notification/"
   },
   {
-    "name": "service worker",
+    "name": "Service Worker",
     "link": "service-worker/"
   },
   {
@@ -264,7 +264,7 @@
     "link": "source-mapping-url-and-source-url/"
   },
   {
-    "name": "paintWorklet",
+    "name": "PaintWorklet",
     "link": "paint-worklet/"
   },
   {
@@ -292,7 +292,7 @@
     "link": "script-error/"
   },
   {
-    "name": "prefetch",
+    "name": "Prefetch",
     "link": "prefetch/"
   },
   {
