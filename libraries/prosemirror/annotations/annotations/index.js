@@ -182,7 +182,6 @@ function renderAnnotation(annotation, dispatch, state) {
 function renderAnnotationHandle(dispatch, state) {
   const $handle = document.createElement('div');
   $handle.classList.add('annotation-handle');
-  $handle.setAttribute('content-editable', 'false');
 
   const $button = document.createElement('button');
   $button.classList.add('annotation-add-button');

@@ -26,6 +26,7 @@
   position: relative;
   width: 0;
   height: 0;
+  user-select: none;
 }
 
 .annotation-tooltip-list {
@@ -42,6 +43,11 @@
 .annotation-tooltip-item {
   list-style-type: none;
   line-height: 24px;
+  border-bottom: 1px solid #999;
+}
+
+.annotation-tooltip-item:last-child {
+  border-bottom: none;
 }
 
 .annotation-delete-button {

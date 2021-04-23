@@ -1,11 +1,11 @@
 [
   {
-    "name": "Annotation",
-    "link": "annotation/"
+    "name": "Annotations",
+    "link": "annotations/"
   },
   {
-    "name": "Decoration",
-    "link": "decoration/"
+    "name": "Decorations",
+    "link": "decorations/"
   },
   {
     "name": "Selection",
@@ -16,8 +16,8 @@
     "link": "mapping/"
   },
   {
-    "name": "ProseMirror Transaction",
-    "link": "transaction/"
+    "name": "Transactions",
+    "link": "transactions/"
   },
   {
     "name": "None-editable Table Breaks User Selection on Android",

@@ -10,7 +10,7 @@ import { DOMParser } from 'https://cdn.skypack.dev/prosemirror-model';
 import {
   annotationHighlightPlugin,
   createAnnotationHandlePlugin,
-} from './annotation/index.js';
+} from './annotations/index.js';
 
 let state = EditorState.create({
   schema,

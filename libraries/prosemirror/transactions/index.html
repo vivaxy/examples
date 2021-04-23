@@ -6,33 +6,28 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
     />
-    <meta name="description" content="ProseMirror Annotation" />
+    <meta name="description" content="ProseMirror Transactions" />
     <meta
       name="keywords"
-      content="vivaxy,sample,demo,playground,ProseMirror Annotation,ProseMirror,samples,github,test,libraries,Node.js Packages Demos,node-js-packages,prosemirror,demos,annotation"
+      content="vivaxy,samples,github,demo,playground,test,ProseMirror Transactions,ProseMirror,libraries,Node.js Packages Demos,node-js-packages,prosemirror,minimal,transaction,sample,demos,transactions"
     />
     <meta name="author" content="vivaxy" />
     <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
     <link type="text/css" rel="stylesheet" href="index.css" />
-    <title>ProseMirror Annotation</title>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/prosemirror-view/style/prosemirror.css"
+    />
+    <title>ProseMirror Transactions</title>
   </head>
   <body>
     <div id="editor"></div>
-    <div id="content" hidden>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-      <p>1234567890</p>
-    </div>
+    <button id="replace">Replace</button>
+    <button id="transform">Transform</button>
     <script
       type="text/javascript"
-      src="https://unpkg.com/@vivaxy/framework/utils/console.js"
+      src="//unpkg.com/@vivaxy/framework/utils/console.js"
       crossorigin="anonymous"
     ></script>
     <script type="module" src="index.js"></script>

@@ -197,16 +197,16 @@ Table of contents
   * [Prompts Demo](https://vivaxy.github.io/samples/libraries/prompts/) Prompts Demo
   * [prop-types](https://vivaxy.github.io/samples/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/samples/libraries/prosemirror/) ProseMirror 示例
-    * [ProseMirror Annotation](https://vivaxy.github.io/samples/libraries/prosemirror/annotation/) ProseMirror Annotation
+    * [ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/prosemirror/annotations/) ProseMirror Annotations
     * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/) Basic
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
-    * [ProseMirror Decoration](https://vivaxy.github.io/samples/libraries/prosemirror/decoration/) ProseMirror Decoration
+    * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
     * [ProseMirror Mapping](https://vivaxy.github.io/samples/libraries/prosemirror/mapping/) ProseMirror Mapping
     * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection
-    * [ProseMirror Transaction](https://vivaxy.github.io/samples/libraries/prosemirror/transaction/) ProseMirror Transaction
+    * [ProseMirror Transactions](https://vivaxy.github.io/samples/libraries/prosemirror/transactions/) ProseMirror Transactions
   * [qq maps](https://vivaxy.github.io/samples/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/samples/libraries/qq-maps/mark-polygon-area/) Mark polygon area
   * [qrcode](https://vivaxy.github.io/samples/libraries/qrcode/) Qrcode
