@@ -1,5 +1,9 @@
 [
   {
+    "name": "ProseMirror with React",
+    "link": "with-react/"
+  },
+  {
     "name": "Annotations",
     "link": "annotations/"
   },
