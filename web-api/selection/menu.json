@@ -1,5 +1,9 @@
 [
   {
+    "name": "Selection Range and Node Modification",
+    "link": "range-and-node-modification/"
+  },
+  {
     "name": "Is Selecting",
     "link": "is-selecting/"
   },

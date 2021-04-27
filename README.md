@@ -324,6 +324,7 @@ Table of contents
   * [Selection](https://vivaxy.github.io/samples/web-api/selection/) Selection API
     * [selection](https://vivaxy.github.io/samples/web-api/selection/basic/) Selection
     * [Is Selecting](https://vivaxy.github.io/samples/web-api/selection/is-selecting/) Is Selecting
+    * [Selection Range and Node Modification](https://vivaxy.github.io/samples/web-api/selection/range-and-node-modification/) Selection Range and Node Modification
     * [Selection Manipulation](https://vivaxy.github.io/samples/web-api/selection/selection-manipulation/) selection Manipulation
     * [Selection within Table](https://vivaxy.github.io/samples/web-api/selection/selection-within-table/) Selection within Table
   * [sendBeacon](https://vivaxy.github.io/samples/web-api/send-beacon/) Send beacon
