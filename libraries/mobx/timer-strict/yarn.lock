@@ -4713,10 +4713,10 @@ http-proxy-middleware@0.19.1:
     lodash "^4.17.11"
     micromatch "^3.1.10"
 
-http-proxy-middleware@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-1.2.1.tgz?cache=0&sync_timestamp=1619270540156&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhttp-proxy-middleware%2Fdownload%2Fhttp-proxy-middleware-1.2.1.tgz#cd557a809f56eb98ccb2fdb45593625770ea9c78"
-  integrity sha1-zVV6gJ9W65jMsv20VZNiV3DqnHg=
+http-proxy-middleware@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.nlark.com/http-proxy-middleware/download/http-proxy-middleware-1.3.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhttp-proxy-middleware%2Fdownload%2Fhttp-proxy-middleware-1.3.1.tgz#43700d6d9eecb7419bf086a128d0f7205d9eb665"
+  integrity sha1-Q3ANbZ7st0Gb8IahKND3IF2etmU=
   dependencies:
     "@types/http-proxy" "^1.17.5"
     http-proxy "^1.18.1"
