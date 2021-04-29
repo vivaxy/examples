@@ -1,5 +1,9 @@
 [
   {
+    "name": "React List Diff",
+    "link": "list-diff/"
+  },
+  {
     "name": "Update Props",
     "link": "update-props/src/Child1.js"
   },
