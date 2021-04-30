@@ -59,7 +59,7 @@ function keyedFragment(name) {
     return React.createElement(
       React.Fragment,
       { key },
-      React.createElement('p', { key }, key),
+      React.createElement('p', null, key),
     );
   });
 }

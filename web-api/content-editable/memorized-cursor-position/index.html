@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta
+      name="description"
+      content="Content Editable Memorized Cursor Position"
+    />
+    <meta
+      name="keywords"
+      content="vivaxy,sample,demo,playground,Content Editable Memorized Cursor Position,samples,github,web-api,test,demos,content-editable,memorized-cursor-position"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Content Editable Memorized Cursor Position</title>
+  </head>
+  <body>
+    <p>Cursor horizontal position is memorized by the browser.</p>
+    <pre>
+| is cursor position
+</pre
+    >
+    <p>Step 1: Put cursor here.</p>
+    <pre>
+1234567890|
+123456
+</pre
+    >
+    <p>Step 2: Press down key.</p>
+    <pre>
+1234567890
+123456|
+</pre
+    >
+    <p>Step 3: Press up key.</p>
+    <pre>
+1234567890|
+123456
+</pre
+    >
+    <p>
+      Otherwise, if you put cursor directly here, the cursor will go up to the
+      same index of the row.
+    </p>
+    <p>Step 1: Put cursor here:</p>
+    <pre>
+1234567890
+123456|
+</pre
+    >
+    <p>Step 2: Press up key.</p>
+    <pre>
+123456|7890
+123456
+</pre
+    >
+    <div contenteditable="true">
+      <p>1234567890</p>
+      <p>123456</p>
+    </div>
+    <script
+      type="text/javascript"
+      src="//unpkg.com/@vivaxy/framework/utils/console.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

@@ -266,6 +266,8 @@ Table of contents
   * [click event on label with input](https://vivaxy.github.io/samples/web-api/click-event-on-label-with-input/) Click event on label with input
   * [Clipboard](https://vivaxy.github.io/samples/web-api/clipboard/) Clipboard
   * [CompositionEvent](https://vivaxy.github.io/samples/web-api/composition-event/) Composition event
+  * [Content Editable](https://vivaxy.github.io/samples/web-api/content-editable/) Content Editable
+    * [Content Editable Memorized Cursor Position](https://vivaxy.github.io/samples/web-api/content-editable/memorized-cursor-position/) Content Editable Memorized Cursor Position
   * [document.createNodeIterator](https://vivaxy.github.io/samples/web-api/create-node-iterator/) 遍历文档节点
   * [CSS Typed Object Model](https://vivaxy.github.io/samples/web-api/css-typed-om/) CSS Typed Object Module
   * [Custom Element](https://vivaxy.github.io/samples/web-api/custom-elements/) Custom elements
