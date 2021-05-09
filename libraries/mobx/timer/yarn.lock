@@ -3423,9 +3423,10 @@ dot-case@^3.0.3:
     no-case "^3.0.3"
     tslib "^1.10.0"
 
-dotenv@8.2.0:
-  version "8.2.0"
-  resolved "https://registry.npm.taobao.org/dotenv/download/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+dotenv@9.0.1:
+  version "9.0.1"
+  resolved "https://registry.nlark.com/dotenv/download/dotenv-9.0.1.tgz#a889a28a3a515812dde1e7f8183ef5cdf3186b97"
+  integrity sha1-qImiijpRWBLd4ef4GD71zfMYa5c=
 
 duplexer@^0.1.1:
   version "0.1.1"
