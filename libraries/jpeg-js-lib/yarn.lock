@@ -2,20 +2,14 @@
 # yarn lockfile v1
 
 
-at-least-node@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/at-least-node/download/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
-  integrity sha1-YCzUtG6EStTv/JKoARo8RuAjjcI=
-
-fs-extra@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.npm.taobao.org/fs-extra/download/fs-extra-9.0.0.tgz?cache=0&sync_timestamp=1584632171258&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffs-extra%2Fdownload%2Ffs-extra-9.0.0.tgz#b6afc31036e247b2466dc99c29ae797d5d4580a3"
-  integrity sha1-tq/DEDbiR7JGbcmcKa55fV1FgKM=
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.nlark.com/fs-extra/download/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha1-n/YbZV3eU/s0qC34S7IUzoAuF8E=
   dependencies:
-    at-least-node "^1.0.0"
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
-    universalify "^1.0.0"
+    universalify "^2.0.0"
 
 graceful-fs@^4.1.6:
   version "4.1.11"
@@ -48,3 +42,8 @@ universalify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/universalify/download/universalify-1.0.0.tgz#b61a1da173e8435b2fe3c67d29b9adf8594bd16d"
   integrity sha1-thodoXPoQ1sv48Z9Kbmt+FlL0W0=
+
+universalify@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.nlark.com/universalify/download/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
+  integrity sha1-daSYTv7cSwiXXFrrc/Uw0C3yVxc=
