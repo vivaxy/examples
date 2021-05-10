@@ -3418,10 +3418,10 @@ dot-case@^3.0.3:
     no-case "^3.0.3"
     tslib "^1.10.0"
 
-dotenv@9.0.1:
-  version "9.0.1"
-  resolved "https://registry.nlark.com/dotenv/download/dotenv-9.0.1.tgz#a889a28a3a515812dde1e7f8183ef5cdf3186b97"
-  integrity sha1-qImiijpRWBLd4ef4GD71zfMYa5c=
+dotenv@9.0.2:
+  version "9.0.2"
+  resolved "https://registry.nlark.com/dotenv/download/dotenv-9.0.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdotenv%2Fdownload%2Fdotenv-9.0.2.tgz#dacc20160935a37dea6364aa1bef819fb9b6ab05"
+  integrity sha1-2swgFgk1o33qY2SqG++Bn7m2qwU=
 
 duplexer@^0.1.1:
   version "0.1.1"
