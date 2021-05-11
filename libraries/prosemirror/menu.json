@@ -1,5 +1,9 @@
 [
   {
+    "name": "ProseMirror NodeViews",
+    "link": "node-views/"
+  },
+  {
     "name": "ProseMirror with React",
     "link": "with-react/"
   },
