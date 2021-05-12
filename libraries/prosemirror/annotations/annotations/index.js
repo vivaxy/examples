@@ -2,14 +2,8 @@
  * @since 2021-04-22
  * @author vivaxy
  */
-import {
-  Decoration,
-  DecorationSet,
-} from 'https://cdn.skypack.dev/prosemirror-view';
-import {
-  Plugin,
-  TextSelection,
-} from 'https://cdn.skypack.dev/prosemirror-state';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Plugin, TextSelection } from 'prosemirror-state';
 
 const ACTION_TYPE = {
   ADD_ANNOTATION: 'addAnnotation',

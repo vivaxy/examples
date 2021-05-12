@@ -1,5 +1,9 @@
 [
   {
+    "name": "DOMSerializer.toDom with Decorations",
+    "link": "dom-serializer-to-dom-with-decorations/"
+  },
+  {
     "name": "ProseMirror NodeViews",
     "link": "node-views/"
   },
