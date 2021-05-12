@@ -13,18 +13,18 @@ const state = EditorState.create({
 });
 
 class ImageView {
-  constructor(node) {
+  constructor(node, view, getPos) {
     this.dom = document.createElement('div');
-    const p = document.createElement('p');
-    p.innerHTML = 'This is a custom node view';
+    this.p = document.createElement('p');
+    this.updateParagraph(getPos);
     const image = document.createElement('img');
     image.src = node.attrs.src;
 
-    this.dom.appendChild(p);
+    this.dom.appendChild(this.p);
     this.dom.appendChild(image);
 
     this.dom.addEventListener('click', (e) => {
-      console.log('You clicked me!');
+      console.log('click with pos ' + getPos());
       e.preventDefault();
     });
   }
@@ -32,13 +32,26 @@ class ImageView {
   stopEvent() {
     return true;
   }
+
+  updateParagraph(getPos) {
+    this.p.innerHTML = 'This is a custom node view at ' + getPos();
+  }
+
+  update(node, view, getPos) {
+    console.log('update');
+    if (node.type.name !== 'image') {
+      return false;
+    }
+    this.updateParagraph(getPos);
+    return true;
+  }
 }
 
 const view = new EditorView(document.querySelector('#editor'), {
   state,
   nodeViews: {
-    image(node) {
-      return new ImageView(node);
+    image(node, view, getPos) {
+      return new ImageView(node, view, getPos);
     },
   },
 });
