@@ -37,3 +37,4 @@ const view = new EditorView(document.querySelector('#editor'), {
 });
 
 window.editorView = view;
+window.annotationHighlightPlugin = annotationHighlightPlugin;
