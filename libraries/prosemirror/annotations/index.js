@@ -35,3 +35,5 @@ let state = EditorState.create({
 const view = new EditorView(document.querySelector('#editor'), {
   state,
 });
+
+window.editorView = view;
