@@ -28,4 +28,4 @@ tr.delete(2, 5); // -3 tokens at 2
 console.log(tr.mapping.map(15)); // → 14
 console.log(tr.mapping.map(6)); // → 3
 console.log(tr.mapping.map(10)); // → 9
-view.updateState(state.apply(tr)); // apply transcation
+view.updateState(state.apply(tr)); // apply transaction
