@@ -12,10 +12,32 @@ const state = EditorState.create({
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
 });
 
+class ParagraphView {
+  constructor(node) {
+    this.dom = document.createElement('h1');
+    this.contentDOM = document.createElement('span');
+    this.dom.appendChild(this.contentDOM);
+    // this.renderContent(node);
+  }
+
+  update(node) {
+    if (node.type.name !== 'paragraph') {
+      return false;
+    }
+    // this.renderContent(node);
+    return true;
+  }
+
+  // renderContent(node) {
+  //   this.contentDOM.innerHTML = node.toString();
+  // }
+}
+
 class ImageView {
   constructor(node, view, getPos) {
     this.dom = document.createElement('div');
     this.p = document.createElement('p');
+    this.p.style.fontSize = '14px';
     this.updateParagraph(getPos);
     const image = document.createElement('img');
     image.src = node.attrs.src;
@@ -50,6 +72,9 @@ class ImageView {
 const view = new EditorView(document.querySelector('#editor'), {
   state,
   nodeViews: {
+    paragraph(node) {
+      return new ParagraphView(node);
+    },
     image(node, view, getPos) {
       return new ImageView(node, view, getPos);
     },
