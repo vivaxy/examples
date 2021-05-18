@@ -2668,10 +2668,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@17.0.5":
-  version "17.0.5"
-  resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.5.tgz#3d887570c4489011f75a3fc8f965bf87d09a1bea"
-  integrity sha1-PYh1cMRIkBH3Wj/I+WW/h9CaG+o=
+"@types/react@17.0.6":
+  version "17.0.6"
+  resolved "https://registry.nlark.com/@types/react/download/@types/react-17.0.6.tgz#0ec564566302c562bf497d73219797a5e0297013"
+  integrity sha1-DsVkVmMCxWK/SX1zIZeXpeApcBM=
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
