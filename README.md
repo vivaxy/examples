@@ -199,6 +199,7 @@ Table of contents
   * [ProseMirror](https://vivaxy.github.io/samples/libraries/prosemirror/) ProseMirror 示例
     * [ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/prosemirror/annotations/) ProseMirror Annotations
     * [ProseMirror Basic Editor](https://vivaxy.github.io/samples/libraries/prosemirror/basic/) Basic
+    * [ProseMirror Collab](https://vivaxy.github.io/samples/libraries/prosemirror/collab/) ProseMirror Collab
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
     * [ProseMirror DOMSerializer.toDOM with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer-to-dom-with-decorations/) ProseMirror DOMSerializer.toDOM with Decorations
