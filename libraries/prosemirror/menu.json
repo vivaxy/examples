@@ -1,5 +1,13 @@
 [
   {
+    "name": "Collab Module",
+    "link": "/collab-module"
+  },
+  {
+    "name": "Collab",
+    "link": "/collab"
+  },
+  {
     "name": "Mapping Tracking",
     "link": "mapping-tracking/"
   },
