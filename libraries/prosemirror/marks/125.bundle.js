@@ -1,0 +1,3622 @@
+(self.webpackChunkcollab_module = self.webpackChunkcollab_module || []).push([
+  [125],
+  {
+    2837: () => {},
+    5311: function (t, e, n) {
+      !(function (t, e) {
+        'use strict';
+        e = e && e.hasOwnProperty('default') ? e.default : e;
+        var n =
+            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
+              ? function (t) {
+                  return typeof t;
+                }
+              : function (t) {
+                  return t &&
+                    'function' == typeof Symbol &&
+                    t.constructor === Symbol &&
+                    t !== Symbol.prototype
+                    ? 'symbol'
+                    : typeof t;
+                },
+          r = function (t, e) {
+            if (!(t instanceof e))
+              throw new TypeError('Cannot call a class as a function');
+          },
+          i = (function () {
+            function t(t, e) {
+              for (var n = 0; n < e.length; n++) {
+                var r = e[n];
+                (r.enumerable = r.enumerable || !1),
+                  (r.configurable = !0),
+                  'value' in r && (r.writable = !0),
+                  Object.defineProperty(t, r.key, r);
+              }
+            }
+            return function (e, n, r) {
+              return n && t(e.prototype, n), r && t(e, r), e;
+            };
+          })(),
+          o = function t(e, n, r) {
+            null === e && (e = Function.prototype);
+            var i = Object.getOwnPropertyDescriptor(e, n);
+            if (void 0 === i) {
+              var o = Object.getPrototypeOf(e);
+              return null === o ? void 0 : t(o, n, r);
+            }
+            if ('value' in i) return i.value;
+            var a = i.get;
+            return void 0 !== a ? a.call(r) : void 0;
+          },
+          a = function (t, e) {
+            if ('function' != typeof e && null !== e)
+              throw new TypeError(
+                'Super expression must either be null or a function, not ' +
+                  typeof e,
+              );
+            (t.prototype = Object.create(e && e.prototype, {
+              constructor: {
+                value: t,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0,
+              },
+            })),
+              e &&
+                (Object.setPrototypeOf
+                  ? Object.setPrototypeOf(t, e)
+                  : (t.__proto__ = e));
+          },
+          s = function (t, e) {
+            if (!t)
+              throw new ReferenceError(
+                "this hasn't been initialised - super() hasn't been called",
+              );
+            return !e || ('object' != typeof e && 'function' != typeof e)
+              ? t
+              : e;
+          },
+          f = function (t, e) {
+            if (Array.isArray(t)) return t;
+            if (Symbol.iterator in Object(t))
+              return (function (t, e) {
+                var n = [],
+                  r = !0,
+                  i = !1,
+                  o = void 0;
+                try {
+                  for (
+                    var a, s = t[Symbol.iterator]();
+                    !(r = (a = s.next()).done) &&
+                    (n.push(a.value), !e || n.length !== e);
+                    r = !0
+                  );
+                } catch (t) {
+                  (i = !0), (o = t);
+                } finally {
+                  try {
+                    !r && s.return && s.return();
+                  } finally {
+                    if (i) throw o;
+                  }
+                }
+                return n;
+              })(t, e);
+            throw new TypeError(
+              'Invalid attempt to destructure non-iterable instance',
+            );
+          },
+          l = function (t) {
+            if (Array.isArray(t)) {
+              for (var e = 0, n = Array(t.length); e < t.length; e++)
+                n[e] = t[e];
+              return n;
+            }
+            return Array.from(t);
+          },
+          h = (function () {
+            function t(e) {
+              r(this, t), (this.selfOptions = e || {}), (this.pipes = {});
+            }
+            return (
+              i(t, [
+                {
+                  key: 'options',
+                  value: function (t) {
+                    return t && (this.selfOptions = t), this.selfOptions;
+                  },
+                },
+                {
+                  key: 'pipe',
+                  value: function (t, e) {
+                    var n = e;
+                    if ('string' == typeof t) {
+                      if (void 0 === n) return this.pipes[t];
+                      this.pipes[t] = n;
+                    }
+                    if (t && t.name) {
+                      if ((n = t).processor === this) return n;
+                      this.pipes[n.name] = n;
+                    }
+                    return (n.processor = this), n;
+                  },
+                },
+                {
+                  key: 'process',
+                  value: function (t, e) {
+                    var n = t;
+                    n.options = this.options();
+                    for (
+                      var r = e || t.pipe || 'default', i = void 0, o = void 0;
+                      r;
+
+                    )
+                      void 0 !== n.nextAfterChildren &&
+                        ((n.next = n.nextAfterChildren),
+                        (n.nextAfterChildren = null)),
+                        'string' == typeof r && (r = this.pipe(r)),
+                        r.process(n),
+                        (o = n),
+                        (i = r),
+                        (r = null),
+                        n &&
+                          n.next &&
+                          ((n = n.next), (r = o.nextPipe || n.pipe || i));
+                    return n.hasResult ? n.result : void 0;
+                  },
+                },
+              ]),
+              t
+            );
+          })(),
+          u = (function () {
+            function t(e) {
+              r(this, t), (this.name = e), (this.filters = []);
+            }
+            return (
+              i(t, [
+                {
+                  key: 'process',
+                  value: function (t) {
+                    if (!this.processor)
+                      throw new Error(
+                        'add this pipe to a processor before using it',
+                      );
+                    for (
+                      var e = this.debug, r = this.filters.length, i = t, o = 0;
+                      o < r;
+                      o++
+                    ) {
+                      var a = this.filters[o];
+                      if (
+                        (e && this.log('filter: ' + a.filterName),
+                        a(i),
+                        'object' === (void 0 === i ? 'undefined' : n(i)) &&
+                          i.exiting)
+                      ) {
+                        i.exiting = !1;
+                        break;
+                      }
+                    }
+                    !i.next && this.resultCheck && this.resultCheck(i);
+                  },
+                },
+                {
+                  key: 'log',
+                  value: function (t) {
+                    console.log('[jsondiffpatch] ' + this.name + ' pipe, ' + t);
+                  },
+                },
+                {
+                  key: 'append',
+                  value: function () {
+                    var t;
+                    return (t = this.filters).push.apply(t, arguments), this;
+                  },
+                },
+                {
+                  key: 'prepend',
+                  value: function () {
+                    var t;
+                    return (t = this.filters).unshift.apply(t, arguments), this;
+                  },
+                },
+                {
+                  key: 'indexOf',
+                  value: function (t) {
+                    if (!t) throw new Error('a filter name is required');
+                    for (var e = 0; e < this.filters.length; e++)
+                      if (this.filters[e].filterName === t) return e;
+                    throw new Error('filter not found: ' + t);
+                  },
+                },
+                {
+                  key: 'list',
+                  value: function () {
+                    return this.filters.map(function (t) {
+                      return t.filterName;
+                    });
+                  },
+                },
+                {
+                  key: 'after',
+                  value: function (t) {
+                    var e = this.indexOf(t),
+                      n = Array.prototype.slice.call(arguments, 1);
+                    if (!n.length) throw new Error('a filter is required');
+                    return (
+                      n.unshift(e + 1, 0),
+                      Array.prototype.splice.apply(this.filters, n),
+                      this
+                    );
+                  },
+                },
+                {
+                  key: 'before',
+                  value: function (t) {
+                    var e = this.indexOf(t),
+                      n = Array.prototype.slice.call(arguments, 1);
+                    if (!n.length) throw new Error('a filter is required');
+                    return (
+                      n.unshift(e, 0),
+                      Array.prototype.splice.apply(this.filters, n),
+                      this
+                    );
+                  },
+                },
+                {
+                  key: 'replace',
+                  value: function (t) {
+                    var e = this.indexOf(t),
+                      n = Array.prototype.slice.call(arguments, 1);
+                    if (!n.length) throw new Error('a filter is required');
+                    return (
+                      n.unshift(e, 1),
+                      Array.prototype.splice.apply(this.filters, n),
+                      this
+                    );
+                  },
+                },
+                {
+                  key: 'remove',
+                  value: function (t) {
+                    var e = this.indexOf(t);
+                    return this.filters.splice(e, 1), this;
+                  },
+                },
+                {
+                  key: 'clear',
+                  value: function () {
+                    return (this.filters.length = 0), this;
+                  },
+                },
+                {
+                  key: 'shouldHaveResult',
+                  value: function (t) {
+                    if (!1 !== t) {
+                      if (!this.resultCheck) {
+                        var e = this;
+                        return (
+                          (this.resultCheck = function (t) {
+                            if (!t.hasResult) {
+                              console.log(t);
+                              var n = new Error(e.name + ' failed');
+                              throw ((n.noResult = !0), n);
+                            }
+                          }),
+                          this
+                        );
+                      }
+                    } else this.resultCheck = null;
+                  },
+                },
+              ]),
+              t
+            );
+          })(),
+          c = (function () {
+            function t() {
+              r(this, t);
+            }
+            return (
+              i(t, [
+                {
+                  key: 'setResult',
+                  value: function (t) {
+                    return (this.result = t), (this.hasResult = !0), this;
+                  },
+                },
+                {
+                  key: 'exit',
+                  value: function () {
+                    return (this.exiting = !0), this;
+                  },
+                },
+                {
+                  key: 'switchTo',
+                  value: function (t, e) {
+                    return (
+                      'string' == typeof t || t instanceof u
+                        ? (this.nextPipe = t)
+                        : ((this.next = t), e && (this.nextPipe = e)),
+                      this
+                    );
+                  },
+                },
+                {
+                  key: 'push',
+                  value: function (t, e) {
+                    return (
+                      (t.parent = this),
+                      void 0 !== e && (t.childName = e),
+                      (t.root = this.root || this),
+                      (t.options = t.options || this.options),
+                      this.children
+                        ? ((this.children[this.children.length - 1].next = t),
+                          this.children.push(t))
+                        : ((this.children = [t]),
+                          (this.nextAfterChildren = this.next || null),
+                          (this.next = t)),
+                      (t.next = this),
+                      this
+                    );
+                  },
+                },
+              ]),
+              t
+            );
+          })(),
+          d =
+            'function' == typeof Array.isArray
+              ? Array.isArray
+              : function (t) {
+                  return t instanceof Array;
+                };
+        function p(t) {
+          if ('object' !== (void 0 === t ? 'undefined' : n(t))) return t;
+          if (null === t) return null;
+          if (d(t)) return t.map(p);
+          if (t instanceof Date) return new Date(t.getTime());
+          if (t instanceof RegExp)
+            return (
+              (e = /^\/(.*)\/([gimyu]*)$/.exec(t.toString())),
+              new RegExp(e[1], e[2])
+            );
+          var e,
+            r = {};
+          for (var i in t)
+            Object.prototype.hasOwnProperty.call(t, i) && (r[i] = p(t[i]));
+          return r;
+        }
+        var v = (function (t) {
+            function e(t, n) {
+              r(this, e);
+              var i = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (i.left = t), (i.right = n), (i.pipe = 'diff'), i;
+            }
+            return (
+              a(e, t),
+              i(e, [
+                {
+                  key: 'setResult',
+                  value: function (t) {
+                    if (
+                      this.options.cloneDiffValues &&
+                      'object' === (void 0 === t ? 'undefined' : n(t))
+                    ) {
+                      var e =
+                        'function' == typeof this.options.cloneDiffValues
+                          ? this.options.cloneDiffValues
+                          : p;
+                      'object' === n(t[0]) && (t[0] = e(t[0])),
+                        'object' === n(t[1]) && (t[1] = e(t[1]));
+                    }
+                    return c.prototype.setResult.apply(this, arguments);
+                  },
+                },
+              ]),
+              e
+            );
+          })(c),
+          g = (function (t) {
+            function e(t, n) {
+              r(this, e);
+              var i = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (i.left = t), (i.delta = n), (i.pipe = 'patch'), i;
+            }
+            return a(e, t), e;
+          })(c),
+          y = (function (t) {
+            function e(t) {
+              r(this, e);
+              var n = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (n.delta = t), (n.pipe = 'reverse'), n;
+            }
+            return a(e, t), e;
+          })(c),
+          m =
+            'function' == typeof Array.isArray
+              ? Array.isArray
+              : function (t) {
+                  return t instanceof Array;
+                },
+          _ = function (t) {
+            if (t.left !== t.right)
+              if (void 0 !== t.left)
+                if (void 0 !== t.right) {
+                  if (
+                    'function' == typeof t.left ||
+                    'function' == typeof t.right
+                  )
+                    throw new Error('functions are not supported');
+                  (t.leftType = null === t.left ? 'null' : n(t.left)),
+                    (t.rightType = null === t.right ? 'null' : n(t.right)),
+                    t.leftType === t.rightType &&
+                    'boolean' !== t.leftType &&
+                    'number' !== t.leftType
+                      ? ('object' === t.leftType && (t.leftIsArray = m(t.left)),
+                        'object' === t.rightType &&
+                          (t.rightIsArray = m(t.right)),
+                        t.leftIsArray === t.rightIsArray
+                          ? t.left instanceof RegExp &&
+                            (t.right instanceof RegExp
+                              ? t
+                                  .setResult([
+                                    t.left.toString(),
+                                    t.right.toString(),
+                                  ])
+                                  .exit()
+                              : t.setResult([t.left, t.right]).exit())
+                          : t.setResult([t.left, t.right]).exit())
+                      : t.setResult([t.left, t.right]).exit();
+                } else t.setResult([t.left, 0, 0]).exit();
+              else {
+                if ('function' == typeof t.right)
+                  throw new Error('functions are not supported');
+                t.setResult([t.right]).exit();
+              }
+            else t.setResult(void 0).exit();
+          };
+        _.filterName = 'trivial';
+        var b = function (t) {
+          if (void 0 !== t.delta) {
+            if (((t.nested = !m(t.delta)), !t.nested))
+              if (1 !== t.delta.length)
+                if (2 !== t.delta.length)
+                  3 === t.delta.length &&
+                    0 === t.delta[2] &&
+                    t.setResult(void 0).exit();
+                else {
+                  if (t.left instanceof RegExp) {
+                    var e = /^\/(.*)\/([gimyu]+)$/.exec(t.delta[1]);
+                    if (e)
+                      return void t.setResult(new RegExp(e[1], e[2])).exit();
+                  }
+                  t.setResult(t.delta[1]).exit();
+                }
+              else t.setResult(t.delta[0]).exit();
+          } else t.setResult(t.left).exit();
+        };
+        b.filterName = 'trivial';
+        var x = function (t) {
+          void 0 !== t.delta
+            ? ((t.nested = !m(t.delta)),
+              t.nested ||
+                (1 !== t.delta.length
+                  ? 2 !== t.delta.length
+                    ? 3 === t.delta.length &&
+                      0 === t.delta[2] &&
+                      t.setResult([t.delta[0]]).exit()
+                    : t.setResult([t.delta[1], t.delta[0]]).exit()
+                  : t.setResult([t.delta[0], 0, 0]).exit()))
+            : t.setResult(t.delta).exit();
+        };
+        function w(t) {
+          if (t && t.children) {
+            for (
+              var e = t.children.length, n = void 0, r = t.result, i = 0;
+              i < e;
+              i++
+            )
+              void 0 !== (n = t.children[i]).result &&
+                ((r = r || {})[n.childName] = n.result);
+            r && t.leftIsArray && (r._t = 'a'), t.setResult(r).exit();
+          }
+        }
+        function k(t) {
+          if (!t.leftIsArray && 'object' === t.leftType) {
+            var e = void 0,
+              n = void 0,
+              r = t.options.propertyFilter;
+            for (e in t.left)
+              Object.prototype.hasOwnProperty.call(t.left, e) &&
+                ((r && !r(e, t)) ||
+                  ((n = new v(t.left[e], t.right[e])), t.push(n, e)));
+            for (e in t.right)
+              Object.prototype.hasOwnProperty.call(t.right, e) &&
+                ((r && !r(e, t)) ||
+                  (void 0 === t.left[e] &&
+                    ((n = new v(void 0, t.right[e])), t.push(n, e))));
+            t.children && 0 !== t.children.length
+              ? t.exit()
+              : t.setResult(void 0).exit();
+          }
+        }
+        (x.filterName = 'trivial'),
+          (w.filterName = 'collectChildren'),
+          (k.filterName = 'objects');
+        var j = function (t) {
+          if (t.nested && !t.delta._t) {
+            var e = void 0,
+              n = void 0;
+            for (e in t.delta) (n = new g(t.left[e], t.delta[e])), t.push(n, e);
+            t.exit();
+          }
+        };
+        j.filterName = 'objects';
+        var O = function (t) {
+          if (t && t.children && !t.delta._t) {
+            for (var e = t.children.length, n = void 0, r = 0; r < e; r++)
+              (n = t.children[r]),
+                Object.prototype.hasOwnProperty.call(t.left, n.childName) &&
+                void 0 === n.result
+                  ? delete t.left[n.childName]
+                  : t.left[n.childName] !== n.result &&
+                    (t.left[n.childName] = n.result);
+            t.setResult(t.left).exit();
+          }
+        };
+        O.filterName = 'collectChildren';
+        var A = function (t) {
+          if (t.nested && !t.delta._t) {
+            var e = void 0,
+              n = void 0;
+            for (e in t.delta) (n = new y(t.delta[e])), t.push(n, e);
+            t.exit();
+          }
+        };
+        function M(t) {
+          if (t && t.children && !t.delta._t) {
+            for (
+              var e = t.children.length, n = void 0, r = {}, i = 0;
+              i < e;
+              i++
+            )
+              r[(n = t.children[i]).childName] !== n.result &&
+                (r[n.childName] = n.result);
+            t.setResult(r).exit();
+          }
+        }
+        (A.filterName = 'objects'), (M.filterName = 'collectChildren');
+        var C = function (t, e, n, r) {
+            return t[n] === e[r];
+          },
+          R = function (t, e, n, r) {
+            var i = r || {},
+              o = (function (t, e, n, r) {
+                for (
+                  var i = e.length,
+                    o = n.length,
+                    a = { sequence: [], indices1: [], indices2: [] };
+                  0 !== i && 0 !== o;
+
+                )
+                  t.match(e, n, i - 1, o - 1, r)
+                    ? (a.sequence.unshift(e[i - 1]),
+                      a.indices1.unshift(i - 1),
+                      a.indices2.unshift(o - 1),
+                      --i,
+                      --o)
+                    : t[i][o - 1] > t[i - 1][o]
+                    ? --o
+                    : --i;
+                return a;
+              })(
+                (function (t, e, n, r) {
+                  var i = t.length,
+                    o = e.length,
+                    a = void 0,
+                    s = void 0,
+                    f = [i + 1];
+                  for (a = 0; a < i + 1; a++)
+                    for (f[a] = [o + 1], s = 0; s < o + 1; s++) f[a][s] = 0;
+                  for (f.match = n, a = 1; a < i + 1; a++)
+                    for (s = 1; s < o + 1; s++)
+                      n(t, e, a - 1, s - 1, r)
+                        ? (f[a][s] = f[a - 1][s - 1] + 1)
+                        : (f[a][s] = Math.max(f[a - 1][s], f[a][s - 1]));
+                  return f;
+                })(t, e, n || C, i),
+                t,
+                e,
+                i,
+              );
+            return (
+              'string' == typeof t &&
+                'string' == typeof e &&
+                (o.sequence = o.sequence.join('')),
+              o
+            );
+          },
+          P =
+            'function' == typeof Array.isArray
+              ? Array.isArray
+              : function (t) {
+                  return t instanceof Array;
+                },
+          E =
+            'function' == typeof Array.prototype.indexOf
+              ? function (t, e) {
+                  return t.indexOf(e);
+                }
+              : function (t, e) {
+                  for (var n = t.length, r = 0; r < n; r++)
+                    if (t[r] === e) return r;
+                  return -1;
+                };
+        function D(t, e, r, i, o) {
+          var a = t[r],
+            s = e[i];
+          if (a === s) return !0;
+          if (
+            'object' !== (void 0 === a ? 'undefined' : n(a)) ||
+            'object' !== (void 0 === s ? 'undefined' : n(s))
+          )
+            return !1;
+          var f = o.objectHash;
+          if (!f) return o.matchByPosition && r === i;
+          var l = void 0,
+            h = void 0;
+          return (
+            'number' == typeof r
+              ? ((o.hashCache1 = o.hashCache1 || []),
+                void 0 === (l = o.hashCache1[r]) &&
+                  (o.hashCache1[r] = l = f(a, r)))
+              : (l = f(a)),
+            void 0 !== l &&
+              ('number' == typeof i
+                ? ((o.hashCache2 = o.hashCache2 || []),
+                  void 0 === (h = o.hashCache2[i]) &&
+                    (o.hashCache2[i] = h = f(s, i)))
+                : (h = f(s)),
+              void 0 !== h && l === h)
+          );
+        }
+        var T = function (t) {
+          if (t.leftIsArray) {
+            var e = {
+                objectHash: t.options && t.options.objectHash,
+                matchByPosition: t.options && t.options.matchByPosition,
+              },
+              n = 0,
+              r = 0,
+              i = void 0,
+              o = void 0,
+              a = void 0,
+              s = t.left,
+              f = t.right,
+              l = s.length,
+              h = f.length,
+              u = void 0;
+            for (
+              l > 0 &&
+              h > 0 &&
+              !e.objectHash &&
+              'boolean' != typeof e.matchByPosition &&
+              (e.matchByPosition = !(function (t, e, n, r) {
+                for (var i = 0; i < n; i++)
+                  for (var o = t[i], a = 0; a < r; a++) {
+                    var s = e[a];
+                    if (i !== a && o === s) return !0;
+                  }
+              })(s, f, l, h));
+              n < l && n < h && D(s, f, n, n, e);
+
+            )
+              (i = n), (u = new v(t.left[i], t.right[i])), t.push(u, i), n++;
+            for (; r + n < l && r + n < h && D(s, f, l - 1 - r, h - 1 - r, e); )
+              (o = l - 1 - r),
+                (a = h - 1 - r),
+                (u = new v(t.left[o], t.right[a])),
+                t.push(u, a),
+                r++;
+            var c = void 0;
+            if (n + r !== l)
+              if (n + r !== h) {
+                delete e.hashCache1, delete e.hashCache2;
+                var d = s.slice(n, l - r),
+                  p = f.slice(n, h - r),
+                  g = R(d, p, D, e),
+                  y = [];
+                for (c = c || { _t: 'a' }, i = n; i < l - r; i++)
+                  E(g.indices1, i - n) < 0 &&
+                    ((c['_' + i] = [s[i], 0, 0]), y.push(i));
+                var m = !0;
+                t.options &&
+                  t.options.arrays &&
+                  !1 === t.options.arrays.detectMove &&
+                  (m = !1);
+                var _ = !1;
+                t.options &&
+                  t.options.arrays &&
+                  t.options.arrays.includeValueOnMove &&
+                  (_ = !0);
+                var b = y.length;
+                for (i = n; i < h - r; i++) {
+                  var x = E(g.indices2, i - n);
+                  if (x < 0) {
+                    var w = !1;
+                    if (m && b > 0)
+                      for (var k = 0; k < b; k++)
+                        if (D(d, p, (o = y[k]) - n, i - n, e)) {
+                          c['_' + o].splice(1, 2, i, 3),
+                            _ || (c['_' + o][0] = ''),
+                            (a = i),
+                            (u = new v(t.left[o], t.right[a])),
+                            t.push(u, a),
+                            y.splice(k, 1),
+                            (w = !0);
+                          break;
+                        }
+                    w || (c[i] = [f[i]]);
+                  } else
+                    (o = g.indices1[x] + n),
+                      (a = g.indices2[x] + n),
+                      (u = new v(t.left[o], t.right[a])),
+                      t.push(u, a);
+                }
+                t.setResult(c).exit();
+              } else {
+                for (c = c || { _t: 'a' }, i = n; i < l - r; i++)
+                  c['_' + i] = [s[i], 0, 0];
+                t.setResult(c).exit();
+              }
+            else {
+              if (l === h) return void t.setResult(void 0).exit();
+              for (c = c || { _t: 'a' }, i = n; i < h - r; i++) c[i] = [f[i]];
+              t.setResult(c).exit();
+            }
+          }
+        };
+        T.filterName = 'arrays';
+        var N = function (t, e) {
+            return t - e;
+          },
+          I = function (t) {
+            return function (e, n) {
+              return e[t] - n[t];
+            };
+          },
+          S = function (t) {
+            if (t.nested && 'a' === t.delta._t) {
+              var e = void 0,
+                n = void 0,
+                r = t.delta,
+                i = t.left,
+                o = [],
+                a = [],
+                s = [];
+              for (e in r)
+                if ('_t' !== e)
+                  if ('_' === e[0]) {
+                    if (0 !== r[e][2] && 3 !== r[e][2])
+                      throw new Error(
+                        'only removal or move can be applied at original array indices, invalid diff type: ' +
+                          r[e][2],
+                      );
+                    o.push(parseInt(e.slice(1), 10));
+                  } else
+                    1 === r[e].length
+                      ? a.push({ index: parseInt(e, 10), value: r[e][0] })
+                      : s.push({ index: parseInt(e, 10), delta: r[e] });
+              for (e = (o = o.sort(N)).length - 1; e >= 0; e--) {
+                var f = r['_' + (n = o[e])],
+                  l = i.splice(n, 1)[0];
+                3 === f[2] && a.push({ index: f[1], value: l });
+              }
+              var h = (a = a.sort(I('index'))).length;
+              for (e = 0; e < h; e++) {
+                var u = a[e];
+                i.splice(u.index, 0, u.value);
+              }
+              var c = s.length,
+                d = void 0;
+              if (c > 0)
+                for (e = 0; e < c; e++) {
+                  var p = s[e];
+                  (d = new g(t.left[p.index], p.delta)), t.push(d, p.index);
+                }
+              t.children ? t.exit() : t.setResult(t.left).exit();
+            }
+          };
+        S.filterName = 'arrays';
+        var F = function (t) {
+          if (t && t.children && 'a' === t.delta._t) {
+            for (var e = t.children.length, n = void 0, r = 0; r < e; r++)
+              (n = t.children[r]), (t.left[n.childName] = n.result);
+            t.setResult(t.left).exit();
+          }
+        };
+        F.filterName = 'arraysCollectChildren';
+        var L = function (t) {
+          if (t.nested) {
+            if ('a' === t.delta._t) {
+              var e = void 0,
+                n = void 0;
+              for (e in t.delta)
+                '_t' !== e && ((n = new y(t.delta[e])), t.push(n, e));
+              t.exit();
+            }
+          } else
+            3 === t.delta[2] &&
+              ((t.newName = '_' + t.delta[1]),
+              t
+                .setResult([t.delta[0], parseInt(t.childName.substr(1), 10), 3])
+                .exit());
+        };
+        L.filterName = 'arrays';
+        var B = function (t, e, n) {
+          if ('string' == typeof e && '_' === e[0])
+            return parseInt(e.substr(1), 10);
+          if (P(n) && 0 === n[2]) return '_' + e;
+          var r = +e;
+          for (var i in t) {
+            var o = t[i];
+            if (P(o))
+              if (3 === o[2]) {
+                var a = parseInt(i.substr(1), 10),
+                  s = o[1];
+                if (s === +e) return a;
+                a <= r && s > r ? r++ : a >= r && s < r && r--;
+              } else
+                0 === o[2]
+                  ? parseInt(i.substr(1), 10) <= r && r++
+                  : 1 === o.length && i <= r && r--;
+          }
+          return r;
+        };
+        function V(t) {
+          if (t && t.children && 'a' === t.delta._t) {
+            for (
+              var e = t.children.length, n = void 0, r = { _t: 'a' }, i = 0;
+              i < e;
+              i++
+            ) {
+              var o = (n = t.children[i]).newName;
+              void 0 === o && (o = B(t.delta, n.childName, n.result)),
+                r[o] !== n.result && (r[o] = n.result);
+            }
+            t.setResult(r).exit();
+          }
+        }
+        V.filterName = 'arraysCollectChildren';
+        var q = function (t) {
+          t.left instanceof Date
+            ? (t.right instanceof Date
+                ? t.left.getTime() !== t.right.getTime()
+                  ? t.setResult([t.left, t.right])
+                  : t.setResult(void 0)
+                : t.setResult([t.left, t.right]),
+              t.exit())
+            : t.right instanceof Date && t.setResult([t.left, t.right]).exit();
+        };
+        q.filterName = 'dates';
+        var U,
+          H =
+            ((function (t) {
+              function e() {
+                (this.Diff_Timeout = 1),
+                  (this.Diff_EditCost = 4),
+                  (this.Match_Threshold = 0.5),
+                  (this.Match_Distance = 1e3),
+                  (this.Patch_DeleteThreshold = 0.5),
+                  (this.Patch_Margin = 4),
+                  (this.Match_MaxBits = 32);
+              }
+              var n = -1;
+              (e.prototype.diff_main = function (t, e, n, r) {
+                void 0 === r &&
+                  (r =
+                    this.Diff_Timeout <= 0
+                      ? Number.MAX_VALUE
+                      : new Date().getTime() + 1e3 * this.Diff_Timeout);
+                var i = r;
+                if (null == t || null == e)
+                  throw new Error('Null input. (diff_main)');
+                if (t == e) return t ? [[0, t]] : [];
+                void 0 === n && (n = !0);
+                var o = n,
+                  a = this.diff_commonPrefix(t, e),
+                  s = t.substring(0, a);
+                (t = t.substring(a)),
+                  (e = e.substring(a)),
+                  (a = this.diff_commonSuffix(t, e));
+                var f = t.substring(t.length - a);
+                (t = t.substring(0, t.length - a)),
+                  (e = e.substring(0, e.length - a));
+                var l = this.diff_compute_(t, e, o, i);
+                return (
+                  s && l.unshift([0, s]),
+                  f && l.push([0, f]),
+                  this.diff_cleanupMerge(l),
+                  l
+                );
+              }),
+                (e.prototype.diff_compute_ = function (t, e, r, i) {
+                  var o;
+                  if (!t) return [[1, e]];
+                  if (!e) return [[n, t]];
+                  var a = t.length > e.length ? t : e,
+                    s = t.length > e.length ? e : t,
+                    f = a.indexOf(s);
+                  if (-1 != f)
+                    return (
+                      (o = [
+                        [1, a.substring(0, f)],
+                        [0, s],
+                        [1, a.substring(f + s.length)],
+                      ]),
+                      t.length > e.length && (o[0][0] = o[2][0] = n),
+                      o
+                    );
+                  if (1 == s.length)
+                    return [
+                      [n, t],
+                      [1, e],
+                    ];
+                  var l = this.diff_halfMatch_(t, e);
+                  if (l) {
+                    var h = l[0],
+                      u = l[1],
+                      c = l[2],
+                      d = l[3],
+                      p = l[4],
+                      v = this.diff_main(h, c, r, i),
+                      g = this.diff_main(u, d, r, i);
+                    return v.concat([[0, p]], g);
+                  }
+                  return r && t.length > 100 && e.length > 100
+                    ? this.diff_lineMode_(t, e, i)
+                    : this.diff_bisect_(t, e, i);
+                }),
+                (e.prototype.diff_lineMode_ = function (t, e, r) {
+                  (t = (u = this.diff_linesToChars_(t, e)).chars1),
+                    (e = u.chars2);
+                  var i = u.lineArray,
+                    o = this.diff_main(t, e, !1, r);
+                  this.diff_charsToLines_(o, i),
+                    this.diff_cleanupSemantic(o),
+                    o.push([0, '']);
+                  for (
+                    var a = 0, s = 0, f = 0, l = '', h = '';
+                    a < o.length;
+
+                  ) {
+                    switch (o[a][0]) {
+                      case 1:
+                        f++, (h += o[a][1]);
+                        break;
+                      case n:
+                        s++, (l += o[a][1]);
+                        break;
+                      case 0:
+                        if (s >= 1 && f >= 1) {
+                          o.splice(a - s - f, s + f), (a = a - s - f);
+                          for (
+                            var u,
+                              c = (u = this.diff_main(l, h, !1, r)).length - 1;
+                            c >= 0;
+                            c--
+                          )
+                            o.splice(a, 0, u[c]);
+                          a += u.length;
+                        }
+                        (f = 0), (s = 0), (l = ''), (h = '');
+                    }
+                    a++;
+                  }
+                  return o.pop(), o;
+                }),
+                (e.prototype.diff_bisect_ = function (t, e, r) {
+                  for (
+                    var i = t.length,
+                      o = e.length,
+                      a = Math.ceil((i + o) / 2),
+                      s = a,
+                      f = 2 * a,
+                      l = new Array(f),
+                      h = new Array(f),
+                      u = 0;
+                    u < f;
+                    u++
+                  )
+                    (l[u] = -1), (h[u] = -1);
+                  (l[s + 1] = 0), (h[s + 1] = 0);
+                  for (
+                    var c = i - o,
+                      d = c % 2 != 0,
+                      p = 0,
+                      v = 0,
+                      g = 0,
+                      y = 0,
+                      m = 0;
+                    m < a && !(new Date().getTime() > r);
+                    m++
+                  ) {
+                    for (var _ = -m + p; _ <= m - v; _ += 2) {
+                      for (
+                        var b = s + _,
+                          x =
+                            (A =
+                              _ == -m || (_ != m && l[b - 1] < l[b + 1])
+                                ? l[b + 1]
+                                : l[b - 1] + 1) - _;
+                        A < i && x < o && t.charAt(A) == e.charAt(x);
+
+                      )
+                        A++, x++;
+                      if (((l[b] = A), A > i)) v += 2;
+                      else if (x > o) p += 2;
+                      else if (
+                        d &&
+                        (j = s + c - _) >= 0 &&
+                        j < f &&
+                        -1 != h[j] &&
+                        A >= (k = i - h[j])
+                      )
+                        return this.diff_bisectSplit_(t, e, A, x, r);
+                    }
+                    for (var w = -m + g; w <= m - y; w += 2) {
+                      for (
+                        var k,
+                          j = s + w,
+                          O =
+                            (k =
+                              w == -m || (w != m && h[j - 1] < h[j + 1])
+                                ? h[j + 1]
+                                : h[j - 1] + 1) - w;
+                        k < i &&
+                        O < o &&
+                        t.charAt(i - k - 1) == e.charAt(o - O - 1);
+
+                      )
+                        k++, O++;
+                      if (((h[j] = k), k > i)) y += 2;
+                      else if (O > o) g += 2;
+                      else if (!d) {
+                        var A;
+                        if (
+                          (b = s + c - w) >= 0 &&
+                          b < f &&
+                          -1 != l[b] &&
+                          ((x = s + (A = l[b]) - b), A >= (k = i - k))
+                        )
+                          return this.diff_bisectSplit_(t, e, A, x, r);
+                      }
+                    }
+                  }
+                  return [
+                    [n, t],
+                    [1, e],
+                  ];
+                }),
+                (e.prototype.diff_bisectSplit_ = function (t, e, n, r, i) {
+                  var o = t.substring(0, n),
+                    a = e.substring(0, r),
+                    s = t.substring(n),
+                    f = e.substring(r),
+                    l = this.diff_main(o, a, !1, i),
+                    h = this.diff_main(s, f, !1, i);
+                  return l.concat(h);
+                }),
+                (e.prototype.diff_linesToChars_ = function (t, e) {
+                  var n = [],
+                    r = {};
+                  function i(t) {
+                    for (
+                      var e = '', i = 0, o = -1, a = n.length;
+                      o < t.length - 1;
+
+                    ) {
+                      -1 == (o = t.indexOf('\n', i)) && (o = t.length - 1);
+                      var s = t.substring(i, o + 1);
+                      (i = o + 1),
+                        (
+                          r.hasOwnProperty
+                            ? r.hasOwnProperty(s)
+                            : void 0 !== r[s]
+                        )
+                          ? (e += String.fromCharCode(r[s]))
+                          : ((e += String.fromCharCode(a)),
+                            (r[s] = a),
+                            (n[a++] = s));
+                    }
+                    return e;
+                  }
+                  return (
+                    (n[0] = ''), { chars1: i(t), chars2: i(e), lineArray: n }
+                  );
+                }),
+                (e.prototype.diff_charsToLines_ = function (t, e) {
+                  for (var n = 0; n < t.length; n++) {
+                    for (var r = t[n][1], i = [], o = 0; o < r.length; o++)
+                      i[o] = e[r.charCodeAt(o)];
+                    t[n][1] = i.join('');
+                  }
+                }),
+                (e.prototype.diff_commonPrefix = function (t, e) {
+                  if (!t || !e || t.charAt(0) != e.charAt(0)) return 0;
+                  for (
+                    var n = 0, r = Math.min(t.length, e.length), i = r, o = 0;
+                    n < i;
+
+                  )
+                    t.substring(o, i) == e.substring(o, i)
+                      ? (o = n = i)
+                      : (r = i),
+                      (i = Math.floor((r - n) / 2 + n));
+                  return i;
+                }),
+                (e.prototype.diff_commonSuffix = function (t, e) {
+                  if (
+                    !t ||
+                    !e ||
+                    t.charAt(t.length - 1) != e.charAt(e.length - 1)
+                  )
+                    return 0;
+                  for (
+                    var n = 0, r = Math.min(t.length, e.length), i = r, o = 0;
+                    n < i;
+
+                  )
+                    t.substring(t.length - i, t.length - o) ==
+                    e.substring(e.length - i, e.length - o)
+                      ? (o = n = i)
+                      : (r = i),
+                      (i = Math.floor((r - n) / 2 + n));
+                  return i;
+                }),
+                (e.prototype.diff_commonOverlap_ = function (t, e) {
+                  var n = t.length,
+                    r = e.length;
+                  if (0 == n || 0 == r) return 0;
+                  n > r
+                    ? (t = t.substring(n - r))
+                    : n < r && (e = e.substring(0, n));
+                  var i = Math.min(n, r);
+                  if (t == e) return i;
+                  for (var o = 0, a = 1; ; ) {
+                    var s = t.substring(i - a),
+                      f = e.indexOf(s);
+                    if (-1 == f) return o;
+                    (a += f),
+                      (0 != f && t.substring(i - a) != e.substring(0, a)) ||
+                        ((o = a), a++);
+                  }
+                }),
+                (e.prototype.diff_halfMatch_ = function (t, e) {
+                  if (this.Diff_Timeout <= 0) return null;
+                  var n = t.length > e.length ? t : e,
+                    r = t.length > e.length ? e : t;
+                  if (n.length < 4 || 2 * r.length < n.length) return null;
+                  var i = this;
+                  function o(t, e, n) {
+                    for (
+                      var r,
+                        o,
+                        a,
+                        s,
+                        f = t.substring(n, n + Math.floor(t.length / 4)),
+                        l = -1,
+                        h = '';
+                      -1 != (l = e.indexOf(f, l + 1));
+
+                    ) {
+                      var u = i.diff_commonPrefix(
+                          t.substring(n),
+                          e.substring(l),
+                        ),
+                        c = i.diff_commonSuffix(
+                          t.substring(0, n),
+                          e.substring(0, l),
+                        );
+                      h.length < c + u &&
+                        ((h = e.substring(l - c, l) + e.substring(l, l + u)),
+                        (r = t.substring(0, n - c)),
+                        (o = t.substring(n + u)),
+                        (a = e.substring(0, l - c)),
+                        (s = e.substring(l + u)));
+                    }
+                    return 2 * h.length >= t.length ? [r, o, a, s, h] : null;
+                  }
+                  var a,
+                    s,
+                    f,
+                    l,
+                    h,
+                    u = o(n, r, Math.ceil(n.length / 4)),
+                    c = o(n, r, Math.ceil(n.length / 2));
+                  return u || c
+                    ? ((a = c ? (u && u[4].length > c[4].length ? u : c) : u),
+                      t.length > e.length
+                        ? ((s = a[0]), (f = a[1]), (l = a[2]), (h = a[3]))
+                        : ((l = a[0]), (h = a[1]), (s = a[2]), (f = a[3])),
+                      [s, f, l, h, a[4]])
+                    : null;
+                }),
+                (e.prototype.diff_cleanupSemantic = function (t) {
+                  for (
+                    var e = !1,
+                      r = [],
+                      i = 0,
+                      o = null,
+                      a = 0,
+                      s = 0,
+                      f = 0,
+                      l = 0,
+                      h = 0;
+                    a < t.length;
+
+                  )
+                    0 == t[a][0]
+                      ? ((r[i++] = a),
+                        (s = l),
+                        (f = h),
+                        (l = 0),
+                        (h = 0),
+                        (o = t[a][1]))
+                      : (1 == t[a][0]
+                          ? (l += t[a][1].length)
+                          : (h += t[a][1].length),
+                        o &&
+                          o.length <= Math.max(s, f) &&
+                          o.length <= Math.max(l, h) &&
+                          (t.splice(r[i - 1], 0, [n, o]),
+                          (t[r[i - 1] + 1][0] = 1),
+                          i--,
+                          (a = --i > 0 ? r[i - 1] : -1),
+                          (s = 0),
+                          (f = 0),
+                          (l = 0),
+                          (h = 0),
+                          (o = null),
+                          (e = !0))),
+                      a++;
+                  for (
+                    e && this.diff_cleanupMerge(t),
+                      this.diff_cleanupSemanticLossless(t),
+                      a = 1;
+                    a < t.length;
+
+                  ) {
+                    if (t[a - 1][0] == n && 1 == t[a][0]) {
+                      var u = t[a - 1][1],
+                        c = t[a][1],
+                        d = this.diff_commonOverlap_(u, c),
+                        p = this.diff_commonOverlap_(c, u);
+                      d >= p
+                        ? (d >= u.length / 2 || d >= c.length / 2) &&
+                          (t.splice(a, 0, [0, c.substring(0, d)]),
+                          (t[a - 1][1] = u.substring(0, u.length - d)),
+                          (t[a + 1][1] = c.substring(d)),
+                          a++)
+                        : (p >= u.length / 2 || p >= c.length / 2) &&
+                          (t.splice(a, 0, [0, u.substring(0, p)]),
+                          (t[a - 1][0] = 1),
+                          (t[a - 1][1] = c.substring(0, c.length - p)),
+                          (t[a + 1][0] = n),
+                          (t[a + 1][1] = u.substring(p)),
+                          a++),
+                        a++;
+                    }
+                    a++;
+                  }
+                }),
+                (e.prototype.diff_cleanupSemanticLossless = function (t) {
+                  function n(t, n) {
+                    if (!t || !n) return 6;
+                    var r = t.charAt(t.length - 1),
+                      i = n.charAt(0),
+                      o = r.match(e.nonAlphaNumericRegex_),
+                      a = i.match(e.nonAlphaNumericRegex_),
+                      s = o && r.match(e.whitespaceRegex_),
+                      f = a && i.match(e.whitespaceRegex_),
+                      l = s && r.match(e.linebreakRegex_),
+                      h = f && i.match(e.linebreakRegex_),
+                      u = l && t.match(e.blanklineEndRegex_),
+                      c = h && n.match(e.blanklineStartRegex_);
+                    return u || c
+                      ? 5
+                      : l || h
+                      ? 4
+                      : o && !s && f
+                      ? 3
+                      : s || f
+                      ? 2
+                      : o || a
+                      ? 1
+                      : 0;
+                  }
+                  for (var r = 1; r < t.length - 1; ) {
+                    if (0 == t[r - 1][0] && 0 == t[r + 1][0]) {
+                      var i = t[r - 1][1],
+                        o = t[r][1],
+                        a = t[r + 1][1],
+                        s = this.diff_commonSuffix(i, o);
+                      if (s) {
+                        var f = o.substring(o.length - s);
+                        (i = i.substring(0, i.length - s)),
+                          (o = f + o.substring(0, o.length - s)),
+                          (a = f + a);
+                      }
+                      for (
+                        var l = i, h = o, u = a, c = n(i, o) + n(o, a);
+                        o.charAt(0) === a.charAt(0);
+
+                      ) {
+                        (i += o.charAt(0)),
+                          (o = o.substring(1) + a.charAt(0)),
+                          (a = a.substring(1));
+                        var d = n(i, o) + n(o, a);
+                        d >= c && ((c = d), (l = i), (h = o), (u = a));
+                      }
+                      t[r - 1][1] != l &&
+                        (l ? (t[r - 1][1] = l) : (t.splice(r - 1, 1), r--),
+                        (t[r][1] = h),
+                        u ? (t[r + 1][1] = u) : (t.splice(r + 1, 1), r--));
+                    }
+                    r++;
+                  }
+                }),
+                (e.nonAlphaNumericRegex_ = /[^a-zA-Z0-9]/),
+                (e.whitespaceRegex_ = /\s/),
+                (e.linebreakRegex_ = /[\r\n]/),
+                (e.blanklineEndRegex_ = /\n\r?\n$/),
+                (e.blanklineStartRegex_ = /^\r?\n\r?\n/),
+                (e.prototype.diff_cleanupEfficiency = function (t) {
+                  for (
+                    var e = !1,
+                      r = [],
+                      i = 0,
+                      o = null,
+                      a = 0,
+                      s = !1,
+                      f = !1,
+                      l = !1,
+                      h = !1;
+                    a < t.length;
+
+                  )
+                    0 == t[a][0]
+                      ? (t[a][1].length < this.Diff_EditCost && (l || h)
+                          ? ((r[i++] = a), (s = l), (f = h), (o = t[a][1]))
+                          : ((i = 0), (o = null)),
+                        (l = h = !1))
+                      : (t[a][0] == n ? (h = !0) : (l = !0),
+                        o &&
+                          ((s && f && l && h) ||
+                            (o.length < this.Diff_EditCost / 2 &&
+                              s + f + l + h == 3)) &&
+                          (t.splice(r[i - 1], 0, [n, o]),
+                          (t[r[i - 1] + 1][0] = 1),
+                          i--,
+                          (o = null),
+                          s && f
+                            ? ((l = h = !0), (i = 0))
+                            : ((a = --i > 0 ? r[i - 1] : -1), (l = h = !1)),
+                          (e = !0))),
+                      a++;
+                  e && this.diff_cleanupMerge(t);
+                }),
+                (e.prototype.diff_cleanupMerge = function (t) {
+                  t.push([0, '']);
+                  for (
+                    var e, r = 0, i = 0, o = 0, a = '', s = '';
+                    r < t.length;
+
+                  )
+                    switch (t[r][0]) {
+                      case 1:
+                        o++, (s += t[r][1]), r++;
+                        break;
+                      case n:
+                        i++, (a += t[r][1]), r++;
+                        break;
+                      case 0:
+                        i + o > 1
+                          ? (0 !== i &&
+                              0 !== o &&
+                              (0 !== (e = this.diff_commonPrefix(s, a)) &&
+                                (r - i - o > 0 && 0 == t[r - i - o - 1][0]
+                                  ? (t[r - i - o - 1][1] += s.substring(0, e))
+                                  : (t.splice(0, 0, [0, s.substring(0, e)]),
+                                    r++),
+                                (s = s.substring(e)),
+                                (a = a.substring(e))),
+                              0 !== (e = this.diff_commonSuffix(s, a)) &&
+                                ((t[r][1] =
+                                  s.substring(s.length - e) + t[r][1]),
+                                (s = s.substring(0, s.length - e)),
+                                (a = a.substring(0, a.length - e)))),
+                            0 === i
+                              ? t.splice(r - o, i + o, [1, s])
+                              : 0 === o
+                              ? t.splice(r - i, i + o, [n, a])
+                              : t.splice(r - i - o, i + o, [n, a], [1, s]),
+                            (r = r - i - o + (i ? 1 : 0) + (o ? 1 : 0) + 1))
+                          : 0 !== r && 0 == t[r - 1][0]
+                          ? ((t[r - 1][1] += t[r][1]), t.splice(r, 1))
+                          : r++,
+                          (o = 0),
+                          (i = 0),
+                          (a = ''),
+                          (s = '');
+                    }
+                  '' === t[t.length - 1][1] && t.pop();
+                  var f = !1;
+                  for (r = 1; r < t.length - 1; )
+                    0 == t[r - 1][0] &&
+                      0 == t[r + 1][0] &&
+                      (t[r][1].substring(t[r][1].length - t[r - 1][1].length) ==
+                      t[r - 1][1]
+                        ? ((t[r][1] =
+                            t[r - 1][1] +
+                            t[r][1].substring(
+                              0,
+                              t[r][1].length - t[r - 1][1].length,
+                            )),
+                          (t[r + 1][1] = t[r - 1][1] + t[r + 1][1]),
+                          t.splice(r - 1, 1),
+                          (f = !0))
+                        : t[r][1].substring(0, t[r + 1][1].length) ==
+                            t[r + 1][1] &&
+                          ((t[r - 1][1] += t[r + 1][1]),
+                          (t[r][1] =
+                            t[r][1].substring(t[r + 1][1].length) +
+                            t[r + 1][1]),
+                          t.splice(r + 1, 1),
+                          (f = !0))),
+                      r++;
+                  f && this.diff_cleanupMerge(t);
+                }),
+                (e.prototype.diff_xIndex = function (t, e) {
+                  var r,
+                    i = 0,
+                    o = 0,
+                    a = 0,
+                    s = 0;
+                  for (
+                    r = 0;
+                    r < t.length &&
+                    (1 !== t[r][0] && (i += t[r][1].length),
+                    t[r][0] !== n && (o += t[r][1].length),
+                    !(i > e));
+                    r++
+                  )
+                    (a = i), (s = o);
+                  return t.length != r && t[r][0] === n ? s : s + (e - a);
+                }),
+                (e.prototype.diff_prettyHtml = function (t) {
+                  for (
+                    var e = [], r = /&/g, i = /</g, o = />/g, a = /\n/g, s = 0;
+                    s < t.length;
+                    s++
+                  ) {
+                    var f = t[s][0],
+                      l = t[s][1]
+                        .replace(r, '&amp;')
+                        .replace(i, '&lt;')
+                        .replace(o, '&gt;')
+                        .replace(a, '&para;<br>');
+                    switch (f) {
+                      case 1:
+                        e[s] =
+                          '<ins style="background:#e6ffe6;">' + l + '</ins>';
+                        break;
+                      case n:
+                        e[s] =
+                          '<del style="background:#ffe6e6;">' + l + '</del>';
+                        break;
+                      case 0:
+                        e[s] = '<span>' + l + '</span>';
+                    }
+                  }
+                  return e.join('');
+                }),
+                (e.prototype.diff_text1 = function (t) {
+                  for (var e = [], n = 0; n < t.length; n++)
+                    1 !== t[n][0] && (e[n] = t[n][1]);
+                  return e.join('');
+                }),
+                (e.prototype.diff_text2 = function (t) {
+                  for (var e = [], r = 0; r < t.length; r++)
+                    t[r][0] !== n && (e[r] = t[r][1]);
+                  return e.join('');
+                }),
+                (e.prototype.diff_levenshtein = function (t) {
+                  for (var e = 0, r = 0, i = 0, o = 0; o < t.length; o++) {
+                    var a = t[o][0],
+                      s = t[o][1];
+                    switch (a) {
+                      case 1:
+                        r += s.length;
+                        break;
+                      case n:
+                        i += s.length;
+                        break;
+                      case 0:
+                        (e += Math.max(r, i)), (r = 0), (i = 0);
+                    }
+                  }
+                  return e + Math.max(r, i);
+                }),
+                (e.prototype.diff_toDelta = function (t) {
+                  for (var e = [], r = 0; r < t.length; r++)
+                    switch (t[r][0]) {
+                      case 1:
+                        e[r] = '+' + encodeURI(t[r][1]);
+                        break;
+                      case n:
+                        e[r] = '-' + t[r][1].length;
+                        break;
+                      case 0:
+                        e[r] = '=' + t[r][1].length;
+                    }
+                  return e.join('\t').replace(/%20/g, ' ');
+                }),
+                (e.prototype.diff_fromDelta = function (t, e) {
+                  for (
+                    var r = [], i = 0, o = 0, a = e.split(/\t/g), s = 0;
+                    s < a.length;
+                    s++
+                  ) {
+                    var f = a[s].substring(1);
+                    switch (a[s].charAt(0)) {
+                      case '+':
+                        try {
+                          r[i++] = [1, decodeURI(f)];
+                        } catch (t) {
+                          throw new Error(
+                            'Illegal escape in diff_fromDelta: ' + f,
+                          );
+                        }
+                        break;
+                      case '-':
+                      case '=':
+                        var l = parseInt(f, 10);
+                        if (isNaN(l) || l < 0)
+                          throw new Error(
+                            'Invalid number in diff_fromDelta: ' + f,
+                          );
+                        var h = t.substring(o, (o += l));
+                        '=' == a[s].charAt(0)
+                          ? (r[i++] = [0, h])
+                          : (r[i++] = [n, h]);
+                        break;
+                      default:
+                        if (a[s])
+                          throw new Error(
+                            'Invalid diff operation in diff_fromDelta: ' + a[s],
+                          );
+                    }
+                  }
+                  if (o != t.length)
+                    throw new Error(
+                      'Delta length (' +
+                        o +
+                        ') does not equal source text length (' +
+                        t.length +
+                        ').',
+                    );
+                  return r;
+                }),
+                (e.prototype.match_main = function (t, e, n) {
+                  if (null == t || null == e || null == n)
+                    throw new Error('Null input. (match_main)');
+                  return (
+                    (n = Math.max(0, Math.min(n, t.length))),
+                    t == e
+                      ? 0
+                      : t.length
+                      ? t.substring(n, n + e.length) == e
+                        ? n
+                        : this.match_bitap_(t, e, n)
+                      : -1
+                  );
+                }),
+                (e.prototype.match_bitap_ = function (t, e, n) {
+                  if (e.length > this.Match_MaxBits)
+                    throw new Error('Pattern too long for this browser.');
+                  var r = this.match_alphabet_(e),
+                    i = this;
+                  function o(t, r) {
+                    var o = t / e.length,
+                      a = Math.abs(n - r);
+                    return i.Match_Distance
+                      ? o + a / i.Match_Distance
+                      : a
+                      ? 1
+                      : o;
+                  }
+                  var a = this.Match_Threshold,
+                    s = t.indexOf(e, n);
+                  -1 != s &&
+                    ((a = Math.min(o(0, s), a)),
+                    -1 != (s = t.lastIndexOf(e, n + e.length)) &&
+                      (a = Math.min(o(0, s), a)));
+                  var f,
+                    l,
+                    h = 1 << (e.length - 1);
+                  s = -1;
+                  for (
+                    var u, c = e.length + t.length, d = 0;
+                    d < e.length;
+                    d++
+                  ) {
+                    for (f = 0, l = c; f < l; )
+                      o(d, n + l) <= a ? (f = l) : (c = l),
+                        (l = Math.floor((c - f) / 2 + f));
+                    c = l;
+                    var p = Math.max(1, n - l + 1),
+                      v = Math.min(n + l, t.length) + e.length,
+                      g = Array(v + 2);
+                    g[v + 1] = (1 << d) - 1;
+                    for (var y = v; y >= p; y--) {
+                      var m = r[t.charAt(y - 1)];
+                      if (
+                        ((g[y] =
+                          0 === d
+                            ? ((g[y + 1] << 1) | 1) & m
+                            : (((g[y + 1] << 1) | 1) & m) |
+                              ((u[y + 1] | u[y]) << 1) |
+                              1 |
+                              u[y + 1]),
+                        g[y] & h)
+                      ) {
+                        var _ = o(d, y - 1);
+                        if (_ <= a) {
+                          if (((a = _), !((s = y - 1) > n))) break;
+                          p = Math.max(1, 2 * n - s);
+                        }
+                      }
+                    }
+                    if (o(d + 1, n) > a) break;
+                    u = g;
+                  }
+                  return s;
+                }),
+                (e.prototype.match_alphabet_ = function (t) {
+                  for (var e = {}, n = 0; n < t.length; n++) e[t.charAt(n)] = 0;
+                  for (n = 0; n < t.length; n++)
+                    e[t.charAt(n)] |= 1 << (t.length - n - 1);
+                  return e;
+                }),
+                (e.prototype.patch_addContext_ = function (t, e) {
+                  if (0 != e.length) {
+                    for (
+                      var n = e.substring(t.start2, t.start2 + t.length1),
+                        r = 0;
+                      e.indexOf(n) != e.lastIndexOf(n) &&
+                      n.length <
+                        this.Match_MaxBits -
+                          this.Patch_Margin -
+                          this.Patch_Margin;
+
+                    )
+                      (r += this.Patch_Margin),
+                        (n = e.substring(
+                          t.start2 - r,
+                          t.start2 + t.length1 + r,
+                        ));
+                    r += this.Patch_Margin;
+                    var i = e.substring(t.start2 - r, t.start2);
+                    i && t.diffs.unshift([0, i]);
+                    var o = e.substring(
+                      t.start2 + t.length1,
+                      t.start2 + t.length1 + r,
+                    );
+                    o && t.diffs.push([0, o]),
+                      (t.start1 -= i.length),
+                      (t.start2 -= i.length),
+                      (t.length1 += i.length + o.length),
+                      (t.length2 += i.length + o.length);
+                  }
+                }),
+                (e.prototype.patch_make = function (t, r, i) {
+                  var o, a;
+                  if (
+                    'string' == typeof t &&
+                    'string' == typeof r &&
+                    void 0 === i
+                  )
+                    (o = t),
+                      (a = this.diff_main(o, r, !0)).length > 2 &&
+                        (this.diff_cleanupSemantic(a),
+                        this.diff_cleanupEfficiency(a));
+                  else if (
+                    t &&
+                    'object' == typeof t &&
+                    void 0 === r &&
+                    void 0 === i
+                  )
+                    (a = t), (o = this.diff_text1(a));
+                  else if (
+                    'string' == typeof t &&
+                    r &&
+                    'object' == typeof r &&
+                    void 0 === i
+                  )
+                    (o = t), (a = r);
+                  else {
+                    if (
+                      'string' != typeof t ||
+                      'string' != typeof r ||
+                      !i ||
+                      'object' != typeof i
+                    )
+                      throw new Error('Unknown call format to patch_make.');
+                    (o = t), (a = i);
+                  }
+                  if (0 === a.length) return [];
+                  for (
+                    var s = [],
+                      f = new e.patch_obj(),
+                      l = 0,
+                      h = 0,
+                      u = 0,
+                      c = o,
+                      d = o,
+                      p = 0;
+                    p < a.length;
+                    p++
+                  ) {
+                    var v = a[p][0],
+                      g = a[p][1];
+                    switch (
+                      (l || 0 === v || ((f.start1 = h), (f.start2 = u)), v)
+                    ) {
+                      case 1:
+                        (f.diffs[l++] = a[p]),
+                          (f.length2 += g.length),
+                          (d = d.substring(0, u) + g + d.substring(u));
+                        break;
+                      case n:
+                        (f.length1 += g.length),
+                          (f.diffs[l++] = a[p]),
+                          (d = d.substring(0, u) + d.substring(u + g.length));
+                        break;
+                      case 0:
+                        g.length <= 2 * this.Patch_Margin &&
+                        l &&
+                        a.length != p + 1
+                          ? ((f.diffs[l++] = a[p]),
+                            (f.length1 += g.length),
+                            (f.length2 += g.length))
+                          : g.length >= 2 * this.Patch_Margin &&
+                            l &&
+                            (this.patch_addContext_(f, c),
+                            s.push(f),
+                            (f = new e.patch_obj()),
+                            (l = 0),
+                            (c = d),
+                            (h = u));
+                    }
+                    1 !== v && (h += g.length), v !== n && (u += g.length);
+                  }
+                  return l && (this.patch_addContext_(f, c), s.push(f)), s;
+                }),
+                (e.prototype.patch_deepCopy = function (t) {
+                  for (var n = [], r = 0; r < t.length; r++) {
+                    var i = t[r],
+                      o = new e.patch_obj();
+                    o.diffs = [];
+                    for (var a = 0; a < i.diffs.length; a++)
+                      o.diffs[a] = i.diffs[a].slice();
+                    (o.start1 = i.start1),
+                      (o.start2 = i.start2),
+                      (o.length1 = i.length1),
+                      (o.length2 = i.length2),
+                      (n[r] = o);
+                  }
+                  return n;
+                }),
+                (e.prototype.patch_apply = function (t, e) {
+                  if (0 == t.length) return [e, []];
+                  t = this.patch_deepCopy(t);
+                  var r = this.patch_addPadding(t);
+                  (e = r + e + r), this.patch_splitMax(t);
+                  for (var i = 0, o = [], a = 0; a < t.length; a++) {
+                    var s,
+                      f,
+                      l = t[a].start2 + i,
+                      h = this.diff_text1(t[a].diffs),
+                      u = -1;
+                    if (
+                      (h.length > this.Match_MaxBits
+                        ? -1 !=
+                            (s = this.match_main(
+                              e,
+                              h.substring(0, this.Match_MaxBits),
+                              l,
+                            )) &&
+                          (-1 ==
+                            (u = this.match_main(
+                              e,
+                              h.substring(h.length - this.Match_MaxBits),
+                              l + h.length - this.Match_MaxBits,
+                            )) ||
+                            s >= u) &&
+                          (s = -1)
+                        : (s = this.match_main(e, h, l)),
+                      -1 == s)
+                    )
+                      (o[a] = !1), (i -= t[a].length2 - t[a].length1);
+                    else if (
+                      ((o[a] = !0),
+                      (i = s - l),
+                      h ==
+                        (f =
+                          -1 == u
+                            ? e.substring(s, s + h.length)
+                            : e.substring(s, u + this.Match_MaxBits)))
+                    )
+                      e =
+                        e.substring(0, s) +
+                        this.diff_text2(t[a].diffs) +
+                        e.substring(s + h.length);
+                    else {
+                      var c = this.diff_main(h, f, !1);
+                      if (
+                        h.length > this.Match_MaxBits &&
+                        this.diff_levenshtein(c) / h.length >
+                          this.Patch_DeleteThreshold
+                      )
+                        o[a] = !1;
+                      else {
+                        this.diff_cleanupSemanticLossless(c);
+                        for (var d, p = 0, v = 0; v < t[a].diffs.length; v++) {
+                          var g = t[a].diffs[v];
+                          0 !== g[0] && (d = this.diff_xIndex(c, p)),
+                            1 === g[0]
+                              ? (e =
+                                  e.substring(0, s + d) +
+                                  g[1] +
+                                  e.substring(s + d))
+                              : g[0] === n &&
+                                (e =
+                                  e.substring(0, s + d) +
+                                  e.substring(
+                                    s + this.diff_xIndex(c, p + g[1].length),
+                                  )),
+                            g[0] !== n && (p += g[1].length);
+                        }
+                      }
+                    }
+                  }
+                  return [(e = e.substring(r.length, e.length - r.length)), o];
+                }),
+                (e.prototype.patch_addPadding = function (t) {
+                  for (var e = this.Patch_Margin, n = '', r = 1; r <= e; r++)
+                    n += String.fromCharCode(r);
+                  for (r = 0; r < t.length; r++)
+                    (t[r].start1 += e), (t[r].start2 += e);
+                  var i = t[0],
+                    o = i.diffs;
+                  if (0 == o.length || 0 != o[0][0])
+                    o.unshift([0, n]),
+                      (i.start1 -= e),
+                      (i.start2 -= e),
+                      (i.length1 += e),
+                      (i.length2 += e);
+                  else if (e > o[0][1].length) {
+                    var a = e - o[0][1].length;
+                    (o[0][1] = n.substring(o[0][1].length) + o[0][1]),
+                      (i.start1 -= a),
+                      (i.start2 -= a),
+                      (i.length1 += a),
+                      (i.length2 += a);
+                  }
+                  return (
+                    0 == (o = (i = t[t.length - 1]).diffs).length ||
+                    0 != o[o.length - 1][0]
+                      ? (o.push([0, n]), (i.length1 += e), (i.length2 += e))
+                      : e > o[o.length - 1][1].length &&
+                        ((a = e - o[o.length - 1][1].length),
+                        (o[o.length - 1][1] += n.substring(0, a)),
+                        (i.length1 += a),
+                        (i.length2 += a)),
+                    n
+                  );
+                }),
+                (e.prototype.patch_splitMax = function (t) {
+                  for (var r = this.Match_MaxBits, i = 0; i < t.length; i++)
+                    if (!(t[i].length1 <= r)) {
+                      var o = t[i];
+                      t.splice(i--, 1);
+                      for (
+                        var a = o.start1, s = o.start2, f = '';
+                        0 !== o.diffs.length;
+
+                      ) {
+                        var l = new e.patch_obj(),
+                          h = !0;
+                        for (
+                          l.start1 = a - f.length,
+                            l.start2 = s - f.length,
+                            '' !== f &&
+                              ((l.length1 = l.length2 = f.length),
+                              l.diffs.push([0, f]));
+                          0 !== o.diffs.length &&
+                          l.length1 < r - this.Patch_Margin;
+
+                        ) {
+                          var u = o.diffs[0][0],
+                            c = o.diffs[0][1];
+                          1 === u
+                            ? ((l.length2 += c.length),
+                              (s += c.length),
+                              l.diffs.push(o.diffs.shift()),
+                              (h = !1))
+                            : u === n &&
+                              1 == l.diffs.length &&
+                              0 == l.diffs[0][0] &&
+                              c.length > 2 * r
+                            ? ((l.length1 += c.length),
+                              (a += c.length),
+                              (h = !1),
+                              l.diffs.push([u, c]),
+                              o.diffs.shift())
+                            : ((c = c.substring(
+                                0,
+                                r - l.length1 - this.Patch_Margin,
+                              )),
+                              (l.length1 += c.length),
+                              (a += c.length),
+                              0 === u
+                                ? ((l.length2 += c.length), (s += c.length))
+                                : (h = !1),
+                              l.diffs.push([u, c]),
+                              c == o.diffs[0][1]
+                                ? o.diffs.shift()
+                                : (o.diffs[0][1] = o.diffs[0][1].substring(
+                                    c.length,
+                                  )));
+                        }
+                        f = (f = this.diff_text2(l.diffs)).substring(
+                          f.length - this.Patch_Margin,
+                        );
+                        var d = this.diff_text1(o.diffs).substring(
+                          0,
+                          this.Patch_Margin,
+                        );
+                        '' !== d &&
+                          ((l.length1 += d.length),
+                          (l.length2 += d.length),
+                          0 !== l.diffs.length &&
+                          0 === l.diffs[l.diffs.length - 1][0]
+                            ? (l.diffs[l.diffs.length - 1][1] += d)
+                            : l.diffs.push([0, d])),
+                          h || t.splice(++i, 0, l);
+                      }
+                    }
+                }),
+                (e.prototype.patch_toText = function (t) {
+                  for (var e = [], n = 0; n < t.length; n++) e[n] = t[n];
+                  return e.join('');
+                }),
+                (e.prototype.patch_fromText = function (t) {
+                  var r = [];
+                  if (!t) return r;
+                  for (
+                    var i = t.split('\n'),
+                      o = 0,
+                      a = /^@@ -(\d+),?(\d*) \+(\d+),?(\d*) @@$/;
+                    o < i.length;
+
+                  ) {
+                    var s = i[o].match(a);
+                    if (!s) throw new Error('Invalid patch string: ' + i[o]);
+                    var f = new e.patch_obj();
+                    for (
+                      r.push(f),
+                        f.start1 = parseInt(s[1], 10),
+                        '' === s[2]
+                          ? (f.start1--, (f.length1 = 1))
+                          : '0' == s[2]
+                          ? (f.length1 = 0)
+                          : (f.start1--, (f.length1 = parseInt(s[2], 10))),
+                        f.start2 = parseInt(s[3], 10),
+                        '' === s[4]
+                          ? (f.start2--, (f.length2 = 1))
+                          : '0' == s[4]
+                          ? (f.length2 = 0)
+                          : (f.start2--, (f.length2 = parseInt(s[4], 10))),
+                        o++;
+                      o < i.length;
+
+                    ) {
+                      var l = i[o].charAt(0);
+                      try {
+                        var h = decodeURI(i[o].substring(1));
+                      } catch (t) {
+                        throw new Error(
+                          'Illegal escape in patch_fromText: ' + h,
+                        );
+                      }
+                      if ('-' == l) f.diffs.push([n, h]);
+                      else if ('+' == l) f.diffs.push([1, h]);
+                      else if (' ' == l) f.diffs.push([0, h]);
+                      else {
+                        if ('@' == l) break;
+                        if ('' !== l)
+                          throw new Error(
+                            'Invalid patch mode "' + l + '" in: ' + h,
+                          );
+                      }
+                      o++;
+                    }
+                  }
+                  return r;
+                }),
+                (e.patch_obj = function () {
+                  (this.diffs = []),
+                    (this.start1 = null),
+                    (this.start2 = null),
+                    (this.length1 = 0),
+                    (this.length2 = 0);
+                }),
+                (e.patch_obj.prototype.toString = function () {
+                  for (
+                    var t,
+                      e = [
+                        '@@ -' +
+                          (0 === this.length1
+                            ? this.start1 + ',0'
+                            : 1 == this.length1
+                            ? this.start1 + 1
+                            : this.start1 + 1 + ',' + this.length1) +
+                          ' +' +
+                          (0 === this.length2
+                            ? this.start2 + ',0'
+                            : 1 == this.length2
+                            ? this.start2 + 1
+                            : this.start2 + 1 + ',' + this.length2) +
+                          ' @@\n',
+                      ],
+                      r = 0;
+                    r < this.diffs.length;
+                    r++
+                  ) {
+                    switch (this.diffs[r][0]) {
+                      case 1:
+                        t = '+';
+                        break;
+                      case n:
+                        t = '-';
+                        break;
+                      case 0:
+                        t = ' ';
+                    }
+                    e[r + 1] = t + encodeURI(this.diffs[r][1]) + '\n';
+                  }
+                  return e.join('').replace(/%20/g, ' ');
+                }),
+                (t.exports = e),
+                (t.exports.diff_match_patch = e),
+                (t.exports.DIFF_DELETE = n),
+                (t.exports.DIFF_INSERT = 1),
+                (t.exports.DIFF_EQUAL = 0);
+            })((U = { exports: {} }), U.exports),
+            U.exports),
+          z = null,
+          $ = function (t) {
+            if (!z) {
+              var e = void 0;
+              if ('undefined' != typeof diff_match_patch)
+                e =
+                  'function' == typeof diff_match_patch
+                    ? new diff_match_patch()
+                    : new diff_match_patch.diff_match_patch();
+              else if (H)
+                try {
+                  e = H && new H();
+                } catch (t) {
+                  e = null;
+                }
+              if (!e) {
+                if (!t) return null;
+                var n = new Error('text diff_match_patch library not found');
+                throw ((n.diff_match_patch_not_found = !0), n);
+              }
+              z = {
+                diff: function (t, n) {
+                  return e.patch_toText(e.patch_make(t, n));
+                },
+                patch: function (t, n) {
+                  for (
+                    var r = e.patch_apply(e.patch_fromText(n), t), i = 0;
+                    i < r[1].length;
+                    i++
+                  )
+                    r[1][i] ||
+                      (new Error('text patch failed').textPatchFailed = !0);
+                  return r[0];
+                },
+              };
+            }
+            return z;
+          },
+          J = function (t) {
+            if ('string' === t.leftType) {
+              var e =
+                (t.options &&
+                  t.options.textDiff &&
+                  t.options.textDiff.minLength) ||
+                60;
+              if (t.left.length < e || t.right.length < e)
+                t.setResult([t.left, t.right]).exit();
+              else {
+                var n = $();
+                if (n) {
+                  var r = n.diff;
+                  t.setResult([r(t.left, t.right), 0, 2]).exit();
+                } else t.setResult([t.left, t.right]).exit();
+              }
+            }
+          };
+        J.filterName = 'texts';
+        var Q = function (t) {
+          if (!t.nested && 2 === t.delta[2]) {
+            var e = $(!0).patch;
+            t.setResult(e(t.left, t.delta[0])).exit();
+          }
+        };
+        Q.filterName = 'texts';
+        var K = function (t) {
+            var e,
+              n = void 0,
+              r = void 0,
+              i = void 0,
+              o = void 0,
+              a = null,
+              s = /^@@ +-(\d+),(\d+) +\+(\d+),(\d+) +@@$/;
+            for (n = 0, e = (r = t.split('\n')).length; n < e; n++) {
+              var f = (i = r[n]).slice(0, 1);
+              '@' === f
+                ? ((a = s.exec(i)),
+                  (r[n] =
+                    '@@ -' +
+                    a[3] +
+                    ',' +
+                    a[4] +
+                    ' +' +
+                    a[1] +
+                    ',' +
+                    a[2] +
+                    ' @@'))
+                : '+' === f
+                ? ((r[n] = '-' + r[n].slice(1)),
+                  '+' === r[n - 1].slice(0, 1) &&
+                    ((o = r[n]), (r[n] = r[n - 1]), (r[n - 1] = o)))
+                : '-' === f && (r[n] = '+' + r[n].slice(1));
+            }
+            return r.join('\n');
+          },
+          Z = function (t) {
+            t.nested ||
+              (2 === t.delta[2] && t.setResult([K(t.delta[0]), 0, 2]).exit());
+          };
+        Z.filterName = 'texts';
+        var W = (function () {
+            function t(e) {
+              r(this, t),
+                (this.processor = new h(e)),
+                this.processor.pipe(
+                  new u('diff').append(w, _, q, J, k, T).shouldHaveResult(),
+                ),
+                this.processor.pipe(
+                  new u('patch').append(O, F, b, Q, j, S).shouldHaveResult(),
+                ),
+                this.processor.pipe(
+                  new u('reverse').append(M, V, x, Z, A, L).shouldHaveResult(),
+                );
+            }
+            return (
+              i(t, [
+                {
+                  key: 'options',
+                  value: function () {
+                    var t;
+                    return (t = this.processor).options.apply(t, arguments);
+                  },
+                },
+                {
+                  key: 'diff',
+                  value: function (t, e) {
+                    return this.processor.process(new v(t, e));
+                  },
+                },
+                {
+                  key: 'patch',
+                  value: function (t, e) {
+                    return this.processor.process(new g(t, e));
+                  },
+                },
+                {
+                  key: 'reverse',
+                  value: function (t) {
+                    return this.processor.process(new y(t));
+                  },
+                },
+                {
+                  key: 'unpatch',
+                  value: function (t, e) {
+                    return this.patch(t, this.reverse(e));
+                  },
+                },
+                {
+                  key: 'clone',
+                  value: function (t) {
+                    return p(t);
+                  },
+                },
+              ]),
+              t
+            );
+          })(),
+          X =
+            'function' == typeof Array.isArray
+              ? Array.isArray
+              : function (t) {
+                  return t instanceof Array;
+                },
+          G =
+            'function' == typeof Object.keys
+              ? function (t) {
+                  return Object.keys(t);
+                }
+              : function (t) {
+                  var e = [];
+                  for (var n in t)
+                    Object.prototype.hasOwnProperty.call(t, n) && e.push(n);
+                  return e;
+                },
+          Y = function (t) {
+            return '_t' === t
+              ? -1
+              : '_' === t.substr(0, 1)
+              ? parseInt(t.slice(1), 10)
+              : parseInt(t, 10) + 0.1;
+          },
+          tt = function (t, e) {
+            return Y(t) - Y(e);
+          },
+          et = (function () {
+            function t() {
+              r(this, t);
+            }
+            return (
+              i(t, [
+                {
+                  key: 'format',
+                  value: function (t, e) {
+                    var n = {};
+                    return (
+                      this.prepareContext(n),
+                      this.recurse(n, t, e),
+                      this.finalize(n)
+                    );
+                  },
+                },
+                {
+                  key: 'prepareContext',
+                  value: function (t) {
+                    (t.buffer = []),
+                      (t.out = function () {
+                        var t;
+                        (t = this.buffer).push.apply(t, arguments);
+                      });
+                  },
+                },
+                {
+                  key: 'typeFormattterNotFound',
+                  value: function (t, e) {
+                    throw new Error('cannot format delta type: ' + e);
+                  },
+                },
+                {
+                  key: 'typeFormattterErrorFormatter',
+                  value: function (t, e) {
+                    return e.toString();
+                  },
+                },
+                {
+                  key: 'finalize',
+                  value: function (t) {
+                    var e = t.buffer;
+                    if (X(e)) return e.join('');
+                  },
+                },
+                {
+                  key: 'recurse',
+                  value: function (t, e, n, r, i, o, a) {
+                    var s = e && o ? o.value : n;
+                    if (void 0 !== e || void 0 !== r) {
+                      var f = this.getDeltaType(e, o),
+                        l =
+                          'node' === f
+                            ? 'a' === e._t
+                              ? 'array'
+                              : 'object'
+                            : '';
+                      void 0 !== r
+                        ? this.nodeBegin(t, r, i, f, l, a)
+                        : this.rootBegin(t, f, l);
+                      try {
+                        (
+                          this['format_' + f] ||
+                          this.typeFormattterNotFound(t, f)
+                        ).call(this, t, e, s, r, i, o);
+                      } catch (n) {
+                        this.typeFormattterErrorFormatter(t, n, e, s, r, i, o),
+                          'undefined' != typeof console &&
+                            console.error &&
+                            console.error(n.stack);
+                      }
+                      void 0 !== r
+                        ? this.nodeEnd(t, r, i, f, l, a)
+                        : this.rootEnd(t, f, l);
+                    }
+                  },
+                },
+                {
+                  key: 'formatDeltaChildren',
+                  value: function (t, e, n) {
+                    var r = this;
+                    this.forEachDeltaKey(e, n, function (i, o, a, s) {
+                      r.recurse(t, e[i], n ? n[o] : void 0, i, o, a, s);
+                    });
+                  },
+                },
+                {
+                  key: 'forEachDeltaKey',
+                  value: function (t, e, n) {
+                    var r,
+                      i = G(t),
+                      o = 'a' === t._t,
+                      a = {},
+                      s = void 0;
+                    if (void 0 !== e)
+                      for (s in e)
+                        Object.prototype.hasOwnProperty.call(e, s) &&
+                          (void 0 !== t[s] ||
+                            (o && void 0 !== t['_' + s]) ||
+                            i.push(s));
+                    for (s in t)
+                      if (Object.prototype.hasOwnProperty.call(t, s)) {
+                        var f = t[s];
+                        X(f) &&
+                          3 === f[2] &&
+                          ((a[f[1].toString()] = {
+                            key: s,
+                            value: e && e[parseInt(s.substr(1))],
+                          }),
+                          !1 !== this.includeMoveDestinations &&
+                            void 0 === e &&
+                            void 0 === t[f[1]] &&
+                            i.push(f[1].toString()));
+                      }
+                    o ? i.sort(tt) : i.sort();
+                    for (var l = 0, h = i.length; l < h; l++) {
+                      var u = i[l];
+                      if (!o || '_t' !== u) {
+                        var c = o
+                            ? 'number' == typeof u
+                              ? u
+                              : parseInt(
+                                  '_' === (r = u).substr(0, 1) ? r.slice(1) : r,
+                                  10,
+                                )
+                            : u,
+                          d = l === h - 1;
+                        n(u, c, a[c], d);
+                      }
+                    }
+                  },
+                },
+                {
+                  key: 'getDeltaType',
+                  value: function (t, e) {
+                    if (void 0 === t)
+                      return void 0 !== e ? 'movedestination' : 'unchanged';
+                    if (X(t)) {
+                      if (1 === t.length) return 'added';
+                      if (2 === t.length) return 'modified';
+                      if (3 === t.length && 0 === t[2]) return 'deleted';
+                      if (3 === t.length && 2 === t[2]) return 'textdiff';
+                      if (3 === t.length && 3 === t[2]) return 'moved';
+                    } else if ('object' === (void 0 === t ? 'undefined' : n(t)))
+                      return 'node';
+                    return 'unknown';
+                  },
+                },
+                {
+                  key: 'parseTextDiff',
+                  value: function (t) {
+                    for (
+                      var e = [], n = t.split('\n@@ '), r = 0, i = n.length;
+                      r < i;
+                      r++
+                    ) {
+                      var o = n[r],
+                        a = { pieces: [] },
+                        s = /^(?:@@ )?[-+]?(\d+),(\d+)/.exec(o).slice(1);
+                      a.location = { line: s[0], chr: s[1] };
+                      for (
+                        var f = o.split('\n').slice(1), l = 0, h = f.length;
+                        l < h;
+                        l++
+                      ) {
+                        var u = f[l];
+                        if (u.length) {
+                          var c = { type: 'context' };
+                          '+' === u.substr(0, 1)
+                            ? (c.type = 'added')
+                            : '-' === u.substr(0, 1) && (c.type = 'deleted'),
+                            (c.text = u.slice(1)),
+                            a.pieces.push(c);
+                        }
+                      }
+                      e.push(a);
+                    }
+                    return e;
+                  },
+                },
+              ]),
+              t
+            );
+          })(),
+          nt = Object.freeze({ default: et }),
+          rt = (function (t) {
+            function e() {
+              return (
+                r(this, e),
+                s(
+                  this,
+                  (e.__proto__ || Object.getPrototypeOf(e)).apply(
+                    this,
+                    arguments,
+                  ),
+                )
+              );
+            }
+            return (
+              a(e, t),
+              i(e, [
+                {
+                  key: 'typeFormattterErrorFormatter',
+                  value: function (t, e) {
+                    t.out('<pre class="jsondiffpatch-error">' + e + '</pre>');
+                  },
+                },
+                {
+                  key: 'formatValue',
+                  value: function (t, e) {
+                    t.out('<pre>' + it(JSON.stringify(e, null, 2)) + '</pre>');
+                  },
+                },
+                {
+                  key: 'formatTextDiffString',
+                  value: function (t, e) {
+                    var n = this.parseTextDiff(e);
+                    t.out('<ul class="jsondiffpatch-textdiff">');
+                    for (var r = 0, i = n.length; r < i; r++) {
+                      var o = n[r];
+                      t.out(
+                        '<li><div class="jsondiffpatch-textdiff-location"><span class="jsondiffpatch-textdiff-line-number">' +
+                          o.location.line +
+                          '</span><span class="jsondiffpatch-textdiff-char">' +
+                          o.location.chr +
+                          '</span></div><div class="jsondiffpatch-textdiff-line">',
+                      );
+                      for (var a = o.pieces, s = 0, f = a.length; s < f; s++) {
+                        var l = a[s];
+                        t.out(
+                          '<span class="jsondiffpatch-textdiff-' +
+                            l.type +
+                            '">' +
+                            it(decodeURI(l.text)) +
+                            '</span>',
+                        );
+                      }
+                      t.out('</div></li>');
+                    }
+                    t.out('</ul>');
+                  },
+                },
+                {
+                  key: 'rootBegin',
+                  value: function (t, e, n) {
+                    var r =
+                      'jsondiffpatch-' +
+                      e +
+                      (n ? ' jsondiffpatch-child-node-type-' + n : '');
+                    t.out('<div class="jsondiffpatch-delta ' + r + '">');
+                  },
+                },
+                {
+                  key: 'rootEnd',
+                  value: function (t) {
+                    t.out(
+                      '</div>' +
+                        (t.hasArrows
+                          ? '<script type="text/javascript">setTimeout(' +
+                            ot.toString() +
+                            ',10);</script>'
+                          : ''),
+                    );
+                  },
+                },
+                {
+                  key: 'nodeBegin',
+                  value: function (t, e, n, r, i) {
+                    var o =
+                      'jsondiffpatch-' +
+                      r +
+                      (i ? ' jsondiffpatch-child-node-type-' + i : '');
+                    t.out(
+                      '<li class="' +
+                        o +
+                        '" data-key="' +
+                        n +
+                        '"><div class="jsondiffpatch-property-name">' +
+                        n +
+                        '</div>',
+                    );
+                  },
+                },
+                {
+                  key: 'nodeEnd',
+                  value: function (t) {
+                    t.out('</li>');
+                  },
+                },
+                {
+                  key: 'format_unchanged',
+                  value: function (t, e, n) {
+                    void 0 !== n &&
+                      (t.out('<div class="jsondiffpatch-value">'),
+                      this.formatValue(t, n),
+                      t.out('</div>'));
+                  },
+                },
+                {
+                  key: 'format_movedestination',
+                  value: function (t, e, n) {
+                    void 0 !== n &&
+                      (t.out('<div class="jsondiffpatch-value">'),
+                      this.formatValue(t, n),
+                      t.out('</div>'));
+                  },
+                },
+                {
+                  key: 'format_node',
+                  value: function (t, e, n) {
+                    var r = 'a' === e._t ? 'array' : 'object';
+                    t.out(
+                      '<ul class="jsondiffpatch-node jsondiffpatch-node-type-' +
+                        r +
+                        '">',
+                    ),
+                      this.formatDeltaChildren(t, e, n),
+                      t.out('</ul>');
+                  },
+                },
+                {
+                  key: 'format_added',
+                  value: function (t, e) {
+                    t.out('<div class="jsondiffpatch-value">'),
+                      this.formatValue(t, e[0]),
+                      t.out('</div>');
+                  },
+                },
+                {
+                  key: 'format_modified',
+                  value: function (t, e) {
+                    t.out(
+                      '<div class="jsondiffpatch-value jsondiffpatch-left-value">',
+                    ),
+                      this.formatValue(t, e[0]),
+                      t.out(
+                        '</div><div class="jsondiffpatch-value jsondiffpatch-right-value">',
+                      ),
+                      this.formatValue(t, e[1]),
+                      t.out('</div>');
+                  },
+                },
+                {
+                  key: 'format_deleted',
+                  value: function (t, e) {
+                    t.out('<div class="jsondiffpatch-value">'),
+                      this.formatValue(t, e[0]),
+                      t.out('</div>');
+                  },
+                },
+                {
+                  key: 'format_moved',
+                  value: function (t, e) {
+                    t.out('<div class="jsondiffpatch-value">'),
+                      this.formatValue(t, e[0]),
+                      t.out(
+                        '</div><div class="jsondiffpatch-moved-destination">' +
+                          e[1] +
+                          '</div>',
+                      ),
+                      t.out(
+                        '<div class="jsondiffpatch-arrow" style="position: relative; left: -34px;">\n          <svg width="30" height="60" style="position: absolute; display: none;">\n          <defs>\n              <marker id="markerArrow" markerWidth="8" markerHeight="8"\n                 refx="2" refy="4"\n                     orient="auto" markerUnits="userSpaceOnUse">\n                  <path d="M1,1 L1,7 L7,4 L1,1" style="fill: #339;" />\n              </marker>\n          </defs>\n          <path d="M30,0 Q-10,25 26,50"\n            style="stroke: #88f; stroke-width: 2px; fill: none; stroke-opacity: 0.5; marker-end: url(#markerArrow);"\n          ></path>\n          </svg>\n      </div>',
+                      ),
+                      (t.hasArrows = !0);
+                  },
+                },
+                {
+                  key: 'format_textdiff',
+                  value: function (t, e) {
+                    t.out('<div class="jsondiffpatch-value">'),
+                      this.formatTextDiffString(t, e[0]),
+                      t.out('</div>');
+                  },
+                },
+              ]),
+              e
+            );
+          })(et);
+        function it(t) {
+          for (
+            var e = t,
+              n = [
+                [/&/g, '&amp;'],
+                [/</g, '&lt;'],
+                [/>/g, '&gt;'],
+                [/'/g, '&apos;'],
+                [/"/g, '&quot;'],
+              ],
+              r = 0;
+            r < n.length;
+            r++
+          )
+            e = e.replace(n[r][0], n[r][1]);
+          return e;
+        }
+        var ot = function (t) {
+            var e = t || document;
+            !(function (t, e, n) {
+              for (
+                var r = t.querySelectorAll('.jsondiffpatch-arrow'),
+                  i = 0,
+                  o = r.length;
+                i < o;
+                i++
+              )
+                n(r[i]);
+            })(e, 0, function (t) {
+              var e = t.parentNode,
+                n = t.children,
+                r = t.style,
+                i = e,
+                o = n[0],
+                a = o.children[1];
+              o.style.display = 'none';
+              var s,
+                f,
+                l,
+                h =
+                  ((s = i.querySelector('.jsondiffpatch-moved-destination')),
+                  (f = s.textContent),
+                  (l = s.innerText),
+                  f || l),
+                u = i.parentNode,
+                c = void 0;
+              if (
+                ((function (t, e) {
+                  for (var n = t.children, r = 0, i = n.length; r < i; r++)
+                    e(n[r], r);
+                })(u, function (t) {
+                  t.getAttribute('data-key') === h && (c = t);
+                }),
+                c)
+              )
+                try {
+                  var d = c.offsetTop - i.offsetTop;
+                  o.setAttribute('height', Math.abs(d) + 6),
+                    (r.top = -8 + (d > 0 ? 0 : d) + 'px');
+                  var p =
+                    d > 0
+                      ? 'M30,0 Q-10,' + Math.round(d / 2) + ' 26,' + (d - 4)
+                      : 'M30,' + -d + ' Q-10,' + Math.round(-d / 2) + ' 26,4';
+                  a.setAttribute('d', p), (o.style.display = '');
+                } catch (t) {}
+            });
+          },
+          at = function (t, e, n) {
+            var r = e || document.body,
+              i = 'jsondiffpatch-unchanged-',
+              o = {
+                showing: i + 'showing',
+                hiding: i + 'hiding',
+                visible: i + 'visible',
+                hidden: i + 'hidden',
+              },
+              a = r.classList;
+            if (a) {
+              if (!n)
+                return (
+                  a.remove(o.showing),
+                  a.remove(o.hiding),
+                  a.remove(o.visible),
+                  a.remove(o.hidden),
+                  void (!1 === t && a.add(o.hidden))
+                );
+              !1 === t
+                ? (a.remove(o.showing),
+                  a.add(o.visible),
+                  setTimeout(function () {
+                    a.add(o.hiding);
+                  }, 10))
+                : (a.remove(o.hiding), a.add(o.showing), a.remove(o.hidden));
+              var s = setInterval(function () {
+                ot(r);
+              }, 100);
+              setTimeout(function () {
+                a.remove(o.showing),
+                  a.remove(o.hiding),
+                  !1 === t
+                    ? (a.add(o.hidden), a.remove(o.visible))
+                    : (a.add(o.visible), a.remove(o.hidden)),
+                  setTimeout(function () {
+                    a.remove(o.visible), clearInterval(s);
+                  }, n + 400);
+              }, n);
+            }
+          },
+          st = void 0;
+        var ft = Object.freeze({
+            showUnchanged: at,
+            hideUnchanged: function (t, e) {
+              return at(!1, t, e);
+            },
+            default: rt,
+            format: function (t, e) {
+              return st || (st = new rt()), st.format(t, e);
+            },
+          }),
+          lt = (function (t) {
+            function e() {
+              r(this, e);
+              var t = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (t.includeMoveDestinations = !1), t;
+            }
+            return (
+              a(e, t),
+              i(e, [
+                {
+                  key: 'prepareContext',
+                  value: function (t) {
+                    o(
+                      e.prototype.__proto__ ||
+                        Object.getPrototypeOf(e.prototype),
+                      'prepareContext',
+                      this,
+                    ).call(this, t),
+                      (t.indent = function (t) {
+                        (this.indentLevel =
+                          (this.indentLevel || 0) + (void 0 === t ? 1 : t)),
+                          (this.indentPad = new Array(
+                            this.indentLevel + 1,
+                          ).join('&nbsp;&nbsp;'));
+                      }),
+                      (t.row = function (e, n) {
+                        t.out(
+                          '<tr><td style="white-space: nowrap;"><pre class="jsondiffpatch-annotated-indent" style="display: inline-block">',
+                        ),
+                          t.out(t.indentPad),
+                          t.out('</pre><pre style="display: inline-block">'),
+                          t.out(e),
+                          t.out(
+                            '</pre></td><td class="jsondiffpatch-delta-note"><div>',
+                          ),
+                          t.out(n),
+                          t.out('</div></td></tr>');
+                      });
+                  },
+                },
+                {
+                  key: 'typeFormattterErrorFormatter',
+                  value: function (t, e) {
+                    t.row(
+                      '',
+                      '<pre class="jsondiffpatch-error">' + e + '</pre>',
+                    );
+                  },
+                },
+                {
+                  key: 'formatTextDiffString',
+                  value: function (t, e) {
+                    var n = this.parseTextDiff(e);
+                    t.out('<ul class="jsondiffpatch-textdiff">');
+                    for (var r = 0, i = n.length; r < i; r++) {
+                      var o = n[r];
+                      t.out(
+                        '<li><div class="jsondiffpatch-textdiff-location"><span class="jsondiffpatch-textdiff-line-number">' +
+                          o.location.line +
+                          '</span><span class="jsondiffpatch-textdiff-char">' +
+                          o.location.chr +
+                          '</span></div><div class="jsondiffpatch-textdiff-line">',
+                      );
+                      for (var a = o.pieces, s = 0, f = a.length; s < f; s++) {
+                        var l = a[s];
+                        t.out(
+                          '<span class="jsondiffpatch-textdiff-' +
+                            l.type +
+                            '">' +
+                            l.text +
+                            '</span>',
+                        );
+                      }
+                      t.out('</div></li>');
+                    }
+                    t.out('</ul>');
+                  },
+                },
+                {
+                  key: 'rootBegin',
+                  value: function (t, e, n) {
+                    t.out('<table class="jsondiffpatch-annotated-delta">'),
+                      'node' === e && (t.row('{'), t.indent()),
+                      'array' === n &&
+                        t.row(
+                          '"_t": "a",',
+                          'Array delta (member names indicate array indices)',
+                        );
+                  },
+                },
+                {
+                  key: 'rootEnd',
+                  value: function (t, e) {
+                    'node' === e && (t.indent(-1), t.row('}')),
+                      t.out('</table>');
+                  },
+                },
+                {
+                  key: 'nodeBegin',
+                  value: function (t, e, n, r, i) {
+                    t.row('&quot;' + e + '&quot;: {'),
+                      'node' === r && t.indent(),
+                      'array' === i &&
+                        t.row(
+                          '"_t": "a",',
+                          'Array delta (member names indicate array indices)',
+                        );
+                  },
+                },
+                {
+                  key: 'nodeEnd',
+                  value: function (t, e, n, r, i, o) {
+                    'node' === r && t.indent(-1), t.row('}' + (o ? '' : ','));
+                  },
+                },
+                { key: 'format_unchanged', value: function () {} },
+                { key: 'format_movedestination', value: function () {} },
+                {
+                  key: 'format_node',
+                  value: function (t, e, n) {
+                    this.formatDeltaChildren(t, e, n);
+                  },
+                },
+              ]),
+              e
+            );
+          })(et),
+          ht = function (t) {
+            return (
+              '<pre style="display:inline-block">&quot;' + t + '&quot;</pre>'
+            );
+          },
+          ut = {
+            added: function (t, e, n, r) {
+              var i = ' <pre>([newValue])</pre>';
+              return void 0 === r
+                ? 'new value' + i
+                : 'number' == typeof r
+                ? 'insert at index ' + r + i
+                : 'add property ' + ht(r) + i;
+            },
+            modified: function (t, e, n, r) {
+              var i = ' <pre>([previousValue, newValue])</pre>';
+              return void 0 === r
+                ? 'modify value' + i
+                : 'number' == typeof r
+                ? 'modify at index ' + r + i
+                : 'modify property ' + ht(r) + i;
+            },
+            deleted: function (t, e, n, r) {
+              var i = ' <pre>([previousValue, 0, 0])</pre>';
+              return void 0 === r
+                ? 'delete value' + i
+                : 'number' == typeof r
+                ? 'remove index ' + r + i
+                : 'delete property ' + ht(r) + i;
+            },
+            moved: function (t, e, n, r) {
+              return (
+                'move from <span title="(position to remove at original state)">index ' +
+                r +
+                '</span> to <span title="(position to insert at final state)">index ' +
+                t[1] +
+                '</span>'
+              );
+            },
+            textdiff: function (t, e, n, r) {
+              return (
+                'text diff' +
+                (void 0 === r
+                  ? ''
+                  : 'number' == typeof r
+                  ? ' at index ' + r
+                  : ' at property ' + ht(r)) +
+                ', format is <a href="https://code.google.com/p/google-diff-match-patch/wiki/Unidiff">a variation of Unidiff</a>'
+              );
+            },
+          },
+          ct = function (t, e) {
+            var n = this.getDeltaType(e),
+              r = ut[n],
+              i = r && r.apply(r, Array.prototype.slice.call(arguments, 1)),
+              o = JSON.stringify(e, null, 2);
+            'textdiff' === n && (o = o.split('\\n').join('\\n"+\n   "')),
+              t.indent(),
+              t.row(o, i),
+              t.indent(-1);
+          };
+        (lt.prototype.format_added = ct),
+          (lt.prototype.format_modified = ct),
+          (lt.prototype.format_deleted = ct),
+          (lt.prototype.format_moved = ct),
+          (lt.prototype.format_textdiff = ct);
+        var dt = void 0;
+        var pt = Object.freeze({
+            default: lt,
+            format: function (t, e) {
+              return dt || (dt = new lt()), dt.format(t, e);
+            },
+          }),
+          vt = 'add',
+          gt = 'remove',
+          yt = 'replace',
+          mt = 'move',
+          _t = (function (t) {
+            function e() {
+              r(this, e);
+              var t = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (t.includeMoveDestinations = !0), t;
+            }
+            return (
+              a(e, t),
+              i(e, [
+                {
+                  key: 'prepareContext',
+                  value: function (t) {
+                    o(
+                      e.prototype.__proto__ ||
+                        Object.getPrototypeOf(e.prototype),
+                      'prepareContext',
+                      this,
+                    ).call(this, t),
+                      (t.result = []),
+                      (t.path = []),
+                      (t.pushCurrentOp = function (t) {
+                        var e = t.op,
+                          n = t.value,
+                          r = { op: e, path: this.currentPath() };
+                        void 0 !== n && (r.value = n), this.result.push(r);
+                      }),
+                      (t.pushMoveOp = function (t) {
+                        var e = this.currentPath();
+                        this.result.push({
+                          op: mt,
+                          from: e,
+                          path: this.toPath(t),
+                        });
+                      }),
+                      (t.currentPath = function () {
+                        return '/' + this.path.join('/');
+                      }),
+                      (t.toPath = function (t) {
+                        var e = this.path.slice();
+                        return (e[e.length - 1] = t), '/' + e.join('/');
+                      });
+                  },
+                },
+                {
+                  key: 'typeFormattterErrorFormatter',
+                  value: function (t, e) {
+                    t.out('[ERROR] ' + e);
+                  },
+                },
+                { key: 'rootBegin', value: function () {} },
+                { key: 'rootEnd', value: function () {} },
+                {
+                  key: 'nodeBegin',
+                  value: function (t, e, n) {
+                    t.path.push(n);
+                  },
+                },
+                {
+                  key: 'nodeEnd',
+                  value: function (t) {
+                    t.path.pop();
+                  },
+                },
+                { key: 'format_unchanged', value: function () {} },
+                { key: 'format_movedestination', value: function () {} },
+                {
+                  key: 'format_node',
+                  value: function (t, e, n) {
+                    this.formatDeltaChildren(t, e, n);
+                  },
+                },
+                {
+                  key: 'format_added',
+                  value: function (t, e) {
+                    t.pushCurrentOp({ op: vt, value: e[0] });
+                  },
+                },
+                {
+                  key: 'format_modified',
+                  value: function (t, e) {
+                    t.pushCurrentOp({ op: yt, value: e[1] });
+                  },
+                },
+                {
+                  key: 'format_deleted',
+                  value: function (t) {
+                    t.pushCurrentOp({ op: gt });
+                  },
+                },
+                {
+                  key: 'format_moved',
+                  value: function (t, e) {
+                    var n = e[1];
+                    t.pushMoveOp(n);
+                  },
+                },
+                {
+                  key: 'format_textdiff',
+                  value: function () {
+                    throw new Error('Not implemented');
+                  },
+                },
+                {
+                  key: 'format',
+                  value: function (t, e) {
+                    var n = {};
+                    return (
+                      this.prepareContext(n), this.recurse(n, t, e), n.result
+                    );
+                  },
+                },
+              ]),
+              e
+            );
+          })(et),
+          bt = function (t) {
+            return t[t.length - 1];
+          },
+          xt = function (t) {
+            return (
+              (n = function (t, e) {
+                var n,
+                  r,
+                  i,
+                  o,
+                  a = t.path.split('/'),
+                  s = e.path.split('/');
+                return a.length !== s.length
+                  ? a.length - s.length
+                  : ((n = bt(a)),
+                    (r = bt(s)),
+                    (i = parseInt(n, 10)),
+                    (o = parseInt(r, 10)),
+                    isNaN(i) || isNaN(o) ? 0 : o - i);
+              }),
+              (e = t).sort(n),
+              e
+            );
+            var e, n;
+          },
+          wt = function (t, e) {
+            var n = Array(e.length + 1)
+              .fill()
+              .map(function () {
+                return [];
+              });
+            return t
+              .map(function (t) {
+                var n = e
+                  .map(function (e) {
+                    return e(t);
+                  })
+                  .indexOf(!0);
+                return n < 0 && (n = e.length), { item: t, position: n };
+              })
+              .reduce(function (t, e) {
+                return t[e.position].push(e.item), t;
+              }, n);
+          },
+          kt = function (t) {
+            return 'move' === t.op;
+          },
+          jt = function (t) {
+            return 'remove' === t.op;
+          },
+          Ot = void 0,
+          At = function (t, e) {
+            return (
+              Ot || (Ot = new _t()),
+              (function (t) {
+                var e = wt(t, [kt, jt]),
+                  n = f(e, 3),
+                  r = n[0],
+                  i = n[1],
+                  o = n[2],
+                  a = xt(i);
+                return [].concat(l(a), l(r), l(o));
+              })(Ot.format(t, e))
+            );
+          },
+          Mt = Object.freeze({
+            default: _t,
+            partitionOps: wt,
+            format: At,
+            log: function (t, e) {
+              console.log(At(t, e));
+            },
+          });
+        function Ct(t) {
+          return (
+            (e && e[t]) ||
+            function () {
+              for (var t = arguments.length, e = Array(t), n = 0; n < t; n++)
+                e[n] = arguments[n];
+              return e;
+            }
+          );
+        }
+        var Rt = {
+            added: Ct('green'),
+            deleted: Ct('red'),
+            movedestination: Ct('gray'),
+            moved: Ct('yellow'),
+            unchanged: Ct('gray'),
+            error: Ct('white.bgRed'),
+            textDiffLine: Ct('gray'),
+          },
+          Pt = (function (t) {
+            function e() {
+              r(this, e);
+              var t = s(
+                this,
+                (e.__proto__ || Object.getPrototypeOf(e)).call(this),
+              );
+              return (t.includeMoveDestinations = !1), t;
+            }
+            return (
+              a(e, t),
+              i(e, [
+                {
+                  key: 'prepareContext',
+                  value: function (t) {
+                    o(
+                      e.prototype.__proto__ ||
+                        Object.getPrototypeOf(e.prototype),
+                      'prepareContext',
+                      this,
+                    ).call(this, t),
+                      (t.indent = function (t) {
+                        (this.indentLevel =
+                          (this.indentLevel || 0) + (void 0 === t ? 1 : t)),
+                          (this.indentPad = new Array(
+                            this.indentLevel + 1,
+                          ).join('  ')),
+                          this.outLine();
+                      }),
+                      (t.outLine = function () {
+                        this.buffer.push('\n' + (this.indentPad || ''));
+                      }),
+                      (t.out = function () {
+                        for (
+                          var t = arguments.length, e = Array(t), n = 0;
+                          n < t;
+                          n++
+                        )
+                          e[n] = arguments[n];
+                        for (var r = 0, i = e.length; r < i; r++) {
+                          var o = e[r]
+                            .split('\n')
+                            .join('\n' + (this.indentPad || ''));
+                          this.color && this.color[0] && (o = this.color[0](o)),
+                            this.buffer.push(o);
+                        }
+                      }),
+                      (t.pushColor = function (t) {
+                        (this.color = this.color || []), this.color.unshift(t);
+                      }),
+                      (t.popColor = function () {
+                        (this.color = this.color || []), this.color.shift();
+                      });
+                  },
+                },
+                {
+                  key: 'typeFormattterErrorFormatter',
+                  value: function (t, e) {
+                    t.pushColor(Rt.error), t.out('[ERROR]' + e), t.popColor();
+                  },
+                },
+                {
+                  key: 'formatValue',
+                  value: function (t, e) {
+                    t.out(JSON.stringify(e, null, 2));
+                  },
+                },
+                {
+                  key: 'formatTextDiffString',
+                  value: function (t, e) {
+                    var n = this.parseTextDiff(e);
+                    t.indent();
+                    for (var r = 0, i = n.length; r < i; r++) {
+                      var o = n[r];
+                      t.pushColor(Rt.textDiffLine),
+                        t.out(o.location.line + ',' + o.location.chr + ' '),
+                        t.popColor();
+                      for (var a = o.pieces, s = 0, f = a.length; s < f; s++) {
+                        var l = a[s];
+                        t.pushColor(Rt[l.type]), t.out(l.text), t.popColor();
+                      }
+                      r < i - 1 && t.outLine();
+                    }
+                    t.indent(-1);
+                  },
+                },
+                {
+                  key: 'rootBegin',
+                  value: function (t, e, n) {
+                    t.pushColor(Rt[e]),
+                      'node' === e &&
+                        (t.out('array' === n ? '[' : '{'), t.indent());
+                  },
+                },
+                {
+                  key: 'rootEnd',
+                  value: function (t, e, n) {
+                    'node' === e &&
+                      (t.indent(-1), t.out('array' === n ? ']' : '}')),
+                      t.popColor();
+                  },
+                },
+                {
+                  key: 'nodeBegin',
+                  value: function (t, e, n, r, i) {
+                    t.pushColor(Rt[r]),
+                      t.out(n + ': '),
+                      'node' === r &&
+                        (t.out('array' === i ? '[' : '{'), t.indent());
+                  },
+                },
+                {
+                  key: 'nodeEnd',
+                  value: function (t, e, n, r, i, o) {
+                    'node' === r &&
+                      (t.indent(-1),
+                      t.out('array' === i ? ']' : '}' + (o ? '' : ','))),
+                      o || t.outLine(),
+                      t.popColor();
+                  },
+                },
+                {
+                  key: 'format_unchanged',
+                  value: function (t, e, n) {
+                    void 0 !== n && this.formatValue(t, n);
+                  },
+                },
+                {
+                  key: 'format_movedestination',
+                  value: function (t, e, n) {
+                    void 0 !== n && this.formatValue(t, n);
+                  },
+                },
+                {
+                  key: 'format_node',
+                  value: function (t, e, n) {
+                    this.formatDeltaChildren(t, e, n);
+                  },
+                },
+                {
+                  key: 'format_added',
+                  value: function (t, e) {
+                    this.formatValue(t, e[0]);
+                  },
+                },
+                {
+                  key: 'format_modified',
+                  value: function (t, e) {
+                    t.pushColor(Rt.deleted),
+                      this.formatValue(t, e[0]),
+                      t.popColor(),
+                      t.out(' => '),
+                      t.pushColor(Rt.added),
+                      this.formatValue(t, e[1]),
+                      t.popColor();
+                  },
+                },
+                {
+                  key: 'format_deleted',
+                  value: function (t, e) {
+                    this.formatValue(t, e[0]);
+                  },
+                },
+                {
+                  key: 'format_moved',
+                  value: function (t, e) {
+                    t.out('==> ' + e[1]);
+                  },
+                },
+                {
+                  key: 'format_textdiff',
+                  value: function (t, e) {
+                    this.formatTextDiffString(t, e[0]);
+                  },
+                },
+              ]),
+              e
+            );
+          })(et),
+          Et = void 0,
+          Dt = function (t, e) {
+            return Et || (Et = new Pt()), Et.format(t, e);
+          };
+        var Tt = Object.freeze({
+            default: Pt,
+            format: Dt,
+            log: function (t, e) {
+              console.log(Dt(t, e));
+            },
+          }),
+          Nt = Object.freeze({
+            base: nt,
+            html: ft,
+            annotated: pt,
+            jsonpatch: Mt,
+            console: Tt,
+          });
+        var It = void 0;
+        (t.DiffPatcher = W),
+          (t.formatters = Nt),
+          (t.console = Tt),
+          (t.create = function (t) {
+            return new W(t);
+          }),
+          (t.dateReviver = function (t, e) {
+            var n = void 0;
+            return 'string' == typeof e &&
+              (n = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d*))?(Z|([+-])(\d{2}):(\d{2}))$/.exec(
+                e,
+              ))
+              ? new Date(
+                  Date.UTC(
+                    +n[1],
+                    +n[2] - 1,
+                    +n[3],
+                    +n[4],
+                    +n[5],
+                    +n[6],
+                    +(n[7] || 0),
+                  ),
+                )
+              : e;
+          }),
+          (t.diff = function () {
+            return It || (It = new W()), It.diff.apply(It, arguments);
+          }),
+          (t.patch = function () {
+            return It || (It = new W()), It.patch.apply(It, arguments);
+          }),
+          (t.unpatch = function () {
+            return It || (It = new W()), It.unpatch.apply(It, arguments);
+          }),
+          (t.reverse = function () {
+            return It || (It = new W()), It.reverse.apply(It, arguments);
+          }),
+          (t.clone = function () {
+            return It || (It = new W()), It.clone.apply(It, arguments);
+          }),
+          Object.defineProperty(t, '__esModule', { value: !0 });
+      })(e, n(2837));
+    },
+    6224: (t, e, n) => {
+      'use strict';
+      function r(t, e) {
+        for (var n = 0; n < e.length; n++) {
+          var r = e[n];
+          (r.enumerable = r.enumerable || !1),
+            (r.configurable = !0),
+            'value' in r && (r.writable = !0),
+            Object.defineProperty(t, r.key, r);
+        }
+      }
+      n.d(e, { $: () => i });
+      var i = (function () {
+        function t() {
+          var e, n;
+          !(function (t, e) {
+            if (!(t instanceof e))
+              throw new TypeError('Cannot call a class as a function');
+          })(this, t),
+            (n = void 0),
+            (e = 'task') in this
+              ? Object.defineProperty(this, e, {
+                  value: n,
+                  enumerable: !0,
+                  configurable: !0,
+                  writable: !0,
+                })
+              : (this.task = n);
+        }
+        var e, n;
+        return (
+          (e = t),
+          (n = [
+            {
+              key: 'request',
+              value: function () {
+                this.cancel();
+                var t =
+                  window.requestIdleCallback || window.requestAnimationFrame;
+                return new Promise(function (e) {
+                  return t(e);
+                });
+              },
+            },
+            {
+              key: 'cancel',
+              value: function () {
+                var t = window.cancelIdleCallack || window.cancelAnimationFrame;
+                this.task && t(this.task);
+              },
+            },
+          ]) && r(e.prototype, n),
+          t
+        );
+      })();
+    },
+    6125: (t, e, n) => {
+      'use strict';
+      n.r(e), n.d(e, { JsonDiffMain: () => h });
+      var r = n(7757),
+        i = n.n(r),
+        o = n(5311),
+        a = n(6224);
+      function s(t, e, n, r, i, o, a) {
+        try {
+          var s = t[o](a),
+            f = s.value;
+        } catch (t) {
+          return void n(t);
+        }
+        s.done ? e(f) : Promise.resolve(f).then(r, i);
+      }
+      function f(t, e) {
+        for (var n = 0; n < e.length; n++) {
+          var r = e[n];
+          (r.enumerable = r.enumerable || !1),
+            (r.configurable = !0),
+            'value' in r && (r.writable = !0),
+            Object.defineProperty(t, r.key, r);
+        }
+      }
+      function l(t, e, n) {
+        return (
+          e in t
+            ? Object.defineProperty(t, e, {
+                value: n,
+                enumerable: !0,
+                configurable: !0,
+                writable: !0,
+              })
+            : (t[e] = n),
+          t
+        );
+      }
+      var h = (function () {
+        function t() {
+          !(function (t, e) {
+            if (!(t instanceof e))
+              throw new TypeError('Cannot call a class as a function');
+          })(this, t),
+            l(
+              this,
+              'diffPatcher',
+              new o.DiffPatcher({
+                arrays: { detectMove: !1 },
+                textDiff: { minLength: 1 },
+              }),
+            ),
+            l(this, 'scheduler', new a.$());
+        }
+        var e, n, r, h;
+        return (
+          (e = t),
+          (n = [
+            {
+              key: 'diff',
+              value:
+                ((r = i().mark(function t(e) {
+                  return i().wrap(
+                    function (t) {
+                      for (;;)
+                        switch ((t.prev = t.next)) {
+                          case 0:
+                            return (t.next = 2), this.scheduler.request();
+                          case 2:
+                            return t.abrupt('return', {
+                              id: e.id,
+                              delta: this.diffPatcher.diff(e.a, e.b),
+                            });
+                          case 3:
+                          case 'end':
+                            return t.stop();
+                        }
+                    },
+                    t,
+                    this,
+                  );
+                })),
+                (h = function () {
+                  var t = this,
+                    e = arguments;
+                  return new Promise(function (n, i) {
+                    var o = r.apply(t, e);
+                    function a(t) {
+                      s(o, n, i, a, f, 'next', t);
+                    }
+                    function f(t) {
+                      s(o, n, i, a, f, 'throw', t);
+                    }
+                    a(void 0);
+                  });
+                }),
+                function (t) {
+                  return h.apply(this, arguments);
+                }),
+            },
+          ]) && f(e.prototype, n),
+          t
+        );
+      })();
+    },
+  },
+]);
+//# sourceMappingURL=125.bundle.js.map

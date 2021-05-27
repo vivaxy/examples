@@ -3,7 +3,9 @@
  * @author vivaxy
  */
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Plugin, TextSelection } from 'prosemirror-state';
+import { Plugin, TextSelection, PluginKey } from 'prosemirror-state';
+
+export const pluginKey = new PluginKey('annotation');
 
 const ACTION_TYPE = {
   ADD_ANNOTATION: 'addAnnotation',
@@ -84,6 +86,7 @@ class AnnotationState {
 }
 
 export const annotationHighlightPlugin = new Plugin({
+  key: pluginKey,
   state: {
     init: AnnotationState.init,
     apply(transaction, prevDecorationSet) {
