@@ -1,0 +1,49 @@
+/**
+ * @since 2021-05-31
+ * @author vivaxy
+ */
+html {
+  height: 100%;
+}
+
+.spacing {
+  height: 400px;
+  background: rgb(255, 255, 200);
+}
+
+#button-container {
+  flex: none;
+}
+
+#bar {
+  height: 100px;
+  width: 100%;
+  min-width: 100px;
+  background: rgb(100, 255, 255);
+  flex: none;
+}
+
+.sticky #bar {
+  position: sticky;
+  top: 0;
+}
+
+.static #bar {
+  position: static;
+}
+
+.fixed #bar {
+  position: fixed;
+  top: 0;
+}
+
+.inner-scroll {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-scroll #scroller {
+  overflow: scroll;
+  flex: 1 1 0;
+}

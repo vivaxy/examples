@@ -297,6 +297,7 @@ Table of contents
   * [geolocation demo page](https://vivaxy.github.io/samples/web-api/geolocation/) Geolocation
   * [gesture](https://vivaxy.github.io/samples/web-api/gesture/) Gesture
   * [Hash change](https://vivaxy.github.io/samples/web-api/hash-change/) Hash change API demo
+  * [Hash Link And Page Scroll](https://vivaxy.github.io/samples/web-api/hash-scroll/) Hash Link And Page Scroll
   * [Highlight](https://vivaxy.github.io/samples/web-api/highlight/) Highlight
   * [iframe Resize](https://vivaxy.github.io/samples/web-api/iframe-resize/) iframe-resize
   * [indeterminate](https://vivaxy.github.io/samples/web-api/indeterminate/) Indeterminate
