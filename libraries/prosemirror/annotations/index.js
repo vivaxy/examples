@@ -8,16 +8,16 @@ import { EditorView } from 'prosemirror-view';
 import { DOMParser } from 'prosemirror-model';
 
 import {
-  annotationHighlightPlugin,
+  annotationPlugin,
   createAnnotationHandlePlugin,
-  pluginKey,
+  annotationPluginKey,
 } from './annotations';
 
 const state = EditorState.create({
   schema,
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
   plugins: [
-    annotationHighlightPlugin,
+    annotationPlugin,
     createAnnotationHandlePlugin((transaction) => {
       const newState = state.apply(transaction);
       view.updateState(newState);
@@ -43,15 +43,10 @@ document
     const annotationPluginState = annotationPluginKey.getState(
       editorView.state,
     );
-    const annotations = annotationPluginState.decorationSet
-      .find()
-      .map(function ({ from, to, type }) {
-        const { id, text } = type.spec.annotation;
-        return { from, to, id, text };
-      });
+    const annotations = annotationPluginState.toJSON();
     console.log('annotations', annotations);
   });
 
 window.editorView = view;
-window.annotationHighlightPlugin = annotationHighlightPlugin;
-window.annotationPluginKey = pluginKey;
+window.annotationPlugin = annotationPlugin;
+window.annotationPluginKey = annotationPluginKey;

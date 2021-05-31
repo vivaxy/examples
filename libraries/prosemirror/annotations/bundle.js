@@ -1383,11 +1383,11 @@
   function L(t) {
     var e = [];
     do {
-      e.push(j(t));
+      e.push(J(t));
     } while (t.next && ')' != t.next && '|' != t.next);
     return 1 == e.length ? e[0] : { type: 'seq', exprs: e };
   }
-  function j(t) {
+  function J(t) {
     for (
       var e = (function (t) {
         if (t.eat('(')) {
@@ -1433,16 +1433,16 @@
       }
     return e;
   }
-  function J(t) {
+  function j(t) {
     /\D/.test(t.next) && t.err("Expected number, got '" + t.next + "'");
     var e = Number(t.next);
     return t.pos++, e;
   }
   function q(t, e) {
-    var n = J(t),
+    var n = j(t),
       r = n;
     return (
-      t.eat(',') && (r = '}' != t.next ? J(t) : -1),
+      t.eat(',') && (r = '}' != t.next ? j(t) : -1),
       t.eat('}') || t.err('Unclosed braced range'),
       { type: 'range', min: n, max: r, expr: e }
     );
@@ -3211,7 +3211,7 @@
       var n = new Vt(t - e, t + e, l.empty, !0);
       return this.step(n);
     });
-  var jt = (function (t) {
+  var Jt = (function (t) {
     function e(e, n, r) {
       t.call(this), (this.from = e), (this.to = n), (this.mark = r);
     }
@@ -3240,7 +3240,7 @@
         return Ft.fromReplace(t, this.from, this.to, i);
       }),
       (e.prototype.invert = function () {
-        return new Jt(this.from, this.to, this.mark);
+        return new jt(this.from, this.to, this.mark);
       }),
       (e.prototype.map = function (t) {
         var n = t.mapResult(this.from, 1),
@@ -3278,8 +3278,8 @@
       e
     );
   })(Bt);
-  Bt.jsonID('addMark', jt);
-  var Jt = (function (t) {
+  Bt.jsonID('addMark', Jt);
+  var jt = (function (t) {
     function e(e, n, r) {
       t.call(this), (this.from = e), (this.to = n), (this.mark = r);
     }
@@ -3300,7 +3300,7 @@
         return Ft.fromReplace(t, this.from, this.to, r);
       }),
       (e.prototype.invert = function () {
-        return new jt(this.from, this.to, this.mark);
+        return new Jt(this.from, this.to, this.mark);
       }),
       (e.prototype.map = function (t) {
         var n = t.mapResult(this.from, 1),
@@ -3346,7 +3346,7 @@
       t.parent.canReplace(t.index(), e.index(), n.content)
     );
   }
-  Bt.jsonID('removeMark', Jt),
+  Bt.jsonID('removeMark', jt),
     (Rt.prototype.addMark = function (t, e, n) {
       var r = this,
         o = [],
@@ -3369,8 +3369,8 @@
                 p[d].isInSet(u) ||
                   (s && s.to == l && s.mark.eq(p[d])
                     ? (s.to = f)
-                    : o.push((s = new Jt(l, f, p[d]))));
-              a && a.to == l ? (a.to = f) : i.push((a = new jt(l, f, n)));
+                    : o.push((s = new jt(l, f, p[d]))));
+              a && a.to == l ? (a.to = f) : i.push((a = new Jt(l, f, n)));
             }
           }
         }),
@@ -3414,7 +3414,7 @@
           }
         }),
         o.forEach(function (t) {
-          return r.step(new Jt(t.from, t.to, t.style));
+          return r.step(new jt(t.from, t.to, t.style));
         }),
         this
       );
@@ -3433,7 +3433,7 @@
           n = p;
           for (var f = 0; f < c.marks.length; f++)
             e.allowsMarkType(c.marks[f].type) ||
-              this.step(new Jt(s, h, c.marks[f]));
+              this.step(new jt(s, h, c.marks[f]));
         } else i.push(new Vt(s, h, l.empty));
         s = h;
       }
@@ -4694,7 +4694,7 @@
       n.initEvent('keydown', !0, !0), (n.keyCode = t), (n.key = n.code = e), n
     );
   }
-  function je(t) {
+  function Je(t) {
     return {
       left: 0,
       right: t.documentElement.clientWidth,
@@ -4702,7 +4702,7 @@
       bottom: t.documentElement.clientHeight,
     };
   }
-  function Je(t, e) {
+  function je(t, e) {
     return 'number' == typeof t ? t : t[e];
   }
   function qe(t) {
@@ -4727,18 +4727,18 @@
     )
       if (1 == s.nodeType) {
         var a = s == i.body || 1 != s.nodeType,
-          c = a ? je(i) : qe(s),
+          c = a ? Je(i) : qe(s),
           h = 0,
           p = 0;
         if (
-          (e.top < c.top + Je(r, 'top')
-            ? (p = -(c.top - e.top + Je(o, 'top')))
-            : e.bottom > c.bottom - Je(r, 'bottom') &&
-              (p = e.bottom - c.bottom + Je(o, 'bottom')),
-          e.left < c.left + Je(r, 'left')
-            ? (h = -(c.left - e.left + Je(o, 'left')))
-            : e.right > c.right - Je(r, 'right') &&
-              (h = e.right - c.right + Je(o, 'right')),
+          (e.top < c.top + je(r, 'top')
+            ? (p = -(c.top - e.top + je(o, 'top')))
+            : e.bottom > c.bottom - je(r, 'bottom') &&
+              (p = e.bottom - c.bottom + je(o, 'bottom')),
+          e.left < c.left + je(r, 'left')
+            ? (h = -(c.left - e.left + je(o, 'left')))
+            : e.right > c.right - je(r, 'right') &&
+              (h = e.right - c.right + je(o, 'right')),
           h || p)
         )
           if (a) i.defaultView.scrollBy(h, p);
@@ -6187,7 +6187,7 @@
     }
     return (
       c ||
-        (c = jn(
+        (c = Jn(
           t,
           a,
           h,
@@ -6199,7 +6199,7 @@
   function Pn(t) {
     return t.editable
       ? t.hasFocus()
-      : Jn(t) &&
+      : jn(t) &&
           document.activeElement &&
           document.activeElement.contains(t.dom);
   }
@@ -6446,14 +6446,14 @@
       (t.lastSelectedViewDesc.parent && t.lastSelectedViewDesc.deselectNode(),
       (t.lastSelectedViewDesc = null));
   }
-  function jn(t, e, n, r) {
+  function Jn(t, e, n, r) {
     return (
       t.someProp('createSelectionBetween', function (r) {
         return r(t, e, n);
       }) || oe.between(e, n, r)
     );
   }
-  function Jn(t) {
+  function jn(t) {
     var e = t.root.getSelection();
     if (!e.anchorNode) return !1;
     try {
@@ -6657,7 +6657,7 @@
   function rr(t, e, n) {
     return Math.max(n.anchor, n.head) > e.content.size
       ? null
-      : jn(t, e.resolve(n.anchor), e.resolve(n.head));
+      : Jn(t, e.resolve(n.anchor), e.resolve(n.head));
   }
   function or(t, e, n) {
     for (
@@ -7055,7 +7055,7 @@
     (gr.prototype.onSelectionChange = function () {
       if (
         (function (t) {
-          return (!t.editable || t.root.activeElement == t.dom) && Jn(t);
+          return (!t.editable || t.root.activeElement == t.dom) && jn(t);
         })(this.view)
       ) {
         if (this.suppressingSelectionUpdates) return In(this.view);
@@ -7094,7 +7094,7 @@
           n =
             !this.suppressingSelectionUpdates &&
             !this.currentSelection.eq(e) &&
-            Jn(this.view) &&
+            jn(this.view) &&
             !this.ignoreSelectionChange(e),
           r = -1,
           o = -1,
@@ -7863,7 +7863,7 @@
                 ) {
                   return (d = r);
                 }),
-                  c.setSelection(jn(t, u, c.doc.resolve(d)));
+                  c.setSelection(Jn(t, u, c.doc.resolve(d)));
               }
               t.focus(), t.dispatch(c.setMeta('uiEvent', 'drop'));
             }
@@ -7915,29 +7915,29 @@
   }),
   br))
     wr[Lr] = br[Lr];
-  function jr(t, e) {
+  function Jr(t, e) {
     if (t == e) return !0;
     for (var n in t) if (t[n] !== e[n]) return !1;
     for (var r in e) if (!(r in t)) return !1;
     return !0;
   }
-  var Jr = function (t, e) {
+  var jr = function (t, e) {
     (this.spec = e || Gr), (this.side = this.spec.side || 0), (this.toDOM = t);
   };
-  (Jr.prototype.map = function (t, e, n, r) {
+  (jr.prototype.map = function (t, e, n, r) {
     var o = t.mapResult(e.from + r, this.side < 0 ? -1 : 1),
       i = o.pos;
     return o.deleted ? null : new Kr(i - n, i - n, this);
   }),
-    (Jr.prototype.valid = function () {
+    (jr.prototype.valid = function () {
       return !0;
     }),
-    (Jr.prototype.eq = function (t) {
+    (jr.prototype.eq = function (t) {
       return (
         this == t ||
-        (t instanceof Jr &&
+        (t instanceof jr &&
           ((this.spec.key && this.spec.key == t.spec.key) ||
-            (this.toDOM == t.toDOM && jr(this.spec, t.spec))))
+            (this.toDOM == t.toDOM && Jr(this.spec, t.spec))))
       );
     });
   var qr = function (t, e) {
@@ -7954,7 +7954,7 @@
     (qr.prototype.eq = function (t) {
       return (
         this == t ||
-        (t instanceof qr && jr(this.attrs, t.attrs) && jr(this.spec, t.spec))
+        (t instanceof qr && Jr(this.attrs, t.attrs) && Jr(this.spec, t.spec))
       );
     }),
     (qr.is = function (t) {
@@ -7980,7 +7980,7 @@
     (Wr.prototype.eq = function (t) {
       return (
         this == t ||
-        (t instanceof Wr && jr(this.attrs, t.attrs) && jr(this.spec, t.spec))
+        (t instanceof Wr && Jr(this.attrs, t.attrs) && Jr(this.spec, t.spec))
       );
     });
   var Kr = function (t, e, n) {
@@ -8000,7 +8000,7 @@
       return this.type.map(t, this, e, n);
     }),
     (Kr.widget = function (t, e, n) {
-      return new Kr(t, t, new Jr(e, n));
+      return new Kr(t, t, new jr(e, n));
     }),
     (Kr.inline = function (t, e, n, r) {
       return new Kr(t, e, new qr(n, r));
@@ -9218,11 +9218,11 @@
     constructor(t) {
       this.decorationSet = t;
     }
-    static init(t) {
-      const e = t.annotations.map(function (t) {
+    static init(t, e) {
+      const n = t.annotations.map(function (t) {
         return yo(t.from, t.to, new go(t.id, t.text));
       });
-      return new wo(Xr.create(t.doc, e));
+      return new wo(Xr.create(t.doc, n));
     }
     annotationsAt(t) {
       return this.decorationSet.find(t + 1, t - 1).map(function (t) {
@@ -9246,10 +9246,26 @@
         new wo(r)
       );
     }
+    toJSON() {
+      return this.decorationSet
+        .find()
+        .map(function ({ from: t, to: e, type: n }) {
+          const { id: r, text: o } = n.spec.annotation;
+          return { from: t, to: e, id: r, text: o };
+        });
+    }
+    fromJSON(t) {
+      return wo.init(t);
+    }
   }
   const bo = new ke({
     key: uo,
-    state: { init: wo.init, apply: (t, e) => e.apply(t) },
+    state: {
+      init: wo.init,
+      apply: (t, e, n, r) => e.apply(t),
+      toJSON: (t) => t.toJSON(),
+      fromJSON: (t, e, n) => e.fromJSON(t, n),
+    },
     props: {
       decorations(t) {
         return this.getState(t).decorationSet;
@@ -9351,17 +9367,11 @@
   document
     .querySelector('#get-current-annotations')
     .addEventListener('click', function () {
-      const t = annotationPluginKey
-        .getState(editorView.state)
-        .decorationSet.find()
-        .map(function ({ from: t, to: e, type: n }) {
-          const { id: r, text: o } = n.spec.annotation;
-          return { from: t, to: e, id: r, text: o };
-        });
+      const t = uo.getState(editorView.state).toJSON();
       console.log('annotations', t);
     }),
     (window.editorView = Mo),
-    (window.annotationHighlightPlugin = bo),
+    (window.annotationPlugin = bo),
     (window.annotationPluginKey = uo);
 })();
 //# sourceMappingURL=bundle.js.map

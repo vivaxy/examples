@@ -5,7 +5,7 @@
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Plugin, TextSelection, PluginKey } from 'prosemirror-state';
 
-export const pluginKey = new PluginKey('annotation');
+export const annotationPluginKey = new PluginKey('annotation');
 
 const ACTION_TYPE = {
   ADD_ANNOTATION: 'addAnnotation',
@@ -33,7 +33,7 @@ class AnnotationState {
     this.decorationSet = decorationSet;
   }
 
-  static init(config) {
+  static init(config, editorState) {
     const decorations = config.annotations.map(function (annotation) {
       return createDecoration(
         annotation.from,
@@ -63,7 +63,7 @@ class AnnotationState {
   }
 
   apply(transaction) {
-    const action = transaction.getMeta(annotationHighlightPlugin);
+    const action = transaction.getMeta(annotationPlugin);
     const actionType = action?.type;
     if (!action && !transaction.docChanged) {
       return this;
@@ -83,14 +83,31 @@ class AnnotationState {
     }
     return new AnnotationState(decorationSet);
   }
+
+  toJSON() {
+    return this.decorationSet.find().map(function ({ from, to, type }) {
+      const { id, text } = type.spec.annotation;
+      return { from, to, id, text };
+    });
+  }
+
+  fromJSON(config) {
+    return AnnotationState.init(config);
+  }
 }
 
-export const annotationHighlightPlugin = new Plugin({
-  key: pluginKey,
+export const annotationPlugin = new Plugin({
+  key: annotationPluginKey,
   state: {
     init: AnnotationState.init,
-    apply(transaction, prevDecorationSet) {
-      return prevDecorationSet.apply(transaction);
+    apply(transaction, prevAnnotationState, oldEditorState, newEditorState) {
+      return prevAnnotationState.apply(transaction);
+    },
+    toJSON(annotationState) {
+      return annotationState.toJSON();
+    },
+    fromJSON(config, annotationState, editorState) {
+      return annotationState.fromJSON(config, editorState);
     },
   },
   props: {
@@ -107,7 +124,7 @@ export function createAnnotationHandlePlugin(dispatch) {
         const selection = state.selection;
         if (selection.empty) {
           // when cursor at annotation, show annotation
-          const annotations = annotationHighlightPlugin
+          const annotations = annotationPlugin
             .getState(state)
             .annotationsAt(selection.from);
           if (!annotations.length) {
@@ -163,7 +180,7 @@ function renderAnnotation(annotation, dispatch, state) {
   $button.textContent = 'x';
   $button.addEventListener('click', function () {
     dispatch(
-      state.tr.setMeta(annotationHighlightPlugin, {
+      state.tr.setMeta(annotationPlugin, {
         type: ACTION_TYPE.DELETE_ANNOTATION,
         annotation,
       }),
@@ -191,7 +208,7 @@ function renderAnnotationHandle(dispatch, state) {
       selection.annotationAdded = true;
       tr.setSelection(new TextSelection(selection.$from));
       dispatch(
-        tr.setMeta(annotationHighlightPlugin, {
+        tr.setMeta(annotationPlugin, {
           type: ACTION_TYPE.ADD_ANNOTATION,
           annotation: new Annotation(generateUUID(), text),
           from: selection.from,

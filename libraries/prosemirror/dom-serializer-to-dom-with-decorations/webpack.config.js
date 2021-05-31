@@ -4,9 +4,11 @@
  */
 module.exports = {
   entry: './index.js',
+  mode: process.env.NODE_ENV,
   output: {
     filename: 'bundle.js',
     path: __dirname,
   },
-  devtool: 'eval-cheap-source-map',
+  devtool:
+    process.env.NODE_ENV === 'development' ? 'eval-source-map' : 'source-map',
 };
