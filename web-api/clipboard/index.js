@@ -71,9 +71,25 @@ function onEvent(eventName) {
         '; data: ' +
         e.clipboardData.getData('text/plain'),
     );
+
+    if (eventName === 'paste') {
+      pasteImage(e);
+    }
   };
 }
 
 function log(c) {
   logger.innerHTML += c + '<br>';
+}
+
+function pasteImage(e) {
+  const { items } = e.clipboardData || window.clipboardData;
+  Array.from(items).forEach(function (item) {
+    if (item.type.indexOf('image') !== -1) {
+      const file = item.getAsFile();
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      document.body.appendChild(img);
+    }
+  });
 }
