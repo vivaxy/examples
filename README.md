@@ -204,6 +204,7 @@ Table of contents
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
     * [ProseMirror DOMSerializer.toDOM with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer-to-dom-with-decorations/) ProseMirror DOMSerializer.toDOM with Decorations
+    * [ProseMirror EditorView](https://vivaxy.github.io/samples/libraries/prosemirror/editor-view/) ProseMirror EditorView
     * [ProseMirror Mapping](https://vivaxy.github.io/samples/libraries/prosemirror/mapping/) ProseMirror Mapping
     * [ProseMirror Mapping Tracking](https://vivaxy.github.io/samples/libraries/prosemirror/mapping-tracking/) ProseMirror Mapping Tracking
     * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks

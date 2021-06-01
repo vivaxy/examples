@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="ProseMirror EditorView" />
+    <meta
+      name="keywords"
+      content="vivaxy,sample,demo,playground,ProseMirror EditorView,ProseMirror,samples,github,test,libraries,Node.js Packages Demos,node-js-packages,prosemirror,demos,editor-view"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>ProseMirror EditorView</title>
+  </head>
+  <body>
+    <ol>
+      <li><p>Drag and drop, and see EditorView.dragging.</p></li>
+      <li><p>Type, and see EditorView.composing.</p></li>
+    </ol>
+    <div id="editor"></div>
+    <div id="content" hidden>
+      <p>1234567890</p>
+    </div>
+    <label for="left">Left</label><input value="20" id="left" type="number" />
+    <label for="top">Top</label><input value="100" id="top" type="number" />
+    <button id="posAtCoords">posAtCoords</button>
+    <br />
+    <label for="pos">Pos</label><input value="1" id="pos" type="number" />
+    <label for="side">Side</label><input value="1" id="side" type="number" />
+    <button id="coordsAtPos">coordsAtPos</button>
+    <br />
+    <label for="pos1">Pos</label><input value="2" id="pos1" type="number" />
+    <label for="side1">Side</label><input value="1" id="side1" type="number" />
+    <button id="domAtPos">domAtPos</button>
+    <br />
+    <label for="pos2">Pos</label><input value="1" id="pos2" type="number" />
+    <button id="nodeDOM">nodeDOM</button>
+    <br />
+    <label for="offset">Offset</label
+    ><input value="1" id="offset" type="number" /> <label for="bias">Bias</label
+    ><input value="1" id="bias" type="number" />
+    <button id="posAtDOM">posAtDOM</button>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/@vivaxy/framework/utils/console.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="bundle.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

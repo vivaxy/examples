@@ -1,11 +1,15 @@
 [
   {
+    "name": "EditorView",
+    "link": "editor-view/"
+  },
+  {
     "name": "Collab Module",
-    "link": "/collab-module"
+    "link": "collab-module/"
   },
   {
     "name": "Collab",
-    "link": "/collab"
+    "link": "collab/"
   },
   {
     "name": "Mapping Tracking",
