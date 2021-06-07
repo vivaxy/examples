@@ -1,5 +1,9 @@
 [
   {
+    "name": "Save HTML",
+    "link": "save-html/"
+  },
+  {
     "name": "Hash Scroll",
     "link": "hash-scroll/"
   },
