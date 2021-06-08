@@ -2,14 +2,10 @@
  * @since 2021-03-26 16:27
  * @author vivaxy
  */
-import { schema } from 'https://cdn.skypack.dev/prosemirror-schema-basic';
-import { EditorState, Plugin } from 'https://cdn.skypack.dev/prosemirror-state';
-import {
-  EditorView,
-  DecorationSet,
-  Decoration,
-} from 'https://cdn.skypack.dev/prosemirror-view';
-import { DOMParser } from 'https://cdn.skypack.dev/prosemirror-model';
+import { schema } from 'prosemirror-schema-basic';
+import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
+import { DOMParser } from 'prosemirror-model';
 
 const ACTION_TYPE = {
   ADD_DECORATION: 'add-decoration',
@@ -98,3 +94,5 @@ $addDecoration.addEventListener('click', function () {
   state = state.apply(tr);
   view.updateState(state);
 });
+
+window.view = view;
