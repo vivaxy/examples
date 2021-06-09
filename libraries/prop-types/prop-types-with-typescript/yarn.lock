@@ -2623,10 +2623,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.5.tgz#96ec3b0afafd64a4ccea9107b75bf8489f0e5765"
   integrity sha1-luw7Cvr9ZKTM6pEHt1v4SJ8OV2U=
 
-"@types/node@14.17.1":
-  version "14.17.1"
-  resolved "https://registry.nlark.com/@types/node/download/@types/node-14.17.1.tgz?cache=0&sync_timestamp=1621901346657&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.17.1.tgz#5e07e0cb2ff793aa7a1b41deae76221e6166049f"
-  integrity sha1-Xgfgyy/3k6p6G0HernYiHmFmBJ8=
+"@types/node@14.17.3":
+  version "14.17.3"
+  resolved "https://registry.nlark.com/@types/node/download/@types/node-14.17.3.tgz?cache=0&sync_timestamp=1623107052642&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.17.3.tgz#6d327abaa4be34a74e421ed6409a0ae2f47f4c3d"
+  integrity sha1-bTJ6uqS+NKdOQh7WQJoK4vR/TD0=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
