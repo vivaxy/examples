@@ -6,7 +6,7 @@ function createId(index) {
   return `id-${index}`;
 }
 
-const DIV_COUNT = 1e6;
+const DIV_COUNT = 1e5;
 for (let i = 0; i < DIV_COUNT; i++) {
   const div = document.createElement('div');
   const id = createId(i);
