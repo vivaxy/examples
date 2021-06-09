@@ -41,6 +41,7 @@ Table of contents
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/samples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/samples/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/) Get bounding client rect vs inner width vs client width
   * [Number vs parseInt](https://vivaxy.github.io/samples/benchmark/number-vs-parseInt/) Number vs parse int
+  * [querySelector](https://vivaxy.github.io/samples/benchmark/querySelector/) querySelector
   * [RegExp vs String Edit](https://vivaxy.github.io/samples/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
   * [split vs String Edit](https://vivaxy.github.io/samples/benchmark/split-vs-stringEdit/) Split vs string edit
   * [unregisterWithReturnedFunction vs unregister](https://vivaxy.github.io/samples/benchmark/unregisterWithReturnedFunction-vs-unregister/) Unregister with returned function vs unregister

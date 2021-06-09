@@ -1,5 +1,9 @@
 [
   {
+    "name": "querySelector performance",
+    "link": "querySelector/"
+  },
+  {
     "name": "Walk Through DOM Tree",
     "link": "walk-through-dom-tree/"
   },
