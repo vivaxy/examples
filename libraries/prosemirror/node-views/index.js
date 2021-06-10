@@ -12,25 +12,42 @@ const state = EditorState.create({
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
 });
 
-class ParagraphView {
+class ParagraphViewWithoutContentDOM {
   constructor(node) {
     this.dom = document.createElement('h1');
-    this.contentDOM = document.createElement('span');
-    this.dom.appendChild(this.contentDOM);
-    // this.renderContent(node);
+    this.renderContent(node);
   }
 
   update(node) {
     if (node.type.name !== 'paragraph') {
       return false;
     }
-    // this.renderContent(node);
+    this.renderContent(node);
     return true;
   }
 
-  // renderContent(node) {
-  //   this.contentDOM.innerHTML = node.toString();
-  // }
+  renderContent(node) {
+    this.dom.innerHTML = `<p>${node.textContent}</p>`;
+  }
+}
+
+class ParagraphViewWithContentDOM {
+  constructor(node) {
+    this.dom = document.createElement('h1');
+    this.contentDOM = document.createElement('span');
+    this.fakeContentDOM = document.createElement('span');
+    this.fakeContentDOM.innerHTML = node.textContent;
+    this.dom.appendChild(this.contentDOM);
+    this.dom.appendChild(this.fakeContentDOM);
+  }
+
+  update(node) {
+    if (node.type.name !== 'paragraph') {
+      return false;
+    }
+    this.fakeContentDOM.innerHTML = node.textContent;
+    return true;
+  }
 }
 
 class ImageView {
@@ -73,10 +90,12 @@ const view = new EditorView(document.querySelector('#editor'), {
   state,
   nodeViews: {
     paragraph(node) {
-      return new ParagraphView(node);
+      return new ParagraphViewWithContentDOM(node);
     },
     image(node, view, getPos) {
       return new ImageView(node, view, getPos);
     },
   },
 });
+
+window.view = view;
