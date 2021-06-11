@@ -16,7 +16,7 @@ const mySchema = new Schema({
   marks: schema.spec.marks,
 });
 
-window.view = new EditorView(document.querySelector('#editor'), {
+const view = new EditorView(document.querySelector('#editor'), {
   state: EditorState.create({
     doc: DOMParser.fromSchema(mySchema).parse(
       document.querySelector('#content'),
@@ -33,3 +33,5 @@ window.view = new EditorView(document.querySelector('#editor'), {
     window.view.updateState(newState);
   },
 });
+
+window.view = view;
