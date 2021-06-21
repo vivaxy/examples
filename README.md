@@ -212,7 +212,9 @@ Table of contents
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
     * [ProseMirror NodeViews](https://vivaxy.github.io/samples/libraries/prosemirror/node-views/) ProseMirror NodeViews
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
+    * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection
+    * [ProseMirror Slice](https://vivaxy.github.io/samples/libraries/prosemirror/slice/) ProseMirror Slice
     * [ProseMirror Transactions](https://vivaxy.github.io/samples/libraries/prosemirror/transactions/) ProseMirror Transactions
     * [ProseMirror with React](https://vivaxy.github.io/samples/libraries/prosemirror/with-react/) ProseMirror with React
   * [qq maps](https://vivaxy.github.io/samples/libraries/qq-maps/) Qq maps

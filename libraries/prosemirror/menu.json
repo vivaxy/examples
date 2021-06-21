@@ -1,5 +1,13 @@
 [
   {
+    "name": "ResolvedPos",
+    "link": "resolved-pos/"
+  },
+  {
+    "name": "Slice",
+    "link": "slice/"
+  },
+  {
     "name": "EditorView",
     "link": "editor-view/"
   },
