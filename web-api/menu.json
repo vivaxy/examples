@@ -1,5 +1,9 @@
 [
   {
+    "name": "StorageEvent",
+    "link": "storage-event/"
+  },
+  {
     "name": "Save HTML",
     "link": "save-html/"
   },
