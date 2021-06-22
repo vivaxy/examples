@@ -1,5 +1,9 @@
 [
   {
+    "name": "Broadcast Channel",
+    "link": "broadcast-channel/"
+  },
+  {
     "name": "Disable multi selection",
     "link": "disable-multi-selection/"
   },

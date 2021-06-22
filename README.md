@@ -171,6 +171,7 @@ Table of contents
     * [mark polygon area](https://vivaxy.github.io/samples/libraries/bmap/mark-polygon-area/) Mark polygon area
     * [zoom](https://vivaxy.github.io/samples/libraries/bmap/zoom/) Zoom
   * [bootstrap-datetimepicker](https://vivaxy.github.io/samples/libraries/bootstrap-datetimepicker/) Bootstrap datetimepicker
+  * [Broadcast Channel](https://vivaxy.github.io/samples/libraries/broadcast-channel/) Broadcast Channel
   * [Browserify](https://vivaxy.github.io/samples/libraries/browserify/) Browserify demo
   * [cycle.js](https://vivaxy.github.io/samples/libraries/cycle-js/) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/samples/libraries/cycle-js/basic/) Basic
