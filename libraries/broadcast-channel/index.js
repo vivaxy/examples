@@ -29,8 +29,8 @@ $broadcast.addEventListener('click', function () {
   channel.postMessage($message.value);
 });
 
-window.addEventListener('beforeunload', async function () {
-  alert(1);
+window.addEventListener('unload', async function () {
+  alert('closing');
   channel.postMessage('Bye Bye');
   await channel.channel();
 });
