@@ -7,7 +7,7 @@ import {
   createLeaderElection,
 } from 'https://unpkg.com/broadcast-channel?module';
 
-const channel = new BroadcastChannel('sample', options);
+const channel = new BroadcastChannel('sample');
 const elector = createLeaderElection(channel);
 
 const $message = document.getElementById('message');
