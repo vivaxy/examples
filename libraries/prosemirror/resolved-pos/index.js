@@ -22,6 +22,7 @@ const $resolve = document.getElementById('resolve');
 $resolve.addEventListener('click', function () {
   const pos = Number($pos.value);
   const resolvedPos = view.state.doc.resolve(pos);
+  window.resolvedPos = resolvedPos;
   console.log(
     'depth',
     resolvedPos.depth,
