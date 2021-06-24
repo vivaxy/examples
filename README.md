@@ -250,6 +250,8 @@ Table of contents
   * [webpack](https://vivaxy.github.io/samples/libraries/webpack/) Webpack
     * [Dynamic import](https://vivaxy.github.io/samples/libraries/webpack/dynamic-import/) Dynamic import
     * [require.context](https://vivaxy.github.io/samples/libraries/webpack/require-context/) Require context
+  * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
+    * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/samples/machine-learning/tensorflow/) TensorFlow
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/samples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js
