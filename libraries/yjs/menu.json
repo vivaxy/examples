@@ -1,5 +1,9 @@
 [
   {
+    "name": "Data Visualization",
+    "link": "data-visualization/"
+  },
+  {
     "name": "Basic",
     "link": "basic/"
   }
