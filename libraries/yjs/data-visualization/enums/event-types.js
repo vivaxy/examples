@@ -3,3 +3,5 @@
  * @author vivaxy
  */
 export const OPEN_A_NEW_DOC = 'OPEN_A_NEW_DOC';
+export const DOC_CHANGE = 'DOC_CHANGE';
+export const Y_DOC_CHANGE = 'Y_DOC_CHANGE';

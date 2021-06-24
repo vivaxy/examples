@@ -4,21 +4,8 @@
  */
 import * as EDIT_TYPES from '../enums/edit-types.js';
 
-function getDiffStart(a, b) {
-  for (let i = 0; i < Math.min(a.length, b.length) - 1; i++) {
-    if (a[i] !== b[i]) {
-      return i;
-    }
-  }
-}
-
-function getDiffEnd(a, b) {
-  for (let i = Math.min(a.length, b.length) - 1; i >= 0; i--) {
-    if (a[i] !== b[i]) {
-      return i;
-    }
-  }
-}
+let id = 0;
+const DATA_ID_ATTR = 'data-id';
 
 function getChanges(prev, cur, cursorPos) {
   if (cur.length > prev.length) {
@@ -45,12 +32,16 @@ export default function createDoc($container, onChange) {
 
   let value = '';
   $editor.contentEditable = 'true';
+  $editor.setAttribute(DATA_ID_ATTR, String(id++));
   $editor.addEventListener('input', function () {
     if ($editor.textContent !== value) {
       const cursorPos = window.getSelection().getRangeAt(0).startOffset;
       const change = getChanges(value, $editor.textContent, cursorPos);
       value = $editor.textContent;
-      onChange(change);
+      onChange({
+        id: Number($editor.getAttribute(DATA_ID_ATTR)),
+        ...change,
+      });
     }
   });
 
@@ -58,4 +49,8 @@ export default function createDoc($container, onChange) {
   $doc.appendChild($data);
 
   $container.appendChild($doc);
+
+  return {
+    $data,
+  };
 }
