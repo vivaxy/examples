@@ -25,13 +25,19 @@ function getChanges(prev, cur, cursorPos) {
   throw new Error('Unexpected change');
 }
 
-export default function createDoc($container, onChange) {
+export default function renderDocContainer($container, onChange) {
   const $doc = document.createElement('div');
-  const $editor = document.createElement('p');
-  const $data = document.createElement('div');
+  $doc.classList.add('doc-container-item');
+
+  const $docId = document.createElement('p');
+  $docId.classList.add('doc-id');
+  $docId.textContent = `Doc${id}`;
 
   let value = '';
+
+  const $editor = document.createElement('p');
   $editor.contentEditable = 'true';
+  $editor.classList.add('editor');
   $editor.setAttribute(DATA_ID_ATTR, String(id++));
   $editor.addEventListener('input', function () {
     if ($editor.textContent !== value) {
@@ -45,12 +51,21 @@ export default function createDoc($container, onChange) {
     }
   });
 
+  const $data = document.createElement('div');
+  $data.classList.add('data');
+
+  $doc.appendChild($docId);
   $doc.appendChild($editor);
   $doc.appendChild($data);
 
   $container.appendChild($doc);
 
-  return {
-    $data,
-  };
+  function updateEditor(content) {
+    if (content !== value) {
+      $editor.textContent = content;
+      value = content;
+    }
+  }
+
+  return { $data, updateEditor };
 }
