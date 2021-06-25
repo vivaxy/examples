@@ -17,10 +17,18 @@ function init(e) {
     e.emit(E.DOC_CHANGE, change);
   }
 
+  function onDocClose(id) {
+    $dataList[id] = null;
+    updateEditorList[id] = null;
+    $docContainer.childNodes[id].remove();
+    e.emit(E.DOC_CLOSE, id);
+  }
+
   function onOpenANewDoc() {
     const { $data, updateEditor } = renderDocContainer(
       $docContainer,
       onDocChange,
+      onDocClose,
     );
     $dataList.push($data);
     updateEditorList.push(updateEditor);

@@ -17,13 +17,21 @@
     <title>Y.js Data Visualization</title>
   </head>
   <body>
-    <button id="open-a-new-doc">Open a new doc</button>
     <div>
-      <label for="from-doc">From</label>
-      <select id="from-doc"></select>
-      <label for="to-doc">to</label>
-      <select id="to-doc"></select>
-      <button id="sync-doc">Sync</button>
+      <label for="scenarios">Scenarios:</label>
+      <select id="scenarios"></select>
+      <button id="next-step">Next Step</button>
+    </div>
+    <div>
+      <span>Actions:</span>
+      <button id="open-a-new-doc">Open a new doc</button>
+      <span>
+        <label for="from-doc">From</label>
+        <select id="from-doc"></select>
+        <label for="to-doc">to</label>
+        <select id="to-doc"></select>
+        <button id="sync-doc">Sync</button>
+      </span>
     </div>
     <div id="doc-container"></div>
     <script

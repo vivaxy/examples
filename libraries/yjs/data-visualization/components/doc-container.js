@@ -25,13 +25,31 @@ function getChanges(prev, cur, cursorPos) {
   throw new Error('Unexpected change');
 }
 
-export default function renderDocContainer($container, onChange) {
+export default function renderDocContainer($container, onChange, onClose) {
   const $doc = document.createElement('div');
   $doc.classList.add('doc-container-item');
+
+  const $tab = document.createElement('div');
+  $tab.classList.add('doc-tab');
 
   const $docId = document.createElement('p');
   $docId.classList.add('doc-id');
   $docId.textContent = `Doc${id}`;
+
+  const $close = document.createElement('button');
+  $close.classList.add('doc-close');
+  $close.textContent = 'x';
+
+  function createHandleClose(_id) {
+    return function () {
+      onClose(_id);
+    };
+  }
+
+  $close.addEventListener('click', createHandleClose(id));
+
+  $tab.appendChild($docId);
+  $tab.appendChild($close);
 
   let value = '';
 
@@ -54,7 +72,7 @@ export default function renderDocContainer($container, onChange) {
   const $data = document.createElement('div');
   $data.classList.add('data');
 
-  $doc.appendChild($docId);
+  $doc.appendChild($tab);
   $doc.appendChild($editor);
   $doc.appendChild($data);
 

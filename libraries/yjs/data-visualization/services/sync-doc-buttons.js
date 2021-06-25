@@ -12,15 +12,15 @@ function createOption(docId) {
 }
 
 function init(e) {
-  let docCount = 0;
+  let docs = [];
   const $fromDoc = document.getElementById('from-doc');
   const $toDoc = document.getElementById('to-doc');
   const $syncDoc = document.getElementById('sync-doc');
 
   function onOpenANewDoc() {
-    $fromDoc.appendChild(createOption(docCount));
-    $toDoc.appendChild(createOption(docCount));
-    docCount++;
+    $fromDoc.appendChild(createOption(docs.length));
+    $toDoc.appendChild(createOption(docs.length));
+    docs.push(true);
   }
 
   $syncDoc.addEventListener('click', function () {
@@ -35,7 +35,19 @@ function init(e) {
     });
   });
 
+  function onDocClose(id) {
+    docs[id] = false;
+    [$fromDoc, $toDoc].forEach(function ($select) {
+      $select.childNodes.forEach(function (child) {
+        if (child.value === String(id)) {
+          child.remove();
+        }
+      });
+    });
+  }
+
   e.on(E.OPEN_A_NEW_DOC, onOpenANewDoc);
+  e.on(E.DOC_CLOSE, onDocClose);
 }
 
 export default { init };

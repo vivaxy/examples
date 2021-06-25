@@ -44,9 +44,15 @@ function init(e) {
     e.emit(E.Y_DOC_CHANGE, { id: to, yDoc: toDoc });
   }
 
+  function onDocClose(id) {
+    docs[id].destroy();
+    docs[id] = null;
+  }
+
   e.on(E.OPEN_A_NEW_DOC, onOpenANewDoc);
   e.on(E.DOC_CHANGE, onDocChange);
   e.on(E.SYNC_DOC, onSyncDoc);
+  e.on(E.DOC_CLOSE, onDocClose);
 }
 
 export default { init };
