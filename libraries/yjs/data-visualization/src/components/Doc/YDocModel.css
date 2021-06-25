@@ -1,42 +1,15 @@
 /**
- * @since 2021-06-24
+ * @since 2021-06-25
  * @author vivaxy
  */
-.doc-container-item {
-  margin-top: 12px;
+.pending-structs {
+  font-family: monospace;
+  font-size: 12px;
+  background: rgb(255, 255, 200);
 }
 
-.doc-tab {
-  display: flex;
-}
-
-.doc-id {
+.pending-structs p {
   margin: 0;
-  font-size: 12px;
-  font-weight: bold;
-  flex: none;
-  height: 22px;
-  line-height: 22px;
-}
-
-.doc-close {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  margin-left: 4px;
-  padding: 0;
-  line-height: 12px;
-  font-size: 12px;
-  text-align: center;
-}
-
-.editor {
-  border: 1px solid #eee;
-  margin: 2px;
-}
-
-.data {
-  display: flex;
 }
 
 .client {
@@ -49,9 +22,14 @@
   font-size: 10px;
   color: #999;
   margin: 0;
+  font-family: monospace;
 }
 
-.client-content {
+.clients {
+  display: flex;
+}
+
+.client-model {
   display: flex;
 }
 

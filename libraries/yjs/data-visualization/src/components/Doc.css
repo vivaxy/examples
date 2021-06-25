@@ -1,0 +1,57 @@
+/**
+ * @since 2021-06-25
+ * @author vivaxy
+ */
+.doc-container {
+  flex: 1 1 auto;
+  border: 1px solid #eee;
+}
+
+.doc-tab {
+  display: flex;
+}
+
+.doc-id {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  flex: none;
+  height: 22px;
+  line-height: 22px;
+}
+
+.doc-close {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  padding: 0;
+  line-height: 12px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.editor {
+  border: 1px solid #999;
+  margin: 2px;
+}
+
+.update {
+  font-size: 12px;
+  font-family: monospace;
+  color: #999;
+  margin-top: 1px;
+  margin-bottom: 0;
+}
+
+.update-detail {
+  margin-right: 4px;
+}
+
+.insert {
+  color: rgb(0, 150, 0);
+}
+
+.delete {
+  color: rgb(150, 0, 0);
+}

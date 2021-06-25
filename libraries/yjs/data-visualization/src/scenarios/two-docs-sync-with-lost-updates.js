@@ -6,10 +6,10 @@ import * as E from '../enums/event-types.js';
 import * as EDIT_TYPES from '../enums/edit-types.js';
 
 export default [
-  [E.OPEN_A_NEW_DOC],
-  [E.OPEN_A_NEW_DOC],
+  [E.DOC_OPEN],
+  [E.DOC_OPEN],
   [
-    E.DOC_CHANGE,
+    E.DOC_UPDATE,
     {
       id: 0,
       type: EDIT_TYPES.INSERT,
@@ -18,35 +18,42 @@ export default [
     },
   ],
   [
-    E.SYNC_DOC,
+    E.DOC_SYNC,
     {
       from: 0,
       to: 1,
     },
   ],
   [
-    E.DOC_CHANGE,
+    E.DOC_SYNC,
     {
-      id: 1,
-      type: EDIT_TYPES.DELETE,
-      pos: 1,
-      length: 1,
+      id: 0,
+      type: EDIT_TYPES.INSERT,
+      pos: 3,
+      string: 'B',
     },
   ],
   [
-    E.DOC_CHANGE,
+    E.DOC_SYNC,
     {
       id: 1,
       type: EDIT_TYPES.INSERT,
-      pos: 1,
+      pos: 3,
       string: 'T',
     },
   ],
   [
-    E.SYNC_DOC,
+    E.DOC_SYNC,
     {
       from: 1,
       to: 0,
+    },
+  ],
+  [
+    E.DOC_SYNC,
+    {
+      from: 0,
+      to: 1,
     },
   ],
 ];
