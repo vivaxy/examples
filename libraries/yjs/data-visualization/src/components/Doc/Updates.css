@@ -1,0 +1,23 @@
+/**
+ * @since 2021-06-26
+ * @author vivaxy
+ */
+.update {
+  font-size: 12px;
+  font-family: monospace;
+  color: #999;
+  margin-top: 1px;
+  margin-bottom: 0;
+}
+
+.update-detail {
+  margin-right: 4px;
+}
+
+.update-detail .insert {
+  color: rgb(0, 150, 0);
+}
+
+.update-detail .delete {
+  color: rgb(150, 0, 0);
+}

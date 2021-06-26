@@ -2,3 +2,21 @@
  * @since 2021-06-25
  * @author vivaxy
  */
+.next-step-button {
+  margin-left: 4px;
+}
+
+.next-step {
+  font-family: monospace;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.current-step {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.current-step-label {
+  color: #999;
+}

@@ -2,20 +2,24 @@ import { useState } from 'react';
 import * as Y from 'yjs';
 
 import Scenarios from './components/Scenarios';
-import Actions from './components/Actions';
 import Doc from './components/Doc';
 import scenarios from './scenarios';
 import * as EDIT_TYPE from './enums/edit-types';
 import * as Y_DOC_KEYS from './enums/y-doc-keys';
+import * as E from './enums/event-types.js';
+import * as ENUMS from './enums/enums';
 
 import './App.css';
 
 export default function App() {
-  const [currentScenario, setCurrentScenario] = useState(
-    Object.keys(scenarios)[0],
-  );
+  const [currentScenario, setCurrentScenario] = useState(ENUMS.CUSTOM_SCENARIO);
   const [currentScenarioStepIndex, setCurrentScenarioStepIndex] = useState(0);
-  const [docs, setDocs] = useState([]);
+  const [docs, _setDocs] = useState([]);
+
+  function setDocs(docs) {
+    _setDocs(docs);
+    window.docs = docs;
+  }
 
   function updateDocById(id, updateDoc) {
     const newDocs = [
@@ -29,15 +33,34 @@ export default function App() {
   function handleScenarioChange(scenario) {
     setCurrentScenario(scenario);
     setCurrentScenarioStepIndex(0);
+    setDocs([]);
   }
 
   function handleNextStep() {
+    setCurrentScenarioStepIndex(currentScenarioStepIndex + 1);
     const currentScenarioSteps = scenarios[currentScenario];
-    if (currentScenarioStepIndex < currentScenarioSteps.length) {
-      setCurrentScenarioStepIndex(currentScenarioStepIndex + 1);
-    } else {
-      setCurrentScenarioStepIndex(0);
+    const [action, payload] = currentScenarioSteps[currentScenarioStepIndex];
+    switch (action) {
+      case E.DOC_OPEN:
+        handleOpenDoc();
+        break;
+      case E.DOC_UPDATE:
+        handleEditorChange(payload);
+        break;
+      case E.DOC_SYNC:
+        handleSync(payload);
+        break;
+      case E.DOC_CLOSE:
+        handleCloseDoc(payload);
+        break;
+      default:
+        throw new Error('Unexpected action: ' + action);
     }
+  }
+
+  function handleRestartStep() {
+    setCurrentScenarioStepIndex(0);
+    setDocs([]);
   }
 
   function handleOpenDoc() {
@@ -90,32 +113,38 @@ export default function App() {
     });
   }
 
-  function handleSync({ fromDocId, toDocId, update }) {
-    updateDocById(fromDocId, function (doc) {
-      const toDoc = docs[toDocId];
-      Y.applyUpdate(toDoc.yDoc, update.payload);
+  function handleSync({ from, to, index }) {
+    updateDocById(from, function (doc) {
+      if (!doc) {
+        return;
+      }
+      const toDoc = docs[to];
+      const updates = index === undefined ? doc.updates : [doc.updates[index]];
+      updates.forEach(function (update) {
+        Y.applyUpdate(toDoc.yDoc, update.payload);
+      });
       return {
         ...doc,
-        updates: doc.updates.filter(function (_update) {
-          return _update !== update;
+        updates: doc.updates.filter(function (update) {
+          return !updates.includes(update);
         }),
       };
     });
   }
 
-  const currentScenarioSteps = scenarios[currentScenario];
-  const hasNextStep = currentScenarioStepIndex < currentScenarioSteps.length;
+  const editable = currentScenario === ENUMS.CUSTOM_SCENARIO;
 
   return (
     <div className="App">
       <Scenarios
         scenarios={scenarios}
         currentScenario={currentScenario}
+        currentScenarioStepIndex={currentScenarioStepIndex}
         onScenarioChange={handleScenarioChange}
-        hasNextStep={hasNextStep}
         onNextStep={handleNextStep}
+        onRestartStep={handleRestartStep}
+        onOpenDoc={handleOpenDoc}
       />
-      <Actions onOpenDoc={handleOpenDoc} />
       <div className="docs-container">
         {docs.filter(Boolean).map(function (doc) {
           return (
@@ -123,6 +152,7 @@ export default function App() {
               key={doc.id}
               doc={doc}
               docs={docs}
+              editable={editable}
               onCloseDoc={handleCloseDoc}
               onEditorChange={handleEditorChange}
               onSync={handleSync}

@@ -1,0 +1,27 @@
+/**
+ * @since 2021-06-26
+ * @author vivaxy
+ */
+.doc-tab {
+  display: flex;
+}
+
+.doc-id {
+  margin: 0;
+  font-size: 12px;
+  font-weight: bold;
+  flex: none;
+  height: 22px;
+  line-height: 22px;
+}
+
+.doc-close {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  padding: 0;
+  line-height: 12px;
+  font-size: 12px;
+  text-align: center;
+}

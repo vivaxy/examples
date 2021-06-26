@@ -48,6 +48,13 @@
   background: rgb(200, 255, 200);
 }
 
+.shared-type.current {
+}
+
+.shared-type.link {
+  opacity: 0.3;
+}
+
 .clock {
   margin: 0;
   text-align: center;

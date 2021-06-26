@@ -14,7 +14,7 @@ export default [
       id: 0,
       type: EDIT_TYPES.INSERT,
       pos: 0,
-      string: 'FOO',
+      str: 'FOO',
     },
   ],
   [
@@ -30,7 +30,7 @@ export default [
       id: 0,
       type: EDIT_TYPES.INSERT,
       pos: 3,
-      string: 'B',
+      str: 'B',
     },
   ],
   [
@@ -39,7 +39,7 @@ export default [
       id: 1,
       type: EDIT_TYPES.INSERT,
       pos: 3,
-      string: 'T',
+      str: 'T',
     },
   ],
   [

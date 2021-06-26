@@ -14,7 +14,7 @@ export default [
       id: 0,
       type: EDIT_TYPES.INSERT,
       pos: 0,
-      string: 'FOO',
+      str: 'FOO',
     },
   ],
   [
@@ -25,21 +25,38 @@ export default [
     },
   ],
   [
-    E.DOC_SYNC,
+    E.DOC_UPDATE,
     {
       id: 0,
       type: EDIT_TYPES.INSERT,
       pos: 3,
-      string: 'B',
+      str: 'B',
+    },
+  ],
+  [
+    E.DOC_UPDATE,
+    {
+      id: 0,
+      type: EDIT_TYPES.INSERT,
+      pos: 4,
+      str: 'AR',
+    },
+  ],
+  [
+    E.DOC_UPDATE,
+    {
+      id: 1,
+      type: EDIT_TYPES.INSERT,
+      pos: 3,
+      str: 'T',
     },
   ],
   [
     E.DOC_SYNC,
     {
-      id: 1,
-      type: EDIT_TYPES.INSERT,
-      pos: 3,
-      string: 'T',
+      from: 0,
+      to: 1,
+      index: 1,
     },
   ],
   [
@@ -54,6 +71,7 @@ export default [
     {
       from: 0,
       to: 1,
+      index: 0,
     },
   ],
 ];

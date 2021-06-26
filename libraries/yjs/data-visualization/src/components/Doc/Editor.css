@@ -1,0 +1,11 @@
+/**
+ * @since 2021-06-26
+ * @author vivaxy
+ */
+.editor {
+  border: 1px solid #999;
+  margin: 2px;
+  border-radius: 2px;
+  height: 22px;
+  line-height: 22px;
+}

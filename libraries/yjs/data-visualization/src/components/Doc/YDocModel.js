@@ -21,10 +21,12 @@ function renderMissing(missing) {
   return res;
 }
 
-function renderModel(sharedType) {
+function renderModel(sharedType, clientID) {
   const sharedTypeNode = (
     <div
-      className={`shared-type${sharedType.content.str ? ' insert' : ' delete'}`}
+      className={`shared-type${sharedType.content.str ? ' insert' : ' delete'}${
+        sharedType.id.client === clientID ? ' current' : ' link'
+      }`}
       key={getSharedTypeId(sharedType)}
     >
       <p className="clock">{sharedType.id.clock}</p>
@@ -35,7 +37,7 @@ function renderModel(sharedType) {
   );
 
   if (sharedType.right) {
-    return [sharedTypeNode, ...renderModel(sharedType.right)];
+    return [sharedTypeNode, ...renderModel(sharedType.right, clientID)];
   }
   return [sharedTypeNode];
 }
@@ -47,7 +49,7 @@ export default function YDocModel(props) {
       <div className="client" key={clientID}>
         <p className="client-id">clientID: {clientID}</p>
         <div className="client-model">
-          {renderModel(items[0].parent._start)}
+          {renderModel(items[0].parent._start, clientID)}
         </div>
       </div>,
     );
