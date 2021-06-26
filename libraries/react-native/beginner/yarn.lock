@@ -1114,15 +1114,15 @@
     jest-util "^27.0.2"
     slash "^3.0.0"
 
-"@jest/core@^27.0.4":
-  version "27.0.4"
-  resolved "https://registry.nlark.com/@jest/core/download/@jest/core-27.0.4.tgz#679bf9ac07900da2ddbb9667bb1afa8029038f53"
-  integrity sha1-Z5v5rAeQDaLdu5Znuxr6gCkDj1M=
+"@jest/core@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/core/download/@jest/core-27.0.5.tgz?cache=0&sync_timestamp=1624361124821&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Fcore%2Fdownload%2F%40jest%2Fcore-27.0.5.tgz#59e9e69e7374d65dbb22e3fc1bd52e80991eae72"
+  integrity sha1-WenmnnN01l27IuP8G9UugJkernI=
   dependencies:
     "@jest/console" "^27.0.2"
-    "@jest/reporters" "^27.0.4"
+    "@jest/reporters" "^27.0.5"
     "@jest/test-result" "^27.0.2"
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
     ansi-escapes "^4.2.1"
@@ -1131,15 +1131,15 @@
     exit "^0.1.2"
     graceful-fs "^4.2.4"
     jest-changed-files "^27.0.2"
-    jest-config "^27.0.4"
-    jest-haste-map "^27.0.2"
+    jest-config "^27.0.5"
+    jest-haste-map "^27.0.5"
     jest-message-util "^27.0.2"
     jest-regex-util "^27.0.1"
-    jest-resolve "^27.0.4"
-    jest-resolve-dependencies "^27.0.4"
-    jest-runner "^27.0.4"
-    jest-runtime "^27.0.4"
-    jest-snapshot "^27.0.4"
+    jest-resolve "^27.0.5"
+    jest-resolve-dependencies "^27.0.5"
+    jest-runner "^27.0.5"
+    jest-runtime "^27.0.5"
+    jest-snapshot "^27.0.5"
     jest-util "^27.0.2"
     jest-validate "^27.0.2"
     jest-watcher "^27.0.2"
@@ -1156,20 +1156,20 @@
   dependencies:
     "@jest/types" "^26.6.2"
 
-"@jest/environment@^27.0.3":
-  version "27.0.3"
-  resolved "https://registry.nlark.com/@jest/environment/download/@jest/environment-27.0.3.tgz#68769b1dfdd213e3456169d64fbe9bd63a5fda92"
-  integrity sha1-aHabHf3SE+NFYWnWT76b1jpf2pI=
+"@jest/environment@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/environment/download/@jest/environment-27.0.5.tgz?cache=0&sync_timestamp=1624361139121&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Fenvironment%2Fdownload%2F%40jest%2Fenvironment-27.0.5.tgz#a294ad4acda2e250f789fb98dc667aad33d3adc9"
+  integrity sha1-opStSs2i4lD3ifuY3GZ6rTPTrck=
   dependencies:
-    "@jest/fake-timers" "^27.0.3"
+    "@jest/fake-timers" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
     jest-mock "^27.0.3"
 
-"@jest/fake-timers@^27.0.3":
-  version "27.0.3"
-  resolved "https://registry.nlark.com/@jest/fake-timers/download/@jest/fake-timers-27.0.3.tgz#9899ba6304cc636734c74478df502e18136461dd"
-  integrity sha1-mJm6YwTMY2c0x0R431AuGBNkYd0=
+"@jest/fake-timers@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/fake-timers/download/@jest/fake-timers-27.0.5.tgz?cache=0&sync_timestamp=1624361141094&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ffake-timers%2Fdownload%2F%40jest%2Ffake-timers-27.0.5.tgz#304d5aedadf4c75cff3696995460b39d6c6e72f6"
+  integrity sha1-ME1a7a30x1z/NpaZVGCznWxucvY=
   dependencies:
     "@jest/types" "^27.0.2"
     "@sinonjs/fake-timers" "^7.0.2"
@@ -1178,24 +1178,24 @@
     jest-mock "^27.0.3"
     jest-util "^27.0.2"
 
-"@jest/globals@^27.0.3":
-  version "27.0.3"
-  resolved "https://registry.nlark.com/@jest/globals/download/@jest/globals-27.0.3.tgz?cache=0&sync_timestamp=1622310784833&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Fglobals%2Fdownload%2F%40jest%2Fglobals-27.0.3.tgz#1cf8933b7791bba0b99305cbf39fd4d2e3fe4060"
-  integrity sha1-HPiTO3eRu6C5kwXL85/U0uP+QGA=
+"@jest/globals@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/globals/download/@jest/globals-27.0.5.tgz#f63b8bfa6ea3716f8df50f6a604b5c15b36ffd20"
+  integrity sha1-9juL+m6jcW+N9Q9qYEtcFbNv/SA=
   dependencies:
-    "@jest/environment" "^27.0.3"
+    "@jest/environment" "^27.0.5"
     "@jest/types" "^27.0.2"
     expect "^27.0.2"
 
-"@jest/reporters@^27.0.4":
-  version "27.0.4"
-  resolved "https://registry.nlark.com/@jest/reporters/download/@jest/reporters-27.0.4.tgz?cache=0&sync_timestamp=1622709021411&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Freporters%2Fdownload%2F%40jest%2Freporters-27.0.4.tgz#95609b1be97afb80d55d8aa3d7c3179c15810e65"
-  integrity sha1-lWCbG+l6+4DVXYqj18MXnBWBDmU=
+"@jest/reporters@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/reporters/download/@jest/reporters-27.0.5.tgz?cache=0&sync_timestamp=1624361153347&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Freporters%2Fdownload%2F%40jest%2Freporters-27.0.5.tgz#cd730b77d9667b8ff700ad66d4edc293bb09716a"
+  integrity sha1-zXMLd9lme4/3AK1m1O3Ck7sJcWo=
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
     "@jest/console" "^27.0.2"
     "@jest/test-result" "^27.0.2"
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     chalk "^4.0.0"
     collect-v8-coverage "^1.0.0"
@@ -1207,15 +1207,15 @@
     istanbul-lib-report "^3.0.0"
     istanbul-lib-source-maps "^4.0.0"
     istanbul-reports "^3.0.2"
-    jest-haste-map "^27.0.2"
-    jest-resolve "^27.0.4"
+    jest-haste-map "^27.0.5"
+    jest-resolve "^27.0.5"
     jest-util "^27.0.2"
     jest-worker "^27.0.2"
     slash "^3.0.0"
     source-map "^0.6.0"
     string-length "^4.0.1"
     terminal-link "^2.0.0"
-    v8-to-istanbul "^7.0.0"
+    v8-to-istanbul "^8.0.0"
 
 "@jest/source-map@^27.0.1":
   version "27.0.1"
@@ -1236,20 +1236,20 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     collect-v8-coverage "^1.0.0"
 
-"@jest/test-sequencer@^27.0.4":
-  version "27.0.4"
-  resolved "https://registry.nlark.com/@jest/test-sequencer/download/@jest/test-sequencer-27.0.4.tgz?cache=0&sync_timestamp=1622710192302&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ftest-sequencer%2Fdownload%2F%40jest%2Ftest-sequencer-27.0.4.tgz#976493b277594d81e589896f0ed21f198308928a"
-  integrity sha1-l2STsndZTYHliYlvDtIfGYMIkoo=
+"@jest/test-sequencer@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/test-sequencer/download/@jest/test-sequencer-27.0.5.tgz?cache=0&sync_timestamp=1624361156814&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ftest-sequencer%2Fdownload%2F%40jest%2Ftest-sequencer-27.0.5.tgz#c58b21db49afc36c0e3921d7ddf1fb7954abfded"
+  integrity sha1-xYsh20mvw2wOOSHX3fH7eVSr/e0=
   dependencies:
     "@jest/test-result" "^27.0.2"
     graceful-fs "^4.2.4"
-    jest-haste-map "^27.0.2"
-    jest-runtime "^27.0.4"
+    jest-haste-map "^27.0.5"
+    jest-runtime "^27.0.5"
 
-"@jest/transform@^27.0.2":
-  version "27.0.2"
-  resolved "https://registry.nlark.com/@jest/transform/download/@jest/transform-27.0.2.tgz#b073b7c589e3f4b842102468875def2bb722d6b5"
-  integrity sha1-sHO3xYnj9LhCECRoh13vK7ci1rU=
+"@jest/transform@^27.0.5":
+  version "27.0.5"
+  resolved "https://registry.nlark.com/@jest/transform/download/@jest/transform-27.0.5.tgz?cache=0&sync_timestamp=1624361142659&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40jest%2Ftransform%2Fdownload%2F%40jest%2Ftransform-27.0.5.tgz#2dcb78953708af713941ac845b06078bc74ed873"
+  integrity sha1-Lct4lTcIr3E5QayEWwYHi8dO2HM=
   dependencies:
     "@babel/core" "^7.1.0"
     "@jest/types" "^27.0.2"
@@ -1258,7 +1258,7 @@
     convert-source-map "^1.4.0"
     fast-json-stable-stringify "^2.0.0"
     graceful-fs "^4.2.4"
-    jest-haste-map "^27.0.2"
+    jest-haste-map "^27.0.5"
     jest-regex-util "^27.0.1"
     jest-util "^27.0.2"
     micromatch "^4.0.4"
@@ -1884,12 +1884,12 @@ babel-helper-replace-supers@^6.23.0:
     babel-traverse "^6.23.0"
     babel-types "^6.23.0"
 
-babel-jest@27.0.2, babel-jest@^27.0.2:
-  version "27.0.2"
-  resolved "https://registry.nlark.com/babel-jest/download/babel-jest-27.0.2.tgz#7dc18adb01322acce62c2af76ea2c7cd186ade37"
-  integrity sha1-fcGK2wEyKszmLCr3bqLHzRhq3jc=
+babel-jest@27.0.5, babel-jest@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/babel-jest/download/babel-jest-27.0.5.tgz?cache=0&sync_timestamp=1624360361836&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fbabel-jest%2Fdownload%2Fbabel-jest-27.0.5.tgz#cd34c033ada05d1362211e5152391fd7a88080c8"
+  integrity sha1-zTTAM62gXRNiIR5RUjkf16iAgMg=
   dependencies:
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/babel__core" "^7.1.14"
     babel-plugin-istanbul "^6.0.0"
@@ -3708,12 +3708,12 @@ jest-changed-files@^27.0.2:
     execa "^5.0.0"
     throat "^6.0.1"
 
-jest-circus@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-circus/download/jest-circus-27.0.4.tgz#3b261514ee3b3da33def736a6352c98ff56bb6e6"
-  integrity sha1-OyYVFO47PaM973NqY1LJj/VrtuY=
+jest-circus@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-circus/download/jest-circus-27.0.5.tgz#b5e327f1d6857c8485126f8e364aefa4378debaa"
+  integrity sha1-teMn8daFfISFEm+ONkrvpDeN66o=
   dependencies:
-    "@jest/environment" "^27.0.3"
+    "@jest/environment" "^27.0.5"
     "@jest/test-result" "^27.0.2"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
@@ -3725,54 +3725,54 @@ jest-circus@^27.0.4:
     jest-each "^27.0.2"
     jest-matcher-utils "^27.0.2"
     jest-message-util "^27.0.2"
-    jest-runtime "^27.0.4"
-    jest-snapshot "^27.0.4"
+    jest-runtime "^27.0.5"
+    jest-snapshot "^27.0.5"
     jest-util "^27.0.2"
     pretty-format "^27.0.2"
     slash "^3.0.0"
     stack-utils "^2.0.3"
     throat "^6.0.1"
 
-jest-cli@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-cli/download/jest-cli-27.0.4.tgz#491b12c754c0d7c6873b13a66f26b3a80a852910"
-  integrity sha1-SRsSx1TA18aHOxOmbyazqAqFKRA=
+jest-cli@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-cli/download/jest-cli-27.0.5.tgz?cache=0&sync_timestamp=1624360367270&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-cli%2Fdownload%2Fjest-cli-27.0.5.tgz#f359ba042624cffb96b713010a94bffb7498a37c"
+  integrity sha1-81m6BCYkz/uWtxMBCpS/+3SYo3w=
   dependencies:
-    "@jest/core" "^27.0.4"
+    "@jest/core" "^27.0.5"
     "@jest/test-result" "^27.0.2"
     "@jest/types" "^27.0.2"
     chalk "^4.0.0"
     exit "^0.1.2"
     graceful-fs "^4.2.4"
     import-local "^3.0.2"
-    jest-config "^27.0.4"
+    jest-config "^27.0.5"
     jest-util "^27.0.2"
     jest-validate "^27.0.2"
     prompts "^2.0.1"
     yargs "^16.0.3"
 
-jest-config@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-config/download/jest-config-27.0.4.tgz#c4f41378acf40ca77860fb4e213b12109d87b8cf"
-  integrity sha1-xPQTeKz0DKd4YPtOITsSEJ2HuM8=
+jest-config@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-config/download/jest-config-27.0.5.tgz#683da3b0d8237675c29c817f6e3aba1481028e19"
+  integrity sha1-aD2jsNgjdnXCnIF/bjq6FIECjhk=
   dependencies:
     "@babel/core" "^7.1.0"
-    "@jest/test-sequencer" "^27.0.4"
+    "@jest/test-sequencer" "^27.0.5"
     "@jest/types" "^27.0.2"
-    babel-jest "^27.0.2"
+    babel-jest "^27.0.5"
     chalk "^4.0.0"
     deepmerge "^4.2.2"
     glob "^7.1.1"
     graceful-fs "^4.2.4"
     is-ci "^3.0.0"
-    jest-circus "^27.0.4"
-    jest-environment-jsdom "^27.0.3"
-    jest-environment-node "^27.0.3"
+    jest-circus "^27.0.5"
+    jest-environment-jsdom "^27.0.5"
+    jest-environment-node "^27.0.5"
     jest-get-type "^27.0.1"
-    jest-jasmine2 "^27.0.4"
+    jest-jasmine2 "^27.0.5"
     jest-regex-util "^27.0.1"
-    jest-resolve "^27.0.4"
-    jest-runner "^27.0.4"
+    jest-resolve "^27.0.5"
+    jest-runner "^27.0.5"
     jest-util "^27.0.2"
     jest-validate "^27.0.2"
     micromatch "^4.0.4"
@@ -3806,26 +3806,26 @@ jest-each@^27.0.2:
     jest-util "^27.0.2"
     pretty-format "^27.0.2"
 
-jest-environment-jsdom@^27.0.3:
-  version "27.0.3"
-  resolved "https://registry.nlark.com/jest-environment-jsdom/download/jest-environment-jsdom-27.0.3.tgz?cache=0&sync_timestamp=1622310785786&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-environment-jsdom%2Fdownload%2Fjest-environment-jsdom-27.0.3.tgz#ed73e913ddc03864eb9f934b5cbabf1b63504e2e"
-  integrity sha1-7XPpE93AOGTrn5NLXLq/G2NQTi4=
+jest-environment-jsdom@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-environment-jsdom/download/jest-environment-jsdom-27.0.5.tgz?cache=0&sync_timestamp=1624360363361&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-environment-jsdom%2Fdownload%2Fjest-environment-jsdom-27.0.5.tgz#c36771977cf4490a9216a70473b39161d193c212"
+  integrity sha1-w2dxl3z0SQqSFqcEc7ORYdGTwhI=
   dependencies:
-    "@jest/environment" "^27.0.3"
-    "@jest/fake-timers" "^27.0.3"
+    "@jest/environment" "^27.0.5"
+    "@jest/fake-timers" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
     jest-mock "^27.0.3"
     jest-util "^27.0.2"
     jsdom "^16.6.0"
 
-jest-environment-node@^27.0.3:
-  version "27.0.3"
-  resolved "https://registry.nlark.com/jest-environment-node/download/jest-environment-node-27.0.3.tgz?cache=0&sync_timestamp=1622310787357&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-environment-node%2Fdownload%2Fjest-environment-node-27.0.3.tgz#b4acb3679d2552a4215732cab8b0ca7ec4398ee0"
-  integrity sha1-tKyzZ50lUqQhVzLKuLDKfsQ5juA=
+jest-environment-node@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-environment-node/download/jest-environment-node-27.0.5.tgz#b7238fc2b61ef2fb9563a3b7653a95fa009a6a54"
+  integrity sha1-tyOPwrYe8vuVY6O3ZTqV+gCaalQ=
   dependencies:
-    "@jest/environment" "^27.0.3"
-    "@jest/fake-timers" "^27.0.3"
+    "@jest/environment" "^27.0.5"
+    "@jest/fake-timers" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
     jest-mock "^27.0.3"
@@ -3862,10 +3862,10 @@ jest-haste-map@^26.5.2:
   optionalDependencies:
     fsevents "^2.1.2"
 
-jest-haste-map@^27.0.2:
-  version "27.0.2"
-  resolved "https://registry.nlark.com/jest-haste-map/download/jest-haste-map-27.0.2.tgz?cache=0&sync_timestamp=1622290073901&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-haste-map%2Fdownload%2Fjest-haste-map-27.0.2.tgz#3f1819400c671237e48b4d4b76a80a0dbed7577f"
-  integrity sha1-PxgZQAxnEjfki01LdqgKDb7XV38=
+jest-haste-map@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-haste-map/download/jest-haste-map-27.0.5.tgz#2e1e55073b5328410a2c0d74b334e513d71f3470"
+  integrity sha1-Lh5VBztTKEEKLA10szTlE9cfNHA=
   dependencies:
     "@jest/types" "^27.0.2"
     "@types/graceful-fs" "^4.1.2"
@@ -3882,13 +3882,13 @@ jest-haste-map@^27.0.2:
   optionalDependencies:
     fsevents "^2.3.2"
 
-jest-jasmine2@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-jasmine2/download/jest-jasmine2-27.0.4.tgz?cache=0&sync_timestamp=1622709039290&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-jasmine2%2Fdownload%2Fjest-jasmine2-27.0.4.tgz#c669519ccf4904a485338555e1e66cad36bb0670"
-  integrity sha1-xmlRnM9JBKSFM4VV4eZsrTa7BnA=
+jest-jasmine2@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-jasmine2/download/jest-jasmine2-27.0.5.tgz#8a6eb2a685cdec3af13881145c77553e4e197776"
+  integrity sha1-im6ypoXN7DrxOIEUXHdVPk4Zd3Y=
   dependencies:
     "@babel/traverse" "^7.1.0"
-    "@jest/environment" "^27.0.3"
+    "@jest/environment" "^27.0.5"
     "@jest/source-map" "^27.0.1"
     "@jest/test-result" "^27.0.2"
     "@jest/types" "^27.0.2"
@@ -3900,8 +3900,8 @@ jest-jasmine2@^27.0.4:
     jest-each "^27.0.2"
     jest-matcher-utils "^27.0.2"
     jest-message-util "^27.0.2"
-    jest-runtime "^27.0.4"
-    jest-snapshot "^27.0.4"
+    jest-runtime "^27.0.5"
+    jest-snapshot "^27.0.5"
     jest-util "^27.0.2"
     pretty-format "^27.0.2"
     throat "^6.0.1"
@@ -3962,19 +3962,19 @@ jest-regex-util@^27.0.1:
   resolved "https://registry.nlark.com/jest-regex-util/download/jest-regex-util-27.0.1.tgz?cache=0&sync_timestamp=1621937493844&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-regex-util%2Fdownload%2Fjest-regex-util-27.0.1.tgz#69d4b1bf5b690faa3490113c47486ed85dd45b68"
   integrity sha1-adSxv1tpD6o0kBE8R0hu2F3UW2g=
 
-jest-resolve-dependencies@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-resolve-dependencies/download/jest-resolve-dependencies-27.0.4.tgz?cache=0&sync_timestamp=1622709025279&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-resolve-dependencies%2Fdownload%2Fjest-resolve-dependencies-27.0.4.tgz#a07a242d70d668afd3fcf7f4270755eebb1fe579"
-  integrity sha1-oHokLXDWaK/T/Pf0JwdV7rsf5Xk=
+jest-resolve-dependencies@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-resolve-dependencies/download/jest-resolve-dependencies-27.0.5.tgz#819ccdddd909c65acddb063aac3a49e4ba1ed569"
+  integrity sha1-gZzN3dkJxlrN2wY6rDpJ5Loe1Wk=
   dependencies:
     "@jest/types" "^27.0.2"
     jest-regex-util "^27.0.1"
-    jest-snapshot "^27.0.4"
+    jest-snapshot "^27.0.5"
 
-jest-resolve@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-resolve/download/jest-resolve-27.0.4.tgz#8a27bc3f2f00c8ea28f3bc99bbf6f468300a703d"
-  integrity sha1-iie8Py8AyOoo87yZu/b0aDAKcD0=
+jest-resolve@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-resolve/download/jest-resolve-27.0.5.tgz#937535a5b481ad58e7121eaea46d1424a1e0c507"
+  integrity sha1-k3U1pbSBrVjnEh6upG0UJKHgxQc=
   dependencies:
     "@jest/types" "^27.0.2"
     chalk "^4.0.0"
@@ -3986,15 +3986,15 @@ jest-resolve@^27.0.4:
     resolve "^1.20.0"
     slash "^3.0.0"
 
-jest-runner@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-runner/download/jest-runner-27.0.4.tgz#2787170a9509b792ae129794f6944d27d5d12a4f"
-  integrity sha1-J4cXCpUJt5KuEpeU9pRNJ9XRKk8=
+jest-runner@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-runner/download/jest-runner-27.0.5.tgz#b6fdc587e1a5056339205914294555c554efc08a"
+  integrity sha1-tv3Fh+GlBWM5IFkUKUVVxVTvwIo=
   dependencies:
     "@jest/console" "^27.0.2"
-    "@jest/environment" "^27.0.3"
+    "@jest/environment" "^27.0.5"
     "@jest/test-result" "^27.0.2"
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/node" "*"
     chalk "^4.0.0"
@@ -4002,30 +4002,30 @@ jest-runner@^27.0.4:
     exit "^0.1.2"
     graceful-fs "^4.2.4"
     jest-docblock "^27.0.1"
-    jest-environment-jsdom "^27.0.3"
-    jest-environment-node "^27.0.3"
-    jest-haste-map "^27.0.2"
+    jest-environment-jsdom "^27.0.5"
+    jest-environment-node "^27.0.5"
+    jest-haste-map "^27.0.5"
     jest-leak-detector "^27.0.2"
     jest-message-util "^27.0.2"
-    jest-resolve "^27.0.4"
-    jest-runtime "^27.0.4"
+    jest-resolve "^27.0.5"
+    jest-runtime "^27.0.5"
     jest-util "^27.0.2"
     jest-worker "^27.0.2"
     source-map-support "^0.5.6"
     throat "^6.0.1"
 
-jest-runtime@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-runtime/download/jest-runtime-27.0.4.tgz#2e4a6aa77cac32ac612dfe12768387a8aa15c2f0"
-  integrity sha1-Lkpqp3ysMqxhLf4SdoOHqKoVwvA=
+jest-runtime@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-runtime/download/jest-runtime-27.0.5.tgz#cd5d1aa9754d30ddf9f13038b3cb7b95b46f552d"
+  integrity sha1-zV0aqXVNMN358TA4s8t7lbRvVS0=
   dependencies:
     "@jest/console" "^27.0.2"
-    "@jest/environment" "^27.0.3"
-    "@jest/fake-timers" "^27.0.3"
-    "@jest/globals" "^27.0.3"
+    "@jest/environment" "^27.0.5"
+    "@jest/fake-timers" "^27.0.5"
+    "@jest/globals" "^27.0.5"
     "@jest/source-map" "^27.0.1"
     "@jest/test-result" "^27.0.2"
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
@@ -4034,12 +4034,12 @@ jest-runtime@^27.0.4:
     exit "^0.1.2"
     glob "^7.1.3"
     graceful-fs "^4.2.4"
-    jest-haste-map "^27.0.2"
+    jest-haste-map "^27.0.5"
     jest-message-util "^27.0.2"
     jest-mock "^27.0.3"
     jest-regex-util "^27.0.1"
-    jest-resolve "^27.0.4"
-    jest-snapshot "^27.0.4"
+    jest-resolve "^27.0.5"
+    jest-snapshot "^27.0.5"
     jest-util "^27.0.2"
     jest-validate "^27.0.2"
     slash "^3.0.0"
@@ -4062,10 +4062,10 @@ jest-serializer@^27.0.1:
     "@types/node" "*"
     graceful-fs "^4.2.4"
 
-jest-snapshot@^27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest-snapshot/download/jest-snapshot-27.0.4.tgz#2b96e22ca90382b3e93bd0aae2ce4c78bf51fb5b"
-  integrity sha1-K5biLKkDgrPpO9Cq4s5MeL9R+1s=
+jest-snapshot@^27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest-snapshot/download/jest-snapshot-27.0.5.tgz?cache=0&sync_timestamp=1624360362518&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest-snapshot%2Fdownload%2Fjest-snapshot-27.0.5.tgz#6e3b9e8e193685372baff771ba34af631fe4d4d5"
+  integrity sha1-bjuejhk2hTcrr/dxujSvYx/k1NU=
   dependencies:
     "@babel/core" "^7.7.2"
     "@babel/generator" "^7.7.2"
@@ -4073,7 +4073,7 @@ jest-snapshot@^27.0.4:
     "@babel/plugin-syntax-typescript" "^7.7.2"
     "@babel/traverse" "^7.7.2"
     "@babel/types" "^7.0.0"
-    "@jest/transform" "^27.0.2"
+    "@jest/transform" "^27.0.5"
     "@jest/types" "^27.0.2"
     "@types/babel__traverse" "^7.0.4"
     "@types/prettier" "^2.1.5"
@@ -4083,10 +4083,10 @@ jest-snapshot@^27.0.4:
     graceful-fs "^4.2.4"
     jest-diff "^27.0.2"
     jest-get-type "^27.0.1"
-    jest-haste-map "^27.0.2"
+    jest-haste-map "^27.0.5"
     jest-matcher-utils "^27.0.2"
     jest-message-util "^27.0.2"
-    jest-resolve "^27.0.4"
+    jest-resolve "^27.0.5"
     jest-util "^27.0.2"
     natural-compare "^1.4.0"
     pretty-format "^27.0.2"
@@ -4171,14 +4171,14 @@ jest-worker@^27.0.2:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@27.0.4:
-  version "27.0.4"
-  resolved "https://registry.nlark.com/jest/download/jest-27.0.4.tgz?cache=0&sync_timestamp=1622709000600&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest%2Fdownload%2Fjest-27.0.4.tgz#91d4d564b36bcf93b98dac1ab19f07089e670f53"
-  integrity sha1-kdTVZLNrz5O5jawasZ8HCJ5nD1M=
+jest@27.0.5:
+  version "27.0.5"
+  resolved "https://registry.nlark.com/jest/download/jest-27.0.5.tgz?cache=0&sync_timestamp=1624360366642&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fjest%2Fdownload%2Fjest-27.0.5.tgz#141825e105514a834cc8d6e44670509e8d74c5f2"
+  integrity sha1-FBgl4QVRSoNMyNbkRnBQno10xfI=
   dependencies:
-    "@jest/core" "^27.0.4"
+    "@jest/core" "^27.0.5"
     import-local "^3.0.2"
-    jest-cli "^27.0.4"
+    jest-cli "^27.0.5"
 
 jetifier@^1.6.2:
   version "1.6.5"
@@ -6189,10 +6189,10 @@ uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-3.4.0.tgz?cache=0&sync_timestamp=1588193370800&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fuuid%2Fdownload%2Fuuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
 
-v8-to-istanbul@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.npm.taobao.org/v8-to-istanbul/download/v8-to-istanbul-7.0.0.tgz#b4fe00e35649ef7785a9b7fcebcea05f37c332fc"
-  integrity sha1-tP4A41ZJ73eFqbf8686gXzfDMvw=
+v8-to-istanbul@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.nlark.com/v8-to-istanbul/download/v8-to-istanbul-8.0.0.tgz?cache=0&sync_timestamp=1622757460779&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fv8-to-istanbul%2Fdownload%2Fv8-to-istanbul-8.0.0.tgz#4229f2a99e367f3f018fa1d5c2b8ec684667c69c"
+  integrity sha1-QinyqZ42fz8Bj6HVwrjsaEZnxpw=
   dependencies:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"
