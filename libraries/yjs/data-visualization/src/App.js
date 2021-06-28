@@ -76,11 +76,12 @@ export default function App() {
 
   function handleOpenDoc() {
     const yDoc = new Y.Doc();
+    const id = docs.length;
     setDocs([
       ...docs,
       {
-        id: docs.length,
-        yDoc: yDoc, // mutable
+        id,
+        yDoc, // mutable
         updates: [], // { action, payload }
       },
     ]);

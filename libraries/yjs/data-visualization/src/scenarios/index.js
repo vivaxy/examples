@@ -7,9 +7,11 @@ import TwoDocsSyncWithoutConflicts from './two-docs-sync-without-conflicts.js';
 import TwoDocsSyncWithConflicts from './two-docs-sync-with-conflicts.js';
 import TwoDocsSyncWithLostUpdates from './two-docs-sync-with-lost-updates.js';
 
-export default {
+const scenarios = {
   DocEdit,
   TwoDocsSyncWithoutConflicts,
   TwoDocsSyncWithConflicts,
   TwoDocsSyncWithLostUpdates,
 };
+
+export default scenarios;

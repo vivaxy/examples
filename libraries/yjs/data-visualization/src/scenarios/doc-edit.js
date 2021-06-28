@@ -5,7 +5,7 @@
 import * as E from '../enums/event-types.js';
 import * as EDIT_TYPES from '../enums/edit-types.js';
 
-export default [
+const DocEdit = [
   [E.DOC_OPEN],
   [
     E.DOC_UPDATE,
@@ -44,3 +44,5 @@ export default [
     },
   ],
 ];
+
+export default DocEdit;

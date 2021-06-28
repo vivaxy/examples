@@ -5,7 +5,7 @@
 import * as E from '../enums/event-types.js';
 import * as EDIT_TYPES from '../enums/edit-types.js';
 
-export default [
+const TwoDocsSyncWithoutConflicts = [
   [E.DOC_OPEN],
   [E.DOC_OPEN],
   [
@@ -50,3 +50,5 @@ export default [
     },
   ],
 ];
+
+export default TwoDocsSyncWithoutConflicts;
