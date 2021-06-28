@@ -94,33 +94,37 @@ export default function App() {
     });
   }
 
-  function handleEditorChange(action) {
-    const { id, type, pos, str, len } = action;
+  function handleEditorChange(change) {
+    if (docs.length === 1) {
+      // do not record updates when there is only one doc.
+      return;
+    }
+    const { id, actions } = change;
     updateDocById(id, function (doc) {
-      const prevStateVector = Y.encodeStateVector(doc.yDoc);
-      const yText = doc.yDoc.getText(Y_DOC_KEYS.TEXT_KEY);
-      switch (type) {
-        case EDIT_TYPE.INSERT:
-          yText.insert(pos, str);
-          break;
-        case EDIT_TYPE.DELETE:
-          yText.delete(pos, len);
-          break;
-        default:
-          throw new Error('Unexpected type');
-      }
-
-      const update = Y.encodeStateAsUpdate(doc.yDoc, prevStateVector);
+      const newUpdates = actions.map(function (action) {
+        const { type, pos, str, len } = action;
+        const prevStateVector = Y.encodeStateVector(doc.yDoc);
+        const yText = doc.yDoc.getText(Y_DOC_KEYS.TEXT_KEY);
+        switch (type) {
+          case EDIT_TYPE.INSERT:
+            yText.insert(pos, str);
+            break;
+          case EDIT_TYPE.DELETE:
+            yText.delete(pos, len);
+            break;
+          default:
+            throw new Error('Unexpected type');
+        }
+        const update = Y.encodeStateAsUpdate(doc.yDoc, prevStateVector);
+        return {
+          action,
+          payload: update,
+        };
+      });
 
       return {
         ...doc,
-        updates: [
-          ...doc.updates,
-          {
-            action,
-            payload: update,
-          },
-        ],
+        updates: [...doc.updates, ...newUpdates],
       };
     });
   }

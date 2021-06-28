@@ -1,6 +1,6 @@
 {
   "name": "data-visualization",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "react": "^17.0.2",
@@ -9,7 +9,7 @@
     "yjs": "^13.5.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

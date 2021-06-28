@@ -7,22 +7,67 @@ import * as EDIT_TYPES from '../../enums/edit-types';
 import * as Y_DOC_KEYS from '../../enums/y-doc-keys';
 import './Editor.css';
 
-function getChanges(prev, cur, cursorPos) {
-  if (cur.length > prev.length) {
-    return {
-      type: EDIT_TYPES.INSERT,
-      pos: cursorPos - cur.length + prev.length,
-      str: cur.slice(cursorPos - cur.length + prev.length, cursorPos),
-    };
+function getDiffStart(prev, cur, cursorPos) {
+  const max = Math.min(
+    Math.max(prev.length - 1, 0),
+    Math.max(cur.length - 1, 0),
+    cursorPos,
+  );
+  for (let i = 0; i <= max; i++) {
+    if (prev[i] !== cur[i]) {
+      return i;
+    }
   }
-  if (cur.length < prev.length) {
-    return {
+  if (prev.length === 0 || cur.length === 0) {
+    return 0;
+  }
+  return max + 1;
+}
+
+function getDiffEnd(prev, cur, cursorPos) {
+  const max = Math.min(
+    Math.max(prev.length - 1, 0),
+    Math.max(cur.length - cursorPos, 0),
+  );
+  for (let i = 0; i <= max; i++) {
+    if (prev[prev.length - 1 - i] !== cur[cur.length - 1 - i]) {
+      return i;
+    }
+  }
+  return max;
+}
+
+function getActions(prev, cur, cursorPos) {
+  // 1. text before cursor is added
+  // 2. text after cursor or text before cursor is deleted
+  // 3. ignore changes that result in original text
+  const diffStart = getDiffStart(prev, cur, cursorPos);
+  const diffEnd = getDiffEnd(prev, cur, cursorPos);
+  const deleted = {
+    pos: diffStart,
+    len: prev.length - diffEnd - diffStart,
+  };
+  const inserted = {
+    pos: diffStart,
+    str: cur.slice(diffStart, cur.length - diffEnd),
+  };
+
+  const actions = [];
+  if (deleted.len) {
+    actions.push({
       type: EDIT_TYPES.DELETE,
-      pos: cursorPos,
-      len: prev.length - cur.length,
-    };
+      pos: deleted.pos,
+      len: deleted.len,
+    });
   }
-  throw new Error('Unexpected change');
+  if (inserted.str.length) {
+    actions.push({
+      type: EDIT_TYPES.INSERT,
+      pos: inserted.pos,
+      str: inserted.str,
+    });
+  }
+  return actions;
 }
 
 function getTextFromYDoc(yDoc) {
@@ -37,11 +82,11 @@ export default function Editor(props) {
     const value = e.target.textContent;
     if (editorValue.current !== value) {
       const cursorPos = window.getSelection().getRangeAt(0).startOffset;
-      const change = getChanges(editorValue.current, value, cursorPos);
+      const actions = getActions(editorValue.current, value, cursorPos);
       editorValue.current = value;
       props.onEditorChange({
         id: props.doc.id,
-        ...change,
+        actions,
       });
     }
   }
