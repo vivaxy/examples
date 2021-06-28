@@ -1,5 +1,9 @@
 [
   {
+    "name": "y-prosemirror",
+    "link": "y-prosemirror/"
+  },
+  {
     "name": "Data Visualization",
     "link": "data-visualization/build/"
   },

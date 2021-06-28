@@ -252,6 +252,7 @@ Table of contents
     * [require.context](https://vivaxy.github.io/samples/libraries/webpack/require-context/) Require context
   * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
+    * [Y.js ProseMirror](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/samples/machine-learning/tensorflow/) TensorFlow
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/samples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js
