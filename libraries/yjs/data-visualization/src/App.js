@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import * as Y from 'yjs';
+import * as decoding from 'lib0/decoding';
+import * as binary from 'lib0/binary';
+import * as YInternal from 'yjs/src/internals';
 
 import Scenarios from './components/Scenarios';
 import Doc from './components/Doc';
@@ -17,6 +20,68 @@ function getURLQuery(key) {
   const url = new URL(window.location.href);
   const searchParams = url.searchParams;
   return searchParams.get(key);
+}
+
+function logDecodedUpdate(update) {
+  const decoder = decoding.createDecoder(update);
+  const updateDecoder = new YInternal.UpdateDecoderV1(decoder);
+  const numOfStateUpdates = updateDecoder.readLen();
+  const numberOfStructs = updateDecoder.readLen();
+  // console.log(
+  //   'numOfStateUpdates',
+  //   numOfStateUpdates,
+  //   'numberOfStructs',
+  //   numberOfStructs,
+  // );
+  const client = updateDecoder.readClient();
+  const clock = updateDecoder.readDsClock();
+  console.log('client', client, 'clock', clock);
+
+  for (let i = 0; i < numberOfStructs; i++) {
+    const info = updateDecoder.readInfo();
+    if (info === 10) {
+      const len = updateDecoder.readDsLen();
+      console.log('skip', 'info', info, 'len', len);
+    } else if ((binary.BITS5 & info) !== 0) {
+      const cantCopyParentInfo = (info & (binary.BIT7 | binary.BIT8)) === 0;
+      const origin =
+        (info & binary.BIT8) === binary.BIT8
+          ? updateDecoder.readLeftID()
+          : null;
+      const rightOrigin =
+        (info & binary.BIT7) === binary.BIT7
+          ? updateDecoder.readRightID()
+          : null;
+      const parent = cantCopyParentInfo
+        ? updateDecoder.readParentInfo()
+          ? updateDecoder.readString()
+          : updateDecoder.readLeftID()
+        : null;
+      const parentSub =
+        cantCopyParentInfo && (info & binary.BIT6) === binary.BIT6
+          ? updateDecoder.readString()
+          : null;
+      const content = YInternal.readItemContent(updateDecoder, info);
+      console.log(
+        'item',
+        'info',
+        info,
+        'origin',
+        origin,
+        'rightOrigin',
+        rightOrigin,
+        'parent',
+        parent,
+        'parentSub',
+        parentSub,
+        'content',
+        content,
+      );
+    } else {
+      const len = updateDecoder.readDsLen();
+      console.log('gc', 'info', info, 'len', len);
+    }
+  }
 }
 
 export default function App() {
@@ -77,6 +142,9 @@ export default function App() {
   function handleOpenDoc() {
     const yDoc = new Y.Doc();
     const id = docs.length;
+    if (id !== 0) {
+      Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(docs[0].yDoc));
+    }
     setDocs([
       ...docs,
       {
@@ -95,10 +163,6 @@ export default function App() {
   }
 
   function handleEditorChange(change) {
-    if (docs.length === 1) {
-      // do not record updates when there is only one doc.
-      return;
-    }
     const { id, actions } = change;
     updateDocById(id, function (doc) {
       const newUpdates = actions.map(function (action) {
@@ -121,7 +185,10 @@ export default function App() {
           payload: update,
         };
       });
-
+      if (docs.length === 1) {
+        // do not record updates when there is only one doc.
+        return doc;
+      }
       return {
         ...doc,
         updates: [...doc.updates, ...newUpdates],

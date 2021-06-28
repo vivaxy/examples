@@ -6725,7 +6725,7 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lib0@^0.2.41:
+lib0@^0.2.41, lib0@^0.2.42:
   version "0.2.42"
   resolved "https://registry.nlark.com/lib0/download/lib0-0.2.42.tgz#6d8bf1fb8205dec37a953c521c5ee403fd8769b0"
   integrity sha1-bYvx+4IF3sN6lTxSHF7kA/2HabA=
