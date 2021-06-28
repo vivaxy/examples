@@ -11,8 +11,19 @@ import * as ENUMS from './enums/enums';
 
 import './App.css';
 
+const SCENARIO_QUERY_KEY = 'scenario';
+
+function getURLQuery(key) {
+  const url = new URL(window.location.href);
+  const searchParams = url.searchParams;
+  return searchParams.get(key);
+}
+
 export default function App() {
-  const [currentScenario, setCurrentScenario] = useState(ENUMS.CUSTOM_SCENARIO);
+  // url like ?scenario=TwoDocsSyncWithoutConflicts
+  const [currentScenario, setCurrentScenario] = useState(
+    getURLQuery(SCENARIO_QUERY_KEY) || ENUMS.CUSTOM_SCENARIO,
+  );
   const [currentScenarioStepIndex, setCurrentScenarioStepIndex] = useState(0);
   const [docs, _setDocs] = useState([]);
 
