@@ -37,12 +37,45 @@ function getDiffEnd(prev, cur, cursorPos) {
   return max;
 }
 
+function getActionByLengthChange(prev, cur, cursorPos) {
+  if (prev.length > cur.length) {
+    // delete
+    return {
+      pos: cursorPos,
+      len: prev.length - cur.length,
+    };
+  }
+  if (prev.length < cur.length) {
+    // insert
+    const pos = cursorPos - (cur.length - prev.length);
+    return {
+      pos,
+      str: cur.slice(pos, cursorPos),
+    };
+  }
+  return null;
+}
+
 function getActions(prev, cur, cursorPos) {
   // 1. text before cursor is added
   // 2. text after cursor or text before cursor is deleted
   // 3. ignore changes that result in original text
   const diffStart = getDiffStart(prev, cur, cursorPos);
   const diffEnd = getDiffEnd(prev, cur, cursorPos);
+
+  if (
+    diffStart + diffEnd > prev.length - 1 ||
+    diffStart + diffEnd > cur.length - 1
+  ) {
+    // diff collapse
+    // possible same char
+    const action = getActionByLengthChange(prev, cur, cursorPos);
+    if (action) {
+      return [action];
+    }
+    return [];
+  }
+
   const deleted = {
     pos: diffStart,
     len: prev.length - diffEnd - diffStart,
@@ -51,7 +84,6 @@ function getActions(prev, cur, cursorPos) {
     pos: diffStart,
     str: cur.slice(diffStart, cur.length - diffEnd),
   };
-
   const actions = [];
   if (deleted.len) {
     actions.push({
@@ -83,11 +115,13 @@ export default function Editor(props) {
     if (editorValue.current !== value) {
       const cursorPos = window.getSelection().getRangeAt(0).startOffset;
       const actions = getActions(editorValue.current, value, cursorPos);
-      editorValue.current = value;
-      props.onEditorChange({
-        id: props.doc.id,
-        actions,
-      });
+      if (actions.length) {
+        editorValue.current = value;
+        props.onEditorChange({
+          id: props.doc.id,
+          actions,
+        });
+      }
     }
   }
 

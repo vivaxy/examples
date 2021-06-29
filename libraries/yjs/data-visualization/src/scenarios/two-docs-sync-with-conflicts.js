@@ -12,9 +12,13 @@ const TwoDocsSyncWithConflicts = [
     E.DOC_UPDATE,
     {
       id: 0,
-      type: EDIT_TYPES.INSERT,
-      pos: 0,
-      str: 'FOO',
+      actions: [
+        {
+          type: EDIT_TYPES.INSERT,
+          pos: 0,
+          str: 'FOO',
+        },
+      ],
     },
   ],
   [
@@ -28,18 +32,26 @@ const TwoDocsSyncWithConflicts = [
     E.DOC_UPDATE,
     {
       id: 0,
-      type: EDIT_TYPES.INSERT,
-      pos: 3,
-      str: 'B',
+      actions: [
+        {
+          type: EDIT_TYPES.INSERT,
+          pos: 3,
+          str: 'B',
+        },
+      ],
     },
   ],
   [
     E.DOC_UPDATE,
     {
       id: 1,
-      type: EDIT_TYPES.INSERT,
-      pos: 3,
-      str: 'T',
+      actions: [
+        {
+          type: EDIT_TYPES.INSERT,
+          pos: 3,
+          str: 'T',
+        },
+      ],
     },
   ],
   [

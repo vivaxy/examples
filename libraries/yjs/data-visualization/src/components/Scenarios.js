@@ -10,27 +10,32 @@ import * as EDIT_TYPE from '../enums/edit-types';
 import './Scenarios.css';
 
 function stringifyStep(step) {
-  const [action, payload] = step;
-  switch (action) {
+  const [event, payload] = step;
+  switch (event) {
     case E.DOC_OPEN:
-      return action;
+      return event;
     case E.DOC_UPDATE:
-      if (payload.type === EDIT_TYPE.INSERT) {
-        return `${action} Doc:${payload.id} type:${payload.type} pos:${payload.pos} str:${payload.str}`;
-      }
-      if (payload.type === EDIT_TYPE.DELETE) {
-        return `${action} Doc:${payload.id} type:${payload.type} pos:${payload.pos} len:${payload.len}`;
-      }
-      throw new Error('Unexpect edit type: ' + payload.type);
+      const { id, actions } = payload;
+      return actions
+        .map(function (action) {
+          if (action.type === EDIT_TYPE.INSERT) {
+            return `${event} Doc:${id} type:${action.type} pos:${action.pos} str:${action.str}`;
+          }
+          if (action.type === EDIT_TYPE.DELETE) {
+            return `${event} Doc:${id} type:${action.type} pos:${action.pos} len:${action.len}`;
+          }
+          throw new Error('Unexpect edit type: ' + action.type);
+        })
+        .join(' ; ');
     case E.DOC_SYNC:
       if (payload.index === undefined) {
-        return `${action} FromDoc:${payload.from} ToDoc:${payload.to}`;
+        return `${event} FromDoc:${payload.from} ToDoc:${payload.to}`;
       }
-      return `${action} FromDoc:${payload.from} ToDoc:${payload.to} updateIndex:${payload.index}`;
+      return `${event} FromDoc:${payload.from} ToDoc:${payload.to} updateIndex:${payload.index}`;
     case E.DOC_CLOSE:
-      return action;
+      return event;
     default:
-      throw new Error('Expected action: ' + action);
+      throw new Error('Expected action: ' + event);
   }
 }
 
