@@ -41,6 +41,7 @@ function createEditor(rootSelector, onUpdate, onAwareness) {
   const type = yDoc.get('prosemirror', Y.XmlFragment);
 
   function handleYDocUpdate(update, origin) {
+    console.log('yDoc', yDoc);
     if (origin !== null) {
       onUpdate(update, yDoc);
     }

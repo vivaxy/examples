@@ -22,67 +22,67 @@ function getURLQuery(key) {
   return searchParams.get(key);
 }
 
-function logDecodedUpdate(update) {
-  const decoder = decoding.createDecoder(update);
-  const updateDecoder = new YInternal.UpdateDecoderV1(decoder);
-  const numOfStateUpdates = updateDecoder.readLen();
-  const numberOfStructs = updateDecoder.readLen();
-  // console.log(
-  //   'numOfStateUpdates',
-  //   numOfStateUpdates,
-  //   'numberOfStructs',
-  //   numberOfStructs,
-  // );
-  const client = updateDecoder.readClient();
-  const clock = updateDecoder.readDsClock();
-  console.log('client', client, 'clock', clock);
-
-  for (let i = 0; i < numberOfStructs; i++) {
-    const info = updateDecoder.readInfo();
-    if (info === 10) {
-      const len = updateDecoder.readDsLen();
-      console.log('skip', 'info', info, 'len', len);
-    } else if ((binary.BITS5 & info) !== 0) {
-      const cantCopyParentInfo = (info & (binary.BIT7 | binary.BIT8)) === 0;
-      const origin =
-        (info & binary.BIT8) === binary.BIT8
-          ? updateDecoder.readLeftID()
-          : null;
-      const rightOrigin =
-        (info & binary.BIT7) === binary.BIT7
-          ? updateDecoder.readRightID()
-          : null;
-      const parent = cantCopyParentInfo
-        ? updateDecoder.readParentInfo()
-          ? updateDecoder.readString()
-          : updateDecoder.readLeftID()
-        : null;
-      const parentSub =
-        cantCopyParentInfo && (info & binary.BIT6) === binary.BIT6
-          ? updateDecoder.readString()
-          : null;
-      const content = YInternal.readItemContent(updateDecoder, info);
-      console.log(
-        'item',
-        'info',
-        info,
-        'origin',
-        origin,
-        'rightOrigin',
-        rightOrigin,
-        'parent',
-        parent,
-        'parentSub',
-        parentSub,
-        'content',
-        content,
-      );
-    } else {
-      const len = updateDecoder.readDsLen();
-      console.log('gc', 'info', info, 'len', len);
-    }
-  }
-}
+// function logDecodedUpdate(update) {
+//   const decoder = decoding.createDecoder(update);
+//   const updateDecoder = new YInternal.UpdateDecoderV1(decoder);
+//   const numOfStateUpdates = updateDecoder.readLen();
+//   const numberOfStructs = updateDecoder.readLen();
+//   // console.log(
+//   //   'numOfStateUpdates',
+//   //   numOfStateUpdates,
+//   //   'numberOfStructs',
+//   //   numberOfStructs,
+//   // );
+//   const client = updateDecoder.readClient();
+//   const clock = updateDecoder.readDsClock();
+//   console.log('client', client, 'clock', clock);
+//
+//   for (let i = 0; i < numberOfStructs; i++) {
+//     const info = updateDecoder.readInfo();
+//     if (info === 10) {
+//       const len = updateDecoder.readDsLen();
+//       console.log('skip', 'info', info, 'len', len);
+//     } else if ((binary.BITS5 & info) !== 0) {
+//       const cantCopyParentInfo = (info & (binary.BIT7 | binary.BIT8)) === 0;
+//       const origin =
+//         (info & binary.BIT8) === binary.BIT8
+//           ? updateDecoder.readLeftID()
+//           : null;
+//       const rightOrigin =
+//         (info & binary.BIT7) === binary.BIT7
+//           ? updateDecoder.readRightID()
+//           : null;
+//       const parent = cantCopyParentInfo
+//         ? updateDecoder.readParentInfo()
+//           ? updateDecoder.readString()
+//           : updateDecoder.readLeftID()
+//         : null;
+//       const parentSub =
+//         cantCopyParentInfo && (info & binary.BIT6) === binary.BIT6
+//           ? updateDecoder.readString()
+//           : null;
+//       const content = YInternal.readItemContent(updateDecoder, info);
+//       console.log(
+//         'item',
+//         'info',
+//         info,
+//         'origin',
+//         origin,
+//         'rightOrigin',
+//         rightOrigin,
+//         'parent',
+//         parent,
+//         'parentSub',
+//         parentSub,
+//         'content',
+//         content,
+//       );
+//     } else {
+//       const len = updateDecoder.readDsLen();
+//       console.log('gc', 'info', info, 'len', len);
+//     }
+//   }
+// }
 
 export default function App() {
   // url like ?scenario=TwoDocsSyncWithoutConflicts
