@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import * as Y from 'yjs';
-import * as decoding from 'lib0/decoding';
-import * as binary from 'lib0/binary';
-import * as YInternal from 'yjs/src/internals';
+// import * as decoding from 'lib0/decoding';
+// import * as binary from 'lib0/binary';
+// import * as YInternal from 'yjs/src/internals';
 
 import Scenarios from './components/Scenarios';
 import Doc from './components/Doc';

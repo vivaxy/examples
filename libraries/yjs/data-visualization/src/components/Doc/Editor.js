@@ -41,6 +41,7 @@ function getActionByLengthChange(prev, cur, cursorPos) {
   if (prev.length > cur.length) {
     // delete
     return {
+      type: EDIT_TYPES.DELETE,
       pos: cursorPos,
       len: prev.length - cur.length,
     };
@@ -49,6 +50,7 @@ function getActionByLengthChange(prev, cur, cursorPos) {
     // insert
     const pos = cursorPos - (cur.length - prev.length);
     return {
+      type: EDIT_TYPES.INSERT,
       pos,
       str: cur.slice(pos, cursorPos),
     };
