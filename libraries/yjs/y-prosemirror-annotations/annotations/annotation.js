@@ -73,9 +73,6 @@ class AnnotationState {
     newEditorState,
     yDoc,
   ) {
-    if (this.editorId === '#editor-1') {
-      console.log('apply');
-    }
     // only care for
     // - local doc change (remote doc change will always apply as local doc change)
     // - local annotation change

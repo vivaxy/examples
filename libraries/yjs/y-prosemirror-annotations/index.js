@@ -24,21 +24,25 @@ function broadcastUpdate(update, fromYDoc) {
 }
 
 function broadcastAwareness(update, fromYDoc) {
-  editors.forEach(function ({ editorView, provider }) {
+  editors.forEach(function ({ editorView, awareness }) {
     const yDoc = ySyncPluginKey.getState(editorView.state).doc;
     if (yDoc !== fromYDoc) {
-      awarenessProtocol.applyAwarenessUpdate(
-        provider.awareness,
-        update,
-        ySyncPluginKey,
-      );
+      awarenessProtocol.applyAwarenessUpdate(awareness, update, ySyncPluginKey);
     }
   });
 }
 
-function createEditor(rootSelector, handleUpdate, handleAwareness) {
+function broadcastAnnotation(update, fromYDoc) {}
+
+function createEditor(
+  rootSelector,
+  handleUpdate,
+  handleAwareness,
+  handleAnnotation,
+) {
   const yDoc = new Y.Doc();
   const yXml = yDoc.get('prosemirror', Y.XmlFragment);
+  const awareness = new awarenessProtocol.Awareness(yDoc);
 
   function handleYDocUpdate(update, origin) {
     // origin === PluginKey("..."): local update
@@ -50,28 +54,22 @@ function createEditor(rootSelector, handleUpdate, handleAwareness) {
 
   function _handleAwareness(_, origin) {
     if (origin === 'local') {
-      const update = awarenessProtocol.encodeAwarenessUpdate(
-        provider.awareness,
-        [yDoc.clientID],
-      );
+      const update = awarenessProtocol.encodeAwarenessUpdate(awareness, [
+        yDoc.clientID,
+      ]);
       handleAwareness(update, yDoc);
     }
   }
 
   yDoc.on('update', handleYDocUpdate);
-
-  const provider = {
-    awareness: new awarenessProtocol.Awareness(yDoc),
-  };
-
-  provider.awareness.on('update', _handleAwareness);
+  awareness.on('update', _handleAwareness);
 
   const editorView = new EditorView(document.querySelector(rootSelector), {
     state: EditorState.create({
       schema,
       plugins: [
         ySyncPlugin(yXml),
-        yCursorPlugin(provider.awareness),
+        yCursorPlugin(awareness),
         createAnnotationPlugin(rootSelector, yDoc),
         createAnnotationHandlePlugin(rootSelector, yDoc, function (tr) {
           const newState = editorView.state.apply(tr);
@@ -83,13 +81,23 @@ function createEditor(rootSelector, handleUpdate, handleAwareness) {
 
   return {
     editorView,
-    provider,
+    awareness,
   };
 }
 
 const editors = [
-  createEditor('#editor-1', broadcastUpdate, broadcastAwareness),
-  createEditor('#editor-2', broadcastUpdate, broadcastAwareness),
+  createEditor(
+    '#editor-1',
+    broadcastUpdate,
+    broadcastAwareness,
+    broadcastAnnotation,
+  ),
+  createEditor(
+    '#editor-2',
+    broadcastUpdate,
+    broadcastAwareness,
+    broadcastAnnotation,
+  ),
 ];
 
 window.editors = editors;
