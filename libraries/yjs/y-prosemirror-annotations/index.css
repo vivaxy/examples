@@ -1,0 +1,16 @@
+/**
+ * @since 2021-06-30
+ * @author vivaxy
+ */
+@import "./yjs/index.css";
+@import "./annotations/index.css";
+
+p {
+  margin: 0;
+}
+
+.editor .ProseMirror {
+  border: 1px solid #eee;
+  margin: 40px 0;
+  position: relative;
+}

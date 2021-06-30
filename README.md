@@ -253,6 +253,7 @@ Table of contents
   * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
     * [Y.js ProseMirror](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
+    * [Y.js ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror-annotations/) Y.js ProseMirror Annotations
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/samples/machine-learning/tensorflow/) TensorFlow
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/samples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js

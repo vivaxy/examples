@@ -1,5 +1,9 @@
 [
   {
+    "name": "y-prosemirror Annotations",
+    "link": "y-prosemirror-annotations/"
+  },
+  {
     "name": "y-prosemirror",
     "link": "y-prosemirror/"
   },

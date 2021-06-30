@@ -1,24 +1,20 @@
 /**
- * @since 2021-06-28
+ * @since 2021-06-30
  * @author vivaxy
  */
 import * as Y from 'yjs';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
-import { exampleSetup } from 'prosemirror-example-setup';
-import { keymap } from 'prosemirror-keymap';
 import { schema } from 'prosemirror-schema-basic';
+import { DOMParser, Slice } from 'prosemirror-model';
 import * as awarenessProtocol from 'y-protocols/awareness';
+import { ySyncPlugin, ySyncPluginKey, yCursorPlugin } from 'y-prosemirror';
 import {
-  ySyncPlugin,
-  ySyncPluginKey,
-  yCursorPlugin,
-  yUndoPlugin,
-  undo,
-  redo,
-} from 'y-prosemirror';
+  createAnnotationPlugin,
+  createAnnotationHandlePlugin,
+} from './annotations';
 
-function onUpdate(update, fromYDoc) {
+function broadcastUpdate(update, fromYDoc) {
   editors.forEach(function ({ editorView }) {
     const yDoc = ySyncPluginKey.getState(editorView.state).doc;
     if (yDoc !== fromYDoc) {
@@ -27,38 +23,38 @@ function onUpdate(update, fromYDoc) {
   });
 }
 
-function onAwareness(update, fromYDoc) {
+function broadcastAwareness(update, fromYDoc) {
   editors.forEach(function ({ editorView, provider }) {
     const yDoc = ySyncPluginKey.getState(editorView.state).doc;
     if (yDoc !== fromYDoc) {
       awarenessProtocol.applyAwarenessUpdate(
         provider.awareness,
         update,
-        'remote',
+        ySyncPluginKey,
       );
     }
   });
 }
 
-function createEditor(rootSelector, onUpdate, onAwareness) {
+function createEditor(rootSelector, handleUpdate, handleAwareness) {
   const yDoc = new Y.Doc();
-  const type = yDoc.get('prosemirror', Y.XmlFragment);
+  const yXml = yDoc.get('prosemirror', Y.XmlFragment);
 
   function handleYDocUpdate(update, origin) {
-    // origin === PluginKey("y-sync$"): local update
+    // origin === PluginKey("..."): local update
     // origin === null: remote update
     if (origin !== null) {
-      onUpdate(update, yDoc);
+      handleUpdate(update, yDoc, origin);
     }
   }
 
-  function handleAwareness(_, origin) {
+  function _handleAwareness(_, origin) {
     if (origin === 'local') {
       const update = awarenessProtocol.encodeAwarenessUpdate(
         provider.awareness,
         [yDoc.clientID],
       );
-      onAwareness(update, yDoc);
+      handleAwareness(update, yDoc);
     }
   }
 
@@ -68,21 +64,20 @@ function createEditor(rootSelector, onUpdate, onAwareness) {
     awareness: new awarenessProtocol.Awareness(yDoc),
   };
 
-  provider.awareness.on('update', handleAwareness);
+  provider.awareness.on('update', _handleAwareness);
 
   const editorView = new EditorView(document.querySelector(rootSelector), {
     state: EditorState.create({
       schema,
       plugins: [
-        ySyncPlugin(type),
+        ySyncPlugin(yXml),
         yCursorPlugin(provider.awareness),
-        yUndoPlugin(),
-        keymap({
-          'Mod-z': undo,
-          'Mod-y': redo,
-          'Mod-Shift-z': redo,
+        createAnnotationPlugin(rootSelector, yDoc),
+        createAnnotationHandlePlugin(rootSelector, yDoc, function (tr) {
+          const newState = editorView.state.apply(tr);
+          editorView.updateState(newState);
         }),
-      ].concat(exampleSetup({ schema })),
+      ],
     }),
   });
 
@@ -93,7 +88,23 @@ function createEditor(rootSelector, onUpdate, onAwareness) {
 }
 
 const editors = [
-  createEditor('#editor-1', onUpdate, onAwareness),
-  createEditor('#editor-2', onUpdate, onAwareness),
+  createEditor('#editor-1', broadcastUpdate, broadcastAwareness),
+  createEditor('#editor-2', broadcastUpdate, broadcastAwareness),
 ];
+
 window.editors = editors;
+
+const firstEditorView = editors[0].editorView;
+const tr = firstEditorView.state.tr.replace(
+  0,
+  firstEditorView.state.doc.content.size,
+  new Slice(
+    DOMParser.fromSchema(schema).parse(
+      document.querySelector('#content'),
+    ).content,
+    0,
+    0,
+  ),
+);
+const newState = firstEditorView.state.apply(tr);
+firstEditorView.updateState(newState);
