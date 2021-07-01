@@ -7,7 +7,6 @@ import { Plugin, TextSelection } from 'prosemirror-state';
 import {
   annotationPluginKey,
   annotationHandlePluginKey,
-  ANNOTATION_ARRAY,
   ACTION_TYPE,
 } from './common';
 
@@ -92,7 +91,7 @@ function renderAnnotation(annotation, yDoc) {
   return $annotation;
 }
 
-function renderAnnotationHandle(state, applyTransaction, yDoc, editorId) {
+function renderAnnotationHandle(state, applyTransaction) {
   const $handle = document.createElement('div');
   $handle.classList.add('annotation-handle');
 
@@ -102,26 +101,19 @@ function renderAnnotationHandle(state, applyTransaction, yDoc, editorId) {
   $button.addEventListener('click', function () {
     const text = prompt('Add annotation');
     if (text) {
-      yDoc.transact(function () {
-        const { selection, tr } = state;
-        // hide annotation handle when annotation is added
-        selection.annotationAdded = true;
-        tr.setSelection(new TextSelection(selection.$from));
-        const value = {
-          from: selection.from,
-          to: selection.to,
-          id: generateUUID(),
-          text,
-          editorId,
-        };
+      const { selection, tr } = state;
+      // hide annotation handle when annotation is added
+      selection.annotationAdded = true;
+      tr.setSelection(new TextSelection(selection.$from));
+      applyTransaction(
         tr.setMeta(annotationHandlePluginKey, {
           type: ACTION_TYPE.ADD_ANNOTATION,
-          value,
-        });
-        applyTransaction(tr);
-        // update again
-        yDoc.getArray(ANNOTATION_ARRAY).push([value]);
-      }, annotationHandlePluginKey);
+          id: generateUUID(),
+          from: selection.from,
+          to: selection.to,
+          text,
+        }),
+      );
     }
   });
 

@@ -7,39 +7,36 @@ import { Plugin } from 'prosemirror-state';
 import { ySyncPluginKey } from 'y-prosemirror';
 import {
   annotationPluginKey,
-  ANNOTATION_ARRAY,
   annotationHandlePluginKey,
+  ACTION_TYPE,
 } from './common';
 
-class Annotation {
-  constructor(id, text) {
-    this.id = id;
-    this.text = text;
-  }
-}
-
-function createDecoration(from, to, annotation) {
+function createDecoration(from, to, id, text) {
   return Decoration.inline(
     from,
     to,
-    { class: 'annotation-highlight', ['data-id']: annotation.id },
-    { annotation },
+    { class: 'annotation-highlight', ['data-id']: id },
+    {
+      id,
+      text,
+    },
   );
 }
 
 class AnnotationState {
   constructor(decorationSet, editorId) {
+    // the one true source of annotations
     this.decorationSet = decorationSet;
     this.editorId = editorId;
   }
 
-  static init(editorId, state, yDoc) {
-    const yAnnotations = yDoc.getArray(ANNOTATION_ARRAY);
-    const decorations = yAnnotations.toArray().map(function (annotation) {
+  static init(editorId, state, config) {
+    const decorations = config.annotations.map(function (annotation) {
       return createDecoration(
         annotation.from,
         annotation.to,
-        new Annotation(annotation.id, annotation.text),
+        annotation.id,
+        annotation.text,
       );
     });
     return new AnnotationState(
@@ -66,30 +63,32 @@ class AnnotationState {
     }
   }
 
-  apply(
-    transaction,
-    prevAnnotationState,
-    oldEditorState,
-    newEditorState,
-    yDoc,
-  ) {
+  apply(transaction, prevAnnotationState, oldEditorState, newEditorState) {
     // only care for
     // - local doc change (remote doc change will always apply as local doc change)
     // - local annotation change
     // - remote annotation change
 
+    // local annotation change
+    const meta = transaction.getMeta(annotationHandlePluginKey);
+    if (meta) {
+      const { type, id, from, to, text } = meta;
+      let decorationSet = this.decorationSet;
+      if (type === ACTION_TYPE.ADD_ANNOTATION) {
+        decorationSet = this.decorationSet.add(transaction.doc, [
+          createDecoration(from, to, id, text),
+        ]);
+      } else if (type === ACTION_TYPE.DELETE_ANNOTATION) {
+        decorationSet = this.decorationSet.remove([this.findAnnotation(id)]);
+      }
+      return new AnnotationState(decorationSet, this.editorId);
+    }
+
     // local doc changed
     const ySyncState = ySyncPluginKey.getState(newEditorState);
     if (ySyncState && ySyncState.isChangeOrigin) {
-      return AnnotationState.init(this.editorId, newEditorState, yDoc);
-    }
-
-    // local annotation change
-    const annotationHandleState = annotationHandlePluginKey.getState(
-      newEditorState,
-    );
-    if (annotationHandleState) {
-      return AnnotationState.init(this.editorId, newEditorState, yDoc);
+      const mappedDecorationSet = this.decorationSet;
+      return new AnnotationState(mappedDecorationSet, this.editorId);
     }
 
     // TODO: how to detect remote annotation change?
@@ -114,13 +113,8 @@ export function createAnnotationPlugin(editorId, yDoc) {
   return new Plugin({
     key: annotationPluginKey,
     state: {
-      init(_, state) {
-        const yAnnotations = yDoc.getArray(ANNOTATION_ARRAY);
-        yAnnotations.observeDeep(function (yArrayEvent) {
-          debugger;
-          console.log(yArrayEvent.changes.delta);
-        });
-        return AnnotationState.init(editorId, state, yDoc);
+      init(config, state) {
+        return AnnotationState.init(editorId, state, config);
       },
       apply(transaction, prevAnnotationState, oldEditorState, newEditorState) {
         return prevAnnotationState.apply(

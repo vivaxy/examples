@@ -8,15 +8,19 @@ import { EditorState } from 'prosemirror-state';
 import { schema } from 'prosemirror-schema-basic';
 import { DOMParser, Slice } from 'prosemirror-model';
 import * as awarenessProtocol from 'y-protocols/awareness';
-import { ySyncPlugin, ySyncPluginKey, yCursorPlugin } from 'y-prosemirror';
+import {
+  ySyncPlugin,
+  ySyncPluginKey,
+  yCursorPlugin,
+  prosemirrorToYDoc,
+} from 'y-prosemirror';
 import {
   createAnnotationPlugin,
   createAnnotationHandlePlugin,
 } from './annotations';
 
 function broadcastUpdate(update, fromYDoc) {
-  editors.forEach(function ({ editorView }) {
-    const yDoc = ySyncPluginKey.getState(editorView.state).doc;
+  editors.forEach(function ({ yDoc }) {
     if (yDoc !== fromYDoc) {
       Y.applyUpdate(yDoc, update);
     }
@@ -24,15 +28,26 @@ function broadcastUpdate(update, fromYDoc) {
 }
 
 function broadcastAwareness(update, fromYDoc) {
-  editors.forEach(function ({ editorView, awareness }) {
-    const yDoc = ySyncPluginKey.getState(editorView.state).doc;
+  editors.forEach(function ({ yDoc, awareness }) {
     if (yDoc !== fromYDoc) {
       awarenessProtocol.applyAwarenessUpdate(awareness, update, ySyncPluginKey);
     }
   });
 }
 
-function broadcastAnnotation(update, fromYDoc) {}
+function broadcastAnnotation(update, fromYDoc) {
+  editors.forEach(function ({ editorView, yDoc }) {
+    if (yDoc !== fromYDoc) {
+      const tr = editorView.state.tr;
+      applyTransactionToEditorView(editorView, tr);
+    }
+  });
+}
+
+function applyTransactionToEditorView(editorView, tr) {
+  const newState = editorView.state.apply(tr);
+  editorView.updateState(newState);
+}
 
 function createEditor(
   rootSelector,
@@ -41,10 +56,10 @@ function createEditor(
   handleAnnotation,
 ) {
   const yDoc = new Y.Doc();
-  const yXml = yDoc.get('prosemirror', Y.XmlFragment);
+  const yXml = yDoc.getXmlFragment('prosemirror');
   const awareness = new awarenessProtocol.Awareness(yDoc);
 
-  function handleYDocUpdate(update, origin) {
+  function _handleYDocUpdate(update, origin) {
     // origin === PluginKey("..."): local update
     // origin === null: remote update
     if (origin !== null) {
@@ -61,7 +76,16 @@ function createEditor(
     }
   }
 
-  yDoc.on('update', handleYDocUpdate);
+  function _handleAnnotation(annotationChange) {
+    handleAnnotation(annotationChange, yDoc);
+  }
+
+  function applyTransaction(tr) {
+    const newState = editorView.state.apply(tr);
+    editorView.updateState(newState);
+  }
+
+  yDoc.on('update', _handleYDocUpdate);
   awareness.on('update', _handleAwareness);
 
   const editorView = new EditorView(document.querySelector(rootSelector), {
@@ -71,16 +95,20 @@ function createEditor(
         ySyncPlugin(yXml),
         yCursorPlugin(awareness),
         createAnnotationPlugin(rootSelector, yDoc),
-        createAnnotationHandlePlugin(rootSelector, yDoc, function (tr) {
-          const newState = editorView.state.apply(tr);
-          editorView.updateState(newState);
-        }),
+        createAnnotationHandlePlugin(
+          rootSelector,
+          yDoc,
+          applyTransaction,
+          _handleAnnotation,
+        ),
       ],
+      annotations: [],
     }),
   });
 
   return {
     editorView,
+    yDoc,
     awareness,
   };
 }
@@ -102,17 +130,35 @@ const editors = [
 
 window.editors = editors;
 
-const firstEditorView = editors[0].editorView;
-const tr = firstEditorView.state.tr.replace(
-  0,
-  firstEditorView.state.doc.content.size,
-  new Slice(
-    DOMParser.fromSchema(schema).parse(
-      document.querySelector('#content'),
-    ).content,
+function setInitialStateToProseMirror(editor) {
+  const { editorView } = editor;
+  const tr = editorView.state.tr.replace(
     0,
-    0,
-  ),
-);
-const newState = firstEditorView.state.apply(tr);
-firstEditorView.updateState(newState);
+    editorView.state.doc.content.size,
+    new Slice(
+      DOMParser.fromSchema(schema).parse(
+        document.querySelector('#content'),
+      ).content,
+      0,
+      0,
+    ),
+  );
+  const newState = editorView.state.apply(tr);
+  editorView.updateState(newState);
+}
+
+function setInitialStateToYDoc(editor) {
+  // TODO: this breaks sync
+  const { yDoc } = editor;
+
+  const newYDoc = prosemirrorToYDoc(
+    DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
+  );
+
+  const update = Y.encodeStateAsUpdate(newYDoc);
+  Y.applyUpdate(yDoc, update);
+}
+
+// setInitialStateToYDoc(editors[0]);
+// setInitialStateToYDoc(editors[1]);
+setInitialStateToProseMirror(editors[0]);
