@@ -9,6 +9,7 @@ import {
   annotationPluginKey,
   annotationHandlePluginKey,
   ACTION_TYPE,
+  ORIGINS,
 } from './common';
 
 function createDecoration(from, to, id, text) {
@@ -23,14 +24,21 @@ function createDecoration(from, to, id, text) {
   );
 }
 
+function decorationToJSON(decoration) {
+  const { from, to, type } = decoration;
+  const { id, text } = type.spec;
+  return { from, to, id, text };
+}
+
 class AnnotationState {
-  constructor(decorationSet, editorId) {
+  constructor(decorationSet, editorId, onAnnotationChange) {
     // the one true source of annotations
     this.decorationSet = decorationSet;
     this.editorId = editorId;
+    this.onAnnotationChange = onAnnotationChange;
   }
 
-  static init(editorId, state, config) {
+  static init(config, editorId, onAnnotationChange) {
     const decorations = config.annotations.map(function (annotation) {
       return createDecoration(
         annotation.from,
@@ -40,27 +48,21 @@ class AnnotationState {
       );
     });
     return new AnnotationState(
-      DecorationSet.create(state.doc, decorations),
+      DecorationSet.create(config.doc, decorations),
       editorId,
+      onAnnotationChange,
     );
   }
 
   annotationsAt(pos) {
     // when at boundary, decorationSet.find(pos, pos) matches, decorationSet.find(pos + 1, pos - 1) not matches
-    return this.decorationSet
-      .find(pos + 1, pos - 1)
-      .map(function (decorations) {
-        return decorations.spec.annotation;
-      });
+    return this.decorationSet.find(pos + 1, pos - 1).map(decorationToJSON);
   }
 
-  findAnnotation(id) {
-    const current = this.decorationSet.find();
-    for (let i = 0; i < current.length; i++) {
-      if (current[i].spec.annotation.id === id) {
-        return current[i];
-      }
-    }
+  findDecoration(id) {
+    return this.decorationSet.find().find(function (decoration) {
+      return decoration.type.spec.id === id;
+    });
   }
 
   apply(transaction, prevAnnotationState, oldEditorState, newEditorState) {
@@ -69,26 +71,45 @@ class AnnotationState {
     // - local annotation change
     // - remote annotation change
 
-    // local annotation change
+    // annotation change, local and remote
     const meta = transaction.getMeta(annotationHandlePluginKey);
     if (meta) {
-      const { type, id, from, to, text } = meta;
+      const { type, id, origin, from, to, text } = meta;
       let decorationSet = this.decorationSet;
       if (type === ACTION_TYPE.ADD_ANNOTATION) {
         decorationSet = this.decorationSet.add(transaction.doc, [
           createDecoration(from, to, id, text),
         ]);
       } else if (type === ACTION_TYPE.DELETE_ANNOTATION) {
-        decorationSet = this.decorationSet.remove([this.findAnnotation(id)]);
+        decorationSet = this.decorationSet.remove([this.findDecoration(id)]);
       }
-      return new AnnotationState(decorationSet, this.editorId);
+      const newAnnotationState = new AnnotationState(
+        decorationSet,
+        this.editorId,
+        this.onAnnotationChange,
+      );
+      if (origin === ORIGINS.LOCAL) {
+        this.onAnnotationChange({
+          type,
+          id,
+          from,
+          to,
+          text,
+          annotations: newAnnotationState.toJSON(),
+        });
+      }
+      return newAnnotationState;
     }
 
     // local doc changed
     const ySyncState = ySyncPluginKey.getState(newEditorState);
     if (ySyncState && ySyncState.isChangeOrigin) {
       const mappedDecorationSet = this.decorationSet;
-      return new AnnotationState(mappedDecorationSet, this.editorId);
+      return new AnnotationState(
+        mappedDecorationSet,
+        this.editorId,
+        this.onAnnotationChange,
+      );
     }
 
     // TODO: how to detect remote annotation change?
@@ -98,23 +119,20 @@ class AnnotationState {
   }
 
   toJSON() {
-    return this.decorationSet.find().map(function ({ from, to, type }) {
-      const { id, text } = type.spec.annotation;
-      return { from, to, id, text };
-    });
+    return this.decorationSet.find().map(decorationToJSON);
   }
 
   fromJSON(config) {
-    return AnnotationState.init(this.editorId, config);
+    return AnnotationState.init(config, this.editorId, this.onAnnotationChange);
   }
 }
 
-export function createAnnotationPlugin(editorId, yDoc) {
+export function createAnnotationPlugin(editorId, onAnnotationChange) {
   return new Plugin({
     key: annotationPluginKey,
     state: {
-      init(config, state) {
-        return AnnotationState.init(editorId, state, config);
+      init(config) {
+        return AnnotationState.init(config, editorId, onAnnotationChange);
       },
       apply(transaction, prevAnnotationState, oldEditorState, newEditorState) {
         return prevAnnotationState.apply(
@@ -122,14 +140,14 @@ export function createAnnotationPlugin(editorId, yDoc) {
           prevAnnotationState,
           oldEditorState,
           newEditorState,
-          yDoc,
         );
       },
-      toJSON(annotationState) {
+      toJSON(state) {
+        const annotationState = annotationPluginKey.getState(state);
         return annotationState.toJSON();
       },
-      fromJSON(config, annotationState, editorState) {
-        return annotationState.fromJSON(config, editorState);
+      fromJSON(config, annotationState) {
+        return annotationState.fromJSON(config);
       },
     },
     props: {

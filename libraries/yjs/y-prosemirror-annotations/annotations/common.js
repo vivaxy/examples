@@ -10,3 +10,7 @@ export const ACTION_TYPE = {
   ADD_ANNOTATION: 'addAnnotation',
   DELETE_ANNOTATION: 'deleteAnnotation',
 };
+export const ORIGINS = {
+  LOCAL: 'local',
+  REMOTE: 'remote',
+};

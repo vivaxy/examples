@@ -8,7 +8,9 @@ import {
   annotationPluginKey,
   annotationHandlePluginKey,
   ACTION_TYPE,
+  ORIGINS,
 } from './common';
+import { annotationPlugin } from '../../../prosemirror/annotations/annotations';
 
 export function createAnnotationHandlePlugin(editorId, yDoc, applyTransaction) {
   return new Plugin({
@@ -35,7 +37,7 @@ export function createAnnotationHandlePlugin(editorId, yDoc, applyTransaction) {
           return DecorationSet.create(state.doc, [
             Decoration.widget(
               selection.from,
-              renderAnnotationTooltip(annotations, yDoc),
+              renderAnnotationTooltip(annotations, applyTransaction, state),
             ),
           ]);
         }
@@ -44,7 +46,7 @@ export function createAnnotationHandlePlugin(editorId, yDoc, applyTransaction) {
           return DecorationSet.create(state.doc, [
             Decoration.widget(
               selection.from,
-              renderAnnotationHandle(state, applyTransaction, yDoc, editorId),
+              renderAnnotationHandle(state, applyTransaction),
             ),
           ]);
         }
@@ -53,7 +55,7 @@ export function createAnnotationHandlePlugin(editorId, yDoc, applyTransaction) {
   });
 }
 
-function renderAnnotationTooltip(annotations, yDoc) {
+function renderAnnotationTooltip(annotations, applyTransaction, state) {
   const $tooltip = document.createElement('div');
   $tooltip.classList.add('annotation-tooltip');
 
@@ -61,7 +63,7 @@ function renderAnnotationTooltip(annotations, yDoc) {
   $annotations.classList.add('annotation-tooltip-list');
 
   annotations.forEach(function (annotation) {
-    const $annotation = renderAnnotation(annotation, yDoc);
+    const $annotation = renderAnnotation(annotation, applyTransaction, state);
     $annotations.appendChild($annotation);
   });
 
@@ -69,7 +71,7 @@ function renderAnnotationTooltip(annotations, yDoc) {
   return $tooltip;
 }
 
-function renderAnnotation(annotation, yDoc) {
+function renderAnnotation(annotation, applyTransaction, state) {
   const $annotation = document.createElement('li');
   $annotation.classList.add('annotation-tooltip-item');
 
@@ -81,8 +83,16 @@ function renderAnnotation(annotation, yDoc) {
   $button.title = 'Delete annotation';
   $button.textContent = 'x';
   $button.addEventListener('click', function () {
-    // TODO: delete from yDoc
-    yDoc.getArray(ANNOTATION_ARRAY);
+    applyTransaction(
+      state.tr.setMeta(annotationHandlePluginKey, {
+        type: ACTION_TYPE.DELETE_ANNOTATION,
+        id: annotation.id,
+        from: annotation.from,
+        to: annotation.to,
+        text: annotation.text,
+        origin: ORIGINS.LOCAL,
+      }),
+    );
   });
 
   $annotation.appendChild($button);
@@ -112,6 +122,7 @@ function renderAnnotationHandle(state, applyTransaction) {
           from: selection.from,
           to: selection.to,
           text,
+          origin: ORIGINS.LOCAL,
         }),
       );
     }

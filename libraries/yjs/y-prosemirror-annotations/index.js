@@ -1,6 +1,10 @@
 /**
  * @since 2021-06-30
  * @author vivaxy
+ * TODO:
+ *  - update doc and update local annotation
+ *  - update doc and sync updated annotation
+ *  - why setInitialStateToYDoc breaks the sync
  */
 import * as Y from 'yjs';
 import { EditorView } from 'prosemirror-view';
@@ -17,7 +21,9 @@ import {
 import {
   createAnnotationPlugin,
   createAnnotationHandlePlugin,
+  annotationHandlePluginKey,
 } from './annotations';
+import { ACTION_TYPE, ORIGINS } from './annotations/common';
 
 function broadcastUpdate(update, fromYDoc) {
   editors.forEach(function ({ yDoc }) {
@@ -38,7 +44,14 @@ function broadcastAwareness(update, fromYDoc) {
 function broadcastAnnotation(update, fromYDoc) {
   editors.forEach(function ({ editorView, yDoc }) {
     if (yDoc !== fromYDoc) {
-      const tr = editorView.state.tr;
+      const tr = editorView.state.tr.setMeta(annotationHandlePluginKey, {
+        type: update.type,
+        id: update.id,
+        from: update.from,
+        to: update.to,
+        text: update.text,
+        origin: ORIGINS.REMOTE,
+      });
       applyTransactionToEditorView(editorView, tr);
     }
   });
@@ -94,7 +107,7 @@ function createEditor(
       plugins: [
         ySyncPlugin(yXml),
         yCursorPlugin(awareness),
-        createAnnotationPlugin(rootSelector, yDoc),
+        createAnnotationPlugin(rootSelector, _handleAnnotation),
         createAnnotationHandlePlugin(
           rootSelector,
           yDoc,
@@ -148,7 +161,7 @@ function setInitialStateToProseMirror(editor) {
 }
 
 function setInitialStateToYDoc(editor) {
-  // TODO: this breaks sync
+  // this breaks sync
   const { yDoc } = editor;
 
   const newYDoc = prosemirrorToYDoc(
