@@ -9,20 +9,12 @@ import {
   annotationHandlePluginKey,
   ACTION_TYPE,
   ORIGINS,
+  absPosToRelPos,
 } from './common';
-import { annotationPlugin } from '../../../prosemirror/annotations/annotations';
 
 export function createAnnotationHandlePlugin(editorId, yDoc, applyTransaction) {
   return new Plugin({
     key: annotationHandlePluginKey,
-    state: {
-      init() {
-        return null;
-      },
-      apply(tr) {
-        return tr.getMeta(annotationHandlePluginKey);
-      },
-    },
     props: {
       decorations(state) {
         const selection = state.selection;
@@ -119,8 +111,8 @@ function renderAnnotationHandle(state, applyTransaction) {
         tr.setMeta(annotationHandlePluginKey, {
           type: ACTION_TYPE.ADD_ANNOTATION,
           id: generateUUID(),
-          from: selection.from,
-          to: selection.to,
+          from: absPosToRelPos(selection.from, state),
+          to: absPosToRelPos(selection.to, state),
           text,
           origin: ORIGINS.LOCAL,
         }),

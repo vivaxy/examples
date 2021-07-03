@@ -1,9 +1,20 @@
 /**
  * @since 2021-06-30
  * @author vivaxy
+ *
+ * testcases:
+ *  - select text to add annotation and sync
+ *  - click annotation to show tooltip
+ *  - click tooltip to delete annotation and sync
+ *  - edit doc, annotation position follows and sync
+ *
+ * bugs:
+ *  - Add annotation; type to add a character before annotation, local annotation move to left, but remote annotation is correct.
+ *      Because yDoc(ySyncPlugin.state.doc) updated in `setTimeout`(https://github.com/yjs/y-prosemirror/blob/9063796fd4e4f45001caec36ab4e3b2e348088c5/src/plugins/sync-plugin.js#L113).
+ *      The `relPosToAbsPos` relies on the yDoc, but the yDoc is not change, so it mapped to the original absPos(the left of the correct absPos).
+ *      This transaction is triggerred by ProseMirror, so use `decorationSet.map` is just fine.
+ *
  * TODO:
- *  - update doc and update local annotation
- *  - update doc and sync updated annotation
  *  - why setInitialStateToYDoc breaks the sync
  */
 import * as Y from 'yjs';
@@ -23,7 +34,7 @@ import {
   createAnnotationHandlePlugin,
   annotationHandlePluginKey,
 } from './annotations';
-import { ACTION_TYPE, ORIGINS } from './annotations/common';
+import { ORIGINS } from './annotations/common';
 
 function broadcastUpdate(update, fromYDoc) {
   editors.forEach(function ({ yDoc }) {
