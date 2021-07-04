@@ -2,26 +2,28 @@
  * @since 2021-06-30
  * @author vivaxy
  *
- * testcases:
- *  - select text to add annotation and sync
- *  - click annotation to show tooltip
- *  - click tooltip to delete annotation and sync
- *  - edit doc, annotation position follows and sync
+ * Testcases:
+ *  - Select text to add annotation and sync.
+ *  - Click annotation to show tooltip.
+ *  - Click tooltip to delete annotation and sync.
+ *  - Edit doc, annotation position follows and sync.
  *
- * bugs:
+ * Remaining bugs:
+ *  None.
+ *
+ * History Bugs:
  *  - Add annotation; type to add a character before annotation, local annotation move to left, but remote annotation is correct.
  *      Because yDoc(ySyncPlugin.state.doc) updated in `setTimeout`(https://github.com/yjs/y-prosemirror/blob/9063796fd4e4f45001caec36ab4e3b2e348088c5/src/plugins/sync-plugin.js#L113).
  *      The `relPosToAbsPos` relies on the yDoc, but the yDoc is not change, so it mapped to the original absPos(the left of the correct absPos).
  *      This transaction is triggerred by ProseMirror, so use `decorationSet.map` is just fine.
- *
- * TODO:
- *  - why setInitialStateToYDoc breaks the sync
+ *  - Separately create yDoc by `prosemirrorToYDoc` and set to yDoc breaks the sync.
+ *      It should share the same yDoc structs other than create structs separately.
  */
 import * as Y from 'yjs';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { schema } from 'prosemirror-schema-basic';
-import { DOMParser, Slice } from 'prosemirror-model';
+import { DOMParser } from 'prosemirror-model';
 import * as awarenessProtocol from 'y-protocols/awareness';
 import {
   ySyncPlugin,
@@ -78,8 +80,11 @@ function createEditor(
   handleUpdate,
   handleAwareness,
   handleAnnotation,
+  initialYDoc,
 ) {
   const yDoc = new Y.Doc();
+  const update = Y.encodeStateAsUpdate(initialYDoc);
+  Y.applyUpdate(yDoc, update);
   const yXml = yDoc.getXmlFragment('prosemirror');
   const awareness = new awarenessProtocol.Awareness(yDoc);
 
@@ -137,52 +142,25 @@ function createEditor(
   };
 }
 
+const initialYDoc = prosemirrorToYDoc(
+  DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
+);
+
 const editors = [
   createEditor(
     '#editor-1',
     broadcastUpdate,
     broadcastAwareness,
     broadcastAnnotation,
+    initialYDoc,
   ),
   createEditor(
     '#editor-2',
     broadcastUpdate,
     broadcastAwareness,
     broadcastAnnotation,
+    initialYDoc,
   ),
 ];
 
 window.editors = editors;
-
-function setInitialStateToProseMirror(editor) {
-  const { editorView } = editor;
-  const tr = editorView.state.tr.replace(
-    0,
-    editorView.state.doc.content.size,
-    new Slice(
-      DOMParser.fromSchema(schema).parse(
-        document.querySelector('#content'),
-      ).content,
-      0,
-      0,
-    ),
-  );
-  const newState = editorView.state.apply(tr);
-  editorView.updateState(newState);
-}
-
-function setInitialStateToYDoc(editor) {
-  // this breaks sync
-  const { yDoc } = editor;
-
-  const newYDoc = prosemirrorToYDoc(
-    DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
-  );
-
-  const update = Y.encodeStateAsUpdate(newYDoc);
-  Y.applyUpdate(yDoc, update);
-}
-
-// setInitialStateToYDoc(editors[0]);
-// setInitialStateToYDoc(editors[1]);
-setInitialStateToProseMirror(editors[0]);

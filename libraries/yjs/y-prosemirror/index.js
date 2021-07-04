@@ -5,8 +5,9 @@
 import * as Y from 'yjs';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
-import { exampleSetup } from 'prosemirror-example-setup';
 import { keymap } from 'prosemirror-keymap';
+import { DOMParser } from 'prosemirror-model';
+import { exampleSetup } from 'prosemirror-example-setup';
 import { schema } from 'prosemirror-schema-basic';
 import * as awarenessProtocol from 'y-protocols/awareness';
 import {
@@ -16,6 +17,7 @@ import {
   yUndoPlugin,
   undo,
   redo,
+  prosemirrorToYDoc,
 } from 'y-prosemirror';
 
 function onUpdate(update, fromYDoc) {
@@ -40,8 +42,10 @@ function onAwareness(update, fromYDoc) {
   });
 }
 
-function createEditor(rootSelector, onUpdate, onAwareness) {
+function createEditor(rootSelector, initialYDoc, onUpdate, onAwareness) {
   const yDoc = new Y.Doc();
+  const update = Y.encodeStateAsUpdate(initialYDoc);
+  Y.applyUpdate(yDoc, update);
   const type = yDoc.get('prosemirror', Y.XmlFragment);
 
   function handleYDocUpdate(update, origin) {
@@ -92,8 +96,12 @@ function createEditor(rootSelector, onUpdate, onAwareness) {
   };
 }
 
+const initialYDoc = prosemirrorToYDoc(
+  DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
+);
+
 const editors = [
-  createEditor('#editor-1', onUpdate, onAwareness),
-  createEditor('#editor-2', onUpdate, onAwareness),
+  createEditor('#editor-1', initialYDoc, onUpdate, onAwareness),
+  createEditor('#editor-2', initialYDoc, onUpdate, onAwareness),
 ];
 window.editors = editors;
