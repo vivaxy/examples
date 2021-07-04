@@ -16,7 +16,18 @@ const decorationsPlugin = new Plugin({
         }),
       ]);
     },
-    apply(tr, prevState) {
+    apply(tr, prevState, oldEditorState, newEditorState) {
+      const meta = tr.getMeta(decorationsPlugin);
+      if (meta) {
+        const newDecorations = meta.decorations.map(function (deco) {
+          const { from, to, attrs, spec } = deco;
+          return Decoration.inline(from, to, attrs, spec);
+        });
+        return prevState.add(newEditorState.doc, newDecorations);
+      }
+      if (tr.docChanged) {
+        return prevState.map(tr.mapping, tr.doc);
+      }
       return prevState;
     },
   },
@@ -33,32 +44,25 @@ const decorationsPlugin = new Plugin({
           },
         );
         const meta = document.createElement('meta');
-        // warning: accessing `view` globally
+        // hack: access `view` globally
         const { from, to } = view.state.selection;
         const decorations = decorationsPlugin
           .getState(view.state)
           .find(from, to)
-          .map(function (dec) {
+          .map(function (deco) {
             return {
-              from: dec.from,
-              to: dec.to,
-              attrs: dec.type.attrs,
-              spec: dec.spec,
+              // TODO: `1` for the paragraph padding. Is it always `1`?
+              from: Math.max(0, deco.from - from) + 1,
+              to: Math.min(to - from, deco.to - from) + 1,
+              attrs: deco.type.attrs,
+              spec: deco.spec,
             };
           });
         if (decorations.length) {
           meta.setAttribute('name', 'decorations');
-          meta.setAttribute(
-            'content',
-            JSON.stringify({ decorations, selection: { from, to } }),
-          );
+          meta.setAttribute('content', JSON.stringify(decorations));
           node.appendChild(meta);
-          console.log(
-            'copy or cut with decorations',
-            decorations,
-            'selection',
-            { from, to },
-          );
+          console.log('copy or cut with decorations', decorations);
         }
         return node;
       },
@@ -67,18 +71,30 @@ const decorationsPlugin = new Plugin({
       parseSlice(dom, { preserveWhitespace, context }) {
         const meta = dom.querySelector('meta[name="decorations"]');
         if (meta) {
-          const { decorations, selection } = JSON.parse(
-            meta.getAttribute('content'),
-          );
+          const decorations = JSON.parse(meta.getAttribute('content'));
+          console.log('paste with decorations', decorations);
           meta.remove();
-          console.log(
-            'paste with decorations',
-            decorations,
-            'selection',
-            selection,
-          );
-          // TODO: calculate new decoration position
-          // TODO: set to decorationSet (better after paste is done)
+          // calculate new decoration position
+          const selectionFrom = context.pos;
+          const mappedDecorations = decorations.map(function (deco) {
+            const { from, to, attrs, spec } = deco;
+            // TODO: `1` for the paragraph padding. Is it always `1`?
+            return {
+              from: selectionFrom + from - 1,
+              to: selectionFrom + to - 1,
+              attrs,
+              spec,
+            };
+          });
+          // hack: trigger after content is inserted
+          // hack: access view globally
+          setTimeout(function () {
+            view.dispatch(
+              view.state.tr.setMeta(decorationsPlugin, {
+                decorations: mappedDecorations,
+              }),
+            );
+          }, 0);
         }
         return DOMParser.fromSchema(schema).parseSlice(dom, {
           preserveWhitespace,
@@ -98,5 +114,3 @@ const state = EditorState.create({
 const view = new EditorView(document.querySelector('#editor'), {
   state,
 });
-
-console.warn('⚠️ Not finished!');
