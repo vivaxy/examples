@@ -1,5 +1,9 @@
 [
   {
+    "name": "NodeRange",
+    "link": "node-range/"
+  },
+  {
     "name": "Copy Paste with Decorations",
     "link": "copy-paste-with-decorations/"
   },

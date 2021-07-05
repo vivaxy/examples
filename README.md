@@ -212,6 +212,7 @@ Table of contents
     * [ProseMirror Mapping Tracking](https://vivaxy.github.io/samples/libraries/prosemirror/mapping-tracking/) ProseMirror Mapping Tracking
     * [ProseMirror Marks](https://vivaxy.github.io/samples/libraries/prosemirror/marks/) ProseMirror Marks
     * [ProseMirror Minimal Editor](https://vivaxy.github.io/samples/libraries/prosemirror/minimal/) ProseMirror Minimal Editor
+    * [ProseMirror NodeRange](https://vivaxy.github.io/samples/libraries/prosemirror/node-range/) ProseMirror NodeRange
     * [ProseMirror NodeViews](https://vivaxy.github.io/samples/libraries/prosemirror/node-views/) ProseMirror NodeViews
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
     * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
