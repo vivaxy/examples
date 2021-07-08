@@ -11,7 +11,11 @@ import './Doc.css';
 export default function Doc(props) {
   return (
     <div className="doc-container">
-      <Tab doc={props.doc} onCloseDoc={props.onCloseDoc} />
+      <Tab
+        doc={props.doc}
+        onCloseDoc={props.onCloseDoc}
+        editable={props.editable}
+      />
       <Editor
         doc={props.doc}
         onEditorChange={props.onEditorChange}

@@ -9,6 +9,8 @@ import * as Y_DOC_KEYS from './enums/y-doc-keys';
 import * as E from './enums/event-types.js';
 import * as ENUMS from './enums/enums';
 import { sleep } from './helpers';
+import decodeUpdate from './update-decoder';
+import decodeDeleteSet from './update-decoder/delete-set-decoder';
 
 import './App.css';
 
@@ -134,7 +136,15 @@ export default function App() {
           doc.yDoc,
           doc.yDoc._prevStateVector,
         );
-        doc._prevStateVector = Y.encodeStateVector(doc.yDoc);
+        doc.yDoc._prevStateVector = Y.encodeStateVector(doc.yDoc);
+        const decodedUpdate = decodeUpdate(doc.yDoc.clientID, update);
+        decodedUpdate.items.forEach(function (item) {
+          if (item.type === 'binary') {
+            item.decodedContent = decodeDeleteSet(item.content);
+            item.content = '[...]';
+          }
+        });
+        console.log('update', decodedUpdate);
         newUpdates.push({
           action,
           payload: update,

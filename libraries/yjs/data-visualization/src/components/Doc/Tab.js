@@ -12,9 +12,11 @@ export default function Tab(props) {
   return (
     <div className="doc-tab">
       <p className="doc-id">Doc{props.doc.id}</p>
-      <button className="doc-close" onClick={handleCloseDoc}>
-        x
-      </button>
+      {props.editable && (
+        <button className="doc-close" onClick={handleCloseDoc}>
+          x
+        </button>
+      )}
     </div>
   );
 }
