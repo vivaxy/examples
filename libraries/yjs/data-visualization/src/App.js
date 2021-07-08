@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import * as Y from 'yjs';
-// import * as decoding from 'lib0/decoding';
-// import * as binary from 'lib0/binary';
-// import * as YInternal from 'yjs/src/internals';
 
 import Scenarios from './components/Scenarios';
 import Doc from './components/Doc';
@@ -11,6 +8,7 @@ import * as EDIT_TYPE from './enums/edit-types';
 import * as Y_DOC_KEYS from './enums/y-doc-keys';
 import * as E from './enums/event-types.js';
 import * as ENUMS from './enums/enums';
+import { sleep } from './helpers';
 
 import './App.css';
 
@@ -21,68 +19,6 @@ function getURLQuery(key) {
   const searchParams = url.searchParams;
   return searchParams.get(key);
 }
-
-// function logDecodedUpdate(update) {
-//   const decoder = decoding.createDecoder(update);
-//   const updateDecoder = new YInternal.UpdateDecoderV1(decoder);
-//   const numOfStateUpdates = updateDecoder.readLen();
-//   const numberOfStructs = updateDecoder.readLen();
-//   // console.log(
-//   //   'numOfStateUpdates',
-//   //   numOfStateUpdates,
-//   //   'numberOfStructs',
-//   //   numberOfStructs,
-//   // );
-//   const client = updateDecoder.readClient();
-//   const clock = updateDecoder.readDsClock();
-//   console.log('client', client, 'clock', clock);
-//
-//   for (let i = 0; i < numberOfStructs; i++) {
-//     const info = updateDecoder.readInfo();
-//     if (info === 10) {
-//       const len = updateDecoder.readDsLen();
-//       console.log('skip', 'info', info, 'len', len);
-//     } else if ((binary.BITS5 & info) !== 0) {
-//       const cantCopyParentInfo = (info & (binary.BIT7 | binary.BIT8)) === 0;
-//       const origin =
-//         (info & binary.BIT8) === binary.BIT8
-//           ? updateDecoder.readLeftID()
-//           : null;
-//       const rightOrigin =
-//         (info & binary.BIT7) === binary.BIT7
-//           ? updateDecoder.readRightID()
-//           : null;
-//       const parent = cantCopyParentInfo
-//         ? updateDecoder.readParentInfo()
-//           ? updateDecoder.readString()
-//           : updateDecoder.readLeftID()
-//         : null;
-//       const parentSub =
-//         cantCopyParentInfo && (info & binary.BIT6) === binary.BIT6
-//           ? updateDecoder.readString()
-//           : null;
-//       const content = YInternal.readItemContent(updateDecoder, info);
-//       console.log(
-//         'item',
-//         'info',
-//         info,
-//         'origin',
-//         origin,
-//         'rightOrigin',
-//         rightOrigin,
-//         'parent',
-//         parent,
-//         'parentSub',
-//         parentSub,
-//         'content',
-//         content,
-//       );
-//     } else {
-//       const len = updateDecoder.readDsLen();
-//       console.log('gc', 'info', info, 'len', len);
-//     }
-//   }
-// }
 
 export default function App() {
   // url like ?scenario=TwoDocsSyncWithoutConflicts
@@ -97,10 +33,10 @@ export default function App() {
     window.docs = docs;
   }
 
-  function updateDocById(id, updateDoc) {
+  async function updateDocById(id, updateDoc) {
     const newDocs = [
       ...docs.slice(0, id),
-      updateDoc(docs[id]),
+      await updateDoc(docs[id]),
       ...docs.slice(id + 1),
     ];
     setDocs(newDocs);
@@ -112,7 +48,7 @@ export default function App() {
     setDocs([]);
   }
 
-  function handleNextStep() {
+  async function handleNextStep() {
     setCurrentScenarioStepIndex(currentScenarioStepIndex + 1);
     const currentScenarioSteps = scenarios[currentScenario];
     const [action, payload] = currentScenarioSteps[currentScenarioStepIndex];
@@ -121,13 +57,13 @@ export default function App() {
         handleOpenDoc();
         break;
       case E.DOC_UPDATE:
-        handleEditorChange(payload);
+        await handleEditorChange(payload);
         break;
       case E.DOC_SYNC:
-        handleSync(payload);
+        await handleSync(payload);
         break;
       case E.DOC_CLOSE:
-        handleCloseDoc(payload);
+        await handleCloseDoc(payload);
         break;
       default:
         throw new Error('Unexpected action: ' + action);
@@ -141,33 +77,47 @@ export default function App() {
 
   function handleOpenDoc() {
     const yDoc = new Y.Doc();
+    const pud = new Y.PermanentUserData(yDoc);
+    yDoc._prevStateVector = Y.encodeStateVector(yDoc);
     const id = docs.length;
+    // cannot put in one transaction
+    // setUserMapping comes from local but applyUpdate comes from remote
+    pud.setUserMapping(yDoc, yDoc.clientID, `Doc${id}`);
+    const update = Y.encodeStateAsUpdate(yDoc, yDoc._prevStateVector);
+    yDoc._prevStateVector = Y.encodeStateVector(yDoc);
     if (id !== 0) {
       Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(docs[0].yDoc));
     }
+    // sync to other docs
+    // setUserMapping use setTimeout to update pud
+    docs.forEach(function (doc) {
+      Y.applyUpdate(doc.yDoc, update);
+    });
     setDocs([
       ...docs,
       {
         id,
         yDoc, // mutable
+        pud,
         updates: [], // { action, payload }
       },
     ]);
   }
 
-  function handleCloseDoc(doc) {
+  async function handleCloseDoc(doc) {
     doc.yDoc.destroy();
-    updateDocById(doc.id, function () {
+    await updateDocById(doc.id, function () {
       return null;
     });
   }
 
-  function handleEditorChange(change) {
+  async function handleEditorChange(change) {
     const { id, actions } = change;
-    updateDocById(id, function (doc) {
-      const newUpdates = actions.map(function (action) {
+    await updateDocById(id, async function (doc) {
+      let newUpdates = [];
+      for (let i = 0; i < actions.length; i++) {
+        const action = actions[i];
         const { type, pos, str, len } = action;
-        const prevStateVector = Y.encodeStateVector(doc.yDoc);
         const yText = doc.yDoc.getText(Y_DOC_KEYS.TEXT_KEY);
         switch (type) {
           case EDIT_TYPE.INSERT:
@@ -179,12 +129,17 @@ export default function App() {
           default:
             throw new Error('Unexpected type');
         }
-        const update = Y.encodeStateAsUpdate(doc.yDoc, prevStateVector);
-        return {
+        await sleep(0);
+        const update = Y.encodeStateAsUpdate(
+          doc.yDoc,
+          doc.yDoc._prevStateVector,
+        );
+        doc._prevStateVector = Y.encodeStateVector(doc.yDoc);
+        newUpdates.push({
           action,
           payload: update,
-        };
-      });
+        });
+      }
       if (docs.length === 1) {
         // do not record updates when there is only one doc.
         return doc;
@@ -196,8 +151,8 @@ export default function App() {
     });
   }
 
-  function handleSync({ from, to, index }) {
-    updateDocById(from, function (doc) {
+  async function handleSync({ from, to, index }) {
+    await updateDocById(from, function (doc) {
       if (!doc) {
         return;
       }

@@ -18,7 +18,8 @@
   margin: 2px;
 }
 
-.client-id {
+.client-id,
+.label {
   font-size: 10px;
   color: #999;
   margin: 0;
@@ -29,29 +30,31 @@
   display: flex;
 }
 
-.client-model {
+.client-text,
+.pud {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.shared-type {
+.item {
   flex: 0 0 20px;
   font-size: 12px;
   font-family: monospace;
   border: 1px solid #fff;
 }
 
-.shared-type.delete {
+.item.delete {
   background: rgb(255, 200, 200);
 }
 
-.shared-type.insert {
+.item.insert {
   background: rgb(200, 255, 200);
 }
 
-.shared-type.current {
+.item.current {
 }
 
-.shared-type.link {
+.item.link {
   opacity: 0.3;
 }
 
@@ -61,7 +64,7 @@
   color: #999;
 }
 
-.shared-type-value {
+.item-value {
   margin: 0;
   text-align: center;
 }

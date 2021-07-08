@@ -95,9 +95,66 @@ function snapshot() {
   );
 }
 
+function transact() {
+  function noTransact() {
+    const doc = new Y.Doc();
+    const text = doc.getText(TEXT_KEY);
+    doc.on('update', function () {
+      console.log('update');
+    });
+    text.insert(0, 'ABC');
+    text.insert(0, 'ABC');
+  }
+
+  function withTransact() {
+    const doc = new Y.Doc();
+    const text = doc.getText(TEXT_KEY);
+    doc.on('update', function () {
+      console.log('update');
+    });
+    Y.transact(doc, function () {
+      text.insert(0, 'ABC');
+      text.insert(0, 'ABC');
+    });
+  }
+
+  function nestedTransact() {
+    const doc = new Y.Doc();
+    const text = doc.getText(TEXT_KEY);
+    doc.on('update', function () {
+      console.log('update');
+    });
+    doc.on('beforeAllTransactions', function () {
+      console.log('beforeAllTransactions');
+    });
+    doc.on('beforeTransaction', function () {
+      console.log('beforeTransaction');
+    });
+    Y.transact(
+      doc,
+      function () {
+        text.insert(0, 'ABC');
+        Y.transact(
+          doc,
+          function () {
+            text.insert(0, 'ABC');
+          },
+          '2',
+        );
+      },
+      '1',
+    );
+  }
+
+  noTransact();
+  withTransact();
+  nestedTransact();
+}
+
 updateText();
 syncDocs();
 updateYXmlFragment();
 mergeConflict();
 relativePositionAndAbsolutePosition();
 snapshot();
+transact();
