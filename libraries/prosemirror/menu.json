@@ -1,5 +1,9 @@
 [
   {
+    "name": "NodeType",
+    "link": "node-type/"
+  },
+  {
     "name": "NodeRange",
     "link": "node-range/"
   },
