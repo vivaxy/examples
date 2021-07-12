@@ -1,5 +1,9 @@
 [
   {
+    "name": "diff",
+    "link": "diff/"
+  },
+  {
     "name": "transact",
     "link": "transact/"
   },
