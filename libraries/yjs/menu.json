@@ -1,5 +1,13 @@
 [
   {
+    "name": "transact",
+    "link": "transact/"
+  },
+  {
+    "name": "Snapshot",
+    "link": "snapshot/"
+  },
+  {
     "name": "y-prosemirror Annotations",
     "link": "y-prosemirror-annotations/"
   },
@@ -10,6 +18,26 @@
   {
     "name": "Data Visualization",
     "link": "data-visualization/build/"
+  },
+  {
+    "name": "Positions",
+    "link": "positions/"
+  },
+  {
+    "name": "Sync",
+    "link": "sync/"
+  },
+  {
+    "name": "Merge Conflict",
+    "link": "merge-conflict/"
+  },
+  {
+    "name": "XMLFragment",
+    "link": "xml-fragment/"
+  },
+  {
+    "name": "Text",
+    "link": "text/"
   },
   {
     "name": "Basic",

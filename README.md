@@ -256,6 +256,13 @@ Table of contents
     * [require.context](https://vivaxy.github.io/samples/libraries/webpack/require-context/) Require context
   * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
+    * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict
+    * [Y.js Positions](https://vivaxy.github.io/samples/libraries/yjs/positions/) Y.js Positions
+    * [Y.js Snapshot](https://vivaxy.github.io/samples/libraries/yjs/snapshot/) Y.js Snapshot
+    * [Y.js Sync](https://vivaxy.github.io/samples/libraries/yjs/sync/) Y.js Sync
+    * [Y.js Text](https://vivaxy.github.io/samples/libraries/yjs/text/) Y.js Text
+    * [Y.js transact](https://vivaxy.github.io/samples/libraries/yjs/transact/) Y.js transact
+    * [Y.js XMLFragment](https://vivaxy.github.io/samples/libraries/yjs/xml-fragment/) Y.js XMLFragment
     * [Y.js ProseMirror](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
     * [Y.js ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror-annotations/) Y.js ProseMirror Annotations
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning
