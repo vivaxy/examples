@@ -1,5 +1,9 @@
 [
   {
+    "name": "ContentMatch",
+    "link": "content-match/"
+  },
+  {
     "name": "NodeType",
     "link": "node-type/"
   },
