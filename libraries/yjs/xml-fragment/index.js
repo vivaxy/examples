@@ -12,4 +12,4 @@ fragmentA.insert(0, [new Y.XmlText('A')]);
 fragmentA.insert(1, [new Y.XmlText('B')]);
 fragmentA.delete(0, 1);
 fragmentA.insert(1, [new Y.XmlElement('div')]);
-console.log('fragmentA', fragmentA);
+console.log('fragmentA', fragmentA.toJSON());
