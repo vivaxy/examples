@@ -1,5 +1,9 @@
 [
   {
+    "name": "DOMParser Options",
+    "link": "dom-parser-options/"
+  },
+  {
     "name": "Unknown Schema",
     "link": "unknown-schema/"
   },
