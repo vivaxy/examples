@@ -3,6 +3,7 @@ import * as Y from 'yjs';
 
 import Scenarios from './components/Scenarios';
 import Doc from './components/Doc';
+import Options from './components/Options';
 import scenarios from './scenarios';
 import * as EDIT_TYPE from './enums/edit-types';
 import * as Y_DOC_KEYS from './enums/y-doc-keys';
@@ -29,6 +30,9 @@ export default function App() {
   );
   const [currentScenarioStepIndex, setCurrentScenarioStepIndex] = useState(0);
   const [docs, _setDocs] = useState([]);
+  const [options, setOptions] = useState({
+    gc: true,
+  });
 
   function setDocs(docs) {
     _setDocs(docs);
@@ -79,6 +83,7 @@ export default function App() {
 
   function handleOpenDoc() {
     const yDoc = new Y.Doc();
+    yDoc.gc = options.gc;
     const pud = new Y.PermanentUserData(yDoc);
     yDoc._prevStateVector = Y.encodeStateVector(yDoc);
     const id = docs.length;
@@ -180,6 +185,13 @@ export default function App() {
     });
   }
 
+  function handleOptionChange(changedOption) {
+    setOptions({
+      ...options,
+      ...changedOption,
+    });
+  }
+
   const editable = currentScenario === ENUMS.CUSTOM_SCENARIO;
 
   return (
@@ -193,6 +205,7 @@ export default function App() {
         onRestartStep={handleRestartStep}
         onOpenDoc={handleOpenDoc}
       />
+      <Options options={options} onOptionChange={handleOptionChange} />
       <div className="docs-container">
         {docs.filter(Boolean).map(function (doc) {
           return (

@@ -258,6 +258,7 @@ Table of contents
   * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
     * [Y.js diff](https://vivaxy.github.io/samples/libraries/yjs/diff/) Y.js diff
+    * [Y.js GC](https://vivaxy.github.io/samples/libraries/yjs/gc/) Y.js GC
     * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict
     * [Y.js Positions](https://vivaxy.github.io/samples/libraries/yjs/positions/) Y.js Positions
     * [Y.js Snapshot](https://vivaxy.github.io/samples/libraries/yjs/snapshot/) Y.js Snapshot

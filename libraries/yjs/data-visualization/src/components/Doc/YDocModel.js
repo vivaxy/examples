@@ -23,23 +23,53 @@ function renderMissing(missing) {
   return res;
 }
 
-function renderTextModel(item, clientID) {
-  if (!item) {
+function formatStruct(struct) {
+  const commonData = {
+    client: struct.id.client,
+    clock: struct.id.clock,
+  };
+  if (struct.content instanceof Y.ContentDeleted) {
+    return {
+      ...commonData,
+      deleted: true,
+      len: struct.content.len,
+    };
+  }
+  if (struct.deleted) {
+    return {
+      ...commonData,
+      deleted: true,
+      content: struct.content.str,
+      len: struct.content.str.length,
+    };
+  }
+  return {
+    ...commonData,
+    deleted: false,
+    content: struct.content.str,
+  };
+}
+
+function renderTextModel(struct, clientID) {
+  if (!struct) {
     return [];
   }
+  const formattedStruct = formatStruct(struct);
   const sharedTypeNode = (
     <div
-      className={`item${item.content.str ? ' insert' : ' delete'}${
-        item.id.client === clientID ? ' current' : ' link'
+      className={`item${formattedStruct.deleted ? ' delete' : ' insert'}${
+        formattedStruct.client === clientID ? ' current' : ' link'
       }`}
-      key={getSharedTypeId(item)}
+      key={getSharedTypeId(struct)}
     >
-      <p className="clock">{item.id.clock}</p>
-      <p className="item-value">{item.content.str || item.content.len}</p>
+      <p className="clock">{formattedStruct.clock}</p>
+      <p className="item-value">
+        {formattedStruct.content || formattedStruct.len}
+      </p>
     </div>
   );
 
-  return [sharedTypeNode, ...renderTextModel(item.right, clientID)];
+  return [sharedTypeNode, ...renderTextModel(struct.right, clientID)];
 }
 
 function renderDeleteSet(yDoc, currentClientID) {
