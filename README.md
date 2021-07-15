@@ -219,6 +219,7 @@ Table of contents
     * [ProseMirror NodeViews](https://vivaxy.github.io/samples/libraries/prosemirror/node-views/) ProseMirror NodeViews
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
     * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
+    * [ProseMirror Schema ParseRule](https://vivaxy.github.io/samples/libraries/prosemirror/schema-parse-rule/) ProseMirror Schema ParseRule
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection
     * [ProseMirror Slice](https://vivaxy.github.io/samples/libraries/prosemirror/slice/) ProseMirror Slice
     * [ProseMirror Transactions](https://vivaxy.github.io/samples/libraries/prosemirror/transactions/) ProseMirror Transactions

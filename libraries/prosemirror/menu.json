@@ -1,5 +1,9 @@
 [
   {
+    "name": "Schema ParseRule",
+    "link": "schema-parse-rule/"
+  },
+  {
     "name": "DOMParser Options",
     "link": "dom-parser-options/"
   },
