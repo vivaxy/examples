@@ -93,6 +93,7 @@ function createEditor(rootSelector, initialYDoc, onUpdate, onAwareness) {
   return {
     editorView,
     provider,
+    yDoc,
   };
 }
 
