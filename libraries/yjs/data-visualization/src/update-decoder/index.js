@@ -5,21 +5,36 @@
 import * as decoding from 'lib0/decoding';
 import * as binary from 'lib0/binary';
 import contentRefs from './content-decoder';
+import readDeleteSet from './delete-set-decoder';
 
-export default function decode(clientID, update) {
-  const decoder = decoding.createDecoder(update);
+export default function decode(clientID, decoder) {
+  if (!(decoder instanceof decoding.Decoder)) {
+    decoder = decoding.createDecoder(decoder);
+  }
   const structRefs = readClientsStructRefs(decoder);
 
-  const clientData = structRefs.get(clientID);
+  const clientData = structRefs[clientID];
 
-  if (clientData == null) {
-    return {
-      clientID,
-    };
+  const deleteSet = readDeleteSet(decoder);
+
+  if (!clientData) {
+    if (Object.keys(deleteSet.clients).length) {
+      return { clientID, deleteSet };
+    }
+    return { clientID };
   }
   const clock = clientData.items[0].clock;
   const totalLength = clientData.totalLength;
 
+  if (Object.keys(deleteSet.clients).length) {
+    return {
+      clock,
+      clientID,
+      totalLength,
+      items: clientData.items,
+      deleteSet,
+    };
+  }
   return {
     clock,
     clientID,
@@ -29,7 +44,7 @@ export default function decode(clientID, update) {
 }
 
 function readClientsStructRefs(decoder) {
-  const clientRefs = new Map();
+  const clientRefs = {};
   const numOfStateUpdates = decoding.readVarUint(decoder);
   let totalLength = 0;
   for (let i = 0; i < numOfStateUpdates; i++) {
@@ -51,10 +66,10 @@ function readClientsStructRefs(decoder) {
       clock += struct.length;
       totalLength += struct.length;
     }
-    clientRefs.set(client, {
+    clientRefs[client] = {
       items,
       totalLength,
-    });
+    };
   }
   return clientRefs;
 }

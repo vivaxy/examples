@@ -31,7 +31,7 @@ export default function Updates(props) {
             {props.editable &&
               props.docs
                 .filter(function (doc) {
-                  return doc && doc.id !== props.doc.id;
+                  return doc && !update.syncedIds.includes(doc.id);
                 })
                 .map(function (doc) {
                   return (

@@ -4,11 +4,13 @@
  */
 import * as decoding from 'lib0/decoding';
 
-export default function readDeleteSet(binary) {
+export default function readDeleteSet(decoder) {
+  if (!(decoder instanceof decoding.Decoder)) {
+    decoder = decoding.createDecoder(decoder);
+  }
   const ds = {
     clients: {},
   };
-  const decoder = decoding.createDecoder(binary);
   const numClients = decoding.readVarUint(decoder);
   for (let i = 0; i < numClients; i++) {
     const client = decoding.readVarUint(decoder);

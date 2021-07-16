@@ -29,7 +29,7 @@ const readYXmlHook = (decoder) => {
 
 const readYXmlText = (decoder) => {};
 
-export default [
+const typeDecoder = [
   readYArray,
   readYMap,
   readYText,
@@ -38,3 +38,5 @@ export default [
   readYXmlHook,
   readYXmlText,
 ];
+
+export default typeDecoder;

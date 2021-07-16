@@ -94,7 +94,7 @@ function readContentAny(decoder) {
   };
 }
 
-export default [
+const contentDecoder = [
   () => {
     throw error.unexpectedCase();
   }, // GC is not ItemContent
@@ -107,3 +107,5 @@ export default [
   readContentType,
   readContentAny,
 ];
+
+export default contentDecoder;

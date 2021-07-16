@@ -3,7 +3,6 @@
  * @author vivaxy
  */
 import * as ENUMS from '../enums/enums';
-import Actions from './Scenarios/Actions';
 import * as E from '../enums/event-types';
 import * as EDIT_TYPE from '../enums/edit-types';
 
@@ -57,10 +56,6 @@ export default function Scenarios(props) {
     }
   }
 
-  function handleOpenDoc() {
-    props.onOpenDoc();
-  }
-
   const currentScenarioSteps = props.scenarios[props.currentScenario];
 
   const currentStep =
@@ -100,7 +95,6 @@ export default function Scenarios(props) {
           <span>{stringifyStep(currentStep)}</span>
         </p>
       )}
-      {!currentScenarioSteps && <Actions onOpenDoc={handleOpenDoc} />}
     </div>
   );
 }

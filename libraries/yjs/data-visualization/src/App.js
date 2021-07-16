@@ -3,7 +3,7 @@ import * as Y from 'yjs';
 
 import Scenarios from './components/Scenarios';
 import Doc from './components/Doc';
-import Options from './components/Options';
+import Actions from './components/Actions';
 import scenarios from './scenarios';
 import * as EDIT_TYPE from './enums/edit-types';
 import * as Y_DOC_KEYS from './enums/y-doc-keys';
@@ -31,7 +31,8 @@ export default function App() {
   const [currentScenarioStepIndex, setCurrentScenarioStepIndex] = useState(0);
   const [docs, _setDocs] = useState([]);
   const [options, setOptions] = useState({
-    gc: true,
+    gc: false,
+    pud: false,
   });
 
   function setDocs(docs) {
@@ -60,7 +61,7 @@ export default function App() {
     const [action, payload] = currentScenarioSteps[currentScenarioStepIndex];
     switch (action) {
       case E.DOC_OPEN:
-        handleOpenDoc();
+        await handleOpenDoc();
         break;
       case E.DOC_UPDATE:
         await handleEditorChange(payload);
@@ -81,23 +82,31 @@ export default function App() {
     setDocs([]);
   }
 
-  function handleOpenDoc() {
+  async function handleOpenDoc() {
     const yDoc = new Y.Doc();
     yDoc.gc = options.gc;
-    const pud = new Y.PermanentUserData(yDoc);
-    yDoc._prevStateVector = Y.encodeStateVector(yDoc);
     const id = docs.length;
-    // cannot put in one transaction
-    // setUserMapping comes from local but applyUpdate comes from remote
-    pud.setUserMapping(yDoc, yDoc.clientID, `Doc${id}`);
-    const update = Y.encodeStateAsUpdate(yDoc, yDoc._prevStateVector);
-    yDoc._prevStateVector = Y.encodeStateVector(yDoc);
-    if (id !== 0) {
-      Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(docs[0].yDoc));
+
+    let pud = null;
+    if (options.pud) {
+      pud = new Y.PermanentUserData(yDoc);
+      /**
+       * cannot put setUserMapping and applyUpdate in one transaction
+       * setUserMapping comes from local but applyUpdate comes from remote
+       */
+      pud.setUserMapping(yDoc, yDoc.clientID, `Doc${id}`);
+      // setUserMapping use setTimeout to update pud
+      await sleep(0);
+    }
+
+    const update = Y.encodeStateAsUpdate(yDoc);
+    // when create doc, sync from the first doc
+    const validDocs = docs.filter(Boolean);
+    if (validDocs.length && id !== validDocs[0].id) {
+      Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(validDocs[0].yDoc));
     }
     // sync to other docs
-    // setUserMapping use setTimeout to update pud
-    docs.forEach(function (doc) {
+    validDocs.forEach(function (doc) {
       Y.applyUpdate(doc.yDoc, update);
     });
     setDocs([
@@ -122,6 +131,7 @@ export default function App() {
     const { id, actions } = change;
     await updateDocById(id, async function (doc) {
       let newUpdates = [];
+      const prevStateVector = Y.encodeStateVector(doc.yDoc);
       for (let i = 0; i < actions.length; i++) {
         const action = actions[i];
         const { type, pos, str, len } = action;
@@ -137,15 +147,14 @@ export default function App() {
             throw new Error('Unexpected type');
         }
         await sleep(0);
-        const update = Y.encodeStateAsUpdate(
-          doc.yDoc,
-          doc.yDoc._prevStateVector,
-        );
-        doc.yDoc._prevStateVector = Y.encodeStateVector(doc.yDoc);
+        const update = Y.encodeStateAsUpdate(doc.yDoc, prevStateVector);
         const decodedUpdate = decodeUpdate(doc.yDoc.clientID, update);
-        decodedUpdate.items.forEach(function (item) {
+        decodedUpdate.items?.forEach(function (item) {
           if (item.type === 'binary') {
-            item.decodedContent = decodeDeleteSet(item.content);
+            const deleteSet = decodeDeleteSet(item.content);
+            if (Object.keys(deleteSet).length) {
+              item.decodedContent = deleteSet;
+            }
             item.content = '[...]';
           }
         });
@@ -153,6 +162,7 @@ export default function App() {
         newUpdates.push({
           action,
           payload: update,
+          syncedIds: [id],
         });
       }
       if (docs.length === 1) {
@@ -172,15 +182,29 @@ export default function App() {
         return;
       }
       const toDoc = docs[to];
-      const updates = index === undefined ? doc.updates : [doc.updates[index]];
-      updates.forEach(function (update) {
+      const toSyncUpdates =
+        index === undefined ? doc.updates : [doc.updates[index]];
+      toSyncUpdates.forEach(function (update) {
         Y.applyUpdate(toDoc.yDoc, update.payload);
       });
       return {
         ...doc,
-        updates: doc.updates.filter(function (update) {
-          return !updates.includes(update);
-        }),
+        updates: doc.updates
+          .map(function (update) {
+            if (toSyncUpdates.includes(update)) {
+              if (update.syncedIds.includes(to)) {
+                return update;
+              }
+              return {
+                ...update,
+                syncedIds: [...update.syncedIds, to],
+              };
+            }
+            return update;
+          })
+          .filter(function (update) {
+            return update.syncedIds.length !== docs.filter(Boolean).length;
+          }),
       };
     });
   }
@@ -205,7 +229,14 @@ export default function App() {
         onRestartStep={handleRestartStep}
         onOpenDoc={handleOpenDoc}
       />
-      <Options options={options} onOptionChange={handleOptionChange} />
+      {!scenarios[currentScenario] && (
+        <Actions
+          onOpenDoc={handleOpenDoc}
+          options={options}
+          disabled={!!docs.filter(Boolean).length}
+          onOptionChange={handleOptionChange}
+        />
+      )}
       <div className="docs-container">
         {docs.filter(Boolean).map(function (doc) {
           return (
