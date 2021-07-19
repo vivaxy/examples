@@ -1,5 +1,9 @@
 [
   {
+    "name": "DOM Serializer",
+    "link": "dom-serializer/"
+  },
+  {
     "name": "Schema ParseRule",
     "link": "schema-parse-rule/"
   },
