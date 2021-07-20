@@ -12,6 +12,10 @@ export default function Tab(props) {
   return (
     <div className="doc-tab">
       <p className="doc-id">Doc{props.doc.id}</p>
+      <span className="doc-options">
+        <span>GC: {props.doc.yDoc.gc ? '✅' : '❌'}</span>
+        <span>PermanentUserData: {props.doc.pud ? '✅' : '❌'}</span>
+      </span>
       {props.editable && (
         <button className="doc-close" onClick={handleCloseDoc}>
           x

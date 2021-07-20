@@ -9,11 +9,7 @@ export default function Actions(props) {
   return (
     <div className="actions-container">
       <Buttons onOpenDoc={props.onOpenDoc} />
-      <Options
-        disabled={props.disabled}
-        options={props.options}
-        onOptionChange={props.onOptionChange}
-      />
+      <Options options={props.options} onOptionChange={props.onOptionChange} />
     </div>
   );
 }

@@ -233,7 +233,6 @@ export default function App() {
         <Actions
           onOpenDoc={handleOpenDoc}
           options={options}
-          disabled={!!docs.filter(Boolean).length}
           onOptionChange={handleOptionChange}
         />
       )}

@@ -28,7 +28,6 @@ export default function Options(props) {
       <input
         id={IDS.GC}
         type="checkbox"
-        disabled={props.disabled}
         checked={props.options.gc}
         onChange={createHandleChange('gc', function (e) {
           return e.target.checked;
@@ -38,7 +37,6 @@ export default function Options(props) {
       <input
         id={IDS.PUD}
         type="checkbox"
-        disabled={props.disabled}
         checked={props.options.pud}
         onChange={createHandleChange('pud', function (e) {
           return e.target.checked;
