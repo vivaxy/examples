@@ -1,5 +1,9 @@
 [
   {
+    "name": "Step",
+    "link": "step/"
+  },
+  {
     "name": "DOM Serializer",
     "link": "dom-serializer/"
   },

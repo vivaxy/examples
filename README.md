@@ -223,6 +223,7 @@ Table of contents
     * [ProseMirror Schema ParseRule](https://vivaxy.github.io/samples/libraries/prosemirror/schema-parse-rule/) ProseMirror Schema ParseRule
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection
     * [ProseMirror Slice](https://vivaxy.github.io/samples/libraries/prosemirror/slice/) ProseMirror Slice
+    * [ProseMirror Step](https://vivaxy.github.io/samples/libraries/prosemirror/step/) ProseMirror Step
     * [ProseMirror Transactions](https://vivaxy.github.io/samples/libraries/prosemirror/transactions/) ProseMirror Transactions
     * [ProseMirror Unknown Schema](https://vivaxy.github.io/samples/libraries/prosemirror/unknown-schema/) ProseMirror Unknown Schema
     * [ProseMirror with React](https://vivaxy.github.io/samples/libraries/prosemirror/with-react/) ProseMirror with React
