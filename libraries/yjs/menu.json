@@ -1,5 +1,9 @@
 [
   {
+    "name": "YXmlText",
+    "link": "xml-text/"
+  },
+  {
     "name": "gc",
     "link": "gc/"
   },
@@ -44,7 +48,7 @@
     "link": "xml-fragment/"
   },
   {
-    "name": "Text",
+    "name": "YText",
     "link": "text/"
   },
   {

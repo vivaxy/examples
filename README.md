@@ -267,9 +267,10 @@ Table of contents
     * [Y.js Positions](https://vivaxy.github.io/samples/libraries/yjs/positions/) Y.js Positions
     * [Y.js Snapshot](https://vivaxy.github.io/samples/libraries/yjs/snapshot/) Y.js Snapshot
     * [Y.js Sync](https://vivaxy.github.io/samples/libraries/yjs/sync/) Y.js Sync
-    * [Y.js Text](https://vivaxy.github.io/samples/libraries/yjs/text/) Y.js Text
+    * [Y.js YText](https://vivaxy.github.io/samples/libraries/yjs/text/) Y.js YText
     * [Y.js transact](https://vivaxy.github.io/samples/libraries/yjs/transact/) Y.js transact
     * [Y.js XMLFragment](https://vivaxy.github.io/samples/libraries/yjs/xml-fragment/) Y.js XMLFragment
+    * [Y.js YXmlText](https://vivaxy.github.io/samples/libraries/yjs/xml-text/) Y.js YXmlText
     * [Y.js ProseMirror](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
     * [Y.js ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror-annotations/) Y.js ProseMirror Annotations
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning

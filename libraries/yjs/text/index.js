@@ -13,4 +13,4 @@ textA.insert(1, 'BC');
 textA.delete(1, 1);
 textA.insert(1, 'T');
 textA.insert(0, 'X');
-console.log('textA', textA);
+console.log('textA', textA.toString());
