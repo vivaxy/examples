@@ -1,5 +1,9 @@
 [
   {
+    "name": "ReplaceStep",
+    "link": "replace-step/"
+  },
+  {
     "name": "Step",
     "link": "step/"
   },
