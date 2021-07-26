@@ -1,5 +1,5 @@
 {
-  "name": "xml-fragment",
+  "name": "xml-text-attributes-bug",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
-    "yjs": "13.4.3"
+    "yjs": "^13.5.10"
   },
   "devDependencies": {
     "webpack": "^5.37.0",

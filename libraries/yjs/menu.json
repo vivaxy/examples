@@ -1,5 +1,9 @@
 [
   {
+    "name": "YXmlText insert attributes bug",
+    "link": "xml-text-attributes-bug/"
+  },
+  {
     "name": "YXmlText",
     "link": "xml-text/"
   },

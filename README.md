@@ -272,6 +272,7 @@ Table of contents
     * [Y.js transact](https://vivaxy.github.io/samples/libraries/yjs/transact/) Y.js transact
     * [Y.js XMLFragment](https://vivaxy.github.io/samples/libraries/yjs/xml-fragment/) Y.js XMLFragment
     * [Y.js YXmlText](https://vivaxy.github.io/samples/libraries/yjs/xml-text/) Y.js YXmlText
+    * [Y.js XmlText Attributes Bug](https://vivaxy.github.io/samples/libraries/yjs/xml-text-attributes-bug/) Y.js XmlText Attributes Bug
     * [Y.js ProseMirror](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
     * [Y.js ProseMirror Annotations](https://vivaxy.github.io/samples/libraries/yjs/y-prosemirror-annotations/) Y.js ProseMirror Annotations
 * [Machine Learning](https://vivaxy.github.io/samples/machine-learning/) Machine Learning
