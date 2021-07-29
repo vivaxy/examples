@@ -1,5 +1,9 @@
 [
   {
+    "name": "StepMap",
+    "link": "step-map/"
+  },
+  {
     "name": "ReplaceStep",
     "link": "replace-step/"
   },
