@@ -263,6 +263,7 @@ Table of contents
     * [require.context](https://vivaxy.github.io/samples/libraries/webpack/require-context/) Require context
   * [Y.js](https://vivaxy.github.io/samples/libraries/yjs/) Y.js
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
+    * [Y.js ClientID Collision](https://vivaxy.github.io/samples/libraries/yjs/client-id-collision/) Y.js ClientID Collision
     * [Y.js diff](https://vivaxy.github.io/samples/libraries/yjs/diff/) Y.js diff
     * [Y.js GC](https://vivaxy.github.io/samples/libraries/yjs/gc/) Y.js GC
     * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict

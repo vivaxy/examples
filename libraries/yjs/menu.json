@@ -1,5 +1,9 @@
 [
   {
+    "name": "ClientID Collision",
+    "link": "client-id-collision/"
+  },
+  {
     "name": "YXmlText insert attributes bug",
     "link": "xml-text-attributes-bug/"
   },
