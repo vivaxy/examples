@@ -7,6 +7,7 @@ import * as Y from 'yjs';
 const FRAGMENT_KEY = 'fragment-key';
 
 const docA = new Y.Doc();
+window.docA = docA;
 // docA.gc = false;
 const fragmentA = docA.getXmlFragment(FRAGMENT_KEY);
 fragmentA.insert(0, [new Y.XmlText('A')]);
