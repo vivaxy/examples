@@ -58,6 +58,7 @@ function readClientsStructRefs(decoder) {
       if ((binary.BITS5 & info) !== 0) {
         struct = readItem(client, clock, decoder, info);
       } else {
+        // GC
         struct = new Item(client, clock, {
           length: decoding.readVarUint(decoder),
         });
