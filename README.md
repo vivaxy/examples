@@ -277,6 +277,7 @@ Table of contents
     * [Y.js Sync](https://vivaxy.github.io/samples/libraries/yjs/sync/) Y.js Sync
     * [Y.js YText](https://vivaxy.github.io/samples/libraries/yjs/text/) Y.js YText
     * [Y.js transact](https://vivaxy.github.io/samples/libraries/yjs/transact/) Y.js transact
+    * [Y.js Update Size](https://vivaxy.github.io/samples/libraries/yjs/update-size/) Y.js Update Size
     * [Y.js XMLFragment](https://vivaxy.github.io/samples/libraries/yjs/xml-fragment/) Y.js XMLFragment
     * [Y.js YXmlText](https://vivaxy.github.io/samples/libraries/yjs/xml-text/) Y.js YXmlText
     * [Y.js XmlText Attributes Bug](https://vivaxy.github.io/samples/libraries/yjs/xml-text-attributes-bug/) Y.js XmlText Attributes Bug
