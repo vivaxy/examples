@@ -54,43 +54,52 @@ async function diffDocs(getBeforeDoc, getAfterDoc) {
   );
 }
 
-async function sameClientAddText(pud = false, gc = false) {
-  const doc = new Y.Doc();
-  doc.gc = gc;
+async function sameClientInsert({ pud = false, gc = false, seq = false } = {}) {
+  const yDoc = new Y.Doc();
+  yDoc.gc = gc;
 
   if (pud) {
-    const permanentUserData = new Y.PermanentUserData(doc);
+    const permanentUserData = new Y.PermanentUserData(yDoc);
     permanentUserData.setUserMapping(
-      doc,
-      doc.clientID,
+      yDoc,
+      yDoc.clientID,
       generateUserDescription(),
     );
   }
 
-  const xmlFragment = doc.getXmlFragment('html');
-  const xmlText = new Y.XmlText();
-  xmlFragment.insert(0, [xmlText]);
-
   const data = [];
   let textBytes = 0;
 
-  for (let i = 0; i < 11; i++) {
-    const updateBytes = getByteLengthForYDoc(doc);
-    data.push({ textBytes, updateBytes });
+  const xmlFragment = yDoc.getXmlFragment('html');
+  const xmlText = new Y.XmlText();
+  xmlFragment.insert(0, [xmlText]);
+  xmlText.insert(0, 'A');
+  pud && (await sleep());
 
-    const text = chars.repeat(100);
-    xmlText.insert(0, text);
-    if (pud) {
-      await sleep();
+  const updateBytes = getByteLengthForYDoc(yDoc);
+  const itemsCount = getItemsCount(yDoc);
+  data.push({ textBytes, itemsCount, updateBytes });
+
+  for (let i = 0; i < 10; i++) {
+    const text = 'A';
+    let insertPos = 0;
+    if (seq) {
+      insertPos = xmlText.toString().length;
     }
+    xmlText.insert(insertPos, text);
+    pud && (await sleep());
+
     textBytes += getByteLengthForText(text);
+    const updateBytes = getByteLengthForYDoc(yDoc);
+    const itemsCount = getItemsCount(yDoc);
+    data.push({ textBytes, itemsCount, updateBytes });
   }
 
   console.table(data);
-  return doc;
+  return yDoc;
 }
 
-async function sameClientDelete(seq = false, pud = false, gc = false) {
+async function sameClientDelete({ seq = false, pud = false, gc = false } = {}) {
   const doc = new Y.Doc();
   doc.gc = gc;
 
@@ -133,7 +142,7 @@ async function sameClientDelete(seq = false, pud = false, gc = false) {
   return doc;
 }
 
-async function clientsEdit(pud = false, gc = false) {
+async function clientsEdit({ pud = false, gc = false } = {}) {
   const serverDoc = new Y.Doc();
   serverDoc.gc = gc;
 
@@ -225,31 +234,35 @@ const tests = {
     await diffDocs(getBeforeDoc, getAfterDoc);
   },
   async 'textBytes -> updateBytes (w & w/o gc)'() {
-    await sameClientAddText(false, false);
-    await sameClientAddText(false, true);
+    await sameClientInsert({ gc: true, seq: true });
+    await sameClientInsert({ gc: false, seq: true });
   },
   async 'textBytes -> updateBytes(w & w/o pud)'() {
-    await sameClientAddText(false);
-    await sameClientAddText(true);
+    await sameClientInsert({ pud: true, seq: true });
+    await sameClientInsert({ pud: false, seq: true });
+  },
+  async 'textBytes -> updateBytes(w & w/o seq insertion)'() {
+    await sameClientInsert({ seq: true });
+    await sameClientInsert({ seq: false });
   },
   async 'deletedBytes -> updateBytes (w & w/o gc)'() {
-    await sameClientDelete(true, false);
-    await sameClientDelete(true, true);
+    await sameClientDelete({ gc: true });
+    await sameClientDelete({ gc: false });
   },
   async 'deletedBytes -> updateBytes (w & w/o sequence deletion)'() {
-    await sameClientDelete(true);
-    await sameClientDelete(false);
+    await sameClientDelete({ seq: true });
+    await sameClientDelete({ seq: false });
   },
   async 'clientsCount -> updateBytes'() {
     await clientsEdit();
   },
   async 'clientsCount -> updateBytes (w & w/o pud)'() {
-    await clientsEdit(false);
-    await clientsEdit(true);
+    await clientsEdit({ pud: true });
+    await clientsEdit({ pud: false });
   },
   async 'deletedBytes -> updateBytes (w & w/o pud)'() {
-    await sameClientDelete(false, false);
-    await sameClientDelete(false, true);
+    await sameClientDelete({ pud: true });
+    await sameClientDelete({ pud: false });
   },
 };
 
