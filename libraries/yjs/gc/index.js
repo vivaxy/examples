@@ -3,25 +3,53 @@
  * @author vivaxy
  */
 import * as Y from 'yjs';
+import { toJSON } from '../data-visualization/src/data-viewer';
 
 const TEXT_KEY = 'text-key';
+const FRAGMENT_KEY = 'fragment-key';
 
-function withGC() {
-  const doc = new Y.Doc();
-  doc.gc = false;
-  const text = doc.getText(TEXT_KEY);
-  text.insert(0, 'ABC');
-  text.delete(1, 1);
-  console.log('text', text);
+function mergeItems({ gc = false } = {}) {
+  const yDoc = new Y.Doc();
+  yDoc.gc = gc;
+
+  const text = yDoc.getText(TEXT_KEY);
+  text.insert(0, 'A');
+  text.insert(1, 'B');
+  return toJSON(yDoc, Y);
 }
 
-function withoutGC() {
-  const doc = new Y.Doc();
-  const text = doc.getText(TEXT_KEY);
-  text.insert(0, 'ABC');
+function destroyDeletedContent({ gc = false } = {}) {
+  const yDoc = new Y.Doc();
+  yDoc.gc = gc;
+  const text = yDoc.getText(TEXT_KEY);
+  text.insert(0, 'AB');
   text.delete(1, 1);
-  console.log('text', text);
+  return toJSON(yDoc, Y);
 }
 
-withGC();
-withoutGC();
+function destroyDeletedNode({ gc = false } = {}) {
+  const yDoc = new Y.Doc();
+  yDoc.gc = gc;
+  const xmlFragment = yDoc.getXmlFragment(FRAGMENT_KEY);
+  const xmlElement = new Y.XmlElement('paragraph');
+  const xmlText = new Y.XmlText('A');
+  xmlElement.insert(0, [xmlText]);
+  xmlFragment.insert(0, [xmlElement]);
+  xmlFragment.delete(0, 1);
+  xmlText.insert(1, 'B');
+  return toJSON(yDoc, Y);
+}
+
+console.log('mergeItems with gc', mergeItems({ gc: true }));
+console.log('mergeItems without gc', mergeItems({ gc: false }));
+console.log(
+  'destroyDeletedContent with gc',
+  destroyDeletedContent({ gc: true }),
+);
+console.log(
+  'destroyDeletedContent without gc',
+  destroyDeletedContent({ gc: false }),
+);
+// cannot gc clock 3
+console.log('destroyDeletedNode with gc', destroyDeletedNode({ gc: true }));
+console.log('destroyDeletedNode without gc', destroyDeletedNode({ gc: false }));
