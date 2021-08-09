@@ -4,6 +4,12 @@
  */
 import * as Y from 'yjs';
 
+let userId = 0;
+
+function generateUserDescription() {
+  return `user-name-${userId++}`;
+}
+
 function sleep(timeout) {
   return new Promise(function (resolve) {
     setTimeout(resolve, timeout);
@@ -14,13 +20,39 @@ function getByteLengthForUpdate(arrayBuffer) {
   return arrayBuffer.byteLength;
 }
 
+function getByteLengthForYDoc(yDoc) {
+  const update = Y.encodeStateAsUpdate(yDoc);
+  return getByteLengthForUpdate(update);
+}
+
 function getByteLengthForText(text) {
   const textEncoder = new TextEncoder();
   const encoded = textEncoder.encode(text);
   return encoded.byteLength;
 }
 
+function getItemsCount(yDoc) {
+  return Array.from(yDoc.store.clients.entries()).reduce(function (
+    acc,
+    [_, items],
+  ) {
+    return acc + items.length;
+  },
+  0);
+}
+
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+async function diffDocs(getBeforeDoc, getAfterDoc) {
+  const beforeDoc = await getBeforeDoc();
+  const afterDoc = await getAfterDoc(Y.encodeStateAsUpdate(beforeDoc));
+
+  console.log('itemsCount', getItemsCount(afterDoc) - getItemsCount(beforeDoc));
+  console.log(
+    'bytes',
+    getByteLengthForYDoc(afterDoc) - getByteLengthForYDoc(beforeDoc),
+  );
+}
 
 async function sameClientAddText(pud = false, gc = false) {
   const doc = new Y.Doc();
@@ -28,7 +60,11 @@ async function sameClientAddText(pud = false, gc = false) {
 
   if (pud) {
     const permanentUserData = new Y.PermanentUserData(doc);
-    permanentUserData.setUserMapping(doc, doc.clientID, 'test-user-name');
+    permanentUserData.setUserMapping(
+      doc,
+      doc.clientID,
+      generateUserDescription(),
+    );
   }
 
   const xmlFragment = doc.getXmlFragment('html');
@@ -39,8 +75,7 @@ async function sameClientAddText(pud = false, gc = false) {
   let textBytes = 0;
 
   for (let i = 0; i < 11; i++) {
-    const update = Y.encodeStateAsUpdate(doc);
-    const updateBytes = getByteLengthForUpdate(update);
+    const updateBytes = getByteLengthForYDoc(doc);
     data.push({ textBytes, updateBytes });
 
     const text = chars.repeat(100);
@@ -61,7 +96,11 @@ async function sameClientDelete(seq = false, pud = false, gc = false) {
 
   if (pud) {
     const permanentUserData = new Y.PermanentUserData(doc);
-    permanentUserData.setUserMapping(doc, doc.clientID, 'test-user-name');
+    permanentUserData.setUserMapping(
+      doc,
+      doc.clientID,
+      generateUserDescription(),
+    );
   }
 
   const xmlFragment = doc.getXmlFragment('html');
@@ -77,8 +116,7 @@ async function sameClientDelete(seq = false, pud = false, gc = false) {
   let deletedBytes = 0;
 
   for (let i = 0; i < 11; i++) {
-    const update = Y.encodeStateAsUpdate(doc);
-    const updateBytes = getByteLengthForUpdate(update);
+    const updateBytes = getByteLengthForYDoc(doc);
     data.push({ deletedBytes, updateBytes });
 
     const deleteSteps = 100;
@@ -107,9 +145,7 @@ async function clientsEdit(pud = false, gc = false) {
   let clientsCount = 0;
   let textBytes = 0;
   for (let i = 0; i < 11; i++) {
-    const updateBytes = getByteLengthForUpdate(
-      Y.encodeStateAsUpdate(serverDoc),
-    );
+    const updateBytes = getByteLengthForYDoc(serverDoc);
     data.push({
       clientsCount,
       updateBytes,
@@ -119,17 +155,17 @@ async function clientsEdit(pud = false, gc = false) {
 
     for (let j = 0; j < 10; j++) {
       const clientDoc = new Y.Doc();
+      Y.applyUpdate(clientDoc, Y.encodeStateAsUpdate(serverDoc));
 
       if (pud) {
         const permanentUserData = new Y.PermanentUserData(clientDoc);
         permanentUserData.setUserMapping(
           clientDoc,
           clientDoc.clientID,
-          'test-user-name',
+          generateUserDescription(),
         );
       }
 
-      Y.applyUpdate(clientDoc, Y.encodeStateAsUpdate(serverDoc));
       const xmlFragment = clientDoc.getXmlFragment('html');
       const xmlText = xmlFragment.get(0);
       xmlText.insert(0, chars);
@@ -149,6 +185,45 @@ async function clientsEdit(pud = false, gc = false) {
 }
 
 const tests = {
+  async 'add xmlFragment'() {
+    async function getBeforeDoc() {
+      const yDoc = new Y.Doc();
+      const html = yDoc.getXmlFragment('prosemirror');
+      return yDoc;
+    }
+
+    async function getAfterDoc(update) {
+      const yDoc = new Y.Doc();
+      Y.applyUpdate(yDoc, update);
+      const html = yDoc.getXmlFragment('prosemirror');
+      return yDoc;
+    }
+
+    await diffDocs(getBeforeDoc, getAfterDoc);
+  },
+  async 'add pud'() {
+    async function getBeforeDoc() {
+      const yDoc = new Y.Doc();
+      return yDoc;
+    }
+
+    async function getAfterDoc(update) {
+      const yDoc = new Y.Doc();
+      Y.applyUpdate(yDoc, update);
+
+      const permanentUserData = new Y.PermanentUserData(yDoc);
+      permanentUserData.setUserMapping(
+        yDoc,
+        yDoc.clientID,
+        generateUserDescription(),
+      );
+
+      await sleep();
+      return yDoc;
+    }
+
+    await diffDocs(getBeforeDoc, getAfterDoc);
+  },
   async 'textBytes -> updateBytes (w & w/o gc)'() {
     await sameClientAddText(false, false);
     await sameClientAddText(false, true);
