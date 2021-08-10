@@ -55,7 +55,9 @@ console.log(
 console.log('destroyDeletedNode with gc', destroyDeletedNode({ gc: true }));
 console.log('destroyDeletedNode without gc', destroyDeletedNode({ gc: false }));
 
-// is `clock 3` merged into gc after `applyUpdate`?
+/**
+ * is `clock 3` merged into gc after `applyUpdate`?
+ */
 function deletedItemWithGC() {
   const yDoc = new Y.Doc();
   const xmlFragment = yDoc.getXmlFragment(FRAGMENT_KEY);
@@ -65,12 +67,23 @@ function deletedItemWithGC() {
   xmlFragment.insert(0, [xmlElement]);
   xmlFragment.delete(0, 1);
   xmlText.insert(1, 'B');
-  // `clock 3` is deletedItem, but not gc
+  /**
+   * `clock 3` is deletedItem, but not gc
+   */
   console.log('clock 3 is deletedItem, but not gc', toJSON(yDoc, Y));
   const update = Y.encodeStateAsUpdate(yDoc);
   console.log('decoded update', decodeUpdate(update));
   const yDoc2 = new Y.Doc();
   Y.applyUpdate(yDoc2, update);
+  /**
+   * `FRAGMENT_KEY` is AbstractType but not YXmlFragment
+   * If we call `yDoc2.get(FRAGMENT_KEY, Y.XmlFragment);`, `FRAGMENT_KEY` will be YXmlFragment.
+   * If we call `yDoc2.get(FRAGMENT_KEY, Y.XmlElement);`, `FRAGMENT_KEY` will be YXmlElement.
+   */
+  yDoc2.get(FRAGMENT_KEY, Y.XmlFragment);
+  /**
+   * `clock 3` is in gc
+   */
   console.log(toJSON(yDoc2, Y));
 }
 deletedItemWithGC();

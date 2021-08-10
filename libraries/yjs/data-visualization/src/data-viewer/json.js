@@ -6,6 +6,9 @@ const errors = {
   unexpectedConstructor(constructor) {
     return new Error('Unexpected constructor: ' + constructor);
   },
+  notImplemented() {
+    return new Error('Not implemented');
+  },
 };
 
 function deletedItemToJSON(item) {
@@ -127,9 +130,16 @@ function docToJSON(doc, Y) {
   return result;
 }
 
+function xmlTextToJSON(type, Y) {
+  throw errors.notImplemented();
+}
+
 function typeToJSON(type, Y) {
   if (type instanceof Y.XmlFragment) {
     return xmlFragmentToJSON(type, Y);
+  }
+  if (type instanceof Y.XmlText) {
+    return xmlTextToJSON(type, Y);
   }
   if (type instanceof Y.Text) {
     return textToJSON(type, Y);
