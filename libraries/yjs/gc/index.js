@@ -4,6 +4,7 @@
  */
 import * as Y from 'yjs';
 import { toJSON } from '../data-visualization/src/data-viewer';
+import decodeUpdate from '../data-visualization/src/update-decoder';
 
 const TEXT_KEY = 'text-key';
 const FRAGMENT_KEY = 'fragment-key';
@@ -50,6 +51,26 @@ console.log(
   'destroyDeletedContent without gc',
   destroyDeletedContent({ gc: false }),
 );
-// cannot gc clock 3
+// cannot gc `clock 3`
 console.log('destroyDeletedNode with gc', destroyDeletedNode({ gc: true }));
 console.log('destroyDeletedNode without gc', destroyDeletedNode({ gc: false }));
+
+// is `clock 3` merged into gc after `applyUpdate`?
+function deletedItemWithGC() {
+  const yDoc = new Y.Doc();
+  const xmlFragment = yDoc.getXmlFragment(FRAGMENT_KEY);
+  const xmlElement = new Y.XmlElement('paragraph');
+  const xmlText = new Y.XmlText('A');
+  xmlElement.insert(0, [xmlText]);
+  xmlFragment.insert(0, [xmlElement]);
+  xmlFragment.delete(0, 1);
+  xmlText.insert(1, 'B');
+  // `clock 3` is deletedItem, but not gc
+  console.log('clock 3 is deletedItem, but not gc', toJSON(yDoc, Y));
+  const update = Y.encodeStateAsUpdate(yDoc);
+  console.log('decoded update', decodeUpdate(update));
+  const yDoc2 = new Y.Doc();
+  Y.applyUpdate(yDoc2, update);
+  console.log(toJSON(yDoc2, Y));
+}
+deletedItemWithGC();

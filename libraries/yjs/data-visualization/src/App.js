@@ -148,8 +148,13 @@ export default function App() {
         }
         await sleep(0);
         const update = Y.encodeStateAsUpdate(doc.yDoc, prevStateVector);
-        const decodedUpdate = decodeUpdate(doc.yDoc.clientID, update);
-        decodedUpdate.items?.forEach(function (item) {
+        const rawDecodedUpdate = decodeUpdate(update);
+        const decodedUpdate = {
+          items: rawDecodedUpdate.clientsStructs[doc.yDoc.clientID] || [],
+          deleteSet:
+            rawDecodedUpdate.deleteSet.clients[doc.yDoc.clientID] || [],
+        };
+        decodedUpdate.items.forEach(function (item) {
           if (item.type === 'binary') {
             const deleteSet = decodeDeleteSet(item.content);
             if (Object.keys(deleteSet).length) {
