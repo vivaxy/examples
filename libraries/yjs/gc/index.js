@@ -59,6 +59,7 @@ console.log('destroyDeletedNode without gc', destroyDeletedNode({ gc: false }));
  * is `clock 3` merged into gc after `applyUpdate`?
  */
 function deletedItemWithGC() {
+  console.log('deletedItemWithGC');
   const yDoc = new Y.Doc();
   const xmlFragment = yDoc.getXmlFragment(FRAGMENT_KEY);
   const xmlElement = new Y.XmlElement('paragraph');
@@ -86,4 +87,75 @@ function deletedItemWithGC() {
    */
   console.log(toJSON(yDoc2, Y));
 }
+
 deletedItemWithGC();
+
+function recoverGCByApplyMultipleUpdates() {
+  console.log('recoverGCByApplyMultipleUpdates');
+  const yDoc1 = new Y.Doc();
+  const yText1 = yDoc1.getText(TEXT_KEY);
+  yText1.insert(0, 'ABC');
+  const update1_1 = Y.encodeStateAsUpdate(yDoc1);
+
+  yText1.delete(1, 1);
+  const update1_2 = Y.encodeStateAsUpdate(yDoc1);
+  // B is gc_ed
+  console.log('yDoc1', toJSON(yDoc1, Y));
+
+  const yDoc2 = new Y.Doc();
+  yDoc2.gc = false;
+  // apply twice to get gc_ed content
+  Y.applyUpdate(yDoc2, update1_1);
+  // yjs does not integrate items that already integrated
+  Y.applyUpdate(yDoc2, update1_2);
+  yDoc2.getText(TEXT_KEY);
+  console.log('yDoc2', toJSON(yDoc2, Y));
+}
+
+function recoverGCByApplyExactUpdates1() {
+  console.log('recoverGCByApplyExactUpdates1');
+  const yDoc1 = new Y.Doc();
+  const yText1 = yDoc1.getText(TEXT_KEY);
+  yText1.insert(0, 'ABC');
+  const update1_1 = Y.encodeStateAsUpdate(yDoc1);
+
+  yText1.delete(1, 1);
+  const update1_2 = Y.encodeStateAsUpdate(yDoc1, update1_1);
+  // B is gc_ed
+  console.log('yDoc1', toJSON(yDoc1, Y));
+
+  const yDoc2 = new Y.Doc();
+  yDoc2.gc = false;
+  Y.applyUpdate(yDoc2, update1_1);
+  Y.applyUpdate(yDoc2, update1_2);
+  yDoc2.getText(TEXT_KEY);
+  console.log('yDoc2', toJSON(yDoc2, Y));
+}
+
+function recoverGCByApplyExactUpdates2() {
+  console.log('recoverGCByApplyExactUpdates2');
+  const yDoc1 = new Y.Doc();
+  const yText1 = yDoc1.getText(TEXT_KEY);
+  yText1.insert(0, 'ABC');
+  const update1_1 = Y.encodeStateAsUpdate(yDoc1);
+
+  yText1.delete(1, 1);
+  const update1_2 = Y.encodeStateAsUpdate(yDoc1);
+  // B is gc_ed
+  console.log('yDoc1', toJSON(yDoc1, Y));
+
+  const yDoc2 = new Y.Doc();
+  yDoc2.gc = false;
+  Y.applyUpdate(yDoc2, update1_1);
+  const update1_2_diff = Y.diffUpdate(
+    update1_2,
+    Y.encodeStateVectorFromUpdate(update1_1),
+  );
+  Y.applyUpdate(yDoc2, update1_2_diff);
+  yDoc2.getText(TEXT_KEY);
+  console.log('yDoc2', toJSON(yDoc2, Y));
+}
+
+recoverGCByApplyMultipleUpdates();
+recoverGCByApplyExactUpdates1();
+recoverGCByApplyExactUpdates2();

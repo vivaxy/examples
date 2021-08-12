@@ -130,8 +130,14 @@ function docToJSON(doc, Y) {
   return result;
 }
 
-function xmlTextToJSON(type, Y) {
-  throw errors.notImplemented();
+function xmlTextToJSON(xmlText, Y) {
+  const result = [];
+  let item = xmlText._start;
+  while (item !== null) {
+    result.push(structToJSON(item, Y));
+    item = item.right;
+  }
+  return result;
 }
 
 function typeToJSON(type, Y) {
