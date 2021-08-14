@@ -3,7 +3,7 @@
  * @author vivaxy
  */
 import * as Y from 'yjs';
-import { itemsToJSON } from './helpers';
+import { toJSON } from '../data-visualization/src/data-viewer';
 
 const TEXT_KEY = 'text-key';
 
@@ -18,11 +18,11 @@ docB.clientID = 1;
 const textB = docB.getText(TEXT_KEY);
 textB.insert(0, 'B');
 Y.applyUpdate(docB, updateA);
-console.log(itemsToJSON(textB)); // => B, missing A
+console.log(toJSON(textB, Y)); // => B, missing A
 
 const docC = new Y.Doc();
 docC.clientID = 1;
 Y.applyUpdate(docC, updateA);
 const textC = docC.getText(TEXT_KEY);
 textC.insert(0, 'B');
-console.log(itemsToJSON(textC)); // => BA, correct
+console.log(toJSON(textC, Y)); // => BA, correct
