@@ -140,7 +140,7 @@ export default function Editor(props) {
   return (
     <p
       contentEditable={props.editable ? 'true' : 'false'}
-      className="editor"
+      className={`editor ${props.focused ? 'focused' : ''}`}
       onInput={handleInput}
       ref={editorRef}
     />

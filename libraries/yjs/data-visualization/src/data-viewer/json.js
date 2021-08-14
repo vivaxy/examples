@@ -12,7 +12,7 @@ const errors = {
 };
 
 function deletedItemToJSON(item) {
-  if (item.info >= 4) {
+  if ((item.info & 4) > 0) {
     return {
       deleted: true,
     };
@@ -24,6 +24,11 @@ function contentToJSON(content, Y) {
   if (content instanceof Y.ContentDeleted) {
     return {
       len: content.len,
+    };
+  }
+  if (content instanceof Y.ContentAny) {
+    return {
+      val: content.arr[content.arr.length - 1],
     };
   }
   if (content instanceof Y.ContentType) {
@@ -140,9 +145,33 @@ function xmlTextToJSON(xmlText, Y) {
   return result;
 }
 
+function mapToJSON(map, Y) {
+  const result = {};
+  for (const [key, value] of map) {
+    result[key] = typeToJSON(value, Y);
+  }
+  return result;
+}
+
+function arrayToJSON(array, Y) {
+  const result = [];
+  let item = array._start;
+  while (item !== null) {
+    result.push(structToJSON(item, Y));
+    item = item.right;
+  }
+  return result;
+}
+
 function typeToJSON(type, Y) {
   if (type instanceof Y.XmlFragment) {
     return xmlFragmentToJSON(type, Y);
+  }
+  if (type instanceof Y.Map) {
+    return mapToJSON(type, Y);
+  }
+  if (type instanceof Y.Array) {
+    return arrayToJSON(type, Y);
   }
   if (type instanceof Y.XmlText) {
     return xmlTextToJSON(type, Y);
@@ -163,7 +192,7 @@ function gcToItem(gc) {
   };
 }
 
-function structToJSON(struct, Y) {
+export function structToJSON(struct, Y) {
   if (struct instanceof Y.Item) {
     return itemToJSON(struct, Y);
   }

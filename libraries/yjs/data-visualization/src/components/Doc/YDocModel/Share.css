@@ -1,0 +1,13 @@
+/**
+ * @since 2021-08-14
+ * @author vivaxy
+ */
+.data-source-share .abstract-type {
+  border: 1px solid #eee;
+  margin: 2px;
+}
+
+.data-source-share .abstract-type-value {
+  display: flex;
+  flex-wrap: wrap;
+}

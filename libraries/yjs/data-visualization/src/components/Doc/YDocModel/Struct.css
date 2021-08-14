@@ -1,0 +1,32 @@
+/**
+ * @since 2021-08-14
+ * @author vivaxy
+ */
+.struct {
+  flex: none;
+  width: 30px;
+  font-size: 10px;
+  background: rgb(200, 255, 200);
+  margin: 1px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.struct.focused {
+  opacity: 1;
+}
+
+.struct.deleted {
+  background: rgb(255, 200, 230);
+}
+
+.struct .client,
+.struct .clock {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #999;
+}
+
+.struct .len {
+  color: #ff0000;
+}

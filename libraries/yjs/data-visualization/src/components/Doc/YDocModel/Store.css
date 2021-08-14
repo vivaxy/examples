@@ -1,0 +1,23 @@
+/**
+ * @since 2021-08-14
+ * @author vivaxy
+ */
+.data-source-store .pending-structs {
+  font-family: monospace;
+  font-size: 12px;
+  background: rgb(255, 255, 200);
+}
+
+.data-source-store .pending-structs p {
+  margin: 0;
+}
+
+.data-source-store .client-container {
+  border: 1px solid #eee;
+  margin: 2px;
+}
+
+.data-source-store .client-structs {
+  display: flex;
+  flex-wrap: wrap;
+}

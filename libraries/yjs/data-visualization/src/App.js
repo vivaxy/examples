@@ -12,6 +12,8 @@ import * as ENUMS from './enums/enums';
 import { sleep } from './helpers';
 import decodeUpdate from './update-decoder';
 import decodeDeleteSet from './update-decoder/delete-set-decoder';
+import ViewOptions from './components/ViewOptions';
+import * as VIEW_OPTIONS from './enums/view-options';
 
 import './App.css';
 
@@ -30,10 +32,14 @@ export default function App() {
   );
   const [currentScenarioStepIndex, setCurrentScenarioStepIndex] = useState(0);
   const [docs, _setDocs] = useState([]);
-  const [options, setOptions] = useState({
+  const [actionOptions, setActionActionOptions] = useState({
     gc: false,
     pud: false,
   });
+  const [viewOptions, setViewOptions] = useState({
+    dataSource: VIEW_OPTIONS.DATA_SOURCES.SHARE,
+  });
+  const [focusedDocId, setFocusedDocId] = useState(null);
 
   function setDocs(docs) {
     _setDocs(docs);
@@ -84,11 +90,19 @@ export default function App() {
 
   async function handleOpenDoc() {
     const yDoc = new Y.Doc();
-    yDoc.gc = options.gc;
+    yDoc.gc = actionOptions.gc;
     const id = docs.length;
 
+    const update = Y.encodeStateAsUpdate(yDoc);
+    // when create doc, sync from the first doc
+    const validDocs = docs.filter(Boolean);
+    if (validDocs.length && id !== validDocs[0].id) {
+      Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(validDocs[0].yDoc));
+    }
+
+    // applyUpdate should occur before pud
     let pud = null;
-    if (options.pud) {
+    if (actionOptions.pud) {
       pud = new Y.PermanentUserData(yDoc);
       /**
        * cannot put setUserMapping and applyUpdate in one transaction
@@ -99,12 +113,6 @@ export default function App() {
       await sleep(0);
     }
 
-    const update = Y.encodeStateAsUpdate(yDoc);
-    // when create doc, sync from the first doc
-    const validDocs = docs.filter(Boolean);
-    if (validDocs.length && id !== validDocs[0].id) {
-      Y.applyUpdate(yDoc, Y.encodeStateAsUpdate(validDocs[0].yDoc));
-    }
     // sync to other docs
     validDocs.forEach(function (doc) {
       Y.applyUpdate(doc.yDoc, update);
@@ -214,11 +222,30 @@ export default function App() {
     });
   }
 
-  function handleOptionChange(changedOption) {
-    setOptions({
-      ...options,
+  function handleActionOptionChange(changedOption) {
+    setActionActionOptions({
+      ...actionOptions,
       ...changedOption,
     });
+  }
+
+  function handleViewOptionChange(changedOption) {
+    setViewOptions({
+      ...viewOptions,
+      ...changedOption,
+    });
+  }
+
+  function getDocByClientId(clientID) {
+    return docs.find(function (doc) {
+      return doc.yDoc.clientID === clientID;
+    });
+  }
+
+  function getHandleDocFocus(doc) {
+    return function handleDocFocus() {
+      setFocusedDocId(doc.id);
+    };
   }
 
   const editable = currentScenario === ENUMS.CUSTOM_SCENARIO;
@@ -237,10 +264,14 @@ export default function App() {
       {!scenarios[currentScenario] && (
         <Actions
           onOpenDoc={handleOpenDoc}
-          options={options}
-          onOptionChange={handleOptionChange}
+          options={actionOptions}
+          onOptionChange={handleActionOptionChange}
         />
       )}
+      <ViewOptions
+        options={viewOptions}
+        onOptionChange={handleViewOptionChange}
+      />
       <div className="docs-container">
         {docs.filter(Boolean).map(function (doc) {
           return (
@@ -249,9 +280,13 @@ export default function App() {
               doc={doc}
               docs={docs}
               editable={editable}
+              dataSource={viewOptions.dataSource}
               onCloseDoc={handleCloseDoc}
               onEditorChange={handleEditorChange}
               onSync={handleSync}
+              getDocByClientId={getDocByClientId}
+              onFocus={getHandleDocFocus(doc)}
+              focusedDocId={focusedDocId}
             />
           );
         })}

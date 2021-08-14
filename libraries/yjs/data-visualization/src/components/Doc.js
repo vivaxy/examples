@@ -9,8 +9,13 @@ import YDocModel from './Doc/YDocModel';
 import './Doc.css';
 
 export default function Doc(props) {
+  function isFocusedClientId(clientID) {
+    const doc = props.getDocByClientId(clientID);
+    return doc?.id === props.focusedDocId;
+  }
+
   return (
-    <div className="doc-container">
+    <div className="doc-container" onClick={props.onFocus}>
       <Tab
         doc={props.doc}
         onCloseDoc={props.onCloseDoc}
@@ -20,6 +25,7 @@ export default function Doc(props) {
         doc={props.doc}
         onEditorChange={props.onEditorChange}
         editable={props.editable}
+        focused={isFocusedClientId(props.doc.yDoc.clientID)}
       />
       <Updates
         doc={props.doc}
@@ -27,7 +33,12 @@ export default function Doc(props) {
         onSync={props.onSync}
         editable={props.editable}
       />
-      <YDocModel yDoc={props.doc.yDoc} />
+      <YDocModel
+        yDoc={props.doc.yDoc}
+        dataSource={props.dataSource}
+        getDocByClientId={props.getDocByClientId}
+        isFocusedClientId={isFocusedClientId}
+      />
     </div>
   );
 }

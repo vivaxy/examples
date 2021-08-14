@@ -3,9 +3,13 @@
  * @author vivaxy
  */
 .editor {
-  border: 1px solid #999;
+  border: 1px solid #eee;
   margin: 2px;
   border-radius: 2px;
   height: 22px;
   line-height: 22px;
+}
+
+.editor.focused {
+  border-color: #999;
 }
