@@ -16,7 +16,7 @@ function mergeItems({ gc = false } = {}) {
   const text = yDoc.getText(TEXT_KEY);
   text.insert(0, 'A');
   text.insert(1, 'B');
-  return toJSON(yDoc);
+  return toJSON(yDoc, Y);
 }
 
 function destroyDeletedContent({ gc = false } = {}) {
@@ -25,7 +25,7 @@ function destroyDeletedContent({ gc = false } = {}) {
   const text = yDoc.getText(TEXT_KEY);
   text.insert(0, 'AB');
   text.delete(1, 1);
-  return toJSON(yDoc);
+  return toJSON(yDoc, Y);
 }
 
 function destroyDeletedNode({ gc = false } = {}) {
@@ -38,7 +38,7 @@ function destroyDeletedNode({ gc = false } = {}) {
   xmlFragment.insert(0, [xmlElement]);
   xmlFragment.delete(0, 1);
   xmlText.insert(1, 'B');
-  return toJSON(yDoc);
+  return toJSON(yDoc, Y);
 }
 
 console.log('mergeItems with gc', mergeItems({ gc: true }));
@@ -71,7 +71,7 @@ function deletedItemWithGC() {
   /**
    * `clock 3` is deletedItem, but not gc
    */
-  console.log('clock 3 is deletedItem, but not gc', toJSON(yDoc));
+  console.log('clock 3 is deletedItem, but not gc', toJSON(yDoc, Y));
   const update = Y.encodeStateAsUpdate(yDoc);
   console.log('decoded update', decodeUpdate(update));
   const yDoc2 = new Y.Doc();
@@ -85,7 +85,7 @@ function deletedItemWithGC() {
   /**
    * `clock 3` is in gc
    */
-  console.log(toJSON(yDoc2));
+  console.log(toJSON(yDoc2, Y));
 }
 
 deletedItemWithGC();
@@ -100,7 +100,7 @@ function recoverGCByApplyMultipleUpdates() {
   yText1.delete(1, 1);
   const update1_2 = Y.encodeStateAsUpdate(yDoc1);
   // B is gc_ed
-  console.log('yDoc1', toJSON(yDoc1));
+  console.log('yDoc1', toJSON(yDoc1, Y));
 
   const yDoc2 = new Y.Doc();
   yDoc2.gc = false;
@@ -109,7 +109,7 @@ function recoverGCByApplyMultipleUpdates() {
   // yjs does not integrate items that already integrated
   Y.applyUpdate(yDoc2, update1_2);
   yDoc2.getText(TEXT_KEY);
-  console.log('yDoc2', toJSON(yDoc2));
+  console.log('yDoc2', toJSON(yDoc2, Y));
 }
 
 function recoverGCByApplyExactUpdates1() {
@@ -122,14 +122,14 @@ function recoverGCByApplyExactUpdates1() {
   yText1.delete(1, 1);
   const update1_2 = Y.encodeStateAsUpdate(yDoc1, update1_1);
   // B is gc_ed
-  console.log('yDoc1', toJSON(yDoc1));
+  console.log('yDoc1', toJSON(yDoc1, Y));
 
   const yDoc2 = new Y.Doc();
   yDoc2.gc = false;
   Y.applyUpdate(yDoc2, update1_1);
   Y.applyUpdate(yDoc2, update1_2);
   yDoc2.getText(TEXT_KEY);
-  console.log('yDoc2', toJSON(yDoc2));
+  console.log('yDoc2', toJSON(yDoc2, Y));
 }
 
 function recoverGCByApplyExactUpdates2() {
@@ -142,7 +142,7 @@ function recoverGCByApplyExactUpdates2() {
   yText1.delete(1, 1);
   const update1_2 = Y.encodeStateAsUpdate(yDoc1);
   // B is gc_ed
-  console.log('yDoc1', toJSON(yDoc1));
+  console.log('yDoc1', toJSON(yDoc1, Y));
 
   const yDoc2 = new Y.Doc();
   yDoc2.gc = false;
@@ -153,7 +153,7 @@ function recoverGCByApplyExactUpdates2() {
   );
   Y.applyUpdate(yDoc2, update1_2_diff);
   yDoc2.getText(TEXT_KEY);
-  console.log('yDoc2', toJSON(yDoc2));
+  console.log('yDoc2', toJSON(yDoc2, Y));
 }
 
 recoverGCByApplyMultipleUpdates();

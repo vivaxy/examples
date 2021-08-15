@@ -2,6 +2,7 @@
  * @since 2021-08-14
  * @author vivaxy
  */
+import * as Y from 'yjs';
 import { toJSON, DATA_TYPES } from '../../../data-viewer';
 import Struct from './Struct';
 import Value from '../../Value';
@@ -9,7 +10,7 @@ import Value from '../../Value';
 import './Share.css';
 
 function AbstractType(props) {
-  const value = toJSON(props.value);
+  const value = toJSON(props.value, Y);
   if (value.type === DATA_TYPES.Y_TEXT) {
     return (
       <div className="abstract-type">

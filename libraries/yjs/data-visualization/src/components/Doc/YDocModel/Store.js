@@ -2,6 +2,7 @@
  * @since 2021-08-14
  * @author vivaxy
  */
+import * as Y from 'yjs';
 import Struct from './Struct';
 import { toJSON } from '../../../data-viewer';
 
@@ -25,7 +26,7 @@ function Clients(props) {
         <div className="client-id">clientID: {clientID}</div>
         <div className="client-structs">
           {props.clients.get(clientID).map(function (_struct) {
-            const struct = toJSON(_struct);
+            const struct = toJSON(_struct, Y);
             return (
               <Struct
                 key={`${struct.client}-${struct.clock}`}

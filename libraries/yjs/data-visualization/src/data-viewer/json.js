@@ -3,6 +3,7 @@
  * @author vivaxy
  */
 export const DATA_TYPES = {
+  // utils
   DOC: 'Doc',
 
   // types
@@ -32,12 +33,6 @@ export const DATA_TYPES = {
   CONTENT_TYPE: 'ContentType',
 };
 
-const errors = {
-  unexpectedConstructor(constructor) {
-    return new Error('Unexpected constructor: ' + constructor);
-  },
-};
-
 function deletedItemToJSON(item) {
   if ((item.info & 4) > 0) {
     return {
@@ -47,77 +42,26 @@ function deletedItemToJSON(item) {
   return {};
 }
 
-function contentToJSON(content, Y) {
-  if (content instanceof Y.ContentDeleted) {
-    return {
-      len: content.len,
-    };
-  }
-  if (content instanceof Y.ContentAny) {
-    return {
-      val: content.arr[content.arr.length - 1],
-    };
-  }
-  if (content instanceof Y.ContentType) {
-    if (content.type instanceof Y.XmlElement) {
-      if (content.type._map.size) {
-        return {
-          typeName: content.type.constructor.name,
-          nodeName: content.type.nodeName,
-          attrs: Object.fromEntries(content.type._map),
-        };
-      }
-      return {
-        typeName: content.type.constructor.name,
-        nodeName: content.type.nodeName,
-      };
-    }
-    if (content.type instanceof Y.XmlText) {
-      if (content.type._map.size) {
-        return {
-          typeName: content.type.constructor.name,
-          attrs: Object.fromEntries(content.type._map),
-        };
-      }
-      return {
-        typeName: content.type.constructor.name,
-      };
-    }
-  }
-  if (content instanceof Y.ContentString) {
-    return {
-      str: content.str,
-    };
-  }
-  if (content instanceof Y.ContentFormat) {
-    return {
-      key: content.key,
-      value: content.value,
-    };
-  }
-  throw errors.unexpectedConstructor(content.constructor.name);
-}
-
-function typeMapToJSON(type) {
+function typeMapToJSON(type, Y) {
   const map = {};
   for (const [key, value] of type._map) {
-    map[key] = toJSON(value);
+    map[key] = toJSON(value, Y);
   }
   return map;
 }
 
-function typeArrayToJSON(type) {
+function typeArrayToJSON(type, Y) {
   const array = [];
   let item = type._start;
   while (item !== null) {
-    array.push(toJSON(item));
+    array.push(toJSON(item, Y));
     item = item.right;
   }
   return array;
 }
 
 const handlers = {
-  [DATA_TYPES.DOC](doc) {
+  [DATA_TYPES.DOC](doc, Y) {
     const result = {
       share: {},
       store: {
@@ -127,34 +71,34 @@ const handlers = {
       },
     };
     for (const [key, value] of doc.share) {
-      result.share[key] = toJSON(value);
+      result.share[key] = toJSON(value, Y);
     }
     for (const [clientID, items] of doc.store.clients) {
-      result.store.clients[clientID] = items.map((item) => toJSON(item));
+      result.store.clients[clientID] = items.map((item) => toJSON(item, Y));
     }
     return result;
   },
-  [DATA_TYPES.Y_ARRAY](yArray) {
-    return { array: typeArrayToJSON(yArray) };
+  [DATA_TYPES.Y_ARRAY](yArray, Y) {
+    return { array: typeArrayToJSON(yArray, Y) };
   },
-  [DATA_TYPES.Y_MAP](yMap) {
-    return { map: typeMapToJSON(yMap) };
+  [DATA_TYPES.Y_MAP](yMap, Y) {
+    return { map: typeMapToJSON(yMap, Y) };
   },
-  [DATA_TYPES.Y_TEXT](yText) {
-    return { text: typeArrayToJSON(yText) };
+  [DATA_TYPES.Y_TEXT](yText, Y) {
+    return { text: typeArrayToJSON(yText, Y) };
   },
-  [DATA_TYPES.Y_XML_ELEMENT](yXmlElement) {
+  [DATA_TYPES.Y_XML_ELEMENT](yXmlElement, Y) {
     return {
       nodeName: yXmlElement.nodeName,
-      attributes: typeMapToJSON(yXmlElement),
-      children: typeArrayToJSON(yXmlElement),
+      attributes: typeMapToJSON(yXmlElement, Y),
+      children: typeArrayToJSON(yXmlElement, Y),
     };
   },
-  [DATA_TYPES.Y_XML_FRAGMENT](yXmlFragment) {
-    return { children: typeArrayToJSON(yXmlFragment) };
+  [DATA_TYPES.Y_XML_FRAGMENT](yXmlFragment, Y) {
+    return { children: typeArrayToJSON(yXmlFragment, Y) };
   },
-  [DATA_TYPES.Y_XML_TEXT](yXmlText) {
-    return { xmlText: typeArrayToJSON(yXmlText) };
+  [DATA_TYPES.Y_XML_TEXT](yXmlText, Y) {
+    return { xmlText: typeArrayToJSON(yXmlText, Y) };
   },
   [DATA_TYPES.GC](gc) {
     return {
@@ -163,12 +107,12 @@ const handlers = {
       length: gc.length,
     };
   },
-  [DATA_TYPES.ITEM](item) {
+  [DATA_TYPES.ITEM](item, Y) {
     return {
       client: item.id.client,
       clock: item.id.clock,
       ...deletedItemToJSON(item),
-      content: toJSON(item.content),
+      content: toJSON(item.content, Y),
     };
   },
   [DATA_TYPES.CONTENT_ANY](contentAny) {
@@ -195,24 +139,77 @@ const handlers = {
   [DATA_TYPES.CONTENT_STRING](contentString) {
     return { string: contentString.str };
   },
-  [DATA_TYPES.CONTENT_TYPE](contentType) {
-    return { value: toJSON(contentType.type) };
+  [DATA_TYPES.CONTENT_TYPE](contentType, Y) {
+    return { value: toJSON(contentType.type, Y) };
   },
 };
 
-export default function toJSON(value) {
-  const constructorName = value.constructor.name;
-  const handler = handlers[constructorName];
+function getDataType(value, Y) {
+  switch (value.constructor) {
+    // utils
+    case Y.Doc:
+      return DATA_TYPES.DOC;
+    // types
+    case Y.Array:
+      return DATA_TYPES.Y_ARRAY;
+    case Y.Map:
+      return DATA_TYPES.Y_MAP;
+    case Y.Text:
+      return DATA_TYPES.Y_TEXT;
+    case Y.XmlElement:
+      return DATA_TYPES.Y_XML_ELEMENT;
+    case Y.XmlFragment:
+      return DATA_TYPES.Y_XML_FRAGMENT;
+    case Y.XmlText:
+      return DATA_TYPES.Y_XML_TEXT;
+    case Y.AbstractType:
+      return DATA_TYPES.ABSTRACT_TYPE;
+    // structs
+    case Y.Item:
+      return DATA_TYPES.ITEM;
+    case Y.GC:
+      return DATA_TYPES.GC;
+    case Y.Skip:
+      return DATA_TYPES.Skip;
+    case Y.AbstractStruct:
+      return DATA_TYPES.ABSTRACT_STRUCT;
+    // contents
+    case Y.ContentAny:
+      return DATA_TYPES.CONTENT_ANY;
+    case Y.ContentBinary:
+      return DATA_TYPES.CONTENT_BINARY;
+    case Y.ContentDeleted:
+      return DATA_TYPES.CONTENT_DELETED;
+    // Skip CONTENT_DOC
+    case Y.ContentEmbed:
+      return DATA_TYPES.CONTENT_EMBED;
+    case Y.ContentFormat:
+      return DATA_TYPES.CONTENT_FORMAT;
+    case Y.ContentJSON:
+      return DATA_TYPES.CONTENT_JSON;
+    case Y.ContentString:
+      return DATA_TYPES.CONTENT_STRING;
+    case Y.ContentType:
+      return DATA_TYPES.CONTENT_TYPE;
+    default:
+      return null;
+  }
+}
+
+export default function toJSON(value, Y) {
+  console.assert(Y, 'pass Y');
+  const type = getDataType(value, Y);
+  const handler = handlers[type];
   if (!handler) {
     return {
-      type: constructorName,
-      error: `Unexpected type ${constructorName}`,
+      type: type,
+      error: `Unexpected type ${type}`,
     };
   }
-  const json = handler(value);
+  const json = handler(value, Y);
   console.assert(json.type === undefined, 'should not include type');
   return {
-    type: constructorName,
+    type: type,
     ...json,
   };
 }
