@@ -1,0 +1,84 @@
+/**
+ * @since 2021-08-15
+ * @author vivaxy
+ */
+.value .collapse {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  position: relative;
+  vertical-align: middle;
+}
+
+.value .collapse:before {
+  top: 4px;
+  left: 2px;
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 4px 0 4px;
+  border-color: #727272 transparent transparent transparent;
+}
+
+.value .collapse.collapsed:before {
+  top: 2px;
+  left: 4px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent #727272;
+}
+
+.value .object,
+.value .array,
+.value .string,
+.value .number,
+.value .boolean,
+.value .null {
+  font-size: 12px;
+  line-height: 16px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.value .object .description,
+.value .array .description {
+  vertical-align: middle;
+}
+
+.value .object .object-item,
+.value .array .array-item {
+  margin-left: 12px;
+}
+
+.value .object .object-key,
+.value .array .array-key {
+  color: rgb(136, 18, 128);
+  vertical-align: middle;
+}
+
+.value .object .object-value,
+.value .array .array-value {
+  margin-left: 4px;
+  display: inline-block;
+}
+
+.value .string {
+  color: rgb(196, 26, 22);
+}
+
+.value .number {
+  color: rgb(28, 0, 207);
+}
+
+.value .boolean {
+  color: rgb(26, 26, 166);
+}
+
+.value .null {
+  color: rgb(128, 134, 139);
+}

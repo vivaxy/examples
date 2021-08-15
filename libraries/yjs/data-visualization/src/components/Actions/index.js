@@ -2,8 +2,8 @@
  * @since 2021-07-13
  * @author vivaxy
  */
-import Buttons from './Actions/Buttons';
-import Options from './Actions/Options';
+import Buttons from './Buttons';
+import Options from './Options';
 
 export default function Actions(props) {
   return (

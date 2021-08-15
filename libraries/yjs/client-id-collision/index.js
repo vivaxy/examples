@@ -18,11 +18,11 @@ docB.clientID = 1;
 const textB = docB.getText(TEXT_KEY);
 textB.insert(0, 'B');
 Y.applyUpdate(docB, updateA);
-console.log(toJSON(textB, Y)); // => B, missing A
+console.log(toJSON(textB)); // => B, missing A
 
 const docC = new Y.Doc();
 docC.clientID = 1;
 Y.applyUpdate(docC, updateA);
 const textC = docC.getText(TEXT_KEY);
 textC.insert(0, 'B');
-console.log(toJSON(textC, Y)); // => BA, correct
+console.log(toJSON(textC)); // => BA, correct

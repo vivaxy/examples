@@ -2,11 +2,11 @@
  * @since 2021-06-25
  * @author vivaxy
  */
-import Tab from './Doc/Tab';
-import Editor from './Doc/Editor';
-import Updates from './Doc/Updates';
-import YDocModel from './Doc/YDocModel';
-import './Doc.css';
+import Tab from './Tab';
+import Editor from './Editor';
+import Updates from './Updates';
+import Index from './YDocModel';
+import './index.css';
 
 export default function Doc(props) {
   function isFocusedClientId(clientID) {
@@ -33,7 +33,7 @@ export default function Doc(props) {
         onSync={props.onSync}
         editable={props.editable}
       />
-      <YDocModel
+      <Index
         yDoc={props.doc.yDoc}
         dataSource={props.dataSource}
         getDocByClientId={props.getDocByClientId}

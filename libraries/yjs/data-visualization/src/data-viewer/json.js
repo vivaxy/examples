@@ -2,12 +2,39 @@
  * @since 2021-08-09
  * @author vivaxy
  */
+export const DATA_TYPES = {
+  DOC: 'Doc',
+
+  // types
+  ABSTRACT_TYPE: 'AbstractType',
+  Y_ARRAY: 'YArray',
+  Y_MAP: 'YMap',
+  Y_TEXT: 'YText',
+  Y_XML_ELEMENT: 'YXmlElement',
+  Y_XML_FRAGMENT: 'YXmlFragment',
+  Y_XML_TEXT: 'YXmlText',
+
+  // structs
+  ABSTRACT_STRUCT: 'AbstractStruct',
+  GC: 'GC',
+  ITEM: 'Item',
+  Skip: 'Skip',
+
+  // contents
+  CONTENT_ANY: 'ContentAny',
+  CONTENT_BINARY: 'ContentBinary',
+  CONTENT_DELETED: 'ContentDeleted',
+  CONTENT_DOC: 'ContentDoc',
+  CONTENT_EMBED: 'ContentEmbed',
+  CONTENT_FORMAT: 'ContentFormat',
+  CONTENT_JSON: 'ContentJSON',
+  CONTENT_STRING: 'ContentString',
+  CONTENT_TYPE: 'ContentType',
+};
+
 const errors = {
   unexpectedConstructor(constructor) {
     return new Error('Unexpected constructor: ' + constructor);
-  },
-  notImplemented() {
-    return new Error('Not implemented');
   },
 };
 
@@ -71,147 +98,121 @@ function contentToJSON(content, Y) {
   throw errors.unexpectedConstructor(content.constructor.name);
 }
 
-function itemToJSON(item, Y) {
-  return {
-    client: item.id.client,
-    clock: item.id.clock,
-    type: item.content.constructor.name,
-    ...deletedItemToJSON(item, Y),
-    ...contentToJSON(item.content, Y),
-  };
+function typeMapToJSON(type) {
+  const map = {};
+  for (const [key, value] of type._map) {
+    map[key] = toJSON(value);
+  }
+  return map;
 }
 
-function xmlFragmentToJSON(yXmlFragment, Y) {
-  const result = [];
-  let item = yXmlFragment._start;
+function typeArrayToJSON(type) {
+  const array = [];
+  let item = type._start;
   while (item !== null) {
-    const value = itemToJSON(item, Y);
-    if (item.content instanceof Y.ContentType) {
-      value.children = typeToJSON(item.content.type, Y);
-    } else if (
-      item.content instanceof Y.ContentAny ||
-      item.content instanceof Y.ContentBinary ||
-      item.content instanceof Y.ContentDeleted ||
-      item.content instanceof Y.ContentEmbed ||
-      item.content instanceof Y.ContentFormat ||
-      item.content instanceof Y.ContentJSON ||
-      item.content instanceof Y.ContentString
-    ) {
-      // ignore
-    } else {
-      throw errors.unexpectedConstructor(item.content.constructor.name);
+    array.push(toJSON(item));
+    item = item.right;
+  }
+  return array;
+}
+
+const handlers = {
+  [DATA_TYPES.DOC](doc) {
+    const result = {
+      share: {},
+      store: {
+        clients: {},
+        pendingDs: null,
+        pendingStructs: null,
+      },
+    };
+    for (const [key, value] of doc.share) {
+      result.share[key] = toJSON(value);
     }
-    result.push(value);
-    item = item.right;
-  }
-  return result;
-}
+    for (const [clientID, items] of doc.store.clients) {
+      result.store.clients[clientID] = items.map((item) => toJSON(item));
+    }
+    return result;
+  },
+  [DATA_TYPES.Y_ARRAY](yArray) {
+    return { array: typeArrayToJSON(yArray) };
+  },
+  [DATA_TYPES.Y_MAP](yMap) {
+    return { map: typeMapToJSON(yMap) };
+  },
+  [DATA_TYPES.Y_TEXT](yText) {
+    return { text: typeArrayToJSON(yText) };
+  },
+  [DATA_TYPES.Y_XML_ELEMENT](yXmlElement) {
+    return {
+      nodeName: yXmlElement.nodeName,
+      attributes: typeMapToJSON(yXmlElement),
+      children: typeArrayToJSON(yXmlElement),
+    };
+  },
+  [DATA_TYPES.Y_XML_FRAGMENT](yXmlFragment) {
+    return { children: typeArrayToJSON(yXmlFragment) };
+  },
+  [DATA_TYPES.Y_XML_TEXT](yXmlText) {
+    return { xmlText: typeArrayToJSON(yXmlText) };
+  },
+  [DATA_TYPES.GC](gc) {
+    return {
+      client: gc.id.client,
+      clock: gc.id.clock,
+      length: gc.length,
+    };
+  },
+  [DATA_TYPES.ITEM](item) {
+    return {
+      client: item.id.client,
+      clock: item.id.clock,
+      ...deletedItemToJSON(item),
+      content: toJSON(item.content),
+    };
+  },
+  [DATA_TYPES.CONTENT_ANY](contentAny) {
+    return { value: contentAny.arr };
+  },
+  [DATA_TYPES.CONTENT_BINARY](contentBinary) {
+    return { binary: contentBinary.content };
+  },
+  [DATA_TYPES.CONTENT_DELETED](contentDeleted) {
+    return { length: contentDeleted.len };
+  },
+  [DATA_TYPES.CONTENT_DOC](contentDoc) {
+    return { doc: contentDoc.doc };
+  },
+  [DATA_TYPES.CONTENT_EMBED](contentEmbed) {
+    return { embed: contentEmbed.embed };
+  },
+  [DATA_TYPES.CONTENT_FORMAT](contentFormat) {
+    return { key: contentFormat.key, value: contentFormat.value };
+  },
+  [DATA_TYPES.CONTENT_JSON](contentJSON) {
+    return { json: contentJSON.arr };
+  },
+  [DATA_TYPES.CONTENT_STRING](contentString) {
+    return { string: contentString.str };
+  },
+  [DATA_TYPES.CONTENT_TYPE](contentType) {
+    return { value: toJSON(contentType.type) };
+  },
+};
 
-function textToJSON(text, Y) {
-  const result = [];
-  let item = text._start;
-  while (item !== null) {
-    result.push(structToJSON(item, Y));
-    item = item.right;
+export default function toJSON(value) {
+  const constructorName = value.constructor.name;
+  const handler = handlers[constructorName];
+  if (!handler) {
+    return {
+      type: constructorName,
+      error: `Unexpected type ${constructorName}`,
+    };
   }
-  return result;
-}
-
-function docToJSON(doc, Y) {
-  const result = {
-    share: {},
-    store: {
-      clients: {},
-      pendingDs: null,
-      pendingStructs: null,
-    },
-  };
-  for (const [key, value] of doc.share.entries()) {
-    result.share[key] = toJSON(value, Y);
-  }
-  for (const [clientID, items] of doc.store.clients.entries()) {
-    result.store.clients[clientID] = items.map((item) => structToJSON(item, Y));
-  }
-  return result;
-}
-
-function xmlTextToJSON(xmlText, Y) {
-  const result = [];
-  let item = xmlText._start;
-  while (item !== null) {
-    result.push(structToJSON(item, Y));
-    item = item.right;
-  }
-  return result;
-}
-
-function mapToJSON(map, Y) {
-  const result = {};
-  for (const [key, value] of map) {
-    result[key] = typeToJSON(value, Y);
-  }
-  return result;
-}
-
-function arrayToJSON(array, Y) {
-  const result = [];
-  let item = array._start;
-  while (item !== null) {
-    result.push(structToJSON(item, Y));
-    item = item.right;
-  }
-  return result;
-}
-
-function typeToJSON(type, Y) {
-  if (type instanceof Y.XmlFragment) {
-    return xmlFragmentToJSON(type, Y);
-  }
-  if (type instanceof Y.Map) {
-    return mapToJSON(type, Y);
-  }
-  if (type instanceof Y.Array) {
-    return arrayToJSON(type, Y);
-  }
-  if (type instanceof Y.XmlText) {
-    return xmlTextToJSON(type, Y);
-  }
-  if (type instanceof Y.Text) {
-    return textToJSON(type, Y);
-  }
-  throw errors.unexpectedConstructor(type.constructor.name);
-}
-
-function gcToItem(gc) {
+  const json = handler(value);
+  console.assert(json.type === undefined, 'should not include type');
   return {
-    client: gc.id.client,
-    clock: gc.id.clock,
-    type: 'GC',
-    deleted: true,
-    length: gc.length,
+    type: constructorName,
+    ...json,
   };
-}
-
-export function structToJSON(struct, Y) {
-  if (struct instanceof Y.Item) {
-    return itemToJSON(struct, Y);
-  }
-  if (struct instanceof Y.GC) {
-    return gcToItem(struct, Y);
-  }
-  throw errors.unexpectedConstructor(struct.constructor.name);
-}
-
-export default function toJSON(value, Y) {
-  if (value instanceof Y.Doc) {
-    return docToJSON(value, Y);
-  }
-  if (value instanceof Y.AbstractType) {
-    return typeToJSON(value, Y);
-  }
-  if (value instanceof Y.AbstractStruct) {
-    return structToJSON(value, Y);
-  }
-
-  throw errors.unexpectedConstructor(value.constructor.name);
 }

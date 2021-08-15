@@ -2,8 +2,8 @@ import { useState } from 'react';
 import * as Y from 'yjs';
 
 import Scenarios from './components/Scenarios';
-import Doc from './components/Doc';
-import Actions from './components/Actions';
+import Doc from './components/Doc/index';
+import Actions from './components/Actions/index';
 import scenarios from './scenarios';
 import * as EDIT_TYPE from './enums/edit-types';
 import * as Y_DOC_KEYS from './enums/y-doc-keys';
@@ -93,7 +93,6 @@ export default function App() {
     yDoc.gc = actionOptions.gc;
     const id = docs.length;
 
-    const update = Y.encodeStateAsUpdate(yDoc);
     // when create doc, sync from the first doc
     const validDocs = docs.filter(Boolean);
     if (validDocs.length && id !== validDocs[0].id) {
@@ -114,6 +113,7 @@ export default function App() {
     }
 
     // sync to other docs
+    const update = Y.encodeStateAsUpdate(yDoc);
     validDocs.forEach(function (doc) {
       Y.applyUpdate(doc.yDoc, update);
     });

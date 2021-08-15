@@ -22,7 +22,7 @@ console.log('fragmentA:', fragmentA.toJSON());
 function traverseFragment(node, visitor) {
   let item = node._start;
   while (item !== null) {
-    visitor(toJSON(item, Y));
+    visitor(toJSON(item));
     if (
       item.content instanceof Y.ContentDeleted ||
       item.content instanceof Y.ContentString ||

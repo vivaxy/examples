@@ -27,6 +27,15 @@
   color: #999;
 }
 
-.struct .len {
+.struct .length {
   color: #ff0000;
+}
+
+.struct .content-type,
+.struct .content-any,
+.struct .content-binary {
+  font-size: 8px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

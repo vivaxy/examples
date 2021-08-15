@@ -2,6 +2,6 @@
  * @since 2021-08-09
  * @author vivaxy
  */
-import toJSON, { structToJSON } from './json';
+import toJSON, { DATA_TYPES } from './json';
 
-export { toJSON, structToJSON };
+export { toJSON, DATA_TYPES };

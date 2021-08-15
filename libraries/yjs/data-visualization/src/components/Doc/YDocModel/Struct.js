@@ -2,42 +2,43 @@
  * @since 2021-08-14
  * @author vivaxy
  */
+import { DATA_TYPES } from '../../../data-viewer';
+
 import './Struct.css';
 
-const typeRenderers = {
-  ContentString(struct) {
-    return (
-      <>
-        <div className="str">{struct.str}</div>
-      </>
-    );
+const contentRenderers = {
+  [DATA_TYPES.CONTENT_STRING](content) {
+    return <div className="string">{content.string}</div>;
   },
-  ContentDeleted(struct) {
-    return (
-      <>
-        <div className="len">{struct.len}</div>
-      </>
-    );
+  [DATA_TYPES.CONTENT_DELETED](content) {
+    return <div className="length">{content.length}</div>;
+  },
+  [DATA_TYPES.CONTENT_TYPE](content) {
+    return <div className="content-type">{content.value.type}</div>;
+  },
+  [DATA_TYPES.CONTENT_ANY](content) {
+    return <div className="content-any">{content.value}</div>;
+  },
+  [DATA_TYPES.CONTENT_BINARY]() {
+    return <div className="content-binary">Binary</div>;
   },
 };
 
-function unsupportedStructType(struct) {
-  return <div>Unsupported struct type: {struct.type}</div>;
+function unsupportedContentType(content) {
+  return <div>Unsupported content type: {content.type}</div>;
 }
 
 export default function Struct(props) {
-  const { struct } = props;
+  const { content, deleted, client, clock } = props.struct;
   return (
     <div
-      className={`struct ${struct.type} ${
-        struct.deleted || struct.type === 'ContentDeleted' ? 'deleted' : ''
-      } ${props.isFocusedClientId(struct.client) ? 'focused' : ''}`}
+      className={`struct ${content.type} ${
+        deleted || content.type === DATA_TYPES.CONTENT_DELETED ? 'deleted' : ''
+      } ${props.isFocusedClientId(client) ? 'focused' : ''}`}
     >
-      <div className="client">
-        Doc{props.getDocByClientId(struct.client)?.id}
-      </div>
-      <div className="clock">{struct.clock}</div>
-      {(typeRenderers[struct.type] || unsupportedStructType)(struct)}
+      <div className="client">Doc{props.getDocByClientId(client)?.id}</div>
+      <div className="clock">{clock}</div>
+      {(contentRenderers[content.type] || unsupportedContentType)(content)}
     </div>
   );
 }
