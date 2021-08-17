@@ -1,5 +1,9 @@
 [
   {
+    "name": "child_process Communication",
+    "link": "child-process-communication/index.js"
+  },
+  {
     "name": "Module.runMain",
     "link": "module-run-main/index.js"
   },
