@@ -1,5 +1,9 @@
 [
   {
+    "name": "XmlText Attributes Collision Bug",
+    "link": "xml-text-attributes-collision-bug/"
+  },
+  {
     "name": "Update Size",
     "link": "update-size/"
   },
