@@ -17,11 +17,22 @@
   </head>
 
   <body>
-    <input id="input" />
-    <button id="read">Read clipboard</button>
-    <button id="readText">Read clipboard text</button>
-    <button id="write">Write clipboard</button>
-    <button id="writeText">Write clipboard text</button>
+    <button id="read" draggable="true">Read clipboard</button>
+    <button id="readText" draggable="true">Read clipboard text</button>
+    <input id="input" draggable="true" />
+    <button id="write" draggable="true">Write clipboard</button>
+    <button id="writeText" draggable="true">Write clipboard text</button>
+    <label>Show HTML as:</label>
+    <input
+      name="show-html-as"
+      id="html-as-html"
+      type="radio"
+      value="html"
+      checked
+    />
+    <label for="html-as-html">html</label>
+    <input name="show-html-as" id="html-as-text" type="radio" value="text" />
+    <label for="html-as-text">text</label>
     <div id="logger"></div>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
