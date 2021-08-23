@@ -19,7 +19,7 @@ export const DATA_TYPES = {
   ABSTRACT_STRUCT: 'AbstractStruct',
   GC: 'GC',
   ITEM: 'Item',
-  Skip: 'Skip',
+  SKIP: 'Skip',
 
   // contents
   CONTENT_ANY: 'ContentAny',

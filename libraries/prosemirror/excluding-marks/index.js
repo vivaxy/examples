@@ -17,7 +17,6 @@ const schema = new Schema({
       },
       parseDOM: [
         {
-          priority: 20,
           tag: 'span[style*=color]',
           getAttrs: (dom) => ({ color: dom.style.color }),
         },
@@ -35,7 +34,7 @@ const state = EditorState.create({
     schema.node('paragraph', {}, [
       schema.text('A', [
         schema.mark('color', { color: 'red' }),
-        schema.mark('color', { color: 'green' }),
+        schema.mark('color', { color: 'green' }), // effective mark
       ]),
     ]),
   ]),

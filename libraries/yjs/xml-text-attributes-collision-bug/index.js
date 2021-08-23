@@ -64,7 +64,7 @@ function printYText(yDoc, message = '') {
   const xmlText = getXmlTextFromYDoc(yDoc);
   const json = toJSON(xmlText, Y);
   console.log(
-    message,
+    message ? ' ' + message : message,
     json.xmlText
       .map(function (item) {
         if (item.content.type === DATA_TYPES.CONTENT_FORMAT) {
@@ -96,7 +96,7 @@ function printPText(pDoc, message = '') {
   });
   const textNodes = paragraph.content.content;
   console.log(
-    message,
+    message ? ' ' + message : message,
     textNodes
       .map(function (node) {
         if (node.marks) {
@@ -184,11 +184,12 @@ function remoteConflict() {
   //        or <color color="red">A</color><color color="blue">BC</color>
 
   // remove blue on "B"
+  console.log('remove blue on "B"');
   editor2.dispatch(editor2.state.tr.removeMark(2, 3, createColorMark('blue')));
-  printYText(yDoc2, 'yDoc2 2');
+  printYText(yDoc2, 'yDoc2');
   // actual is <ContentDeleted /> ➜ <color color="red"> ➜ A ➜ </color> ➜ B ➜ <ContentDeleted /> ➜ C
   // should be <color color="red" id="1_3"> ➜ A ➜ </color id="1_3"> ➜ <ContentDeleted /> ➜ B ➜ <ContentDeleted /> ➜ <color color="blue" id="2_1"> ➜ C ➜ <ContentDeleted /> ➜ </color id="2_1">
-  printPText(editor2.state.doc, 'pDoc2 2');
+  printPText(editor2.state.doc, 'pDoc2');
   // actual is <color color="red">A</color>BC
   // should be <color color="red">A</color>B<color color="blue">C</color>
 }

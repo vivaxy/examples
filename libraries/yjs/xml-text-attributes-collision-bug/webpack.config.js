@@ -9,6 +9,5 @@ module.exports = {
     filename: 'bundle.js',
     path: __dirname,
   },
-  devtool:
-    process.env.NODE_ENV === 'development' ? 'eval-source-map' : 'source-map',
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : 'source-map',
 };

@@ -4,7 +4,7 @@
  */
 .struct {
   flex: none;
-  width: 30px;
+  min-width: 30px;
   font-size: 10px;
   background: rgb(200, 255, 200);
   margin: 1px;
