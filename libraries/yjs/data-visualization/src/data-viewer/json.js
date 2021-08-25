@@ -3,6 +3,7 @@
  * @author vivaxy
  */
 import DATA_TYPES from './data-types';
+import decodeUpdate from '../update-decoder';
 
 function deletedItemToJSON(item) {
   if ((item.info & 4) > 0) {
@@ -42,8 +43,7 @@ const handlers = {
           missing: Object.fromEntries(
             doc.store.pendingStructs.missing.entries(),
           ),
-          // TODO: implement
-          update: 'decodeUpdateV2(doc.store.pendingStructs.update)',
+          update: decodeUpdate(doc.store.pendingStructs.update),
         },
       },
     };
