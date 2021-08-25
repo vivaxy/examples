@@ -2,36 +2,7 @@
  * @since 2021-08-09
  * @author vivaxy
  */
-export const DATA_TYPES = {
-  // utils
-  DOC: 'Doc',
-
-  // types
-  ABSTRACT_TYPE: 'AbstractType',
-  Y_ARRAY: 'YArray',
-  Y_MAP: 'YMap',
-  Y_TEXT: 'YText',
-  Y_XML_ELEMENT: 'YXmlElement',
-  Y_XML_FRAGMENT: 'YXmlFragment',
-  Y_XML_TEXT: 'YXmlText',
-
-  // structs
-  ABSTRACT_STRUCT: 'AbstractStruct',
-  GC: 'GC',
-  ITEM: 'Item',
-  SKIP: 'Skip',
-
-  // contents
-  CONTENT_ANY: 'ContentAny',
-  CONTENT_BINARY: 'ContentBinary',
-  CONTENT_DELETED: 'ContentDeleted',
-  CONTENT_DOC: 'ContentDoc',
-  CONTENT_EMBED: 'ContentEmbed',
-  CONTENT_FORMAT: 'ContentFormat',
-  CONTENT_JSON: 'ContentJSON',
-  CONTENT_STRING: 'ContentString',
-  CONTENT_TYPE: 'ContentType',
-};
+import DATA_TYPES from './data-types';
 
 function deletedItemToJSON(item) {
   if ((item.info & 4) > 0) {
@@ -66,8 +37,14 @@ const handlers = {
       share: {},
       store: {
         clients: {},
-        pendingDs: null,
-        pendingStructs: null,
+        pendingDs: doc.store.pendingDs,
+        pendingStructs: {
+          missing: Object.fromEntries(
+            doc.store.pendingStructs.missing.entries(),
+          ),
+          // TODO: implement
+          update: 'decodeUpdateV2(doc.store.pendingStructs.update)',
+        },
       },
     };
     for (const [key, value] of doc.share) {

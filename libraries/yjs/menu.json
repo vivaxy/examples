@@ -1,5 +1,13 @@
 [
   {
+    "name": "Skip",
+    "link": "skip/"
+  },
+  {
+    "name": "Search Markers",
+    "link": "search-markers/"
+  },
+  {
     "name": "XmlText Attributes Collision Bug",
     "link": "xml-text-attributes-collision-bug/"
   },
