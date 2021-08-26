@@ -35,5 +35,18 @@ function applyWithSameAttributes() {
   console.log('applyWithSameAttributes', toJSON(xmlText, Y));
 }
 
+function applyToExistingAttributes() {
+  const doc = new Y.Doc();
+  const xmlText = doc.getText(XML_TEXT_KEY);
+  xmlText.applyDelta([
+    { insert: 'A' },
+    { insert: 'B', attributes: { bold: true } },
+    { insert: 'C' },
+  ]);
+  xmlText.applyDelta([{ retain: 3, attributes: { em: true } }]);
+  console.log('applyToExistingAttributes', toJSON(xmlText, Y));
+}
+
 differenceBetweenTextAndXmlText();
 applyWithSameAttributes();
+applyToExistingAttributes();
