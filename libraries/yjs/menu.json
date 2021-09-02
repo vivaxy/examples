@@ -1,5 +1,9 @@
 [
   {
+    "name": "Duplicate Cleanup",
+    "link": "duplicate-cleanup/"
+  },
+  {
     "name": "Skip",
     "link": "skip/"
   },

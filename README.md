@@ -269,6 +269,7 @@ Table of contents
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
     * [Y.js ClientID Collision](https://vivaxy.github.io/samples/libraries/yjs/client-id-collision/) Y.js ClientID Collision
     * [Y.js diff](https://vivaxy.github.io/samples/libraries/yjs/diff/) Y.js diff
+    * [Duplicate cleanup](https://vivaxy.github.io/samples/libraries/yjs/duplicate-cleanup/) Duplicate cleanup
     * [Y.js GC](https://vivaxy.github.io/samples/libraries/yjs/gc/) Y.js GC
     * [YMap](https://vivaxy.github.io/samples/libraries/yjs/map/) YMap
     * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict

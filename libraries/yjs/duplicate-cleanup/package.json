@@ -1,0 +1,20 @@
+{
+  "name": "duplicate-cleanup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "vivaxy <xyxuye2007@126.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack server --open",
+    "build": "NODE_ENV=production webpack"
+  },
+  "dependencies": {
+    "yjs": "^13.5.10"
+  },
+  "devDependencies": {
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
