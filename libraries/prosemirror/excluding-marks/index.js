@@ -33,7 +33,7 @@ const state = EditorState.create({
   doc: schema.node('doc', {}, [
     schema.node('paragraph', {}, [
       schema.text('A', [
-        schema.mark('color', { color: 'red' }),
+        schema.mark('color', { color: 'red' }), // effective in PM Model, but not in PM View
         schema.mark('color', { color: 'green' }), // effective mark
       ]),
     ]),
@@ -43,3 +43,11 @@ const state = EditorState.create({
 const view = new EditorView(document.querySelector('#editor'), {
   state,
 });
+window.view = view;
+
+view.dispatch(
+  view.state.tr.removeMark(1, 2, schema.mark('color', { color: 'green' })),
+);
+view.dispatch(
+  view.state.tr.addMark(1, 2, schema.mark('color', { color: 'green' })),
+); // red mark is removed.
