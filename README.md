@@ -50,6 +50,7 @@ Table of contents
   * [Animation steps](https://vivaxy.github.io/samples/cascading-style-sheets/animation-steps/) CSS Animation steps API demo
   * [backdrop-filter](https://vivaxy.github.io/samples/cascading-style-sheets/backdrop-filter/) Backdrop filter
   * [background-attachment](https://vivaxy.github.io/samples/cascading-style-sheets/background-attachment/) Background attachment
+  * [Background Clip](https://vivaxy.github.io/samples/cascading-style-sheets/background-clip-bug/) Background Clip
   * [border-box](https://vivaxy.github.io/samples/cascading-style-sheets/border-box/) CSS border-box demo
   * [Clear fix](https://vivaxy.github.io/samples/cascading-style-sheets/clear-fix/) CSS clear fix demo
   * [column layout](https://vivaxy.github.io/samples/cascading-style-sheets/column-layout/) Column layout

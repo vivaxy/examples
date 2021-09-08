@@ -1,5 +1,9 @@
 [
   {
+    "name": "background-clip Bug",
+    "link": "background-clip-bug"
+  },
+  {
     "name": "Heart with Crossed Arrows",
     "link": "heart-with-crossed-arrows/"
   },
