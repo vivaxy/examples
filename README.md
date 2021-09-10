@@ -71,6 +71,7 @@ Table of contents
   * [Scroll Snap](https://vivaxy.github.io/samples/cascading-style-sheets/scroll-snap/) Scroll snap
   * [SVG](https://vivaxy.github.io/samples/cascading-style-sheets/svg/) Svg
     * [Stroke](https://vivaxy.github.io/samples/cascading-style-sheets/svg/stroke/) Stroke
+  * [Table Cell Width 0](https://vivaxy.github.io/samples/cascading-style-sheets/table-cell-width-0/) Table Cell Width 0
   * [pure css modal](https://vivaxy.github.io/samples/cascading-style-sheets/target/) Target
   * [touch-action](https://vivaxy.github.io/samples/cascading-style-sheets/touch-action/) Touch action
   * [Will Change](https://vivaxy.github.io/samples/cascading-style-sheets/will-change/) Will change
