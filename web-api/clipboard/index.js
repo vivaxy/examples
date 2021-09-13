@@ -5,7 +5,6 @@
 const input = document.querySelector('#input');
 const logger = document.querySelector('#logger');
 const $showHTMLAsHTML = document.querySelector('#html-as-html');
-const $showHTMLAsText = document.querySelector('#html-as-text');
 document.querySelector('#read').addEventListener('click', readClipboard);
 document
   .querySelector('#readText')
@@ -14,7 +13,7 @@ document.querySelector('#write').addEventListener('click', writeClipboard);
 document
   .querySelector('#writeText')
   .addEventListener('click', writeClipboardText);
-['cut', 'copy', 'paste', 'drop', 'drag'].forEach((eventName) => {
+['paste', 'drop', 'drag'].forEach((eventName) => {
   document.addEventListener(eventName, onEvent(eventName));
 });
 

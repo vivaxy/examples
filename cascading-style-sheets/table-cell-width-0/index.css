@@ -1,0 +1,13 @@
+/**
+ * @since 2021-09-10
+ * @author vivaxy
+ */
+td {
+  overflow: hidden;
+}
+
+table {
+  table-layout: fixed;
+  width: 30px;
+  overflow: hidden;
+}

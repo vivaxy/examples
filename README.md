@@ -50,6 +50,7 @@ Table of contents
   * [Animation steps](https://vivaxy.github.io/samples/cascading-style-sheets/animation-steps/) CSS Animation steps API demo
   * [backdrop-filter](https://vivaxy.github.io/samples/cascading-style-sheets/backdrop-filter/) Backdrop filter
   * [background-attachment](https://vivaxy.github.io/samples/cascading-style-sheets/background-attachment/) Background attachment
+  * [Background Clip](https://vivaxy.github.io/samples/cascading-style-sheets/background-clip-bug/) Background Clip
   * [border-box](https://vivaxy.github.io/samples/cascading-style-sheets/border-box/) CSS border-box demo
   * [Clear fix](https://vivaxy.github.io/samples/cascading-style-sheets/clear-fix/) CSS clear fix demo
   * [column layout](https://vivaxy.github.io/samples/cascading-style-sheets/column-layout/) Column layout
@@ -70,6 +71,7 @@ Table of contents
   * [Scroll Snap](https://vivaxy.github.io/samples/cascading-style-sheets/scroll-snap/) Scroll snap
   * [SVG](https://vivaxy.github.io/samples/cascading-style-sheets/svg/) Svg
     * [Stroke](https://vivaxy.github.io/samples/cascading-style-sheets/svg/stroke/) Stroke
+  * [Table Cell Width 0](https://vivaxy.github.io/samples/cascading-style-sheets/table-cell-width-0/) Table Cell Width 0
   * [pure css modal](https://vivaxy.github.io/samples/cascading-style-sheets/target/) Target
   * [touch-action](https://vivaxy.github.io/samples/cascading-style-sheets/touch-action/) Touch action
   * [Will Change](https://vivaxy.github.io/samples/cascading-style-sheets/will-change/) Will change
@@ -270,10 +272,13 @@ Table of contents
     * [Y.js Basic Sample](https://vivaxy.github.io/samples/libraries/yjs/basic/) Y.js Basic Sample
     * [Y.js ClientID Collision](https://vivaxy.github.io/samples/libraries/yjs/client-id-collision/) Y.js ClientID Collision
     * [Y.js diff](https://vivaxy.github.io/samples/libraries/yjs/diff/) Y.js diff
+    * [Duplicate cleanup](https://vivaxy.github.io/samples/libraries/yjs/duplicate-cleanup/) Duplicate cleanup
     * [Y.js GC](https://vivaxy.github.io/samples/libraries/yjs/gc/) Y.js GC
     * [YMap](https://vivaxy.github.io/samples/libraries/yjs/map/) YMap
     * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict
     * [Y.js Positions](https://vivaxy.github.io/samples/libraries/yjs/positions/) Y.js Positions
+    * [Y.js SearchMarkers](https://vivaxy.github.io/samples/libraries/yjs/search-markers/) Y.js SearchMarkers
+    * [Yjs Skip](https://vivaxy.github.io/samples/libraries/yjs/skip/) Yjs Skip
     * [Y.js Snapshot](https://vivaxy.github.io/samples/libraries/yjs/snapshot/) Y.js Snapshot
     * [Y.js Sync](https://vivaxy.github.io/samples/libraries/yjs/sync/) Y.js Sync
     * [Y.js YText](https://vivaxy.github.io/samples/libraries/yjs/text/) Y.js YText

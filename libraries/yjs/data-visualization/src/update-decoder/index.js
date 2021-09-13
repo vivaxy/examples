@@ -6,9 +6,19 @@ import * as decoding from 'lib0/decoding';
 import * as binary from 'lib0/binary';
 import contentRefs from './content-decoder';
 import readDeleteSet from './delete-set-decoder';
+import { DATA_TYPES } from '../data-viewer';
 
-export default function decode(update) {
+export default function updateDecoder(update) {
   const decoder = decoding.createDecoder(update);
+  const firstVarUint = decoding.peekVarUint(decoder);
+  if (firstVarUint === 0) {
+    return 'encoding V2 not supported';
+  } else {
+    return decodeV1(decoder);
+  }
+}
+
+export function decodeV1(decoder) {
   const clientsStructs = readClientsStructRefs(decoder);
   const deleteSet = readDeleteSet(decoder);
   return { clientsStructs, deleteSet };
@@ -25,13 +35,19 @@ function readClientsStructRefs(decoder) {
     for (let i = 0; i < numberOfStructs; i++) {
       const info = decoding.readUint8(decoder);
       let struct;
-      if ((binary.BITS5 & info) !== 0) {
-        struct = readItem(client, clock, decoder, info);
-      } else {
+      const infoType = binary.BITS5 & info;
+      if (infoType === 0) {
         // GC
-        struct = new Item(client, clock, {
+        struct = new AbstractStruct(DATA_TYPES.GC, client, clock, {
           length: decoding.readVarUint(decoder),
         });
+      } else if (infoType === 10) {
+        // Skip
+        struct = new AbstractStruct(DATA_TYPES.SKIP, client, clock, {
+          length: decoding.readVarUint(decoder),
+        });
+      } else {
+        struct = readItem(client, clock, decoder, info);
       }
       items.push(struct);
       clock += struct.length;
@@ -48,8 +64,9 @@ function readID(decoder) {
   };
 }
 
-class Item {
+class AbstractStruct {
   constructor(
+    type,
     client,
     clock,
     content,
@@ -60,6 +77,7 @@ class Item {
     parentYKey,
     parent,
   ) {
+    this.type = type;
     this.client = client;
     this.clock = clock;
     this.left = left;
@@ -100,7 +118,8 @@ function readItem(client, clock, decoder, info) {
 
   const itemContent = readItemContent(decoder, info);
 
-  return new Item(
+  return new AbstractStruct(
+    DATA_TYPES.ITEM,
     client,
     clock,
     itemContent,

@@ -3,9 +3,56 @@
  * @author vivaxy
  */
 import * as Y from 'yjs';
+import { Schema } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
+import { EditorState } from 'prosemirror-state';
+import { ySyncPlugin } from 'y-prosemirror';
 import { toJSON, DATA_TYPES } from '../data-visualization/src/data-viewer';
 
-const TEXT_KEY = 'text';
+const XML_FRAGMENT_KEY = 'prosemirror';
+const schema = new Schema({
+  nodes: {
+    doc: {
+      content: 'paragraph+',
+    },
+    text: {
+      group: 'inline',
+    },
+    paragraph: {
+      content: 'inline*',
+      group: 'block',
+      parseDOM: [{ tag: 'p' }],
+      toDOM(node) {
+        return ['p', node.attrs, 0];
+      },
+    },
+  },
+  marks: {
+    color: {
+      attrs: {
+        color: { default: 'black' },
+      },
+      parseDOM: [
+        {
+          tag: 'span[style*=color]',
+          getAttrs: (dom) => ({ color: dom.style.color }),
+        },
+      ],
+      toDOM(node) {
+        return ['span', { style: `color: ${node.attrs.color}` }];
+      },
+    },
+  },
+});
+
+function createEditor(yDoc) {
+  return new EditorView(null, {
+    state: EditorState.create({
+      schema,
+      plugins: [ySyncPlugin(yDoc.get(XML_FRAGMENT_KEY, Y.XmlFragment))],
+    }),
+  });
+}
 
 const errors = {
   unexpectedType(type) {
@@ -13,11 +60,11 @@ const errors = {
   },
 };
 
-function printText(doc, message = '') {
-  const xmlText = doc.get(TEXT_KEY, Y.XmlText);
+function printYText(yDoc, message = '') {
+  const xmlText = getXmlTextFromYDoc(yDoc);
   const json = toJSON(xmlText, Y);
   console.log(
-    message,
+    message ? ' ' + message : message,
     json.xmlText
       .map(function (item) {
         if (item.content.type === DATA_TYPES.CONTENT_FORMAT) {
@@ -39,62 +86,112 @@ function printText(doc, message = '') {
         }
         throw errors.unexpectedType(item.content.type);
       })
-      .join(' -> '),
+      .join(' ➜ '),
   );
 }
 
-function localConflict() {
-  const doc = new Y.Doc();
+function printPText(pDoc, message = '') {
+  const paragraph = pDoc.content.content.find(function (content) {
+    return content.content.content.length !== 0;
+  });
+  const textNodes = paragraph.content.content;
+  console.log(
+    message ? ' ' + message : message,
+    textNodes
+      .map(function (node) {
+        if (node.marks) {
+          return node.marks.reduce(function (res, mark) {
+            const attrs = Object.keys(mark.attrs)
+              .map(function (attrKey) {
+                return `${attrKey}="${mark.attrs[attrKey]}"`;
+              })
+              .join(' ');
+            return `<${mark.type.name} ${attrs}>${res}</${mark.type.name}>`;
+          }, node.text);
+        }
+        return node.text;
+      })
+      .join(''),
+  );
+}
 
-  const xmlText = doc.get(TEXT_KEY, Y.XmlText);
-  xmlText.applyDelta([{ insert: 'ABC' }]);
-  xmlText.applyDelta([
-    { retain: 2, attributes: { color: { color: 'red' } } },
-    { retain: 1 },
-  ]);
-  xmlText.applyDelta([
-    { retain: 1 },
-    { retain: 2, attributes: { color: { color: 'blue' } } },
-  ]);
-  printText(doc);
-  // actual is <color color="red"> -> A -> <color color="blue"> -> B -> <ContentDeleted /> -> C -> </color>
-  // should be <color color="red"> -> A -> <color color="blue"> -> B -> </color> -> C -> </color>
+function createYDoc() {
+  const yDoc = new Y.Doc();
+  const fragment = yDoc.getXmlFragment(XML_FRAGMENT_KEY);
+  const paragraph = new Y.XmlElement('paragraph');
+  fragment.insert(0, [paragraph]);
+  const text = new Y.XmlText();
+  paragraph.insert(0, [text]);
+  return yDoc;
+}
+
+function getXmlTextFromYDoc(yDoc) {
+  const paragraph = yDoc
+    .get(XML_FRAGMENT_KEY)
+    .toArray()
+    .find(function (paragraph) {
+      return !!paragraph.get(0).length;
+    });
+  return paragraph.get(0);
+}
+
+function createColorMark(color) {
+  return schema.marks.color.create({ color });
+}
+
+function localConflict() {
+  console.log('localConflict');
+  const yDoc = createYDoc();
+  const editor = createEditor(yDoc);
+  editor.dispatch(editor.state.tr.insertText('ABC'));
+
+  editor.dispatch(editor.state.tr.addMark(1, 3, createColorMark('red')));
+  editor.dispatch(editor.state.tr.addMark(2, 4, createColorMark('blue')));
+  printYText(yDoc);
+  // actual is <color color="red"> ➜ A ➜ <color color="blue"> ➜ B ➜ <ContentDeleted /> ➜ C ➜ </color>
+  // should be <color color="red"> ➜ A ➜ </color> ➜ <color color="blue"> ➜ B ➜ C ➜ </color>
+  printPText(editor.state.doc); // <color color="red">A</color><color color="blue">BC</color>
+
+  // remove blue on "B"
+  editor.dispatch(editor.state.tr.removeMark(2, 3, createColorMark('blue')));
+  printYText(yDoc);
+  // actual is <color color="red"> ➜ A ➜ </color> ➜ <ContentDeleted /> ➜ B ➜ <ContentDeleted /> ➜ <color color="blue"> ➜ C ➜ </color>
+  // should be <color color="red"> ➜ A ➜ </color> ➜ <ContentDeleted /> ➜ B ➜ <color color="blue"> ➜ C ➜ </color>
+  printPText(editor.state.doc); // <color color="red">A</color>B<color color="blue">C</color>
 }
 
 function remoteConflict() {
-  const doc1 = new Y.Doc();
-  const xmlText1 = doc1.get(TEXT_KEY, Y.XmlText);
-  xmlText1.insert(0, 'ABC');
-  printText(doc1, 'doc1:');
-  // ABC
+  console.log('remoteConflict');
+  const yDoc1 = createYDoc();
+  const editor1 = createEditor(yDoc1);
+  editor1.dispatch(editor1.state.tr.insertText('ABC'));
+  const sv1_1 = Y.encodeStateVector(yDoc1);
 
-  const doc2 = new Y.Doc();
-  const xmlText2 = doc2.get(TEXT_KEY, Y.XmlText);
-  Y.applyUpdate(doc2, Y.encodeStateAsUpdate(doc1));
+  const yDoc2 = createYDoc();
+  const editor2 = createEditor(yDoc2);
+  Y.applyUpdate(yDoc2, Y.encodeStateAsUpdate(yDoc1));
+  printPText(editor2.state.doc, 'pDoc2');
 
-  xmlText1.applyDelta([
-    { retain: 2, attributes: { color: { color: 'red' } } },
-    { retain: 1 },
-  ]);
-  // <color color="red" id="1_3"> -> AB -> </color> -> C
+  editor1.dispatch(editor1.state.tr.addMark(1, 3, createColorMark('red')));
+  editor2.dispatch(editor2.state.tr.addMark(2, 4, createColorMark('blue')));
+  Y.applyUpdate(yDoc2, Y.encodeStateAsUpdate(yDoc1, sv1_1));
+  printYText(yDoc2, 'yDoc2');
+  // actual is <color color="red"> ➜ A ➜ <color color="blue"> ➜ B ➜ </color> ➜ C ➜ </color>
+  // should be <color color="red" id="1_3"> ➜ A ➜ <color color="blue" id="2_0"> ➜ B ➜ </color id="1_3"> ➜ C ➜ </color id="2_0">
+  printPText(editor2.state.doc, 'pDoc2');
+  // actual is <color color="red">A</color><color color="blue">B</color>C
+  // should be <color color="red">AB</color><color color="blue">C</color>
+  //        or <color color="red">A</color><color color="blue">BC</color>
 
-  xmlText2.applyDelta([
-    { retain: 1 },
-    { retain: 2, attributes: { color: { color: 'blue' } } },
-  ]);
-  // A -> <color color="blue" id="2_0"> -> BC -> </color>
-
-  Y.applyUpdate(doc1, Y.encodeStateAsUpdate(doc2));
-  printText(doc1, 'doc1:');
-  // actual is <color color="red"> -> A -> <color color="blue"> -> B -> </color> -> C -> </color>
-  // should be <color color="red" id="1_3"> -> A -> <color color="blue" id="2_0"> -> B -> </color id="1_3"> -> C -> </color id="2_0">
-
-  xmlText1.applyDelta([
-    { retain: 1 },
-    { retain: 2, attributes: { color: { color: 'blue' } } },
-  ]);
-  console.log(xmlText1.toString());
-  printText(doc1, 'doc1:');
+  // remove blue on "B"
+  console.log('remove blue on "B"');
+  editor2.dispatch(editor2.state.tr.removeMark(2, 3, createColorMark('blue')));
+  printYText(yDoc2, 'yDoc2');
+  // actual is <ContentDeleted /> ➜ <color color="red"> ➜ A ➜ </color> ➜ B ➜ <ContentDeleted /> ➜ C
+  // should be <color color="red" id="1_3"> ➜ A ➜ </color id="1_3"> ➜ <ContentDeleted /> ➜ B ➜ <ContentDeleted /> ➜ <color color="blue" id="2_1"> ➜ C ➜ <ContentDeleted /> ➜ </color id="2_1">
+  printPText(editor2.state.doc, 'pDoc2');
+  // actual is <color color="red">A</color>BC
+  // should be <color color="red">A</color>B<color color="blue">C</color>
 }
 
 localConflict();
