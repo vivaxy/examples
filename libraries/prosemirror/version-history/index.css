@@ -1,0 +1,24 @@
+/**
+ * @since 2021-03-26 16:27
+ * @author vivaxy
+ */
+#editor {
+  border: 1px solid #999;
+}
+
+#commit {
+  margin: 6px 0;
+  position: relative;
+}
+
+.commit span {
+  margin-left: 4px;
+}
+
+.insert {
+  background: rgb(128, 255, 128);
+}
+
+.delete {
+  background: rgb(255, 128, 128);
+}
