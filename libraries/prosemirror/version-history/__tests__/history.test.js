@@ -33,6 +33,14 @@ function remove(pos, length) {
   state = state.apply(state.tr.delete(pos, pos + length));
 }
 
+function addMark(from, to, markType) {
+  state = state.apply(state.tr.addMark(from, to, schema.mark(markType)));
+}
+
+function removeMark(from, to, markType) {
+  state = state.apply(state.tr.removeMark(from, to, schema.marks[markType]));
+}
+
 function commit(message = 'No message') {
   state = state.apply(state.tr.setMeta(trackPlugin, message));
 }
@@ -52,7 +60,7 @@ function getDecorations() {
     });
 }
 
-describe('simple actions', function () {
+describe('inline actions', function () {
   test('insert', function () {
     insert(1, 'A');
     commit();
@@ -81,10 +89,55 @@ describe('simple actions', function () {
     ]);
   });
 
+  test('add mark', function () {
+    addMark(1, 2, 'em');
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe(
+      'doc(paragraph("1", em("1"), "234567890"))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 1,
+        to: 2,
+        type: CHANGE_TYPES.MODIFY_DELETE,
+      },
+      {
+        from: 2,
+        to: 3,
+        type: CHANGE_TYPES.MODIFY_INSERT,
+      },
+    ]);
+  });
+
+  test('remove mark', function () {
+    addMark(1, 2, 'em');
+    commit();
+    removeMark(1, 2, 'em');
+    commit();
+    state = history.createEditorStateByCommitId(1);
+    expect(state.doc.toString()).toBe('doc(paragraph(em("1"), "1234567890"))');
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 1,
+        to: 2,
+        type: CHANGE_TYPES.MODIFY_DELETE,
+      },
+      {
+        from: 2,
+        to: 3,
+        type: CHANGE_TYPES.MODIFY_INSERT,
+      },
+    ]);
+  });
+});
+
+describe('node actions', function () {
   /**
    * TODO:
-   *  - addMark
-   *  - removeMark
+   *  - addNode
+   *  - removeNode
+   *  - replaceAroundNode
    */
 });
 

@@ -24,3 +24,11 @@
 .delete {
   background: rgb(255, 128, 128);
 }
+
+.modify-insert {
+  background: rgb(128, 255, 255);
+}
+
+.modify-delete {
+  background: rgb(255, 128, 255);
+}
