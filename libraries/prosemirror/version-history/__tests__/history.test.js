@@ -11,6 +11,7 @@ import {
   CHANGE_TYPES,
 } from '../history';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { liftTarget } from 'prosemirror-transform';
 
 let state = null;
 
@@ -25,12 +26,21 @@ function resetState() {
   history.reset();
 }
 
-function insert(pos, content) {
+function insertText(pos, content) {
   state = state.apply(state.tr.insertText(content, pos));
 }
 
-function remove(pos, length) {
+function removeText(pos, length) {
   state = state.apply(state.tr.delete(pos, pos + length));
+}
+
+function insertNode(pos, node) {
+  state = state.apply(state.tr.insert(pos, schema.node(node)));
+}
+
+function removeNode(pos) {
+  const node = state.doc.resolve(pos).node().content.content[0];
+  state = state.apply(state.tr.delete(pos, pos + node.nodeSize));
 }
 
 function addMark(from, to, markType) {
@@ -39,6 +49,25 @@ function addMark(from, to, markType) {
 
 function removeMark(from, to, markType) {
   state = state.apply(state.tr.removeMark(from, to, schema.marks[markType]));
+}
+
+function wrap(pos, wrapperNodeType) {
+  const $from = state.doc.resolve(pos);
+  const node = $from.node().content.content[0];
+  const $to = state.doc.resolve(pos + node.nodeSize);
+  const nodeRange = $from.blockRange($to);
+  state = state.apply(
+    state.tr.wrap(nodeRange, [{ type: schema.nodes[wrapperNodeType] }]),
+  );
+}
+
+function lift(pos) {
+  const $from = state.doc.resolve(pos);
+  const node = $from.node().content.content[0];
+  const $to = state.doc.resolve(pos + node.nodeSize);
+  const nodeRange = $from.blockRange($to);
+  const target = liftTarget(nodeRange);
+  state = state.apply(state.tr.lift(nodeRange, target));
 }
 
 function commit(message = 'No message') {
@@ -62,7 +91,7 @@ function getDecorations() {
 
 describe('inline actions', function () {
   test('insert', function () {
-    insert(1, 'A');
+    insertText(1, 'A');
     commit();
     state = history.createEditorStateByCommitId(0);
     expect(state.doc.toString()).toBe('doc(paragraph("A1234567890"))');
@@ -76,7 +105,7 @@ describe('inline actions', function () {
   });
 
   test('delete', function () {
-    remove(1, 1);
+    removeText(1, 1);
     commit();
     state = history.createEditorStateByCommitId(0);
     expect(state.doc.toString()).toBe('doc(paragraph("1234567890"))');
@@ -133,18 +162,89 @@ describe('inline actions', function () {
 });
 
 describe('node actions', function () {
-  /**
-   * TODO:
-   *  - addNode
-   *  - removeNode
-   *  - replaceAroundNode
-   */
+  test('insert node', function () {
+    insertNode(0, 'horizontal_rule');
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe(
+      'doc(horizontal_rule, paragraph("1234567890"))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 0,
+        to: 1,
+        type: CHANGE_TYPES.INSERT,
+      },
+    ]);
+  });
+
+  test('delete node', function () {
+    insertNode(0, 'horizontal_rule');
+    commit();
+    removeNode(0);
+    commit();
+    state = history.createEditorStateByCommitId(1);
+    expect(state.doc.toString()).toBe(
+      'doc(horizontal_rule, paragraph("1234567890"))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 0,
+        to: 1,
+        type: CHANGE_TYPES.DELETE,
+      },
+    ]);
+  });
+
+  test('wrap', function () {
+    wrap(0, 'blockquote');
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe(
+      'doc(paragraph("1234567890"), blockquote(paragraph("1234567890")))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 0,
+        to: 12,
+        type: CHANGE_TYPES.MODIFY_DELETE,
+      },
+      {
+        from: 12,
+        to: 26,
+        type: CHANGE_TYPES.MODIFY_INSERT,
+      },
+    ]);
+  });
+
+  test('unwrap', function () {
+    wrap(0, 'blockquote');
+    commit();
+    lift(1);
+    commit();
+    state = history.createEditorStateByCommitId(1);
+    expect(state.doc.toString()).toBe(
+      'doc(blockquote(paragraph("1234567890")), paragraph("1234567890"))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 0,
+        to: 14,
+        type: CHANGE_TYPES.MODIFY_DELETE,
+      },
+      {
+        from: 14,
+        to: 26,
+        type: CHANGE_TYPES.MODIFY_INSERT,
+      },
+    ]);
+  });
 });
 
 describe('sequence actions', function () {
   test('insert', function () {
-    insert(1, 'A');
-    insert(3, 'B');
+    insertText(1, 'A');
+    insertText(3, 'B');
     commit();
     state = history.createEditorStateByCommitId(0);
     expect(state.doc.toString()).toBe('doc(paragraph("A1B234567890"))');
@@ -163,8 +263,8 @@ describe('sequence actions', function () {
   });
 
   test('delete', function () {
-    remove(1, 1);
-    insert(2, 'A');
+    removeText(1, 1);
+    insertText(2, 'A');
     commit();
     state = history.createEditorStateByCommitId(0);
     expect(state.doc.toString()).toBe('doc(paragraph("12A34567890"))');
@@ -185,8 +285,8 @@ describe('sequence actions', function () {
 
 describe('sequence content actions', function () {
   test('insert', function () {
-    insert(1, 'AB');
-    insert(2, 'X');
+    insertText(1, 'AB');
+    insertText(2, 'X');
     commit();
     state = history.createEditorStateByCommitId(0);
     expect(state.doc.toString()).toBe('doc(paragraph("AXB1234567890"))');
@@ -203,4 +303,8 @@ describe('sequence content actions', function () {
       },
     ]);
   });
+});
+
+describe('open start and structure', function () {
+  // TODO
 });

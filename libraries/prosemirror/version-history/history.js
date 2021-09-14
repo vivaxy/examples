@@ -33,10 +33,10 @@ class History {
     const remappingForSteps = new Mapping();
     let decorationSet = DecorationSet.empty;
 
-    function addDecoration(from, to, type) {
+    function addDecoration(from, to, type, decorationType = 'inline') {
       if (from !== to) {
         decorationSet = decorationSet.add(transaction.doc, [
-          Decoration.inline(from, to, { class: type }),
+          Decoration[decorationType](from, to, { class: type }),
         ]);
       }
     }
@@ -96,24 +96,29 @@ class History {
         } else if (step.slice === Slice.empty) {
           const invertedDeleteStep = mappedStep.invert(tr.docs[i]);
           addRemapping(invertedDeleteStep);
-          addDecoration(
-            invertedDeleteStep.from,
-            invertedDeleteStep.to + invertedDeleteStep.slice.size,
-            CHANGE_TYPES.DELETE,
-          );
+          invertedDeleteStep.slice.content.forEach(function (content, offset) {
+            addDecoration(
+              invertedDeleteStep.from + offset,
+              invertedDeleteStep.to + offset + content.nodeSize,
+              CHANGE_TYPES.DELETE,
+              content.type.isInline ? 'inline' : 'node',
+            );
+          });
         } else if (step.from === step.to) {
           // insertion
           // map decorationSet to new positions
           transaction.step(mappedStep);
           mapDecoration(mappedStep);
-          addDecoration(
-            mappedStep.from,
-            mappedStep.to + mappedStep.slice.size,
-            CHANGE_TYPES.INSERT,
-          );
+          step.slice.content.forEach(function (content, offset) {
+            addDecoration(
+              mappedStep.from + offset,
+              mappedStep.from + offset + content.nodeSize,
+              CHANGE_TYPES.INSERT,
+              content.type.isInline ? 'inline' : 'node',
+            );
+          });
         } else {
           // modify
-          // ReplaceAroundStep
           // retain old data, add insert new slice, both mark as modified
           // highlight original position
           const deleteStep = new ReplaceStep(
@@ -123,26 +128,38 @@ class History {
           );
           const invertedDeleteStep = deleteStep.invert(transaction.doc);
           addRemapping(invertedDeleteStep);
-          addDecoration(
-            invertedDeleteStep.from,
-            invertedDeleteStep.to + invertedDeleteStep.slice.size,
-            CHANGE_TYPES.MODIFY_DELETE,
-          );
-
+          invertedDeleteStep.slice.content.forEach(function (content, offset) {
+            addDecoration(
+              invertedDeleteStep.from + offset,
+              invertedDeleteStep.to + offset + content.nodeSize,
+              CHANGE_TYPES.MODIFY_DELETE,
+              content.type.isInline ? 'inline' : 'node',
+            );
+          });
           // highlight new content
+          const stepResult = mappedStep.apply(transaction.doc);
+          const newSlice = stepResult.doc.slice(
+            mappedStep.from,
+            mappedStep.from +
+              (mappedStep.gapTo || 0) -
+              (mappedStep.gapFrom || 0) +
+              mappedStep.slice.size,
+          );
           const insertStep = new ReplaceStep(
             invertedDeleteStep.to + invertedDeleteStep.slice.size,
             invertedDeleteStep.to + invertedDeleteStep.slice.size,
-            step.slice,
-            step.structure,
+            newSlice,
           );
           transaction.step(insertStep);
           mapDecoration(insertStep);
-          addDecoration(
-            insertStep.from,
-            insertStep.to + insertStep.slice.size,
-            CHANGE_TYPES.MODIFY_INSERT,
-          );
+          newSlice.content.forEach(function (content, offset) {
+            addDecoration(
+              insertStep.from + offset,
+              insertStep.from + offset + content.nodeSize,
+              CHANGE_TYPES.MODIFY_INSERT,
+              content.type.isInline ? 'inline' : 'node',
+            );
+          });
         }
       });
     });

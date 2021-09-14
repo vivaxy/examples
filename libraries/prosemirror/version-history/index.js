@@ -7,7 +7,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { DOMParser } from 'prosemirror-model';
 import { exampleSetup } from 'prosemirror-example-setup';
-import { trackPlugin, highlightPlugin, CHANGE_TYPES, history } from './history';
+import { trackPlugin, highlightPlugin, history } from './history';
 
 const initialState = EditorState.create({
   schema,
