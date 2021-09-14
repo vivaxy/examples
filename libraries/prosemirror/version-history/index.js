@@ -5,14 +5,14 @@
 import { schema } from 'prosemirror-schema-basic';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { DOMParser, Slice } from 'prosemirror-model';
-import { Mapping } from 'prosemirror-transform';
-import { trackPlugin, highlightPlugin, CHANGE_TYPES } from './history';
+import { DOMParser } from 'prosemirror-model';
+import { exampleSetup } from 'prosemirror-example-setup';
+import { trackPlugin, highlightPlugin, CHANGE_TYPES, history } from './history';
 
 const initialState = EditorState.create({
   schema,
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
-  plugins: [trackPlugin, highlightPlugin],
+  plugins: [...exampleSetup({ schema }), trackPlugin, highlightPlugin],
 });
 
 const view = new EditorView(document.querySelector('#editor'), {
@@ -37,39 +37,7 @@ const $commits = document.querySelector('#commits');
 
 function createShowHistory(commitId) {
   return function showHistory() {
-    const commits = trackPlugin.getState(view.state).commits;
-    const commit = commits[commitId];
-    const oldState = commit.editorState;
-    // we preserve deletions, so steps after deleteStep will rebase upon `remapping`
-    const remapping = new Mapping();
-    const decorations = [];
-    const transaction = oldState.tr;
-    commit.transactions.forEach(function (tr) {
-      tr.steps.forEach(function (step, i) {
-        if (step.slice === Slice.empty) {
-          // deletion
-          const insertStep = step.invert(tr.docs[i]).map(remapping);
-          remapping.appendMap(insertStep.map(remapping).getMap(), null);
-          decorations.push({
-            from: insertStep.from,
-            to: insertStep.to + insertStep.slice.size,
-            type: CHANGE_TYPES.DELETE,
-          });
-        } else {
-          // insertion
-          const insertStep = step.map(remapping);
-          transaction.step(insertStep);
-          decorations.push({
-            from: insertStep.from,
-            to: insertStep.to + insertStep.slice.size,
-            type: CHANGE_TYPES.INSERT,
-          });
-        }
-      });
-    });
-    transaction.setMeta(highlightPlugin, decorations);
-    transaction.setMeta(trackPlugin, commits);
-    const newState = oldState.apply(transaction);
+    const newState = history.createEditorStateByCommitId(commitId);
     view.updateState(newState);
   };
 }

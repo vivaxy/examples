@@ -4,6 +4,8 @@
  */
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Mapping } from 'prosemirror-transform';
+import { Slice } from 'prosemirror-model';
 
 class Commit {
   constructor(editorState, transactions, message) {
@@ -13,11 +15,76 @@ class Commit {
   }
 }
 
+class History {
+  constructor() {
+    this.reset();
+  }
+
+  commit(editorState, transactions, message) {
+    this.commits.push(new Commit(editorState, transactions, message));
+  }
+
+  createEditorStateByCommitId(id) {
+    const commit = this.commits[id];
+    const oldEditorState = commit.editorState;
+    const transaction = oldEditorState.tr.setMeta('addToHistory', false);
+    const decorations = computeDecorations(
+      transaction,
+      oldEditorState,
+      commit.transactions,
+    );
+    transaction.setMeta(highlightPlugin, decorations);
+    return oldEditorState.apply(transaction);
+  }
+
+  reset() {
+    this.commits = [];
+  }
+}
+
+export function computeDecorations(transaction, oldEditorState, transactions) {
+  // we preserve deletions, so steps after deleteStep will rebase upon `remapping`
+  const remapping = new Mapping();
+  const decorations = [];
+  transactions.forEach(function (tr) {
+    tr.steps.forEach(function (step, i) {
+      if (step.slice === Slice.empty) {
+        // deletion
+        const insertStep = step.invert(tr.docs[i]).map(remapping);
+        remapping.appendMap(insertStep.map(remapping).getMap(), null);
+        decorations.push({
+          from: insertStep.from,
+          to: insertStep.to + insertStep.slice.size,
+          type: CHANGE_TYPES.DELETE,
+        });
+      } else if (step.from === step.to) {
+        // insertion
+        const insertStep = step.map(remapping);
+        transaction.step(insertStep);
+        decorations.push({
+          from: insertStep.from,
+          to: insertStep.to + insertStep.slice.size,
+          type: CHANGE_TYPES.INSERT,
+        });
+        // be careful to AddMarkStep/RemoveMarkStep
+      } else {
+        // modify
+        const insertStep = step.map(remapping);
+        // retain old data, add insert new slice, both mark as modified
+        // be careful to ReplaceAroundStep
+      }
+    });
+  });
+  return decorations;
+}
+
+export const history = new History();
+
 export const trackPlugin = new Plugin({
   key: new PluginKey('track'),
   state: {
     init(_, editorState) {
-      return { editorState, commits: [], uncommittedTransactions: [] };
+      return { editorState, uncommittedTransactions: [] };
     },
     apply(transaction, prevState, oldEditorState, newEditorState) {
       // track changes
@@ -33,16 +100,13 @@ export const trackPlugin = new Plugin({
       // commit
       const commitMessage = transaction.getMeta(this);
       if (commitMessage) {
+        history.commit(
+          prevState.editorState,
+          prevState.uncommittedTransactions,
+          commitMessage,
+        );
         return {
           editorState: oldEditorState,
-          commits: [
-            ...prevState.commits,
-            new Commit(
-              prevState.editorState,
-              prevState.uncommittedTransactions,
-              commitMessage,
-            ),
-          ],
           uncommittedTransactions: [],
         };
       }
