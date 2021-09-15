@@ -308,3 +308,20 @@ describe('sequence content actions', function () {
 describe('open start and structure', function () {
   // TODO
 });
+
+describe('special cases', function () {
+  test('insert between delete', function () {
+    insertText(2, 'A');
+    removeText(1, 3);
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe('doc(paragraph("1234567890"))');
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 1,
+        to: 3,
+        type: CHANGE_TYPES.DELETE,
+      },
+    ]);
+  });
+});
