@@ -1,5 +1,9 @@
 [
   {
+    "name": "History Plugin",
+    "link": "history-plugin/"
+  },
+  {
     "name": "Version History",
     "link": "version-history/"
   },
