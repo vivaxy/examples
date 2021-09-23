@@ -1,25 +1,30 @@
 [
-    {
-        "name": "popover",
-        "link": "popover/"
-    },{
-        "name": "common list",
-        "link": "common-list/"
-    },
-    {
-        "name": "fixed bar",
-        "link": "fixed-bar/"
-    },
-    {
-        "name": "columns",
-        "link": "columns/"
-    },
-    {
-        "name": "modal",
-        "link": "modal/"
-    },
-    {
-        "name": "0.5px border",
-        "link": "0.5px-border/"
-    }
+  {
+    "name": "center",
+    "link": "center/"
+  },
+  {
+    "name": "popover",
+    "link": "popover/"
+  },
+  {
+    "name": "common list",
+    "link": "common-list/"
+  },
+  {
+    "name": "fixed bar",
+    "link": "fixed-bar/"
+  },
+  {
+    "name": "columns",
+    "link": "columns/"
+  },
+  {
+    "name": "modal",
+    "link": "modal/"
+  },
+  {
+    "name": "0.5px border",
+    "link": "0.5px-border/"
+  }
 ]

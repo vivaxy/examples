@@ -1,0 +1,59 @@
+/**
+ * @since 2021-09-23
+ * @author vivaxy
+ */
+.parent {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #eee;
+}
+
+.child {
+  width: 100px;
+  height: 100px;
+  background: #eee;
+}
+
+.position_absolute-transform .parent {
+  position: relative;
+}
+
+.position_absolute-transform .child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.flex .parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid .parent {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-cell .parent {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table-cell .child {
+  display: inline-block;
+}
+
+.inline-block .parent {
+  text-align: center;
+  line-height: 200px;
+}
+
+.inline-block .child {
+  display: inline-block;
+  vertical-align: middle;
+}

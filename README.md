@@ -147,6 +147,7 @@ Table of contents
   * [use blob to create web worker](https://vivaxy.github.io/samples/javascript/use-blob-to-create-web-worker/) Use blob to create web worker
 * [Layout](https://vivaxy.github.io/samples/layout/) 布局
   * [0.5px border](https://vivaxy.github.io/samples/layout/0.5px-border/) 0.5px border
+  * [Center](https://vivaxy.github.io/samples/layout/center/) Center
   * [columns](https://vivaxy.github.io/samples/layout/columns/) Columns
   * [common list](https://vivaxy.github.io/samples/layout/common-list/) Common list
   * [fixed-bar](https://vivaxy.github.io/samples/layout/fixed-bar/) Fixed bar
