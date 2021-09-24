@@ -259,6 +259,8 @@ Table of contents
     * [Subjects](https://vivaxy.github.io/samples/libraries/rxjs/subject/) Subject
     * [Subscription](https://vivaxy.github.io/samples/libraries/rxjs/subscription/) Subscription
     * [throttleTime](https://vivaxy.github.io/samples/libraries/rxjs/throttle-time/) Throttle time
+  * [ShareDB](https://vivaxy.github.io/samples/libraries/sharedb/) Y.js
+    * [Counter](https://vivaxy.github.io/samples/libraries/sharedb/counter/) Counter
   * [Three.js](https://vivaxy.github.io/samples/libraries/three-js/) Three.js
     * [Basic](https://vivaxy.github.io/samples/libraries/three-js/basic/) Basic
     * [Drawing lines](https://vivaxy.github.io/samples/libraries/three-js/drawing-lines/) Drawing lines
