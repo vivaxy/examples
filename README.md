@@ -233,6 +233,7 @@ Table of contents
     * [ProseMirror Slice](https://vivaxy.github.io/samples/libraries/prosemirror/slice/) ProseMirror Slice
     * [ProseMirror Step](https://vivaxy.github.io/samples/libraries/prosemirror/step/) ProseMirror Step
     * [ProseMirror StepMap](https://vivaxy.github.io/samples/libraries/prosemirror/step-map/) ProseMirror StepMap
+    * [Steps Playground](https://vivaxy.github.io/samples/libraries/prosemirror/steps-playground/) Steps Playground
     * [ProseMirror Transactions](https://vivaxy.github.io/samples/libraries/prosemirror/transactions/) ProseMirror Transactions
     * [ProseMirror Transform](https://vivaxy.github.io/samples/libraries/prosemirror/transform/) ProseMirror Transform
     * [ProseMirror Unknown Schema](https://vivaxy.github.io/samples/libraries/prosemirror/unknown-schema/) ProseMirror Unknown Schema

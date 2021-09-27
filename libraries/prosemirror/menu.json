@@ -1,5 +1,9 @@
 [
   {
+    "name": "Steps Playground",
+    "link": "steps-playground/"
+  },
+  {
     "name": "History Plugin",
     "link": "history-plugin/"
   },
