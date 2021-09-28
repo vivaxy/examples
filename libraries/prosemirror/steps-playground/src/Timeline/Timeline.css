@@ -1,0 +1,44 @@
+/**
+ * @since 2021-09-28
+ * @author vivaxy
+ */
+.steps {
+  display: flex;
+}
+
+.step {
+  width: 100px;
+  height: 100px;
+  font-family: monospace;
+  font-size: 12px;
+  background: rgb(200, 255, 200);
+  border: 1px solid #fff;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.step-type {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.step-row {
+  display: flex;
+}
+
+.step-key {
+  color: #999;
+  flex: 1 0 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.step-value {
+  flex: none;
+}
+
+.step-slice,
+.step-mark {
+  margin-top: 8px;
+}
