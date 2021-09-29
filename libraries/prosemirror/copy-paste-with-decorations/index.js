@@ -4,15 +4,25 @@
  */
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
-import { DOMParser, DOMSerializer } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
+import { DOMParser, DOMSerializer, Schema } from 'prosemirror-model';
+import { schema as basicSchema } from 'prosemirror-schema-basic';
+import { addListNodes } from 'prosemirror-schema-list';
+import { exampleSetup } from 'prosemirror-example-setup';
+
+const schema = new Schema({
+  nodes: addListNodes(basicSchema.spec.nodes, 'paragraph block*', 'block'),
+  marks: basicSchema.spec.marks,
+});
 
 const decorationsPlugin = new Plugin({
   state: {
     init(_, { doc }) {
       return DecorationSet.create(doc, [
-        Decoration.inline(4, 7, {
-          style: 'background: rgb(100, 255, 255)',
+        Decoration.inline(4, 6, {
+          class: 'decoration',
+        }),
+        Decoration.inline(7, 9, {
+          class: 'decoration',
         }),
       ]);
     },
@@ -51,9 +61,8 @@ const decorationsPlugin = new Plugin({
           .find(from, to)
           .map(function (deco) {
             return {
-              // TODO: `1` for the paragraph padding. Is it always `1`?
-              from: Math.max(0, deco.from - from) + 1,
-              to: Math.min(to - from, deco.to - from) + 1,
+              from: Math.max(0, deco.from - from),
+              to: Math.min(to - from, deco.to - from),
               attrs: deco.type.attrs,
               spec: deco.spec,
             };
@@ -78,10 +87,9 @@ const decorationsPlugin = new Plugin({
           const selectionFrom = context.pos;
           const mappedDecorations = decorations.map(function (deco) {
             const { from, to, attrs, spec } = deco;
-            // TODO: `1` for the paragraph padding. Is it always `1`?
             return {
-              from: selectionFrom + from - 1,
-              to: selectionFrom + to - 1,
+              from: selectionFrom + from,
+              to: selectionFrom + to,
               attrs,
               spec,
             };
@@ -108,7 +116,7 @@ const decorationsPlugin = new Plugin({
 const state = EditorState.create({
   schema,
   doc: DOMParser.fromSchema(schema).parse(document.querySelector('#content')),
-  plugins: [decorationsPlugin],
+  plugins: [...exampleSetup({ schema }), decorationsPlugin],
 });
 
 const view = new EditorView(document.querySelector('#editor'), {
