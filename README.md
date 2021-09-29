@@ -211,6 +211,7 @@ Table of contents
     * [ProseMirror ContentMatch](https://vivaxy.github.io/samples/libraries/prosemirror/content-match/) ProseMirror ContentMatch
     * [Copy Paste with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/copy-paste-with-decorations/) Copy Paste with Decorations
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
+    * [Custom Steps](https://vivaxy.github.io/samples/libraries/prosemirror/custom-steps/) Custom Steps
     * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
     * [ProseMirror DOMParser parserOptions](https://vivaxy.github.io/samples/libraries/prosemirror/dom-parser-options/) ProseMirror DOMParser parserOptions
     * [DOMSerializer](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer/) DOMSerializer

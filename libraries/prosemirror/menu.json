@@ -1,5 +1,9 @@
 [
   {
+    "name": "Custom Steps",
+    "link": "custom-steps/"
+  },
+  {
     "name": "Steps Playground",
     "link": "steps-playground/build/"
   },
