@@ -2,12 +2,15 @@
  * @since 2021-03-26 16:27
  * @author vivaxy
  */
+@import "https://prosemirror.net/css/editor.css";
+
 .annotation-handle {
   width: 0;
   height: 0;
   position: relative;
   display: inline;
   user-select: none;
+  z-index: 11;
 }
 
 .annotation-add-button {
@@ -27,16 +30,17 @@
   width: 0;
   height: 0;
   user-select: none;
+  z-index: 11;
 }
 
-.annotation-tooltip-list {
+.annotation-tooltip .annotation-tooltip-list {
   position: absolute;
   bottom: 30px;
   width: 112px;
   background-color: #fff;
   border: 1px solid #999;
   border-radius: 2px;
-  padding-left: 0;
+  padding-left: 4px;
   margin: 0;
 }
 

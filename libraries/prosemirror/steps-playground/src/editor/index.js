@@ -5,7 +5,7 @@
 import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { DOMParser, Schema, Slice } from 'prosemirror-model';
+import { DOMParser, Schema } from 'prosemirror-model';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 

@@ -13,19 +13,28 @@ const ACTION_TYPE = {
 };
 
 class Annotation {
-  constructor(id, text) {
+  constructor(id, comment) {
     this.id = id;
-    this.text = text;
+    this.comment = comment;
   }
 }
 
-function createDecoration(from, to, annotation) {
-  return Decoration.inline(
-    from,
-    to,
-    { class: 'annotation-highlight', ['data-id']: annotation.id },
-    { annotation },
-  );
+function createDecoration(from, to, annotation, type) {
+  if (type === 'inline') {
+    return Decoration.inline(
+      from,
+      to,
+      { class: 'annotation-highlight', ['data-id']: annotation.id },
+      { annotation },
+    );
+  } else if (type === 'node') {
+    return Decoration.node(
+      from,
+      to,
+      { class: 'annotation-highlight', ['data-id']: annotation.id },
+      { annotation },
+    );
+  }
 }
 
 class AnnotationState {
@@ -33,21 +42,23 @@ class AnnotationState {
     this.decorationSet = decorationSet;
   }
 
-  static init(config, editorState) {
+  static init(config) {
     const decorations = config.annotations.map(function (annotation) {
       return createDecoration(
         annotation.from,
         annotation.to,
-        new Annotation(annotation.id, annotation.text),
+        new Annotation(annotation.id, annotation.comment),
+        annotation.type,
       );
     });
     return new AnnotationState(DecorationSet.create(config.doc, decorations));
   }
 
-  annotationsAt(pos) {
+  annotationsAt(pos, inclusive) {
     // when at boundary, decorationSet.find(pos, pos) matches, decorationSet.find(pos + 1, pos - 1) not matches
+    const offset = inclusive ? 0 : 1;
     return this.decorationSet
-      .find(pos + 1, pos - 1)
+      .find(pos + offset, pos - offset)
       .map(function (decorations) {
         return decorations.spec.annotation;
       });
@@ -71,10 +82,20 @@ class AnnotationState {
     let decorationSet = this.decorationSet.map(
       transaction.mapping,
       transaction.doc,
+      {
+        onRemove(spec) {
+          console.log('removed', spec);
+        },
+      },
     );
     if (actionType === ACTION_TYPE.ADD_ANNOTATION) {
       decorationSet = decorationSet.add(transaction.doc, [
-        createDecoration(action.from, action.to, action.annotation),
+        createDecoration(
+          action.from,
+          action.to,
+          action.annotation,
+          action.decorationType,
+        ),
       ]);
     } else if (actionType === ACTION_TYPE.DELETE_ANNOTATION) {
       decorationSet = decorationSet.remove([
@@ -85,9 +106,15 @@ class AnnotationState {
   }
 
   toJSON() {
-    return this.decorationSet.find().map(function ({ from, to, type }) {
-      const { id, text } = type.spec.annotation;
-      return { from, to, id, text };
+    return this.decorationSet.find().map(function (decoration) {
+      const { id, comment } = decoration.spec.annotation;
+      return {
+        from: decoration.from,
+        to: decoration.to,
+        id,
+        comment,
+        type: decoration.inline ? 'inline' : 'node',
+      };
     });
   }
 
@@ -122,14 +149,25 @@ export function createAnnotationHandlePlugin(dispatch) {
     props: {
       decorations(state) {
         const selection = state.selection;
-        if (selection.empty) {
-          // when cursor at annotation, show annotation
-          const annotations = annotationPlugin
+
+        function getAnnotations(inclusive) {
+          return annotationPlugin
             .getState(state)
-            .annotationsAt(selection.from);
-          if (!annotations.length) {
-            return null;
-          }
+            .annotationsAt(selection.from, inclusive);
+        }
+
+        // show add annotation button
+        function createAnnotationHandle() {
+          return DecorationSet.create(state.doc, [
+            Decoration.widget(
+              selection.from,
+              renderAnnotationHandle(dispatch, state),
+            ),
+          ]);
+        }
+
+        // show annotation comment
+        function createAnnotationTooltip(annotations) {
           return DecorationSet.create(state.doc, [
             Decoration.widget(
               selection.from,
@@ -137,14 +175,23 @@ export function createAnnotationHandlePlugin(dispatch) {
             ),
           ]);
         }
+
+        if (selection.node) {
+          const annotations = getAnnotations(true);
+          if (!annotations.length) {
+            return createAnnotationHandle();
+          }
+          return createAnnotationTooltip(annotations);
+        }
+        if (selection.empty) {
+          const annotations = getAnnotations(false);
+          if (!annotations.length) {
+            return null;
+          }
+          return createAnnotationTooltip(annotations);
+        }
         if (!selection.annotationAdded) {
-          // when select a text, ask for add an annotation
-          return DecorationSet.create(state.doc, [
-            Decoration.widget(
-              selection.from,
-              renderAnnotationHandle(dispatch, state),
-            ),
-          ]);
+          return createAnnotationHandle();
         }
       },
     },
@@ -172,7 +219,7 @@ function renderAnnotation(annotation, dispatch, state) {
   $annotation.classList.add('annotation-tooltip-item');
 
   const $text = document.createElement('span');
-  $text.textContent = annotation.text;
+  $text.textContent = annotation.comment;
 
   const $button = document.createElement('button');
   $button.classList.add('annotation-delete-button');
@@ -201,8 +248,8 @@ function renderAnnotationHandle(dispatch, state) {
   $button.classList.add('annotation-add-button');
   $button.textContent = 'Add annotation';
   $button.addEventListener('click', function () {
-    const text = prompt('Add annotation');
-    if (text) {
+    const comment = prompt('Add annotation');
+    if (comment) {
       const { selection, tr } = state;
       // hide annotation handle when annotation is added
       selection.annotationAdded = true;
@@ -210,7 +257,9 @@ function renderAnnotationHandle(dispatch, state) {
       dispatch(
         tr.setMeta(annotationPlugin, {
           type: ACTION_TYPE.ADD_ANNOTATION,
-          annotation: new Annotation(generateUUID(), text),
+          annotation: new Annotation(generateUUID(), comment),
+          decorationType:
+            selection instanceof TextSelection ? 'inline' : 'node',
           from: selection.from,
           to: selection.to,
         }),
