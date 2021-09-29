@@ -24,14 +24,21 @@ function createDecoration(from, to, annotation, type) {
     return Decoration.inline(
       from,
       to,
-      { class: 'annotation-highlight', ['data-id']: annotation.id },
+      {
+        nodeName: 'span',
+        class: 'annotation-highlight',
+        'data-id': annotation.id,
+      },
       { annotation },
     );
   } else if (type === 'node') {
     return Decoration.node(
       from,
       to,
-      { class: 'annotation-highlight', ['data-id']: annotation.id },
+      {
+        class: 'annotation-highlight',
+        'data-id': annotation.id,
+      },
       { annotation },
     );
   }
@@ -225,7 +232,8 @@ function renderAnnotation(annotation, dispatch, state) {
   $button.classList.add('annotation-delete-button');
   $button.title = 'Delete annotation';
   $button.textContent = 'x';
-  $button.addEventListener('click', function () {
+  // use `mousedown` instead of `click` to execute before ProseMirror update the selection
+  $button.addEventListener('mousedown', function () {
     dispatch(
       state.tr.setMeta(annotationPlugin, {
         type: ACTION_TYPE.DELETE_ANNOTATION,
@@ -247,7 +255,8 @@ function renderAnnotationHandle(dispatch, state) {
   const $button = document.createElement('button');
   $button.classList.add('annotation-add-button');
   $button.textContent = 'Add annotation';
-  $button.addEventListener('click', function () {
+  // use `mousedown` instead of `click` to execute before ProseMirror update the selection
+  $button.addEventListener('mousedown', function () {
     const comment = prompt('Add annotation');
     if (comment) {
       const { selection, tr } = state;

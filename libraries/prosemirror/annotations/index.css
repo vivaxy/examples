@@ -18,10 +18,11 @@
   bottom: 30px;
   width: 112px;
   height: 24px;
+  border: none;
 }
 
 .annotation-highlight {
-  background-color: rgba(255, 255, 0, 0.3);
+  background-color: rgba(255, 128, 128, 0.3);
 }
 
 .annotation-tooltip {
@@ -57,4 +58,5 @@
 .annotation-delete-button {
   height: 24px;
   float: right;
+  border: none;
 }
