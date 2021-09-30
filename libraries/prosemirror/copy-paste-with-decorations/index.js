@@ -73,6 +73,7 @@ const decorationsPlugin = new Plugin({
           node.appendChild(meta);
           console.log('copy or cut with decorations', decorations);
         }
+        // `serializeForClipboard` will wrap the node with proper tags which causes mismatch of the decoration positions
         return node;
       },
     },
@@ -104,6 +105,7 @@ const decorationsPlugin = new Plugin({
             );
           }, 0);
         }
+        // `parseFromClipboard` will read `pm-slice` add restore the copy context
         return DOMParser.fromSchema(schema).parseSlice(dom, {
           preserveWhitespace,
           context,

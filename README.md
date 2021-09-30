@@ -210,6 +210,7 @@ Table of contents
     * [ProseMirror Collab Module](https://vivaxy.github.io/samples/libraries/prosemirror/collab-module/) ProseMirror Collab Module
     * [ProseMirror ContentMatch](https://vivaxy.github.io/samples/libraries/prosemirror/content-match/) ProseMirror ContentMatch
     * [Copy Paste with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/copy-paste-with-decorations/) Copy Paste with Decorations
+    * [Copy Paste with Decorations 2](https://vivaxy.github.io/samples/libraries/prosemirror/copy-paste-with-decorations-2/) Copy Paste with Decorations 2
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [Custom Steps](https://vivaxy.github.io/samples/libraries/prosemirror/custom-steps/) Custom Steps
     * [Decoration Performance](https://vivaxy.github.io/samples/libraries/prosemirror/decoration-performance/) Decoration Performance

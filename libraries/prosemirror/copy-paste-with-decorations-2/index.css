@@ -1,0 +1,9 @@
+/**
+ * @since 2021-07-04
+ * @author vivaxy
+ */
+@import "https://prosemirror.net/css/editor.css";
+
+.decoration {
+  background: rgb(100, 255, 255);
+}
