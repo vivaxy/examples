@@ -1,5 +1,9 @@
 [
   {
+    "name": "vm-oom",
+    "link": "vm-oom/oom.sh"
+  },
+  {
     "name": "child_process Communication",
     "link": "child-process-communication/index.js"
   },
