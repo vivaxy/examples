@@ -120,28 +120,32 @@ function createDocument(state, dispatch, paragraphCount, repeatCount) {
 }
 
 function getRandomParagraph(state) {
-  const pIndex = random(state.doc.content.content.length);
-  const p = state.doc.content.content[pIndex];
-  let pos = 0;
-  for (let i = 0; i < pIndex; i++) {
-    pos += state.doc.content.content[i].nodeSize;
-  }
-  return { p, pos };
+  return { p: state.doc.content.content[0], pos: 0 };
+  // const pIndex = random(state.doc.content.content.length);
+  // const p = state.doc.content.content[pIndex];
+  // let pos = 0;
+  // for (let i = 0; i < pIndex; i++) {
+  //   pos += state.doc.content.content[i].nodeSize;
+  // }
+  // return { p, pos };
 }
 
+let lastPos = 0;
 function getRandomPositionInAParagraph(p) {
-  const pos0 = random(p.content.size);
-  const pos1 = random(p.content.size);
-  let from = Math.min(pos0, pos1);
-  let to = Math.max(pos0, pos1);
-  if (from === to) {
-    to++;
-  }
-  if (to >= p.content.size) {
-    from--;
-    to--;
-  }
-  return { from, to };
+  lastPos++;
+  return { from: 0, to: lastPos };
+  // const pos0 = random(p.content.size);
+  // const pos1 = random(p.content.size);
+  // let from = Math.min(pos0, pos1);
+  // let to = Math.max(pos0, pos1);
+  // if (from === to) {
+  //   to++;
+  // }
+  // if (to >= p.content.size) {
+  //   from--;
+  //   to--;
+  // }
+  // return { from, to };
 }
 
 function addDecorations(state, dispatch, count) {
