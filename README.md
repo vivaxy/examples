@@ -28,6 +28,7 @@ Table of contents
     * [Min Heap](https://vivaxy.github.io/samples/algorithms/heap/min-heap/) 最小堆
   * [Linked List](https://vivaxy.github.io/samples/algorithms/linked-list/) 链表
   * [Priority Queue](https://vivaxy.github.io/samples/algorithms/priority-queue/) 优先队列
+  * [Rope](https://vivaxy.github.io/samples/algorithms/rope/) Rope
   * [String](https://vivaxy.github.io/samples/algorithms/string/) 字符串
     * [Compute Transform Tables](https://vivaxy.github.io/samples/algorithms/string/compute-transform-tables/) Compute transform tables
     * [Knuth Morris Pratt](https://vivaxy.github.io/samples/algorithms/string/knuth-morris-pratt/) Knuth-Morris-Pratt 字符串查找算法

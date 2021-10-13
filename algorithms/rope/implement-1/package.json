@@ -1,0 +1,12 @@
+{
+  "name": "rope-implement-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^27.2.5"
+  }
+}
