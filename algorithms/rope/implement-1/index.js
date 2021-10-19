@@ -51,11 +51,23 @@ function findIndex(node, index) {
 }
 
 function concat(node1, node2) {
+  // node1 / 2 ~ node1 * 2
+  if (node2.length < node1.length / 2 && node1.right) {
+    // node2 too small, append to node1 leaf
+    node1.right = concat(node1.right, node2);
+    node1.length = node1.left.length + node1.right.length;
+    return node1;
+  }
+  if (node2.length > node1.length * 2 && node2.left) {
+    // node2 too large, append node1 to node2 leaf
+    node2.left = concat(node1, node2.left);
+    node2.length = node2.left.length + node2.right.length;
+    return node2;
+  }
   const node = new RopeNode();
   node.left = node1;
   node.right = node2;
   node.length = node1.length + node2.length;
-  // TODO: balance
   return node;
 }
 
