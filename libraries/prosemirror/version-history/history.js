@@ -61,6 +61,12 @@ class History {
     }
 
     commit.steps.forEach(function (step) {
+      // hack to work around `join` step
+      if (step.structure && step.slice === Slice.empty) {
+        transaction.step(step);
+        return oldEditorState.apply(transaction);
+      }
+
       const mappedStep = step.map(remappingForSteps);
 
       if (step.mark) {
@@ -92,34 +98,9 @@ class History {
           mappedStep.to + newSlice.size,
           CHANGE_TYPES.MODIFY_INSERT,
         );
-      } else if (step.slice === Slice.empty) {
-        const invertedDeleteStep = mappedStep.invert(transaction.doc);
-        addRemapping(invertedDeleteStep);
-        invertedDeleteStep.slice.content.forEach(function (content, offset) {
-          addDecoration(
-            invertedDeleteStep.from + offset,
-            invertedDeleteStep.to + offset + content.nodeSize,
-            CHANGE_TYPES.DELETE,
-            content.type.isInline ? 'inline' : 'node',
-          );
-        });
-      } else if (step.from === step.to) {
-        // insertion
-        // map decorationSet to new positions
-        transaction.step(mappedStep);
-        mapDecoration(mappedStep);
-        step.slice.content.forEach(function (content, offset) {
-          addDecoration(
-            mappedStep.from + offset,
-            mappedStep.from + offset + content.nodeSize,
-            CHANGE_TYPES.INSERT,
-            content.type.isInline ? 'inline' : 'node',
-          );
-        });
       } else {
-        // modify
-        // retain old data, add insert new slice, both mark as modified
-        // highlight original position
+        // ReplaceStep or ReplaceAroundStep
+        // Keep original content, and decorate it
         const deleteStep = new ReplaceStep(
           mappedStep.from,
           mappedStep.to,
@@ -131,11 +112,14 @@ class History {
           addDecoration(
             invertedDeleteStep.from + offset,
             invertedDeleteStep.to + offset + content.nodeSize,
-            CHANGE_TYPES.MODIFY_DELETE,
+            step.slice === Slice.empty
+              ? CHANGE_TYPES.DELETE
+              : CHANGE_TYPES.MODIFY_DELETE,
             content.type.isInline ? 'inline' : 'node',
           );
         });
-        // highlight new content
+
+        // Add new contents and decorate it
         const stepResult = mappedStep.apply(transaction.doc);
         const newSlice = stepResult.doc.slice(
           mappedStep.from,
@@ -155,7 +139,9 @@ class History {
           addDecoration(
             insertStep.from + offset,
             insertStep.from + offset + content.nodeSize,
-            CHANGE_TYPES.MODIFY_INSERT,
+            step.from === step.to
+              ? CHANGE_TYPES.INSERT
+              : CHANGE_TYPES.MODIFY_INSERT,
             content.type.isInline ? 'inline' : 'node',
           );
         });

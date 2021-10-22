@@ -70,6 +70,14 @@ function lift(pos) {
   state = state.apply(state.tr.lift(nodeRange, target));
 }
 
+function split(pos) {
+  state = state.apply(state.tr.split(pos));
+}
+
+function join(pos) {
+  state = state.apply(state.tr.join(pos));
+}
+
 function commit(message = 'No message') {
   state = state.apply(state.tr.setMeta(trackPlugin, message));
 }
@@ -305,8 +313,31 @@ describe('sequence content actions', function () {
   });
 });
 
-describe('open start and structure', function () {
-  // TODO
+describe('split', function () {
+  test('split paragraph', function () {
+    split(11);
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe(
+      'doc(paragraph("1234567890"), paragraph)',
+    );
+    expect(getDecorations()).toStrictEqual([]);
+  });
+});
+
+describe('join', function () {
+  test('join paragraph', function () {
+    split(11);
+    expect(state.doc.toString()).toBe(
+      'doc(paragraph("1234567890"), paragraph)',
+    );
+    commit();
+    join(12, 2);
+    commit();
+    state = history.createEditorStateByCommitId(1);
+    expect(state.doc.toString()).toBe('doc(paragraph("1234567890"))');
+    expect(getDecorations()).toStrictEqual([]);
+  });
 });
 
 describe('special cases', function () {
