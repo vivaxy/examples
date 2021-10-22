@@ -17,18 +17,14 @@
   margin-left: 4px;
 }
 
-.insert {
+.insert-content {
   background: rgb(128, 255, 128);
 }
 
-.delete {
+.delete-content {
   background: rgb(255, 128, 128);
 }
 
-.modify-insert {
+.update-style {
   background: rgb(128, 255, 255);
-}
-
-.modify-delete {
-  background: rgb(255, 128, 255);
 }

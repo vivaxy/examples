@@ -107,7 +107,7 @@ describe('inline actions', function () {
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -121,7 +121,7 @@ describe('inline actions', function () {
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
     ]);
   });
@@ -130,19 +130,12 @@ describe('inline actions', function () {
     addMark(1, 2, 'em');
     commit();
     state = history.createEditorStateByCommitId(0);
-    expect(state.doc.toString()).toBe(
-      'doc(paragraph("1", em("1"), "234567890"))',
-    );
+    expect(state.doc.toString()).toBe('doc(paragraph(em("1"), "234567890"))');
     expect(getDecorations()).toStrictEqual([
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.MODIFY_DELETE,
-      },
-      {
-        from: 2,
-        to: 3,
-        type: CHANGE_TYPES.MODIFY_INSERT,
+        type: CHANGE_TYPES.UPDATE_STYLE,
       },
     ]);
   });
@@ -153,17 +146,12 @@ describe('inline actions', function () {
     removeMark(1, 2, 'em');
     commit();
     state = history.createEditorStateByCommitId(1);
-    expect(state.doc.toString()).toBe('doc(paragraph(em("1"), "1234567890"))');
+    expect(state.doc.toString()).toBe('doc(paragraph("1234567890"))');
     expect(getDecorations()).toStrictEqual([
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.MODIFY_DELETE,
-      },
-      {
-        from: 2,
-        to: 3,
-        type: CHANGE_TYPES.MODIFY_INSERT,
+        type: CHANGE_TYPES.UPDATE_STYLE,
       },
     ]);
   });
@@ -181,7 +169,7 @@ describe('node actions', function () {
       {
         from: 0,
         to: 1,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -199,7 +187,7 @@ describe('node actions', function () {
       {
         from: 0,
         to: 1,
-        type: CHANGE_TYPES.DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
     ]);
   });
@@ -215,12 +203,12 @@ describe('node actions', function () {
       {
         from: 0,
         to: 12,
-        type: CHANGE_TYPES.MODIFY_DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
       {
         from: 12,
         to: 26,
-        type: CHANGE_TYPES.MODIFY_INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -238,12 +226,12 @@ describe('node actions', function () {
       {
         from: 0,
         to: 14,
-        type: CHANGE_TYPES.MODIFY_DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
       {
         from: 14,
         to: 26,
-        type: CHANGE_TYPES.MODIFY_INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -260,12 +248,12 @@ describe('sequence actions', function () {
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
       {
         from: 3,
         to: 4,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -280,12 +268,12 @@ describe('sequence actions', function () {
       {
         from: 1,
         to: 2,
-        type: CHANGE_TYPES.DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
       {
         from: 3,
         to: 4,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -302,12 +290,12 @@ describe('sequence content actions', function () {
       {
         from: 1,
         to: 4,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
       {
         from: 2,
         to: 3,
-        type: CHANGE_TYPES.INSERT,
+        type: CHANGE_TYPES.INSERT_CONTENT,
       },
     ]);
   });
@@ -351,7 +339,7 @@ describe('special cases', function () {
       {
         from: 1,
         to: 3,
-        type: CHANGE_TYPES.DELETE,
+        type: CHANGE_TYPES.DELETE_CONTENT,
       },
     ]);
   });

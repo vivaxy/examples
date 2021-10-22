@@ -7,10 +7,50 @@ import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Mapping, ReplaceStep } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
+export function rebaseSteps(stepsInfo, over, transform, mapDecoration) {
+  for (let i = stepsInfo.length - 1; i >= 0; i--) {
+    transform.step(stepsInfo[i].inverted);
+    mapDecoration(stepsInfo[i].inverted);
+  }
+
+  over.forEach(function (step) {
+    if (step.from === step.to && step.slice.size === 0) {
+      return;
+    }
+    transform.step(step);
+    mapDecoration(step);
+  });
+
+  const result = [];
+
+  // before insertStep
+  let mapFrom = transform.steps.length - over.length;
+  stepsInfo.forEach(function (stepInfo) {
+    const mapped = stepInfo.step.map(transform.mapping.slice(mapFrom));
+    mapFrom--;
+
+    // maybeStep is needed to calculate accurate steps
+    if (mapped && !transform.maybeStep(mapped).failed) {
+      mapDecoration(mapped);
+      transform.mapping.setMirror(mapFrom, transform.steps.length - 1);
+      const doc = transform.docs[transform.docs.length - 1];
+      result.push({
+        step: mapped,
+        inverted: mapped.invert(doc),
+        doc,
+      });
+    } else {
+      throw new Error('rebase failed');
+    }
+  });
+
+  return result;
+}
+
 class Commit {
-  constructor(editorState, steps, message) {
+  constructor(editorState, stepsInfo, message) {
     this.editorState = editorState;
-    this.steps = steps;
+    this.stepsInfo = stepsInfo;
     this.message = message;
   }
 }
@@ -20,8 +60,8 @@ class History {
     this.reset();
   }
 
-  commit(editorState, steps, message) {
-    this.commits.push(new Commit(editorState, steps, message));
+  commit(editorState, stepsInfo, message) {
+    this.commits.push(new Commit(editorState, stepsInfo, message));
   }
 
   createEditorStateByCommitId(id) {
@@ -29,11 +69,13 @@ class History {
     const oldEditorState = commit.editorState;
     const transaction = oldEditorState.tr.setMeta('addToHistory', false);
 
-    // we preserve deletions, so steps after deleteStep will rebase upon `remapping`
-    const remappingForSteps = new Mapping();
+    commit.stepsInfo.forEach(function (stepInfo) {
+      transaction.step(stepInfo.step);
+    });
+
     let decorationSet = DecorationSet.empty;
 
-    function addDecoration(from, to, type, decorationType = 'inline') {
+    function addDecoration(from, to, type, decorationType) {
       if (from !== to) {
         decorationSet = decorationSet.add(transaction.doc, [
           Decoration[decorationType](from, to, { class: type }),
@@ -46,107 +88,68 @@ class History {
      * @param step
      */
     function mapDecoration(step) {
+      if (step.from === step.to && step.slice.size === 0) {
+        return;
+      }
       decorationSet = decorationSet.map(
         new Mapping([step.getMap()]),
         transaction.doc,
       );
     }
 
-    /**
-     * this happens as long as the change is not original (not from the user)
-     * @param step
-     */
-    function addRemapping(step) {
-      remappingForSteps.appendMap(step.getMap(), null);
-    }
+    for (
+      let i = 0, toReplayStepsInfo = commit.stepsInfo;
+      i < toReplayStepsInfo.length;
+      i++
+    ) {
+      const stepInfo = toReplayStepsInfo[i];
+      const step = stepInfo.step;
 
-    commit.steps.forEach(function (step) {
-      // hack to work around `join` step
       if (step.structure && step.slice === Slice.empty) {
-        transaction.step(step);
-        return oldEditorState.apply(transaction);
+        continue;
       }
-
-      const mappedStep = step.map(remappingForSteps);
 
       if (step.mark) {
-        // AddMarkStep or RemoveMarkStep
-        // treat as ReplaceStep
-        // mark old slice as modify delete
-        addDecoration(
-          mappedStep.from,
-          mappedStep.to,
-          CHANGE_TYPES.MODIFY_DELETE,
-        );
-
-        // insert new Slice
-        const stepResult = mappedStep.apply(transaction.doc);
-        const newSlice = stepResult.doc.slice(mappedStep.from, mappedStep.to);
-
-        const insertStep = new ReplaceStep(
-          mappedStep.to,
-          mappedStep.to,
-          newSlice,
-        );
-        // this is a new action, we need to save it to remapping
-        addRemapping(insertStep);
-        transaction.step(insertStep);
-        // update existing decorationSet
-        mapDecoration(insertStep);
-        addDecoration(
-          mappedStep.to,
-          mappedStep.to + newSlice.size,
-          CHANGE_TYPES.MODIFY_INSERT,
-        );
-      } else {
-        // ReplaceStep or ReplaceAroundStep
-        // Keep original content, and decorate it
-        const deleteStep = new ReplaceStep(
-          mappedStep.from,
-          mappedStep.to,
-          Slice.empty,
-        );
-        const invertedDeleteStep = deleteStep.invert(transaction.doc);
-        addRemapping(invertedDeleteStep);
-        invertedDeleteStep.slice.content.forEach(function (content, offset) {
-          addDecoration(
-            invertedDeleteStep.from + offset,
-            invertedDeleteStep.to + offset + content.nodeSize,
-            step.slice === Slice.empty
-              ? CHANGE_TYPES.DELETE
-              : CHANGE_TYPES.MODIFY_DELETE,
-            content.type.isInline ? 'inline' : 'node',
-          );
-        });
-
-        // Add new contents and decorate it
-        const stepResult = mappedStep.apply(transaction.doc);
-        const newSlice = stepResult.doc.slice(
-          mappedStep.from,
-          mappedStep.from +
-            (mappedStep.gapTo || 0) -
-            (mappedStep.gapFrom || 0) +
-            mappedStep.slice.size,
-        );
-        const insertStep = new ReplaceStep(
-          invertedDeleteStep.to + invertedDeleteStep.slice.size,
-          invertedDeleteStep.to + invertedDeleteStep.slice.size,
-          newSlice,
-        );
-        transaction.step(insertStep);
-        mapDecoration(insertStep);
-        newSlice.content.forEach(function (content, offset) {
-          addDecoration(
-            insertStep.from + offset,
-            insertStep.from + offset + content.nodeSize,
-            step.from === step.to
-              ? CHANGE_TYPES.INSERT
-              : CHANGE_TYPES.MODIFY_INSERT,
-            content.type.isInline ? 'inline' : 'node',
-          );
-        });
+        addDecoration(step.from, step.to, CHANGE_TYPES.UPDATE_STYLE, 'inline');
+        continue;
       }
-    });
+
+      // split step into two steps: delete + insert
+      const insertLength =
+        (step.gapTo || 0) - (step.gapFrom || 0) + step.slice.size;
+      const baseDoc =
+        toReplayStepsInfo.length === 1
+          ? transaction.doc
+          : transaction.docs[
+              transaction.docs.length - toReplayStepsInfo.length + 1
+            ];
+      const insertSlice = baseDoc.slice(step.from, step.from + insertLength);
+      const insertStep = new ReplaceStep(step.from, step.from, insertSlice);
+      toReplayStepsInfo = rebaseSteps(
+        toReplayStepsInfo.slice(i + 1),
+        [stepInfo.inverted, insertStep],
+        transaction,
+        mapDecoration,
+      );
+      i = -1;
+
+      stepInfo.inverted.slice.content.forEach(function (node, offset) {
+        addDecoration(
+          step.from + offset,
+          step.from + offset + node.nodeSize,
+          CHANGE_TYPES.DELETE_CONTENT,
+          node.type.isInline ? 'inline' : 'node',
+        );
+      });
+      insertSlice.content.forEach(function (content, offset) {
+        addDecoration(
+          insertStep.from + offset,
+          insertStep.from + offset + content.nodeSize,
+          CHANGE_TYPES.INSERT_CONTENT,
+          content.type.isInline ? 'inline' : 'node',
+        );
+      });
+    }
 
     transaction.setMeta(highlightPlugin, decorationSet);
     return oldEditorState.apply(transaction);
@@ -159,37 +162,48 @@ class History {
 
 export const history = new History();
 
-function mergeStep(step0, step1) {
+function mergeStep(stepInfo0, stepInfo1) {
+  const step0 = stepInfo0.step;
+  const step1 = stepInfo1.step;
   const merged = step0.merge(step1);
   if (merged) {
-    return merged;
+    return {
+      step: merged,
+      inverted: merged.invert(stepInfo0.doc),
+      doc: stepInfo0.doc,
+    };
   }
   // ignore middle steps
   if (step0.constructor === ReplaceStep && step1.constructor === ReplaceStep) {
     if (step0.from >= step1.from && step0.from + step0.slice.size <= step1.to) {
-      return new ReplaceStep(
+      const merged = new ReplaceStep(
         step1.from,
         step1.to - (step0.slice.size - step0.to + step0.from),
         step1.slice,
         step1.structure,
       );
+      return {
+        step: merged,
+        inverted: merged.invert(stepInfo0.doc),
+        doc: stepInfo0.doc,
+      };
     }
   }
   return null;
 }
 
-function mergeSteps(steps) {
+function mergeStepsInfo(stepsInfo) {
   const res = [];
-  steps.forEach(function (step) {
+  stepsInfo.forEach(function (stepInfo) {
     if (!res.length) {
-      res.push(step);
+      res.push(stepInfo);
     } else {
-      const lastStep = res[res.length - 1];
-      const mergedStep = mergeStep(lastStep, step);
-      if (mergedStep) {
-        res[res.length - 1] = mergedStep;
+      const lastStepInfo = res[res.length - 1];
+      const mergedStepInfo = mergeStep(lastStepInfo, stepInfo);
+      if (mergedStepInfo) {
+        res[res.length - 1] = mergedStepInfo;
       } else {
-        res.push(step);
+        res.push(stepInfo);
       }
     }
   });
@@ -200,16 +214,22 @@ export const trackPlugin = new Plugin({
   key: new PluginKey('track'),
   state: {
     init(_, editorState) {
-      return { editorState, uncommittedSteps: [] };
+      return { editorState, uncommittedStepsInfo: [] };
     },
     apply(transaction, prevState, oldEditorState) {
       // track changes
       if (transaction.docChanged) {
         return {
           ...prevState,
-          uncommittedSteps: mergeSteps([
-            ...prevState.uncommittedSteps,
-            ...transaction.steps,
+          uncommittedStepsInfo: mergeStepsInfo([
+            ...prevState.uncommittedStepsInfo,
+            ...transaction.steps.map(function (step, i) {
+              return {
+                step,
+                inverted: step.invert(transaction.docs[i]),
+                doc: transaction.docs[i],
+              };
+            }),
           ]),
         };
       }
@@ -218,12 +238,12 @@ export const trackPlugin = new Plugin({
       if (commitMessage) {
         history.commit(
           prevState.editorState,
-          prevState.uncommittedSteps,
+          prevState.uncommittedStepsInfo,
           commitMessage,
         );
         return {
           editorState: oldEditorState,
-          uncommittedSteps: [],
+          uncommittedStepsInfo: [],
         };
       }
       // default
@@ -261,8 +281,7 @@ export const highlightPlugin = new Plugin({
 });
 
 export const CHANGE_TYPES = {
-  INSERT: 'insert',
-  DELETE: 'delete',
-  MODIFY_INSERT: 'modify-insert',
-  MODIFY_DELETE: 'modify-delete',
+  INSERT_CONTENT: 'insert-content',
+  DELETE_CONTENT: 'delete-content',
+  UPDATE_STYLE: 'update-style',
 };
