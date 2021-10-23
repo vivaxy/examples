@@ -7,7 +7,15 @@ import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Mapping, ReplaceStep } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
-export function rebaseSteps(stepsInfo, over, transform, mapDecoration) {
+// TODO: test with invert version of rebaseSteps and without invert version of rebaseSteps
+// with invert version of rebaseStep
+export function rebaseSteps(
+  stepsInfo,
+  over,
+  transform,
+  mapDecoration,
+  addDecorations,
+) {
   for (let i = stepsInfo.length - 1; i >= 0; i--) {
     transform.step(stepsInfo[i].inverted);
     mapDecoration(stepsInfo[i].inverted);
@@ -20,6 +28,8 @@ export function rebaseSteps(stepsInfo, over, transform, mapDecoration) {
     transform.step(step);
     mapDecoration(step);
   });
+
+  addDecorations();
 
   const result = [];
 
@@ -117,38 +127,53 @@ class History {
       // split step into two steps: delete + insert
       const insertLength =
         (step.gapTo || 0) - (step.gapFrom || 0) + step.slice.size;
-      const baseDoc =
-        toReplayStepsInfo.length === 1
-          ? transaction.doc
-          : transaction.docs[
-              transaction.docs.length - toReplayStepsInfo.length + 1
-            ];
-      const insertSlice = baseDoc.slice(step.from, step.from + insertLength);
-      const insertStep = new ReplaceStep(step.from, step.from, insertSlice);
+      const docBeforeStep =
+        transaction.docs[transaction.docs.length - toReplayStepsInfo.length];
+      const deleteSlice = docBeforeStep.slice(step.from, step.to);
+      const insertDeleteStep = new ReplaceStep(
+        step.from,
+        step.from,
+        deleteSlice,
+      );
+      const docAfterStep = step.apply(docBeforeStep).doc;
+      const insertSlice = docAfterStep.slice(
+        step.from,
+        step.from + insertLength,
+      );
+      const insertStep = new ReplaceStep(
+        step.from + insertLength,
+        step.from + insertLength,
+        insertSlice,
+      );
+      /**
+       * rebaseSteps(..., [stepInfo.inverted, insertStep], ...)
+       * will cause rebase fail when a step insert content within previous insertion.
+       */
       toReplayStepsInfo = rebaseSteps(
         toReplayStepsInfo.slice(i + 1),
-        [stepInfo.inverted, insertStep],
+        [insertDeleteStep],
         transaction,
         mapDecoration,
+        function () {
+          deleteSlice.content.forEach(function (node, offset) {
+            addDecoration(
+              step.from + offset,
+              step.from + offset + node.nodeSize,
+              CHANGE_TYPES.DELETE_CONTENT,
+              node.type.isInline ? 'inline' : 'node',
+            );
+          });
+          insertSlice.content.forEach(function (content, offset) {
+            addDecoration(
+              step.to + offset,
+              step.to + offset + content.nodeSize,
+              CHANGE_TYPES.INSERT_CONTENT,
+              content.type.isInline ? 'inline' : 'node',
+            );
+          });
+        },
       );
       i = -1;
-
-      stepInfo.inverted.slice.content.forEach(function (node, offset) {
-        addDecoration(
-          step.from + offset,
-          step.from + offset + node.nodeSize,
-          CHANGE_TYPES.DELETE_CONTENT,
-          node.type.isInline ? 'inline' : 'node',
-        );
-      });
-      insertSlice.content.forEach(function (content, offset) {
-        addDecoration(
-          insertStep.from + offset,
-          insertStep.from + offset + content.nodeSize,
-          CHANGE_TYPES.INSERT_CONTENT,
-          content.type.isInline ? 'inline' : 'node',
-        );
-      });
     }
 
     transaction.setMeta(highlightPlugin, decorationSet);

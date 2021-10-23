@@ -25,7 +25,13 @@ function run(steps, oDoc, insertStep, nDoc) {
 
   expect(tr.doc.toString()).toBe(oDoc);
 
-  rebaseSteps(stepsInfo, [insertStep], tr, () => {});
+  rebaseSteps(
+    stepsInfo,
+    [insertStep],
+    tr,
+    () => {},
+    () => {},
+  );
 
   expect(tr.doc.toString()).toBe(nDoc);
 }
