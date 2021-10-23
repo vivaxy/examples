@@ -343,4 +343,21 @@ describe('special cases', function () {
       },
     ]);
   });
+
+  test('delete step and structure step should not merge', function () {
+    removeText(4, 1);
+    split(4);
+    commit();
+    state = history.createEditorStateByCommitId(0);
+    expect(state.doc.toString()).toBe(
+      'doc(paragraph("1234"), paragraph("567890"))',
+    );
+    expect(getDecorations()).toStrictEqual([
+      {
+        from: 4,
+        to: 5,
+        type: CHANGE_TYPES.DELETE_CONTENT,
+      },
+    ]);
+  });
 });

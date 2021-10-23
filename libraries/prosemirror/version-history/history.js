@@ -199,13 +199,17 @@ function mergeStep(stepInfo0, stepInfo1) {
     };
   }
   // ignore middle steps
-  if (step0.constructor === ReplaceStep && step1.constructor === ReplaceStep) {
+  if (
+    step0.constructor === ReplaceStep &&
+    step1.constructor === ReplaceStep &&
+    !step0.structure &&
+    !step1.structure
+  ) {
     if (step0.from >= step1.from && step0.from + step0.slice.size <= step1.to) {
       const merged = new ReplaceStep(
         step1.from,
         step1.to - (step0.slice.size - step0.to + step0.from),
         step1.slice,
-        step1.structure,
       );
       return {
         step: merged,
