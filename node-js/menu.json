@@ -1,5 +1,9 @@
 [
   {
+    "name": "async-hooks",
+    "link": "async-hooks/async-hooks.js"
+  },
+  {
     "name": "vm-oom",
     "link": "vm-oom/oom.sh"
   },
