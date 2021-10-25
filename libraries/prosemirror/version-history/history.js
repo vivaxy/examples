@@ -4,12 +4,44 @@
  */
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Mapping, ReplaceStep } from 'prosemirror-transform';
+import { Mapping, ReplaceStep, Transform } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
-// TODO: test with invert version of rebaseSteps and without invert version of rebaseSteps
-// with invert version of rebaseStep
-export function rebaseSteps(
+export function rebaseStepsWithoutApply(
+  stepsInfo,
+  over,
+  transform,
+  mapDecoration,
+) {
+  over.forEach(function (step) {
+    if (step.from === step.to && step.slice.size === 0) {
+      return;
+    }
+    transform.step(step);
+    mapDecoration(step);
+  });
+
+  const tr = new Transform(transform.doc);
+  const result = [];
+  const mapping = transform.mapping.slice(transform.steps.length - over.length);
+  stepsInfo.forEach(function (stepInfo) {
+    const mapped = stepInfo.step.map(mapping);
+    // maybeStep is needed to calculate accurate steps
+    if (mapped && !tr.maybeStep(mapped).failed) {
+      const doc = tr.docs[tr.docs.length - 1];
+      result.push({
+        step: mapped,
+        inverted: mapped.invert(doc),
+        doc,
+      });
+    } else {
+      throw new Error('rebase failed');
+    }
+  });
+  return result;
+}
+
+export function rebaseStepsWithApply(
   stepsInfo,
   over,
   transform,
@@ -74,14 +106,10 @@ class History {
     this.commits.push(new Commit(editorState, stepsInfo, message));
   }
 
-  createEditorStateByCommitId(id) {
+  createEditorStateByCommitIdWithoutApply(id) {
     const commit = this.commits[id];
     const oldEditorState = commit.editorState;
     const transaction = oldEditorState.tr.setMeta('addToHistory', false);
-
-    commit.stepsInfo.forEach(function (stepInfo) {
-      transaction.step(stepInfo.step);
-    });
 
     let decorationSet = DecorationSet.empty;
 
@@ -120,6 +148,106 @@ class History {
       }
 
       if (step.mark) {
+        transaction.step(step);
+        addDecoration(step.from, step.to, CHANGE_TYPES.UPDATE_STYLE, 'inline');
+        continue;
+      }
+
+      // split step into two steps: delete + insert
+      const insertLength =
+        (step.gapTo || 0) - (step.gapFrom || 0) + step.slice.size;
+      const deletedSlice = transaction.doc.slice(step.from, step.to);
+      const insertDeleteStep = new ReplaceStep(
+        step.from,
+        step.from,
+        deletedSlice,
+      );
+      transaction.step(step);
+      const insertSlice = transaction.doc.slice(
+        step.from,
+        step.from + insertLength,
+      );
+      const insertStep = new ReplaceStep(step.from, step.from, insertSlice);
+      /**
+       * rebaseSteps(..., [stepInfo.inverted, insertStep], ...)
+       * will cause rebase fail when a step insert content within previous insertion.
+       */
+      toReplayStepsInfo = rebaseStepsWithoutApply(
+        toReplayStepsInfo.slice(i + 1),
+        [insertDeleteStep],
+        transaction,
+        mapDecoration,
+      );
+      i = -1;
+
+      deletedSlice.content.forEach(function (node, offset) {
+        addDecoration(
+          step.from + offset,
+          step.from + offset + node.nodeSize,
+          CHANGE_TYPES.DELETE_CONTENT,
+          node.type.isInline ? 'inline' : 'node',
+        );
+      });
+      insertSlice.content.forEach(function (content, offset) {
+        addDecoration(
+          step.to + offset,
+          step.to + offset + content.nodeSize,
+          CHANGE_TYPES.INSERT_CONTENT,
+          content.type.isInline ? 'inline' : 'node',
+        );
+      });
+    }
+
+    transaction.setMeta(highlightPlugin, decorationSet);
+    return oldEditorState.apply(transaction);
+  }
+
+  createEditorStateByCommitIdWithApply(id) {
+    const commit = this.commits[id];
+    const oldEditorState = commit.editorState;
+    const transaction = oldEditorState.tr.setMeta('addToHistory', false);
+
+    let decorationSet = DecorationSet.empty;
+
+    function addDecoration(from, to, type, decorationType) {
+      if (from !== to) {
+        decorationSet = decorationSet.add(transaction.doc, [
+          Decoration[decorationType](from, to, { class: type }),
+        ]);
+      }
+    }
+
+    /**
+     * this happens as long as the doc changed
+     * @param step
+     */
+    function mapDecoration(step) {
+      if (step.from === step.to && step.slice.size === 0) {
+        return;
+      }
+      decorationSet = decorationSet.map(
+        new Mapping([step.getMap()]),
+        transaction.doc,
+      );
+    }
+
+    commit.stepsInfo.forEach(function (stepInfo) {
+      transaction.step(stepInfo.step);
+    });
+
+    for (
+      let i = 0, toReplayStepsInfo = commit.stepsInfo;
+      i < toReplayStepsInfo.length;
+      i++
+    ) {
+      const stepInfo = toReplayStepsInfo[i];
+      const step = stepInfo.step;
+
+      if (step.structure && step.slice === Slice.empty) {
+        continue;
+      }
+
+      if (step.mark) {
         addDecoration(step.from, step.to, CHANGE_TYPES.UPDATE_STYLE, 'inline');
         continue;
       }
@@ -129,11 +257,11 @@ class History {
         (step.gapTo || 0) - (step.gapFrom || 0) + step.slice.size;
       const docBeforeStep =
         transaction.docs[transaction.docs.length - toReplayStepsInfo.length];
-      const deleteSlice = docBeforeStep.slice(step.from, step.to);
+      const deletedSlice = docBeforeStep.slice(step.from, step.to);
       const insertDeleteStep = new ReplaceStep(
         step.from,
         step.from,
-        deleteSlice,
+        deletedSlice,
       );
       const docAfterStep = step.apply(docBeforeStep).doc;
       const insertSlice = docAfterStep.slice(
@@ -149,13 +277,13 @@ class History {
        * rebaseSteps(..., [stepInfo.inverted, insertStep], ...)
        * will cause rebase fail when a step insert content within previous insertion.
        */
-      toReplayStepsInfo = rebaseSteps(
+      toReplayStepsInfo = rebaseStepsWithApply(
         toReplayStepsInfo.slice(i + 1),
         [insertDeleteStep],
         transaction,
         mapDecoration,
         function () {
-          deleteSlice.content.forEach(function (node, offset) {
+          deletedSlice.content.forEach(function (node, offset) {
             addDecoration(
               step.from + offset,
               step.from + offset + node.nodeSize,
@@ -186,6 +314,9 @@ class History {
 }
 
 export const history = new History();
+history.createEditorStateByCommitId = history.createEditorStateByCommitIdWithApply.bind(
+  history,
+);
 
 function mergeStep(stepInfo0, stepInfo1) {
   const step0 = stepInfo0.step;

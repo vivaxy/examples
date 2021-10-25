@@ -6,9 +6,42 @@ import { schema } from 'prosemirror-schema-basic';
 import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep } from 'prosemirror-transform';
 import { EditorState } from 'prosemirror-state';
-import { rebaseSteps } from '../history';
+import { rebaseStepsWithApply, rebaseStepsWithoutApply } from '../history';
 
-function run(steps, oDoc, insertStep, nDoc) {
+function runWithoutApply(steps, oDoc, insertStep, nDoc) {
+  const state = EditorState.create({
+    schema,
+    doc: schema.node('doc', {}, [
+      schema.node('paragraph', {}, [schema.text('1234567890')]),
+    ]),
+  });
+
+  const _tr = state.tr;
+  const stepsInfo = steps.map(function (step) {
+    const doc = _tr.doc;
+    const inverted = step.invert(_tr.doc);
+    _tr.step(step);
+    return { step, inverted, doc };
+  });
+
+  expect(_tr.doc.toString()).toBe(oDoc);
+
+  const tr = state.tr;
+  const rebasedStepsInfo = rebaseStepsWithoutApply(
+    stepsInfo,
+    [insertStep],
+    tr,
+    () => {},
+  );
+
+  rebasedStepsInfo.forEach(function (stepInfo) {
+    tr.step(stepInfo.step);
+  });
+
+  expect(tr.doc.toString()).toBe(nDoc);
+}
+
+function runWithApply(steps, oDoc, insertStep, nDoc) {
   const state = EditorState.create({
     schema,
     doc: schema.node('doc', {}, [
@@ -18,14 +51,15 @@ function run(steps, oDoc, insertStep, nDoc) {
 
   const tr = state.tr;
   const stepsInfo = steps.map(function (step) {
-    const inverted = step.invert(tr.doc);
+    const doc = tr.doc;
+    const inverted = step.invert(doc);
     tr.step(step);
-    return { inverted, step };
+    return { step, inverted, doc };
   });
 
   expect(tr.doc.toString()).toBe(oDoc);
 
-  rebaseSteps(
+  rebaseStepsWithApply(
     stepsInfo,
     [insertStep],
     tr,
@@ -35,6 +69,8 @@ function run(steps, oDoc, insertStep, nDoc) {
 
   expect(tr.doc.toString()).toBe(nDoc);
 }
+
+const run = runWithApply;
 
 describe('delete, delete', function () {
   test('before', function () {
@@ -157,7 +193,7 @@ describe('insert, delete', function () {
       3,
       new Slice(new Fragment([schema.text('x')]), 0, 0),
     );
-    const nDoc = 'doc(paragraph("x34567890"))';
+    const nDoc = 'doc(paragraph("34567890"))';
     run(steps, oDoc, insertStep, nDoc);
   });
 
