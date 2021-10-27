@@ -285,6 +285,7 @@ Table of contents
     * [YMap](https://vivaxy.github.io/samples/libraries/yjs/map/) YMap
     * [Y.js Merge Conflict](https://vivaxy.github.io/samples/libraries/yjs/merge-conflict/) Y.js Merge Conflict
     * [Y.js Positions](https://vivaxy.github.io/samples/libraries/yjs/positions/) Y.js Positions
+    * [ProseMirror Yjs](https://vivaxy.github.io/samples/libraries/yjs/prosemirror-yjs/) ProseMirror Yjs
     * [Y.js SearchMarkers](https://vivaxy.github.io/samples/libraries/yjs/search-markers/) Y.js SearchMarkers
     * [Yjs Skip](https://vivaxy.github.io/samples/libraries/yjs/skip/) Yjs Skip
     * [Y.js Snapshot](https://vivaxy.github.io/samples/libraries/yjs/snapshot/) Y.js Snapshot

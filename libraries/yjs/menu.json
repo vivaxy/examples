@@ -1,5 +1,9 @@
 [
   {
+    "name": "Prosemirror Yjs",
+    "link": "prosemirror-yjs/"
+  },
+  {
     "name": "Duplicate Cleanup",
     "link": "duplicate-cleanup/"
   },
