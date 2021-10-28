@@ -1,5 +1,5 @@
 {
-  "name": "async-hooks",
+  "name": "async-local-storage",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

@@ -3,7 +3,16 @@
  * @author vivaxy
  */
 const asyncHooks = require('async_hooks');
-exports.hook = asyncHooks.createHook({
+const fs = require('fs');
+const util = require('util');
+
+function debug(...args) {
+  fs.writeFileSync('log.log', `${util.format(...args)}\n`, { flag: 'a' });
+}
+
+exports.debug = debug;
+
+const hook = asyncHooks.createHook({
   init,
   before,
   after,
@@ -11,25 +20,30 @@ exports.hook = asyncHooks.createHook({
   promiseResolve,
 });
 
+hook.enable();
+
 const contextMap = new Map();
 
-exports.createContext = function createContext(data) {
-  contextMap.set(asyncHooks.executionAsyncId(), data);
-  return data;
+exports.createContext = function createContext(context) {
+  contextMap.set(asyncHooks.executionAsyncId(), { context });
+  return context;
 };
 
-exports.getContext = function getContext() {
-  return contextMap.get(asyncHooks.executionAsyncId());
-};
-
-function init(asyncId, type, triggerAsyncId, resource) {
-  // console.log('init', asyncId, type, triggerAsyncId, resource);
-  if (contextMap.has(triggerAsyncId)) {
-    if (contextMap.has(asyncId)) {
-      throw new Error('Async id already exists');
-    }
-    contextMap.set(asyncId, contextMap.get(triggerAsyncId));
+exports.getContext = function getContext(
+  asyncId = asyncHooks.executionAsyncId(),
+) {
+  const data = contextMap.get(asyncId);
+  if (data.context) {
+    return data.context;
   }
+  if (data.parentAsyncId) {
+    return getContext(data.parentAsyncId);
+  }
+  return null;
+};
+
+function init(asyncId, type, triggerAsyncId) {
+  contextMap.set(asyncId, { parentAsyncId: triggerAsyncId });
 }
 
 function before(asyncId) {

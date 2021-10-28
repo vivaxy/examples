@@ -2,21 +2,33 @@
  * @since 2021-10-25
  * @author vivaxy
  */
-const fs = require('fs');
-const util = require('util');
-const { createContext, getContext, hook } = require('./async-hooks');
+const Koa = require('koa');
+const { log, middleware } = require('./lib');
 
-function debug(...args) {
-  fs.writeFileSync('log.log', `${util.format(...args)}\n`, { flag: 'a' });
+function sleep(timeout) {
+  return new Promise(function (resolve) {
+    log('before sleep');
+    setTimeout(function () {
+      log('after sleep');
+      resolve();
+    }, timeout);
+  });
 }
 
-let contextId = 0;
-exports.log = function log(msg) {
-  const context = getContext() || createContext({ id: contextId++, stack: [] });
-  const currentStack = {};
-  Error.captureStackTrace(currentStack);
-  context.stack.unshift(...currentStack.stack.split('\n').slice(1));
-  debug(context.id, msg);
-};
+async function main(ctx, next) {
+  log('start');
+  await sleep(100);
+  log('end');
+  ctx.body = 'ok';
+  await next();
+}
 
-exports.hook = hook;
+const koa = new Koa();
+koa.use(middleware);
+koa.use(main);
+koa.on('error', function (err) {
+  console.error(err);
+});
+koa.listen(8080, function () {
+  console.log('server started on 8080');
+});

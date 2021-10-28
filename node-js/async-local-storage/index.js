@@ -1,9 +1,9 @@
 /**
- * @since 2021-10-25
+ * @since 2021-10-28
  * @author vivaxy
  */
 const Koa = require('koa');
-const { log, hook } = require('./index');
+const { log, asyncLocalStorageMiddleware } = require('./lib');
 
 function sleep(timeout) {
   return new Promise(function (resolve) {
@@ -16,14 +16,13 @@ function sleep(timeout) {
 }
 
 async function main(ctx) {
-  hook.enable();
   log('start');
   await sleep(100);
   log('end');
   ctx.body = 'ok';
-  hook.disable();
 }
 
 const koa = new Koa();
+koa.use(asyncLocalStorageMiddleware);
 koa.use(main);
 koa.listen(8080);
