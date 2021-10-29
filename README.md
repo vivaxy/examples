@@ -234,6 +234,7 @@ Table of contents
     * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
     * [ProseMirror Schema ParseRule](https://vivaxy.github.io/samples/libraries/prosemirror/schema-parse-rule/) ProseMirror Schema ParseRule
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection
+    * [ProseMirror Selection Changed Plugin](https://vivaxy.github.io/samples/libraries/prosemirror/selection-changed/) ProseMirror Selection Changed Plugin
     * [ProseMirror Slice](https://vivaxy.github.io/samples/libraries/prosemirror/slice/) ProseMirror Slice
     * [ProseMirror Step](https://vivaxy.github.io/samples/libraries/prosemirror/step/) ProseMirror Step
     * [ProseMirror StepMap](https://vivaxy.github.io/samples/libraries/prosemirror/step-map/) ProseMirror StepMap

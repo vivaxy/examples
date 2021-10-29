@@ -1,5 +1,9 @@
 [
   {
+    "name": "Selection Changed",
+    "link": "selection-changed/"
+  },
+  {
     "name": "Copy Paste with Decorations 2",
     "link": "copy-paste-with-decorations-2/"
   },
