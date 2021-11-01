@@ -9,12 +9,11 @@ import {
   ReplaceAroundStep,
 } from 'prosemirror-transform';
 import { Plugin, PluginKey } from 'prosemirror-state';
+import * as Y from 'yjs';
 import {
   relativePositionToAbsolutePosition,
   absolutePositionToRelativePosition,
-} from 'y-prosemirror';
-import * as Y from 'yjs';
-import { getRelativePosition } from './y-prosemirror-helpers';
+} from './helpers';
 
 const pluginKey = new PluginKey('yjs');
 
