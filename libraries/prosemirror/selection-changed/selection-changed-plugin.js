@@ -12,28 +12,38 @@ export class SelectionChangedPlugin {
       key: selectionChangedPluginKey,
       state: {
         init(config, editorState) {
-          return { selection: editorState.selection };
+          return { selection: editorState.selection, focused: false };
         },
         apply(tr, prevState, oldEditorState, newEditorState) {
           const newSelection = newEditorState.selection;
           const oldSelection = prevState.selection;
-          if (!oldSelection.map(tr.doc, tr.mapping).eq(newSelection)) {
-            onSelectionChange(newSelection, true);
+          const selectionChanged = !oldSelection
+            .map(tr.doc, tr.mapping)
+            .eq(newSelection);
+          const meta = tr.getMeta(selectionChangedPluginKey);
+          const newFocused = meta ? meta.focused : prevState.focused;
+          const focusChanged = prevState.focused !== newFocused;
+          if (selectionChanged || focusChanged) {
+            onSelectionChange(newSelection, newFocused);
           }
-          return { selection: newSelection };
+          return { selection: newSelection, focused: newFocused };
         },
       },
       view(editorView) {
         function handleFocusIn() {
-          const selection = selectionChangedPluginKey.getState(editorView.state)
-            .selection;
-          onSelectionChange(selection, true);
+          editorView.dispatch(
+            editorView.state.tr.setMeta(selectionChangedPluginKey, {
+              focused: true,
+            }),
+          );
         }
 
         function handleFocusOut() {
-          const selection = selectionChangedPluginKey.getState(editorView.state)
-            .selection;
-          onSelectionChange(selection, false);
+          editorView.dispatch(
+            editorView.state.tr.setMeta(selectionChangedPluginKey, {
+              focused: false,
+            }),
+          );
         }
 
         editorView.dom.addEventListener('focusin', handleFocusIn);
