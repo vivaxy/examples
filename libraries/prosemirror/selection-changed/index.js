@@ -8,7 +8,7 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
-import { selectionChangedPlugin } from './selection-changed-plugin';
+import { SelectionChangedPlugin } from './selection-changed-plugin';
 
 // Mix the nodes from prosemirror-schema-list into the basic schema to
 // create a schema with list support.
@@ -22,7 +22,16 @@ const view = new EditorView(document.querySelector('#editor'), {
     doc: DOMParser.fromSchema(mySchema).parse(
       document.querySelector('#content'),
     ),
-    plugins: [...exampleSetup({ schema: mySchema }), selectionChangedPlugin],
+    plugins: [
+      ...exampleSetup({ schema: mySchema }),
+      new SelectionChangedPlugin(function (selection, focused) {
+        console.log(
+          'selection change',
+          selection ? selection.toJSON() : null,
+          focused,
+        );
+      }),
+    ],
   }),
 });
 
