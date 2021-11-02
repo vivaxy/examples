@@ -67,6 +67,20 @@ function dfs(item, parent, visitor) {
   }
 }
 
+export function insert(yDoc, absPos, slice) {}
+
+const removeHandlers = {
+  [Y.ContentType](item, absPos, length) {
+    switch (item.content.type.constructor) {
+      case Y.XmlElement:
+        break;
+      default:
+        throw errors.unexpected();
+    }
+    return { removedLength: 0, totalLength: 0 };
+  },
+};
+
 /**
  * @param yDoc {Y.Doc}
  *  XmlFragment
@@ -81,43 +95,14 @@ function dfs(item, parent, visitor) {
 export function remove(yDoc, absPos, length) {
   const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
   let item = xmlFragment._start;
-  // TODO:
-  //  - remove(xmlElement, absPos, length)
-  let curPos = 0;
-  dfs(type, null, function (item, parent) {
-    switch (item.content.constructor) {
-      case Y.ContentString:
-      case Y.ContentEmbed:
-        const length =
-          item.content.constructor === Y.ContentString
-            ? item.content.content.length
-            : 1;
-        if (curPos === absPos) {
-          relPos.rightItem = item;
-          relPos.rightOffset = 0;
-          return SIGNALS.BREAK;
-        }
-        if (curPos + length > absPos) {
-          relPos.leftItem = item;
-          relPos.leftOffset = absPos - curPos - 1;
-          relPos.rightItem = item;
-          relPos.rightOffset = absPos - curPos;
-          relPos.parent = parent;
-          return SIGNALS.BREAK;
-        }
-        if (curPos + length === absPos) {
-          relPos.leftItem = item;
-          relPos.leftOffset = length - 1;
-        }
-        curPos += length;
-        break;
-      case Y.ContentFormat:
-      case Y.ContentDeleted:
-        break;
-      case Y.ContentType:
-        break;
-      default:
-        throw errors.unexpected();
+  while (item) {
+    const removeHandler = removeHandlers[item.content.constructor];
+    if (!removeHandler) {
+      throw errors.unexpected();
     }
-  });
+    const { removedLength, totalLength } = removeHandler(yDoc, absPos, length);
+    absPos -= totalLength;
+    length -= removedLength;
+    item = item.right;
+  }
 }
