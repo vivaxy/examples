@@ -19,20 +19,24 @@ export default new Plugin({
   state: {
     init: (config) => {
       const { yjs } = config;
+      yjs.yDoc.on('update', yjs.onUpdate);
       return yjs;
     },
     apply: (tr, yState, oldEditorState, newEditorState) => {
       if (!tr.docChanged) {
         return yState;
       }
-      const type = yState.yDoc.get('prosemirror', Y.XmlFragment);
-      const mapping = new Map();
       tr.steps.forEach(function (step) {
         switch (true) {
           case step instanceof ReplaceStep:
           case step instanceof ReplaceAroundStep:
             if (step.to > step.from) {
-              remove(yState.yDoc, step.from, step.to - step.from);
+              remove(
+                yState.yDoc,
+                oldEditorState.schema,
+                step.from,
+                step.to - step.from,
+              );
             }
             if (step.slice.content.size) {
               insert(yState.yDoc, step.from, step.slice);
@@ -42,6 +46,7 @@ export default new Plugin({
             throw new Error('Unexpect step constructor' + step.constructor);
         }
       });
+      console.log(yState.yDoc.toJSON());
       return yState;
     },
   },

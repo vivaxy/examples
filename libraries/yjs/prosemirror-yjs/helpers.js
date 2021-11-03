@@ -1,14 +1,8 @@
 /**
  * @since 2021-10-27
  * @author vivaxy
- * TODO:
- *  1. p2y
- *  2. y2p
- *  3. a2r
- *  4. r2a
  */
 import * as Y from 'yjs';
-import { XmlText } from 'yjs';
 
 const errors = {
   unexpected(message = 'case') {
@@ -70,16 +64,91 @@ function dfs(item, parent, visitor) {
 export function insert(yDoc, absPos, slice) {}
 
 const removeHandlers = {
-  [Y.ContentType](item, absPos, length) {
-    switch (item.content.type.constructor) {
+  [Y.ContentType](item, schema, absPos, length) {
+    let removedLength = 0;
+    let totalLength = 0;
+
+    if (length <= 0) {
+      return { removedLength, totalLength };
+    }
+
+    const { type } = item.content;
+
+    switch (type.constructor) {
       case Y.XmlElement:
+        const { nodeName } = type;
+        const nodeType = schema.nodes[nodeName];
+        if (nodeType.isBlock && nodeType.isLeaf) {
+          totalLength = 1;
+          removedLength +=
+            Math.max(0, totalLength - absPos) +
+            Math.max(0, absPos + length - totalLength);
+          if (removedLength) {
+            debugger;
+          }
+        } else if (nodeType.isBlock && !nodeType.isLeaf) {
+          totalLength += 1;
+          absPos -= 1;
+          const { removedLength: rl, totalLength: tl } = removeFromTypeArray(
+            type,
+            schema,
+            absPos,
+            length,
+          );
+          removedLength += rl;
+          totalLength += tl;
+          totalLength += 1;
+          absPos -= 1;
+        } else {
+          throw errors.unexpected();
+        }
+        break;
+      case Y.XmlText:
+        const oLength = type._length;
+        totalLength += oLength;
+        type.delete(absPos, length);
+        removedLength += type._length - oLength;
         break;
       default:
         throw errors.unexpected();
     }
-    return { removedLength: 0, totalLength: 0 };
+    return { removedLength, totalLength };
+  },
+  [Y.ContentString](item, schema, absPos, length) {
+    const totalLength = item.content.str.length;
+    const removedLength =
+      Math.max(0, totalLength - absPos) +
+      Math.max(0, absPos + length - totalLength);
+    if (removedLength) {
+      item.content.remove(absPos, length);
+    }
+    return { removedLength, totalLength };
   },
 };
+
+function removeFromTypeArray(xmlFragment, schema, absPos, length) {
+  let totalLength = 0;
+  let removedLength = 0;
+  let item = xmlFragment._start;
+  while (item) {
+    const removeHandler = removeHandlers[item.content.constructor];
+    if (!removeHandler) {
+      throw errors.unexpected();
+    }
+    const { removedLength: rl, totalLength: tl } = removeHandler(
+      item,
+      schema,
+      absPos,
+      length,
+    );
+    absPos -= tl;
+    length -= rl;
+    totalLength += tl;
+    removedLength += rl;
+    item = item.right;
+  }
+  return { removedLength, totalLength };
+}
 
 /**
  * @param yDoc {Y.Doc}
@@ -89,20 +158,11 @@ const removeHandlers = {
  *    XmlElement
  *      XmlElement
  *    XmlElement
+ * @param schema {Schema}
  * @param absPos {number}
  * @param length {number}
  */
-export function remove(yDoc, absPos, length) {
+export function remove(yDoc, schema, absPos, length) {
   const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
-  let item = xmlFragment._start;
-  while (item) {
-    const removeHandler = removeHandlers[item.content.constructor];
-    if (!removeHandler) {
-      throw errors.unexpected();
-    }
-    const { removedLength, totalLength } = removeHandler(yDoc, absPos, length);
-    absPos -= totalLength;
-    length -= removedLength;
-    item = item.right;
-  }
+  removeFromTypeArray(xmlFragment, schema, absPos, length);
 }

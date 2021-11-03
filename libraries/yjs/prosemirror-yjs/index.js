@@ -17,9 +17,11 @@ const mySchema = new Schema({
   marks: schema.spec.marks,
 });
 
-function createEditor($container, pDoc) {
-  const mapping = new Map();
+function broadcast(update) {
+  // TODO
+}
 
+function createEditor($container, pDoc) {
   function p2y(pDoc) {
     const yDoc = new Y.Doc();
     const type = yDoc.get('prosemirror', Y.XmlFragment);
@@ -27,7 +29,7 @@ function createEditor($container, pDoc) {
       return yDoc;
     }
 
-    updateYFragment(type.doc, type, pDoc, mapping);
+    updateYFragment(type.doc, type, pDoc);
     return type.doc;
   }
 
@@ -36,7 +38,7 @@ function createEditor($container, pDoc) {
       doc: pDoc,
       yjs: {
         yDoc: p2y(pDoc),
-        mapping,
+        onUpdate: broadcast,
       },
       plugins: [...exampleSetup({ schema: mySchema }), yjsPlugin],
     }),
