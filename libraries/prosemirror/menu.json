@@ -1,5 +1,9 @@
 [
   {
+    "name": "Decoration Render Sequence",
+    "link": "decoration-render-sequence/"
+  },
+  {
     "name": "Selection Changed",
     "link": "selection-changed/"
   },

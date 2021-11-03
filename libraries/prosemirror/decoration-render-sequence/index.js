@@ -41,6 +41,7 @@ const decorationsPlugin = new Plugin({
   },
   props: {
     decorations(state) {
+      console.log('props.decorations');
       return this.getState(state);
     },
   },
