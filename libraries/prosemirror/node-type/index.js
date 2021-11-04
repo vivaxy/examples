@@ -3,16 +3,17 @@
  * @author vivaxy
  */
 import { schema } from 'prosemirror-schema-basic';
-import { Fragment } from 'prosemirror-model';
-import { TextNode } from 'prosemirror-model/src/node';
+import { DOMSerializer } from 'prosemirror-model';
 
 function exec(funcName) {
   try {
-    const doc = schema.nodes.doc[funcName](
-      {},
-      new Fragment(new TextNode(schema.nodes.text, {}, '123')),
+    const doc = schema.nodes.doc[funcName]({}, null);
+    const $fragment = DOMSerializer.fromSchema(schema).serializeFragment(
+      doc.content,
     );
-    console.log(funcName, doc.toString());
+    const $parent = document.createElement('div');
+    $parent.appendChild($fragment);
+    console.log(funcName, `<doc>${$parent.innerHTML}</doc>`);
   } catch (e) {
     console.error(funcName, e);
   }

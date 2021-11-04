@@ -26,9 +26,10 @@ const mySchema = new Schema({
 const decorationsPlugin = new Plugin({
   state: {
     init(_, { doc }) {
+      console.log('plugin.init');
       return DecorationSet.create(doc, [
         Decoration.widget(1, function toDOM() {
-          console.log('render decoration');
+          console.log('decoration.toDOM');
           const widget = document.createElement('span');
           widget.innerHTML = '(WIDGET)';
           return widget;
@@ -36,6 +37,7 @@ const decorationsPlugin = new Plugin({
       ]);
     },
     apply(tr, decorationSet) {
+      console.log('plugin.apply');
       return decorationSet.map(tr.mapping, tr.doc);
     },
   },
@@ -51,17 +53,16 @@ const customNodePlugin = new Plugin({
   props: {
     nodeViews: {
       custom_node() {
-        console.log('init custom node');
+        console.log('nodeViews.node');
         const dom = document.createElement('div');
         dom.innerHTML = '(CUSTOM_NODE)';
         return {
           dom,
-          contentDOM: dom,
           update() {
-            console.log('update custom node');
+            console.log('nodeViews.node.update');
           },
           destroy() {
-            console.log('destroy custom node');
+            console.log('nodeViews.node.destroy');
           },
         };
       },

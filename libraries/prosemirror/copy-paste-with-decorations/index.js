@@ -18,10 +18,7 @@ const decorationsPlugin = new Plugin({
   state: {
     init(_, { doc }) {
       return DecorationSet.create(doc, [
-        Decoration.inline(4, 6, {
-          class: 'decoration',
-        }),
-        Decoration.inline(7, 9, {
+        Decoration.inline(2, 3, {
           class: 'decoration',
         }),
       ]);
@@ -124,3 +121,4 @@ const state = EditorState.create({
 const view = new EditorView(document.querySelector('#editor'), {
   state,
 });
+window.view = view;
