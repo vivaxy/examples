@@ -44,6 +44,7 @@ const decorationsPlugin = new Plugin({
     },
     clipboardSerializer: {
       serializeFragment(content, { document }) {
+        // TODO: get openStart and openEnd, since the position is related.
         const node = DOMSerializer.fromSchema(schema).serializeFragment(
           content,
           {

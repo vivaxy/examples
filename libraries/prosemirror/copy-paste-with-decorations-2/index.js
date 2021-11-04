@@ -4,7 +4,13 @@
  */
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
-import { DOMParser, DOMSerializer, Schema, Fragment } from 'prosemirror-model';
+import {
+  DOMParser,
+  DOMSerializer,
+  Schema,
+  Fragment,
+  Slice,
+} from 'prosemirror-model';
 import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
@@ -19,6 +25,7 @@ const schemaWithDecoration = new Schema({
   marks: {
     ...schema.spec.marks,
     decoration: {
+      attrs: { class: '' },
       excludes: '',
       parseDOM: [
         {
@@ -66,9 +73,10 @@ const decorationsPlugin = new Plugin({
     },
     clipboardSerializer: {
       serializeFragment(content, { document }) {
+        // TODO: get openStart and openEnd, since the position is related.
         // hack: access `view` globally
         const { from, to } = view.state.selection;
-        const decorations = decorationsPlugin
+        decorationsPlugin
           .getState(view.state)
           .find(from, to)
           .forEach(function (deco) {
@@ -77,22 +85,20 @@ const decorationsPlugin = new Plugin({
             const attrs = deco.type.attrs;
 
             function mapFragment(fragment, f, startPos = 0) {
-              let mapped = [];
-              let innerPos = 0;
+              let mapped = Fragment.empty;
               for (let i = 0; i < fragment.childCount; i++) {
                 let child = fragment.child(i);
                 if (child.content.size) {
                   child = child.copy(
-                    mapFragment(child.content, f, startPos + innerPos),
+                    mapFragment(child.content, f, startPos + mapped.size),
                   );
-                  mapped.push(child);
+                  mapped = mapped.addToEnd(child);
                 } else if (child.isInline) {
-                  child = f(child, startPos + innerPos);
-                  mapped.push(...child);
+                  child = f(child, startPos + mapped.size);
+                  mapped = mapped.append(child);
                 }
-                innerPos += child.nodeSize;
               }
-              return Fragment.fromArray(mapped);
+              return mapped;
             }
 
             content = mapFragment(content, function (node, innerPos) {
@@ -117,12 +123,12 @@ const decorationsPlugin = new Plugin({
               if (seg1 !== node.nodeSize) {
                 after = node.cut(seg1, node.nodeSize);
               }
-              const mapped = [];
+              let mapped = Fragment.empty;
               if (before) {
-                mapped.push(before);
+                mapped = mapped.addToEnd(before);
               }
               if (middle) {
-                mapped.push(
+                mapped = mapped.addToEnd(
                   middle.mark(
                     schemaWithDecoration
                       .mark('decoration', attrs)
@@ -131,7 +137,7 @@ const decorationsPlugin = new Plugin({
                 );
               }
               if (after) {
-                mapped.push(after);
+                mapped = mapped.addToEnd(after);
               }
               return mapped;
             });
@@ -145,25 +151,53 @@ const decorationsPlugin = new Plugin({
       parseSlice(dom, { preserveWhitespace, context }) {
         const slice = DOMParser.fromSchema(schemaWithDecoration).parseSlice(
           dom,
-          {
-            preserveWhitespace,
-            context,
-          },
+          { preserveWhitespace, context },
         );
 
-        debugger;
         const selectionFrom = context.pos;
+        const decorations = [];
 
-        // hack: trigger after content is inserted
-        // hack: access view globally
+        function mapFragment(fragment) {
+          let innerPos = 0;
+          return Fragment.from(
+            fragment.content.map(function (node) {
+              if (node.isText) {
+                const newMarks = node.marks.filter(function (mark) {
+                  if (mark.type === schemaWithDecoration.marks.decoration) {
+                    decorations.push({
+                      from: innerPos + selectionFrom,
+                      to: innerPos + selectionFrom + node.nodeSize,
+                      attrs: mark.attrs,
+                    });
+                    return false;
+                  }
+                  return true;
+                });
+                node = node.mark(newMarks);
+              } else if (node.content) {
+                node = node.copy(mapFragment(node.content));
+              }
+              innerPos += node.nodeSize;
+              return node;
+            }),
+          );
+        }
+
+        const mappedSlice = new Slice(
+          mapFragment(slice.content),
+          slice.openStart,
+          slice.openEnd,
+        );
+
         setTimeout(function () {
           view.dispatch(
             view.state.tr.setMeta(decorationsPlugin, {
-              decorations: [],
+              decorations,
             }),
           );
         }, 0);
-        return slice;
+        // convert to doc schema
+        return Slice.fromJSON(schema, mappedSlice.toJSON());
       },
     },
   },
