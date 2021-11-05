@@ -2,8 +2,6 @@
  * @since 2021-06-24
  * @author vivaxy
  */
-import * as Y from 'yjs';
-import { updateYFragment } from 'y-prosemirror/src/plugins/sync-plugin';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
@@ -11,6 +9,7 @@ import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import yjsPlugin from './yjs-plugin';
+import { y2p, p2y } from './helpers';
 
 const mySchema = new Schema({
   nodes: addListNodes(schema.spec.nodes, 'paragraph block*', 'block'),
@@ -22,17 +21,6 @@ function broadcast(update) {
 }
 
 function createEditor($container, pDoc) {
-  function p2y(pDoc) {
-    const yDoc = new Y.Doc();
-    const type = yDoc.get('prosemirror', Y.XmlFragment);
-    if (!type.doc) {
-      return yDoc;
-    }
-
-    updateYFragment(type.doc, type, pDoc);
-    return type.doc;
-  }
-
   return new EditorView($container, {
     state: EditorState.create({
       doc: pDoc,

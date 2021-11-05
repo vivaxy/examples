@@ -3,6 +3,7 @@
  * @author vivaxy
  */
 import * as Y from 'yjs';
+import { Fragment } from 'prosemirror-model';
 
 const errors = {
   unexpected(message = 'case') {
@@ -165,4 +166,95 @@ function removeFromTypeArray(xmlFragment, schema, absPos, length) {
 export function remove(yDoc, schema, absPos, length) {
   const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
   removeFromTypeArray(xmlFragment, schema, absPos, length);
+}
+
+export function p2y(pDoc, yDoc = new Y.Doc()) {
+  const type = yDoc.get('prosemirror', Y.XmlFragment);
+  console.assert(pDoc.type.name === 'doc');
+  p2yInsertIntoFragment(pDoc.content, type);
+  return yDoc;
+}
+
+function p2yInsertIntoFragment(fragment, yFragment) {
+  const toInsert = [];
+  fragment.content.forEach(function (node) {
+    toInsert.push(p2yNode(node));
+  });
+  yFragment.insert(0, toInsert);
+}
+
+function p2yNode(node) {
+  if (node.type.name === 'text') {
+    return p2yText(node);
+  }
+  const yElement = new Y.XmlElement(node.type.name);
+  Object.keys(node.attrs).forEach(function (attrKey) {
+    yElement.setAttribute(attrKey, node.attrs[attrKey]);
+  });
+  if (!node.isLeaf) {
+    p2yInsertIntoFragment(node.content, yElement);
+  }
+  return yElement;
+}
+
+function p2yText(textNode) {
+  // TODO:
+}
+
+function forEachTypeArray(array, f) {
+  let item = array._start;
+  while (item) {
+    f(item);
+    item = item.right;
+  }
+}
+
+function forEachTypeMap(map, f) {
+  for (const [key, value] of map._map) {
+    f(value, key);
+  }
+}
+
+function getMap(map) {
+  const result = {};
+  forEachTypeMap(map, function (value, key) {
+    let lastValue = null;
+    forEachTypeArray(value, function (item) {
+      if (item && !item.deleted) {
+        lastValue = item.value;
+      }
+    });
+    if (lastValue) {
+      result[key] = lastValue;
+    }
+  });
+  return result;
+}
+
+export function y2p(yDoc, schema) {
+  const type = yDoc.get('prosemirror', Y.XmlFragment);
+  const fragment = y2pFragment(type, schema);
+  return schema.node('doc', null, fragment);
+}
+
+function y2pFragment(type, schema) {
+  let fragment = Fragment.empty;
+  forEachTypeArray(type, function (item) {
+    if (item.content.constructor === Y.ContentType) {
+      if (item.content.type.constructor === Y.XmlElement) {
+        const node = y2pElement(item.content.type, schema);
+        fragment.addToEnd(node);
+      } else {
+        throw errors.unexpected();
+      }
+    }
+  });
+  return fragment;
+}
+
+function y2pElement(type, schema) {
+  const nodeName = type.nodeName;
+  const attrs = getMap(type);
+  const fragment = y2pFragment(type);
+  return schema.node(nodeName, attrs, fragment);
 }

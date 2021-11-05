@@ -1673,7 +1673,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.npm.taobao.org/kind-of/download/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
 
-lib0@^0.2.34, lib0@^0.2.42:
+lib0@^0.2.42:
   version "0.2.42"
   resolved "https://registry.nlark.com/lib0/download/lib0-0.2.42.tgz#6d8bf1fb8205dec37a953c521c5ee403fd8769b0"
   integrity sha1-bYvx+4IF3sN6lTxSHF7kA/2HabA=
@@ -3238,20 +3238,6 @@ ws@^6.2.1:
   integrity sha1-3Vzb1XqZeZFgl2UtePHMX66gwy4=
   dependencies:
     async-limiter "~1.0.0"
-
-y-prosemirror@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.nlark.com/y-prosemirror/download/y-prosemirror-1.0.9.tgz#c0b5bf4e2c6620093ba0658c2aca52055346a683"
-  integrity sha1-wLW/TixmIAk7oGWMKspSBVNGpoM=
-  dependencies:
-    lib0 "^0.2.34"
-
-y-protocols@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.nlark.com/y-protocols/download/y-protocols-1.0.5.tgz#91d574250060b29fcac8f8eb5e276fbad594245e"
-  integrity sha1-kdV0JQBgsp/KyPjrXidvutWUJF4=
-  dependencies:
-    lib0 "^0.2.42"
 
 y18n@^4.0.0:
   version "4.0.3"

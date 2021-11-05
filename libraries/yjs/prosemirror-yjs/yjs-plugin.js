@@ -9,7 +9,6 @@ import {
   ReplaceAroundStep,
 } from 'prosemirror-transform';
 import { Plugin, PluginKey } from 'prosemirror-state';
-import * as Y from 'yjs';
 import { insert, remove } from './helpers';
 
 const pluginKey = new PluginKey('yjs');
