@@ -171,7 +171,9 @@ export function remove(yDoc, schema, absPos, length) {
 export function p2y(pDoc, yDoc = new Y.Doc()) {
   const type = yDoc.get('prosemirror', Y.XmlFragment);
   console.assert(pDoc.type.name === 'doc');
-  p2yInsertIntoFragment(pDoc.content, type);
+  Y.transact(yDoc, function () {
+    p2yInsertIntoFragment(pDoc.content, type);
+  });
   return yDoc;
 }
 
@@ -198,7 +200,12 @@ function p2yNode(node) {
 }
 
 function p2yText(textNode) {
-  // TODO:
+  const yText = new Y.XmlText();
+  yText.insert(0, textNode.text);
+  textNode.marks.forEach(function (mark) {
+    yText.format(0, textNode.size, { [mark.type]: true });
+  });
+  return yText;
 }
 
 function forEachTypeArray(array, f) {

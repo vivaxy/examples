@@ -10,12 +10,12 @@ import { DATA_TYPES } from '../data-viewer';
 
 export default function updateDecoder(update) {
   const decoder = decoding.createDecoder(update);
-  const firstVarUint = decoding.peekVarUint(decoder);
-  if (firstVarUint === 0) {
-    return 'encoding V2 not supported';
-  } else {
-    return decodeV1(decoder);
-  }
+  // const firstVarUint = decoding.peekVarUint(decoder);
+  // if (firstVarUint === 0) {
+  //   return 'encoding V2 not supported';
+  // } else {
+  return decodeV1(decoder);
+  // }
 }
 
 export function decodeV1(decoder) {

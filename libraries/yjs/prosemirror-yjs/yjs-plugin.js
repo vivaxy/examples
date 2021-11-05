@@ -9,6 +9,7 @@ import {
   ReplaceAroundStep,
 } from 'prosemirror-transform';
 import { Plugin, PluginKey } from 'prosemirror-state';
+import * as Y from 'yjs';
 import { insert, remove } from './helpers';
 
 const pluginKey = new PluginKey('yjs');
@@ -18,7 +19,17 @@ export default new Plugin({
   state: {
     init: (config) => {
       const { yjs } = config;
-      yjs.yDoc.on('update', yjs.onUpdate);
+      yjs.yDoc.on('update', function (update) {
+        yjs.onUpdate(update, yjs.id);
+      });
+      const yXmlFragment = yjs.yDoc.get('prosemirror', Y.XmlFragment);
+      yXmlFragment.observeDeep(function (events, transaction) {
+        debugger;
+        console.log(
+          events.map((event) => event.changes.delta),
+          transaction,
+        );
+      });
       return yjs;
     },
     apply: (tr, yState, oldEditorState, newEditorState) => {
