@@ -437,6 +437,9 @@ export const highlightPlugin = new Plugin({
     decorations(state) {
       return this.getState(state).decorationSet;
     },
+    editable(state) {
+      return this.getState(state).decorationSet.find().length === 0;
+    },
   },
 });
 

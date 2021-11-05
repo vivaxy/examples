@@ -1,0 +1,30 @@
+/**
+ * @since 2021-03-26 16:27
+ * @author vivaxy
+ */
+@import "https://prosemirror.net/css/editor.css";
+
+#editor {
+  border: 1px solid #999;
+}
+
+#commit {
+  margin: 6px 0;
+  position: relative;
+}
+
+.commit span {
+  margin-left: 4px;
+}
+
+.insert-content {
+  background: rgb(128, 255, 128);
+}
+
+.delete-content {
+  background: rgb(255, 128, 128);
+}
+
+.update-style {
+  background: rgb(128, 255, 255);
+}

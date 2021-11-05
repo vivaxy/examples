@@ -12,10 +12,6 @@
     "link": "selection-changed/"
   },
   {
-    "name": "Copy Paste with Decorations 2",
-    "link": "copy-paste-with-decorations-2/"
-  },
-  {
     "name": "Annotation Performance",
     "link": "annotation-performance/"
   },
@@ -30,6 +26,10 @@
   {
     "name": "History Plugin",
     "link": "history-plugin/"
+  },
+  {
+    "name": "Version History 2",
+    "link": "version-history-2/"
   },
   {
     "name": "Version History",
@@ -82,6 +82,10 @@
   {
     "name": "NodeRange",
     "link": "node-range/"
+  },
+  {
+    "name": "Copy Paste with Decorations 2",
+    "link": "copy-paste-with-decorations-2/"
   },
   {
     "name": "Copy Paste with Decorations",

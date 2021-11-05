@@ -244,6 +244,7 @@ Table of contents
     * [ProseMirror Transform](https://vivaxy.github.io/samples/libraries/prosemirror/transform/) ProseMirror Transform
     * [ProseMirror Unknown Schema](https://vivaxy.github.io/samples/libraries/prosemirror/unknown-schema/) ProseMirror Unknown Schema
     * [Version History](https://vivaxy.github.io/samples/libraries/prosemirror/version-history/) Version History
+    * [Version History 2](https://vivaxy.github.io/samples/libraries/prosemirror/version-history-2/) Version History
     * [ProseMirror with React](https://vivaxy.github.io/samples/libraries/prosemirror/with-react/) ProseMirror with React
   * [qq maps](https://vivaxy.github.io/samples/libraries/qq-maps/) Qq maps
     * [mark polygon area](https://vivaxy.github.io/samples/libraries/qq-maps/mark-polygon-area/) Mark polygon area
