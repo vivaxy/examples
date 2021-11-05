@@ -9,6 +9,7 @@ import { Schema, Slice, Fragment } from 'prosemirror-model';
 import { addListNodes } from 'prosemirror-schema-list';
 import { buildMenuItems, exampleSetup } from 'prosemirror-example-setup';
 import { MenuItem } from 'prosemirror-menu';
+import { ReplaceStep } from 'prosemirror-transform';
 
 const schema = new Schema({
   nodes: addListNodes(basicSchema.spec.nodes, 'paragraph block*', 'block'),
@@ -94,6 +95,13 @@ const plugins = [
             addMarks(state, dispatch, count);
           },
         }),
+        new MenuItem({
+          label: 'Map on Steps.',
+          run(state, dispatch) {
+            const count = prompt('Step count') || 1;
+            mapOnSteps(state, dispatch, count);
+          },
+        }),
       ],
     ],
   }),
@@ -131,6 +139,7 @@ function getRandomParagraph(state) {
 }
 
 let lastPos = 0;
+
 function getRandomPositionInAParagraph(p) {
   lastPos++;
   return { from: 0, to: lastPos };
@@ -188,6 +197,23 @@ function addMarks(state, dispatch, count) {
   dispatch(tr);
 
   console.log(`Add ${count} marks in ${performance.now() - beginTime}ms`);
+}
+
+function mapOnSteps(state, dispatch, count) {
+  const tr = state.tr;
+  while (tr.steps.length < count) {
+    tr.maybeStep(
+      new ReplaceStep(1, 1, new Slice(Fragment.from(schema.text('X')), 0, 0)),
+    );
+  }
+  const decorationSet = decorationsPlugin.getState(state);
+  const startTime = Date.now();
+  decorationSet.map(tr.mapping, tr.doc);
+  const cost = Date.now() - startTime;
+  console.log(
+    `Map ${decorationSet.find().length} on ${count} steps in ${cost}ms`,
+  );
+  dispatch(tr);
 }
 
 const state = EditorState.create({
