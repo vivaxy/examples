@@ -152,29 +152,29 @@ function removeFromTypeArray(xmlFragment, schema, absPos, length) {
 }
 
 /**
- * @param yDoc {Y.Doc}
- *  XmlFragment
+ * @param xmlFragment {Y.XmlFragment}
+ *  XmlElement
+ *    XmlText
+ *  XmlElement
  *    XmlElement
- *      XmlText
- *    XmlElement
- *      XmlElement
- *    XmlElement
+ *  XmlElement
  * @param schema {Schema}
  * @param absPos {number}
  * @param length {number}
  */
-export function remove(yDoc, schema, absPos, length) {
-  const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
+export function remove(xmlFragment, schema, absPos, length) {
   removeFromTypeArray(xmlFragment, schema, absPos, length);
 }
 
-export function p2y(pDoc, yDoc = new Y.Doc()) {
-  const type = yDoc.get('prosemirror', Y.XmlFragment);
+export function p2y(pDoc, type) {
   console.assert(pDoc.type.name === 'doc');
-  Y.transact(yDoc, function () {
-    p2yInsertIntoFragment(pDoc.content, type);
-  });
-  return yDoc;
+  Y.transact(
+    type.doc,
+    function () {
+      p2yInsertIntoFragment(pDoc.content, type);
+    },
+    'local',
+  );
 }
 
 function p2yInsertIntoFragment(fragment, yFragment) {
@@ -211,7 +211,9 @@ function p2yText(textNode) {
 function forEachTypeArray(array, f) {
   let item = array._start;
   while (item) {
-    f(item);
+    if (!item.deleted) {
+      f(item);
+    }
     item = item.right;
   }
 }
@@ -238,9 +240,8 @@ function getMap(map) {
   return result;
 }
 
-export function y2p(yDoc, schema) {
-  const type = yDoc.get('prosemirror', Y.XmlFragment);
-  const fragment = y2pFragment(type, schema);
+export function y2p(xmlFragment, schema) {
+  const fragment = y2pFragment(xmlFragment, schema);
   return schema.node('doc', null, fragment);
 }
 
@@ -250,7 +251,10 @@ function y2pFragment(type, schema) {
     if (item.content.constructor === Y.ContentType) {
       if (item.content.type.constructor === Y.XmlElement) {
         const node = y2pElement(item.content.type, schema);
-        fragment.addToEnd(node);
+        fragment = fragment.addToEnd(node);
+      } else if (item.content.type.constructor === Y.XmlText) {
+        const node = y2pText(item.content.type, schema);
+        fragment = fragment.addToEnd(node);
       } else {
         throw errors.unexpected();
       }
@@ -262,6 +266,16 @@ function y2pFragment(type, schema) {
 function y2pElement(type, schema) {
   const nodeName = type.nodeName;
   const attrs = getMap(type);
-  const fragment = y2pFragment(type);
+  const fragment = y2pFragment(type, schema);
   return schema.node(nodeName, attrs, fragment);
+}
+
+function y2pText(type, schema) {
+  let text = '';
+  forEachTypeArray(type, function (item) {
+    if (item.content.constructor === Y.ContentString) {
+      text += item.content.str;
+    }
+  });
+  return schema.text(text);
 }

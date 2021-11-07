@@ -10,7 +10,7 @@ import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import * as Y from 'yjs';
 import yjsPlugin from './yjs-plugin';
-import { y2p, p2y } from './helpers';
+import { p2y } from './helpers';
 import updateDecoder from '../data-visualization/src/update-decoder';
 
 const mySchema = new Schema({
@@ -25,30 +25,45 @@ function broadcast(update, sourceId) {
   console.log('update', updateDecoder(update));
   setTimeout(function () {
     otherViews.forEach(function (view) {
-      Y.applyUpdate(yjsPlugin.getState(view.state).yDoc, update);
+      const { xmlFragment } = yjsPlugin.getState(view.state);
+      console.log('broadcast to', xmlFragment.doc.clientID);
+      Y.applyUpdate(xmlFragment.doc, update, 'remote');
     });
-  }, 1000);
+  }, 300);
 }
 
-function createEditor($container, pDoc) {
-  return new EditorView($container, {
+function createEditor($container, initialUpdate) {
+  const yDoc = new Y.Doc();
+  yDoc.clientID = Number($container.id.split('-')[1]);
+  Y.applyUpdate(yDoc, initialUpdate);
+  const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
+  const view = new EditorView($container, {
     state: EditorState.create({
       doc: pDoc,
       yjs: {
         id: $container.id,
-        yDoc: p2y(pDoc),
-        onUpdate: broadcast,
+        xmlFragment,
+        onLocalUpdate: broadcast,
+        getView() {
+          return view;
+        },
       },
       plugins: [...exampleSetup({ schema: mySchema }), yjsPlugin],
     }),
   });
+  return view;
 }
 
 const pDoc = DOMParser.fromSchema(mySchema).parse(
   document.querySelector('#content'),
 );
 
+const yDoc = new Y.Doc();
+const xmlFragment = yDoc.get('prosemirror', Y.XmlFragment);
+p2y(pDoc, xmlFragment);
+const initialUpdate = Y.encodeStateAsUpdate(yDoc);
+
 window.views = [
-  createEditor(document.getElementById('editor-1'), pDoc),
-  createEditor(document.getElementById('editor-2'), pDoc),
+  createEditor(document.getElementById('editor-1'), initialUpdate),
+  createEditor(document.getElementById('editor-2'), initialUpdate),
 ];
