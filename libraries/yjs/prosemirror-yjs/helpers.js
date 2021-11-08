@@ -151,17 +151,6 @@ function removeFromTypeArray(xmlFragment, schema, absPos, length) {
   return { removedLength, totalLength };
 }
 
-/**
- * @param xmlFragment {Y.XmlFragment}
- *  XmlElement
- *    XmlText
- *  XmlElement
- *    XmlElement
- *  XmlElement
- * @param schema {Schema}
- * @param absPos {number}
- * @param length {number}
- */
 export function remove(xmlFragment, schema, absPos, length) {
   removeFromTypeArray(xmlFragment, schema, absPos, length);
 }

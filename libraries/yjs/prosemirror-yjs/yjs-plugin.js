@@ -11,7 +11,7 @@ import {
 import { Slice } from 'prosemirror-model';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import * as Y from 'yjs';
-import { insert, remove, y2p } from './helpers';
+import { remove, y2p } from './helpers';
 
 const pluginKey = new PluginKey('yjs');
 
@@ -62,7 +62,6 @@ export default new Plugin({
           tr.steps.forEach(function (step) {
             switch (true) {
               case step instanceof ReplaceStep:
-              case step instanceof ReplaceAroundStep:
                 if (step.to > step.from) {
                   remove(
                     yState.xmlFragment,
@@ -71,9 +70,9 @@ export default new Plugin({
                     step.to - step.from,
                   );
                 }
-                // if (step.slice.content.size) {
-                //   insert(yState.xmlFragment.doc, step.from, step.slice);
-                // }
+                break;
+              case step instanceof ReplaceAroundStep:
+                // TODO:
                 break;
               default:
                 throw new Error('Unexpect step constructor' + step.constructor);
