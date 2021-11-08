@@ -21,13 +21,14 @@
     <div id="content" hidden>
       <p>1234567890</p>
     </div>
-    <form id="commit">
-      Commit message:
-      <input type="text" name="message" />
-      <button type="submit">commit</button>
-    </form>
+    <div>
+      <span>Commit message:</span>
+      <input id="commit-message" />
+      <button id="commit">Commit</button>
+    </div>
 
     <div id="commits"></div>
+    <div id="diff"></div>
     <script
       type="text/javascript"
       src="//unpkg.com/@vivaxy/framework/utils/console.js"

@@ -23,12 +23,12 @@ window.view = view;
 let commitId = 0;
 
 const $commit = document.querySelector('#commit');
-$commit.addEventListener('submit', function (e) {
+$commit.addEventListener('click', function (e) {
   e.preventDefault();
-  const commitMessage = new FormData(e.target).get('message') || 'No message';
+  const commitMessage =
+    document.querySelector('#commit-message').value || 'No message';
   const transaction = view.state.tr.setMeta(trackPlugin, commitMessage);
-  const newState = view.state.apply(transaction);
-  view.updateState(newState);
+  view.dispatch(transaction);
 
   appendCommit(commitId++, commitMessage);
 });
@@ -38,7 +38,13 @@ const $commits = document.querySelector('#commits');
 function createShowHistory(commitId) {
   return function showHistory() {
     const newState = history.createEditorStateByCommitId(commitId, view);
-    view.updateState(newState);
+    const $diffRoot = document.querySelector('#diff');
+    const diffEditor = new EditorView($diffRoot, {
+      state: newState,
+    });
+    const html = diffEditor.dom.innerHTML;
+    diffEditor.destroy();
+    $diffRoot.innerHTML = html;
   };
 }
 
