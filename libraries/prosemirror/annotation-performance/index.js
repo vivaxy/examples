@@ -221,9 +221,9 @@ const state = EditorState.create({
   doc: schema.node(
     'doc',
     null,
-    Array.from({ length: 1 }, function () {
+    Array.from({ length: 100 }, function () {
       return schema.node('paragraph', null, [
-        schema.text('1234567890'.repeat(10000)),
+        schema.text('1234567890'.repeat(100)),
       ]);
     }),
   ),
