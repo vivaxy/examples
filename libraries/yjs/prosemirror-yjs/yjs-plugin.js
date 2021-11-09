@@ -11,7 +11,7 @@ import {
 import { Slice } from 'prosemirror-model';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import * as Y from 'yjs';
-import { remove, y2p } from './helpers';
+import { insert, remove, y2p } from './helpers';
 
 const pluginKey = new PluginKey('yjs');
 
@@ -68,6 +68,14 @@ export default new Plugin({
                     oldEditorState.schema,
                     step.from,
                     step.to - step.from,
+                  );
+                }
+                if (step.slice.content.size) {
+                  insert(
+                    yState.xmlFragment,
+                    oldEditorState.schema,
+                    step.from,
+                    step.slice,
                   );
                 }
                 break;

@@ -11,58 +11,137 @@ const errors = {
   },
 };
 
-const SIGNALS = {
-  BREAK: 'break',
-};
+const INSERTED = -1;
 
-function dfsTypeArray(array, parent, visitor) {
-  let item = array._start;
-  while (item !== null) {
-    const res = dfs(item, array, visitor);
-    if (res === SIGNALS.BREAK) {
-      return res;
+export function insert(xmlFragment, schema, absPos, slice) {
+  const yNodes = p2yFragment(slice.content);
+  const length = insertXmlFragment(xmlFragment, schema, absPos, yNodes);
+  if (length !== INSERTED) {
+    throw new Error('Insert failed');
+  }
+}
+
+function insertXmlFragment(xmlFragment, schema, absPos, yNodes) {
+  if (absPos === 0) {
+    xmlFragment.insert(0, yNodes);
+    return INSERTED;
+  }
+  let pos = 0;
+  let offset = 0;
+  let item = xmlFragment._start;
+  while (item) {
+    if (absPos === pos) {
+      xmlFragment.insert(offset, yNodes);
+      return INSERTED;
+    }
+    if (!item.deleted) {
+      if (item.content.type.constructor === Y.XmlText) {
+        const length = insertXmlText(
+          item.content.type,
+          schema,
+          absPos - pos,
+          yNodes,
+        );
+        if (length === INSERTED) {
+          return INSERTED;
+        }
+        pos += length;
+        offset += 1;
+      } else if (item.content.type.constructor === Y.XmlElement) {
+        if (schema.nodes[item.content.type.nodeName].isLeaf) {
+          pos += 1;
+          offset += 1;
+        } else {
+          pos += 1;
+          const length = insertXmlElement(
+            item.content.type,
+            schema,
+            absPos - pos,
+            yNodes,
+          );
+          if (length === INSERTED) {
+            return INSERTED;
+          }
+          pos += length;
+          pos += 1;
+          offset += 1;
+        }
+      } else {
+        throw new Error('Unexpected case');
+      }
+      item = item.right;
+    }
+  }
+  return pos;
+}
+
+function insertXmlElement(xmlElement, schema, absPos, yNodes) {
+  return insertXmlFragment(xmlElement, schema, absPos, yNodes);
+}
+
+function insertXmlText(xmlText, schema, absPos, yNodes) {
+  if (absPos < xmlText.length) {
+    xmlText.insert(
+      absPos,
+      yNodes
+        .map(function (yNode) {
+          return getTextFromYXmlText(yNode);
+        })
+        .join(''),
+    );
+    return INSERTED;
+  }
+  return xmlText.length;
+}
+
+function getTextFromYXmlText(yXmlText) {
+  let text = '';
+  // hack to get text from YXmlText
+  yXmlText.doc = new Y.Doc();
+  yXmlText._pending.forEach(function (fn) {
+    fn();
+  });
+  let item = yXmlText._start;
+  while (item) {
+    if (!item.deleted && item.content.constructor === Y.ContentString) {
+      text += item.content.str;
     }
     item = item.right;
   }
-  return null;
+  return text;
 }
 
-function dfsTypeMap(map, parent, visitor) {
-  for (const [_, value] of map._map) {
-    const res = dfs(value, map, visitor);
-    if (res === SIGNALS.BREAK) {
-      return res;
+function getInsertPosition(type, pos) {
+  // TODO:
+  return { parent: null, offset: 0 };
+}
+
+function getNodeSize(type, schema) {
+  if (type.constructor === Y.XmlText) {
+    return type.length;
+  }
+  if (type.constructor === Y.XmlElement) {
+    if (schema.nodes[type.nodeName].isLeaf) {
+      return 1;
     }
+    return 2 + getNodeSizeFromXmlFragment(type, schema);
   }
-  return null;
-}
-
-function dfs(item, parent, visitor) {
-  switch (item.content.constructor) {
-    case Y.ContentDeleted:
-    case Y.ContentEmbed:
-    case Y.ContentFormat:
-    case Y.ContentString:
-      return visitor(item, parent);
-    case Y.ContentType:
-      const res = visitor(item, parent);
-      if (res === SIGNALS.BREAK) {
-        return SIGNALS.BREAK;
-      }
-      switch (item.content.type.constructor) {
-        case Y.XmlText:
-        case Y.XmlFragment:
-        case Y.XmlElement:
-          return dfsTypeArray(item.content.type, parent, dfs);
-        default:
-          throw errors.unexpected(item.content.type.constructor.name);
-      }
-    default:
-      throw errors.unexpected(item.content.constructor.name);
+  if (type.constructor === Y.XmlFragment) {
+    return getNodeSizeFromXmlFragment(type, schema);
   }
 }
 
-export function insert(yDoc, absPos, slice) {}
+function getNodeSizeFromXmlFragment(xmlFragment, schema) {
+  let childNodeSize = 0;
+  let item = xmlFragment._start;
+  while (item) {
+    if (!item.deleted) {
+      childNodeSize += getNodeSize(item.content.type, schema);
+    }
+    item = item.right;
+  }
+  return childNodeSize;
+}
 
 const removeHandlers = {
   [Y.ContentType](item, schema, absPos, length) {
@@ -152,6 +231,7 @@ function removeFromTypeArray(xmlFragment, schema, absPos, length) {
 }
 
 export function remove(xmlFragment, schema, absPos, length) {
+  console.assert(typeof absPos === 'number' && typeof length === 'number');
   removeFromTypeArray(xmlFragment, schema, absPos, length);
 }
 
@@ -167,11 +247,14 @@ export function p2y(pDoc, type) {
 }
 
 function p2yInsertIntoFragment(fragment, yFragment) {
-  const toInsert = [];
-  fragment.content.forEach(function (node) {
-    toInsert.push(p2yNode(node));
+  const yNodes = p2yFragment(fragment);
+  yFragment.insert(0, yNodes);
+}
+
+function p2yFragment(fragment) {
+  return fragment.content.map(function (node) {
+    return p2yNode(node);
   });
-  yFragment.insert(0, toInsert);
 }
 
 function p2yNode(node) {
