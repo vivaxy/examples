@@ -1,5 +1,9 @@
 [
   {
+    "name": "schema.spec.defining",
+    "link": "schema-defining/"
+  },
+  {
     "name": "NodeType.createAndFill",
     "link": "node-type-create-and-fill/"
   },
