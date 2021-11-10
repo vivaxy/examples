@@ -9,6 +9,13 @@ const errors = {
   unexpected(message = 'case') {
     return new Error('Unexpected ' + message);
   },
+  operationFailed(message = 'Operation') {
+    return new Error(message + ' failed');
+  },
+};
+
+const SIGNALS = {
+  BREAK: 'break',
 };
 
 const INSERTED = -1;
@@ -17,7 +24,7 @@ export function insert(xmlFragment, schema, absPos, slice) {
   const yNodes = p2yFragment(slice.content);
   const length = insertXmlFragment(xmlFragment, schema, absPos, yNodes);
   if (length !== INSERTED) {
-    throw new Error('Insert failed');
+    throw errors.operationFailed('Insert');
   }
 }
 
@@ -28,50 +35,49 @@ function insertXmlFragment(xmlFragment, schema, absPos, yNodes) {
   }
   let pos = 0;
   let offset = 0;
-  let item = xmlFragment._start;
-  while (item) {
+  forEachTypeArray(xmlFragment, function (item) {
     if (absPos === pos) {
       xmlFragment.insert(offset, yNodes);
-      return INSERTED;
+      pos = INSERTED;
+      return SIGNALS.BREAK;
     }
-    if (!item.deleted) {
-      if (item.content.type.constructor === Y.XmlText) {
-        const length = insertXmlText(
+    if (item.content.type.constructor === Y.XmlText) {
+      const length = insertXmlText(
+        item.content.type,
+        schema,
+        absPos - pos,
+        yNodes,
+      );
+      if (length === INSERTED) {
+        pos = INSERTED;
+        return SIGNALS.BREAK;
+      }
+      pos += length;
+      offset += 1;
+    } else if (item.content.type.constructor === Y.XmlElement) {
+      if (schema.nodes[item.content.type.nodeName].isLeaf) {
+        pos += 1;
+        offset += 1;
+      } else {
+        pos += 1;
+        const length = insertXmlElement(
           item.content.type,
           schema,
           absPos - pos,
           yNodes,
         );
         if (length === INSERTED) {
-          return INSERTED;
+          pos = INSERTED;
+          return SIGNALS.BREAK;
         }
         pos += length;
+        pos += 1;
         offset += 1;
-      } else if (item.content.type.constructor === Y.XmlElement) {
-        if (schema.nodes[item.content.type.nodeName].isLeaf) {
-          pos += 1;
-          offset += 1;
-        } else {
-          pos += 1;
-          const length = insertXmlElement(
-            item.content.type,
-            schema,
-            absPos - pos,
-            yNodes,
-          );
-          if (length === INSERTED) {
-            return INSERTED;
-          }
-          pos += length;
-          pos += 1;
-          offset += 1;
-        }
-      } else {
-        throw new Error('Unexpected case');
       }
-      item = item.right;
+    } else {
+      throw errors.unexpected();
     }
-  }
+  });
   return pos;
 }
 
@@ -101,19 +107,12 @@ function getTextFromYXmlText(yXmlText) {
   yXmlText._pending.forEach(function (fn) {
     fn();
   });
-  let item = yXmlText._start;
-  while (item) {
-    if (!item.deleted && item.content.constructor === Y.ContentString) {
+  forEachTypeArray(yXmlText, function (item) {
+    if (item.content.constructor === Y.ContentString) {
       text += item.content.str;
     }
-    item = item.right;
-  }
+  });
   return text;
-}
-
-function getInsertPosition(type, pos) {
-  // TODO:
-  return { parent: null, offset: 0 };
 }
 
 function getNodeSize(type, schema) {
@@ -133,13 +132,9 @@ function getNodeSize(type, schema) {
 
 function getNodeSizeFromXmlFragment(xmlFragment, schema) {
   let childNodeSize = 0;
-  let item = xmlFragment._start;
-  while (item) {
-    if (!item.deleted) {
-      childNodeSize += getNodeSize(item.content.type, schema);
-    }
-    item = item.right;
-  }
+  forEachTypeArray(xmlFragment, function (item) {
+    childNodeSize += getNodeSize(item.content.type, schema);
+  });
   return childNodeSize;
 }
 
@@ -209,8 +204,7 @@ const removeHandlers = {
 function removeFromTypeArray(xmlFragment, schema, absPos, length) {
   let totalLength = 0;
   let removedLength = 0;
-  let item = xmlFragment._start;
-  while (item) {
+  forEachTypeArray(xmlFragment, function (item) {
     const removeHandler = removeHandlers[item.content.constructor];
     if (!removeHandler) {
       throw errors.unexpected();
@@ -225,8 +219,7 @@ function removeFromTypeArray(xmlFragment, schema, absPos, length) {
     length -= rl;
     totalLength += tl;
     removedLength += rl;
-    item = item.right;
-  }
+  });
   return { removedLength, totalLength };
 }
 
@@ -275,7 +268,7 @@ function p2yText(textNode) {
   const yText = new Y.XmlText();
   yText.insert(0, textNode.text);
   textNode.marks.forEach(function (mark) {
-    yText.format(0, textNode.size, { [mark.type]: true });
+    yText.format(0, textNode.nodeSize, { [mark.type.name]: mark.attrs });
   });
   return yText;
 }
@@ -284,7 +277,10 @@ function forEachTypeArray(array, f) {
   let item = array._start;
   while (item) {
     if (!item.deleted) {
-      f(item);
+      const res = f(item);
+      if (res === SIGNALS.BREAK) {
+        return res;
+      }
     }
     item = item.right;
   }
@@ -325,8 +321,10 @@ function y2pFragment(type, schema) {
         const node = y2pElement(item.content.type, schema);
         fragment = fragment.addToEnd(node);
       } else if (item.content.type.constructor === Y.XmlText) {
-        const node = y2pText(item.content.type, schema);
-        fragment = fragment.addToEnd(node);
+        const nodes = y2pText(item.content.type, schema);
+        nodes.forEach(function (node) {
+          fragment = fragment.addToEnd(node);
+        });
       } else {
         throw errors.unexpected();
       }
@@ -342,12 +340,77 @@ function y2pElement(type, schema) {
   return schema.node(nodeName, attrs, fragment);
 }
 
+function attributesToMarks(attributes, schema) {
+  return Object.keys(attributes).map(function (key) {
+    return schema.mark(key, attributes[key]);
+  });
+}
+
 function y2pText(type, schema) {
+  const textNodes = [];
   let text = '';
+  const attributes = {};
   forEachTypeArray(type, function (item) {
-    if (item.content.constructor === Y.ContentString) {
+    if (item.content.constructor === Y.ContentFormat) {
+      textNodes.push(schema.text(text, attributesToMarks(attributes, schema)));
+      if (item.content.value === null) {
+        delete attributes[item.content.key];
+      } else {
+        attributes[item.content.key] = item.content.value;
+      }
+      text = '';
+    } else if (item.content.constructor === Y.ContentString) {
       text += item.content.str;
     }
   });
-  return schema.text(text);
+  if (text) {
+    textNodes.push(schema.text(text));
+  }
+  return textNodes;
+}
+
+export function format(type, schema, from, to, mark) {
+  formatXmlFragment(type, schema, from, to, mark);
+}
+
+function formatXmlFragment(xmlFragment, schema, from, to, attributes) {
+  let length = 0;
+  forEachTypeArray(xmlFragment, function (item) {
+    if (item.content.constructor === Y.ContentType) {
+      if (item.content.type.constructor === Y.XmlElement) {
+        if (schema.nodes[item.content.type.nodeName].isLeaf) {
+          length += 1;
+        } else {
+          length += 1;
+          length += formatXmlFragment(
+            item.content.type,
+            schema,
+            from - length,
+            to - length,
+            attributes,
+          );
+          length += 1;
+        }
+      } else if (item.content.type.constructor === Y.XmlText) {
+        length += formatXmlText(
+          item.content.type,
+          schema,
+          from,
+          to,
+          attributes,
+        );
+      } else {
+        throw errors.unexpected();
+      }
+    }
+    if (length > to) {
+      return SIGNALS.BREAK;
+    }
+  });
+  return length;
+}
+
+function formatXmlText(xmlText, schema, from, to, attributes) {
+  xmlText.format(from, to - from, attributes);
+  return xmlText.length;
 }

@@ -11,7 +11,7 @@ import {
 import { Slice } from 'prosemirror-model';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import * as Y from 'yjs';
-import { insert, remove, y2p } from './helpers';
+import { insert, remove, format, y2p } from './helpers';
 
 const pluginKey = new PluginKey('yjs');
 
@@ -59,7 +59,17 @@ export default new Plugin({
       Y.transact(
         yState.xmlFragment.doc,
         function () {
-          tr.steps.forEach(function (step) {
+          tr.steps.forEach(function (rawStep) {
+            const step = normalizeStep(rawStep);
+            if (
+              step.structure &&
+              step.slice.content.content.reduce(
+                (text, n) => text + n.textContent,
+                '',
+              ).length !== 0
+            ) {
+              debugger;
+            }
             switch (true) {
               case step instanceof ReplaceStep:
                 if (step.to > step.from) {
@@ -82,6 +92,24 @@ export default new Plugin({
               case step instanceof ReplaceAroundStep:
                 // TODO:
                 break;
+              case step instanceof AddMarkStep:
+                format(
+                  yState.xmlFragment,
+                  oldEditorState.schema,
+                  step.from,
+                  step.to,
+                  { [step.mark.type.name]: step.mark.attrs },
+                );
+                break;
+              case step instanceof RemoveMarkStep:
+                format(
+                  yState.xmlFragment,
+                  oldEditorState.schema,
+                  step.from,
+                  step.to,
+                  { [step.mark.type.name]: null },
+                );
+                break;
               default:
                 throw new Error('Unexpect step constructor' + step.constructor);
             }
@@ -94,3 +122,13 @@ export default new Plugin({
     },
   },
 });
+
+function normalizeStep(step) {
+  /**
+   * TODO:
+   *  1. normalize step from structured to unstructured
+   *  2. normalize step from with openStart and openEnd to unstructured
+   *  3. normalize step from ReplaceAround to insert and delete
+   */
+  return step;
+}
