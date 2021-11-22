@@ -238,7 +238,7 @@ export default function App() {
 
   function getDocByClientId(clientID) {
     return docs.find(function (doc) {
-      return doc.yDoc.clientID === clientID;
+      return doc && doc.yDoc.clientID === clientID;
     });
   }
 
