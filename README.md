@@ -19,6 +19,8 @@ Table of contents
     * [Selection Sort](https://vivaxy.github.io/samples/algorithms/array/selection-sort/) 选择排序
       * [Selection Sort Animation](https://vivaxy.github.io/samples/algorithms/array/selection-sort/animation/) 选择排序动画演示
   * [Compression](https://vivaxy.github.io/samples/algorithms/compression/) 压缩
+  * [CRDT](https://vivaxy.github.io/samples/algorithms/crdt/) CRDT
+    * [Document As A List](https://vivaxy.github.io/samples/algorithms/crdt/document-as-a-list/) Document As A List
   * [Graph](https://vivaxy.github.io/samples/algorithms/graph/) 图
     * [Bellman-Ford](https://vivaxy.github.io/samples/algorithms/graph/bellman-ford/) 贝尔曼-福特算法
     * [Dijkstra](https://vivaxy.github.io/samples/algorithms/graph/dijkstra/) 迪克斯特拉算法
