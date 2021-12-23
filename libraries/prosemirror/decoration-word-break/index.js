@@ -62,9 +62,6 @@ const decorationsPlugin = new Plugin({
       });
       const decorationSet = decorationsPlugin.getState(editorView.state);
       const found = decorationSet.find(pos, pos);
-      if (found.length) {
-        console.log('found', found);
-      }
       const deco = found.sort(function (prev, next) {
         if (next.spec.type === 'widget') {
           return 1;
@@ -74,7 +71,6 @@ const decorationsPlugin = new Plugin({
         return 0;
       });
       if (deco.length) {
-        console.log('deco', deco);
         $flag.style.display = 'block';
         $flag.style.left = `${e.clientX}px`;
         $flag.style.top = `${e.clientY - 30}px`;
