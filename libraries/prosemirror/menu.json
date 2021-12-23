@@ -1,5 +1,9 @@
 [
   {
+    "name": "Decoration Word Break",
+    "link": "decoration-word-break/"
+  },
+  {
     "name": "schema.spec.defining",
     "link": "schema-defining/"
   },

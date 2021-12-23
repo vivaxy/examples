@@ -218,6 +218,7 @@ Table of contents
     * [ProseMirror Custom Schema Editor](https://vivaxy.github.io/samples/libraries/prosemirror/custom-schema/) ProseMirror Minimal Editor
     * [Custom Steps](https://vivaxy.github.io/samples/libraries/prosemirror/custom-steps/) Custom Steps
     * [Decoration Render Sequence](https://vivaxy.github.io/samples/libraries/prosemirror/decoration-render-sequence/) Decoration Render Sequence
+    * [Decoration Word Break](https://vivaxy.github.io/samples/libraries/prosemirror/decoration-word-break/) Decoration Word Break
     * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
     * [ProseMirror DOMParser parserOptions](https://vivaxy.github.io/samples/libraries/prosemirror/dom-parser-options/) ProseMirror DOMParser parserOptions
     * [DOMSerializer](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer/) DOMSerializer
