@@ -134,8 +134,8 @@ async function writeClipboardHTML() {
     clearLog();
     await checkClipboardPermission('clipboard-write');
     const clipboardItem = new ClipboardItem({
-      'text/plain': input.value,
-      'text/html': input.value,
+      'text/plain': new Blob([input.value], { type: 'text/plain' }),
+      'text/html': new Blob([input.value], { type: 'text/html' }),
     });
     await navigator.clipboard.write([clipboardItem]);
     log('OK');
