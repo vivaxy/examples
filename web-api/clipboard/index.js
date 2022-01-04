@@ -13,6 +13,9 @@ document.querySelector('#write').addEventListener('click', writeClipboard);
 document
   .querySelector('#writeText')
   .addEventListener('click', writeClipboardText);
+document
+  .querySelector('#writeHTML')
+  .addEventListener('click', writeClipboardHTML);
 ['paste', 'drop', 'drag'].forEach((eventName) => {
   document.addEventListener(eventName, onEvent(eventName));
 });
@@ -58,7 +61,7 @@ async function checkClipboardPermission(permissionName) {
   ) {
     // OK
   } else {
-    throw new Error(result.state);
+    throw new Error('Permission not granted');
   }
 }
 
@@ -126,9 +129,24 @@ async function writeClipboardText() {
   }
 }
 
+async function writeClipboardHTML() {
+  try {
+    clearLog();
+    await checkClipboardPermission('clipboard-write');
+    const clipboardItem = new ClipboardItem({
+      'text/plain': input.value,
+      'text/html': input.value,
+    });
+    await navigator.clipboard.write([clipboardItem]);
+    log('OK');
+  } catch (e) {
+    log(e.message, e.name);
+  }
+}
+
 function onEvent(eventName) {
   return async function (e) {
-    e.preventDefault();
+    // e.preventDefault();
     clearLog();
     const dataTransfer = e.clipboardData || e.dataTransfer;
     if (!dataTransfer.items.length) {
