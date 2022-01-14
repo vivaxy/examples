@@ -1,5 +1,9 @@
 [
   {
+    "name": "RegExp Non Capturing Group",
+    "link": "regexp-non-capturing-group/"
+  },
+  {
     "name": "querySelector performance",
     "link": "querySelector/"
   },
