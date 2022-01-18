@@ -5,7 +5,7 @@
 import {
   BroadcastChannel,
   createLeaderElection,
-} from 'https://unpkg.com/broadcast-channel?module';
+} from 'https://cdn.skypack.dev/broadcast-channel';
 
 const channel = new BroadcastChannel('sample');
 const elector = createLeaderElection(channel);
