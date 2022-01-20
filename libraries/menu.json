@@ -1,5 +1,9 @@
 [
   {
+    "name": "Dexie.js",
+    "link": "dexie/"
+  },
+  {
     "name": "AsyncLocalStorage",
     "link": "async-local-storage/index.js"
   },
