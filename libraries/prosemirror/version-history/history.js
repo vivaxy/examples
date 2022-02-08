@@ -7,7 +7,7 @@ import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Mapping, ReplaceStep, Transform } from 'prosemirror-transform';
 import { Slice } from 'prosemirror-model';
 
-export function rebaseStepsWithoutApply(
+export function mapStepsWithoutApply(
   stepsInfo,
   over,
   transform,
@@ -41,7 +41,7 @@ export function rebaseStepsWithoutApply(
   return result;
 }
 
-export function rebaseStepsWithApply(
+export function mapStepsWithApply(
   stepsInfo,
   over,
   transform,
@@ -172,7 +172,7 @@ class History {
        * rebaseSteps(..., [stepInfo.inverted, insertStep], ...)
        * will cause rebase fail when a step insert content within previous insertion.
        */
-      toReplayStepsInfo = rebaseStepsWithoutApply(
+      toReplayStepsInfo = mapStepsWithoutApply(
         toReplayStepsInfo.slice(i + 1),
         [insertDeleteStep],
         transaction,
@@ -277,7 +277,7 @@ class History {
        * rebaseSteps(..., [stepInfo.inverted, insertStep], ...)
        * will cause rebase fail when a step insert content within previous insertion.
        */
-      toReplayStepsInfo = rebaseStepsWithApply(
+      toReplayStepsInfo = mapStepsWithApply(
         toReplayStepsInfo.slice(i + 1),
         [insertDeleteStep],
         transaction,

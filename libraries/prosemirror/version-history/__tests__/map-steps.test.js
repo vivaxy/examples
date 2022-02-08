@@ -6,7 +6,7 @@ import { schema } from 'prosemirror-schema-basic';
 import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep } from 'prosemirror-transform';
 import { EditorState } from 'prosemirror-state';
-import { rebaseStepsWithApply, rebaseStepsWithoutApply } from '../history';
+import { mapStepsWithApply, mapStepsWithoutApply } from '../history';
 
 function runWithoutApply(steps, oDoc, insertStep, nDoc) {
   const state = EditorState.create({
@@ -27,7 +27,7 @@ function runWithoutApply(steps, oDoc, insertStep, nDoc) {
   expect(_tr.doc.toString()).toBe(oDoc);
 
   const tr = state.tr;
-  const rebasedStepsInfo = rebaseStepsWithoutApply(
+  const rebasedStepsInfo = mapStepsWithoutApply(
     stepsInfo,
     [insertStep],
     tr,
@@ -59,7 +59,7 @@ function runWithApply(steps, oDoc, insertStep, nDoc) {
 
   expect(tr.doc.toString()).toBe(oDoc);
 
-  rebaseStepsWithApply(
+  mapStepsWithApply(
     stepsInfo,
     [insertStep],
     tr,
@@ -194,6 +194,9 @@ describe('insert, delete', function () {
       new Slice(new Fragment([schema.text('x')]), 0, 0),
     );
     const nDoc = 'doc(paragraph("34567890"))';
+    /**
+     * TODO failed when runWithApply
+     */
     run(steps, oDoc, insertStep, nDoc);
   });
 
