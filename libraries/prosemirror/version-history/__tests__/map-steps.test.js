@@ -193,10 +193,7 @@ describe('insert, delete', function () {
       3,
       new Slice(new Fragment([schema.text('x')]), 0, 0),
     );
-    const nDoc = 'doc(paragraph("34567890"))';
-    /**
-     * TODO failed when runWithApply
-     */
+    const nDoc = 'doc(paragraph("x34567890"))';
     run(steps, oDoc, insertStep, nDoc);
   });
 

@@ -51,11 +51,11 @@ test('delete + delete:around / insert:middle', () => {
 test('insert + delete:around / insert:middle', () => {
   const steps = [
     new ReplaceStep(2, 2, new Slice(new Fragment([schema.text('a')]), 0, 0)), // 1a234567890
-    new ReplaceStep(1, 4, Slice.empty), // 34567890
+    new ReplaceStep(1, 5, Slice.empty), // 4567890
   ];
   const over = [
     new ReplaceStep(3, 3, new Slice(new Fragment([schema.text('x')]), 0, 0)), // 12x34567890
   ];
   // TODO: better to be 'doc(paragraph("34567890"))'
-  t(doc, steps, over, 'doc(paragraph("x34567890"))');
+  t(doc, steps, over, 'doc(paragraph("4567890"))');
 });
