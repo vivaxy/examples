@@ -1,5 +1,9 @@
 [
   {
+    "name": "ContentEditable",
+    "link": "content-editable/"
+  },
+  {
     "name": "StorageEvent",
     "link": "storage-event/"
   },
