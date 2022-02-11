@@ -1,5 +1,9 @@
 [
   {
+    "name": "ContentEditable true and false",
+    "link": "content-editable-true-and-false/"
+  },
+  {
     "name": "Memorized Cursor Position",
     "link": "memorized-cursor-position/"
   }
