@@ -1,0 +1,11 @@
+{
+  "name": "node-to-json-node-from-json-with-invalid-model",
+  "version": "1.0.0",
+  "dependencies": {
+    "prosemirror-model": "^1.16.1",
+    "prosemirror-schema-basic": "^1.1.2"
+  },
+  "scripts": {
+    "test": "node index.js"
+  }
+}
