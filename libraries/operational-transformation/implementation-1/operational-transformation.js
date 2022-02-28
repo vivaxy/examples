@@ -2,7 +2,7 @@
  * @since 2021-08-01
  * @author vivaxy
  */
-export const TYPES = {
+const TYPES = {
   INSERT: 'insert',
   DELETE: 'delete',
 };
@@ -13,7 +13,7 @@ const ITEM_TYPES = {
   INSERT: 1,
 };
 
-export function forEachRange(ranges, visitor) {
+function forEachRange(ranges, visitor) {
   for (let i = 0; i < ranges.length / 2; i++) {
     visitor(ranges[i * 2], ranges[i * 2 + 1]);
   }
@@ -130,13 +130,13 @@ function compareItemsByOp(items, op) {
   };
 }
 
-export function transform(prevOp, op) {
+function transform(prevOp, op) {
   const items = createItemsByOp(prevOp);
   const transformedOp = compareItemsByOp(items, op);
   return transformedOp;
 }
 
-export const errors = {
+const errors = {
   unexpectedType(type) {
     return new Error('Unexpected operation type: ' + type);
   },
@@ -144,3 +144,8 @@ export const errors = {
     return new Error('Unexpected item: ' + item);
   },
 };
+
+exports.TYPES = TYPES;
+exports.forEachRange = forEachRange;
+exports.transform = transform;
+exports.errors = errors;

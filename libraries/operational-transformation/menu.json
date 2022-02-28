@@ -1,6 +1,10 @@
 [
   {
     "name": "Implementation 1",
-    "link": "implementation-1/"
+    "link": "implementation-1/operational-transformation.js"
+  },
+  {
+    "name": "Implementation 2",
+    "link": "implementation-2/index.js"
   }
 ]

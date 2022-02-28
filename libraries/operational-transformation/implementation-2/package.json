@@ -1,0 +1,10 @@
+{
+  "name": "implementation-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "test": "jest"
+}

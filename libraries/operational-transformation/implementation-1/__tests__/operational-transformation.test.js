@@ -2,13 +2,12 @@
  * @since 2021-07-30
  * @author vivaxy
  */
-import {
+const {
   TYPES,
   forEachRange,
   errors,
   transform,
-} from './operational-transformation.js';
-import { test } from './test.js';
+} = require('../operational-transformation.js');
 
 function applyOperation(text, op) {
   const { type, ranges } = op;
@@ -87,14 +86,8 @@ const FIXTURES = [
   // insert in same pos, expected depends on the timestamp
 ];
 
-test('apply operations with transform', function (expect) {
-  FIXTURES.forEach(function ({ text, operations, expected }) {
-    const ops = parseOperations(operations);
-    expect(applyOperationsWithTransform(text, ops), expected, operations);
-    expect(
-      applyOperationsWithTransform(text, ops.reverse()),
-      expected,
-      operations,
-    );
-  });
+test.each(FIXTURES)('%s', function ({ text, operations, expected }) {
+  const ops = parseOperations(operations);
+  expect(applyOperationsWithTransform(text, ops)).toBe(expected);
+  expect(applyOperationsWithTransform(text, ops.reverse())).toBe(expected);
 });
