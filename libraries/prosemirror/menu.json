@@ -1,5 +1,9 @@
 [
   {
+    "name": "Insert Block Inside Inline Nodes",
+    "link": "insert-block-inside-inline-nodes/index.js"
+  },
+  {
     "name": "Node.toJSON and Node.fromJSON with invalid model",
     "link": "node-to-json-node-from-json-with-invalid-model/"
   },
