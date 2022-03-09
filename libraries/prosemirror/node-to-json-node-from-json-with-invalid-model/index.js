@@ -3,9 +3,10 @@
  * @author vivaxy
  */
 const { schema } = require('prosemirror-schema-basic');
-const { Node } = require('prosemirror-model');
+const { Node, Fragment } = require('prosemirror-model');
 
-const doc = schema.node('doc', null, [schema.text('abc')]);
+const doc = schema.node('doc', null, [schema.node('paragraph')]);
+doc.content = Fragment.from(schema.text('123'));
 
 const json = doc.toJSON();
 const docFromJSON = Node.fromJSON(schema, json);
