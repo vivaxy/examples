@@ -74,6 +74,9 @@ class DelOp extends Op {
   }
 }
 
+/**
+ * observation function
+ */
 function car(n, op) {
   if (op.type === OP_TYPES.INS) {
     if (n === op.pos) return op.char;
