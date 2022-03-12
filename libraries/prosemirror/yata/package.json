@@ -1,0 +1,27 @@
+{
+  "name": "yata",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "prosemirror-example-setup": "^1.1.2",
+    "prosemirror-model": "^1.16.1",
+    "prosemirror-schema-basic": "^1.1.2",
+    "prosemirror-schema-list": "^1.1.6",
+    "prosemirror-state": "^1.3.4",
+    "prosemirror-transform": "^1.3.4",
+    "prosemirror-view": "^1.23.9"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development webpack server",
+    "build": "NODE_ENV=production webpack",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
+  }
+}
