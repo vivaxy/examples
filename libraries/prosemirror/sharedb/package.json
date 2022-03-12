@@ -4,14 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development webpack server --open",
+    "dev": "NODE_ENV=development webpack server",
     "build": "NODE_ENV=production webpack",
     "serve": "node ./server/index.js"
   },
   "devDependencies": {
-    "webpack": "^5.37.0",
-    "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
     "@teamwork/websocket-json-stream": "^2.0.0",

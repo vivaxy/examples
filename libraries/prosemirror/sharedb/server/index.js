@@ -8,8 +8,6 @@ const WebSocket = require('ws');
 const ShareDB = require('sharedb');
 const WebSocketJSONStream = require('@teamwork/websocket-json-stream');
 
-const networkLatency = 0;
-
 const backend = new ShareDB();
 
 const koa = new Koa();
