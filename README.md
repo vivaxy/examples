@@ -182,6 +182,7 @@ Table of contents
   * [cycle.js](https://vivaxy.github.io/samples/libraries/cycle-js/) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/samples/libraries/cycle-js/basic/) Basic
   * [Dexie.js](https://vivaxy.github.io/samples/libraries/dexie/) Dexie.js
+    * [Performance Benchmark](https://vivaxy.github.io/samples/libraries/dexie/benchmark/) Performance Benchmark
     * [Concurrent Read And Write](https://vivaxy.github.io/samples/libraries/dexie/concurrent-read-and-write/) Concurrent Read And Write
     * [Transaction With Timeout](https://vivaxy.github.io/samples/libraries/dexie/transaction-with-timeout/) Transaction With Timeout
   * [Disable multi selection](https://vivaxy.github.io/samples/libraries/disable-multi-selection/) Disable multi selection

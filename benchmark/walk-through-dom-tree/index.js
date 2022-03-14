@@ -17,7 +17,7 @@ function initializeDOM(totalDepth) {
   document.body.appendChild(root);
 }
 
-function walkThrouthDOMTree(from) {
+function walkThroughDOMTree(from) {
   let current = from;
   let data = [];
   while (current && current !== document.body) {
@@ -27,11 +27,11 @@ function walkThrouthDOMTree(from) {
   return data;
 }
 
-document.querySelector('button').addEventListener('click', function() {
+document.querySelector('button').addEventListener('click', function () {
   const depth = Number(document.querySelector('input').value);
   initializeDOM(depth);
   const startTime = Date.now();
-  walkThrouthDOMTree(document.querySelector(`[data-depth="${depth - 1}"]`));
+  walkThroughDOMTree(document.querySelector(`[data-depth="${depth - 1}"]`));
   const endTime = Date.now();
   console.log(`Cost ${endTime - startTime}ms`);
   document.body.removeChild(document.querySelector(`[data-depth="0"]`));
