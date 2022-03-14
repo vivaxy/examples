@@ -2,6 +2,8 @@
  * @since 2022-03-12
  * @author vivaxy
  */
+import { Fragment } from 'prosemirror-model';
+
 export class ID {
   constructor(client, clock) {
     this.client = client;
@@ -54,10 +56,20 @@ export class Item {
 }
 
 export class TextItem extends Item {
-  constructor(text, marks) {
+  constructor(text, marks = []) {
     super();
     this.text = text;
-    this.marks = marks;
+    this.marks = marks.map((mark) => {
+      return mark.toJSON();
+    });
+  }
+
+  toJSON() {
+    return {
+      type: 'text',
+      text: this.text,
+      marks: this.marks,
+    };
   }
 }
 
@@ -67,18 +79,116 @@ export class TextItem extends Item {
  * How to fix this?
  *  - Option 1: Replace the unchanged tag with a new tag. This may bring performance issue.
  */
-export class TagItem extends Item {
+export class OpeningTagItem extends Item {
   constructor(tagName, attrs) {
     super();
     this.tagName = tagName;
-    this.closedId = null;
     this.attrs = attrs;
+  }
+
+  toJSON() {
+    return {
+      type: 'openingTag',
+      tagName: this.tagName,
+      attrs: this.attrs,
+    };
+  }
+}
+
+export class ClosingTagItem extends Item {
+  constructor(tagName) {
+    super();
+    this.tagName = tagName;
+    this.closedId = null;
+  }
+
+  toJSON() {
+    return {
+      type: 'closingTag',
+      tagName: this.tagName,
+    };
   }
 }
 
 export class NodeItem extends Item {
-  constructor(attrs) {
+  constructor(tagName, attrs) {
     super();
+    this.tagName = tagName;
     this.attrs = attrs;
   }
+
+  toJSON() {
+    return {
+      type: 'node',
+      tagName: this.tagName,
+      attrs: this.attrs,
+    };
+  }
+}
+
+export function nodeToItems(node) {
+  if (node.isText) {
+    return node.text.split('').map((text) => {
+      return new TextItem(text, node.marks);
+    });
+  }
+  if (node.isAtom) {
+    return [new NodeItem(node.type.name, node.attrs)];
+  }
+  return [
+    new OpeningTagItem(node.type.name, node.attrs),
+    ...fragmentToItems(node.content),
+    new ClosingTagItem(node.type.name, node.attrs),
+  ];
+}
+
+export function itemsToFragment(items, schema) {
+  let fragment = Fragment.empty;
+  let openingNodes = [];
+
+  function addToParent(node) {
+    if (openingNodes.length) {
+      openingNodes[openingNodes.length - 1].content = openingNodes[
+        openingNodes.length - 1
+      ].content.append(Fragment.from([node]));
+    } else {
+      fragment = fragment.append(Fragment.from(node));
+    }
+  }
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item instanceof OpeningTagItem) {
+      openingNodes.push(schema.node(item.tagName, item.attrs));
+    } else if (item instanceof ClosingTagItem) {
+      const node = openingNodes.pop();
+      if (node.type.name !== item.tagName) {
+        throw new Error(
+          `Closing wrong tag. Expect ${item.tagName}, actual ${node.type.name}`,
+        );
+      }
+      addToParent(node);
+    } else if (item instanceof NodeItem) {
+      addToParent(schema.node(item.tagName, item.attrs));
+    } else if (item instanceof TextItem) {
+      addToParent(
+        schema.text(
+          item.text,
+          item.marks.map((mark) => {
+            return schema.mark(mark.type, mark.attrs);
+          }),
+        ),
+      );
+    }
+  }
+
+  return fragment;
+}
+
+export function fragmentToItems(fragment) {
+  const items = [];
+  fragment.forEach((node) => {
+    items.push(...nodeToItems(node));
+  });
+  return items;
 }

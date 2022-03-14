@@ -1,5 +1,9 @@
 [
   {
+    "name": "Benchmark",
+    "link": "benchmark/"
+  },
+  {
     "name": "Transaction With Timeout",
     "link": "transaction-with-timeout/"
   },
