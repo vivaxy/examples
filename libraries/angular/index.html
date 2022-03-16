@@ -12,7 +12,7 @@
     <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
     <meta
       name="keywords"
-      content="vivaxy,examples,github,demo,playground,angular,test,libraries,Node.js Packages Demos,node-js-packages,sample,demos"
+      content="vivaxy,examples,github,demo,playground,angular,test,libraries,Node.js Packages Demos,node-js-packages,sample,demos,samples"
     />
     <meta name="description" content="Angular" />
   </head>
@@ -50,8 +50,8 @@
       <p>Full Name : {{ firstName + " " + lastName }}</p>
       <script>
         function personController($scope) {
-          $scope.firstName = 'John';
-          $scope.lastName = 'Doe';
+          $scope.firstName = "John";
+          $scope.lastName = "Doe";
         }
       </script>
     </div>
@@ -89,12 +89,12 @@
       <script>
         function personController2($scope) {
           $scope.person2 = {
-            firstName: 'John',
-            lastName: 'Doe',
+            firstName: "John",
+            lastName: "Doe",
           };
           $scope.fullName = function () {
             var x = $scope.person2;
-            return x.firstName + ' ' + x.lastName;
+            return x.firstName + " " + x.lastName;
           };
         }
       </script>
@@ -202,8 +202,8 @@
       <script>
         function formController($scope) {
           $scope.master = {
-            firstName: 'John',
-            lastName: 'Doe',
+            firstName: "John",
+            lastName: "Doe",
           };
           $scope.reset = function () {
             $scope.user = angular.copy($scope.master);
@@ -266,8 +266,8 @@
       </form>
       <script>
         function validateController($scope) {
-          $scope.username = 'John Doe';
-          $scope.email = 'john.doe@gmail.com';
+          $scope.username = "John Doe";
+          $scope.email = "john.doe@gmail.com";
         }
       </script>
     </div>

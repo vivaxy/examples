@@ -1,8 +1,9 @@
 /**
  * @since 2022-03-12
  * @author vivaxy
+ * TODO step 2 yata change is OK, but, how to translate yata change to step?
  */
-import { Fragment } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
 
 export class ID {
   constructor(client, clock) {
@@ -191,4 +192,14 @@ export function fragmentToItems(fragment) {
     items.push(...nodeToItems(node));
   });
   return items;
+}
+
+export function sliceToItems(slice) {
+  const items = fragmentToItems(slice.content);
+  return items.slice(slice.openStart, items.length - slice.openEnd);
+}
+
+export function itemsToSlice(items, schema) {
+  const fragment = itemsToFragment(items, schema);
+  return new Slice(fragment, 0, 0);
 }
