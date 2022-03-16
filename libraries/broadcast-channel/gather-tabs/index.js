@@ -26,6 +26,7 @@ channel.onmessage = ({ type, tabId }) => {
     case MESSAGE_TYPES.GATHER_TABS_RESPONSE:
       if (gathering) {
         gathering.push(tabId);
+        console.log('RTT: ' + (Date.now() - startTime) + 'ms');
       }
       break;
     default:
@@ -33,9 +34,10 @@ channel.onmessage = ({ type, tabId }) => {
   }
 };
 
+const startTime = Date.now();
 channel.postMessage({ type: MESSAGE_TYPES.GATHER_TABS_REQUEST });
 gathering = [];
 setTimeout(() => {
   console.log(gathering);
   gathering = null;
-}, 100);
+}, 1000);
