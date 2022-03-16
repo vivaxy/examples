@@ -1,7 +1,6 @@
 /**
  * @since 2022-03-12
  * @author vivaxy
- * TODO step 2 yata change is OK, but, how to translate yata change to step?
  */
 import { Fragment, Slice } from 'prosemirror-model';
 
@@ -46,6 +45,9 @@ export class Item {
   }
 
   delete() {
+    if (this.deleted) {
+      return;
+    }
     this.deleted = true;
     if (this.left) {
       this.left.right = this.right;
@@ -85,6 +87,7 @@ export class OpeningTagItem extends Item {
     super();
     this.tagName = tagName;
     this.attrs = attrs;
+    this.closingId = null;
   }
 
   toJSON() {
@@ -92,6 +95,7 @@ export class OpeningTagItem extends Item {
       type: 'openingTag',
       tagName: this.tagName,
       attrs: this.attrs,
+      closingId: this.closingId,
     };
   }
 }
@@ -100,13 +104,14 @@ export class ClosingTagItem extends Item {
   constructor(tagName) {
     super();
     this.tagName = tagName;
-    this.closedId = null;
+    this.openingId = null;
   }
 
   toJSON() {
     return {
       type: 'closingTag',
       tagName: this.tagName,
+      openingId: this.openingId,
     };
   }
 }
@@ -143,9 +148,12 @@ export function nodeToItems(node) {
   ];
 }
 
-export function itemsToFragment(items, schema) {
+export function itemsToSlice(items, schema) {
   let fragment = Fragment.empty;
   let openingNodes = [];
+  let closingNode = null;
+  let openStart = 0;
+  let currentDepth = 0;
 
   function addToParent(node) {
     if (openingNodes.length) {
@@ -161,14 +169,32 @@ export function itemsToFragment(items, schema) {
     const item = items[i];
     if (item instanceof OpeningTagItem) {
       openingNodes.push(schema.node(item.tagName, item.attrs));
+      if (closingNode) {
+        addToParent(closingNode);
+      }
+      currentDepth++;
     } else if (item instanceof ClosingTagItem) {
       const node = openingNodes.pop();
-      if (node.type.name !== item.tagName) {
-        throw new Error(
-          `Closing wrong tag. Expect ${item.tagName}, actual ${node.type.name}`,
-        );
+      if (!node) {
+        // handle start with closing node
+        if (closingNode) {
+          closingNode = schema.node(item.tagName, null, [closingNode]);
+          openStart++;
+        } else {
+          closingNode = schema.node(item.tagName, null, fragment);
+          fragment = Fragment.empty;
+          console.assert(openStart === 0);
+          openStart++;
+        }
+      } else {
+        if (node.type.name !== item.tagName) {
+          throw new Error(
+            `Closing wrong tag. Expect ${item.tagName}, actual ${node.type.name}`,
+          );
+        }
+        addToParent(node);
+        currentDepth--;
       }
-      addToParent(node);
     } else if (item instanceof NodeItem) {
       addToParent(schema.node(item.tagName, item.attrs));
     } else if (item instanceof TextItem) {
@@ -183,7 +209,15 @@ export function itemsToFragment(items, schema) {
     }
   }
 
-  return fragment;
+  if (closingNode) {
+    fragment = fragment.append(Fragment.from([closingNode]));
+  }
+
+  if (openingNodes) {
+    fragment = fragment.append(Fragment.from(openingNodes));
+  }
+
+  return new Slice(fragment, openStart, currentDepth);
 }
 
 export function fragmentToItems(fragment) {
@@ -197,9 +231,4 @@ export function fragmentToItems(fragment) {
 export function sliceToItems(slice) {
   const items = fragmentToItems(slice.content);
   return items.slice(slice.openStart, items.length - slice.openEnd);
-}
-
-export function itemsToSlice(items, schema) {
-  const fragment = itemsToFragment(items, schema);
-  return new Slice(fragment, 0, 0);
 }

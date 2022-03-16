@@ -59,4 +59,12 @@ export class Document {
     }
     return pos;
   }
+
+  applyStep() {
+    // TODO
+  }
+
+  applyItems() {
+    // TODO
+  }
 }

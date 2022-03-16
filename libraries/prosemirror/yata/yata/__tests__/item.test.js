@@ -4,7 +4,7 @@ import {
   nodeToItems,
   OpeningTagItem,
   ClosingTagItem,
-  itemsToFragment,
+  itemsToSlice,
   TextItem,
   NodeItem,
   sliceToItems,
@@ -27,6 +27,7 @@ describe('nodeToItems', function () {
         attrs: {},
         tagName: 'paragraph',
         type: 'openingTag',
+        closingId: null,
       },
       {
         marks: [
@@ -67,12 +68,13 @@ describe('nodeToItems', function () {
       {
         tagName: 'paragraph',
         type: 'closingTag',
+        openingId: null,
       },
     ]);
   });
 });
 
-describe('itemsToFragment and fragmentToItems', function () {
+describe('itemsToSlice and fragmentToItems', function () {
   test('all items', function () {
     const items = [
       new OpeningTagItem('paragraph'),
@@ -81,8 +83,8 @@ describe('itemsToFragment and fragmentToItems', function () {
       new NodeItem('image', { src: 'a' }),
       new ClosingTagItem('paragraph'),
     ];
-    const fragment = itemsToFragment(items, schema);
-    expect(fragment.toJSON()).toStrictEqual(
+    const slice = itemsToSlice(items, schema);
+    expect(slice.content.toJSON()).toStrictEqual(
       Fragment.from([
         schema.node('paragraph', null, [
           schema.text('12'),
@@ -90,7 +92,7 @@ describe('itemsToFragment and fragmentToItems', function () {
         ]),
       ]).toJSON(),
     );
-    expect(fragment.size).toBe(items.length);
+    expect(slice.size).toBe(items.length);
   });
 });
 
@@ -115,11 +117,13 @@ describe('sliceToItems', () => {
       {
         tagName: 'paragraph',
         type: 'closingTag',
+        openingId: null,
       },
       {
         attrs: {},
         tagName: 'paragraph',
         type: 'openingTag',
+        closingId: null,
       },
       {
         marks: [
@@ -160,6 +164,7 @@ describe('sliceToItems', () => {
       {
         tagName: 'paragraph',
         type: 'closingTag',
+        openingId: null,
       },
     ]);
   });
@@ -173,15 +178,19 @@ describe('itemsToSlice', () => {
       new NodeItem('image', { src: 'a' }),
       new ClosingTagItem('paragraph'),
     ];
-    const fragment = itemsToFragment(items, schema);
-    expect(fragment.toJSON()).toStrictEqual(
-      Fragment.from([
-        schema.node('paragraph', null, [
-          schema.text('12'),
-          schema.node('image', { src: 'a' }),
+    const slice = itemsToSlice(items, schema);
+    expect(slice.toJSON()).toStrictEqual(
+      new Slice(
+        Fragment.from([
+          schema.node('paragraph', null, [
+            schema.text('12'),
+            schema.node('image', { src: 'a' }),
+          ]),
         ]),
-      ]).toJSON(),
+        1,
+        0,
+      ).toJSON(),
     );
-    expect(fragment.size).toBe(items.length);
+    expect(slice.size).toBe(items.length);
   });
 });
