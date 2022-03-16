@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/vivaxy/samples.git"
+    "url": "git+ssh://git@github.com/vivaxy/examples.git"
   },
   "keywords": [
     "webpack"
@@ -17,9 +17,9 @@
   "author": "vivaxy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vivaxy/samples/issues"
+    "url": "https://github.com/vivaxy/examples/issues"
   },
-  "homepage": "https://github.com/vivaxy/samples#readme",
+  "homepage": "https://github.com/vivaxy/examples#readme",
   "dependencies": {
     "webpack": "^5.0.0",
     "webpack-dev-server": "^3.0.0"
