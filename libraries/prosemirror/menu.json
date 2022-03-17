@@ -1,5 +1,9 @@
 [
   {
+    "name": "Emoji NodeSize",
+    "link": "emoji-node-size/"
+  },
+  {
     "name": "Insert Block Inside Inline Nodes",
     "link": "insert-block-inside-inline-nodes/index.js"
   },

@@ -229,6 +229,7 @@ Table of contents
     * [DOMSerializer](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer/) DOMSerializer
     * [ProseMirror DOMSerializer.toDOM with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer-to-dom-with-decorations/) ProseMirror DOMSerializer.toDOM with Decorations
     * [ProseMirror EditorView](https://vivaxy.github.io/samples/libraries/prosemirror/editor-view/) ProseMirror EditorView
+    * [ProseMirror Emoji NodeSize](https://vivaxy.github.io/samples/libraries/prosemirror/emoji-node-size/) Basic
     * [ProseMirror Excluding Marks](https://vivaxy.github.io/samples/libraries/prosemirror/excluding-marks/) ProseMirror Excluding Marks
     * [History Plugin](https://vivaxy.github.io/samples/libraries/prosemirror/history-plugin/) History Plugin
     * [ProseMirror Mapping](https://vivaxy.github.io/samples/libraries/prosemirror/mapping/) ProseMirror Mapping
