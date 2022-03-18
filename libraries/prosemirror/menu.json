@@ -1,5 +1,9 @@
 [
   {
+    "name": "ShareDB",
+    "link": "sharedb/"
+  },
+  {
     "name": "Emoji NodeSize",
     "link": "emoji-node-size/"
   },
