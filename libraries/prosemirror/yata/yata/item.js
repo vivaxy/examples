@@ -42,6 +42,7 @@ export class Item {
     };
     position.doc.clock++;
     position.left = this;
+    return null;
   }
 
   delete() {
@@ -87,7 +88,7 @@ export class OpeningTagItem extends Item {
     super();
     this.tagName = tagName;
     this.attrs = attrs;
-    this.closingId = null;
+    this.closingItem = null;
   }
 
   toJSON() {
@@ -95,8 +96,19 @@ export class OpeningTagItem extends Item {
       type: 'openingTag',
       tagName: this.tagName,
       attrs: this.attrs,
-      closingId: this.closingId,
+      closingItemId: this.closingItem?.id,
     };
+  }
+
+  integrate(position) {
+    super.integrate(position);
+    position.paths.push(this);
+  }
+
+  replaceWithClosingItem(closingItem) {
+    this.delete();
+    const newOpeningTagItem = new OpeningTagItem(this.tagName, this.attrs);
+    newOpeningTagItem.integrate();
   }
 }
 
@@ -104,15 +116,25 @@ export class ClosingTagItem extends Item {
   constructor(tagName) {
     super();
     this.tagName = tagName;
-    this.openingId = null;
+    this.openingItem = null;
   }
 
   toJSON() {
     return {
       type: 'closingTag',
       tagName: this.tagName,
-      openingId: this.openingId,
+      openingItemId: this.openingItem?.id,
     };
+  }
+
+  integrate(position) {
+    super.integrate(position);
+    console.assert(
+      position.paths[position.paths.length - 1].tagName === this.tagName,
+    );
+    const openingTag = position.paths.pop();
+    openingTag.closingItem = this;
+    this.openingItem = openingTag;
   }
 }
 

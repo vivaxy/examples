@@ -2,12 +2,16 @@
  * @since 2022-03-12
  * @author vivaxy
  */
+import { ReplaceStep } from 'prosemirror-transform';
+import { ClosingTagItem, OpeningTagItem, sliceToItems } from './item.js';
+
 export class Position {
   constructor(doc) {
     this.doc = doc;
     this.pos = 0;
     this.left = null;
     this.right = doc.head;
+    this.paths = [];
   }
 
   canForward() {
@@ -21,6 +25,15 @@ export class Position {
     this.left = this.right;
     this.right = this.right.right;
     this.pos += 1;
+    if (this.left instanceof OpeningTagItem) {
+      this.paths.push(this.left);
+    }
+    if (this.right instanceof ClosingTagItem) {
+      console.assert(
+        this.right.tagName === this.paths[this.paths.length - 1].tagName,
+      );
+      this.paths.pop();
+    }
   }
 }
 
@@ -41,14 +54,27 @@ export class Document {
     let currentPos = from;
     while (currentPos < to) {
       console.assert($pos.right, 'Unexpected position ' + to);
-      $pos.right.delete();
+      const item = $pos.right;
+      item.delete();
       currentPos++;
     }
     for (let i = 0; i < items.length; i++) {
+      const item = items[i];
       if (i === 0 && !this.head) {
-        this.head = items[i];
+        this.head = item;
       }
-      items[i].integrate($pos);
+      item.integrate($pos);
+    }
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.openingItem && !items.includes(item.openingItem)) {
+        // this is a closing item, and its corresponding opening item is not newly integrated
+        item.openingItem.replaceWithClosingItem(item);
+      }
+      if (item.closingItem && items.includes(item.closingItem)) {
+        // this is an opening item, and its corresponding closing item is not newly integrated
+        item.closingItem.replaceWithOpengingItem(item);
+      }
     }
   }
 
@@ -60,8 +86,14 @@ export class Document {
     return pos;
   }
 
-  applyStep() {
-    // TODO
+  applyStep(step) {
+    if (step instanceof ReplaceStep) {
+      this.applyReplaceStep(step);
+    }
+  }
+
+  applyReplaceStep(step) {
+    this.replaceItems(step.from, step.to, sliceToItems(step.slice));
   }
 
   applyItems() {
