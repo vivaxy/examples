@@ -1,5 +1,8 @@
+import { Slice, Fragment } from 'prosemirror-model';
+import { ReplaceStep } from 'prosemirror-transform';
+import schema from '../../schema.js';
 import { Position, Document } from '../document.js';
-import { Item } from '../item.js';
+import { ClosingTagItem, Item, OpeningTagItem, TextItem } from '../item.js';
 
 const emptyDoc = new Document();
 
@@ -24,5 +27,29 @@ describe('position', function () {
   test('should forward', function () {
     const doc = new Document();
     doc.replaceItems(0, 0, [new Item()]);
+  });
+});
+
+describe('applyStep', function () {
+  test('ReplaceStep', function () {
+    const doc = new Document();
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('paragraph'),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+    ]);
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          new Fragment([schema.node('paragraph', null, [schema.text('2')])]),
+          1,
+          0,
+        ),
+      ),
+    );
+    expect(doc.toHTMLString()).toBe('<paragraph>2</paragraph>');
+    expect(doc.toArray().length).toBe(5);
   });
 });

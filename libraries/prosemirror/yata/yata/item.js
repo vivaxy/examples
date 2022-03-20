@@ -4,6 +4,17 @@
  */
 import { Fragment, Slice } from 'prosemirror-model';
 
+function attrsToQueryString(attrs) {
+  if (!attrs) {
+    return '';
+  }
+  let attrString = '';
+  Object.keys(attrs).forEach(function (key) {
+    attrString += ` ${key}="${attrs[key]}"`;
+  });
+  return attrString;
+}
+
 export class ID {
   constructor(client, clock) {
     this.client = client;
@@ -21,28 +32,38 @@ export class Item {
     this.deleted = false;
   }
 
-  integrate(position) {
-    this.left = position.left;
-    if (this.left) {
-      this.left.right = this;
+  integrateSimple(doc, originalLeft, originalRight) {
+    this.left = originalLeft;
+    if (originalLeft) {
+      originalLeft.right = this;
+      if (!this.originalLeft) {
+        this.originalLeft = originalLeft;
+      }
+      if (!originalLeft.originalRight) {
+        originalLeft.originalRight = this;
+      }
     }
-    this.right = position.right;
-    if (this.right) {
-      this.right.left = this;
+    this.right = originalRight;
+    if (originalRight) {
+      originalRight.left = this;
+      if (!this.originalRight) {
+        this.originalRight = originalRight;
+      }
+      if (!originalRight.originalLeft) {
+        originalRight.originalLeft = this;
+      }
     }
-    if (!this.originalLeft && this.left) {
-      this.originalLeft = this.left.id;
-    }
-    if (!this.originalRight && this.right) {
-      this.originalRight = this.right.id;
-    }
+
     this.id = {
-      client: position.doc.client,
-      clock: position.doc.clock,
+      client: doc.client,
+      clock: doc.clock,
     };
-    position.doc.clock++;
+    doc.clock++;
+  }
+
+  integrate(position) {
+    this.integrateSimple(position.doc, position.left, position.right);
     position.left = this;
-    return null;
   }
 
   delete() {
@@ -50,12 +71,6 @@ export class Item {
       return;
     }
     this.deleted = true;
-    if (this.left) {
-      this.left.right = this.right;
-    }
-    if (this.right) {
-      this.right.left = this.left;
-    }
   }
 }
 
@@ -75,6 +90,13 @@ export class TextItem extends Item {
       marks: this.marks,
     };
   }
+
+  toHTMLString() {
+    if (this.deleted) {
+      return '';
+    }
+    return this.text;
+  }
 }
 
 /**
@@ -88,7 +110,7 @@ export class OpeningTagItem extends Item {
     super();
     this.tagName = tagName;
     this.attrs = attrs;
-    this.closingItem = null;
+    this.closingTagItem = null;
   }
 
   toJSON() {
@@ -96,7 +118,7 @@ export class OpeningTagItem extends Item {
       type: 'openingTag',
       tagName: this.tagName,
       attrs: this.attrs,
-      closingItemId: this.closingItem?.id,
+      closingTagItem: this.closingTagItem?.id,
     };
   }
 
@@ -105,10 +127,18 @@ export class OpeningTagItem extends Item {
     position.paths.push(this);
   }
 
-  replaceWithClosingItem(closingItem) {
+  replaceWithClosingTagItem(doc, closingTagItem) {
     this.delete();
     const newOpeningTagItem = new OpeningTagItem(this.tagName, this.attrs);
-    newOpeningTagItem.integrate();
+    newOpeningTagItem.integrateSimple(doc, this.left, this.right);
+    this.closingTagItem = closingTagItem;
+  }
+
+  toHTMLString() {
+    if (this.deleted) {
+      return '';
+    }
+    return `<${this.tagName}${attrsToQueryString(this.attrs)}>`;
   }
 }
 
@@ -116,25 +146,39 @@ export class ClosingTagItem extends Item {
   constructor(tagName) {
     super();
     this.tagName = tagName;
-    this.openingItem = null;
+    this.openingTagItem = null;
   }
 
   toJSON() {
     return {
       type: 'closingTag',
       tagName: this.tagName,
-      openingItemId: this.openingItem?.id,
+      openingTagItem: this.openingTagItem?.id,
     };
   }
 
   integrate(position) {
     super.integrate(position);
+    console.assert(position.paths.length > 0);
     console.assert(
       position.paths[position.paths.length - 1].tagName === this.tagName,
     );
-    const openingTag = position.paths.pop();
-    openingTag.closingItem = this;
-    this.openingItem = openingTag;
+    const openingTagTag = position.paths.pop();
+    openingTagTag.closingTagItem = this;
+  }
+
+  replaceWithOpeningTagItem(doc, openingTagItem) {
+    this.delete();
+    const newClosingTagItem = new ClosingTagItem(this.tagName, this.attrs);
+    newClosingTagItem.integrateSimple(doc, this.left, this.right);
+    this.openingTagItem = openingTagItem;
+  }
+
+  toHTMLString() {
+    if (this.deleted) {
+      return '';
+    }
+    return `</${this.tagName}>`;
   }
 }
 
@@ -151,6 +195,13 @@ export class NodeItem extends Item {
       tagName: this.tagName,
       attrs: this.attrs,
     };
+  }
+
+  toHTMLString() {
+    if (this.deleted) {
+      return '';
+    }
+    return `<${this.tagName}${attrsToQueryString(this.attrs)} />`;
   }
 }
 

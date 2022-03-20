@@ -19,20 +19,31 @@ export class Position {
   }
 
   forward() {
-    if (!this.canForward()) {
-      throw new Error('Unexpected position ' + (this.pos + 1));
-    }
+    this.forwardToDeletionEnd();
+    this.forwardItem();
+    this.forwardToDeletionEnd();
+  }
+
+  forwardItem() {
     this.left = this.right;
     this.right = this.right.right;
-    this.pos += 1;
-    if (this.left instanceof OpeningTagItem) {
-      this.paths.push(this.left);
+    if (!this.left.deleted) {
+      this.pos += 1;
+      if (this.left instanceof OpeningTagItem) {
+        this.paths.push(this.left);
+      }
+      if (this.right instanceof ClosingTagItem) {
+        console.assert(
+          this.right.tagName === this.paths[this.paths.length - 1].tagName,
+        );
+        this.paths.pop();
+      }
     }
-    if (this.right instanceof ClosingTagItem) {
-      console.assert(
-        this.right.tagName === this.paths[this.paths.length - 1].tagName,
-      );
-      this.paths.pop();
+  }
+
+  forwardToDeletionEnd() {
+    while (this.right && this.right.deleted) {
+      this.forwardItem();
     }
   }
 }
@@ -56,6 +67,7 @@ export class Document {
       console.assert($pos.right, 'Unexpected position ' + to);
       const item = $pos.right;
       item.delete();
+      $pos.forwardToDeletionEnd();
       currentPos++;
     }
     for (let i = 0; i < items.length; i++) {
@@ -67,13 +79,13 @@ export class Document {
     }
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      if (item.openingItem && !items.includes(item.openingItem)) {
+      if (item.openingTagItem && !items.includes(item.openingTagItem)) {
         // this is a closing item, and its corresponding opening item is not newly integrated
-        item.openingItem.replaceWithClosingItem(item);
+        item.openingTagItem.replaceWithClosingTagItem(item);
       }
-      if (item.closingItem && items.includes(item.closingItem)) {
+      if (item.closingTagItem && !items.includes(item.closingTagItem)) {
         // this is an opening item, and its corresponding closing item is not newly integrated
-        item.closingItem.replaceWithOpengingItem(item);
+        item.closingTagItem.replaceWithOpeningTagItem(item);
       }
     }
   }
@@ -98,5 +110,25 @@ export class Document {
 
   applyItems() {
     // TODO
+  }
+
+  toHTMLString() {
+    let item = this.head;
+    let output = '';
+    while (item) {
+      output += item.toHTMLString();
+      item = item.right;
+    }
+    return output;
+  }
+
+  toArray() {
+    const output = [];
+    let item = this.head;
+    while (item) {
+      output.push(item);
+      item = item.right;
+    }
+    return output;
   }
 }
