@@ -5,43 +5,46 @@
 import Dexie from '//cdn.skypack.dev/dexie';
 import { run } from '//cdn.skypack.dev/@vivaxy/framework/utils/benchmark.js';
 
-async function open() {
-  function fn(ctx) {
-    const db = new Dexie('vivaxy');
-    db.version(1).stores({
-      friends: '++id, name, age',
-    });
-    ctx.db = db;
-  }
+function openTable(ctx) {
+  const db = new Dexie('vivaxy-example-1');
+  db.version(1).stores({
+    friends: '&id, [name+age], info',
+  });
+  ctx.db = db;
+  return db;
+}
 
+async function open() {
   function afterEach(ctx) {
     ctx.db.close();
   }
 
-  console.log('open', await run(fn, { afterEach }));
+  console.log('open', await run(openTable, { afterEach }));
 }
 
 function getBeforeAll(dbSize) {
   return async function beforeAll(ctx) {
-    const db = new Dexie('vivaxy');
-    db.version(1).stores({
-      friends: '++id, name, age',
-    });
+    const db = openTable(ctx);
     await db.friends.bulkPut(
-      Array.from({ length: dbSize }, (i) => {
+      Array.from({ length: dbSize }, (_, i) => {
         return {
+          id: i,
           name: 'vivaxy',
           age: i,
+          info: {
+            name: 'vivaxy',
+            age: i,
+          },
         };
       }),
     );
-    ctx.db = db;
   };
 }
 
 async function afterAll(ctx) {
-  await ctx.db.friends.clear();
-  ctx.db.close();
+  const { db } = ctx;
+  await db.friends.clear();
+  db.close();
 }
 
 async function read(dbSize = 0) {
@@ -70,7 +73,7 @@ async function readInTransaction(dbSize = 0) {
 
 async function readWhere(dbSize) {
   async function fn(ctx) {
-    await ctx.db.friends.where({ name: 'vivaxy' }).toArray();
+    await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).toArray();
   }
 
   console.log(
@@ -82,7 +85,7 @@ async function readWhere(dbSize) {
 async function readWhereInTransaction(dbSize) {
   async function fn(ctx) {
     await ctx.db.transaction('rw', ctx.db.friends, async () => {
-      await ctx.db.friends.where({ name: 'vivaxy' }).toArray();
+      await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).toArray();
     });
   }
 
@@ -94,7 +97,12 @@ async function readWhereInTransaction(dbSize) {
 
 async function write(dbSize = 0) {
   async function fn(ctx) {
-    await ctx.db.friends.put({ name: 'vivaxy', age: 20 });
+    await ctx.db.friends.put({
+      id: 999999,
+      name: 'vivaxy',
+      age: 20,
+      info: { name: 'vivaxy', age: 20 },
+    });
   }
 
   console.log(
@@ -106,7 +114,12 @@ async function write(dbSize = 0) {
 async function writeInTransaction(dbSize = 0) {
   async function fn(ctx) {
     await ctx.db.transaction('rw', ctx.db.friends, async () => {
-      await ctx.db.friends.put({ name: 'vivaxy', age: 20 });
+      await ctx.db.friends.put({
+        id: 999999,
+        name: 'vivaxy',
+        age: 20,
+        info: { name: 'vivaxy', age: 20 },
+      });
     });
   }
 
