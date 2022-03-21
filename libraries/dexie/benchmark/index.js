@@ -87,7 +87,7 @@ async function readWhereInTransaction(dbSize) {
   }
 
   console.log(
-    `read with where in ${dbSize} line(s) table`,
+    `transaction read with where in ${dbSize} line(s) table`,
     await run(fn, { beforeAll: getBeforeAll(dbSize), afterAll }),
   );
 }
