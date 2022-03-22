@@ -49,7 +49,7 @@ async function afterAll(ctx) {
 
 async function read(dbSize = 0) {
   async function fn(ctx) {
-    await ctx.db.friends.toArray();
+    await ctx.db.friends.toCollection().last();
   }
 
   console.log(
@@ -61,7 +61,7 @@ async function read(dbSize = 0) {
 async function readInTransaction(dbSize = 0) {
   async function fn(ctx) {
     await ctx.db.transaction('rw', ctx.db.friends, async () => {
-      await ctx.db.friends.toArray();
+      await ctx.db.friends.toCollection().last();
     });
   }
 
@@ -73,7 +73,7 @@ async function readInTransaction(dbSize = 0) {
 
 async function readWhere(dbSize) {
   async function fn(ctx) {
-    await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).toArray();
+    await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).first();
   }
 
   console.log(
@@ -85,12 +85,36 @@ async function readWhere(dbSize) {
 async function readWhereInTransaction(dbSize) {
   async function fn(ctx) {
     await ctx.db.transaction('rw', ctx.db.friends, async () => {
-      await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).toArray();
+      await ctx.db.friends.where({ name: 'vivaxy', age: 1 }).first();
     });
   }
 
   console.log(
     `transaction read with where in ${dbSize} line(s) table`,
+    await run(fn, { beforeAll: getBeforeAll(dbSize), afterAll }),
+  );
+}
+
+async function readGet(dbSize) {
+  async function fn(ctx) {
+    await ctx.db.friends.get({ name: 'vivaxy', age: 1 });
+  }
+
+  console.log(
+    `read with get in ${dbSize} line(s) table`,
+    await run(fn, { beforeAll: getBeforeAll(dbSize), afterAll }),
+  );
+}
+
+async function readGetInTransaction(dbSize) {
+  async function fn(ctx) {
+    await ctx.db.transaction('rw', ctx.db.friends, async () => {
+      await ctx.db.friends.get({ name: 'vivaxy', age: 1 });
+    });
+  }
+
+  console.log(
+    `transaction read with get in ${dbSize} line(s) table`,
     await run(fn, { beforeAll: getBeforeAll(dbSize), afterAll }),
   );
 }
@@ -151,6 +175,16 @@ async function writeInTransaction(dbSize = 0) {
   await readWhereInTransaction(100);
   await readWhereInTransaction(1000);
   await readWhereInTransaction(10000);
+  await readGet(1);
+  await readGet(10);
+  await readGet(100);
+  await readGet(1000);
+  await readGet(10000);
+  await readGetInTransaction(1);
+  await readGetInTransaction(10);
+  await readGetInTransaction(100);
+  await readGetInTransaction(1000);
+  await readGetInTransaction(10000);
   await write(1);
   await write(10);
   await write(100);
