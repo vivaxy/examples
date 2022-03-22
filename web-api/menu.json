@@ -1,5 +1,9 @@
 [
   {
+    "name": "Context Menu",
+    "link": "context-menu/"
+  },
+  {
     "name": "ContentEditable",
     "link": "content-editable/"
   },
