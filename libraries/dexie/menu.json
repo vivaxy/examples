@@ -1,5 +1,9 @@
 [
   {
+    "name": "db-upgrade",
+    "link": "db-upgrade/"
+  },
+  {
     "name": "Benchmark",
     "link": "benchmark/"
   },
