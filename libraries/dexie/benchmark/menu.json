@@ -1,5 +1,9 @@
 [
   {
+    "name": "get() v.s. sortBy()",
+    "link": "get-vs-sort-by/"
+  },
+  {
     "name": "Common API",
     "link": "common-api/"
   },
