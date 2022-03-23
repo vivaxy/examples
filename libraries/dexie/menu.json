@@ -1,6 +1,10 @@
 [
   {
-    "name": "db-upgrade",
+    "name": "Put with inbound keys",
+    "link": "put-with-inbound-keys/"
+  },
+  {
+    "name": "DB Upgrade",
     "link": "db-upgrade/"
   },
   {
