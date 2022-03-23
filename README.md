@@ -188,6 +188,7 @@ Table of contents
     * [Concurrent Read And Write](https://vivaxy.github.io/samples/libraries/dexie/concurrent-read-and-write/) Concurrent Read And Write
     * [DB Upgrade](https://vivaxy.github.io/samples/libraries/dexie/db-upgrade/) DB Upgrade
     * [Put with inbound keys](https://vivaxy.github.io/samples/libraries/dexie/put-with-inbound-keys/) Put with inbound keys
+    * [Dexie.Table.get](https://vivaxy.github.io/samples/libraries/dexie/table-get/) Dexie.Table.get
     * [Transaction With Timeout](https://vivaxy.github.io/samples/libraries/dexie/transaction-with-timeout/) Transaction With Timeout
   * [Disable multi selection](https://vivaxy.github.io/samples/libraries/disable-multi-selection/) Disable multi selection
   * [Download Image](https://vivaxy.github.io/samples/libraries/download-image/) Download Image

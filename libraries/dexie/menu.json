@@ -1,5 +1,9 @@
 [
   {
+    "name": "Table.get()",
+    "link": "table-get/"
+  },
+  {
     "name": "Put with inbound keys",
     "link": "put-with-inbound-keys/"
   },
