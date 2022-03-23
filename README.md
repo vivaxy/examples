@@ -184,7 +184,11 @@ Table of contents
   * [cycle.js](https://vivaxy.github.io/samples/libraries/cycle-js/) Cycle js
     * [Cycle.js Basic Example](https://vivaxy.github.io/samples/libraries/cycle-js/basic/) Basic
   * [Dexie.js](https://vivaxy.github.io/samples/libraries/dexie/) Dexie.js
-    * [Performance Benchmark](https://vivaxy.github.io/samples/libraries/dexie/benchmark/) Performance Benchmark
+    * [Dexie.js Benchmark](https://vivaxy.github.io/samples/libraries/dexie/benchmark/) Dexie.js
+      * [Performance Benchmark](https://vivaxy.github.io/samples/libraries/dexie/benchmark/common-api/) Performance Benchmark
+      * [get() vs sortBy()](https://vivaxy.github.io/samples/libraries/dexie/benchmark/get-vs-sort-by/) get() vs sortBy()
+      * [Read v.s. Read in transaction](https://vivaxy.github.io/samples/libraries/dexie/benchmark/read-vs-read-in-transaction/) Read v.s. Read in transaction
+      * [Read v.s. Read Where](https://vivaxy.github.io/samples/libraries/dexie/benchmark/read-vs-read-where/) Read v.s. Read Where
     * [Concurrent Read And Write](https://vivaxy.github.io/samples/libraries/dexie/concurrent-read-and-write/) Concurrent Read And Write
     * [DB Upgrade](https://vivaxy.github.io/samples/libraries/dexie/db-upgrade/) DB Upgrade
     * [Put with inbound keys](https://vivaxy.github.io/samples/libraries/dexie/put-with-inbound-keys/) Put with inbound keys
