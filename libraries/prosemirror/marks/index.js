@@ -5,6 +5,7 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
+import { AddMarkStep } from 'prosemirror-transform';
 import { schema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
@@ -85,6 +86,19 @@ document.querySelector('#add-mark').addEventListener('click', function () {
   view.dispatch(view.state.tr.addMark(from, to, mark));
 });
 
+document
+  .querySelector('#add-mark-by-step')
+  .addEventListener('click', function () {
+    const from = $markStart.value;
+    const to = $markEnd.value;
+    const mark = sampleSchema.marks.background.create({
+      'data-background-id': 'b-' + Date.now(),
+    });
+    const { tr } = view.state;
+    tr.maybeStep(new AddMarkStep(Number(from), Number(to), mark));
+    view.dispatch(tr);
+  });
+
 document.querySelector('#remove-mark').addEventListener('click', function () {
   const from = $markStart.value;
   const to = $markEnd.value;
@@ -92,3 +106,5 @@ document.querySelector('#remove-mark').addEventListener('click', function () {
     view.state.tr.removeMark(from, to, sampleSchema.marks.background),
   );
 });
+
+window.view = view;
