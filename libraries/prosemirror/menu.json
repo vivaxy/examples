@@ -1,5 +1,9 @@
 [
   {
+    "name": "Safari Composition Delete Relative Nodes",
+    "link": "safari-composition-delete-relative-nodes"
+  },
+  {
     "name": "ShareDB",
     "link": "sharedb/"
   },

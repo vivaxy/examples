@@ -250,6 +250,7 @@ Table of contents
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
     * [ProseMirror ReplaceStep](https://vivaxy.github.io/samples/libraries/prosemirror/replace-step/) ProseMirror ReplaceStep
     * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
+    * [Safari composition delete relative nodes](https://vivaxy.github.io/samples/libraries/prosemirror/safari-composition-delete-relative-nodes/) ProseMirror Minimal Editor
     * [Schema defining](https://vivaxy.github.io/samples/libraries/prosemirror/schema-defining/) Schema defining
     * [ProseMirror Schema ParseRule](https://vivaxy.github.io/samples/libraries/prosemirror/schema-parse-rule/) ProseMirror Schema ParseRule
     * [ProseMirror Selection](https://vivaxy.github.io/samples/libraries/prosemirror/selection/) ProseMirror Selection

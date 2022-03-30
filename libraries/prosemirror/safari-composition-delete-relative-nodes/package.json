@@ -1,9 +1,9 @@
 {
-  "name": "minimal",
+  "name": "safari-composition-delete-relative-nodes",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development webpack server",
     "build": "NODE_ENV=production webpack"
