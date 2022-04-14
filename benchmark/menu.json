@@ -1,5 +1,9 @@
 [
   {
+    "name": "getBoundingClientRect time",
+    "link": "get-bounding-client-rect/"
+  },
+  {
     "name": "RegExp Non Capturing Group",
     "link": "regexp-non-capturing-group/"
   },

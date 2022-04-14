@@ -42,6 +42,7 @@ Table of contents
 * [Benchmark](https://vivaxy.github.io/samples/benchmark/) 性能
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/samples/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/samples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
+  * [getBoundingClientRect](https://vivaxy.github.io/samples/benchmark/get-bounding-client-rect/) getBoundingClientRect
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/samples/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/) Get bounding client rect vs inner width vs client width
   * [Number vs parseInt](https://vivaxy.github.io/samples/benchmark/number-vs-parseInt/) Number vs parse int
   * [querySelector](https://vivaxy.github.io/samples/benchmark/querySelector/) querySelector
