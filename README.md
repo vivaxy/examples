@@ -249,6 +249,7 @@ Table of contents
     * [ProseMirror NodeType.createAndFill](https://vivaxy.github.io/samples/libraries/prosemirror/node-type-create-and-fill/) ProseMirror NodeType.createAndFill
     * [ProseMirror NodeViews](https://vivaxy.github.io/samples/libraries/prosemirror/node-views/) ProseMirror NodeViews
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/samples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
+    * [Not Supported](https://vivaxy.github.io/samples/libraries/prosemirror/not-supported/) ProseMirror Minimal Editor
     * [ProseMirror ReplaceStep](https://vivaxy.github.io/samples/libraries/prosemirror/replace-step/) ProseMirror ReplaceStep
     * [ResolvedPos](https://vivaxy.github.io/samples/libraries/prosemirror/resolved-pos/) ResolvedPos
     * [Safari composition delete relative nodes](https://vivaxy.github.io/samples/libraries/prosemirror/safari-composition-delete-relative-nodes/) ProseMirror Minimal Editor
