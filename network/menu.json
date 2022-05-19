@@ -6,5 +6,9 @@
   {
     "name": "SameSite Cookies",
     "link": "samesite-cookies/index.js"
+  },
+  {
+    "name": "err_insufficient_resources",
+    "link": "err-insufficient-resources"
   }
 ]
