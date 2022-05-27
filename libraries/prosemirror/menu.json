@@ -1,5 +1,9 @@
 [
   {
+    "name": "Inline Node With Decorations",
+    "link": "inline-node-with-decorations"
+  },
+  {
     "name": "Safari Composition Delete Relative Nodes",
     "link": "safari-composition-delete-relative-nodes"
   },
