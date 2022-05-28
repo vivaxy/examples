@@ -233,6 +233,7 @@ Table of contents
     * [Decoration Render Sequence](https://vivaxy.github.io/samples/libraries/prosemirror/decoration-render-sequence/) Decoration Render Sequence
     * [Decoration Word Break](https://vivaxy.github.io/samples/libraries/prosemirror/decoration-word-break/) Decoration Word Break
     * [ProseMirror Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/decorations/) ProseMirror Decorations
+    * [Decorations Across Inline Nodes](https://vivaxy.github.io/samples/libraries/prosemirror/decorations-across-inline-nodes/) ProseMirror Minimal Editor
     * [ProseMirror DOMParser parserOptions](https://vivaxy.github.io/samples/libraries/prosemirror/dom-parser-options/) ProseMirror DOMParser parserOptions
     * [DOMSerializer](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer/) DOMSerializer
     * [ProseMirror DOMSerializer.toDOM with Decorations](https://vivaxy.github.io/samples/libraries/prosemirror/dom-serializer-to-dom-with-decorations/) ProseMirror DOMSerializer.toDOM with Decorations

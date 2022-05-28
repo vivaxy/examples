@@ -1,5 +1,9 @@
 [
   {
+    "name": "Decorations Across Inline Nodes",
+    "link": "decorations-across-inline-nodes"
+  },
+  {
     "name": "Inline Node With Decorations",
     "link": "inline-node-with-decorations"
   },
