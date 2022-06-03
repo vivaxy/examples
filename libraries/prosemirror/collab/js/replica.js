@@ -2,9 +2,9 @@
  * @since 2021-05-19
  * @author vivaxy
  */
-import { schema } from 'prosemirror-schema-basic';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
+import { Node } from 'prosemirror-model';
 
 import {
   MESSAGE_TYPE,
@@ -15,10 +15,12 @@ import {
   createStateFromDoc,
   createStateFromSerializedDoc,
   createStateFromDOM,
+  schema,
 } from './common';
 
 export function init() {
-  document.title = window.name;
+  const clientID = window.name;
+  document.title = clientID;
   // event
   window.addEventListener('message', function (e) {
     if (e.data.type === MESSAGE_TYPE) {
@@ -38,7 +40,7 @@ export function init() {
       prevDoc = view.state.doc;
       const newState = view.state.apply(transaction);
       view.updateState(newState);
-      if (transaction.steps.length) {
+      if (transaction.steps.length && !transaction.getMeta('remote')) {
         // selection change may cause transaction, but it should not sendMessage
         unsettledSteps = transaction.steps;
         prevDoc = state.doc;
@@ -46,7 +48,7 @@ export function init() {
           type: MESSAGE_TYPE_EDIT_STEP,
           version: version,
           steps: unsettledSteps.map((step) => step.toJSON()),
-          clientID: window.name,
+          clientID,
         });
       }
     },
@@ -55,34 +57,41 @@ export function init() {
   // collab
   function handleMessage(data) {
     if (data.type === MESSAGE_TYPE_SYNC_DOC) {
-      const newState = createStateFromSerializedDoc(data.serializedDoc);
+      const newState = createStateFromDoc(Node.fromJSON(schema, data.doc));
       view.updateState(newState);
       version = data.version;
     }
-    if (data.type === MESSAGE_TYPE_SYNC_STEPS) {
-      // TODO: how to implement?
-      // revert unsettled steps
-      const invertedSteps = unsettledSteps
-        .map(function (step) {
-          return step.invert(prevDoc);
-        })
-        .reverse();
-      let newDoc = view.state.doc;
-      invertedSteps.forEach(function (step) {
-        newDoc = step.apply(newDoc).doc;
-      });
 
-      // play sync steps
-      data.steps
-        .map(function (step) {
-          return Step.fromJSON(schema, step);
-        })
-        .forEach(function (step) {
-          newDoc = step.apply(newDoc).doc;
+    if (data.type === MESSAGE_TYPE_SYNC_STEPS) {
+      if (data.clientID === clientID) {
+        // from self
+        unsettledSteps = [];
+      } else {
+        // revert unsettled steps
+        const invertedSteps = unsettledSteps
+          .map(function (step) {
+            return step.invert(prevDoc);
+          })
+          .reverse();
+        const { tr } = view.state;
+
+        invertedSteps.forEach(function (step) {
+          tr.step(step);
         });
 
-      const newState = createStateFromDoc(newDoc);
-      view.updateState(newState);
+        invertedSteps.forEach(function (step) {
+          tr.step(step);
+        });
+        // play sync steps
+        data.steps.forEach(function (step) {
+          const s = Step.fromJSON(schema, step);
+          tr.step(s);
+        });
+
+        tr.setMeta('remote', true);
+
+        view.dispatch(tr);
+      }
       version = data.version;
     }
   }

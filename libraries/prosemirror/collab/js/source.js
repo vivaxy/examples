@@ -2,7 +2,6 @@
  * @since 2021-05-19
  * @author vivaxy
  */
-import { schema } from 'prosemirror-schema-basic';
 import { DOMSerializer } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
@@ -15,6 +14,7 @@ import {
   MESSAGE_TYPE_SYNC_STEPS,
   createStateFromDOM,
   createStateFromDoc,
+  schema,
 } from './common';
 import Authority from './authority';
 
@@ -53,14 +53,9 @@ export function init() {
   function handleMessage({ type, version, steps: stepsInJSON, clientID }) {
     if (type === MESSAGE_TYPE_INIT) {
       // sync doc to replica
-      const fragment = DOMSerializer.fromSchema(schema).serializeFragment(
-        authority.doc,
-      );
-      const div = document.createElement('div');
-      div.appendChild(fragment);
       sendMessage({
         type: MESSAGE_TYPE_SYNC_DOC,
-        serializedDoc: div.innerHTML,
+        doc: authority.doc.toJSON(),
         version: authority.version,
       });
     }
@@ -75,6 +70,7 @@ export function init() {
           type: MESSAGE_TYPE_SYNC_STEPS,
           steps: stepsInJSON,
           version: authority.version,
+          clientID,
         });
       }
     }
