@@ -12,7 +12,7 @@
   background-color: #f0f0f0;
 }
 
-.padding:before {
+.padding p:nth-child(1):after {
   content: "";
   display: block;
   height: 100px;
