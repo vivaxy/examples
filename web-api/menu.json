@@ -1,5 +1,9 @@
 [
   {
+    "name": "Set Scoll Top While Scrolling",
+    "link": "set-scroll-top-while-scrolling/"
+  },
+  {
     "name": "scrollTop",
     "link": "scroll-top/"
   },
