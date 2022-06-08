@@ -416,6 +416,7 @@ Table of contents
   * [Chrome 忽略跨域脚本中的 unhandledrejection 错误](https://vivaxy.github.io/samples/web-api/script-error/) Chrome 忽略跨域脚本中的 unhandledrejection 错误
   * [script type module](https://vivaxy.github.io/samples/web-api/script-type-module/) Script type module
   * [ScrollIntoView](https://vivaxy.github.io/samples/web-api/scroll-into-view/) ScrollIntoView
+  * [scrollTop](https://vivaxy.github.io/samples/web-api/scroll-top/) scrollTop
   * [select multiple](https://vivaxy.github.io/samples/web-api/select-multiple/) Select multiple
   * [Selection](https://vivaxy.github.io/samples/web-api/selection/) Selection API
     * [selection](https://vivaxy.github.io/samples/web-api/selection/basic/) Selection
