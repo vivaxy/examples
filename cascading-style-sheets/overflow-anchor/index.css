@@ -8,13 +8,7 @@
   /* overflow-anchor: none; */
 }
 
-.padding {
-  background-color: #f0f0f0;
-}
-
-.padding p:nth-child(1):after {
-  content: "";
-  display: block;
-  height: 100px;
-  background-color: #f00;
+.new {
+  background-color: red;
+  color: #fff;
 }

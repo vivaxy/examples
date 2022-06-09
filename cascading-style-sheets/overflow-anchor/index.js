@@ -7,6 +7,20 @@ const $anchor = document.querySelector('#anchor');
 
 $anchor.scrollIntoView();
 
-setTimeout(() => {
-  $container.classList.add('padding');
-}, 3000);
+let newNodeIndex = 0;
+function createNewNode() {
+  const p = document.createElement('p');
+  p.className = 'new';
+  p.innerHTML = 'New node ' + newNodeIndex++;
+  return p;
+}
+
+document.getElementById('before').addEventListener('click', function () {
+  const p = createNewNode();
+  $container.insertBefore(p, $anchor);
+});
+
+document.getElementById('after').addEventListener('click', function () {
+  const p = createNewNode();
+  $container.insertBefore(p, $anchor.nextSibling);
+});
