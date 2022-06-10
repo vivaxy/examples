@@ -1,5 +1,9 @@
 [
   {
+    "name": "Pointer Events",
+    "link": "pointer-events/"
+  },
+  {
     "name": "Set Scoll Top While Scrolling",
     "link": "set-scroll-top-while-scrolling/"
   },

@@ -1,11 +1,13 @@
 {
-  "name": "samples",
+  "name": "examples",
   "version": "0.0.0",
-  "description": "Samples",
+  "description": "Examples",
   "keywords": [
     "vivaxy",
     "sample",
     "samples",
+    "example",
+    "examples",
     "github",
     "demo",
     "demos",
@@ -14,14 +16,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vivaxy/samples.git"
+    "url": "git+https://github.com/vivaxy/examples.git"
   },
   "author": "vivaxy <xyxuye2007@126.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vivaxy/samples/issues"
+    "url": "https://github.com/vivaxy/examples/issues"
   },
-  "homepage": "https://github.com/vivaxy/samples#readme",
+  "homepage": "https://github.com/vivaxy/examples#readme",
   "devDependencies": {
     "@commitlint/cli": "^12.0.0",
     "@commitlint/config-conventional": "^12.0.0",
@@ -37,8 +39,8 @@
     ]
   },
   "gds": {
-    "readmePrefix": "# [Samples](https://vivaxy.github.io/samples/index.html)",
-    "link-prefix": "https://vivaxy.github.io/samples/"
+    "readmePrefix": "# [Examples](https://vivaxy.github.io/examples/index.html)",
+    "link-prefix": "https://vivaxy.github.io/examples/"
   },
   "scripts": {
     "postinstall": "husky install",
