@@ -1,5 +1,9 @@
 [
   {
+    "name": "Selection Change",
+    "link": "selection-change/"
+  },
+  {
     "name": "Pointer Events",
     "link": "pointer-events/"
   },

@@ -425,6 +425,7 @@ Table of contents
     * [Selection Range and Node Modification](https://vivaxy.github.io/examples/web-api/selection/range-and-node-modification/) Selection Range and Node Modification
     * [Selection Manipulation](https://vivaxy.github.io/examples/web-api/selection/selection-manipulation/) selection Manipulation
     * [Selection within Table](https://vivaxy.github.io/examples/web-api/selection/selection-within-table/) Selection within Table
+  * [Selection Change](https://vivaxy.github.io/examples/web-api/selection-change/) Selection Change
   * [sendBeacon](https://vivaxy.github.io/examples/web-api/send-beacon/) Send beacon
   * [service worker](https://vivaxy.github.io/examples/web-api/service-worker/) Service worker
     * [Cache](https://vivaxy.github.io/examples/web-api/service-worker/cache/) Cache
