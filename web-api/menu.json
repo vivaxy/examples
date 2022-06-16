@@ -1,5 +1,9 @@
 [
   {
+    "name": "hover",
+    "link": "hover/"
+  },
+  {
     "name": "Selection Change",
     "link": "selection-change/"
   },
