@@ -399,6 +399,7 @@ Table of contents
   * [Meta Scale](https://vivaxy.github.io/examples/web-api/meta-scale/) Meta scale demo
   * [Meta Width](https://vivaxy.github.io/examples/web-api/meta-width/) Meta width
   * [MIDI](https://vivaxy.github.io/examples/web-api/midi/) MIDI
+  * [MouseEvent](https://vivaxy.github.io/examples/web-api/mouse-event/) MouseEvent
   * [notification](https://vivaxy.github.io/examples/web-api/notification/) Notification
   * [Object](https://vivaxy.github.io/examples/web-api/object/) Object.defineProperty demo
   * [object oriented](https://vivaxy.github.io/examples/web-api/object-oriented/) Object oriented
