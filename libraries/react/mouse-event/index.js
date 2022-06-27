@@ -6,7 +6,18 @@ const Target = function () {
   return React.createElement('div', {
     className: 'target',
     onMouseEnter(e) {
-      console.log('target mouseenter', e.type, e.nativeEvent.type);
+      console.log(
+        'target mouseenter',
+        `e.type=${e.type}`,
+        `e.nativeEvent.type=${e.nativeEvent.type}`,
+      );
+    },
+    onMouseLeave(e) {
+      console.log(
+        'target mouseleave',
+        `e.type=${e.type}`,
+        `e.nativeEvent.type=${e.nativeEvent.type}`,
+      );
     },
   });
 };
@@ -15,7 +26,18 @@ const Mask = function () {
   return React.createElement('div', {
     className: 'mask',
     onMouseEnter(e) {
-      console.log('mask mouseenter', e.type, e.nativeEvent.type);
+      console.log(
+        'mask mouseenter',
+        `e.type=${e.type}`,
+        `e.nativeEvent.type=${e.nativeEvent.type}`,
+      );
+    },
+    onMouseLeave(e) {
+      console.log(
+        'mask mouseleave',
+        `e.type=${e.type}`,
+        `e.nativeEvent.type=${e.nativeEvent.type}`,
+      );
     },
   });
 };

@@ -4,11 +4,19 @@
  */
 const $target = document.getElementById('target');
 $target.addEventListener('mouseenter', function (e) {
-  console.log('mouseenter');
+  console.log('target mouseenter');
 });
-$target.addEventListener('mousemove', function (e) {
-  console.log('mousemove');
-});
+// $target.addEventListener('mousemove', function (e) {
+//   console.log('target mousemove');
+// });
 $target.addEventListener('mouseleave', function (e) {
-  console.log('mouseleave');
+  console.log('target mouseleave');
+});
+
+const $mask = document.getElementById('mask');
+$mask.addEventListener('mouseenter', function (e) {
+  console.log('mask mouseenter');
+});
+$mask.addEventListener('mouseleave', function (e) {
+  console.log('mask mouseleave');
 });

@@ -10,11 +10,13 @@ body {
   background-color: rgb(255, 200, 255);
   width: 50px;
   height: 50px;
+  padding: 20px;
 }
 
 #mask {
   position: absolute;
-  top: 0;
+  top: 50px;
+  left: 50px;
   width: 100px;
   height: 100px;
   background-color: rgba(200, 255, 255, 0.5);
