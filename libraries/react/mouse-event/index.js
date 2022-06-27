@@ -6,7 +6,7 @@ const Target = function () {
   return React.createElement('div', {
     className: 'target',
     onMouseEnter(e) {
-      console.log(e.type, e.nativeEvent.type);
+      console.log('target mouseenter', e.type, e.nativeEvent.type);
     },
   });
 };
@@ -14,6 +14,9 @@ const Target = function () {
 const Mask = function () {
   return React.createElement('div', {
     className: 'mask',
+    onMouseEnter(e) {
+      console.log('mask mouseenter', e.type, e.nativeEvent.type);
+    },
   });
 };
 
