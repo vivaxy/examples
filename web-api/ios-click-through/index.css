@@ -1,0 +1,18 @@
+/**
+ * @since 2022-07-07 17:21
+ * @author vivaxy
+ */
+#background {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+#foreground {
+  width: 200px;
+  height: 200px;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
