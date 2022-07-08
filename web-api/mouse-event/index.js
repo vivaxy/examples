@@ -20,3 +20,17 @@ $mask.addEventListener('mouseenter', function (e) {
 $mask.addEventListener('mouseleave', function (e) {
   console.log('mask mouseleave');
 });
+
+const $scroll = document.getElementById('scroll');
+function handleMouseMove() {
+  console.log('mousemove');
+}
+$scroll.addEventListener('mousedown', function () {
+  console.log('moousedown');
+  $scroll.addEventListener('mousemove', handleMouseMove);
+});
+
+$scroll.addEventListener('mouseup', function () {
+  console.log('mouseup');
+  $scroll.removeEventListener('mousemove', handleMouseMove);
+});

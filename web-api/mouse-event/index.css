@@ -21,3 +21,15 @@ body {
   height: 100px;
   background-color: rgba(200, 255, 255, 0.5);
 }
+
+#scroll {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+}
+
+#scroll-inner {
+  width: 200px;
+  height: 100px;
+  background-color: red;
+}
