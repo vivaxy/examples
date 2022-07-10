@@ -165,9 +165,6 @@ export class ClosingTagItem extends Item {
   integrate(position) {
     super.integrate(position);
     console.assert(position.paths.length > 0);
-    console.assert(
-      position.paths[position.paths.length - 1].tagName === this.tagName,
-    );
     const openingTagTag = position.paths.pop();
     openingTagTag.closingTagItem = this;
   }
