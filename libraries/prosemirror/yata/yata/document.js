@@ -2,8 +2,18 @@
  * @since 2022-03-12
  * @author vivaxy
  */
-import { ReplaceStep } from 'prosemirror-transform';
-import { ClosingTagItem, OpeningTagItem, sliceToItems } from './item.js';
+import {
+  AddMarkStep,
+  RemoveMarkStep,
+  ReplaceStep,
+  ReplaceAroundStep,
+} from 'prosemirror-transform';
+import {
+  ClosingTagItem,
+  OpeningTagItem,
+  sliceToItems,
+  fragmentToItems,
+} from './item.js';
 
 export class Position {
   constructor(doc) {
@@ -25,6 +35,9 @@ export class Position {
   }
 
   forwardItem() {
+    if (!this.canForward()) {
+      throw new Error(`Unexpected position ${this.pos + 1}`);
+    }
     this.left = this.right;
     this.right = this.right.right;
     if (!this.left.deleted) {
@@ -49,6 +62,16 @@ export class Position {
 }
 
 export class Document {
+  static fromNodes(nodes) {
+    const doc = new Document();
+    const items = fragmentToItems(nodes);
+    const pos = new Position(doc);
+    items.forEach(function (item) {
+      item.integrate(pos);
+    });
+    return doc;
+  }
+
   constructor() {
     this.head = null;
     this.client = Math.random().toString(36).slice(2);
@@ -101,11 +124,40 @@ export class Document {
   applyStep(step) {
     if (step instanceof ReplaceStep) {
       this.applyReplaceStep(step);
+    } else if (step instanceof ReplaceAroundStep) {
+      this.applyReplaceAroundStep(step);
+    } else if (step instanceof AddMarkStep) {
+      this.applyAddMarkStep(step);
+    } else if (step instanceof RemoveMarkStep) {
+      this.applyRemoveMarkStep(step);
+    } else {
+      throw new Error('Unexpected step');
     }
   }
 
   applyReplaceStep(step) {
     this.replaceItems(step.from, step.to, sliceToItems(step.slice));
+  }
+
+  applyReplaceAroundStep(step) {
+    this.replaceItems(
+      step.gapTo,
+      step.to,
+      sliceToItems(step.slice).slice(step.insert),
+    );
+    this.replaceItems(
+      step.from,
+      step.gapFrom,
+      sliceToItems(step.slice).slice(0, step.insert),
+    );
+  }
+
+  applyAddMarkStep(step) {
+    // TODO
+  }
+
+  applyRemoveMarkStep(step) {
+    // TODO
   }
 
   applyItems() {

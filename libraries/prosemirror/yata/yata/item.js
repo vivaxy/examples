@@ -63,6 +63,10 @@ export class Item {
 
   integrate(position) {
     this.integrateSimple(position.doc, position.left, position.right);
+    if (position.left === null && position.right === null) {
+      // empty doc
+      position.doc.head = this;
+    }
     position.left = this;
   }
 
@@ -78,6 +82,7 @@ export class TextItem extends Item {
   constructor(text, marks = []) {
     super();
     this.text = text;
+    // todo marks should be items too
     this.marks = marks.map((mark) => {
       return mark.toJSON();
     });
@@ -118,7 +123,7 @@ export class OpeningTagItem extends Item {
       type: 'openingTag',
       tagName: this.tagName,
       attrs: this.attrs,
-      closingTagItem: this.closingTagItem?.id,
+      closingTagItem: this.closingTagItem.id,
     };
   }
 
@@ -214,11 +219,11 @@ export function nodeToItems(node) {
   if (node.isAtom) {
     return [new NodeItem(node.type.name, node.attrs)];
   }
-  return [
-    new OpeningTagItem(node.type.name, node.attrs),
-    ...fragmentToItems(node.content),
-    new ClosingTagItem(node.type.name, node.attrs),
-  ];
+  const openingTagItem = new OpeningTagItem(node.type.name, node.attrs);
+  const closingTagItem = new ClosingTagItem(node.type.name, node.attrs);
+  openingTagItem.closingTagItem = closingTagItem;
+  closingTagItem.openingTagItem = openingTagItem;
+  return [openingTagItem, ...fragmentToItems(node.content), closingTagItem];
 }
 
 export function itemsToSlice(items, schema) {

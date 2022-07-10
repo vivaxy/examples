@@ -5,6 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "prosemirror/yata npm run test",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "test"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "cwd": "${workspaceFolder}/libraries/prosemirror/yata"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "node-js/http-request-header-size",

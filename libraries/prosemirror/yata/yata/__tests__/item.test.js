@@ -9,6 +9,7 @@ import {
   NodeItem,
   sliceToItems,
 } from '../item.js';
+import { Document, Position } from '../document.js';
 
 describe('nodeToItems', function () {
   test('all nodes', function () {
@@ -27,7 +28,7 @@ describe('nodeToItems', function () {
         attrs: {},
         tagName: 'paragraph',
         type: 'openingTag',
-        closingId: null,
+        closingTagItem: null,
       },
       {
         marks: [
@@ -68,7 +69,7 @@ describe('nodeToItems', function () {
       {
         tagName: 'paragraph',
         type: 'closingTag',
-        openingId: null,
+        openingTagItem: null,
       },
     ]);
   });
@@ -117,13 +118,13 @@ describe('sliceToItems', () => {
       {
         tagName: 'paragraph',
         type: 'closingTag',
-        openingId: null,
+        openingTagItem: null,
       },
       {
         attrs: {},
         tagName: 'paragraph',
         type: 'openingTag',
-        closingId: null,
+        closingTagItem: null,
       },
       {
         marks: [
@@ -164,7 +165,7 @@ describe('sliceToItems', () => {
       {
         tagName: 'paragraph',
         type: 'closingTag',
-        openingId: null,
+        openingTagItem: null,
       },
     ]);
   });
@@ -192,5 +193,25 @@ describe('itemsToSlice', () => {
       ).toJSON(),
     );
     expect(slice.size).toBe(items.length);
+  });
+});
+
+describe('integrate', function () {
+  test('integrate into empty doc', function () {
+    const doc = new Document();
+    const pos = new Position(doc);
+    const item = new TextItem('1');
+    item.integrate(pos);
+    expect(doc.head).toBe(item);
+    expect(doc.clock).toBe(1);
+  });
+
+  test('integrate into tags', function () {
+    const doc = Document.fromNodes(Fragment.from([schema.node('paragraph')]));
+    const pos = new Position(doc);
+    pos.forward();
+    const item = new TextItem('1');
+    item.integrate(pos);
+    expect(doc.clock).toBe(3);
   });
 });
