@@ -1,5 +1,5 @@
 import { Slice, Fragment } from 'prosemirror-model';
-import { ReplaceStep } from 'prosemirror-transform';
+import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 import schema from '../../schema.js';
 import { Position, Document } from '../document.js';
 import { ClosingTagItem, Item, OpeningTagItem, TextItem } from '../item.js';
@@ -50,6 +50,24 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<paragraph>2</paragraph>');
+    expect(doc.toArray().length).toBe(5);
+  });
+
+  test('ReplaceAroundStep', function () {
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('1')])]),
+    );
+    doc.applyStep(
+      new ReplaceAroundStep(
+        0,
+        3,
+        1,
+        2,
+        new Slice(Fragment.from(schema.node('heading', { level: 1 })), 0, 0),
+        1,
+      ),
+    );
+    expect(doc.toHTMLString()).toBe('<heading level="1">1</heading>');
     expect(doc.toArray().length).toBe(5);
   });
 });

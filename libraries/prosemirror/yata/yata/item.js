@@ -32,7 +32,7 @@ export class Item {
     this.deleted = false;
   }
 
-  integrateSimple(doc, originalLeft, originalRight) {
+  integrateInner(doc, originalLeft, originalRight) {
     this.left = originalLeft;
     if (originalLeft) {
       originalLeft.right = this;
@@ -62,7 +62,7 @@ export class Item {
   }
 
   integrate(position) {
-    this.integrateSimple(position.doc, position.left, position.right);
+    this.integrateInner(position.doc, position.left, position.right);
     if (position.left === null && position.right === null) {
       // empty doc
       position.doc.head = this;
@@ -135,7 +135,7 @@ export class OpeningTagItem extends Item {
   replaceWithClosingTagItem(doc, closingTagItem) {
     this.delete();
     const newOpeningTagItem = new OpeningTagItem(this.tagName, this.attrs);
-    newOpeningTagItem.integrateSimple(doc, this.left, this.right);
+    newOpeningTagItem.integrateInner(doc, this.left, this.right);
     this.closingTagItem = closingTagItem;
   }
 
@@ -175,7 +175,7 @@ export class ClosingTagItem extends Item {
   replaceWithOpeningTagItem(doc, openingTagItem) {
     this.delete();
     const newClosingTagItem = new ClosingTagItem(this.tagName, this.attrs);
-    newClosingTagItem.integrateSimple(doc, this.left, this.right);
+    newClosingTagItem.integrateInner(doc, this.left, this.right);
     this.openingTagItem = openingTagItem;
   }
 

@@ -45,9 +45,9 @@ export class Position {
       if (this.left instanceof OpeningTagItem) {
         this.paths.push(this.left);
       }
-      if (this.right instanceof ClosingTagItem) {
+      if (this.left instanceof ClosingTagItem) {
         console.assert(
-          this.right.tagName === this.paths[this.paths.length - 1].tagName,
+          this.left.tagName === this.paths[this.paths.length - 1].tagName,
         );
         this.paths.pop();
       }
@@ -84,6 +84,17 @@ export class Document {
    * @param items
    */
   replaceItems(from, to, items) {
+    this.replaceItemsInner(from, to, items);
+    this.updatePairedTagsAfterReplace(items);
+  }
+
+  replaceAroundItems(from, to, gapFrom, gapTo, items, insert) {
+    this.replaceItemsInner(gapTo, to, items.slice(insert));
+    this.replaceItemsInner(from, gapFrom, items.slice(0, insert));
+    this.updatePairedTagsAfterReplace(items);
+  }
+
+  replaceItemsInner(from, to, items) {
     const $pos = this.resolvePosition(from);
     let currentPos = from;
     while (currentPos < to) {
@@ -100,6 +111,9 @@ export class Document {
       }
       item.integrate($pos);
     }
+  }
+
+  updatePairedTagsAfterReplace(items) {
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (item.openingTagItem && !items.includes(item.openingTagItem)) {
@@ -140,15 +154,13 @@ export class Document {
   }
 
   applyReplaceAroundStep(step) {
-    this.replaceItems(
-      step.gapTo,
-      step.to,
-      sliceToItems(step.slice).slice(step.insert),
-    );
-    this.replaceItems(
+    this.replaceAroundItems(
       step.from,
+      step.to,
       step.gapFrom,
-      sliceToItems(step.slice).slice(0, step.insert),
+      step.gapTo,
+      sliceToItems(step.slice),
+      step.insert,
     );
   }
 
