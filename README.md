@@ -402,6 +402,7 @@ Table of contents
   * [Meta Width](https://vivaxy.github.io/examples/web-api/meta-width/) Meta width
   * [MIDI](https://vivaxy.github.io/examples/web-api/midi/) MIDI
   * [MouseEvent](https://vivaxy.github.io/examples/web-api/mouse-event/) MouseEvent
+  * [Move Element with Scroll](https://vivaxy.github.io/examples/web-api/move-element-with-scroll/) Move Element with Scroll
   * [notification](https://vivaxy.github.io/examples/web-api/notification/) Notification
   * [Object](https://vivaxy.github.io/examples/web-api/object/) Object.defineProperty demo
   * [object oriented](https://vivaxy.github.io/examples/web-api/object-oriented/) Object oriented
