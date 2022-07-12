@@ -196,6 +196,7 @@ Table of contents
     * [Put with inbound keys](https://vivaxy.github.io/examples/libraries/dexie/put-with-inbound-keys/) Put with inbound keys
     * [Dexie.Table.get](https://vivaxy.github.io/examples/libraries/dexie/table-get/) Dexie.Table.get
     * [Transaction With Timeout](https://vivaxy.github.io/examples/libraries/dexie/transaction-with-timeout/) Transaction With Timeout
+    * [Write when Unload](https://vivaxy.github.io/examples/libraries/dexie/write-when-unload/) Write when Unload
   * [Disable multi selection](https://vivaxy.github.io/examples/libraries/disable-multi-selection/) Disable multi selection
   * [Download Image](https://vivaxy.github.io/examples/libraries/download-image/) Download Image
   * [dragula](https://vivaxy.github.io/examples/libraries/dragula/) Dragula
