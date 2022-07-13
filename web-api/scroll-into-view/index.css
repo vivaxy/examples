@@ -4,17 +4,31 @@
  */
 body {
   margin: 0;
-  width: 100%;
+  position: relative;
+  padding-top: 200px;
+}
+
+#container {
+  width: 500px;
+  overflow-x: scroll;
 }
 
 .item {
   height: 100px;
-  width: 100px;
+  width: 1000px;
   background: #f63;
 }
 
 #target {
   width: 100px;
-  height: 100px;
+  margin: 0 0 0 900px;
   background: #f3c;
+}
+
+#mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  background: black;
 }
