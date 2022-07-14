@@ -31,4 +31,9 @@ body {
   width: 100%;
   height: 200px;
   background: black;
+  overflow: scroll;
+}
+
+.mask-inner {
+  width: 200%;
 }
