@@ -441,6 +441,7 @@ Table of contents
   * [sourceMappingURL and sourceURL](https://vivaxy.github.io/examples/web-api/source-mapping-url-and-source-url/) Source mapping url and source url
   * [Storage Event](https://vivaxy.github.io/examples/web-api/storage-event/) Storage Event
   * [svg demo page](https://vivaxy.github.io/examples/web-api/svg/) Svg
+  * [System UI](https://vivaxy.github.io/examples/web-api/system-ui/) System UI
   * [Text.splitText()](https://vivaxy.github.io/examples/web-api/text-split-text/) Text.splitText()
   * [transition](https://vivaxy.github.io/examples/web-api/transition/) Transition
   * [USB](https://vivaxy.github.io/examples/web-api/usb/) Usb
