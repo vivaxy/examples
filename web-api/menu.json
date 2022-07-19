@@ -1,5 +1,9 @@
 [
   {
+    "name": "Resize after Full Screen",
+    "link": "resize-after-full-screen/"
+  },
+  {
     "name": "font-family: system-ui",
     "link": "system-ui/"
   },

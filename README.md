@@ -419,6 +419,7 @@ Table of contents
   * [index.html](https://vivaxy.github.io/examples/web-api/refresh/) Refresh
   * [replace](https://vivaxy.github.io/examples/web-api/replace/) Replace
   * [ReportingObserver](https://vivaxy.github.io/examples/web-api/reporting-observer/) Reporting observer
+  * [Resize after Full Screen](https://vivaxy.github.io/examples/web-api/resize-after-full-screen/) Resize after Full Screen
   * [Save HTML](https://vivaxy.github.io/examples/web-api/save-html/) Save HTML
   * [Chrome 忽略跨域脚本中的 unhandledrejection 错误](https://vivaxy.github.io/examples/web-api/script-error/) Chrome 忽略跨域脚本中的 unhandledrejection 错误
   * [script type module](https://vivaxy.github.io/examples/web-api/script-type-module/) Script type module
