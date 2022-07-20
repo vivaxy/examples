@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Zoom" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,Zoom,cascading-style-sheets,sample,samples,zoom"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Zoom</title>
+  </head>
+  <body>
+    <button data-style-key="zoom" data-style-value="2">Zoom</button>
+    <button data-style-key="transform" data-style-value="scale(2)">
+      Scale
+    </button>
+    <div id="test"></div>
+    <p>
+      Zoom: boundingClientRect: 100, offsetSize/clientSize: 100, actualSize:
+      200, visualSize: 200
+    </p>
+    <p>
+      Scale: boundingClientRect: 200, offsetSize/clientSize: 100, actualSize:
+      100, visualSize: 200
+    </p>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

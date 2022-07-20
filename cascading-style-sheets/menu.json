@@ -1,5 +1,9 @@
 [
   {
+    "name": "Zoom",
+    "link": "zoom/"
+  },
+  {
     "name": "Overflow Anchor",
     "link": "overflow-anchor/"
   },
