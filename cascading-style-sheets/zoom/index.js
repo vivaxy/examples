@@ -4,19 +4,24 @@
  */
 const $test = document.getElementById('test');
 
+function logSize(ele) {
+  const { width, height } = ele.getBoundingClientRect();
+  console.log('boundingClientRect', { width, height });
+  console.log('offsetWidth, offsetHeight', {
+    width: ele.offsetWidth,
+    height: ele.offsetHeight,
+  });
+  console.log('clientWidth, clientHeight', {
+    width: ele.clientWidth,
+    height: ele.clientHeight,
+  });
+}
+
 document.addEventListener('click', function (e) {
   if (e.target.dataset.styleKey) {
     $test.removeAttribute('style');
     $test.style[e.target.dataset.styleKey] = e.target.dataset.styleValue;
-    const { width, height } = $test.getBoundingClientRect();
-    console.log('boundingClientRect', { width, height });
-    console.log('offsetWidth, offsetHeight', {
-      width: $test.offsetWidth,
-      height: $test.offsetHeight,
-    });
-    console.log('clientWidth, clientHeight', {
-      width: $test.clientWidth,
-      height: $test.clientHeight,
-    });
+    logSize($test);
+    logSize($test.firstElementChild);
   }
 });
