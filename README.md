@@ -71,6 +71,7 @@ Table of contents
   * [overscroll-behavior](https://vivaxy.github.io/examples/cascading-style-sheets/overscroll-behavior/) Overscroll behavior
   * [:placeholder-shown](https://vivaxy.github.io/examples/cascading-style-sheets/placeholder-shown/) Placeholder shown
   * [position: fixed;](https://vivaxy.github.io/examples/cascading-style-sheets/position-fixed/) position: fixed;
+  * [position: sticky;](https://vivaxy.github.io/examples/cascading-style-sheets/position-sticky-shakes/) position: sticky;
   * [prefers-color-scheme](https://vivaxy.github.io/examples/cascading-style-sheets/prefers-color-scheme/) prefers-color-scheme
   * [:default](https://vivaxy.github.io/examples/cascading-style-sheets/pseudo-default/) Pseudo default
   * [Scroll Snap](https://vivaxy.github.io/examples/cascading-style-sheets/scroll-snap/) Scroll snap

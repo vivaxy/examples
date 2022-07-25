@@ -1,5 +1,9 @@
 [
   {
+    "name": "position: sticky; shakes",
+    "link": "position-sticky-shakes/"
+  },
+  {
     "name": "Zoom",
     "link": "zoom/"
   },
