@@ -352,6 +352,7 @@ Table of contents
   * [AudioContext](https://vivaxy.github.io/examples/web-api/audio-context/) AudioContext
   * [base](https://vivaxy.github.io/examples/web-api/base/) Base
   * [battery status](https://vivaxy.github.io/examples/web-api/battery-status/) Battery status
+  * [Browser max connection](https://vivaxy.github.io/examples/web-api/browser-max-connection/) Browser max connection
   * [Browser message](https://vivaxy.github.io/examples/web-api/browser-message/) Browser message demo by Notifications API
   * [cache manifest demo page](https://vivaxy.github.io/examples/web-api/cache-manifest/) Cache manifest
   * [Canvas](https://vivaxy.github.io/examples/web-api/canvas/) Native api

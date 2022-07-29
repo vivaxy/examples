@@ -1,5 +1,9 @@
 [
   {
+    "name": "Browser Max Connections",
+    "link": "browser-max-connection/"
+  },
+  {
     "name": "Resize after Full Screen",
     "link": "resize-after-full-screen/"
   },
