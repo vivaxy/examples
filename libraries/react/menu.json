@@ -1,5 +1,9 @@
 [
   {
+    "name": "componentDidCatch",
+    "link": "component-did-catch"
+  },
+  {
     "name": "Mouse Event",
     "link": "mouse-event/"
   },

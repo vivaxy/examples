@@ -280,6 +280,7 @@ Table of contents
     * [multiple lines qrcode](https://vivaxy.github.io/examples/libraries/qrcode/multiple-lines/) Multiple lines
   * [react](https://vivaxy.github.io/examples/libraries/react/) React
     * [react](https://vivaxy.github.io/examples/libraries/react/basic/) Basic
+    * [componentDidCatch](https://vivaxy.github.io/examples/libraries/react/component-did-catch/) componentDidCatch
     * [React Hooks](https://vivaxy.github.io/examples/libraries/react/hooks/) React Hooks
       * [React Hooks Implement](https://vivaxy.github.io/examples/libraries/react/hooks/implement/) Implement React Hooks API
       * [React.useReducer](https://vivaxy.github.io/examples/libraries/react/hooks/use-reducer/) react reducer implementation with context
