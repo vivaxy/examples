@@ -32,10 +32,21 @@ export class Item {
     this.deleted = false;
   }
 
+  insertIntoPosition(pos) {
+    this.left = pos.left;
+    this.right = pos.right;
+    if (pos.left === null && pos.right === null) {
+      // empty doc
+      pos.doc.head = this;
+    }
+    pos.left = this;
+    if (this.left) {
+      this.left.right = this;
+    }
+  }
+
   integrateInner(doc, originalLeft, originalRight) {
-    this.left = originalLeft;
     if (originalLeft) {
-      originalLeft.right = this;
       if (!this.originalLeft) {
         this.originalLeft = originalLeft;
       }
@@ -43,9 +54,7 @@ export class Item {
         originalLeft.originalRight = this;
       }
     }
-    this.right = originalRight;
     if (originalRight) {
-      originalRight.left = this;
       if (!this.originalRight) {
         this.originalRight = originalRight;
       }
@@ -63,11 +72,86 @@ export class Item {
 
   integrate(position) {
     this.integrateInner(position.doc, position.left, position.right);
-    if (position.left === null && position.right === null) {
-      // empty doc
-      position.doc.head = this;
+    this.insertIntoPosition(position);
+  }
+
+  putIntoDocument(doc) {
+    const foundPos = doc.findItemById(this.id);
+    if (foundPos) {
+      // already put into document
+      return;
     }
-    position.left = this;
+    const originalLeftPos = doc.findItemById(this.originalLeft);
+    const originalRightPos = doc.findItemById(this.originalRight);
+    if (!originalLeftPos && !originalRightPos) {
+      throw new Error('Left and Right not found');
+    }
+    if (originalLeftPos) {
+      while (!originalLeftPos.right.greaterThan(this)) {
+        // todo right most to originalRightPos
+        originalLeftPos.forward();
+      }
+      this.insertIntoPosition(originalLeftPos);
+    }
+  }
+
+  delete() {
+    if (this.deleted) {
+      return;
+    }
+    this.deleted = true;
+  }
+
+  toJSON() {
+    const { originalLeft, originalRight } = this;
+    const json = {
+      id: {
+        client: this.id.client,
+        clock: this.id.clock,
+      },
+    };
+    if (originalLeft) {
+      json.originalLeft = {
+        client: originalLeft.client,
+        clock: originalLeft.clock,
+      };
+    }
+    if (originalRight) {
+      json.originalRight = {
+        client: originalRight.client,
+        clock: originalRight.clock,
+      };
+    }
+    return json;
+  }
+
+  greaterThan(item) {
+    if (this.id.client < item.id.client) {
+      return false;
+    }
+    if (this.id.client > item.id.client) {
+      return true;
+    }
+    return this.id.clock > item.id.clock;
+  }
+}
+
+export class MapItem {
+  constructor() {
+    this.id = null;
+    this.parent = null;
+    this.key = null;
+    this.value = null;
+    this.deleted = false;
+  }
+
+  integrate(key, value, parent, doc) {
+    this.parent = parent;
+    this.id = {
+      client: doc.client,
+      clock: doc.clock,
+    };
+    doc.clock++;
   }
 
   delete() {
@@ -82,7 +166,6 @@ export class TextItem extends Item {
   constructor(text, marks = []) {
     super();
     this.text = text;
-    // todo marks should be items too
     this.marks = marks.map((mark) => {
       return mark.toJSON();
     });
@@ -114,6 +197,7 @@ export class OpeningTagItem extends Item {
   constructor(tagName, attrs) {
     super();
     this.tagName = tagName;
+    // todo attrs should be items too
     this.attrs = attrs;
     this.closingTagItem = null;
   }

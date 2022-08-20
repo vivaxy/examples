@@ -1,1 +1,5 @@
 @import "https://prosemirror.net/css/editor.css";
+
+.sync {
+  margin-bottom: 30px;
+}

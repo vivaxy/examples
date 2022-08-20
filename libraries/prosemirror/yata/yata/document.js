@@ -165,14 +165,10 @@ export class Document {
   }
 
   applyAddMarkStep(step) {
-    // TODO
+    // todo
   }
 
   applyRemoveMarkStep(step) {
-    // TODO
-  }
-
-  applyItems() {
     // TODO
   }
 
@@ -194,5 +190,40 @@ export class Document {
       item = item.right;
     }
     return output;
+  }
+
+  toItems() {
+    const clientMap = {};
+    const items = this.toArray();
+    items.forEach(function (item) {
+      clientMap[item.id.client] = item.toJSON();
+    });
+    return clientMap;
+  }
+
+  applyItems(clientMap) {
+    Object.keys(clientMap).forEach(function (client) {
+      const items = clientMap[client];
+      items.forEach(function (item) {});
+    });
+  }
+
+  findItemById(id) {
+    if (!id) {
+      return null;
+    }
+    const pos = new Position(doc);
+    let item = this.head;
+    while (pos.left) {
+      if (pos.left.id.clock === id.clock && pos.left.id.client === id.client) {
+        return pos;
+      }
+      if (pos.canForward()) {
+        pos.forward();
+      } else {
+        return null;
+      }
+    }
+    return null;
   }
 }
