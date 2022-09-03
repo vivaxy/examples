@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="String.prototype.normalize()" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,String.prototype.normalize(),web-api,sample,samples,string-normalize"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <title>String.prototype.normalize()</title>
+  </head>
+  <body>
+    <div contenteditable="true"></div>
+    <button data-selector="div[contenteditable]" data-value="textContent">
+      Submit
+    </button>
+    <input type="text" />
+    <button data-selector="input" data-value="value">Submit</button>
+    <script>
+      function parseData(data) {
+        const charCodes = [];
+        for (let i = 0; i < data.length; i++) {
+          charCodes.push(data.charCodeAt(i));
+        }
+
+        return `data=${data}, data.length=${data.length}, charCodes=${charCodes}`;
+      }
+
+      document.querySelectorAll("button").forEach(function (button) {
+        button.addEventListener("click", async function (e) {
+          const source = document.querySelector(e.target.dataset.selector);
+          const data = source[e.target.dataset.value];
+          const res = await fetch(`/data?data=${data}`);
+          const r = await res.json();
+
+          console.log(
+            `client: ${parseData(data)}\nserver: ${parseData(r.data)}`,
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

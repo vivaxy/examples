@@ -1,5 +1,9 @@
 [
   {
+    "name": "String.prototype.normalize()",
+    "link": "string-normalize/"
+  },
+  {
     "name": "Browser Max Connections",
     "link": "browser-max-connection/"
   },
