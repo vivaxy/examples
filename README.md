@@ -60,6 +60,7 @@ Table of contents
   * [column layout](https://vivaxy.github.io/examples/cascading-style-sheets/column-layout/) Column layout
   * [background: conic-gradient(...)](https://vivaxy.github.io/examples/cascading-style-sheets/conic-gradient/) Conic gradient
   * [counter](https://vivaxy.github.io/examples/cascading-style-sheets/counter/) Counter
+  * [Counter Style](https://vivaxy.github.io/examples/cascading-style-sheets/counter-style/) Counters
   * [counters](https://vivaxy.github.io/examples/cascading-style-sheets/counters/) Counters
   * [display: contents;](https://vivaxy.github.io/examples/cascading-style-sheets/display-contents/) Display contents
   * [flex bug](https://vivaxy.github.io/examples/cascading-style-sheets/flex-bug/) Flex bug

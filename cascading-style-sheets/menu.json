@@ -1,5 +1,9 @@
 [
   {
+    "name": "Counter Style",
+    "link": "counter-style/"
+  },
+  {
     "name": "position: sticky; shakes",
     "link": "position-sticky-shakes/"
   },
