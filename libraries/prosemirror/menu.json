@@ -1,5 +1,9 @@
 [
   {
+    "name": "Isolating",
+    "link": "isolating/"
+  },
+  {
     "name": "Decorations Across Inline Nodes",
     "link": "decorations-across-inline-nodes"
   },

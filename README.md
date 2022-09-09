@@ -248,6 +248,7 @@ Table of contents
     * [History Plugin](https://vivaxy.github.io/examples/libraries/prosemirror/history-plugin/) History Plugin
     * [Inclusive Marks](https://vivaxy.github.io/examples/libraries/prosemirror/inclusive-marks/) ProseMirror Minimal Editor
     * [Inline Node With Decorations](https://vivaxy.github.io/examples/libraries/prosemirror/inline-node-with-decorations/) ProseMirror Minimal Editor
+    * [Isolating](https://vivaxy.github.io/examples/libraries/prosemirror/isolating/) Isolating
     * [ProseMirror Mapping](https://vivaxy.github.io/examples/libraries/prosemirror/mapping/) ProseMirror Mapping
     * [ProseMirror Mapping Tracking](https://vivaxy.github.io/examples/libraries/prosemirror/mapping-tracking/) ProseMirror Mapping Tracking
     * [ProseMirror Marks](https://vivaxy.github.io/examples/libraries/prosemirror/marks/) ProseMirror Marks
