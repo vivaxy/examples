@@ -1,5 +1,9 @@
 [
   {
+    "name": "Simple List Item",
+    "link": "simple-list-item/"
+  },
+  {
     "name": "Isolating",
     "link": "isolating/"
   },

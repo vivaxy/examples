@@ -1,0 +1,12 @@
+/**
+ * @since 2021-03-26 15:11
+ * @author vivaxy
+ */
+@import "https://prosemirror.net/css/editor.css";
+
+list-item:before {
+  content: attr(data-list-index);
+  float: left;
+  color: red;
+  padding-right: 2px;
+}
