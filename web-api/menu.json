@@ -1,5 +1,9 @@
 [
   {
+    "name": "Contenteditable=true SelectAll",
+    "link": "contenteditable-true-select-all/"
+  },
+  {
     "name": "String.prototype.normalize()",
     "link": "string-normalize/"
   },

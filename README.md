@@ -367,6 +367,7 @@ Table of contents
   * [Content Editable](https://vivaxy.github.io/examples/web-api/content-editable/) Content Editable
     * [Content editable true and false](https://vivaxy.github.io/examples/web-api/content-editable/content-editable-true-and-false/) Content editable true and false
     * [Content Editable Memorized Cursor Position](https://vivaxy.github.io/examples/web-api/content-editable/memorized-cursor-position/) Content Editable Memorized Cursor Position
+  * [ContentEditor=true Select All](https://vivaxy.github.io/examples/web-api/contenteditable-true-select-all/) ContentEditor=true Select All
   * [Context Menu](https://vivaxy.github.io/examples/web-api/context-menu/) Context Menu
   * [document.createNodeIterator](https://vivaxy.github.io/examples/web-api/create-node-iterator/) 遍历文档节点
   * [CSS Typed Object Model](https://vivaxy.github.io/examples/web-api/css-typed-om/) CSS Typed Object Module
