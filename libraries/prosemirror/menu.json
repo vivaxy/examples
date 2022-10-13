@@ -1,5 +1,9 @@
 [
   {
+    "name": "Paste by Copy or Cut",
+    "link": "paste-by-copy-or-cut/"
+  },
+  {
     "name": "Simple List Item",
     "link": "simple-list-item/"
   },
