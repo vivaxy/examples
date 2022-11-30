@@ -452,6 +452,7 @@ Table of contents
   * [Set Scoll Top While Scrolling](https://vivaxy.github.io/examples/web-api/set-scroll-top-while-scrolling/) Set Scoll Top While Scrolling
   * [sourceMappingURL and sourceURL](https://vivaxy.github.io/examples/web-api/source-mapping-url-and-source-url/) Source mapping url and source url
   * [Storage Event](https://vivaxy.github.io/examples/web-api/storage-event/) Storage Event
+  * [Streaming Elements by iframe](https://vivaxy.github.io/examples/web-api/streaming-elements-by-iframe/) Streaming Elements by iframe
   * [String.prototype.normalize()](https://vivaxy.github.io/examples/web-api/string-normalize/) String.prototype.normalize()
   * [svg demo page](https://vivaxy.github.io/examples/web-api/svg/) Svg
   * [System UI](https://vivaxy.github.io/examples/web-api/system-ui/) System UI
