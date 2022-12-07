@@ -401,6 +401,7 @@ Table of contents
   * [iframe Hover](https://vivaxy.github.io/examples/web-api/iframe-hover/) iframe Hover
   * [iframe Origin Agent Cluster](https://vivaxy.github.io/examples/web-api/iframe-origin-agent-cluster/) iframe Origin Agent Cluster
   * [iframe Performance Overhead](https://vivaxy.github.io/examples/web-api/iframe-performace-overhead/) iframe Performance Overhead
+  * [iframe Performance Observer](https://vivaxy.github.io/examples/web-api/iframe-performance-observer/) iframe Performance Observer
   * [iframe Resize](https://vivaxy.github.io/examples/web-api/iframe-resize/) iframe-resize
   * [indeterminate](https://vivaxy.github.io/examples/web-api/indeterminate/) Indeterminate
   * [IndexedDB](https://vivaxy.github.io/examples/web-api/indexed-db/) Indexed db
