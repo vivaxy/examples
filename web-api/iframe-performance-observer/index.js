@@ -52,6 +52,9 @@ function update() {
 
 update();
 
-if (location.href !== 'http://localhost:3456/index.html') {
-  console.error('Please visit http://localhost:3456/index.html');
-}
+console.log(
+  'Visit http://localhost:3456/index.html to disable `Origin-Agent-Cluster`',
+);
+console.log(
+  'Visit http://127.0.0.1:3456/index.html to enable `Origin-Agent-Cluster`',
+);
