@@ -19,12 +19,12 @@ function createElement(tagName) {
   return document.createElement(tagName);
 }
 
-function addTable(container) {
+function addTable(container, rowCount = 100, colCount = 100) {
   const table = createElement('table');
   const tbody = createElement('tbody');
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < rowCount; i++) {
     const tr = createElement('tr');
-    for (let j = 0; j < 20; j++) {
+    for (let j = 0; j < colCount; j++) {
       const td = createElement('td');
       const p = createElement('p');
       p.innerHTML = '1234567890';
