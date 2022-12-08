@@ -459,6 +459,7 @@ Table of contents
   * [Streaming Elements by iframe](https://vivaxy.github.io/examples/web-api/streaming-elements-by-iframe/) Streaming Elements by iframe
   * [String.prototype.normalize()](https://vivaxy.github.io/examples/web-api/string-normalize/) String.prototype.normalize()
   * [svg demo page](https://vivaxy.github.io/examples/web-api/svg/) Svg
+  * [Sync Scroll](https://vivaxy.github.io/examples/web-api/sync-scroll/) Sync Scroll
   * [System UI](https://vivaxy.github.io/examples/web-api/system-ui/) System UI
   * [Text.splitText()](https://vivaxy.github.io/examples/web-api/text-split-text/) Text.splitText()
   * [transition](https://vivaxy.github.io/examples/web-api/transition/) Transition

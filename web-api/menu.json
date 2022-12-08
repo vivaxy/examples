@@ -1,5 +1,9 @@
 [
   {
+    "name": "Sync Scroll",
+    "link": "sync-scroll/"
+  },
+  {
     "name": "iframe Onload",
     "link": "iframe-onload/"
   },
