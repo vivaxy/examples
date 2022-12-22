@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Agent Cluster" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,Agent Cluster,web-api,sample,samples,agent-cluster"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <style>
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+    <title>Agent Cluster</title>
+  </head>
+  <body>
+    <h1>Experiment 1: Site keyed agent cluster</h1>
+    <p>
+      Page URL <code>https://a.example.com:3000/index.html</code>, with
+      different iframe URL. Test send SharedArrayBuffer to iframe. If ok, then
+      those two pages are in same agent cluster. If not, then those two pages
+      are in different <b>agent cluster</b>.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>iframe URL</th>
+          <th>Are in same agent cluster?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>https://a.example.com:3000/index.html</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>https://b.example.com:3000/index.html</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>https://example.com:3000/index.html</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>https://test.com:3000/index.html</td>
+          <td>❌</td>
+        </tr>
+      </tbody>
+    </table>
+    <h1>Experiment 2: Origin keyed agent cluster</h1>
+    <p>
+      Add <code>Origin-Agent-Cluster: ?1</code> on the HTTP headers. To see
+      weither those pages are in the same <b>agent cluster</b>.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>iframe URL</th>
+          <th>Are in same agent cluster?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>https://a.example.com:3000/index.html</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>https://b.example.com:3000/index.html</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>https://example.com:3000/index.html</td>
+          <td>❌</td>
+        </tr>
+        <tr>
+          <td>https://test.com:3000/index.html</td>
+          <td>❌</td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="button">PostMessage</button>
+    <iframe id="iframe" src="https://test.com:3000/index.html"></iframe>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
+  </body>
+</html>

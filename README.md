@@ -351,6 +351,7 @@ Table of contents
 * [TypeScript](https://vivaxy.github.io/examples/typescript/) TypeScript
 * [Web API](https://vivaxy.github.io/examples/web-api/) Web 接口
   * [3d touch](https://vivaxy.github.io/examples/web-api/3d-touch/) 3d touch
+  * [Agent Cluster](https://vivaxy.github.io/examples/web-api/agent-cluster/) Agent Cluster
   * [audio AnalyserNode](https://vivaxy.github.io/examples/web-api/analyser-node/) Analyser node
   * [Web Animation API](https://vivaxy.github.io/examples/web-api/animate/) Animate
   * [attributes](https://vivaxy.github.io/examples/web-api/attributes/) Attributes
