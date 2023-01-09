@@ -338,6 +338,7 @@ Table of contents
     * [XmlText Attributes Collision Bug](https://vivaxy.github.io/examples/libraries/yjs/xml-text-attributes-collision-bug/) XmlText Attributes Collision Bug
     * [Y.js ProseMirror](https://vivaxy.github.io/examples/libraries/yjs/y-prosemirror/) Y.js ProseMirror
     * [Y.js ProseMirror Annotations](https://vivaxy.github.io/examples/libraries/yjs/y-prosemirror-annotations/) Y.js ProseMirror Annotations
+  * [Yoga Layout](https://vivaxy.github.io/examples/libraries/yoga-layout/) Yoga Layout
 * [Machine Learning](https://vivaxy.github.io/examples/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/examples/machine-learning/tensorflow/) TensorFlow
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/examples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js

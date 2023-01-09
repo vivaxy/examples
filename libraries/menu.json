@@ -1,5 +1,9 @@
 [
   {
+    "name": "Yoga Layout",
+    "link": "yoga-layout/"
+  },
+  {
     "name": "Dexie.js",
     "link": "dexie/"
   },
