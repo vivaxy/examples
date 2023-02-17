@@ -80,6 +80,7 @@ Table of contents
     * [Stroke](https://vivaxy.github.io/examples/cascading-style-sheets/svg/stroke/) Stroke
   * [Table Cell Width 0](https://vivaxy.github.io/examples/cascading-style-sheets/table-cell-width-0/) Table Cell Width 0
   * [pure css modal](https://vivaxy.github.io/examples/cascading-style-sheets/target/) Target
+  * [Text Decoration in A Tag](https://vivaxy.github.io/examples/cascading-style-sheets/text-decoration-in-a-tag/) Text Decoration in A Tag
   * [touch-action](https://vivaxy.github.io/examples/cascading-style-sheets/touch-action/) Touch action
   * [user-modify: read-write](https://vivaxy.github.io/examples/cascading-style-sheets/user-modify/) user-modify: read-write
   * [Will Change](https://vivaxy.github.io/examples/cascading-style-sheets/will-change/) Will change
