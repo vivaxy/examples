@@ -67,3 +67,4 @@ app.use(async function (ctx) {
 });
 
 app.listen(3000);
+console.log('server started: http://127.0.0.1:3000');

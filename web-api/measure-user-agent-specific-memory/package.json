@@ -1,0 +1,15 @@
+{
+  "name": "measure-user-agent-specific-memory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "vivaxy",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.14.1",
+    "mime": "^3.0.0"
+  }
+}
