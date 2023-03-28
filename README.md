@@ -454,6 +454,7 @@ Table of contents
   * [Selection Change](https://vivaxy.github.io/examples/web-api/selection-change/) Selection Change
   * [Selection Handles](https://vivaxy.github.io/examples/web-api/selection-handles/) Selection Handles
   * [sendBeacon](https://vivaxy.github.io/examples/web-api/send-beacon/) Send beacon
+  * [Server-sent Events](https://vivaxy.github.io/examples/web-api/server-sent-events/) Server-sent Events
   * [service worker](https://vivaxy.github.io/examples/web-api/service-worker/) Service worker
     * [Cache](https://vivaxy.github.io/examples/web-api/service-worker/cache/) Cache
     * [mock server](https://vivaxy.github.io/examples/web-api/service-worker/mock-server/) Mock server

@@ -1,5 +1,9 @@
 [
   {
+    "name": "Server-sent Events",
+    "link": "server-sent-events"
+  },
+  {
     "name": "Agent Cluster",
     "link": "agent-cluster/"
   },
