@@ -1,7 +1,11 @@
 [
   {
+    "name": "performance.memory",
+    "link": "memory/"
+  },
+  {
     "name": "Server-sent Events",
-    "link": "server-sent-events"
+    "link": "server-sent-events/"
   },
   {
     "name": "Agent Cluster",

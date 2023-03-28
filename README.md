@@ -418,6 +418,7 @@ Table of contents
   * [localStorage demo page](https://vivaxy.github.io/examples/web-api/local-storage/) Local storage
   * [LockManager](https://vivaxy.github.io/examples/web-api/lock-manager/) LockManager
   * [matchMedia](https://vivaxy.github.io/examples/web-api/match-media/) window.matchMedia API
+  * [Performance.memory](https://vivaxy.github.io/examples/web-api/memory/) Performance.memory
   * [Meta Scale](https://vivaxy.github.io/examples/web-api/meta-scale/) Meta scale demo
   * [Meta Width](https://vivaxy.github.io/examples/web-api/meta-width/) Meta width
   * [MIDI](https://vivaxy.github.io/examples/web-api/midi/) MIDI
