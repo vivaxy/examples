@@ -1,5 +1,9 @@
 [
   {
+    "name": "OpenSearch",
+    "link": "open-search/"
+  },
+  {
     "name": "performance.memory",
     "link": "memory/"
   },
