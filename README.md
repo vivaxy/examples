@@ -117,6 +117,7 @@ Table of contents
   * [Is Animated Image](https://vivaxy.github.io/examples/javascript/is-animated-image/) Is animated image
   * [is native](https://vivaxy.github.io/examples/javascript/is-native/) Is native
   * [Iterators](https://vivaxy.github.io/examples/javascript/iterators/) Iterators demo
+  * [Lazy Loaded SDK Polyfill](https://vivaxy.github.io/examples/javascript/lazy-loaded-sdk-polyfill/) Lazy Loaded SDK Polyfill
   * [let](https://vivaxy.github.io/examples/javascript/let/) Let
   * [Load Resource as ArrayBuffer](https://vivaxy.github.io/examples/javascript/load-resource-as-array-buffer/) How to load resource as arrayBuffer
   * [load script](https://vivaxy.github.io/examples/javascript/load-script/) Load script

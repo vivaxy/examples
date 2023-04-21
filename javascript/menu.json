@@ -1,5 +1,9 @@
 [
   {
+    "name": "Lazy Loaded SDK Polyfill",
+    "link": "lazy-loaded-sdk-polyfill"
+  },
+  {
     "name": "Mutex",
     "link": "mutex/"
   },
