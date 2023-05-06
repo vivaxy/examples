@@ -47,6 +47,7 @@ Table of contents
   * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parseInt/) Number vs parse int
   * [querySelector](https://vivaxy.github.io/examples/benchmark/querySelector/) querySelector
   * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
+  * [ShadowDOM vs Light DOM](https://vivaxy.github.io/examples/benchmark/shadow-dom-vs-light-dom/) ShadowDOM vs Light DOM
   * [split vs String Edit](https://vivaxy.github.io/examples/benchmark/split-vs-stringEdit/) Split vs string edit
   * [unregisterWithReturnedFunction vs unregister](https://vivaxy.github.io/examples/benchmark/unregisterWithReturnedFunction-vs-unregister/) Unregister with returned function vs unregister
   * [Walk through DOM tree](https://vivaxy.github.io/examples/benchmark/walk-through-dom-tree/) Walk through DOM tree

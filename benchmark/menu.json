@@ -1,5 +1,9 @@
 [
   {
+    "name": "ShadowDOM vs Light DOM",
+    "link": "shadow-dom-vs-light-dom/"
+  },
+  {
     "name": "getBoundingClientRect time",
     "link": "get-bounding-client-rect/"
   },
