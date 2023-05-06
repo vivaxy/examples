@@ -1,0 +1,7 @@
+.shadow-dom-content:after {
+  content: "outside styles";
+}
+
+#root {
+  color: red;
+}

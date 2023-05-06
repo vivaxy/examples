@@ -463,6 +463,7 @@ Table of contents
     * [Cache](https://vivaxy.github.io/examples/web-api/service-worker/cache/) Cache
     * [mock server](https://vivaxy.github.io/examples/web-api/service-worker/mock-server/) Mock server
   * [Set Scoll Top While Scrolling](https://vivaxy.github.io/examples/web-api/set-scroll-top-while-scrolling/) Set Scoll Top While Scrolling
+  * [ShadowDOM](https://vivaxy.github.io/examples/web-api/shadow-dom/) ShadowDOM
   * [sourceMappingURL and sourceURL](https://vivaxy.github.io/examples/web-api/source-mapping-url-and-source-url/) Source mapping url and source url
   * [Storage Event](https://vivaxy.github.io/examples/web-api/storage-event/) Storage Event
   * [Streaming Elements by iframe](https://vivaxy.github.io/examples/web-api/streaming-elements-by-iframe/) Streaming Elements by iframe

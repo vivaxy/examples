@@ -1,5 +1,9 @@
 [
   {
+    "name": "ShadowDOM",
+    "link": "shadow-dom/"
+  },
+  {
     "name": "OpenSearch",
     "link": "open-search/"
   },
