@@ -1,5 +1,9 @@
 [
   {
+    "name": "::part()",
+    "link": "part/"
+  },
+  {
     "name": "Text Decoration in A Tag",
     "link": "text-decoration-in-a-tag/"
   },

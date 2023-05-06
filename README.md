@@ -70,6 +70,7 @@ Table of contents
   * [offset-path](https://vivaxy.github.io/examples/cascading-style-sheets/offset-path/) Offset path
   * [Overflow Anchor](https://vivaxy.github.io/examples/cascading-style-sheets/overflow-anchor/) Overflow Anchor
   * [overscroll-behavior](https://vivaxy.github.io/examples/cascading-style-sheets/overscroll-behavior/) Overscroll behavior
+  * [::part()](https://vivaxy.github.io/examples/cascading-style-sheets/part/) ::part()
   * [:placeholder-shown](https://vivaxy.github.io/examples/cascading-style-sheets/placeholder-shown/) Placeholder shown
   * [position: fixed;](https://vivaxy.github.io/examples/cascading-style-sheets/position-fixed/) position: fixed;
   * [position: sticky;](https://vivaxy.github.io/examples/cascading-style-sheets/position-sticky-shakes/) position: sticky;
