@@ -10,7 +10,7 @@ shadowDOMContent.classList.add('shadow-dom-content');
 shadowDOMContent.innerHTML = 'ShadowDOM';
 
 const shadowStyle = document.createElement('style');
-shadowStyle.innerHTML = `.shadow-dom-content:after { content: 'inside styles' }`;
+shadowStyle.innerHTML = `#root { display: none; } .shadow-dom-content:after { content: 'inside styles' }`;
 
 shadow.appendChild(shadowDOMContent);
 shadow.appendChild(shadowStyle);
