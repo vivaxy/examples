@@ -78,6 +78,7 @@ Table of contents
   * [prefers-color-scheme](https://vivaxy.github.io/examples/cascading-style-sheets/prefers-color-scheme/) prefers-color-scheme
   * [:default](https://vivaxy.github.io/examples/cascading-style-sheets/pseudo-default/) Pseudo default
   * [Scroll Snap](https://vivaxy.github.io/examples/cascading-style-sheets/scroll-snap/) Scroll snap
+  * [Stacking Context](https://vivaxy.github.io/examples/cascading-style-sheets/stacking-context/) Stacking Context
   * [SVG](https://vivaxy.github.io/examples/cascading-style-sheets/svg/) Svg
     * [Stroke](https://vivaxy.github.io/examples/cascading-style-sheets/svg/stroke/) Stroke
   * [Table Cell Width 0](https://vivaxy.github.io/examples/cascading-style-sheets/table-cell-width-0/) Table Cell Width 0
