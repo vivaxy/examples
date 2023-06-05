@@ -1,0 +1,9 @@
+{
+  "name": "tree-shaking-css-3",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}
