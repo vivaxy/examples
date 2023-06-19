@@ -1,0 +1,7 @@
+/**
+ * @since 2023-06-19
+ * @author vivaxy
+ */
+body::after {
+  content: "中A";
+}
