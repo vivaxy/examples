@@ -1,0 +1,37 @@
+/**
+ * @since 2023-06-20
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+}
+
+.demo {
+  display: flex;
+}
+
+.container {
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  background: #f0f0f0;
+}
+
+.content {
+  position: absolute;
+  background: #f00;
+  width: 60px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin-top: 100px;
+  color: white;
+}
+
+.rotate {
+  left: 200px;
+}
+
+.rotate .content {
+  transform: rotate(90deg);
+}
