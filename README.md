@@ -405,6 +405,7 @@ Table of contents
   * [generators](https://vivaxy.github.io/examples/web-api/generators/) Generators
   * [geolocation demo page](https://vivaxy.github.io/examples/web-api/geolocation/) Geolocation
   * [gesture](https://vivaxy.github.io/examples/web-api/gesture/) Gesture
+  * [getClientRects](https://vivaxy.github.io/examples/web-api/get-client-rects/) getClientRects
   * [Hash change](https://vivaxy.github.io/examples/web-api/hash-change/) Hash change API demo
   * [Hash Link And Page Scroll](https://vivaxy.github.io/examples/web-api/hash-scroll/) Hash Link And Page Scroll
   * [Highlight](https://vivaxy.github.io/examples/web-api/highlight/) Highlight

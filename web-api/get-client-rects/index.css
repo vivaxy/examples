@@ -1,0 +1,9 @@
+/**
+ * @since 2023-06-21
+ * @author vivaxy
+ */
+.container {
+  width: 100px;
+  word-break: break-all;
+  text-indent: 10px;
+}
