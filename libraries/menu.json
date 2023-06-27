@@ -1,5 +1,13 @@
 [
   {
+    "name": "Preact",
+    "link": "preact/"
+  },
+  {
+    "name": "Lit",
+    "link": "lit/"
+  },
+  {
     "name": "Snowflake ID",
     "link": "snowflake-id/"
   },

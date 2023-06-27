@@ -223,6 +223,8 @@ Table of contents
     * [koa](https://vivaxy.github.io/examples/libraries/koa/static-server/) Koa
   * [Lerna](https://vivaxy.github.io/examples/libraries/lerna/) lerna
     * [Monorepo Independent Version Logic](https://vivaxy.github.io/examples/libraries/lerna/monorepo-independent-version-logic/) Monorepo Independent Version Logic
+  * [Lit](https://vivaxy.github.io/examples/libraries/lit/) Lit
+    * [Lit Basic Example](https://vivaxy.github.io/examples/libraries/lit/basic/) Lit Basic Example
   * [mathjax](https://vivaxy.github.io/examples/libraries/mathjax/) Mathjax
   * [ml5](https://vivaxy.github.io/examples/libraries/ml5/) Ml5
     * [Pose - ml5](https://vivaxy.github.io/examples/libraries/ml5/pose/) Pose Net
@@ -231,6 +233,8 @@ Table of contents
   * [pitfall](https://vivaxy.github.io/examples/libraries/ohm/) Ohm
   * [on screen](https://vivaxy.github.io/examples/libraries/on-screen/) On screen
   * [Operational transformation](https://vivaxy.github.io/examples/libraries/operational-transformation/) Operational transformation
+  * [Preact](https://vivaxy.github.io/examples/libraries/preact/) Preact
+    * [Preact Basic Example](https://vivaxy.github.io/examples/libraries/preact/basic/) Preact Basic Example
   * [Prompts Demo](https://vivaxy.github.io/examples/libraries/prompts/) Prompts Demo
   * [prop-types](https://vivaxy.github.io/examples/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/examples/libraries/prosemirror/) ProseMirror 示例
