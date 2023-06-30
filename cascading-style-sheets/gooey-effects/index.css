@@ -1,0 +1,42 @@
+/**
+ * @since 2023-06-30
+ * @author vivaxy
+ */
+body {
+  margin: 0;
+}
+
+.container {
+  position: relative;
+  background: white;
+  filter: blur(10px) contrast(30);
+  height: 100vh;
+}
+
+.item {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: red;
+  border-radius: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  top: 50%;
+  left: 50%;
+}
+
+.item-1 {
+}
+
+.item-2 {
+  animation: 3s infinite alternate move linear;
+}
+
+@keyframes move {
+  0% {
+    transform: translate3d(calc(-50% - 100px), -50%, 0);
+  }
+
+  100% {
+    transform: translate3d(calc(-50% + 100px), -50%, 0);
+  }
+}

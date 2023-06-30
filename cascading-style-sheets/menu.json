@@ -1,5 +1,9 @@
 [
   {
+    "name": "Gooey Effects",
+    "link": "gooey-effects/"
+  },
+  {
     "name": "transform rotate with margin",
     "link": "transform-rotate-with-margin/"
   },
