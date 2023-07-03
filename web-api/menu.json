@@ -1,5 +1,9 @@
 [
   {
+    "name": "Rel AR",
+    "link": "rel-ar/"
+  },
+  {
     "name": "getClientRects",
     "link": "get-client-rects/"
   },

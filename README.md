@@ -453,6 +453,7 @@ Table of contents
   * [promise ajax](https://vivaxy.github.io/examples/web-api/promise/) Promise
   * [Range](https://vivaxy.github.io/examples/web-api/range/) Range
   * [index.html](https://vivaxy.github.io/examples/web-api/refresh/) Refresh
+  * [Rel AR](https://vivaxy.github.io/examples/web-api/rel-ar/) Rel AR
   * [replace](https://vivaxy.github.io/examples/web-api/replace/) Replace
   * [ReportingObserver](https://vivaxy.github.io/examples/web-api/reporting-observer/) Reporting observer
   * [Resize after Full Screen](https://vivaxy.github.io/examples/web-api/resize-after-full-screen/) Resize after Full Screen
