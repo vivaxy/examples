@@ -443,6 +443,7 @@ Table of contents
   * [Object](https://vivaxy.github.io/examples/web-api/object/) Object.defineProperty demo
   * [object oriented](https://vivaxy.github.io/examples/web-api/object-oriented/) Object oriented
   * [OpenSearch](https://vivaxy.github.io/examples/web-api/open-search/) OpenSearch
+  * [Page Lifecycle](https://vivaxy.github.io/examples/web-api/page-lifecycle/) Page Lifecycle
   * [paintWorklet](https://vivaxy.github.io/examples/web-api/paint-worklet/) Paint worklet
   * [Payment Request](https://vivaxy.github.io/examples/web-api/payment-request/) Payment request
   * [Playsinline](https://vivaxy.github.io/examples/web-api/playsinline/) Video playsinline demo
