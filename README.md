@@ -363,6 +363,7 @@ Table of contents
 * [Node.js](https://vivaxy.github.io/examples/node-js/) Node.js
 * [Shell](https://vivaxy.github.io/examples/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/examples/sliding-tiles-puzzle/) 数字推盘游戏
+* [Tupper's self-referential formula](https://vivaxy.github.io/examples/tupper-s-self-referential-formula/) Tupper's self-referential formula
 * [TypeScript](https://vivaxy.github.io/examples/typescript/) TypeScript
 * [Web API](https://vivaxy.github.io/examples/web-api/) Web 接口
   * [3d touch](https://vivaxy.github.io/examples/web-api/3d-touch/) 3d touch
