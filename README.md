@@ -416,6 +416,7 @@ Table of contents
   * [Hash Link And Page Scroll](https://vivaxy.github.io/examples/web-api/hash-scroll/) Hash Link And Page Scroll
   * [Highlight](https://vivaxy.github.io/examples/web-api/highlight/) Highlight
   * [Hover](https://vivaxy.github.io/examples/web-api/hover/) Hover
+  * [Iframe Heartbeat on Page Frozen State](https://vivaxy.github.io/examples/web-api/iframe-heartbeat-on-page-frozen-state/) Iframe Heartbeat on Page Frozen State
   * [iframe Hover](https://vivaxy.github.io/examples/web-api/iframe-hover/) iframe Hover
   * [iframe on load](https://vivaxy.github.io/examples/web-api/iframe-onload/) iframe onloand and onerror
   * [iframe Origin Agent Cluster](https://vivaxy.github.io/examples/web-api/iframe-origin-agent-cluster/) iframe Origin Agent Cluster

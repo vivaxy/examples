@@ -1,5 +1,9 @@
 [
   {
+    "name": "IFrame Heartbeat on Page Frozen State",
+    "link": "iframe-heartbeat-on-page-frozen-state/"
+  },
+  {
     "name": "Page Lifecycle",
     "link": "page-lifecycle/"
   },
