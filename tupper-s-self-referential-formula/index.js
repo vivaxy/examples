@@ -1,6 +1,7 @@
 /**
  * @since 2023-08-06
  * @author vivaxy
+ * @ref https://tuppers-formula.ovh/
  */
 // import * as tuppersSelfReferentialFormula from './formulas/tupper-s-self-referential-formula.js';
 import * as simple from './formulas/simple.js';

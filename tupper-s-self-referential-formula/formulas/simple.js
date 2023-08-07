@@ -2,7 +2,7 @@
  * @since 2023-08-07
  * @author vivaxy
  */
-import { findMinY } from '../find-min-y.js';
+// import { findMinY } from '../find-min-y.js';
 
 /**
  * @param {BigInt} x
