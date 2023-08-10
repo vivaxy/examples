@@ -27,7 +27,7 @@ iframe.addEventListener('load', function () {
   startHeartbeatTimer();
 });
 
-// batch for the frozen state
+// patch for the frozen state
 // not applicable in Safari、Firefox
 document.addEventListener('frozen', function () {
   clearHeartbeatTimer();

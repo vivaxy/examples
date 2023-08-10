@@ -1,5 +1,9 @@
 [
   {
+    "name": "IFrame Execution Feature Policies",
+    "link": "iframe-execution-feature-policies/"
+  },
+  {
     "name": "IFrame Heartbeat on Page Frozen State",
     "link": "iframe-heartbeat-on-page-frozen-state/"
   },
