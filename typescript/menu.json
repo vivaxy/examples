@@ -1,5 +1,9 @@
 [
   {
+    "name": "EventEmitter",
+    "link": "event-emitter/"
+  },
+  {
     "name": "Hello World",
     "link": "hello-world/build.sh"
   },

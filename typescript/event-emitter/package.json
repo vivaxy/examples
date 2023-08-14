@@ -1,0 +1,9 @@
+{
+  "name": "event-emitter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "events": "^3.3.0"
+  }
+}
