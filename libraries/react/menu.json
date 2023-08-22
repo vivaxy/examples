@@ -1,7 +1,11 @@
 [
   {
+    "name": "<Suspense />",
+    "link": "suspense/src/SuspenseEnabledComponent.js"
+  },
+  {
     "name": "componentDidCatch",
-    "link": "component-did-catch"
+    "link": "component-did-catch/"
   },
   {
     "name": "Mouse Event",
