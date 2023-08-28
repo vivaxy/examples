@@ -17,7 +17,21 @@
     <title>ShadowDOM</title>
   </head>
   <body>
-    <div id="root"></div>
+    <ol>
+      <li>
+        Font styles and other styles that
+        <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Inheritance"
+          >inherits</a
+        >
+        defined out of shadowDOM will affect texts in shadowDOM.
+      </li>
+      <li>Other styles out of shadowDOM will not affect shadowDOM.</li>
+      <li>Styles inside shadowDOM will not outside DOM.</li>
+    </ol>
+    <div id="root">
+      <p class="styles-out-of-shadow-dom">Out of shadowDOM paragraph</p>
+      <div id="shadow-dom-root"></div>
+    </div>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>

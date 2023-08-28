@@ -1,7 +1,9 @@
-.shadow-dom-content:after {
-  content: "outside styles";
+.styles-out-of-shadow-dom {
+  /* styles out of shadowDOM will not affect shadowDOM */
+  text-decoration: underline;
 }
 
 #root {
+  /* font styles will affect texts in shadowDOM */
   color: red;
 }
