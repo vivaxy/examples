@@ -1,5 +1,9 @@
 [
   {
+    "name": "Miniapp Sandbox",
+    "link": "miniapp-sandbox/"
+  },
+  {
     "name": "Preact",
     "link": "preact/"
   },

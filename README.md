@@ -227,6 +227,7 @@ Table of contents
   * [Lit](https://vivaxy.github.io/examples/libraries/lit/) Lit
     * [Lit Basic Example](https://vivaxy.github.io/examples/libraries/lit/basic/) Lit Basic Example
   * [mathjax](https://vivaxy.github.io/examples/libraries/mathjax/) Mathjax
+  * [Miniapp Sandbox](https://vivaxy.github.io/examples/libraries/miniapp-sandbox/) Miniapp Sandbox
   * [ml5](https://vivaxy.github.io/examples/libraries/ml5/) Ml5
     * [Pose - ml5](https://vivaxy.github.io/examples/libraries/ml5/pose/) Pose Net
   * [mobx](https://vivaxy.github.io/examples/libraries/mobx/) Mobx
