@@ -1,5 +1,9 @@
 [
   {
+    "name": "IFrame JS Infinite Loop Freeze Page",
+    "link": "iframe-js-infinite-loop-freeze-page/"
+  },
+  {
     "name": "IFrame Navigator History",
     "link": "iframe-navigator-history/"
   },
