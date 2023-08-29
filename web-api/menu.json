@@ -1,6 +1,10 @@
 [
   {
-    "name": "IFrame JS Infinite Loop Freeze Page",
+    "name": "Does WebWorker JS Infinite Loop Freeze Page?",
+    "link": "web-worker-js-infinite-loop-freeze-page/"
+  },
+  {
+    "name": "Does IFrame JS Infinite Loop Freeze Page?",
     "link": "iframe-js-infinite-loop-freeze-page/"
   },
   {
