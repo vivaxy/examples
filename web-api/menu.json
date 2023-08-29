@@ -1,5 +1,9 @@
 [
   {
+    "name": "IFrame Navigator History",
+    "link": "iframe-navigator-history/"
+  },
+  {
     "name": "IFrame Execution Feature Policies",
     "link": "iframe-execution-feature-policies/"
   },
@@ -40,7 +44,7 @@
     "link": "agent-cluster/"
   },
   {
-    "name": "iframe PostMessage Performance",
+    "name": "IFrame PostMessage Performance",
     "link": "iframe-post-message-performance/"
   },
   {
@@ -48,27 +52,27 @@
     "link": "sync-scroll/"
   },
   {
-    "name": "iframe Onload",
+    "name": "IFrame Onload",
     "link": "iframe-onload/"
   },
   {
-    "name": "iframe Performance Observer",
+    "name": "IFrame Performance Observer",
     "link": "iframe-performance-observer/"
   },
   {
-    "name": "iframe Performance Overhead",
+    "name": "IFrame Performance Overhead",
     "link": "iframe-performance-overhead/"
   },
   {
-    "name": "iframe Origin Agent Cluster",
+    "name": "IFrame Origin Agent Cluster",
     "link": "iframe-origin-agent-cluster/"
   },
   {
-    "name": "Streaming Elements by iframe",
+    "name": "Streaming Elements by IFrame",
     "link": "streaming-elements-by-iframe/"
   },
   {
-    "name": "iframe Hover",
+    "name": "IFrame Hover",
     "link": "iframe-hover/"
   },
   {
@@ -492,7 +496,7 @@
     "link": "meta-width/"
   },
   {
-    "name": "iframe Resize",
+    "name": "IFrame Resize",
     "link": "iframe-resize/"
   },
   {

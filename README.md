@@ -419,6 +419,7 @@ Table of contents
   * [IFrame Execution Feature Policies](https://vivaxy.github.io/examples/web-api/iframe-execution-feature-policies/) IFrame Execution Feature Policies
   * [Iframe Heartbeat on Page Frozen State](https://vivaxy.github.io/examples/web-api/iframe-heartbeat-on-page-frozen-state/) Iframe Heartbeat on Page Frozen State
   * [iframe Hover](https://vivaxy.github.io/examples/web-api/iframe-hover/) iframe Hover
+  * [IFrame Navigator History](https://vivaxy.github.io/examples/web-api/iframe-navigator-history/) IFrame Navigator History
   * [iframe on load](https://vivaxy.github.io/examples/web-api/iframe-onload/) iframe onloand and onerror
   * [iframe Origin Agent Cluster](https://vivaxy.github.io/examples/web-api/iframe-origin-agent-cluster/) iframe Origin Agent Cluster
   * [iframe Performance Observer](https://vivaxy.github.io/examples/web-api/iframe-performance-observer/) iframe Performance Observer
