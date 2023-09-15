@@ -2,7 +2,7 @@
  * @since 2022-12-08 03:40
  * @author vivaxy
  */
-function createIframe(src, onLoad, onError) {
+function createIframe(src) {
   const startTime = performance.now();
   const iframe = document.createElement('iframe');
   iframe.addEventListener('load', function (e) {
@@ -16,5 +16,20 @@ function createIframe(src, onLoad, onError) {
   document.body.appendChild(iframe);
 }
 
-createIframe('//localhost:3456/iframe.html');
-createIframe('//localhost:3456/error.html');
+function updateSrc(iframe, newSrc) {
+  iframe.src = newSrc;
+}
+
+function onClick(id, handler) {
+  document.getElementById(id).addEventListener('click', handler);
+}
+
+onClick('load-valid-iframe', function () {
+  createIframe('//127.0.0.1:3457/iframe.html');
+});
+onClick('load-invalid-iframe', function () {
+  createIframe('//127.0.0.1:3457/error.html');
+});
+onClick('update-iframe-src', function () {
+  updateSrc(document.querySelector('iframe'), '//127.0.0.1:3456/iframe.html');
+});

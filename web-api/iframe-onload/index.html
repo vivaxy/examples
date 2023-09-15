@@ -16,8 +16,12 @@
     <title>iframe on load</title>
   </head>
   <body>
-    <p>iframe has no 'error' event.</p>
-    <p>iframe with 404 URL fires 'error' event.</p>
+    <p>IFrame has no 'error' event.</p>
+    <p>IFrame with 404 URL fires 'load' event.</p>
+    <p>Update iFrame src will fire 'load' event.</p>
+    <button id="load-valid-iframe">Load Valid IFrame</button>
+    <button id="load-invalid-iframe">Load Invalid IFrame</button>
+    <button id="update-iframe-src">Update IFrame SRC</button>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>

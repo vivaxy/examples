@@ -28,6 +28,7 @@ async function staticMiddleware(ctx, next) {
 const appIndex = new Koa();
 appIndex.use(staticMiddleware);
 appIndex.listen(3456);
+console.log('http://127.0.0.1:3456/');
 
 const appIframe = new Koa();
 appIframe.use(staticMiddleware);
