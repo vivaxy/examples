@@ -2,29 +2,37 @@
  * @since 2023-08-14
  * @author vivaxy
  */
+import { EventEmitter } from 'events';
+
 interface IEventsProtocol {
-  [eventName: string]: unknown[];
+  [eventName: string | symbol]: unknown[];
 }
 
 interface IEventListenerProtocol<T extends unknown[]> {
   (...args: T): void;
 }
 
-export interface IEventEmitter<Events extends IEventsProtocol> {
-  eventListenerMap: Map<keyof Events, Set<IEventListenerProtocol<unknown[]>>>;
-
+export class TypedEventEmitter<
+  Events extends IEventsProtocol
+> extends EventEmitter {
   on<EventName extends keyof Events>(
     eventName: EventName,
     eventListener: IEventListenerProtocol<Events[EventName]>,
-  ): () => void;
+  ) {
+    return super.on(eventName as string | symbol, eventListener);
+  }
 
   emit<EventName extends keyof Events>(
     eventName: EventName,
     ...args: Events[EventName]
-  ): void;
+  ) {
+    return super.emit(eventName as string | symbol, ...args);
+  }
 
   off<EventName extends keyof Events>(
     eventName: EventName,
     eventListener: IEventListenerProtocol<Events[EventName]>,
-  ): void;
+  ) {
+    return super.off(eventName as string | symbol, eventListener);
+  }
 }

@@ -2,10 +2,7 @@
  * @since 2023-08-14
  * @author vivaxy
  */
-import { EventEmitter } from 'events';
-import { IEventEmitter } from '../lib/event-emitter';
 import { TEventProtocol } from './event-protocol';
+import { TypedEventEmitter } from '../lib/typed-event-emitter';
 
-export const eventEmitter = (new EventEmitter() as unknown) as IEventEmitter<
-  TEventProtocol
->;
+export const eventEmitter = new TypedEventEmitter<TEventProtocol>();
