@@ -3,9 +3,10 @@
  * @author vivaxy
  */
 import { eventEmitter } from './event-emitter';
+import { EVENTS } from './event-protocol';
 
-eventEmitter.on('LOAD', function () {});
+eventEmitter.on(EVENTS.LOAD, function () {});
 
-eventEmitter.on('SCROLL', function (a) {});
+eventEmitter.on(EVENTS.SCROLL, function (a) {});
 
-eventEmitter.on('RESIZE', function (a, b) {});
+eventEmitter.on(EVENTS.RESIZE, function (a, b) {});
