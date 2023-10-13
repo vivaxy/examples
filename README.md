@@ -106,6 +106,7 @@ Table of contents
   * [compose](https://vivaxy.github.io/examples/javascript/compose/) Compose
   * [const](https://vivaxy.github.io/examples/javascript/const/) Const
   * [create element](https://vivaxy.github.io/examples/javascript/create-element/) Create element
+  * [Deasync](https://vivaxy.github.io/examples/javascript/deasync/) Deasync
   * [debounce](https://vivaxy.github.io/examples/javascript/debounce/) Debounce
   * [Default Parameters](https://vivaxy.github.io/examples/javascript/default-parameters/) Default Parameters
   * [delegate event](https://vivaxy.github.io/examples/javascript/delegate-event/) Delegate event

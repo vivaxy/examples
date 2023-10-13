@@ -1,5 +1,9 @@
 [
   {
+    "name": "Deasync",
+    "link": "deasync/"
+  },
+  {
     "name": "Lazy Loaded SDK Polyfill",
     "link": "lazy-loaded-sdk-polyfill"
   },
