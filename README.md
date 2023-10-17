@@ -219,6 +219,7 @@ Table of contents
     * [with current index](https://vivaxy.github.io/examples/libraries/echarts/with-current-index/) With current index
   * [execa](https://vivaxy.github.io/examples/libraries/execa/) execa demo
   * [hammer](https://vivaxy.github.io/examples/libraries/hammer/) Hammer
+  * [KaTeX online](https://vivaxy.github.io/examples/libraries/katex/) KaTeX online
   * [KerasJS](https://vivaxy.github.io/examples/libraries/kerasjs/) Kerasjs
   * [knockout](https://vivaxy.github.io/examples/libraries/knockout/) Knockout
   * [Koa](https://vivaxy.github.io/examples/libraries/koa/) koa

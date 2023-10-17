@@ -1,5 +1,9 @@
 [
   {
+    "name": "Katex",
+    "link": "katex/"
+  },
+  {
     "name": "Miniapp Sandbox",
     "link": "miniapp-sandbox/"
   },
