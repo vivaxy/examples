@@ -2,3 +2,7 @@
  * @since 2023-10-17
  * @author vivaxy
  */
+#container {
+  border: 1px solid #efefef;
+  margin: 8px;
+}

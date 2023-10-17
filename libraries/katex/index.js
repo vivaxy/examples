@@ -2,9 +2,16 @@
  * @since 2023-10-17
  * @author vivaxy
  */
+const url = new URL(location.href);
+const version = url.searchParams.get('version') || 'latest';
+const content = url.searchParams.get('content') || 'a \\ne b';
+
 const $version = document.getElementById('version');
-const $textarea = document.getElementById('content');
+const $content = document.getElementById('content');
 const $container = document.getElementById('container');
+
+$version.value = version;
+$content.value = content;
 
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
@@ -40,13 +47,13 @@ function renderContent(content) {
 
 $version.addEventListener('change', main);
 
-$textarea.addEventListener('change', function (e) {
+$content.addEventListener('change', function (e) {
   renderContent(e.target.value);
 });
 
 async function main() {
   await loadResource($version.value);
-  renderContent($textarea.value);
+  renderContent($content.value);
 }
 
 main();
