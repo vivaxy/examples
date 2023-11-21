@@ -402,6 +402,7 @@ Table of contents
   * [Device Information](https://vivaxy.github.io/examples/web-api/device-information/) Device Information
   * [device motion demo page](https://vivaxy.github.io/examples/web-api/device-motion/) Device motion
   * [DOMParser](https://vivaxy.github.io/examples/web-api/dom-parser/) DOMParser
+  * [Downlink](https://vivaxy.github.io/examples/web-api/downlink/) Downlink
   * [DP Share](https://vivaxy.github.io/examples/web-api/dp-share/) DP share demo
   * [draggable demo page](https://vivaxy.github.io/examples/web-api/draggable/) Draggable
   * [Error Event](https://vivaxy.github.io/examples/web-api/error-event/) Error event

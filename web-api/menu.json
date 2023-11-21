@@ -1,5 +1,9 @@
 [
   {
+    "name": "Downlink",
+    "link": "downlink/"
+  },
+  {
     "name": "Does WebWorker JS Infinite Loop Freeze Page?",
     "link": "web-worker-js-infinite-loop-freeze-page/"
   },
