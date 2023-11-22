@@ -4,6 +4,7 @@
  */
 document.querySelector('#read').addEventListener('click', readClipboard);
 document.querySelector('#write').addEventListener('click', writeClipboard);
+const $content = document.querySelector('#content');
 
 ['paste', 'drop', 'drag'].forEach((eventName) => {
   document.addEventListener(eventName, onEvent(eventName));
@@ -36,6 +37,13 @@ function renderDOM($parent, data) {
   }
 }
 
+function writeDOM($parent) {
+  if (showAs === 'html') {
+    return $parent.innerHTML;
+  }
+  return $parent.textContent;
+}
+
 const typeHandlers = {
   'text/plain': {
     async reader(blob) {
@@ -43,6 +51,9 @@ const typeHandlers = {
     },
     render($parent, data) {
       $parent.textContent = data;
+    },
+    writer($parent) {
+      return $parent.textContent;
     },
   },
   'text/html': {
@@ -56,14 +67,17 @@ const typeHandlers = {
         $parent.textContent = data;
       }
     },
+    writer: writeDOM,
   },
   'image/png': {
     reader: readImage,
     render: renderDOM,
+    writer: writeDOM,
   },
   'image/jpg': {
     reader: readImage,
     render: renderDOM,
+    writer: writeDOM,
   },
 };
 
@@ -122,8 +136,10 @@ async function writeClipboard() {
     await checkClipboardPermission('clipboard-write');
     const clipboardItems = {};
     items.forEach(function ({ type, data }) {
-      const blob = new Blob([data], { type });
-      clipboardItems[blob.type] = blob;
+      if (typeHandlers[type]) {
+        const blob = new Blob([data], { type });
+        clipboardItems[blob.type] = blob;
+      }
     });
     await navigator.clipboard.write([new ClipboardItem(clipboardItems)]);
   } catch (e) {
@@ -133,6 +149,9 @@ async function writeClipboard() {
 
 function onEvent() {
   return async function (e) {
+    if ($content.contains(e.target)) {
+      return;
+    }
     const dataTransfer = e.clipboardData || e.dataTransfer;
     if (!dataTransfer.items.length) {
       console.log('dataTransfer.items.length', dataTransfer.items.length);
@@ -159,7 +178,6 @@ function updateItems(newItems) {
   });
   items = newItems;
 
-  const $content = document.querySelector('#content');
   const $tbody = $content.querySelector('tbody');
 
   const $newRows = items.map(function ({ type, data }, index) {
@@ -178,7 +196,11 @@ function updateItems(newItems) {
     }
 
     const mo = new MutationObserver(function () {
-      items[index].data = $dataCell.innerHTML;
+      if (!handler) {
+        items[index].data = 'Unknown type';
+      } else {
+        items[index].data = handler.writer($dataCell);
+      }
     });
     mo.observe($dataCell, {
       childList: true,
