@@ -2,22 +2,22 @@
  * @since 2019-02-03 13:51
  * @author vivaxy
  */
-const input = document.querySelector('#input');
-const logger = document.querySelector('#logger');
-const $showHTMLAsHTML = document.querySelector('#html-as-html');
 document.querySelector('#read').addEventListener('click', readClipboard);
-document
-  .querySelector('#readText')
-  .addEventListener('click', readClipboardText);
 document.querySelector('#write').addEventListener('click', writeClipboard);
-document
-  .querySelector('#writeText')
-  .addEventListener('click', writeClipboardText);
-document
-  .querySelector('#writeHTML')
-  .addEventListener('click', writeClipboardHTML);
+
 ['paste', 'drop', 'drag'].forEach((eventName) => {
   document.addEventListener(eventName, onEvent(eventName));
+});
+
+let items = [];
+let mos = [];
+let showAs = 'text';
+
+['show-as-text', 'show-as-html'].forEach(function (id) {
+  document.getElementById(id).addEventListener('change', function (e) {
+    showAs = e.target.value;
+    updateItems(items);
+  });
 });
 
 async function readImage(blob) {
@@ -28,15 +28,43 @@ async function readImage(blob) {
   return $img;
 }
 
-const clipboardItemBlobReaders = {
-  async 'text/plain'(blob) {
-    return await blob.text();
+function renderDOM($parent, data) {
+  if (showAs === 'html') {
+    $parent.appendChild(data);
+  } else {
+    $parent.textContent = data;
+  }
+}
+
+const typeHandlers = {
+  'text/plain': {
+    async reader(blob) {
+      return await blob.text();
+    },
+    render($parent, data) {
+      $parent.textContent = data;
+    },
   },
-  async 'text/html'(blob) {
-    return await blob.text();
+  'text/html': {
+    async reader(blob) {
+      return await blob.text();
+    },
+    render($parent, data) {
+      if (showAs === 'html') {
+        $parent.innerHTML = data;
+      } else {
+        $parent.textContent = data;
+      }
+    },
   },
-  'image/png': readImage,
-  'image/jpg': readImage,
+  'image/png': {
+    reader: readImage,
+    render: renderDOM,
+  },
+  'image/jpg': {
+    reader: readImage,
+    render: renderDOM,
+  },
 };
 
 const dataTransferItemReaders = {
@@ -67,132 +95,103 @@ async function checkClipboardPermission(permissionName) {
 
 async function readClipboard() {
   try {
-    clearLog();
+    const newItems = [];
     await checkClipboardPermission('clipboard-read');
 
     const clipboardItems = await navigator.clipboard.read();
     for (const clipboardItem of clipboardItems) {
       for (const type of clipboardItem.types) {
         const blob = await clipboardItem.getType(type);
-        const reader = clipboardItemBlobReaders[type];
-        if (!reader) {
-          log(type, 'Unhandled type');
+        const handler = typeHandlers[type];
+        if (!handler) {
+          newItems.push({ type, data: 'Unhandled type' });
           continue;
         }
-        const content = await reader(blob);
-        if (type === 'text/plain') {
-          input.value = content;
-        }
-        log(content, type);
+        const content = await handler.reader(blob);
+        newItems.push({ type, data: content });
+        updateItems(newItems);
       }
     }
   } catch (e) {
-    log(e.message, e.name);
-  }
-}
-
-async function readClipboardText() {
-  try {
-    clearLog();
-    await checkClipboardPermission('clipboard-read');
-    const content = await navigator.clipboard.readText();
-    input.value = content;
-    log(content);
-  } catch (e) {
-    log(e.message, e.name);
+    console.error('navigator.clipboard.read', e);
   }
 }
 
 async function writeClipboard() {
   try {
-    clearLog();
     await checkClipboardPermission('clipboard-write');
-    const blob = new Blob([input.value], { type: 'text/plain' });
-    const clipboardItem = new ClipboardItem({
-      [blob.type]: blob,
+    const clipboardItems = {};
+    items.forEach(function ({ type, data }) {
+      const blob = new Blob([data], { type });
+      clipboardItems[blob.type] = blob;
     });
-    await navigator.clipboard.write([clipboardItem]);
-    log('OK');
+    await navigator.clipboard.write([new ClipboardItem(clipboardItems)]);
   } catch (e) {
-    log(e.message, e.name);
+    console.error('navigator.clipboard.write', e);
   }
 }
 
-async function writeClipboardText() {
-  try {
-    clearLog();
-    await checkClipboardPermission('clipboard-write');
-    await navigator.clipboard.writeText(input.value);
-    log('OK');
-  } catch (e) {
-    log(e.message, e.name);
-  }
-}
-
-async function writeClipboardHTML() {
-  try {
-    clearLog();
-    await checkClipboardPermission('clipboard-write');
-    const clipboardItem = new ClipboardItem({
-      'text/plain': new Blob([input.value], { type: 'text/plain' }),
-      'text/html': new Blob([input.value], { type: 'text/html' }),
-    });
-    await navigator.clipboard.write([clipboardItem]);
-    log('OK');
-  } catch (e) {
-    log(e.message, e.name);
-  }
-}
-
-function onEvent(eventName) {
+function onEvent() {
   return async function (e) {
-    // e.preventDefault();
-    clearLog();
     const dataTransfer = e.clipboardData || e.dataTransfer;
     if (!dataTransfer.items.length) {
-      log('', `[${eventName}]`);
+      console.log('dataTransfer.items.length', dataTransfer.items.length);
+      return;
     }
-    // cannot read dataTransfer in async functions
-    await Promise.all(
+    const newItems = await Promise.all(
       Array.from(dataTransfer.items).map(async function (dataTransferItem) {
         const { kind, type } = dataTransferItem;
         const reader = dataTransferItemReaders[kind];
         if (!reader) {
-          log(kind, `[${eventName}] Unhandled kind`);
-          return;
+          return { type, data: 'Unknown type' };
         }
         const content = await reader(dataTransferItem);
-        log(content, `[${eventName}] ${type}`);
+        return { type, data: content };
       }),
     );
+    updateItems(newItems);
   };
 }
 
-function clearLog() {
-  logger.innerHTML = '';
-}
+function updateItems(newItems) {
+  mos.forEach(function (mo) {
+    mo.disconnect();
+  });
+  items = newItems;
 
-function log(content, tag) {
-  const $log = document.createElement('div');
-  $log.style.fontFamily = 'monospace';
-  if (tag) {
-    const $tag = document.createElement('span');
-    $tag.style.color = '#999';
-    $tag.style.marginRight = '8px';
-    $tag.textContent = tag;
-    $log.appendChild($tag);
-  }
-  if (content instanceof HTMLElement) {
-    $log.appendChild(content);
-  } else {
-    const $content = document.createElement('span');
-    if ($showHTMLAsHTML.checked) {
-      $content.innerHTML = content;
+  const $content = document.querySelector('#content');
+  const $tbody = $content.querySelector('tbody');
+
+  const $newRows = items.map(function ({ type, data }, index) {
+    const $typeCell = document.createElement('td');
+    const $type = document.createElement('p');
+    $type.textContent = type;
+    $typeCell.appendChild($type);
+
+    const $dataCell = document.createElement('td');
+    $dataCell.setAttribute('contenteditable', 'true');
+    const handler = typeHandlers[type];
+    if (handler) {
+      handler.render($dataCell, data);
     } else {
-      $content.innerText = content;
+      $dataCell.textContent = 'Unknown type';
     }
-    $log.appendChild($content);
-  }
 
-  logger.appendChild($log);
+    const mo = new MutationObserver(function () {
+      items[index].data = $dataCell.innerHTML;
+    });
+    mo.observe($dataCell, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+    mos.push(mo);
+
+    const $row = document.createElement('tr');
+    $row.appendChild($typeCell);
+    $row.appendChild($dataCell);
+    return $row;
+  });
+
+  $tbody.replaceChildren(...$newRows);
 }

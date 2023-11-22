@@ -14,27 +14,27 @@
       content="vivaxy,examples,github,demo,playground,clipboard,test,native-api,sample,demos,web-api,samples,example"
     />
     <meta name="description" content="Clipboard" />
+    <link href="index.css" rel="stylesheet" />
   </head>
 
   <body>
     <button id="read" draggable="true">Read clipboard</button>
-    <button id="readText" draggable="true">Read clipboard text</button>
-    <input id="input" draggable="true" />
     <button id="write" draggable="true">Write clipboard</button>
-    <button id="writeText" draggable="true">Write clipboard text</button>
-    <button id="writeHTML" draggable="true">Write clipboard HTML</button>
-    <label>Show HTML as:</label>
-    <input name="show-html-as" id="html-as-html" type="radio" value="html" />
-    <label for="html-as-html">html</label>
-    <input
-      name="show-html-as"
-      id="html-as-text"
-      type="radio"
-      value="text"
-      checked
-    />
-    <label for="html-as-text">text</label>
-    <div id="logger"></div>
+    <label>Show as:</label>
+    <input name="show-as" id="show-as-text" type="radio" value="text" checked />
+    <label for="show-as-text">text</label>
+    <input name="show-as" id="show-as-html" type="radio" value="html" />
+    <label for="show-as-html">html</label>
+    <table id="content">
+      <thead>
+        <tr>
+          <th>type</th>
+          <th>getData(type)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
   </body>

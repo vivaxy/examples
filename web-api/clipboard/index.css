@@ -1,0 +1,13 @@
+/**
+ * @since 2023-11-22
+ * @author vivaxy
+ */
+#content {
+  font-family: monospace;
+}
+
+#content td,
+#content th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
