@@ -10,11 +10,14 @@ async function handleClick(e) {
     const errorStack = document.getElementById('input').value;
     const stacks = errorStack.match(/\((?<src>.+?)\)/g);
     const outputDOMList = await Promise.all(
-      stacks.map(function (stackLine) {
-        return parseStackLine(stackLine.slice(1, -1));
+      stacks.map(async function (stackLine) {
+        const info = await parseStackLine(stackLine.slice(1, -1));
+        return renderStackLine(info);
       }),
     );
-    document.getElementById('output').replaceChildren(...outputDOMList);
+    document
+      .getElementById('output')
+      .replaceChildren(...outputDOMList.filter((x) => !!x));
   } catch (e) {
     console.error(e);
   }
@@ -69,6 +72,43 @@ function normalizeFileName(fileName) {
   return `${protocol}://${pathModule.normalize(path)}`;
 }
 
+function renderStackLine(stackLine) {
+  const name = document.createElement('span');
+  name.textContent = stackLine.name;
+
+  const position = document.createElement('span');
+  position.classList.add('position');
+  position.textContent = `@${stackLine.source}:${stackLine.line}:${stackLine.column}`;
+
+  const summary = document.createElement('summary');
+  summary.appendChild(name);
+  summary.appendChild(position);
+
+  const details = document.createElement('details');
+  details.appendChild(summary);
+
+  stackLine.details.forEach(function ({ lineNo, sourceFileContentLine }) {
+    const lineNoSpan = document.createElement('span');
+    lineNoSpan.classList.add('line-no');
+    lineNoSpan.textContent = lineNo;
+
+    const contentSpan = document.createElement('span');
+    contentSpan.classList.add('content');
+    contentSpan.textContent = sourceFileContentLine;
+
+    const p = document.createElement('p');
+    p.appendChild(lineNoSpan);
+    p.appendChild(contentSpan);
+    if (lineNo === stackLine.line) {
+      p.classList.add('current-line');
+    }
+
+    details.appendChild(p);
+  });
+
+  return details;
+}
+
 async function parseStackLine(stackLine) {
   const [src, line, column] = stackLine.split(':');
   const rawSourceMapSrc = src.startsWith('//')
@@ -83,20 +123,17 @@ async function parseStackLine(stackLine) {
     line: Number(line),
     column: Number(column),
   });
+  consumer.destroy();
 
-  const name = document.createElement('span');
-  name.textContent = originalPosition.name;
-
-  const position = document.createElement('span');
-  position.classList.add('position');
-  position.textContent = `@${originalPosition.source}:${originalPosition.line}:${originalPosition.column}`;
-
-  const summary = document.createElement('summary');
-  summary.appendChild(name);
-  summary.appendChild(position);
-
-  const details = document.createElement('details');
-  details.appendChild(summary);
+  if (!originalPosition.source) {
+    return {
+      name: null,
+      source: src,
+      line,
+      column,
+      details: [],
+    };
+  }
 
   const EXPAND_LINES = 10;
   const sourceFileIndex = rawSourceMap.sources.findIndex(function (
@@ -107,32 +144,25 @@ async function parseStackLine(stackLine) {
   const sourceFileContent = rawSourceMap.sourcesContent[sourceFileIndex];
   const sourceFileContentLines = sourceFileContent.split('\n');
 
+  const details = [];
   sourceFileContentLines.forEach(function (sourceFileContentLine, index) {
     const lineNo = index + 1;
     if (
       lineNo >= originalPosition.line - EXPAND_LINES &&
       lineNo <= originalPosition.line + EXPAND_LINES
     ) {
-      const lineNoSpan = document.createElement('span');
-      lineNoSpan.classList.add('line-no');
-      lineNoSpan.textContent = lineNo;
-
-      const contentSpan = document.createElement('span');
-      contentSpan.classList.add('content');
-      contentSpan.textContent = sourceFileContentLine;
-
-      const p = document.createElement('p');
-      p.appendChild(lineNoSpan);
-      p.appendChild(contentSpan);
-      if (lineNo === originalPosition.line) {
-        p.classList.add('current-line');
-      }
-
-      details.appendChild(p);
+      details.push({
+        lineNo,
+        sourceFileContentLine,
+      });
     }
   });
 
-  consumer.destroy();
-
-  return details;
+  return {
+    name: originalPosition.name,
+    source: originalPosition.source,
+    line: originalPosition.line,
+    column: originalPosition.column,
+    details,
+  };
 }
