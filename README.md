@@ -217,6 +217,7 @@ Table of contents
   * [echarts](https://vivaxy.github.io/examples/libraries/echarts/) Echarts
     * [horizontal scroll](https://vivaxy.github.io/examples/libraries/echarts/horizontal-scroll/) Horizontal scroll
     * [with current index](https://vivaxy.github.io/examples/libraries/echarts/with-current-index/) With current index
+  * [Error Stack Parser](https://vivaxy.github.io/examples/libraries/error-stack-parser/) Error Stack Parser
   * [execa](https://vivaxy.github.io/examples/libraries/execa/) execa demo
   * [hammer](https://vivaxy.github.io/examples/libraries/hammer/) Hammer
   * [KaTeX online](https://vivaxy.github.io/examples/libraries/katex/) KaTeX online

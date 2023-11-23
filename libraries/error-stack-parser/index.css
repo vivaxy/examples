@@ -1,0 +1,43 @@
+/**
+ * @since 2023-11-23
+ * @author vivaxy
+ */
+body {
+  margin: 8px;
+}
+
+#input {
+  width: calc(100% - 16px);
+  height: 200px;
+  box-sizing: border-box;
+  display: block;
+  font-family: monospace;
+}
+
+#output {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+#output details {
+  padding: 2px 0;
+  border: 1px solid #efefef;
+}
+
+#output details p {
+  margin: 2px 0;
+}
+
+#output details p:nth-of-type(2n + 1) {
+  background: #efefef;
+}
+
+#output details summary p.position {
+  color: #999;
+  margin-left: 8px;
+}
+
+#output details p.current-line {
+  background: #ff3c3c;
+  color: #fff;
+}

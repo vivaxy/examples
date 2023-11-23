@@ -1,5 +1,9 @@
 [
   {
+    "name": "Error Stack Parser",
+    "link": "error-stack-parser/"
+  },
+  {
     "name": "Katex",
     "link": "katex/"
   },
