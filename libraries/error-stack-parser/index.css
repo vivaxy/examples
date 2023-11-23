@@ -25,7 +25,10 @@ body {
 }
 
 #output details p {
-  margin: 2px 0;
+  min-height: 18px;
+  line-height: 18px;
+  height: 18px;
+  margin: 0;
 }
 
 #output details p:nth-of-type(2n + 1) {
@@ -40,4 +43,20 @@ body {
 #output details p.current-line {
   background: #ff3c3c;
   color: #fff;
+}
+
+#output details p .line-no {
+  background: #fff;
+  color: #999;
+  min-width: 40px;
+  display: inline-block;
+  border-right: 1px solid #efefef;
+  user-select: none;
+  height: 18px;
+  text-align: right;
+}
+
+#output details p .content {
+  box-sizing: border-box;
+  margin-left: 8px;
 }

@@ -106,27 +106,31 @@ async function parseStackLine(stackLine) {
   });
   const sourceFileContent = rawSourceMap.sourcesContent[sourceFileIndex];
   const sourceFileContentLines = sourceFileContent.split('\n');
-  const linesBefore = sourceFileContentLines.slice(
-    originalPosition.line - EXPAND_LINES - 1,
-    originalPosition.line - 1,
-  );
-  const currentLine = sourceFileContentLines[originalPosition.line - 1];
-  const linesAfter = sourceFileContentLines.slice(
-    originalPosition.line,
-    originalPosition.line + EXPAND_LINES,
-  );
 
-  function renderLine(sourceFileContentLine) {
-    const p = document.createElement('p');
-    p.textContent = sourceFileContentLine;
-    details.appendChild(p);
-  }
-  linesBefore.forEach(renderLine);
-  const p = document.createElement('p');
-  p.classList.add('current-line');
-  p.textContent = currentLine;
-  details.appendChild(p);
-  linesAfter.forEach(renderLine);
+  sourceFileContentLines.forEach(function (sourceFileContentLine, index) {
+    const lineNo = index + 1;
+    if (
+      lineNo >= originalPosition.line - EXPAND_LINES &&
+      lineNo <= originalPosition.line + EXPAND_LINES
+    ) {
+      const lineNoSpan = document.createElement('span');
+      lineNoSpan.classList.add('line-no');
+      lineNoSpan.textContent = lineNo;
+
+      const contentSpan = document.createElement('span');
+      contentSpan.classList.add('content');
+      contentSpan.textContent = sourceFileContentLine;
+
+      const p = document.createElement('p');
+      p.appendChild(lineNoSpan);
+      p.appendChild(contentSpan);
+      if (lineNo === originalPosition.line) {
+        p.classList.add('current-line');
+      }
+
+      details.appendChild(p);
+    }
+  });
 
   consumer.destroy();
 
