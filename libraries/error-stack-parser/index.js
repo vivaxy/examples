@@ -129,14 +129,25 @@ function renderStackLine(stackLine) {
   return details;
 }
 
+const cache = new Map();
+
+async function fetchWithCache(sourceMapSrc) {
+  if (cache.has(sourceMapSrc)) {
+    return cache.get(sourceMapSrc);
+  }
+  const resp = await fetch(sourceMapSrc);
+  const rawSourceMap = await resp.json();
+  cache.set(sourceMapSrc, rawSourceMap);
+  return rawSourceMap;
+}
+
 async function parseStackLine(stackLine) {
   const [src, line, column] = stackLine.split(':');
   const rawSourceMapSrc = src.startsWith('//')
     ? `https:${src}.map`
     : `${src}.map`;
-  const resp = await fetch(rawSourceMapSrc);
-  const rawSourceMap = await resp.json();
 
+  const rawSourceMap = await fetchWithCache(rawSourceMapSrc);
   const consumer = await new sourceMap.SourceMapConsumer(rawSourceMap);
 
   const originalPosition = consumer.originalPositionFor({
@@ -155,7 +166,7 @@ async function parseStackLine(stackLine) {
     };
   }
 
-  const paddingLines = document.getElementById('padding-lines').value;
+  const paddingLines = Number(document.getElementById('padding-lines').value);
   const sourceFileIndex = rawSourceMap.sources.findIndex(function (
     sourceFileName,
   ) {
