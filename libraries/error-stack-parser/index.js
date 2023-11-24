@@ -19,7 +19,16 @@ async function handleClick(e) {
           return null;
         }
         const { name, src } = match.groups;
-        const info = await parseStackLine(src);
+        const info =
+          src === '<anonymous>'
+            ? {
+                name,
+                source: src,
+                line: '',
+                column: '',
+                details: [],
+              }
+            : await parseStackLine(src);
         if (info.name === null) {
           info.name = name;
         }
