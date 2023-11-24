@@ -8,10 +8,21 @@ async function handleClick(e) {
   e.target.disabled = true;
   try {
     const errorStack = document.getElementById('input').value;
-    const stacks = errorStack.match(/\((?<src>.+?)\)/g);
+    const stacks = errorStack.match(/ at (?<name>.+?) \((?<src>.+?)\)/g);
+    if (!stacks) {
+      throw new Error('Invalid error stacks');
+    }
     const outputDOMList = await Promise.all(
       stacks.map(async function (stackLine) {
-        const info = await parseStackLine(stackLine.slice(1, -1));
+        const match = stackLine.match(/ at (?<name>.+?) \((?<src>.+?)\)/);
+        if (!match) {
+          return null;
+        }
+        const { name, src } = match.groups;
+        const info = await parseStackLine(src);
+        if (info.name === null) {
+          info.name = name;
+        }
         return renderStackLine(info);
       }),
     );
@@ -135,7 +146,7 @@ async function parseStackLine(stackLine) {
     };
   }
 
-  const EXPAND_LINES = 10;
+  const paddingLines = document.getElementById('padding-lines').value;
   const sourceFileIndex = rawSourceMap.sources.findIndex(function (
     sourceFileName,
   ) {
@@ -148,8 +159,8 @@ async function parseStackLine(stackLine) {
   sourceFileContentLines.forEach(function (sourceFileContentLine, index) {
     const lineNo = index + 1;
     if (
-      lineNo >= originalPosition.line - EXPAND_LINES &&
-      lineNo <= originalPosition.line + EXPAND_LINES
+      lineNo >= originalPosition.line - paddingLines &&
+      lineNo <= originalPosition.line + paddingLines
     ) {
       details.push({
         lineNo,

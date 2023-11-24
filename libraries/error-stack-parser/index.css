@@ -34,7 +34,7 @@ body {
   background: #efefef;
 }
 
-#output details summary p.position {
+#output details summary .position {
   color: #999;
   margin-left: 8px;
 }
