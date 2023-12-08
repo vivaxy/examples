@@ -1,5 +1,9 @@
 [
   {
+    "name": "popover",
+    "link": "popover/"
+  },
+  {
     "name": "Downlink",
     "link": "downlink/"
   },

@@ -460,6 +460,7 @@ Table of contents
   * [Playsinline](https://vivaxy.github.io/examples/web-api/playsinline/) Video playsinline demo
   * [Pointer Events](https://vivaxy.github.io/examples/web-api/pointer-events/) Pointer Events
   * [Pointer Lock](https://vivaxy.github.io/examples/web-api/pointer-lock/) Pointer lock
+  * [Popover](https://vivaxy.github.io/examples/web-api/popover/) Popover
   * [popstate](https://vivaxy.github.io/examples/web-api/popstate/) Popstate
   * [prefetch](https://vivaxy.github.io/examples/web-api/prefetch/) prefetch resources
   * [promise ajax](https://vivaxy.github.io/examples/web-api/promise/) Promise
