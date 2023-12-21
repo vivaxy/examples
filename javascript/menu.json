@@ -1,5 +1,9 @@
 [
   {
+    "name": "Object.freeze",
+    "link": "object-freeze/"
+  },
+  {
     "name": "Deasync",
     "link": "deasync/"
   },

@@ -134,6 +134,7 @@ Table of contents
   * [module view](https://vivaxy.github.io/examples/javascript/module-view/) Module view
   * [Mutex](https://vivaxy.github.io/examples/javascript/mutex/) Mutex
   * [new AsyncFunction](https://vivaxy.github.io/examples/javascript/new-async-function/) new AsyncFunction
+  * [Object.freeze](https://vivaxy.github.io/examples/javascript/object-freeze/) Object.freeze
   * [once](https://vivaxy.github.io/examples/javascript/once/) Once
   * [poll](https://vivaxy.github.io/examples/javascript/poll/) Poll
   * [Polling](https://vivaxy.github.io/examples/javascript/polling/) Polling implementation
