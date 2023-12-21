@@ -1,5 +1,9 @@
 [
   {
+    "name": "Intl",
+    "link": "intl/"
+  },
+  {
     "name": "Object.freeze",
     "link": "object-freeze/"
   },

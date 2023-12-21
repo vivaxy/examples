@@ -120,6 +120,7 @@ Table of contents
   * [Generators](https://vivaxy.github.io/examples/javascript/generators/) Generators
   * [queue](https://vivaxy.github.io/examples/javascript/hippo/) Hippo
   * [inline script context](https://vivaxy.github.io/examples/javascript/inline-script-context/) Inline script context
+  * [Intl](https://vivaxy.github.io/examples/javascript/intl/) Intl
   * [Is Animated Image](https://vivaxy.github.io/examples/javascript/is-animated-image/) Is animated image
   * [is native](https://vivaxy.github.io/examples/javascript/is-native/) Is native
   * [Iterators](https://vivaxy.github.io/examples/javascript/iterators/) Iterators demo
