@@ -1,5 +1,9 @@
 [
   {
+    "name": "for let loop v.s. for var loop",
+    "link": "for-let-loop-vs-for-var-loop/"
+  },
+  {
     "name": "ShadowDOM vs Light DOM",
     "link": "shadow-dom-vs-light-dom/"
   },
