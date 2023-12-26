@@ -42,8 +42,10 @@ Table of contents
 * [Benchmark](https://vivaxy.github.io/examples/benchmark/) 性能
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/examples/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
+  * [for let loop vs for var loop](https://vivaxy.github.io/examples/benchmark/for-let-loop-vs-for-var-loop/) for let loop vs for var loop
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/) Get bounding client rect vs inner width vs client width
+  * [GPU vs WASM](https://vivaxy.github.io/examples/benchmark/gpu-vs-wasm-vs-cpu/) GPU vs WASM
   * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parseInt/) Number vs parse int
   * [querySelector](https://vivaxy.github.io/examples/benchmark/querySelector/) querySelector
   * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit

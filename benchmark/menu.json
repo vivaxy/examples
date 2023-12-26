@@ -1,5 +1,9 @@
 [
   {
+    "name": "GPU vs WASM vs CPU",
+    "link": "gpu-vs-wasm-vs-cpu"
+  },
+  {
     "name": "for let loop v.s. for var loop",
     "link": "for-let-loop-vs-for-var-loop/"
   },
