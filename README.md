@@ -94,6 +94,7 @@ Table of contents
   * [writing mode](https://vivaxy.github.io/examples/cascading-style-sheets/writing-mode/) Writing mode
   * [Zoom](https://vivaxy.github.io/examples/cascading-style-sheets/zoom/) Zoom
 * [Compilers](https://vivaxy.github.io/examples/compilers/) 编译器
+* [C++](https://vivaxy.github.io/examples/cpp/) C++
 * [Functional Programming](https://vivaxy.github.io/examples/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/examples/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/examples/functional-programming/manipulate-functions/) Manipulate functions
