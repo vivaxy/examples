@@ -516,6 +516,7 @@ Table of contents
       * [Game of Life](https://vivaxy.github.io/examples/web-api/web-assembly/google-codelabs-web-assembly-intro/lyff/) Lyff
       * [Mandelbrot Simple](https://vivaxy.github.io/examples/web-api/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-simple/) Mandelbrot simple
       * [Mandelbrot Tiled](https://vivaxy.github.io/examples/web-api/web-assembly/google-codelabs-web-assembly-intro/mandelbrot-tiled/) Mandelbrot tiled
+    * [WebAssembly Run in Main Thread](https://vivaxy.github.io/examples/web-api/web-assembly/main-thread/) WebAssembly Run in Main Thread
     * [WebAssembly](https://vivaxy.github.io/examples/web-api/web-assembly/standalone-example/) Standalone example
   * [WebHID](https://vivaxy.github.io/examples/web-api/web-hid/) WebHID
   * [Web NFC](https://vivaxy.github.io/examples/web-api/web-nfc/) Web NFC

@@ -1,5 +1,9 @@
 [
   {
+    "name": "WASM run in the main thread",
+    "link": "main-thread/"
+  },
+  {
     "name": "MDN Basic Example",
     "link": "mdn-basic-example/hello.html"
   },
