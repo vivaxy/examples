@@ -8,9 +8,9 @@ function createFunctionBody(index, functionLoopCount, skip) {
   return index === 0
     ? `return performance.now() - startTime;`
     : `let sum = 0;
-  for (let i = 0; i < ${functionLoopCount}; i++) {
-    sum += i;
-  }
+  ${Array.from({ length: functionLoopCount }, (_, i) => {
+    return `sum += ${i};`;
+  }).join('\n')}
   return fun${Math.floor(index - (index % skip))}(startTime, sum);`;
 }
 
@@ -65,10 +65,11 @@ console.log('${type} cost', costSum)\n`;
   return createIIFE(type, result);
 }
 
-const callDepth = 100;
+const callDepth = 1000;
 const functionLoopCount = 1000;
-const outerLoopCount = 10000;
+const outerLoopCount = 1000;
 const skip = 3;
+
 fs.writeFileSync(
   'arrow-function.js',
   createFunction(
