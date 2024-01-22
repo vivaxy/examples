@@ -41,6 +41,7 @@ Table of contents
     * [Depth First Search](https://vivaxy.github.io/examples/algorithms/tree/depth-first-search/) 深度优先遍历算法
 * [Benchmark](https://vivaxy.github.io/examples/benchmark/) 性能
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/examples/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
+  * [Arrow Function vs Regular Function](https://vivaxy.github.io/examples/benchmark/arrow-function-vs-regular-function/) Arrow Function vs Regular Function
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
   * [for let loop vs for var loop](https://vivaxy.github.io/examples/benchmark/for-let-loop-vs-for-var-loop/) for let loop vs for var loop
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect

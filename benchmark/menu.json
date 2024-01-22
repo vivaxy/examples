@@ -1,5 +1,9 @@
 [
   {
+    "name": "Arrow Function vs Regular Function",
+    "link": "arrow-function-vs-regular-function"
+  },
+  {
     "name": "GPU vs WASM vs CPU",
     "link": "gpu-vs-wasm-vs-cpu"
   },
