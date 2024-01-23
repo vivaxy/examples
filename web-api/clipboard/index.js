@@ -70,7 +70,6 @@ const imageHandler = {
 };
 
 function defaultClipboardWriter(data, type, clipboardItems) {
-  console.log('data', data);
   const blob = new Blob([data], { type });
   clipboardItems[blob.type] = blob;
 }
@@ -208,6 +207,7 @@ function updateItems(newItems) {
       removeItem(index);
     });
     $removeButton.textContent = '-';
+    $removeButton.title = 'Remove Clipboard Item';
     $removeCell.appendChild($removeButton);
 
     const $typeCell = document.createElement('td');
