@@ -1,6 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn gds
-git add .
-yarn lint-staged
+npx gds
+npx lint-staged
