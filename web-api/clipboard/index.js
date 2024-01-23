@@ -21,7 +21,7 @@ let showAs = 'text';
   });
 });
 
-async function readImage(blob) {
+async function imageReader(blob) {
   const objectURL = URL.createObjectURL(blob);
   const $img = document.createElement('img');
   $img.style.maxHeight = '200px';
@@ -29,7 +29,7 @@ async function readImage(blob) {
   return $img;
 }
 
-function renderDOM($parent, data) {
+function imageRenderer($parent, data) {
   if (showAs === 'html') {
     $parent.appendChild(data);
   } else {
@@ -37,29 +37,53 @@ function renderDOM($parent, data) {
   }
 }
 
-function writeDOM($parent) {
+function domWriter($parent) {
   if (showAs === 'html') {
     return $parent.innerHTML;
   }
   return $parent.textContent;
 }
 
+async function textPlainReader(blob) {
+  return await blob.text();
+}
+
+function textPlainRenderer($parent, data) {
+  $parent.textContent = data;
+}
+
+function textPlainWriter($parent) {
+  return $parent.textContent;
+}
+
+const textPlainHandler = {
+  reader: textPlainReader,
+  render: textPlainRenderer,
+  writer: textPlainWriter,
+  clipboardWriter: defaultClipboardWriter,
+};
+
+const imageHandler = {
+  reader: imageReader,
+  render: imageRenderer,
+  writer: domWriter,
+};
+
+function defaultClipboardWriter(data, type, clipboardItems) {
+  console.log('data', data);
+  const blob = new Blob([data], { type });
+  clipboardItems[blob.type] = blob;
+}
+
 const typeHandlers = {
-  'text/plain': {
-    async reader(blob) {
-      return await blob.text();
-    },
-    render($parent, data) {
-      $parent.textContent = data;
-    },
-    writer($parent) {
-      return $parent.textContent;
-    },
+  'text/plain': textPlainHandler,
+  'text/link-preview': {
+    reader: textPlainReader,
+    render: textPlainRenderer,
+    writer: textPlainWriter,
   },
   'text/html': {
-    async reader(blob) {
-      return await blob.text();
-    },
+    reader: textPlainReader,
     render($parent, data) {
       if (showAs === 'html') {
         $parent.innerHTML = data;
@@ -67,18 +91,11 @@ const typeHandlers = {
         $parent.textContent = data;
       }
     },
-    writer: writeDOM,
+    writer: domWriter,
+    clipboardWriter: defaultClipboardWriter,
   },
-  'image/png': {
-    reader: readImage,
-    render: renderDOM,
-    writer: writeDOM,
-  },
-  'image/jpg': {
-    reader: readImage,
-    render: renderDOM,
-    writer: writeDOM,
-  },
+  'image/png': imageHandler,
+  'image/jpg': imageHandler,
 };
 
 const dataTransferItemReaders = {
@@ -89,7 +106,7 @@ const dataTransferItemReaders = {
   },
   async file(dataTransferItem) {
     const file = dataTransferItem.getAsFile();
-    return await readImage(file);
+    return await imageReader(file);
   },
 };
 
@@ -136,9 +153,8 @@ async function writeClipboard() {
     await checkClipboardPermission('clipboard-write');
     const clipboardItems = {};
     items.forEach(function ({ type, data }) {
-      if (typeHandlers[type]) {
-        const blob = new Blob([data], { type });
-        clipboardItems[blob.type] = blob;
+      if (typeHandlers[type]?.clipboardWriter) {
+        typeHandlers[type].clipboardWriter(data, type, clipboardItems);
       }
     });
     await navigator.clipboard.write([new ClipboardItem(clipboardItems)]);
@@ -162,7 +178,7 @@ function onEvent() {
         const { kind, type } = dataTransferItem;
         const reader = dataTransferItemReaders[kind];
         if (!reader) {
-          return { type, data: 'Unknown type' };
+          return { type, data: '' };
         }
         const content = await reader(dataTransferItem);
         return { type, data: content };
@@ -170,6 +186,11 @@ function onEvent() {
     );
     updateItems(newItems);
   };
+}
+
+function removeItem(itemIndex) {
+  items.splice(itemIndex, 1);
+  updateItems(items);
 }
 
 function updateItems(newItems) {
@@ -181,6 +202,14 @@ function updateItems(newItems) {
   const $tbody = $content.querySelector('tbody');
 
   const $newRows = items.map(function ({ type, data }, index) {
+    const $removeCell = document.createElement('td');
+    const $removeButton = document.createElement('button');
+    $removeButton.addEventListener('click', function () {
+      removeItem(index);
+    });
+    $removeButton.textContent = '-';
+    $removeCell.appendChild($removeButton);
+
     const $typeCell = document.createElement('td');
     const $type = document.createElement('p');
     $type.textContent = type;
@@ -210,6 +239,7 @@ function updateItems(newItems) {
     mos.push(mo);
 
     const $row = document.createElement('tr');
+    $row.appendChild($removeCell);
     $row.appendChild($typeCell);
     $row.appendChild($dataCell);
     return $row;
