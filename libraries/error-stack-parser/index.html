@@ -18,11 +18,12 @@
   </head>
   <body>
     <textarea id="input" placeholder="Error stacks"></textarea>
-    <label for="padding-lines">Padding Lines</label>
-    <input id="padding-lines" type="number" value="20" step="1" min="0" />
-    <button id="parse">Parse</button>
+    <div class="controls">
+      <label for="padding-lines">Padding Lines</label>
+      <input id="padding-lines" type="number" value="" step="1" min="0" />
+      <button id="parse" disabled>Parse</button>
+    </div>
     <div id="output"></div>
-    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script src="https://unpkg.com/source-map/dist/source-map.js"></script>
     <script>
       sourceMap.SourceMapConsumer.initialize({

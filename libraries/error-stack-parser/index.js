@@ -2,18 +2,49 @@
  * @since 2023-11-23
  * @author vivaxy
  */
-document.getElementById('parse').addEventListener('click', handleClick);
+const cache = new Map();
+const $parseButton = document.getElementById('parse');
+const $output = document.getElementById('output');
+const $input = document.getElementById('input');
+const $paddingLines = document.getElementById('padding-lines');
 
-async function handleClick(e) {
-  e.target.disabled = true;
+const url = new URL(location.href);
+const query = {
+  paddingLines: Number(url.searchParams.get('paddingLines')) || 20,
+  stacks: url.searchParams.get('stacks'),
+  stackIndex: Number(url.searchParams.get('stackIndex')),
+  lineNo: Number(url.searchParams.get('lineNo')),
+};
+
+$parseButton.addEventListener('click', handleClick);
+$paddingLines.addEventListener('change', function () {
+  const paddingLines = Number($paddingLines.value);
+  if (!isNaN(paddingLines)) {
+    query.paddingLines = paddingLines;
+  }
+});
+
+if (query.stacks) {
+  $input.value = query.stacks;
+  handleClick();
+} else {
+  $parseButton.disabled = false;
+}
+if (query.paddingLines !== Number($paddingLines.value)) {
+  $paddingLines.value = query.paddingLines;
+}
+
+async function handleClick() {
+  $parseButton.disabled = true;
+  $output.innerHTML = 'Loading...';
   try {
-    const errorStack = document.getElementById('input').value;
+    const errorStack = $input.value;
     const stacks = errorStack.match(/ at (?<name>.+?) \((?<src>.+?)\)/g);
     if (!stacks) {
       throw new Error('Invalid error stacks');
     }
     const outputDOMList = await Promise.all(
-      stacks.map(async function (stackLine) {
+      stacks.map(async function (stackLine, stackIndex) {
         const match = stackLine.match(/ at (?<name>.+?) \((?<src>.+?)\)/);
         if (!match) {
           return null;
@@ -32,16 +63,17 @@ async function handleClick(e) {
         if (info.name === null) {
           info.name = name;
         }
-        return renderStackLine(info);
+        return renderStackLine(info, stackIndex);
       }),
     );
-    document
-      .getElementById('output')
-      .replaceChildren(...outputDOMList.filter((x) => !!x));
+    $output.replaceChildren(...outputDOMList.filter((x) => !!x));
+    if (query.stackIndex) {
+      outputDOMList[query.stackIndex].scrollIntoView({ behavior: 'smooth' });
+    }
   } catch (e) {
     console.error(e);
   }
-  e.target.disabled = false;
+  $parseButton.disabled = false;
 }
 
 function normalizeArray(parts, allowAboveRoot) {
@@ -92,7 +124,7 @@ function normalizeFileName(fileName) {
   return `${protocol}://${pathModule.normalize(path)}`;
 }
 
-function renderStackLine(stackLine) {
+function renderStackLine(stackLine, stackIndex) {
   const name = document.createElement('span');
   name.textContent = stackLine.name;
 
@@ -105,22 +137,44 @@ function renderStackLine(stackLine) {
   summary.appendChild(position);
 
   const details = document.createElement('details');
+  details.open = stackIndex === query.stackIndex;
   details.appendChild(summary);
 
   stackLine.details.forEach(function ({ lineNo, sourceFileContentLine }) {
-    const lineNoSpan = document.createElement('span');
-    lineNoSpan.classList.add('line-no');
-    lineNoSpan.textContent = lineNo;
-
     const contentSpan = document.createElement('span');
     contentSpan.classList.add('content');
     contentSpan.textContent = sourceFileContentLine;
 
     const p = document.createElement('p');
+
+    const lineNoSpan = document.createElement('span');
+    lineNoSpan.classList.add('line-no');
+    lineNoSpan.textContent = lineNo;
+    lineNoSpan.addEventListener('click', function () {
+      query.stacks = $input.value;
+      query.stackIndex = stackIndex;
+      query.lineNo = lineNo;
+
+      $output
+        .querySelector('.highlight-line')
+        .classList.remove('highlight-line');
+      p.classList.add('highlight-line');
+
+      const url = new URL(location.href);
+      url.searchParams.set('paddingLines', query.paddingLines);
+      url.searchParams.set('stacks', query.stacks);
+      url.searchParams.set('stackIndex', query.stackIndex);
+      url.searchParams.set('lineNo', query.lineNo);
+      window.history.replaceState(null, '', url.href);
+    });
+
     p.appendChild(lineNoSpan);
     p.appendChild(contentSpan);
     if (lineNo === stackLine.line) {
       p.classList.add('current-line');
+    }
+    if (stackIndex === query.stackIndex && lineNo === query.lineNo) {
+      p.classList.add('highlight-line');
     }
 
     details.appendChild(p);
@@ -128,8 +182,6 @@ function renderStackLine(stackLine) {
 
   return details;
 }
-
-const cache = new Map();
 
 async function fetchWithCache(sourceMapSrc) {
   if (cache.has(sourceMapSrc)) {
@@ -166,7 +218,6 @@ async function parseStackLine(stackLine) {
     };
   }
 
-  const paddingLines = Number(document.getElementById('padding-lines').value);
   const sourceFileIndex = rawSourceMap.sources.findIndex(function (
     sourceFileName,
   ) {
@@ -179,8 +230,8 @@ async function parseStackLine(stackLine) {
   sourceFileContentLines.forEach(function (sourceFileContentLine, index) {
     const lineNo = index + 1;
     if (
-      lineNo >= originalPosition.line - paddingLines &&
-      lineNo <= originalPosition.line + paddingLines
+      lineNo >= originalPosition.line - query.paddingLines &&
+      lineNo <= originalPosition.line + query.paddingLines
     ) {
       details.push({
         lineNo,
