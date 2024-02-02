@@ -4,10 +4,25 @@
  */
 #content {
   font-family: monospace;
+  table-layout: fixed;
+  width: 100%;
 }
 
 #content td,
 #content th {
   border: 1px solid #ddd;
   padding: 8px;
+}
+
+#content thead tr th:nth-child(1) {
+  width: 24px;
+  text-align: center;
+}
+
+#content tbody tr td:nth-child(1) {
+  text-align: center;
+}
+
+#content thead tr th:nth-child(2) {
+  width: 120px;
 }
