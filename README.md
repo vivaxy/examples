@@ -34,6 +34,7 @@ Table of contents
   * [String](https://vivaxy.github.io/examples/algorithms/string/) 字符串
     * [Compute Transform Tables](https://vivaxy.github.io/examples/algorithms/string/compute-transform-tables/) Compute transform tables
     * [Knuth Morris Pratt](https://vivaxy.github.io/examples/algorithms/string/knuth-morris-pratt/) Knuth-Morris-Pratt 字符串查找算法
+      * [Knuth Morris Pratt Algorithm Animation](https://vivaxy.github.io/examples/algorithms/string/knuth-morris-pratt/animation/) Knuth Morris Pratt Algorithm Animation
     * [Longest Common Sequence](https://vivaxy.github.io/examples/algorithms/string/longest-common-sequence/) Longest common sequence
     * [Longest Common Substring](https://vivaxy.github.io/examples/algorithms/string/longest-common-substring/) Longest common substring
   * [Tree](https://vivaxy.github.io/examples/algorithms/tree/) 树

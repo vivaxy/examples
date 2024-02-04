@@ -3,7 +3,12 @@
  * @author vivaxy
  * O(n + m)
  */
-module.exports = function knuthMorrisPratt(text, pattern) {
+/**
+ * @param {string} text
+ * @param {string} pattern
+ * @returns {number}
+ */
+export function knuthMorrisPratt(text, pattern) {
   if (pattern.length === 0) {
     return 0;
   }
@@ -29,8 +34,12 @@ module.exports = function knuthMorrisPratt(text, pattern) {
   }
 
   return -1;
-};
+}
 
+/**
+ * @param {string} pattern
+ * @returns {number[]}
+ */
 function buildPatternTable(pattern) {
   let patternTable = [0];
   let i = 1;

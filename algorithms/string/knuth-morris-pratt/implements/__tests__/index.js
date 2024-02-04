@@ -2,9 +2,9 @@
  * @since 20180906 11:35
  * @author vivaxy
  */
-const knuthMorrisPratt = require('../index.js');
+import { knuthMorrisPratt } from '../index.js';
 
-test('Knuth Morris Pratt', function() {
+test('Knuth Morris Pratt', function () {
   [
     ['', ''],
     ['a', ''],
@@ -16,7 +16,7 @@ test('Knuth Morris Pratt', function() {
     ['abcxabcdabxaabcdabcabcdabcdabcy', 'abcdabca'],
     ['abcxabcdabxaabaabaaaabcdabcdabcy', 'aabaabaaa'],
     ['bacabdabcdabcab', 'abcab'],
-  ].forEach(function([text, pattern]) {
+  ].forEach(function ([text, pattern]) {
     expect(knuthMorrisPratt(text, pattern)).toBe(text.indexOf(pattern));
   });
 });
