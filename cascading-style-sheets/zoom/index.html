@@ -17,20 +17,22 @@
     <title>Zoom</title>
   </head>
   <body>
+    <div class="container">
+      <div id="test">
+        <div class="inner"></div>
+      </div>
+    </div>
+    <button>Reset</button>
     <button data-style-key="zoom" data-style-value="2">Zoom</button>
     <button data-style-key="transform" data-style-value="scale(2)">
       Scale
     </button>
-    <div id="test">
-      <div class="inner"></div>
-    </div>
     <p>
-      Zoom: boundingClientRect: 100, offsetSize/clientSize: 100, actualSize:
-      200, visualSize: 200
+      Zoom: boundingClientRect: 100, offsetSize/clientSize: 100, visualSize: 200
     </p>
     <p>
-      Scale: boundingClientRect: 200, offsetSize/clientSize: 100, actualSize:
-      100, visualSize: 200
+      Scale: boundingClientRect: 200, offsetSize/clientSize: 100, visualSize:
+      200
     </p>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
