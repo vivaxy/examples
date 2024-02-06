@@ -43,7 +43,12 @@ document.addEventListener('click', function (e) {
     $test.removeAttribute('style');
     logSize('node', $test);
     // logSize('child', /** @type {HTMLElement} */ ($test.children[0]));
+  } else {
+    console.log('document client event client', { x: e.clientX, y: e.clientY });
   }
 });
 
 logSize('node', $test);
+$test.addEventListener('click', function (e) {
+  console.log('node client event client', { x: e.clientX, y: e.clientY });
+});

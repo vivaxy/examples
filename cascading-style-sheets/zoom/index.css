@@ -11,6 +11,91 @@ body {
   height: 200px;
   background-color: #eee;
   padding: 50px;
+  position: relative;
+}
+
+.ruler-x {
+  position: absolute;
+  width: 100px;
+  height: 0;
+  font-size: 10px;
+  font-family: monospace;
+  bottom: 16px;
+  line-height: 10px;
+  text-align: center;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.ruler-x:after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 4px;
+  background: #000;
+  top: 12px;
+  left: 50px;
+}
+
+.ruler-x-50 {
+  left: 50px;
+}
+
+.ruler-x-100 {
+  left: 100px;
+}
+
+.ruler-x-150 {
+  left: 150px;
+}
+
+.ruler-x-200 {
+  left: 200px;
+}
+
+.ruler-x-250 {
+  left: 250px;
+}
+
+.ruler-y {
+  position: absolute;
+  font-size: 10px;
+  font-family: monospace;
+  width: 100px;
+  height: 10px;
+  right: -44px;
+  line-height: 10px;
+  text-align: right;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.ruler-y:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 1px;
+  background: #000;
+  top: 5px;
+  left: 102px;
+}
+
+.ruler-y-50 {
+  top: 50px;
+}
+
+.ruler-y-100 {
+  top: 100px;
+}
+
+.ruler-y-150 {
+  top: 150px;
+}
+
+.ruler-y-200 {
+  top: 200px;
+}
+
+.ruler-y-250 {
+  top: 250px;
 }
 
 #test {
