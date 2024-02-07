@@ -3,6 +3,15 @@
  * @author vivaxy
  */
 const $test = document.getElementById('test');
+const $viewportMeta = document.querySelector('meta[name="viewport"]');
+
+/**
+ * @param {number} scale
+ */
+function setViewportScale(scale) {
+  // @ts-expect-error content not in element
+  $viewportMeta.content = `width=device-width, initial-scale=${scale}, maximum-scale=${scale}, user-scalable=0`;
+}
 
 /**
  * @param {string} name
@@ -31,18 +40,31 @@ function logSize(name, ele) {
   );
 }
 
+function reset() {
+  $test.removeAttribute('style');
+  setViewportScale(1);
+}
+
+const handlers = {
+  reset() {},
+  zoom() {
+    // @ts-expect-error zoom not in style
+    $test.style.zoom = '2';
+  },
+  scale() {
+    $test.style.transform = 'scale(2)';
+  },
+  viewport() {
+    setViewportScale(2);
+  },
+};
+
 document.addEventListener('click', function (e) {
-  if (/** @type {HTMLElement} */ (e.target).dataset.styleKey) {
-    const { styleKey, styleValue } = /** @type {HTMLElement} */ (e.target)
-      .dataset;
-    $test.removeAttribute('style');
-    $test.style[styleKey] = styleValue;
+  const styleKey = /** @type {HTMLElement} */ (e.target).dataset.styleKey;
+  if (styleKey && handlers[styleKey]) {
+    reset();
+    handlers[styleKey]();
     logSize('node', $test);
-    // logSize('child', /** @type {HTMLElement} */ ($test.children[0]));
-  } else if (/** @type {HTMLElement} */ (e.target).textContent === 'Reset') {
-    $test.removeAttribute('style');
-    logSize('node', $test);
-    // logSize('child', /** @type {HTMLElement} */ ($test.children[0]));
   } else {
     console.log('document client event client', { x: e.clientX, y: e.clientY });
   }
