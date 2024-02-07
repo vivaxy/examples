@@ -18,9 +18,6 @@
   </head>
   <body>
     <div class="container">
-      <div id="test">
-        <div class="inner"></div>
-      </div>
       <div class="ruler-x ruler-x-50">50</div>
       <div class="ruler-x ruler-x-100">100</div>
       <div class="ruler-x ruler-x-150">150</div>
@@ -31,18 +28,52 @@
       <div class="ruler-y ruler-y-150">150</div>
       <div class="ruler-y ruler-y-200">200</div>
       <div class="ruler-y ruler-y-250">250</div>
+      <div class="node">
+        <div class="point" style="left: 50px; top: 50px"></div>
+        <div class="point" style="left: 100px; top: 50px"></div>
+        <div class="point" style="left: 150px; top: 50px"></div>
+        <div class="point" style="left: 200px; top: 50px"></div>
+        <div class="point" style="left: 250px; top: 50px"></div>
+        <div class="point" style="left: 50px; top: 100px"></div>
+        <div class="point" style="left: 100px; top: 100px"></div>
+        <div class="point" style="left: 150px; top: 100px"></div>
+        <div class="point" style="left: 200px; top: 100px"></div>
+        <div class="point" style="left: 250px; top: 100px"></div>
+        <div class="point" style="left: 50px; top: 150px"></div>
+        <div class="point" style="left: 100px; top: 150px"></div>
+        <div class="point" style="left: 150px; top: 150px"></div>
+        <div class="point" style="left: 200px; top: 150px"></div>
+        <div class="point" style="left: 250px; top: 150px"></div>
+        <div class="point" style="left: 50px; top: 200px"></div>
+        <div class="point" style="left: 100px; top: 200px"></div>
+        <div class="point" style="left: 150px; top: 200px"></div>
+        <div class="point" style="left: 200px; top: 200px"></div>
+        <div class="point" style="left: 250px; top: 200px"></div>
+        <div class="point" style="left: 50px; top: 250px"></div>
+        <div class="point" style="left: 100px; top: 250px"></div>
+        <div class="point" style="left: 150px; top: 250px"></div>
+        <div class="point" style="left: 200px; top: 250px"></div>
+        <div class="point" style="left: 250px; top: 250px"></div>
+      </div>
     </div>
+    <h4>Click the circles above to see the coordinates.</h4>
+    <ul>
+      <li>
+        <p>Zoom: node.offset === node.boundingClientRect !== event.client</p>
+      </li>
+      <li>
+        <p>Scale: node.offset !== node.boundingClientRect === event.client</p>
+      </li>
+      <li>
+        <p>
+          Viewport: node.offset === node.boundingClientRect === event.client
+        </p>
+      </li>
+    </ul>
     <button data-style-key="reset">Reset</button>
     <button data-style-key="zoom">Zoom</button>
     <button data-style-key="scale">Scale</button>
-    <button data-style-key="viewport">Viewport</button>
-    <p>
-      Zoom: boundingClientRect: 100, offsetSize/clientSize: 100, visualSize: 200
-    </p>
-    <p>
-      Scale: boundingClientRect: 200, offsetSize/clientSize: 100, visualSize:
-      200
-    </p>
+    <button data-style-key="viewport">Viewport (Mobile only)</button>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>

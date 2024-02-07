@@ -7,11 +7,11 @@ body {
 }
 
 .container {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background-color: #eee;
-  padding: 50px;
   position: relative;
+  overflow: hidden;
 }
 
 .ruler-x {
@@ -98,13 +98,18 @@ body {
   top: 250px;
 }
 
-#test {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+.node {
+  width: 300px;
+  height: 300px;
+  transform-origin: top left;
 }
 
-.inner {
-  width: 100%;
-  height: 100%;
+.point {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: red;
+  border-radius: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  cursor: pointer;
 }
