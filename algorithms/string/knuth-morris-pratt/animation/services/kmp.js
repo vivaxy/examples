@@ -4,13 +4,27 @@
  */
 import * as EVENTS from '../enums/events.js';
 
+/**
+ * @typedef {import('../utils/types.js').EventEmitter} EventEmitter
+ */
+
+/**
+ * @param {EventEmitter} events
+ */
 export function initKMP(events) {
   /**
    * @param {string} text
    * @param {string} target
-   * @returns {Generator<number>}
+   * @returns {Generator<*>}
    */
   return function* knuthMorrisPratt(text, target) {
+    yield events.emit(EVENTS.INIT_INFO, { text, target });
+
+    yield events.emit(EVENTS.STAGE, { value: 0 });
+    yield events.emit(EVENTS.COMPARE, {
+      from: 'target[length]',
+      to: '0',
+    });
     if (target.length === 0) {
       yield events.emit(EVENTS.RESULT, { value: 0 });
       return 0;
@@ -29,7 +43,6 @@ export function initKMP(events) {
     let patternTableGeneratorResult = { value: [], done: false };
     while (!patternTableGeneratorResult.done) {
       patternTableGeneratorResult = patternTableGenerator.next();
-      // @ts-expect-error value maybe events or patternTable
       yield patternTableGeneratorResult.value;
     }
     const patternTable = patternTableGeneratorResult.value;
@@ -78,10 +91,15 @@ export function initKMP(events) {
 
   /**
    * @param {string} target
-   * @returns {Generator<number[]>}
+   * @returns {Generator<*>}
    */
   function* buildPatternTable(target) {
     let patternTable = [0];
+    yield events.emit(EVENTS.SET_VALUE, { key: 'tableIndex', value: 0 });
+    yield events.emit(EVENTS.SET_VALUE, {
+      key: 'patternTable[tableIndex]',
+      value: 0,
+    });
     let tableIndex = 1;
     yield events.emit(EVENTS.SET_VALUE, { key: 'tableIndex', value: 1 });
     let currentTargetIndex = 0;
