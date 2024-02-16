@@ -11,7 +11,7 @@ import {
 import * as EVENTS from '../enums/events.js';
 
 const STAGE_TEXTS = {
-  0: 'Target length',
+  0: 'Initialize',
   1: 'Build pattern table',
   2: 'Search',
 };
@@ -36,7 +36,12 @@ function createApp(props) {
 export function initStage(events) {
   const props = {
     root: document.getElementById('stage'),
+    stage: 0,
   };
+
+  events.on(EVENTS.INIT_INFO, function () {
+    render(createApp, props, props.root);
+  });
 
   events.on(EVENTS.STAGE, function ({ value }) {
     props.stage = value;

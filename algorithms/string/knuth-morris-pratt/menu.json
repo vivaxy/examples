@@ -2,5 +2,9 @@
   {
     "name": "Knuth Morris Pratt Implements",
     "link": "implements/index.js"
+  },
+  {
+    "name": "Knuth Morris Pratt Animation",
+    "link": "animation/index.html?text=abbbcdefg&target=bbcd"
   }
 ]

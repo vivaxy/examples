@@ -15,18 +15,28 @@ import * as EVENTS from '../enums/events.js';
  */
 
 /**
- * @param {{ tableIndex: number, patternTable: number[] }} props
+ * @param {{
+ *  tableIndex: number,
+ *  patternTable: number[],
+ * }} props
  */
 function createApp(props) {
+  // console.log('patternTableProps', props);
   return createElement('div', {}, [
     createElement('div', { class: 'pattern-table' }, [
       createElement('label', {}, [createText('Pattern table: ')]),
-      ...props.patternTable.map(function (number) {
-        return createElement('span', {}, [createText(number)]);
+      ...props.patternTable.map(function (number, i) {
+        return createElement(
+          'span',
+          {
+            class: `char`,
+          },
+          [createText(number)],
+        );
       }),
     ]),
     createElement('div', { class: 'table-index' }, [
-      createElement('label', {}, [createText('tableIndex: ')]),
+      createElement('label', {}, [createText('Table index: ')]),
       ...Array.from(
         { length: Math.max(props.patternTable.length, props.tableIndex + 1) },
         function (_, i) {
@@ -54,24 +64,39 @@ export function initPatternTable(events) {
 
   events.on(EVENTS.STAGE, function ({ value }) {
     stage = value;
-    if (stage === 1) {
+    props = {
+      ...props,
+      tableIndex: -1,
+    };
+    render(createApp, props, props.root);
+  });
+
+  events.on(EVENTS.SET_VALUE, function ({ key, value }) {
+    if (key === 'tableIndex') {
+      props = {
+        ...props,
+        tableIndex: value,
+      };
+      render(createApp, props, props.root);
+    } else if (key === 'patternTable[tableIndex]') {
+      const { patternTable } = props;
+      patternTable[props.tableIndex] = value;
+      props = {
+        ...props,
+        patternTable,
+      };
       render(createApp, props, props.root);
     }
   });
-  events.on(EVENTS.SET_VALUE, function ({ key, value }) {
+
+  events.on(EVENTS.COMPARE, function ({ from }) {
     if (stage === 1) {
-      if (key === 'tableIndex') {
+      if (from === 'target[tableIndex]') {
         props = {
           ...props,
-          tableIndex: value,
         };
         render(createApp, props, props.root);
       }
-    }
-  });
-  events.on(EVENTS.COMPARE, function ({ from, to }) {
-    if (stage === 1) {
-      console.log('COMPARE', from, to);
     }
   });
 }

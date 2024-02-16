@@ -16,21 +16,57 @@ import * as EVENTS from '../enums/events.js';
  */
 
 /**
- * @param {{ text: string, target: string, textIndex: number, targetIndex: number, highlightTarget: boolean }} props
+ * @typedef {{
+ *  text: string,
+ *  target: string,
+ *  textIndex: number,
+ *  targetIndex: number,
+ *  tableIndex: number,
+ *  highlightTarget: boolean,
+ *  highlightTargetIndex: boolean
+ *  highlightTableIndex: boolean
+ *  highlightTextIndex: boolean
+ *  root: HTMLElement
+ * }} Props
+ */
+/**
+ * @param {Props} props
  * @returns {*}
  */
 function createApp(props) {
+  // console.log('infoProps', props);
+  const textSplit = props.text.split('');
+  const targetSplit = props.target.split('');
+  const highlightText = props.highlightTextIndex
+    ? textSplit[props.textIndex]
+    : null;
+  const highlightTarget = props.highlightTargetIndex
+    ? targetSplit[props.targetIndex]
+    : props.highlightTableIndex
+    ? targetSplit[props.tableIndex]
+    : null;
+  const highlightClass =
+    highlightText === highlightTarget ? 'highlight-same' : 'highlight';
   return createElement('div', {}, [
     createElement('div', { class: 'text' }, [
       createElement('label', {}, [createText('Text: ')]),
-      ...props.text.split('').map(function (char) {
-        return createElement('span', { class: 'char' }, [createText(char)]);
+      ...textSplit.map(function (char, i) {
+        return createElement(
+          'span',
+          {
+            class: `char ${
+              props.highlightTextIndex && i === props.textIndex
+                ? highlightClass
+                : ''
+            }`,
+          },
+          [createText(char)],
+        );
       }),
     ]),
     createElement('div', { class: 'text-index' }, [
       createElement('label', {}, [createText('Text index: ')]),
-
-      ...props.text.split('').map(function (_, i) {
+      ...textSplit.map(function (_, i) {
         return createElement(
           'span',
           { class: `char ${i === props.textIndex ? '' : 'hidden'}` },
@@ -43,14 +79,25 @@ function createApp(props) {
       { class: `target ${props.highlightTarget ? 'highlight' : ''}` },
       [
         createElement('label', {}, [createText('Target: ')]),
-        ...props.target.split('').map(function (char) {
-          return createElement('span', { class: 'char' }, [createText(char)]);
+        ...targetSplit.map(function (char, i) {
+          return createElement(
+            'span',
+            {
+              class: `char ${
+                (props.highlightTargetIndex && i === props.targetIndex) ||
+                (props.highlightTableIndex && i === props.tableIndex)
+                  ? highlightClass
+                  : ''
+              }`,
+            },
+            [createText(char)],
+          );
         }),
       ],
     ),
     createElement('div', { class: 'target-index' }, [
       createElement('label', {}, [createText('Target index: ')]),
-      ...props.target.split('').map(function (_, i) {
+      ...targetSplit.map(function (_, i) {
         return createElement(
           'span',
           { class: `char ${i === props.targetIndex ? '' : 'hidden'}` },
@@ -59,6 +106,20 @@ function createApp(props) {
       }),
     ]),
   ]);
+}
+
+/**
+ * @param {Props} props
+ */
+function resetHighlight(props) {
+  props = {
+    ...props,
+    highlightTarget: false,
+    highlightTargetIndex: false,
+    highlightTableIndex: false,
+    highlightTextIndex: false,
+  };
+  render(createApp, props, props.root);
 }
 
 /**
@@ -71,7 +132,11 @@ export function initInfo(events) {
     target: '',
     textIndex: -1,
     targetIndex: -1,
+    tableIndex: -1,
     highlightTarget: false,
+    highlightTargetIndex: false,
+    highlightTableIndex: false,
+    highlightTextIndex: false,
   };
 
   events.on(EVENTS.INIT_INFO, function ({ text, target }) {
@@ -80,42 +145,55 @@ export function initInfo(events) {
       text,
       target,
       highlightTarget: false,
+      highlightTargetIndex: false,
+      highlightTableIndex: false,
+      highlightTextIndex: false,
     };
     render(createApp, props, props.root);
   });
 
   events.on(EVENTS.SET_VALUE, function ({ key, value }) {
+    if (key === 'patternTable[tableIndex]') {
+      return;
+    }
     props = {
       ...props,
       [key]: value,
       highlightTarget: false,
+      highlightTargetIndex: false,
+      highlightTableIndex: false,
+      highlightTextIndex: false,
     };
     render(createApp, props, props.root);
   });
 
-  events.on(EVENTS.COMPARE, function ({ from }) {
-    if (from === 'target[length]') {
-      props = {
-        ...props,
-        highlightTarget: true,
-      };
-      render(createApp, props, props.root);
-    }
+  events.on(EVENTS.COMPARE, function ({ from, to }) {
+    const highlightTarget = from === 'target[length]';
+    const highlightTargetIndex = to === 'target[targetIndex]';
+    const highlightTableIndex =
+      from === 'target[tableIndex]' || to === 'target[tableIndex]';
+    const highlightTextIndex = from === 'text[textIndex]';
+    props = {
+      ...props,
+      highlightTarget,
+      highlightTargetIndex,
+      highlightTableIndex,
+      highlightTextIndex,
+    };
+    render(createApp, props, props.root);
   });
 
   events.on(EVENTS.STAGE, function () {
     props = {
       ...props,
-      highlightTarget: false,
+      textIndex: -1,
+      targetIndex: -1,
+      tableIndex: -1,
     };
-    render(createApp, props, props.root);
+    resetHighlight(props);
   });
 
   events.on(EVENTS.RESULT, function () {
-    props = {
-      ...props,
-      highlightTarget: false,
-    };
-    render(createApp, props, props.root);
+    resetHighlight(props);
   });
 }

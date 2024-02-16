@@ -31,10 +31,6 @@ export function initKMP(events) {
     }
 
     yield events.emit(EVENTS.STAGE, { value: 1 });
-    let textIndex = 0;
-    yield events.emit(EVENTS.SET_VALUE, { key: 'textIndex', value: 0 });
-    let targetIndex = 0;
-    yield events.emit(EVENTS.SET_VALUE, { key: 'targetIndex', value: 0 });
 
     const patternTableGenerator = buildPatternTable(target);
     /**
@@ -48,6 +44,12 @@ export function initKMP(events) {
     const patternTable = patternTableGeneratorResult.value;
 
     yield events.emit(EVENTS.STAGE, { value: 2 });
+
+    let textIndex = 0;
+    yield events.emit(EVENTS.SET_VALUE, { key: 'textIndex', value: 0 });
+    let targetIndex = 0;
+    yield events.emit(EVENTS.SET_VALUE, { key: 'targetIndex', value: 0 });
+
     while (textIndex < text.length) {
       yield events.emit(EVENTS.COMPARE, {
         from: 'text[textIndex]',
@@ -76,10 +78,14 @@ export function initKMP(events) {
             value: textIndex,
           });
         } else {
+          yield events.emit(EVENTS.SET_VALUE, {
+            key: 'tableIndex',
+            value: targetIndex - 1,
+          });
           targetIndex = patternTable[targetIndex - 1];
           yield events.emit(EVENTS.SET_VALUE, {
             key: 'targetIndex',
-            value: patternTable[targetIndex - 1],
+            value: targetIndex,
           });
         }
       }
@@ -102,43 +108,39 @@ export function initKMP(events) {
     });
     let tableIndex = 1;
     yield events.emit(EVENTS.SET_VALUE, { key: 'tableIndex', value: 1 });
-    let currentTargetIndex = 0;
+    let targetIndex = 0;
     yield events.emit(EVENTS.SET_VALUE, {
-      key: 'currentTargetIndex',
+      key: 'targetIndex',
       value: 0,
     });
 
     while (tableIndex < target.length) {
       yield events.emit(EVENTS.COMPARE, {
         from: 'target[tableIndex]',
-        to: 'target[currentTargetIndex]',
+        to: 'target[targetIndex]',
       });
-      if (target[tableIndex] === target[currentTargetIndex]) {
-        patternTable[tableIndex] = currentTargetIndex + 1;
+      if (target[tableIndex] === target[targetIndex]) {
+        patternTable[tableIndex] = targetIndex + 1;
         yield events.emit(EVENTS.SET_VALUE, {
           key: 'patternTable[tableIndex]',
-          value: currentTargetIndex + 1,
+          value: targetIndex + 1,
         });
         tableIndex++;
         yield events.emit(EVENTS.SET_VALUE, {
           key: 'tableIndex',
           value: tableIndex,
         });
-        currentTargetIndex++;
+        targetIndex++;
         yield events.emit(EVENTS.SET_VALUE, {
-          key: 'currentTargetIndex',
-          value: currentTargetIndex,
+          key: 'targetIndex',
+          value: targetIndex,
         });
       } else {
-        yield events.emit(EVENTS.COMPARE, {
-          from: 'currentTargetIndex',
-          to: 0,
-        });
-        if (currentTargetIndex === 0) {
+        if (targetIndex === 0) {
           patternTable[tableIndex] = 0;
           yield events.emit(EVENTS.SET_VALUE, {
-            from: 'patternTable[tableIndex]',
-            to: 0,
+            key: 'patternTable[tableIndex]',
+            value: 0,
           });
           tableIndex++;
           yield events.emit(EVENTS.SET_VALUE, {
@@ -146,10 +148,10 @@ export function initKMP(events) {
             value: tableIndex,
           });
         } else {
-          currentTargetIndex = patternTable[currentTargetIndex - 1];
+          targetIndex = patternTable[targetIndex - 1];
           yield events.emit(EVENTS.SET_VALUE, {
-            key: 'currentTargetIndex',
-            value: patternTable[currentTargetIndex - 1],
+            key: 'targetIndex',
+            value: patternTable[targetIndex - 1],
           });
         }
       }
