@@ -42,11 +42,14 @@ function createApp(props) {
     : null;
   const highlightTarget = props.highlightTargetIndex
     ? targetSplit[props.targetIndex]
-    : props.highlightTableIndex
+    : null;
+  const highlightTable = props.highlightTableIndex
     ? targetSplit[props.tableIndex]
     : null;
   const highlightClass =
-    highlightText === highlightTarget ? 'highlight-same' : 'highlight';
+    highlightText === highlightTarget || highlightTarget === highlightTable
+      ? 'highlight-same'
+      : 'highlight';
   return createElement('div', {}, [
     createElement('div', { class: 'text' }, [
       createElement('label', {}, [createText('Text: ')]),

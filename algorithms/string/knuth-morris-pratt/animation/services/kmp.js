@@ -31,18 +31,7 @@ export function initKMP(events) {
     }
 
     yield events.emit(EVENTS.STAGE, { value: 1 });
-
-    const patternTableGenerator = buildPatternTable(target);
-    /**
-     * @type {{value: number[], done?: boolean }}
-     */
-    let patternTableGeneratorResult = { value: [], done: false };
-    while (!patternTableGeneratorResult.done) {
-      patternTableGeneratorResult = patternTableGenerator.next();
-      yield patternTableGeneratorResult.value;
-    }
-    const patternTable = patternTableGeneratorResult.value;
-
+    const patternTable = yield* buildPatternTable(target);
     yield events.emit(EVENTS.STAGE, { value: 2 });
 
     let textIndex = 0;
@@ -151,7 +140,7 @@ export function initKMP(events) {
           targetIndex = patternTable[targetIndex - 1];
           yield events.emit(EVENTS.SET_VALUE, {
             key: 'targetIndex',
-            value: patternTable[targetIndex - 1],
+            value: targetIndex,
           });
         }
       }

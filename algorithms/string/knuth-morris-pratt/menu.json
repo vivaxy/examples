@@ -5,6 +5,6 @@
   },
   {
     "name": "Knuth Morris Pratt Animation",
-    "link": "animation/index.html?text=abbbcdefg&target=bbcd"
+    "link": "animation/index.html?text=abbbcdefg&target=bbcd&timeout=300"
   }
 ]

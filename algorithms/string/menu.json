@@ -10,5 +10,9 @@
   {
     "name": "Compute Transform Tables",
     "link": "compute-transform-tables/"
+  },
+  {
+    "name": "Knuth Morris Pratt",
+    "link": "knuth-morris-pratt/"
   }
 ]
