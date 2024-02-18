@@ -14,6 +14,7 @@ const STAGE_TEXTS = {
   0: 'Initialize',
   1: 'Build pattern table',
   2: 'Search',
+  3: 'Result',
 };
 
 /**
@@ -45,6 +46,11 @@ export function initStage(events) {
 
   events.on(EVENTS.STAGE, function ({ value }) {
     props.stage = value;
+    render(createApp, props, props.root);
+  });
+
+  events.on(EVENTS.RESULT, function () {
+    props.stage = 3;
     render(createApp, props, props.root);
   });
 }
