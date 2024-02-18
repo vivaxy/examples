@@ -18,7 +18,11 @@ const STAGE_TEXTS = {
 };
 
 /**
- * @param {{ stage: number }} props
+ * @typedef {{ root: HTMLElement, stage: number }} Props
+ */
+
+/**
+ * @param {Props} props
  * @returns {*}
  */
 function createApp(props) {
@@ -35,22 +39,37 @@ function createApp(props) {
  * @param {EventEmitter} events
  */
 export function initStage(events) {
-  const props = {
+  /**
+   * @type {Props}
+   */
+  let props = {
     root: document.getElementById('stage'),
     stage: 0,
   };
 
-  events.on(EVENTS.INIT_INFO, function () {
+  /**
+   * @param {Props} newProps
+   */
+  function updateProps(newProps) {
+    props = newProps;
     render(createApp, props, props.root);
+  }
+
+  events.on(EVENTS.INIT_INFO, function () {
+    updateProps(props);
   });
 
   events.on(EVENTS.STAGE, function ({ value }) {
-    props.stage = value;
-    render(createApp, props, props.root);
+    updateProps({
+      ...props,
+      stage: value,
+    });
   });
 
   events.on(EVENTS.RESULT, function () {
-    props.stage = 3;
-    render(createApp, props, props.root);
+    updateProps({
+      ...props,
+      stage: 3,
+    });
   });
 }

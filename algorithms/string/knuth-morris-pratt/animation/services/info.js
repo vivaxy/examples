@@ -112,23 +112,12 @@ function createApp(props) {
 }
 
 /**
- * @param {Props} props
- */
-function resetHighlight(props) {
-  props = {
-    ...props,
-    highlightTarget: false,
-    highlightTargetIndex: false,
-    highlightTableIndex: false,
-    highlightTextIndex: false,
-  };
-  render(createApp, props, props.root);
-}
-
-/**
  * @param {EventEmitter} events
  */
 export function initInfo(events) {
+  /**
+   * @type {Props}
+   */
   let props = {
     root: document.getElementById('info'),
     text: '',
@@ -142,8 +131,27 @@ export function initInfo(events) {
     highlightTextIndex: false,
   };
 
+  /**
+   * @param {Props} newProps
+   * @returns {void}
+   */
+  function updateProps(newProps) {
+    props = newProps;
+    render(createApp, props, props.root);
+  }
+
+  function resetHighlightProps() {
+    return {
+      ...props,
+      highlightTarget: false,
+      highlightTargetIndex: false,
+      highlightTableIndex: false,
+      highlightTextIndex: false,
+    };
+  }
+
   events.on(EVENTS.INIT_INFO, function ({ text, target }) {
-    props = {
+    updateProps({
       ...props,
       text,
       target,
@@ -151,23 +159,21 @@ export function initInfo(events) {
       highlightTargetIndex: false,
       highlightTableIndex: false,
       highlightTextIndex: false,
-    };
-    render(createApp, props, props.root);
+    });
   });
 
   events.on(EVENTS.SET_VALUE, function ({ key, value }) {
     if (key === 'patternTable[tableIndex]') {
       return;
     }
-    props = {
+    updateProps({
       ...props,
       [key]: value,
       highlightTarget: false,
       highlightTargetIndex: false,
       highlightTableIndex: false,
       highlightTextIndex: false,
-    };
-    render(createApp, props, props.root);
+    });
   });
 
   events.on(EVENTS.COMPARE, function ({ from, to }) {
@@ -176,27 +182,25 @@ export function initInfo(events) {
     const highlightTableIndex =
       from === 'target[tableIndex]' || to === 'target[tableIndex]';
     const highlightTextIndex = from === 'text[textIndex]';
-    props = {
+    updateProps({
       ...props,
       highlightTarget,
       highlightTargetIndex,
       highlightTableIndex,
       highlightTextIndex,
-    };
-    render(createApp, props, props.root);
+    });
   });
 
   events.on(EVENTS.STAGE, function () {
-    props = {
-      ...props,
+    updateProps({
+      ...resetHighlightProps(),
       textIndex: -1,
       targetIndex: -1,
       tableIndex: -1,
-    };
-    resetHighlight(props);
+    });
   });
 
   events.on(EVENTS.RESULT, function () {
-    resetHighlight(props);
+    updateProps(resetHighlightProps());
   });
 }

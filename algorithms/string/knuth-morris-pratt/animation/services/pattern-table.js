@@ -15,10 +15,17 @@ import * as EVENTS from '../enums/events.js';
  */
 
 /**
- * @param {{
+ * @typedef {{
+ *  root: HTMLElement,
  *  tableIndex: number,
  *  patternTable: number[],
- * }} props
+ * }} Props
+ */
+
+/**
+ *
+ * @param {Props} props
+ * @returns {*}
  */
 function createApp(props) {
   // console.log('patternTableProps', props);
@@ -62,41 +69,35 @@ export function initPatternTable(events) {
     tableIndex: -1,
   };
 
+  /**
+   * @param {Props} newProps
+   */
+  function updateProps(newProps) {
+    props = newProps;
+    render(createApp, props, props.root);
+  }
+
   events.on(EVENTS.STAGE, function ({ value }) {
     stage = value;
-    props = {
+    updateProps({
       ...props,
       tableIndex: -1,
-    };
-    render(createApp, props, props.root);
+    });
   });
 
   events.on(EVENTS.SET_VALUE, function ({ key, value }) {
     if (key === 'tableIndex') {
-      props = {
+      updateProps({
         ...props,
         tableIndex: value,
-      };
-      render(createApp, props, props.root);
+      });
     } else if (key === 'patternTable[tableIndex]') {
       const { patternTable } = props;
       patternTable[props.tableIndex] = value;
-      props = {
+      updateProps({
         ...props,
         patternTable,
-      };
-      render(createApp, props, props.root);
-    }
-  });
-
-  events.on(EVENTS.COMPARE, function ({ from }) {
-    if (stage === 1) {
-      if (from === 'target[tableIndex]') {
-        props = {
-          ...props,
-        };
-        render(createApp, props, props.root);
-      }
+      });
     }
   });
 }
