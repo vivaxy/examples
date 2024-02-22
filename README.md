@@ -471,6 +471,7 @@ Table of contents
   * [popstate](https://vivaxy.github.io/examples/web-api/popstate/) Popstate
   * [prefetch](https://vivaxy.github.io/examples/web-api/prefetch/) prefetch resources
   * [promise ajax](https://vivaxy.github.io/examples/web-api/promise/) Promise
+  * [Proxy Events](https://vivaxy.github.io/examples/web-api/proxy-events/) Proxy Events
   * [Range](https://vivaxy.github.io/examples/web-api/range/) Range
   * [index.html](https://vivaxy.github.io/examples/web-api/refresh/) Refresh
   * [Rel AR](https://vivaxy.github.io/examples/web-api/rel-ar/) Rel AR

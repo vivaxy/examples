@@ -1,5 +1,9 @@
 [
   {
+    "name": "Proxy Events",
+    "link": "proxy-events/"
+  },
+  {
     "name": "popover",
     "link": "popover/"
   },
