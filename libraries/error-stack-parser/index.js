@@ -3,12 +3,22 @@
  * @author vivaxy
  */
 const cache = new Map();
-const $parseButton = document.getElementById('parse');
+const $parseButton = /** @type {HTMLButtonElement} */ (
+  document.getElementById('parse')
+);
 const $output = document.getElementById('output');
-const $input = document.getElementById('input');
-const $paddingLines = document.getElementById('padding-lines');
+const $input = /** @type {HTMLInputElement} */ (
+  document.getElementById('input')
+);
+const $paddingLines = /** @type {HTMLInputElement} */ (
+  document.getElementById('padding-lines')
+);
 
 const url = new URL(location.href);
+
+/**
+ * @type {{stackIndex: number, lineNo: number, paddingLines: number, stacks: string}}
+ */
 const query = {
   paddingLines: Number(url.searchParams.get('paddingLines')) || 20,
   stacks: url.searchParams.get('stacks'),
@@ -18,7 +28,7 @@ const query = {
 
 $parseButton.addEventListener('click', handleClick);
 $paddingLines.addEventListener('change', function () {
-  const paddingLines = Number($paddingLines.value);
+  const paddingLines = /** @type {number} */ (Number($paddingLines.value));
   if (!isNaN(paddingLines)) {
     query.paddingLines = paddingLines;
   }
@@ -31,7 +41,7 @@ if (query.stacks) {
   $parseButton.disabled = false;
 }
 if (query.paddingLines !== Number($paddingLines.value)) {
-  $paddingLines.value = query.paddingLines;
+  $paddingLines.value = String(query.paddingLines);
 }
 
 async function handleClick() {
@@ -155,16 +165,17 @@ function renderStackLine(stackLine, stackIndex) {
       query.stackIndex = stackIndex;
       query.lineNo = lineNo;
 
-      $output
-        .querySelector('.highlight-line')
-        .classList.remove('highlight-line');
+      const $currentHighlightLine = $output.querySelector('.highlight-line');
+      if ($currentHighlightLine) {
+        $currentHighlightLine.classList.remove('highlight-line');
+      }
       p.classList.add('highlight-line');
 
       const url = new URL(location.href);
-      url.searchParams.set('paddingLines', query.paddingLines);
+      url.searchParams.set('paddingLines', String(query.paddingLines));
       url.searchParams.set('stacks', query.stacks);
-      url.searchParams.set('stackIndex', query.stackIndex);
-      url.searchParams.set('lineNo', query.lineNo);
+      url.searchParams.set('stackIndex', String(query.stackIndex));
+      url.searchParams.set('lineNo', String(query.lineNo));
       window.history.replaceState(null, '', url.href);
     });
 
@@ -183,6 +194,10 @@ function renderStackLine(stackLine, stackIndex) {
   return details;
 }
 
+/**
+ * @param {string} sourceMapSrc
+ * @returns {Promise<{sources: Array<string>, sourcesContent: Array<string>}>}
+ */
 async function fetchWithCache(sourceMapSrc) {
   if (cache.has(sourceMapSrc)) {
     return cache.get(sourceMapSrc);
@@ -200,6 +215,7 @@ async function parseStackLine(stackLine) {
     : `${src}.map`;
 
   const rawSourceMap = await fetchWithCache(rawSourceMapSrc);
+  // @ts-expect-error sourceMap is globally defined
   const consumer = await new sourceMap.SourceMapConsumer(rawSourceMap);
 
   const originalPosition = consumer.originalPositionFor({

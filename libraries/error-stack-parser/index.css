@@ -27,14 +27,11 @@ body {
 #output details {
   padding: 2px 0;
   border: 1px solid #f0f0f0;
+  border-radius: 2px;
 }
 
-#output details:first-child {
-  border-radius: 2px 2px 0 0;
-}
-
-#output details:last-child {
-  border-radius: 0 0 2px 2px;
+#output details:hover {
+  border: 1px solid #0c0c0c;
 }
 
 #output details p {
