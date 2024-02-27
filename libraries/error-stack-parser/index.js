@@ -2,7 +2,8 @@
  * @since 2023-11-23
  * @author vivaxy
  */
-const cache = new Map();
+const sourcemapCache = new Map();
+const fetchCache = new Map();
 const $parseButton = /** @type {HTMLButtonElement} */ (
   document.getElementById('parse')
 );
@@ -15,6 +16,7 @@ const $paddingLines = /** @type {HTMLInputElement} */ (
 );
 
 const url = new URL(location.href);
+const fetchWithCache = warpWithFetchCache(fetchWithSourcemapCache);
 
 /**
  * @type {{stackIndex: number, lineNo: number, paddingLines: number, stacks: string}}
@@ -109,9 +111,17 @@ function normalizeArray(parts, allowAboveRoot) {
 }
 
 const pathModule = {
+  /**
+   * @param {string} path
+   * @returns {boolean}
+   */
   isAbsolute(path) {
     return path.charAt(0) === '/';
   },
+  /**
+   * @param {string} path
+   * @returns {string}
+   */
   normalize(path) {
     const isAbsolute = pathModule.isAbsolute(path);
     const trailingSlash = path && path[path.length - 1] === '/';
@@ -129,6 +139,10 @@ const pathModule = {
   },
 };
 
+/**
+ * @param {string} fileName
+ * @returns {string}
+ */
 function normalizeFileName(fileName) {
   const [protocol, path] = fileName.split('://');
   return `${protocol}://${pathModule.normalize(path)}`;
@@ -214,19 +228,38 @@ function renderStackLine(stackLine, stackIndex) {
 }
 
 /**
+ * @param {(key: string) => Promise<*>} fetcher
+ * @returns {(key: string) => Promise<*>}
+ */
+function warpWithFetchCache(fetcher) {
+  return async function (key) {
+    if (fetchCache.has(key)) {
+      return fetchCache.get(key);
+    }
+    const promise = fetcher(key);
+    fetchCache.set(key, promise);
+    return promise;
+  };
+}
+
+/**
  * @param {string} sourceMapSrc
  * @returns {Promise<{sources: Array<string>, sourcesContent: Array<string>}>}
  */
-async function fetchWithCache(sourceMapSrc) {
-  if (cache.has(sourceMapSrc)) {
-    return cache.get(sourceMapSrc);
+async function fetchWithSourcemapCache(sourceMapSrc) {
+  if (sourcemapCache.has(sourceMapSrc)) {
+    return sourcemapCache.get(sourceMapSrc);
   }
   const resp = await fetch(sourceMapSrc);
   const rawSourceMap = await resp.json();
-  cache.set(sourceMapSrc, rawSourceMap);
+  sourcemapCache.set(sourceMapSrc, rawSourceMap);
   return rawSourceMap;
 }
 
+/**
+ * @param {string} stackLine
+ * @returns {Promise<{line: (null|*), name: (null|*), column: (null|*), details: *[], source: *}|{line: *, name: null, column: *, details: *[], source: *}>}
+ */
 async function parseStackLine(stackLine) {
   const [src, line, column] = stackLine.split(':');
   const rawSourceMapSrc = src.startsWith('//')
