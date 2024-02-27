@@ -134,6 +134,12 @@ function normalizeFileName(fileName) {
   return `${protocol}://${pathModule.normalize(path)}`;
 }
 
+/**
+ *
+ * @param {{ name: string, source: string, line: number, column: number, details: Array<{ lineNo: number, sourceFileContentLine: string }> }} stackLine
+ * @param {number} stackIndex
+ * @returns {HTMLDetailsElement}
+ */
 function renderStackLine(stackLine, stackIndex) {
   const name = document.createElement('span');
   name.textContent = stackLine.name;
@@ -150,16 +156,29 @@ function renderStackLine(stackLine, stackIndex) {
   details.open = stackIndex === query.stackIndex;
   details.appendChild(summary);
 
-  stackLine.details.forEach(function ({ lineNo, sourceFileContentLine }) {
+  const sourceFileContent = stackLine.details
+    .map(function ({ sourceFileContentLine }) {
+      return sourceFileContentLine;
+    })
+    .join('\n');
+
+  // @ts-expect-error hljs is defined globally
+  const highlightedSourceFileContent = hljs.highlight(sourceFileContent, {
+    language: 'javascript',
+    ignoreIllegals: true,
+  });
+  const highlightedLines = highlightedSourceFileContent.value.split('\n');
+
+  stackLine.details.forEach(function ({ lineNo }, index) {
     const contentSpan = document.createElement('span');
     contentSpan.classList.add('content');
-    contentSpan.textContent = sourceFileContentLine;
+    contentSpan.innerHTML = highlightedLines[index];
 
     const p = document.createElement('p');
 
     const lineNoSpan = document.createElement('span');
     lineNoSpan.classList.add('line-no');
-    lineNoSpan.textContent = lineNo;
+    lineNoSpan.textContent = String(lineNo);
     lineNoSpan.addEventListener('click', function () {
       query.stacks = $input.value;
       query.stackIndex = stackIndex;

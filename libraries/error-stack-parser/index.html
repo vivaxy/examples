@@ -14,6 +14,10 @@
     <meta name="author" content="vivaxy" />
     <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
     <link type="text/css" rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/github.min.css"
+    />
     <title>Error Stack Parser</title>
   </head>
   <body>
@@ -25,6 +29,8 @@
     </div>
     <div id="output"></div>
     <script src="https://unpkg.com/source-map/dist/source-map.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/languages/javascript.min.js"></script>
     <script>
       sourceMap.SourceMapConsumer.initialize({
         "lib/mappings.wasm": "https://unpkg.com/source-map/lib/mappings.wasm",
