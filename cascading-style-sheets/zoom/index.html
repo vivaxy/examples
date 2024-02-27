@@ -59,14 +59,47 @@
     <h4>Click the circles above to see the coordinates.</h4>
     <ul>
       <li>
-        <p>Zoom: node.offset === node.boundingClientRect !== event.client</p>
-      </li>
-      <li>
-        <p>Scale: node.offset !== node.boundingClientRect === event.client</p>
+        <p>
+          Zoom: <code>node.offset/client</code> (zoomed) <code>===</code>
+          <code>node.boundingClientRect</code> (zoomed) <code>!==</code>
+          <code>event.client/client</code>
+          (not zoomed)
+        </p>
       </li>
       <li>
         <p>
-          Viewport: node.offset === node.boundingClientRect === event.client
+          Scale: <code>node.offset/client</code> (scaled) <code>!==</code>
+          <code>node.boundingClientRect</code> (not scaled) <code>===</code>
+          <code>event.client/client</code>
+          (not scaled)
+        </p>
+      </li>
+      <li>
+        <p>
+          Viewport: <code>node.offset/client</code> <code>===</code>
+          <code>node.boundingClientRect</code> <code>===</code>
+          <code>event.client/client</code>
+        </p>
+      </li>
+    </ul>
+    <h4>Take care of:</h4>
+    <ul>
+      <li>
+        <p><code>window.innerWidth</code>, <code>window.innerHeight</code></p>
+      </li>
+      <li>
+        <p>
+          <code>element.scrollWidth</code>, <code>element.scrollHeight</code>
+        </p>
+      </li>
+      <li>
+        <p>CSS <code>vw</code>, <code>vh</code></p>
+      </li>
+      <li>
+        <p>
+          <code>element.caretPositionFromPoint</code>,
+          <code>element.caretRangeFromPoint</code>,
+          <code>element.elementFromPoint</code>
         </p>
       </li>
     </ul>
