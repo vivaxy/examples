@@ -95,6 +95,7 @@ Table of contents
   * [Will Change](https://vivaxy.github.io/examples/cascading-style-sheets/will-change/) Will change
   * [writing mode](https://vivaxy.github.io/examples/cascading-style-sheets/writing-mode/) Writing mode
   * [Zoom](https://vivaxy.github.io/examples/cascading-style-sheets/zoom/) Zoom
+  * [Zoom Style on iPad](https://vivaxy.github.io/examples/cascading-style-sheets/zoom-ipad/) iOS Zoom Font Size
 * [Compilers](https://vivaxy.github.io/examples/compilers/) 编译器
 * [C++](https://vivaxy.github.io/examples/cpp/) C++
 * [Functional Programming](https://vivaxy.github.io/examples/functional-programming/) 函数式编程

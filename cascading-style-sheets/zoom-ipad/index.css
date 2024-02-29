@@ -1,0 +1,16 @@
+/**
+ * @since 2024-02-29
+ * @author vivaxy
+ */
+[data-zoom-level]:before {
+  content: "Zoom x";
+}
+
+[data-zoom-level]:after {
+  content: attr(data-zoom-level);
+}
+
+#div {
+  width: 200px;
+  background: rgba(0, 0, 0, 0.2);
+}
