@@ -21,78 +21,82 @@
       <pre><code>width: 200px;</code></pre>
       <p id="paragraph">24px Font Size Texts</p>
     </div>
-    <div>
-      <label for="zoom-element">Zoom element</label>
-      <select id="zoom-element">
-        <option value="html">html (document.documentElement)</option>
-        <option value="body">body (document.body)</option>
-        <option value="div">div (contains paragraph)</option>
-        <option value="paragraph">paragraph (contains texts directly)</option>
-      </select>
-    </div>
-    <div>
-      <label for="font-size-element">Font size element</label>
-      <select id="font-size-element">
-        <option value="html">html (document.documentElement)</option>
-        <option value="body">body (document.body)</option>
-        <option value="div">div (contains paragraph)</option>
-        <option value="paragraph">paragraph (contains texts directly)</option>
-      </select>
-    </div>
-    <div>
-      <label for="text-size-adjust-element"
-        >Text size adjust none element</label
-      >
-      <select id="text-size-adjust-element">
-        <option value="none">none</option>
-        <option value="html">html (document.documentElement)</option>
-        <option value="body">body (document.body)</option>
-        <option value="div">div (contains paragraph)</option>
-        <option value="paragraph">paragraph (contains texts directly)</option>
-      </select>
-    </div>
-    <div>
-      <button data-zoom-level="0.5"></button>
-      <button data-zoom-level="1"></button>
-      <button data-zoom-level="2"></button>
-    </div>
-    <div>
-      <button id="get-font-size">Get Font Size</button>
-    </div>
-    <h4>Conclusion</h4>
-    <ol>
-      <li>
-        <p>
-          iPadOS 13+ intervenes against the CSS zoom property. WebKit zooms font
-          size reversely to keep texts unzoomed.
-        </p>
-      </li>
-      <li>
-        <p>
-          <code>-webkit-text-size-adjust: none;</code> can be used to disable
-          the intervention.
-        </p>
-      </li>
-      <li>
-        <p>
-          <code>-webkit-text-size-adjust: none;</code> only effective when zoom
-          style node is contained by both font size style node and text size
-          adjust style node.
-        </p>
-      </li>
-      <li>
-        <p>The intervention is disabled when users "Request Mobile Website".</p>
-      </li>
-    </ol>
-    <h4>Reference</h4>
-    <ol>
-      <li>
-        <a href="https://stackoverflow.com/a/64998974/2438724"
-          >CSS Zoom does not work - iPad OS (v13 - latest) Safari
-          (StackOverflow)</a
+    <div style="zoom: 1; font-size: 16px; -webkit-text-size-adjust: none">
+      <div>
+        <label for="zoom-element">Zoom element</label>
+        <select id="zoom-element">
+          <option value="html">html (document.documentElement)</option>
+          <option value="body">body (document.body)</option>
+          <option value="div">div (contains paragraph)</option>
+          <option value="paragraph">paragraph (contains texts directly)</option>
+        </select>
+      </div>
+      <div>
+        <label for="font-size-element">Font size element</label>
+        <select id="font-size-element">
+          <option value="html">html (document.documentElement)</option>
+          <option value="body">body (document.body)</option>
+          <option value="div">div (contains paragraph)</option>
+          <option value="paragraph">paragraph (contains texts directly)</option>
+        </select>
+      </div>
+      <div>
+        <label for="text-size-adjust-element"
+          >Text size adjust none element</label
         >
-      </li>
-    </ol>
+        <select id="text-size-adjust-element">
+          <option value="none">none</option>
+          <option value="html">html (document.documentElement)</option>
+          <option value="body">body (document.body)</option>
+          <option value="div">div (contains paragraph)</option>
+          <option value="paragraph">paragraph (contains texts directly)</option>
+        </select>
+      </div>
+      <div>
+        <button data-zoom-level="0.5"></button>
+        <button data-zoom-level="1"></button>
+        <button data-zoom-level="2"></button>
+      </div>
+      <div>
+        <button id="get-font-size">Get Font Size</button>
+      </div>
+      <h4>Conclusion</h4>
+      <ol>
+        <li>
+          <p>
+            iPadOS 13+ intervenes against the CSS zoom property. WebKit zooms
+            font size reversely to keep texts unzoomed.
+          </p>
+        </li>
+        <li>
+          <p>
+            <code>-webkit-text-size-adjust: none;</code> can be used to disable
+            the intervention.
+          </p>
+        </li>
+        <li>
+          <p>
+            <code>-webkit-text-size-adjust: none;</code> only effective when
+            zoom style node is contained by both font size style node and text
+            size adjust style node.
+          </p>
+        </li>
+        <li>
+          <p>
+            The intervention is disabled when users "Request Mobile Website".
+          </p>
+        </li>
+      </ol>
+      <h4>Reference</h4>
+      <ol>
+        <li>
+          <a href="https://stackoverflow.com/a/64998974/2438724"
+            >CSS Zoom does not work - iPad OS (v13 - latest) Safari
+            (StackOverflow)</a
+          >
+        </li>
+      </ol>
+    </div>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/ba.js"></script>
