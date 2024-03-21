@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta
@@ -21,7 +21,7 @@
     <script type="application/javascript">
       var texInput = document.getElementById("tex-input");
       var mathFunction = document.getElementById("math-function");
-      var show = function() {
+      var show = function () {
         mathFunction.innerHTML = texInput.value;
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, mathFunction]);
       };

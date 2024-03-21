@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta
@@ -73,9 +73,7 @@
     <div class="card" data-ng-init="names=['Jani','Hege','Kai']">
       <h1>repeat & init</h1>
       <ul>
-        <li data-ng-repeat="x in names">
-          {{ x }}
-        </li>
+        <li data-ng-repeat="x in names">{{ x }}</li>
       </ul>
     </div>
     <div class="card" data-ng-controller="personController2">
@@ -227,7 +225,7 @@
             required="true"
           />
           <span
-            style="color: red;"
+            style="color: red"
             data-ng-show="testForm.username.$dirty && testForm.username.$invalid"
           >
             <span data-ng-show="testForm.username.$error.required"
@@ -245,7 +243,7 @@
             required="true"
           />
           <span
-            style="color: red;"
+            style="color: red"
             data-ng-show="testForm.email.$dirty && testForm.email.$invalid"
           >
             <span data-ng-show="testForm.email.$error.required"

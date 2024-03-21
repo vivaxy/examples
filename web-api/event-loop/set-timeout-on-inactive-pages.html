@@ -1,14 +1,14 @@
-<html>
+<html lang="en">
   <head>
     <title>setTimeout on inactive pages</title>
   </head>
   <body>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script>
-      window.addEventListener('visibilitychange', handleVisibilitychange);
+      window.addEventListener("visibilitychange", handleVisibilitychange);
 
       let timeout = null;
-      const timerName = 'set-timeout-on-inactive-page';
+      const timerName = "set-timeout-on-inactive-page";
       function callback() {
         console.timeEnd(timerName);
         if (!timeout) {
@@ -28,8 +28,8 @@
       }
 
       function runTimeout() {
-        document.title = 'running';
-        console.log('running');
+        document.title = "running";
+        console.log("running");
         console.time(timerName);
         timeout = setTimeout(callback, 0);
       }
@@ -38,8 +38,8 @@
         console.timeEnd(timerName);
         clearTimeout(timeout);
         timeout = null;
-        document.title = 'stopped';
-        console.log('stopped');
+        document.title = "stopped";
+        console.log("stopped");
       }
     </script>
   </body>
