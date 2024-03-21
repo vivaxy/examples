@@ -30,15 +30,16 @@
     "@commitlint/config-conventional": "^18.6.0",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
-    "@vivaxy/github-demo-scripts": "^0.5.0",
+    "@vivaxy/github-pages-scripts": "^0.5.1",
     "eslint": "^8.56.0",
     "husky": "^9.0.10",
     "lint-staged": "^14.0.1",
     "prettier": "^2.8.8",
+    "sitemap": "^7.1.1",
     "typescript": "^5.3.3"
   },
-  "gds": {
-    "readmePrefix": "# [Examples](https://vivaxy.github.io/examples/index.html)",
+  "gps": {
+    "readme-prefix": "# [Examples](https://vivaxy.github.io/examples/index.html)",
     "link-prefix": "https://vivaxy.github.io/examples/"
   },
   "packageManager": "npm@8.19.4",
