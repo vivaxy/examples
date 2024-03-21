@@ -32,25 +32,26 @@ function recurse(i = 0) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Suite } = require('benchmark');
 
 new Suite()
-  .add('for loop', function() {
+  .add('for loop', function () {
     result = [];
     forLoop();
   })
-  .add('recurse', function() {
+  .add('recurse', function () {
     result = [];
     recurse();
   })
-  .add('tail recurse', function() {
+  .add('tail recurse', function () {
     result = [];
     tailRecurse();
   })
-  .on('cycle', function(event) {
+  .on('cycle', function (event) {
     console.log(String(event.target));
   })
-  .on('complete', function() {
+  .on('complete', function () {
     console.log('Fastest is ' + this.filter('fastest').map('name'));
   })
   .run();

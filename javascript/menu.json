@@ -209,7 +209,7 @@
   },
   {
     "name": "shapes",
-    "link": "run.sh"
+    "link": "shapes/run.sh"
   },
   {
     "name": "Arrow Function",

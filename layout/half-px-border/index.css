@@ -1,0 +1,40 @@
+/**
+ * @since 2016-08-04 15:27
+ * @author vivaxy
+ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.button {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.button:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border: 1px solid #999;
+  border-radius: 16px;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: 0 0;
+  -webkit-transform: scale(0.5);
+  transform-origin: left top;
+  transform: scale(0.5);
+}

@@ -41,19 +41,19 @@ Table of contents
     * [Breadth First Search](https://vivaxy.github.io/examples/algorithms/tree/breadth-first-search/) 广度优先遍历算法
     * [Depth First Search](https://vivaxy.github.io/examples/algorithms/tree/depth-first-search/) 深度优先遍历算法
 * [Benchmark](https://vivaxy.github.io/examples/benchmark/) 性能
-  * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/examples/benchmark/String.prototype.indexOf-vs-forLoop/) String.prototype.index of vs for loop
   * [Arrow Function vs Regular Function](https://vivaxy.github.io/examples/benchmark/arrow-function-vs-regular-function/) Arrow Function vs Regular Function
-  * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/classFunctionDeclaration-vs-classPrototypeFunctionBind/) Benchmark between class function declaration and class prototype function bind 
+  * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/class-function-declaration-vs-class-prototype-function-bind/) Benchmark between class function declaration and class prototype function bind 
   * [for let loop vs for var loop](https://vivaxy.github.io/examples/benchmark/for-let-loop-vs-for-var-loop/) for let loop vs for var loop
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect
-  * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/getBoundingClientRect-vs-innerWidth-vs-clientWidth/) Get bounding client rect vs inner width vs client width
+  * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect-vs-inner-width-vs-client-width/) Get bounding client rect vs inner width vs client width
   * [GPU vs WASM](https://vivaxy.github.io/examples/benchmark/gpu-vs-wasm-vs-cpu/) GPU vs WASM
-  * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parseInt/) Number vs parse int
-  * [querySelector](https://vivaxy.github.io/examples/benchmark/querySelector/) querySelector
-  * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/regExp-vs-stringEdit/) Reg exp vs string edit
+  * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parse-int/) Number vs parse int
+  * [querySelector](https://vivaxy.github.io/examples/benchmark/query-selector/) querySelector
+  * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/reg-exp-vs-string-edit/) Reg exp vs string edit
   * [ShadowDOM vs Light DOM](https://vivaxy.github.io/examples/benchmark/shadow-dom-vs-light-dom/) ShadowDOM vs Light DOM
-  * [split vs String Edit](https://vivaxy.github.io/examples/benchmark/split-vs-stringEdit/) Split vs string edit
-  * [unregisterWithReturnedFunction vs unregister](https://vivaxy.github.io/examples/benchmark/unregisterWithReturnedFunction-vs-unregister/) Unregister with returned function vs unregister
+  * [split vs String Edit](https://vivaxy.github.io/examples/benchmark/split-vs-string-edit/) Split vs string edit
+  * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/examples/benchmark/string-prototype-index-of-vs-for-loop/) String.prototype.index of vs for loop
+  * [UnregisterWithReturnedFunction vs Unregister](https://vivaxy.github.io/examples/benchmark/unregister-with-returned-function-vs-unregister/) Unregister with returned function vs unregister
   * [Walk through DOM tree](https://vivaxy.github.io/examples/benchmark/walk-through-dom-tree/) Walk through DOM tree
 * [cascading style sheets](https://vivaxy.github.io/examples/cascading-style-sheets/) CSS 样式
   * [Animation steps](https://vivaxy.github.io/examples/cascading-style-sheets/animation-steps/) CSS Animation steps API demo
@@ -171,11 +171,11 @@ Table of contents
   * [test](https://vivaxy.github.io/examples/javascript/unicode/) Unicode
   * [use blob to create web worker](https://vivaxy.github.io/examples/javascript/use-blob-to-create-web-worker/) Use blob to create web worker
 * [Layout](https://vivaxy.github.io/examples/layout/) 布局
-  * [0.5px border](https://vivaxy.github.io/examples/layout/0.5px-border/) 0.5px border
   * [Center](https://vivaxy.github.io/examples/layout/center/) Center
   * [columns](https://vivaxy.github.io/examples/layout/columns/) Columns
   * [common list](https://vivaxy.github.io/examples/layout/common-list/) Common list
   * [fixed-bar](https://vivaxy.github.io/examples/layout/fixed-bar/) Fixed bar
+  * [0.5px border](https://vivaxy.github.io/examples/layout/half-px-border/) 0.5px border
   * [modal](https://vivaxy.github.io/examples/layout/modal/) Modal
   * [popover](https://vivaxy.github.io/examples/layout/popover/) Popover
 * [Libraries](https://vivaxy.github.io/examples/libraries/) 各种库

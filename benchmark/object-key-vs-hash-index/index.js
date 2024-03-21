@@ -9,6 +9,7 @@
  * Fastest is Store data as an object
  *
  */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const Benchmark = require('benchmark');
 
 const suite = new Benchmark.Suite();
@@ -32,7 +33,7 @@ function hashKey(key) {
   for (let index = 0; index < key.length; index++) {
     // Oh look– magic.
     let code = key.charCodeAt(index);
-    hash = ((hash << 5) - hash) + code | 0;
+    hash = ((hash << 5) - hash + code) | 0;
   }
   return hash;
 }
@@ -69,16 +70,16 @@ function actions(o) {
 
 // add tests
 suite
-  .add('Store data as an object', function() {
+  .add('Store data as an object', function () {
     actions(objectKey);
   })
-  .add('Store data as an array', function() {
+  .add('Store data as an array', function () {
     actions(hashIndex);
   })
-  .on('cycle', function(event) {
+  .on('cycle', function (event) {
     console.log(String(event.target));
   })
-  .on('complete', function() {
+  .on('complete', function () {
     console.log('Fastest is ' + this.filter('fastest').map('name'));
   })
   .run();

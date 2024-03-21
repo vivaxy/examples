@@ -25,7 +25,7 @@
   },
   {
     "name": "querySelector performance",
-    "link": "querySelector/"
+    "link": "query-selector/"
   },
   {
     "name": "Walk Through DOM Tree",
@@ -37,42 +37,46 @@
   },
   {
     "name": "forLoop vs tailRecurse vs recurse",
-    "link": "forLoop-vs-tailRecurse-vs-recurse/"
+    "link": "for-loop-vs-tail-recurse-vs-recurse/"
   },
   {
     "name": "new Function vs compiler",
-    "link": "newFunction-vs-compiler/index.js"
+    "link": "new-function-vs-compiler/index.js"
   },
   {
     "name": "split vs String Edit",
-    "link": "split-vs-stringEdit/"
+    "link": "split-vs-string-edit/"
   },
   {
     "name": "Number vs parseInt",
-    "link": "number-vs-parseInt/"
+    "link": "number-vs-parse-int/"
   },
   {
     "name": "getBoundingClientRect vs innerWidth vs clientWidth",
-    "link": "getBoundingClientRect-vs-innerWidth-vs-clientWidth/"
+    "link": "get-bounding-client-rect-vs-inner-width-vs-client-width/"
   },
   {
     "name": "classFunctionDeclaration vs classPrototypeFunctionBind",
-    "link": "classFunctionDeclaration-vs-classPrototypeFunctionBind/"
+    "link": "class-function-declaration-vs-class-prototype-function-bind/"
   },
   {
     "name": "RegExp vs String Edit",
-    "link": "regExp-vs-stringEdit/"
+    "link": "reg-exp-vs-string-edit/"
   },
   {
     "name": "String.prototype.indexOf vs For Loop",
-    "link": "String.prototype.indexOf-vs-forLoop/"
+    "link": "string-prototype-index-of-vs-for-loop/"
   },
   {
     "name": "Store data as an object vs Store data as an array",
-    "link": "objectKey-vs-hashIndex/index.js"
+    "link": "object-key-vs-hash-index/index.js"
   },
   {
     "name": "performance cost on await resolved promise",
     "link": "await-resolved-promise/index.js"
+  },
+  {
+    "name": "UnregisterWithReturnedFunction vs Unregister",
+    "link": "unregister-with-returned-function-vs-unregister/"
   }
 ]

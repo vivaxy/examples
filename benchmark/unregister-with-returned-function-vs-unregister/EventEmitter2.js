@@ -33,7 +33,7 @@ class EventEmitter {
    */
   emit(event, data, sender) {
     const handlers = this.events[event];
-    for (let i = 0; i < handlers.length;) {
+    for (let i = 0; i < handlers.length; ) {
       const handler = handlers[i];
       if (handler) {
         handler.callback(event, data, sender, handler.refer);
@@ -71,7 +71,6 @@ class EventEmitter {
     }
     return this;
   }
-
 }
 
 export default EventEmitter;
