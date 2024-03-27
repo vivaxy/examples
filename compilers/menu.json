@@ -1,14 +1,14 @@
 [
   {
-    "name": "chinese to javascript",
-    "link": "chinese-to-javascript/index.js"
+    "name": "Chinese to JavaScript",
+    "link": "chinese-to-javascript/"
   },
   {
-    "name": "sql",
+    "name": "SQL",
     "link": "sql/src/index.ts"
   },
   {
-    "name": "syntax-parser",
+    "name": "Syntax Parser",
     "link": "syntax-parser/src/index.ts"
   }
 ]

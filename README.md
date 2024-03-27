@@ -97,6 +97,7 @@ Table of contents
   * [Zoom](https://vivaxy.github.io/examples/cascading-style-sheets/zoom/) Zoom
   * [Zoom Style on iPad](https://vivaxy.github.io/examples/cascading-style-sheets/zoom-ipad/) iOS Zoom Font Size
 * [Compilers](https://vivaxy.github.io/examples/compilers/) 编译器
+  * [Chinese to JavaScript](https://vivaxy.github.io/examples/compilers/chinese-to-javascript/) Chinese to JavaScript
 * [C++](https://vivaxy.github.io/examples/cpp/) C++
 * [Functional Programming](https://vivaxy.github.io/examples/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/examples/functional-programming/etc/) Etc
