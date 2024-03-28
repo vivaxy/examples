@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 npx gps toc
 git add README.md *.html
 npx gps sitemap
