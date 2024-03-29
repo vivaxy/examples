@@ -2,5 +2,9 @@
   {
     "name": "A Simple Language",
     "link": "a-simple-language"
+  },
+  {
+    "name": "Tokenizer",
+    "link": "tokenizer/"
   }
 ]
