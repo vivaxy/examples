@@ -61,11 +61,11 @@
   },
   {
     "name": "execa",
-    "link": "execa/"
+    "link": "execa/index.js"
   },
   {
     "name": "prompts",
-    "link": "prompts/"
+    "link": "prompts/index.js"
   },
   {
     "name": "babel",

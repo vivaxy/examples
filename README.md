@@ -230,7 +230,6 @@ Table of contents
     * [horizontal scroll](https://vivaxy.github.io/examples/libraries/echarts/horizontal-scroll/) Horizontal scroll
     * [with current index](https://vivaxy.github.io/examples/libraries/echarts/with-current-index/) With current index
   * [Error Stack Parser](https://vivaxy.github.io/examples/libraries/error-stack-parser/) Error Stack Parser
-  * [execa](https://vivaxy.github.io/examples/libraries/execa/) execa demo
   * [hammer](https://vivaxy.github.io/examples/libraries/hammer/) Hammer
   * [KaTeX online](https://vivaxy.github.io/examples/libraries/katex/) KaTeX online
   * [KerasJS](https://vivaxy.github.io/examples/libraries/kerasjs/) Kerasjs
@@ -252,7 +251,6 @@ Table of contents
   * [Operational transformation](https://vivaxy.github.io/examples/libraries/operational-transformation/) Operational transformation
   * [Preact](https://vivaxy.github.io/examples/libraries/preact/) Preact
     * [Preact Basic Example](https://vivaxy.github.io/examples/libraries/preact/basic/) Preact Basic Example
-  * [Prompts Demo](https://vivaxy.github.io/examples/libraries/prompts/) Prompts Demo
   * [prop-types](https://vivaxy.github.io/examples/libraries/prop-types/) prop-types
   * [ProseMirror](https://vivaxy.github.io/examples/libraries/prosemirror/) ProseMirror 示例
     * [Annotation Performance](https://vivaxy.github.io/examples/libraries/prosemirror/annotation-performance/) Decoration Performance
