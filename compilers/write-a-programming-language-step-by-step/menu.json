@@ -6,5 +6,9 @@
   {
     "name": "Tokenizer",
     "link": "tokenizer/"
+  },
+  {
+    "name": "Variables And Types",
+    "link": "variables-and-types/"
   }
 ]
