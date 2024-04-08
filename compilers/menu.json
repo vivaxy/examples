@@ -1,5 +1,9 @@
 [
   {
+    "name": "Assembly",
+    "link": "assembly"
+  },
+  {
     "name": "Chinese to JavaScript",
     "link": "chinese-to-javascript/"
   },
