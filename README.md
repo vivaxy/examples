@@ -291,6 +291,7 @@ Table of contents
     * [None-editable Table Breaks User Selection on Android](https://vivaxy.github.io/examples/libraries/prosemirror/none-editable-table-breaks-user-selection-on-android/) None-editable Table Breaks User Selection on Android
     * [Not Supported](https://vivaxy.github.io/examples/libraries/prosemirror/not-supported/) ProseMirror Minimal Editor
     * [ProseMirror Paste by Copy or Cut](https://vivaxy.github.io/examples/libraries/prosemirror/paste-by-copy-or-cut/) Basic
+    * [ProseMirror Plugin State Best Practice](https://vivaxy.github.io/examples/libraries/prosemirror/plugin-state-best-practice/) ProseMirror Plugin State
     * [ProseMirror ReplaceStep](https://vivaxy.github.io/examples/libraries/prosemirror/replace-step/) ProseMirror ReplaceStep
     * [ResolvedPos](https://vivaxy.github.io/examples/libraries/prosemirror/resolved-pos/) ResolvedPos
     * [Safari composition delete relative nodes](https://vivaxy.github.io/examples/libraries/prosemirror/safari-composition-delete-relative-nodes/) ProseMirror Minimal Editor

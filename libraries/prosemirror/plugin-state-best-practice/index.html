@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="ProseMirror Plugin State" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,ProseMirror Plugin State,ProseMirror,libraries,Node.js Packages Demos,node-js-packages,prosemirror,sample,samples,plugin-state-best-practice"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <title>ProseMirror Plugin State Best Practice</title>
+  </head>
+  <body>
+    <h1>ProseMirror plugin variables should be defined on plugin state.</h1>
+    <p>Scenario without plugin state:</p>
+    <p>
+      Expected behavior: Press `Add Parentheses` to generate parentheses in
+      pairs.
+    </p>
+    <p>Reproducing the issue with dropped transaction:</p>
+    <ol>
+      <li>Press `Add Parentheses`. Result: `(`</li>
+      <li>Press `Add Parentheses with dropped transaction`. Result: None.</li>
+      <li>Press `Add Parentheses`. Result: `(` (Should yield `)` instead).</li>
+    </ol>
+    <p>Reproducing the issue with multiple editors:</p>
+    <ol>
+      <li>Press `Add Parentheses`. Result: `(`</li>
+      <li>
+        Press `Reuse the plugin to create another editor`. Create another editor
+        using the plugin.
+      </li>
+      <li>
+        Press `Add Parentheses to another editor`. Result: `)` (Should yield `(`
+        instead).
+      </li>
+    </ol>
+    <div id="editor"></div>
+    <p>
+      <button id="add-parentheses">Add Parentheses</button>
+      <button id="add-parentheses-dropped-tr">
+        Add Parentheses with dropped transaction
+      </button>
+    </p>
+    <p>
+      <button id="create-another-editor">
+        Reuse the plugin to create another editor
+      </button>
+    </p>
+    <div id="another-editor" class="editor"></div>
+    <button id="add-parentheses-to-another-editor">
+      Add Parentheses to another editor
+    </button>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="module" src="bundle.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/cm.js"></script>
+  </body>
+</html>
