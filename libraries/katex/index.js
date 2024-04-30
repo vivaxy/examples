@@ -4,6 +4,6 @@
  */
 const url = new URL(location.href);
 url.hostname = 'vivaxy.github.io';
-url.port = '80';
+url.port = '';
 url.pathname = '/dev/katex-versions/';
 location.href = url.href;
