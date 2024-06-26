@@ -1,5 +1,9 @@
 [
   {
+    "name": "TanStack",
+    "link": "tanstack"
+  },
+  {
     "name": "Error Stack Parser",
     "link": "error-stack-parser/"
   },

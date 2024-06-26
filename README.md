@@ -335,6 +335,8 @@ Table of contents
     * [throttleTime](https://vivaxy.github.io/examples/libraries/rxjs/throttle-time/) Throttle time
   * [ShareDB](https://vivaxy.github.io/examples/libraries/sharedb/) Y.js
     * [Counter](https://vivaxy.github.io/examples/libraries/sharedb/counter/) Counter
+  * [TanStack](https://vivaxy.github.io/examples/libraries/tanstack/) TanStack
+    * [TanStack Core](https://vivaxy.github.io/examples/libraries/tanstack/tanstack-core/) TanStack Core
   * [Three.js](https://vivaxy.github.io/examples/libraries/three-js/) Three.js
     * [Basic](https://vivaxy.github.io/examples/libraries/three-js/basic/) Basic
     * [Drawing lines](https://vivaxy.github.io/examples/libraries/three-js/drawing-lines/) Drawing lines
