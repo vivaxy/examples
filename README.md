@@ -43,6 +43,7 @@ Table of contents
 * [Benchmark](https://vivaxy.github.io/examples/benchmark/) 性能
   * [Arrow Function vs Regular Function](https://vivaxy.github.io/examples/benchmark/arrow-function-vs-regular-function/) Arrow Function vs Regular Function
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/class-function-declaration-vs-class-prototype-function-bind/) Benchmark between class function declaration and class prototype function bind 
+  * [Compare performance: string vs number vs bigint](https://vivaxy.github.io/examples/benchmark/compare-performance-string-number-bigint/) Memory: string vs number vs bigint
   * [for let loop vs for var loop](https://vivaxy.github.io/examples/benchmark/for-let-loop-vs-for-var-loop/) for let loop vs for var loop
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect-vs-inner-width-vs-client-width/) Get bounding client rect vs inner width vs client width

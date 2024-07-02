@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Memory: string vs number vs bigint" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,Memory: string vs number vs bigint,benchmark,sample,samples,memory-string-number-bigint"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Compare performance: string vs number vs bigint</title>
+  </head>
+  <body>
+    <h1>
+      Compare performance for 100,000 numbers(around 2 ** 52) in different value
+      types.
+    </h1>
+    <ol>
+      <li>string: 3.18ms</li>
+      <li>number: 0.76ms</li>
+      <li>bigint: 0.49ms</li>
+      <li>string(parseInt): 6.38ms</li>
+    </ol>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/cm.js"></script>
+  </body>
+</html>

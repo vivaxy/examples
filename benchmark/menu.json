@@ -1,5 +1,9 @@
 [
   {
+    "name": "Compare performance: string vs number vs bigint",
+    "link": "compare-performance-string-number-bigint/"
+  },
+  {
     "name": "Memory: string vs number vs bigint",
     "link": "memory-string-number-bigint/"
   },
