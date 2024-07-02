@@ -1,5 +1,9 @@
 [
   {
+    "name": "Memory: string vs number vs bigint",
+    "link": "memory-string-number-bigint/"
+  },
+  {
     "name": "Arrow Function vs Regular Function",
     "link": "arrow-function-vs-regular-function"
   },

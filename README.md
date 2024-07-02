@@ -47,6 +47,7 @@ Table of contents
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect-vs-inner-width-vs-client-width/) Get bounding client rect vs inner width vs client width
   * [GPU vs WASM](https://vivaxy.github.io/examples/benchmark/gpu-vs-wasm-vs-cpu/) GPU vs WASM
+  * [Memory: string vs number vs bigint](https://vivaxy.github.io/examples/benchmark/memory-string-number-bigint/) Memory: string vs number vs bigint
   * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parse-int/) Number vs parse int
   * [querySelector](https://vivaxy.github.io/examples/benchmark/query-selector/) querySelector
   * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/reg-exp-vs-string-edit/) Reg exp vs string edit
