@@ -2,5 +2,9 @@
   {
     "name": "Integrate Go Library into a JavaScript Webpage with WebAssembly",
     "link": "integrate-go-library-into-a-javaScript-webpage-with-web-assembly"
+  },
+  {
+    "name": "WASI Communication with Stdio",
+    "link": "wasi-communication-with-stdio/run.sh"
   }
 ]
