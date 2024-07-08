@@ -203,6 +203,8 @@ Table of contents
   * [async](https://vivaxy.github.io/examples/libraries/async/) Async
   * [Babel Demos](https://vivaxy.github.io/examples/libraries/babel/) Babel Demos
     * [es5 extends es6 error](https://vivaxy.github.io/examples/libraries/babel/es5-extends-es6-error/) es5 extends es6 error: Class constructor Parent cannot be invoked without 'new'
+  * [Bitable](https://vivaxy.github.io/examples/libraries/bitable/) Bitable
+    * [Decode Message](https://vivaxy.github.io/examples/libraries/bitable/decode-messages/) Decode Message
   * [bmap](https://vivaxy.github.io/examples/libraries/bmap/) Bmap
     * [jsextreme](https://vivaxy.github.io/examples/libraries/bmap/jsextreme/) 创建了一个地图并以公司作为地图的中心
     * [Jspopular1](https://vivaxy.github.io/examples/libraries/bmap/jspopular1/) 创建了一个地图并以公司作为地图的中心
