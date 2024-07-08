@@ -1,5 +1,9 @@
 [
   {
+    "name": "Go",
+    "link": "go"
+  },
+  {
     "name": "Algorithms",
     "link": "algorithms/"
   },

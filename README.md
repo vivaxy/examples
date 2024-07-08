@@ -110,6 +110,8 @@ Table of contents
 * [Functional Programming](https://vivaxy.github.io/examples/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/examples/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/examples/functional-programming/manipulate-functions/) Manipulate functions
+* [Go](https://vivaxy.github.io/examples/go/) Go
+  * [Integrate Go Library into a JavaScript Webpage with WebAssembly](https://vivaxy.github.io/examples/go/integrate-go-library-into-a-javaScript-webpage-with-web-assembly/) Integrate Go Library into a JavaScript Webpage with WebAssembly
 * [JavaScript](https://vivaxy.github.io/examples/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/examples/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/examples/javascript/arrow-function/) Arrow Function
