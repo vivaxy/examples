@@ -1,0 +1,38 @@
+/**
+ * @since 2024-07-09
+ * @author vivaxy
+ */
+.a,
+.b {
+  width: 40px;
+  height: 40px;
+  background-color: #f00;
+  border: 1px solid #ddd;
+  font-size: 24px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+}
+
+.a {
+  anchor-name: --anchor-a;
+}
+
+.b {
+  anchor-name: --anchor-b;
+  top: 100px;
+  left: 100px;
+}
+
+.line {
+  position: absolute;
+  background-color: #333;
+  top: anchor(--anchor-a center);
+  left: anchor(--anchor-a center);
+  bottom: anchor(--anchor-b center);
+  right: anchor(--anchor-b center);
+  z-index: -1;
+  position-try-options: flip-block, flip-inline, flip-block flip-inline;
+}

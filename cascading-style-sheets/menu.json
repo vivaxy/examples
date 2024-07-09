@@ -1,5 +1,9 @@
 [
   {
+    "name": "Position Anchor",
+    "link": "position-anchor/"
+  },
+  {
     "name": "Zoom Style on iPad",
     "link": "zoom-ipad/"
   },
