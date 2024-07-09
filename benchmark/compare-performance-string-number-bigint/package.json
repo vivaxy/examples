@@ -1,0 +1,14 @@
+{
+  "name": "compare-performance-string-number-bigint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^2.0.1"
+  }
+}
