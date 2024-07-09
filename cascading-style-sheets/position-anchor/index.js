@@ -1,6 +1,7 @@
 /**
  * @since 2024-07-09
  * @author vivaxy
+ * @source https://coryrylan.com/blog/flow-charts-with-css-anchor-positioning
  */
 const blocks = [document.querySelector('.a'), document.querySelector('.b')];
 
