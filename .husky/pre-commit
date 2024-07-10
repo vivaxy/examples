@@ -1,4 +1,4 @@
-echo `cwd`
+echo `pwd`
 npx gps toc
 git add README.md *.html
 npx gps sitemap
