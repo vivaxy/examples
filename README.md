@@ -244,6 +244,7 @@ Table of contents
     * [with current index](https://vivaxy.github.io/examples/libraries/echarts/with-current-index/) With current index
   * [Error Stack Parser](https://vivaxy.github.io/examples/libraries/error-stack-parser/) Error Stack Parser
   * [hammer](https://vivaxy.github.io/examples/libraries/hammer/) Hammer
+  * [Increment to long](https://vivaxy.github.io/examples/libraries/increment-to-long/) Increment to long
   * [KaTeX online](https://vivaxy.github.io/examples/libraries/katex/) KaTeX online
   * [KerasJS](https://vivaxy.github.io/examples/libraries/kerasjs/) Kerasjs
   * [knockout](https://vivaxy.github.io/examples/libraries/knockout/) Knockout

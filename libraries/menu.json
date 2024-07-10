@@ -1,5 +1,9 @@
 [
   {
+    "name": "Increment to long",
+    "link": "increment-to-long/"
+  },
+  {
     "name": "Bitable",
     "link": "bitable/"
   },
