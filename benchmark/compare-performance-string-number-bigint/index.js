@@ -3,7 +3,11 @@
  * @author vivaxy
  */
 // @ts-expect-error run
-import { run } from 'https://vivaxy.github.io/framework/utils/benchmark.js';
+import {
+  run,
+  getDiff,
+  toSignedPercentage,
+} from 'https://unpkg.com/@vivaxy/framework/utils/benchmark.js';
 import {
   number,
   bigint,
@@ -40,7 +44,9 @@ function beforeEach(ctx, fn, ARRAY_LENGTH) {
 
 async function main() {
   const LOOP = 1e2;
+  const INNER_LOOP = 1e2;
   const ARRAY_LENGTH = 1e5;
+  let base = 0;
   for (const fn of [
     number,
     bigint,
@@ -54,9 +60,12 @@ async function main() {
        * @param {object} ctx
        */
       function (ctx) {
-        for (let i = 0; i < ctx.values.length - 1; i++) {
-          if (ctx.values[i] >= ctx.values[i + 1]) {
-            console.log('error');
+        const { values } = ctx;
+        for (let j = 0; j < INNER_LOOP; j++) {
+          for (let i = 0; i < values.length - 1; i++) {
+            if (values[i] >= values[i + 1]) {
+              console.log('error');
+            }
           }
         }
       },
@@ -70,33 +79,41 @@ async function main() {
         loop: LOOP,
       },
     );
-    console.log(`${fn.name} cost: ${cost}ms`);
+    if (fn === number) {
+      base = cost;
+    }
+    console.log(
+      `${fn.name} cost: ${cost}ms (${toSignedPercentage(getDiff(base, cost))})`,
+    );
     await sleep(100);
   }
 
-  await sleep(100);
-  const cost = await run(
-    /**
-     * @param {object} ctx
-     */
-    function (ctx) {
-      for (let i = 0; i < ctx.values.length - 1; i++) {
-        if (parseInt(ctx.values[i], 16) >= parseInt(ctx.values[i + 1], 16)) {
-          console.log('error');
-        }
-      }
-    },
-    {
-      /**
-       * @param {object} ctx
-       */
-      beforeEach(ctx) {
-        beforeEach(ctx, hexString, ARRAY_LENGTH);
-      },
-      loop: LOOP,
-    },
-  );
-  console.log(`${hexString.name}(parseInt) cost: ${cost}ms`);
+  // await sleep(100);
+  // const cost = await run(
+  //   /**
+  //    * @param {object} ctx
+  //    */
+  //   function (ctx) {
+  //     const { values } = ctx;
+  //     for (let j = 0; j < INNER_LOOP; j++) {
+  //       for (let i = 0; i < values.length - 1; i++) {
+  //         if (parseInt(values[i], 16) >= parseInt(values[i + 1], 16)) {
+  //           console.log('error');
+  //         }
+  //       }
+  //     }
+  //   },
+  //   {
+  //     /**
+  //      * @param {object} ctx
+  //      */
+  //     beforeEach(ctx) {
+  //       beforeEach(ctx, hexString, ARRAY_LENGTH);
+  //     },
+  //     loop: LOOP,
+  //   },
+  // );
+  // console.log(`${hexString.name}(parseInt) cost: ${cost}ms (${toSignedPercentage(getDiff(base, cost))})`);
 }
 
 setTimeout(main, 1000);

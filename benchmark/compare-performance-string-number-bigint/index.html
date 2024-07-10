@@ -18,16 +18,15 @@
   </head>
   <body>
     <h1>
-      Compare performance for 100,000 numbers(around 2 ** 52) in different value
-      types.
+      Compare performance for comparing 100,000 numbers for 100 times in
+      different value types.
     </h1>
     <ol>
-      <li>number: 0.360ms</li>
-      <li>bigint: 0.895ms</li>
-      <li>hexString: 6.683ms</li>
-      <li>charCodeString: 2.911ms</li>
-      <li>exponentNumber: 2.212ms</li>
-      <li>hexString(parseInt): 12.025ms</li>
+      <li>number cost: 9.73200000077486ms (+0.00%)</li>
+      <li>bigint cost: 85.42699999809265ms (+777.79%)</li>
+      <li>hexString cost: 155.9109999999404ms (+1502.04%)</li>
+      <li>charCodeString cost: 275.6609999987483ms (+2732.52%)</li>
+      <li>exponentNumber cost: 49.80700000137091ms (+411.79%)</li>
     </ol>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
