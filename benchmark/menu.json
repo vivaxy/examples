@@ -1,5 +1,9 @@
 [
   {
+    "name": "Compare Strings",
+    "link": "compare-strings/"
+  },
+  {
     "name": "Compare performance: string vs number vs bigint",
     "link": "compare-performance-string-number-bigint/"
   },

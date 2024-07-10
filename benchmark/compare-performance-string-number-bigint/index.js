@@ -2,11 +2,11 @@
  * @since 2024-07-02
  * @author vivaxy
  */
-// @ts-expect-error run
 import {
   run,
   getDiff,
   toSignedPercentage,
+  // @ts-expect-error benchmark
 } from 'https://unpkg.com/@vivaxy/framework/utils/benchmark.js';
 import {
   number,
