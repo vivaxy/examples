@@ -13,12 +13,8 @@ export function incrementToLong(value) {
     return value + 1;
   }
   if (value < MAX_SAFE_LONG) {
-    let exponent = 0;
-    let significand = value;
-    while (significand >= Number.MAX_SAFE_INTEGER) {
-      significand /= 2;
-      exponent += 1;
-    }
+    const exponent = Math.log(value) / Math.log(2) - 52;
+    const significand = value / 2 ** exponent;
     return (significand + 1) * 2 ** exponent;
   }
   return Infinity;
