@@ -33,6 +33,7 @@ let wav = null;
 let currentPromise = null;
 
 async function predict() {
+  console.log('processing...');
   playButton.setAttribute('disabled', '');
   const promise = tts.predict({
     text: textarea.value,
@@ -42,6 +43,7 @@ async function predict() {
   wav = await currentPromise;
   if (currentPromise === promise) {
     playButton.removeAttribute('disabled');
+    console.log('done.');
     // } else {
     //   console.log('drop previous promise');
   }
