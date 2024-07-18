@@ -1,6 +1,4 @@
-echo `pwd`
 npx gps toc
-git add README.md *.html
 npx gps sitemap
-git add sitemap.xml
+git add .
 npx lint-staged

@@ -1,5 +1,9 @@
 [
   {
+    "name": "@diffusionstudio/vits-web",
+    "link": "diffusionstudio-vits-web"
+  },
+  {
     "name": "Increment to long",
     "link": "increment-to-long/"
   },

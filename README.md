@@ -236,6 +236,7 @@ Table of contents
     * [Dexie.Table.get](https://vivaxy.github.io/examples/libraries/dexie/table-get/) Dexie.Table.get
     * [Transaction With Timeout](https://vivaxy.github.io/examples/libraries/dexie/transaction-with-timeout/) Transaction With Timeout
     * [Write when Unload](https://vivaxy.github.io/examples/libraries/dexie/write-when-unload/) Write when Unload
+  * [@diffusionstudio/vits-web](https://vivaxy.github.io/examples/libraries/diffusionstudio-vits-web/) @diffusionstudio/vits-web
   * [Disable multi selection](https://vivaxy.github.io/examples/libraries/disable-multi-selection/) Disable multi selection
   * [Download Image](https://vivaxy.github.io/examples/libraries/download-image/) Download Image
   * [dragula](https://vivaxy.github.io/examples/libraries/dragula/) Dragula
