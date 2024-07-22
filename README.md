@@ -100,6 +100,7 @@ Table of contents
   * [writing mode](https://vivaxy.github.io/examples/cascading-style-sheets/writing-mode/) Writing mode
   * [Zoom](https://vivaxy.github.io/examples/cascading-style-sheets/zoom/) Zoom
   * [Zoom Style on iPad](https://vivaxy.github.io/examples/cascading-style-sheets/zoom-ipad/) iOS Zoom Font Size
+  * [Zoom Safari](https://vivaxy.github.io/examples/cascading-style-sheets/zoom-safari/) Zoom Safari
 * [Compilers](https://vivaxy.github.io/examples/compilers/) 编译器
   * [Assembly](https://vivaxy.github.io/examples/compilers/assembly/) Assembly
     * [Simple](https://vivaxy.github.io/examples/compilers/assembly/simple/) Simple
