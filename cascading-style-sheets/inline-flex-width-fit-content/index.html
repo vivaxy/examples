@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Inline flex with fit content" />
+    <meta
+      name="keywords"
+      content="vivaxy,example,examples,github,demo,demos,playground,test,Inline flex with fit content,cascading-style-sheets,sample,samples,inline-flex-width-fit-content"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Inline flex with fit content</title>
+  </head>
+  <body>
+    <p>
+      Inline flex content with percentage width will break inline flex
+      container's fit content width strategy.
+    </p>
+    <div style="width: 300px; background: gray">
+      <div style="display: inline-flex; border: 1px solid red">
+        <span style="background: blue; width: 45%">AAAAAAAAAAAAAAAAAA</span>
+        <span style="background: green">BBB</span>
+      </div>
+    </div>
+    <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/cm.js"></script>
+  </body>
+</html>

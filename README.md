@@ -75,6 +75,7 @@ Table of contents
   * [:focus-within](https://vivaxy.github.io/examples/cascading-style-sheets/focus-within/) Focus within
   * [Gooey Effects](https://vivaxy.github.io/examples/cascading-style-sheets/gooey-effects/) Gooey Effects
   * [Heart with Crossed Arrows](https://vivaxy.github.io/examples/cascading-style-sheets/heart-with-crossed-arrows/) Heart with Crossed Arrows
+  * [Inline flex with fit content](https://vivaxy.github.io/examples/cascading-style-sheets/inline-flex-width-fit-content/) Inline flex with fit content
   * [live edit style](https://vivaxy.github.io/examples/cascading-style-sheets/live-edit-style/) Live edit style
   * [offset-path](https://vivaxy.github.io/examples/cascading-style-sheets/offset-path/) Offset path
   * [Overflow Anchor](https://vivaxy.github.io/examples/cascading-style-sheets/overflow-anchor/) Overflow Anchor

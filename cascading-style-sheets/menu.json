@@ -1,5 +1,9 @@
 [
   {
+    "name": "Inline flex width fit content",
+    "link": "inline-flex-width-fit-content/"
+  },
+  {
     "name": "Zoom Safari",
     "link": "zoom-safari/"
   },
