@@ -41,6 +41,7 @@ Table of contents
     * [Breadth First Search](https://vivaxy.github.io/examples/algorithms/tree/breadth-first-search/) 广度优先遍历算法
     * [Depth First Search](https://vivaxy.github.io/examples/algorithms/tree/depth-first-search/) 深度优先遍历算法
 * [Benchmark](https://vivaxy.github.io/examples/benchmark/) 性能
+  * [Array Push vs Length](https://vivaxy.github.io/examples/benchmark/array-push-vs-length/) Array Push vs Length
   * [Arrow Function vs Regular Function](https://vivaxy.github.io/examples/benchmark/arrow-function-vs-regular-function/) Arrow Function vs Regular Function
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/class-function-declaration-vs-class-prototype-function-bind/) Benchmark between class function declaration and class prototype function bind 
   * [Compare performance: string vs number vs bigint](https://vivaxy.github.io/examples/benchmark/compare-performance-string-number-bigint/) Memory: string vs number vs bigint

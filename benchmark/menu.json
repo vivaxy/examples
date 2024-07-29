@@ -1,5 +1,9 @@
 [
   {
+    "name": "Array Push vs Length",
+    "link": "array-push-vs-length/"
+  },
+  {
     "name": "Compare Strings",
     "link": "compare-strings/"
   },
