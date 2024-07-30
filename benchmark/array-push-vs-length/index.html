@@ -17,10 +17,20 @@
   </head>
   <body>
     <p>array.push() is faster.</p>
-    <p>
-      array.push() cost 0.24100000023841858; array[array.length] cost
-      0.20199999928474427;
-    </p>
+    <ul>
+      <li>
+        <pre><code>array.push() </code></pre>
+        cost 0.6460000002384185.
+      </li>
+      <li>
+        <pre><code>array[array.length] </code></pre>
+        cost 0.7599999988079071.
+      </li>
+      <li>
+        <pre><code>predefined array length, array[array.length] </code></pre>
+        cost 0.6710000002384185.
+      </li>
+    </ul>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/cm.js"></script>
