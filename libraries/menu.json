@@ -1,5 +1,9 @@
 [
   {
+    "name": "Chrome Origin Trials",
+    "link": "chrome-origin-trials/"
+  },
+  {
     "name": "@diffusionstudio/vits-web",
     "link": "diffusionstudio-vits-web"
   },

@@ -223,6 +223,7 @@ Table of contents
     * [Broadcast Channel](https://vivaxy.github.io/examples/libraries/broadcast-channel/basic/) Broadcast Channel
     * [Gather Tabs](https://vivaxy.github.io/examples/libraries/broadcast-channel/gather-tabs/) Gather Tabs
   * [Browserify](https://vivaxy.github.io/examples/libraries/browserify/) Browserify demo
+  * [Chrome Origin Trials](https://vivaxy.github.io/examples/libraries/chrome-origin-trials/) Chrome Origin Trials
   * [CSS Loader](https://vivaxy.github.io/examples/libraries/css-loader/) CSS Loader
     * [CSS Loader](https://vivaxy.github.io/examples/libraries/css-loader/escape-spaces/) CSS Loader
   * [cycle.js](https://vivaxy.github.io/examples/libraries/cycle-js/) Cycle js
