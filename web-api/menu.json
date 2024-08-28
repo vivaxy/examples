@@ -1,5 +1,9 @@
 [
   {
+    "name": "localStorage Consistency",
+    "link": "local-storage-consistency/"
+  },
+  {
     "name": "Proxy Events",
     "link": "proxy-events/"
   },

@@ -473,6 +473,7 @@ Table of contents
   * [iOS Double Click Fixed Position Error on WebView](https://vivaxy.github.io/examples/web-api/ios-double-click-fixed-position-error-on-webview/) iOS Double Click Fixed Position Error on WebView example
   * [is element on screen](https://vivaxy.github.io/examples/web-api/is-element-on-screen/) Is element on screen
   * [localStorage demo page](https://vivaxy.github.io/examples/web-api/local-storage/) Local storage
+  * [LocalStorage Consistency](https://vivaxy.github.io/examples/web-api/local-storage-consistency/) LocalStorage Consistency
   * [LockManager](https://vivaxy.github.io/examples/web-api/lock-manager/) LockManager
   * [matchMedia](https://vivaxy.github.io/examples/web-api/match-media/) window.matchMedia API
   * [performance.measureUserAgentSpecificMemory](https://vivaxy.github.io/examples/web-api/measure-user-agent-specific-memory/) performance.measureUserAgentSpecificMemory
