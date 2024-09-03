@@ -1,5 +1,9 @@
 [
   {
+    "name": "Web Worker Multithreading",
+    "link": "web-worker-multithreading/"
+  },
+  {
     "name": "localStorage Consistency",
     "link": "local-storage-consistency/"
   },

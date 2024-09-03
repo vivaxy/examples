@@ -553,6 +553,7 @@ Table of contents
   * [Web Share](https://vivaxy.github.io/examples/web-api/web-share/) Web Share
   * [web worker demo page](https://vivaxy.github.io/examples/web-api/web-worker/) Web worker
   * [Does WebWorker JS Infinite Loop Freeze Page?](https://vivaxy.github.io/examples/web-api/web-worker-js-infinite-loop-freeze-page/) Does WebWorker JS Infinite Loop Freeze Page?
+  * [Web Worker Multithreading](https://vivaxy.github.io/examples/web-api/web-worker-multithreading/) Web Worker Multithreading
   * [Web Worker transfer](https://vivaxy.github.io/examples/web-api/web-worker-transfer/) Web worker transfer
   * [WebGL](https://vivaxy.github.io/examples/web-api/webgl/) WebGL
     * [webgl fundamentals](https://vivaxy.github.io/examples/web-api/webgl/fundamentals/) Fundamentals
