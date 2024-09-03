@@ -13,12 +13,18 @@
     />
     <meta name="author" content="vivaxy" />
     <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
     <title>Decode Message</title>
   </head>
   <body>
-    <textarea rows="100" cols="100" id="input"></textarea>
-    <button id="decode">Decode</button>
-    <textarea rows="100" cols="100" id="output"></textarea>
+    <div class="container">
+      <textarea rows="50" cols="100" id="input"></textarea>
+      <div class="buttons">
+        <button id="decode">Decode -></button>
+        <!--        <button id="encode"><- Encode</button>-->
+      </div>
+      <textarea rows="50" cols="100" id="output"></textarea>
+    </div>
     <script src="https://unpkg.com/@vivaxy/framework/utils/console.js"></script>
     <script type="module" src="index.js"></script>
     <script type="text/javascript" charset="utf-8" src="/cm.js"></script>

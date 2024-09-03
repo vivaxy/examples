@@ -1,0 +1,22 @@
+/**
+ * @since 2024-09-03
+ * @author vivaxy
+ */
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+textarea {
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+button {
+  margin: 12px;
+}
