@@ -1,5 +1,9 @@
 [
   {
+    "name": "Netease Music",
+    "link": "netease-music/index.js"
+  },
+  {
     "name": "Chrome Origin Trials",
     "link": "chrome-origin-trials/"
   },
