@@ -54,15 +54,15 @@ document.getElementById('decode').addEventListener('click', () => {
   }
 });
 
-document.getElementById('encode').addEventListener('click', function () {
-  try {
-    const inputValue = /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('output')
-    ).value;
-    /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('input')
-    ).value = encode(JSON.stringify(JSON.parse(inputValue)));
-  } catch (error) {
-    console.error(error);
-  }
-});
+// document.getElementById('encode').addEventListener('click', function () {
+//   try {
+//     const inputValue = /** @type {HTMLTextAreaElement} */ (
+//       document.getElementById('output')
+//     ).value;
+//     /** @type {HTMLTextAreaElement} */ (
+//       document.getElementById('input')
+//     ).value = encode(JSON.stringify(JSON.parse(inputValue)));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
