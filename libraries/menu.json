@@ -1,5 +1,9 @@
 [
   {
+    "name": "CodeMirror",
+    "link": "codemirror"
+  },
+  {
     "name": "Netease Music",
     "link": "netease-music/index.js"
   },

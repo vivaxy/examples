@@ -1,1 +1,7 @@
 libraries/prosemirror/*/bundle.js
+libraries/codemirror/*/bundle.js
+libraries/sharedb/*/bundle.js
+libraries/webpack/dynamic-import/dist
+libraries/webpack/tree-shaking-css/bundle.js
+libraries/yjs/*/bundle.js
+libraries/yoga-layout/*/bundle.js
