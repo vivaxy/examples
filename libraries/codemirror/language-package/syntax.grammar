@@ -1,0 +1,13 @@
+@top Program { Type Scope? ":" Description EOF }
+
+@tokens {
+  Type { "feat" | "fix" }
+
+  Scope { "(" (!["\\] | "\\" _)* ")" }
+
+  Description { ![\n]+ }
+
+  EOF { "\n" | @eof }
+
+  @precedence { Scope, Type, EOF, Description }
+}

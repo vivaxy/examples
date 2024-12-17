@@ -1,5 +1,9 @@
 [
   {
+    "name": "Language Package",
+    "link": "language-package"
+  },
+  {
     "name": "Basic",
     "link": "basic"
   }

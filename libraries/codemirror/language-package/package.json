@@ -1,0 +1,26 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack server",
+    "build": "NODE_ENV=production webpack",
+    "lezer:build": "lezer-generator syntax.grammar -o syntax.grammar"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.18.3",
+    "@codemirror/language": "^6.10.6",
+    "@lezer/highlight": "^1.2.1",
+    "@lezer/lr": "^1.4.2",
+    "codemirror": "^6.0.1"
+  },
+  "devDependencies": {
+    "@lezer/generator": "^1.7.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}
