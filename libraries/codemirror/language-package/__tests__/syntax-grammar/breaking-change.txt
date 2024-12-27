@@ -1,0 +1,23 @@
+# without breaking change
+
+feat: ok
+
+==>
+
+Program(Summary(Type,Whitespace,Description))
+
+# after type
+
+feat!: ok
+
+==>
+
+Program(Summary(Type,Whitespace,Description))
+
+# after scope
+
+feat(x)!: ok
+
+==>
+
+Program(Summary(Type,Scope,Whitespace,Description))

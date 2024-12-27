@@ -1,13 +1,17 @@
-@top Program { Type Scope? ":" Description EOF }
+@top Program { Summary (NewLines Body)* }
+
+Summary { Type ("(" Scope ")")? "!"? ":" Whitespace? Description }
 
 @tokens {
-  Type { "feat" | "fix" }
+  NewLines { "\n"+ }
 
-  Scope { "(" (!["\\] | "\\" _)* ")" }
+  Whitespace { @whitespace+ }
 
-  Description { ![\n]+ }
+  Type { @asciiLetter+ }
 
-  EOF { "\n" | @eof }
+  Scope { @asciiLetter+ }
 
-  @precedence { Scope, Type, EOF, Description }
+  Description { @asciiLetter+ }
+
+  Body { @asciiLetter+ }
 }

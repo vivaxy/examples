@@ -1,0 +1,23 @@
+# feat type
+
+feat: ok
+
+==>
+
+Program(Summary(Type,Whitespace,Description))
+
+# fix type
+
+fix: ok
+
+==>
+
+Program(Summary(Type,Whitespace,Description))
+
+# custom type
+
+docs: other
+
+==>
+
+Program(Summary(Type,Whitespace,Description))

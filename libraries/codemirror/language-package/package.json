@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack server",
     "build": "NODE_ENV=production webpack",
-    "lezer:build": "lezer-generator syntax.grammar -o syntax.grammar"
+    "lezer:build": "lezer-generator syntax.grammar -o syntax.grammar",
+    "test": "vitest run"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@lezer/generator": "^1.7.2",
+    "vitest": "^2.1.8",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0"

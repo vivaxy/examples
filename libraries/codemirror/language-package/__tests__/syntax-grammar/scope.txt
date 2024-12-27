@@ -1,0 +1,15 @@
+# without scope
+
+feat: ok
+
+==>
+
+Program(Summary(Type,Whitespace,Description))
+
+# with scope
+
+feat(x): ok
+
+==>
+
+Program(Summary(Type,Scope,Whitespace,Description))

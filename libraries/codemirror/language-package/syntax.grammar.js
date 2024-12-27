@@ -2,16 +2,19 @@
 import { LRParser } from '@lezer/lr';
 export const parser = LRParser.deserialize({
   version: 14,
-  states: 'tOQOPOOOVOPOOO_OQOOOYOPOOOdOPOOQOOOOO',
-  stateData: 'o~OQPO~ORROVQO~OSSO~OTTO~ORQTST~',
-  goto: 'QPP',
-  nodeNames: '⚠ Program Type Scope Description EOF',
-  maxTerm: 7,
+  states:
+    "$bOQOPOOOVOPO'#C^QbOPOOOgOQO,58xOoOPO,58xOtOSO,58xOyOWO'#CeQbOPOOOOOO1G.d1G.dO!OOQO1G.dO!TOQO1G.dO!]OPO1G.dOOOO,59P,59POOOO-E6c-E6cOOOO7+$O7+$OO!bOQO7+$OO!gOPO7+$OOOOO<<Gj<<GjO!oOQO<<GjO!wOPO<<GjOOOOAN=UAN=UO!|OQOAN=UO#ROQOAN=UOOOOG22pG22pO#ZOQOG22pOOOOLD([LD([",
+  stateData:
+    '#`~ORPO~OZTO]SO^RO~OVUO~OTXOUWO~O^YO~OSZO~OW[O~OU^O~OT_OU^O~O[`O~OUaO~O]cO^bO~OTeOUdO~O^fO~OUgO~OThOUgO~OUiO~O',
+  goto: 'dYPPZPPPPPP^RQOQVQR]V',
+  nodeNames:
+    '⚠ Program Summary Type Scope Whitespace Description NewLines Body',
+  maxTerm: 14,
   skippedNodes: [0],
-  repeatNodeCount: 0,
+  repeatNodeCount: 1,
   tokenData:
-    "*q~R]OYzYZ!cZxzxy!hy![z![!]'s!]#Yz#Y#Z(W#Z;'Sz;'S;=`!]<%l~z~Oz~~!cQ!PSSQOYzZ;'Sz;'S;=`!]<%lOzQ!`P;=`<%lz~!hOT~~!mZSQOY!hYZ#`Zr!hrszsy!hyz%lz#O!h#O#P&f#P;'S!h;'S;=`'m<%lO!h~#cWOr#`sy#`yz#{z#O#`#O#P$j#P;'S#`;'S;=`%f<%lO#`~$QWR~Or#`sy#`yz#{z#O#`#O#P$j#P;'S#`;'S;=`%f<%lO#`~$mRO;'S#`;'S;=`$v;=`O#`~$yXOr#`sy#`yz#{z#O#`#O#P$j#P;'S#`;'S;=`%f;=`<%l#`<%lO#`~%iP;=`<%l#`~%sZR~SQOY!hYZ#`Zr!hrszsy!hyz%lz#O!h#O#P&f#P;'S!h;'S;=`'m<%lO!h~&kUSQOY!hYZ#`Z;'S!h;'S;=`&};=`<%l#`<%lO!h~'QXOr#`sy#`yz#{z#O#`#O#P$j#P;'S#`;'S;=`%f;=`<%l!h<%lO#`~'pP;=`<%l!hR'zSVPSQOYzZ;'Sz;'S;=`!]<%lOz~(]WSQOYzZ#Xz#X#Y(u#Y#]z#]#^*Y#^;'Sz;'S;=`!]<%lOz~(zUSQOYzZ#Tz#T#U)^#U;'Sz;'S;=`!]<%lOz~)cUSQOYzZ#hz#h#i)u#i;'Sz;'S;=`!]<%lOz~)|SQ~SQOYzZ;'Sz;'S;=`!]<%lOz~*_USQOYzZ#lz#l#m)u#m;'Sz;'S;=`!]<%lOz",
-  tokenizers: [0, 1],
+    '$r~RbXY!ZYZ#OZ^!Zpq!Zqr#{xy$Qyz$V![!]$[!c!}$a#T#o$a#y#z!Z$f$g!Z#BY#BZ!Z$IS$I_!Z$I|$JO!Z$JT$JU!Z$KV$KW!Z&FU&FV!ZQ!`YTQX^!Zpq!Z#y#z!Z$f$g!Z#BY#BZ!Z$IS$I_!Z$I|$JO!Z$JT$JU!Z$KV$KW!Z&FU&FV!ZR#V[VPTQXY!ZYZ#OZ^!Zpq!Z#y#z!Z$f$g!Z#BY#BZ!Z$IS$I_!Z$I|$JO!Z$JT$JU!Z$KV$KW!Z&FU&FV!Z~$QO]~~$VOZ~~$[O[~~$aO^~_$lQWWUQSSRP!c!}$a#T#o$a',
+  tokenizers: [0, 1, 2, 3],
   topRules: { Program: [0, 1] },
-  tokenPrec: 25,
+  tokenPrec: 0,
 });
