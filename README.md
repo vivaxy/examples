@@ -401,6 +401,7 @@ Table of contents
 * [Network](https://vivaxy.github.io/examples/network/) 网络
   * [err_insufficient_resources](https://vivaxy.github.io/examples/network/err-insufficient-resources/) err_insufficient_resources
 * [Node.js](https://vivaxy.github.io/examples/node-js/) Node.js
+* [Rust](https://vivaxy.github.io/examples/rust/) Rust
 * [Shell](https://vivaxy.github.io/examples/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/examples/sliding-tiles-puzzle/) 数字推盘游戏
 * [Tupper's self-referential formula](https://vivaxy.github.io/examples/tupper-s-self-referential-formula/) Tupper's self-referential formula

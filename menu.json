@@ -1,5 +1,9 @@
 [
   {
+    "name": "Rust",
+    "link": "rust"
+  },
+  {
     "name": "Go",
     "link": "go"
   },
