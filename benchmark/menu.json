@@ -1,5 +1,9 @@
 [
   {
+    "name": "Blob vs TextEncoder",
+    "link": "blob-vs-text-encoder/"
+  },
+  {
     "name": "Array Push vs Length",
     "link": "array-push-vs-length/"
   },

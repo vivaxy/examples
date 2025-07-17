@@ -44,6 +44,7 @@ Table of contents
   * [Algorithms for performance test](https://vivaxy.github.io/examples/benchmark/algorithms/) Algorithms for performance test
   * [Array Push vs Length](https://vivaxy.github.io/examples/benchmark/array-push-vs-length/) Array Push vs Length
   * [Arrow Function vs Regular Function](https://vivaxy.github.io/examples/benchmark/arrow-function-vs-regular-function/) Arrow Function vs Regular Function
+  * [Blob v.s. TextEncoder](https://vivaxy.github.io/examples/benchmark/blob-vs-text-encoder/) Benchmark Blob v.s. TextEncoder
   * [Class Function Declaration v.s. Class Prototype Function Bind](https://vivaxy.github.io/examples/benchmark/class-function-declaration-vs-class-prototype-function-bind/) Benchmark between class function declaration and class prototype function bind 
   * [Compare performance: string vs number vs bigint](https://vivaxy.github.io/examples/benchmark/compare-performance-string-number-bigint/) Memory: string vs number vs bigint
   * [Compare Strings](https://vivaxy.github.io/examples/benchmark/compare-strings/) Compare Strings
