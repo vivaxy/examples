@@ -1,0 +1,3 @@
+# Run
+
+`cargo run -- list`
