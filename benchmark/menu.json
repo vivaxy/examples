@@ -1,5 +1,9 @@
 [
   {
+    "name": "Node IPC",
+    "link": "node-ipc"
+  },
+  {
     "name": "Blob vs TextEncoder",
     "link": "blob-vs-text-encoder/"
   },
