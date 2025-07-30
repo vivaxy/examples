@@ -1,4 +1,6 @@
-pub fn create_todo() {
+use super::core::TodoItem;
+
+pub fn create_todo(todos: &mut Vec<TodoItem>) {
   let mut inputs: Vec<String> = Vec::new();
   let mut ok = true;
 
@@ -57,6 +59,8 @@ pub fn create_todo() {
   } else {
     String::from("default content")
   };
+
+  todos.push(TodoItem::new(&title, &content));
 
   println!("create todo title: {}, content: {}", title, content);
 }
