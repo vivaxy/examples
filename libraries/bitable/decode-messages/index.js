@@ -2,7 +2,7 @@
  * @since 2024-07-08
  * @author vivaxy
  */
-import pako from 'https://unpkg.com/pako?module';
+import pako from 'https://esm.run/pako';
 
 /**
  * @param {string} base64
@@ -14,7 +14,7 @@ function base64ToArrayBuffer(base64) {
   for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
-  return bytes.buffer;
+  return bytes;
 }
 
 /**
@@ -22,7 +22,8 @@ function base64ToArrayBuffer(base64) {
  * @return {string}
  */
 function decode(string) {
-  return pako.inflate(base64ToArrayBuffer(string), {
+  const buffer = base64ToArrayBuffer(string);
+  return pako.inflate(buffer, {
     to: 'string',
   });
 }
@@ -32,8 +33,9 @@ function decode(string) {
  * @return {string}
  */
 function encode(string) {
-  // todo
-  const compressed = pako.deflate(string);
+  const compressed = pako.gzip(string, {
+    level: 9,
+  });
   let binaryString = '';
   for (let i = 0; i < compressed.length; i++) {
     binaryString += String.fromCharCode(compressed[i]);
@@ -54,15 +56,15 @@ document.getElementById('decode').addEventListener('click', () => {
   }
 });
 
-// document.getElementById('encode').addEventListener('click', function () {
-//   try {
-//     const inputValue = /** @type {HTMLTextAreaElement} */ (
-//       document.getElementById('output')
-//     ).value;
-//     /** @type {HTMLTextAreaElement} */ (
-//       document.getElementById('input')
-//     ).value = encode(JSON.stringify(JSON.parse(inputValue)));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
+document.getElementById('encode').addEventListener('click', function () {
+  try {
+    const inputValue = /** @type {HTMLTextAreaElement} */ (
+      document.getElementById('output')
+    ).value;
+    /** @type {HTMLTextAreaElement} */ (
+      document.getElementById('input')
+    ).value = encode(JSON.stringify(JSON.parse(inputValue)));
+  } catch (error) {
+    console.error(error);
+  }
+});
