@@ -2,6 +2,7 @@
  * @since 2025-07-21 13:41
  * @author vivaxy
  */
+use clap::Subcommand;
 use serde::{ Deserialize, Serialize };
 use serde_json;
 
@@ -9,6 +10,19 @@ use serde_json;
 pub struct TodoItem {
   pub title: String,
   pub content: String,
+}
+
+#[derive(Debug, Clone, Subcommand)]
+pub enum TodoCommand {
+  /// Create a new todo item
+  Create {
+    #[arg(short, long)]
+    title: String,
+    #[arg(short, long)]
+    content: String,
+  },
+  /// List all todo items
+  List,
 }
 
 pub fn create_todo_item(title: &str, content: &str) -> TodoItem {

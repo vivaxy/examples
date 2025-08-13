@@ -1,7 +1,16 @@
 use super::core::TodoItem;
 
-pub fn create_todo(todos: &mut Vec<TodoItem>) {
+pub fn create_todo(todos: &mut Vec<TodoItem>, title: String, content: String) {
   let mut inputs: Vec<String> = Vec::new();
+
+  if !title.is_empty() {
+    inputs.push(title);
+  }
+
+  if !content.is_empty() {
+    inputs.push(content);
+  }
+
   let mut ok = true;
 
   while ok {
