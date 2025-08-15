@@ -1,14 +1,24 @@
 use super::core::TodoItem;
 
-pub fn create_todo(todos: &mut Vec<TodoItem>, title: String, content: String) {
+pub fn create_todo(todos: &mut Vec<TodoItem>, title: Option<String>, content: Option<String>) {
   let mut inputs: Vec<String> = Vec::new();
 
-  if !title.is_empty() {
-    inputs.push(title);
+  match title {
+    Some(arg_title) => {
+      if !arg_title.is_empty() {
+        inputs.push(arg_title);
+      }
+    }
+    _ => {}
   }
 
-  if !content.is_empty() {
-    inputs.push(content);
+  match content {
+    Some(arg_content) => {
+      if !arg_content.is_empty() {
+        inputs.push(arg_content);
+      }
+    }
+    _ => {}
   }
 
   let mut ok = true;
