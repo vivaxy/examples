@@ -3,22 +3,16 @@ use super::core::TodoItem;
 pub fn create_todo(todos: &mut Vec<TodoItem>, title: Option<String>, content: Option<String>) {
   let mut inputs: Vec<String> = Vec::new();
 
-  match title {
-    Some(arg_title) => {
-      if !arg_title.is_empty() {
-        inputs.push(arg_title);
-      }
+  if let Some(arg_title) = title {
+    if !arg_title.is_empty() {
+      inputs.push(arg_title);
     }
-    _ => {}
   }
 
-  match content {
-    Some(arg_content) => {
-      if !arg_content.is_empty() {
-        inputs.push(arg_content);
-      }
+  if let Some(arg_content) = content {
+    if !arg_content.is_empty() {
+      inputs.push(arg_content);
     }
-    _ => {}
   }
 
   let mut ok = true;
@@ -30,7 +24,9 @@ pub fn create_todo(todos: &mut Vec<TodoItem>, title: Option<String>, content: Op
       println!("Please input todo title:");
 
       let mut title = String::new();
-      std::io::stdin().read_line(&mut title).expect("read line failed");
+      std::io::stdin()
+        .read_line(&mut title)
+        .expect("read line failed");
 
       if title.is_empty() {
         continue;
@@ -42,7 +38,9 @@ pub fn create_todo(todos: &mut Vec<TodoItem>, title: Option<String>, content: Op
 
       let mut content = String::new();
 
-      std::io::stdin().read_line(&mut content).expect("read line failed");
+      std::io::stdin()
+        .read_line(&mut content)
+        .expect("read line failed");
 
       if content.is_empty() {
         continue;
@@ -55,7 +53,9 @@ pub fn create_todo(todos: &mut Vec<TodoItem>, title: Option<String>, content: Op
       println!("Are you sure to create this todo? (y/n)");
 
       let mut sure = String::new();
-      std::io::stdin().read_line(&mut sure).expect("read line failed");
+      std::io::stdin()
+        .read_line(&mut sure)
+        .expect("read line failed");
 
       if sure.trim().to_lowercase() != "n" {
         ok = false;
