@@ -65,3 +65,26 @@ pub fn get_todo_list() -> Vec<TodoItem> {
 
   return todos;
 }
+
+#[cfg(test)]
+mod tests {
+  // 因为是子模块, 因此需要使用 super 关键字来引用父模块
+  use super::{Serializer, TodoItem};
+
+  #[test]
+  fn test_todo_item_creation() {
+    let item = TodoItem::new("test", "content");
+    assert_eq!(item.title, "test");
+    assert_eq!(item.content, "content");
+  }
+
+  #[test]
+  fn test_serialization_roundtrip() {
+    let original = TodoItem::new("test", "content");
+    let serialized = original.serialize();
+    let deserialized = TodoItem::deserialize(serialized);
+
+    assert_eq!(original.title, deserialized.title);
+    assert_eq!(original.content, deserialized.content);
+  }
+}
