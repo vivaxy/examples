@@ -2,7 +2,10 @@
  * @since 2024-07-08
  * @author vivaxy
  */
-import pako from 'https://esm.run/pako';
+import pako from 'https://esm.run/pako@2.1.0';
+import React from 'https://esm.run/react@18.2.0';
+import { createRoot } from 'https://esm.run/react-dom@18.2.0/client';
+import JsonView from 'https://esm.run/@uiw/react-json-view@1.12.2';
 
 /**
  * @param {string} base64
@@ -28,43 +31,40 @@ function decode(string) {
   });
 }
 
-/**
- * @param {string} string
- * @return {string}
- */
-function encode(string) {
-  const compressed = pako.gzip(string, {
-    level: 9,
-  });
-  let binaryString = '';
-  for (let i = 0; i < compressed.length; i++) {
-    binaryString += String.fromCharCode(compressed[i]);
+// /**
+//  * @param {string} string
+//  * @return {string}
+//  */
+// function encode(string) {
+//   const compressed = pako.gzip(string, {
+//     level: 9,
+//   });
+//   let binaryString = '';
+//   for (let i = 0; i < compressed.length; i++) {
+//     binaryString += String.fromCharCode(compressed[i]);
+//   }
+//   return btoa(binaryString);
+// }
+
+function handleDecode() {
+  try {
+    const inputValue = /** @type {HTMLTextAreaElement} */ (
+      document.getElementById('input')
+    ).value;
+    if (!inputValue) {
+      return;
+    }
+    const outputDOM = /** @type {HTMLTextAreaElement} */ (
+      document.getElementById('output')
+    );
+    const root = createRoot(outputDOM);
+    root.render(
+      React.createElement(JsonView, { value: JSON.parse(decode(inputValue)) }),
+    );
+  } catch (error) {
+    console.error(error);
   }
-  return btoa(binaryString);
 }
 
-document.getElementById('decode').addEventListener('click', () => {
-  try {
-    const inputValue = /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('input')
-    ).value;
-    /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('output')
-    ).value = JSON.stringify(JSON.parse(decode(inputValue)), null, 2);
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-document.getElementById('encode').addEventListener('click', function () {
-  try {
-    const inputValue = /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('output')
-    ).value;
-    /** @type {HTMLTextAreaElement} */ (
-      document.getElementById('input')
-    ).value = encode(JSON.stringify(JSON.parse(inputValue)));
-  } catch (error) {
-    console.error(error);
-  }
-});
+document.getElementById('decode').addEventListener('click', handleDecode);
+document.getElementById('input').addEventListener('input', handleDecode);
