@@ -68,3 +68,4 @@ function handleDecode() {
 
 document.getElementById('decode').addEventListener('click', handleDecode);
 document.getElementById('input').addEventListener('input', handleDecode);
+handleDecode();
