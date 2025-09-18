@@ -52,6 +52,7 @@ Table of contents
   * [getBoundingClientRect](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect/) getBoundingClientRect
   * [getBoundingClientRect vs innerWidth vs clientWidth](https://vivaxy.github.io/examples/benchmark/get-bounding-client-rect-vs-inner-width-vs-client-width/) Get bounding client rect vs inner width vs client width
   * [GPU vs WASM](https://vivaxy.github.io/examples/benchmark/gpu-vs-wasm-vs-cpu/) GPU vs WASM
+  * [Gzip](https://vivaxy.github.io/examples/benchmark/gzip/) Gzip
   * [Memory: string vs number vs bigint](https://vivaxy.github.io/examples/benchmark/memory-string-number-bigint/) Memory: string vs number vs bigint
   * [Node IPC](https://vivaxy.github.io/examples/benchmark/node-ipc/) Benchmark Node IPC
   * [Number vs parseInt](https://vivaxy.github.io/examples/benchmark/number-vs-parse-int/) Number vs parse int
