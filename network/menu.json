@@ -1,5 +1,9 @@
 [
   {
+    "name": "HTTP Size",
+    "link": "http-size/node.js"
+  },
+  {
     "name": "http2",
     "link": "http2/index.js"
   },
