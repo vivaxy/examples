@@ -20,6 +20,11 @@ const methods = [
     encode: gzipBase64Encode,
     decode: gzipBase64Decode,
   },
+  {
+    name: 'zlibBase64',
+    encode: zlibBase64Encode,
+    decode: zlibBase64Decode,
+  },
 ];
 
 function toString(string) {
@@ -53,6 +58,24 @@ function gzipBase64Encode(string) {
 }
 
 function gzipBase64Decode(base64) {
+  const binaryString = atob(base64);
+  const arr = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    arr[i] = binaryString.charCodeAt(i);
+  }
+  return pako.inflate(arr, { to: 'string' });
+}
+
+function zlibBase64Encode(string) {
+  const compressed = pako.deflate(string);
+  let binaryString = '';
+  for (let i = 0; i < compressed.length; i++) {
+    binaryString += String.fromCharCode(compressed[i]);
+  }
+  return btoa(binaryString);
+}
+
+function zlibBase64Decode(base64) {
   const binaryString = atob(base64);
   const arr = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {
