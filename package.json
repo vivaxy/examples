@@ -42,7 +42,7 @@
     "readme-prefix": "# [Examples](https://vivaxy.github.io/examples/index.html)",
     "link-prefix": "https://vivaxy.github.io/examples/"
   },
-  "packageManager": "npm@8.19.4",
+  "packageManager": "npm@10.9.3",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "*.js": "eslint"
