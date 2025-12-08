@@ -1,5 +1,9 @@
 [
   {
+    "name": "react dev tools",
+    "link": "react-dev-tools"
+  },
+  {
     "name": "<Suspense />",
     "link": "suspense/src/SuspenseEnabledComponent.js"
   },
