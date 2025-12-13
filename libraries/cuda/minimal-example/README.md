@@ -1,0 +1,6 @@
+- CUDA v13.1 only supporte Microsoft Visual Studio the versions between 2019 and 2022 (inclusive)
+- Open `PowerShell`
+- Run `"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"`
+  - Instead of `cmd /k ""C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat""`
+- Run `nvcc vector_add.cu -o vector_add`
+- Run `vector_add.exe`

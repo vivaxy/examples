@@ -1,5 +1,9 @@
 [
   {
+    "name": "Cuda",
+    "link": "cuda"
+  },
+  {
     "name": "CodeMirror",
     "link": "codemirror"
   },
