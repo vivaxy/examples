@@ -2,5 +2,9 @@
   {
     "name": "cli",
     "link": "cli"
+  },
+  {
+    "name": "Shared Memory",
+    "link": "shared-memory"
   }
 ]

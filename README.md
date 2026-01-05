@@ -406,6 +406,7 @@ Table of contents
   * [HTTP Size](https://vivaxy.github.io/examples/network/http-size/) HTTP Size
 * [Node.js](https://vivaxy.github.io/examples/node-js/) Node.js
 * [Rust](https://vivaxy.github.io/examples/rust/) Rust
+  * [Shared Memory](https://vivaxy.github.io/examples/rust/shared-memory/) Rust Shared Memory
 * [Shell](https://vivaxy.github.io/examples/shell/) Shell
 * [Sliding Tiles Puzzle](https://vivaxy.github.io/examples/sliding-tiles-puzzle/) 数字推盘游戏
 * [Tupper's self-referential formula](https://vivaxy.github.io/examples/tupper-s-self-referential-formula/) Tupper's self-referential formula
