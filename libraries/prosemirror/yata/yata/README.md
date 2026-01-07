@@ -1,6 +1,6 @@
 Document is a Yata Document, which contains items.
 
-A tipical senario:
+A typical scenario:
 1. User edit a ProseMirror document, produce steps.
 2. Translate ProseMirror steps into items update.
 3. Broadcast items to other Document. Replace all ProseMirror nodes. Is there a better way?

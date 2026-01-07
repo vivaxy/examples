@@ -13,6 +13,7 @@ import {
   OpeningTagItem,
   sliceToItems,
   fragmentToItems,
+  Item,
 } from './item.js';
 
 export class Position {
@@ -72,9 +73,9 @@ export class Document {
     return doc;
   }
 
-  constructor() {
+  constructor(client = Math.random().toString(36).slice(2)) {
     this.head = null;
-    this.client = Math.random().toString(36).slice(2);
+    this.client = client;
     this.clock = 0;
   }
 
@@ -196,26 +197,52 @@ export class Document {
     const clientMap = {};
     const items = this.toArray();
     items.forEach(function (item) {
-      clientMap[item.id.client] = item.toJSON();
+      if (!clientMap[item.id.client]) {
+        clientMap[item.id.client] = [];
+      }
+      clientMap[item.id.client].push(item.toJSON());
+    });
+    Object.keys(clientMap).forEach(function (client) {
+      clientMap[client] = clientMap[client].sort(function (a, b) {
+        return a.id.clock - b.id.clock;
+      });
     });
     return clientMap;
   }
 
   applyItems(clientMap) {
-    Object.keys(clientMap).forEach(function (client) {
+    Object.keys(clientMap).forEach((client) => {
       const items = clientMap[client];
-      items.forEach(function (item) {});
+      items.forEach((itemJSON) => {
+        const item = Item.fromJSON(itemJSON);
+        const integratedPos = item.putIntoDocument(this);
+        if (integratedPos) {
+          console.log(
+            'integrated item',
+            item.id,
+            'into position',
+            integratedPos,
+          );
+        }
+      });
     });
+    // todo translate into prosemirror steps
   }
 
   findItemById(id) {
     if (!id) {
       return null;
     }
-    const pos = new Position(doc);
+    const pos = new Position(this);
     let item = this.head;
-    while (pos.left) {
-      if (pos.left.id.clock === id.clock && pos.left.id.client === id.client) {
+    if (item && item.id.client === id.client && item.id.clock === id.clock) {
+      return pos;
+    }
+    while (pos.right) {
+      if (
+        pos.right.id.clock === id.clock &&
+        pos.right.id.client === id.client
+      ) {
         return pos;
       }
       if (pos.canForward()) {

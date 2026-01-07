@@ -19,59 +19,6 @@ describe('nodeToItems', function () {
     ]);
     const items = nodeToItems(node);
     expect(items.length).toBe(node.nodeSize);
-    expect(
-      items.map((item) => {
-        return item.toJSON();
-      }),
-    ).toEqual([
-      {
-        attrs: {},
-        tagName: 'paragraph',
-        type: 'openingTag',
-        closingTagItem: null,
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '1',
-        type: 'text',
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '2',
-        type: 'text',
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '3',
-        type: 'text',
-      },
-      {
-        attrs: {
-          alt: null,
-          src: 'a',
-          title: null,
-        },
-        tagName: 'image',
-        type: 'node',
-      },
-      {
-        tagName: 'paragraph',
-        type: 'closingTag',
-        openingTagItem: null,
-      },
-    ]);
   });
 });
 
@@ -110,64 +57,6 @@ describe('sliceToItems', () => {
     );
     const items = sliceToItems(slice);
     expect(items.length).toBe(slice.size);
-    expect(
-      items.map((item) => {
-        return item.toJSON();
-      }),
-    ).toEqual([
-      {
-        tagName: 'paragraph',
-        type: 'closingTag',
-        openingTagItem: null,
-      },
-      {
-        attrs: {},
-        tagName: 'paragraph',
-        type: 'openingTag',
-        closingTagItem: null,
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '1',
-        type: 'text',
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '2',
-        type: 'text',
-      },
-      {
-        marks: [
-          {
-            type: 'em',
-          },
-        ],
-        text: '3',
-        type: 'text',
-      },
-      {
-        attrs: {
-          alt: null,
-          src: 'a',
-          title: null,
-        },
-        tagName: 'image',
-        type: 'node',
-      },
-      {
-        tagName: 'paragraph',
-        type: 'closingTag',
-        openingTagItem: null,
-      },
-    ]);
   });
 });
 

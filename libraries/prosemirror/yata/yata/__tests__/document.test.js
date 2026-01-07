@@ -71,3 +71,19 @@ describe('applyStep', function () {
     expect(doc.toArray().length).toBe(5);
   });
 });
+
+describe('toItems', function () {
+  test('doc to items', function () {
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('1')])]),
+    );
+    const items = doc.toItems();
+    const keys = Object.keys(items);
+    expect(keys.length).toStrictEqual(1);
+    expect(items[keys[0]].length).toStrictEqual(3);
+    const [item1, item2, item3] = items[keys[0]];
+    expect(item1.id.clock).toStrictEqual(0);
+    expect(item2.id.clock).toStrictEqual(1);
+    expect(item3.id.clock).toStrictEqual(2);
+  });
+});

@@ -25,13 +25,10 @@ const view1 = new EditorView(document.querySelector('.editor[data-id="1"]'), {
   },
 });
 
-const state2 = EditorState.create({
-  schema,
-  plugins: exampleSetup({ schema: schema }),
-});
-const doc2 = Document.fromNodes(state2.doc.content);
+const doc2 = new Document(doc1.client);
+doc2.applyItems(doc1.toItems());
 const view2 = new EditorView(document.querySelector('.editor[data-id="2"]'), {
-  state: state2,
+  state: state1,
   dispatchTransaction(tr) {
     view2.updateState(view2.state.apply(tr));
     tr.steps.forEach(function (step) {
@@ -43,12 +40,23 @@ const view2 = new EditorView(document.querySelector('.editor[data-id="2"]'), {
 document
   .querySelector('.sync[data-id="1"]')
   .addEventListener('click', function () {
-    const data1 = doc1.toJSON();
+    const data1 = doc1.toItems();
+    doc2.applyItems(data1);
+    // todo doc to prosemirror doc
+    const tr = view2.state.tr.replaceWith(
+      0,
+      view2.state.doc.content.size,
+      view2.state.schema.nodeFromJSON(data1),
+    );
+    view2.dispatch(tr);
+    view2.focus();
+    console.log('sync doc1 to doc2');
   });
+
 document
   .querySelector('.sync[data-id="2"]')
   .addEventListener('click', function () {
-    const data2 = doc2.toJSON();
+    const data2 = doc2.toItems();
   });
 
 window.view1 = view1;

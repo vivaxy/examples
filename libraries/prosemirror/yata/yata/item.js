@@ -32,6 +32,8 @@ export class Item {
     this.deleted = false;
   }
 
+  static itemMap = {};
+
   insertIntoPosition(pos) {
     this.left = pos.left;
     this.right = pos.right;
@@ -81,17 +83,27 @@ export class Item {
       // already put into document
       return;
     }
+
+    if (doc.head === null && !this.originalLeft && this.originalRight) {
+      doc.head = this;
+      return doc.resolvePosition();
+    }
+
     const originalLeftPos = doc.findItemById(this.originalLeft);
     const originalRightPos = doc.findItemById(this.originalRight);
+
     if (!originalLeftPos && !originalRightPos) {
       throw new Error('Left and Right not found');
     }
     if (originalLeftPos) {
-      while (!originalLeftPos.right.greaterThan(this)) {
-        // todo right most to originalRightPos
+      while (
+        originalLeftPos.right &&
+        !originalLeftPos.right.greaterThan(this)
+      ) {
         originalLeftPos.forward();
       }
       this.insertIntoPosition(originalLeftPos);
+      return originalLeftPos;
     }
   }
 
@@ -112,17 +124,41 @@ export class Item {
     };
     if (originalLeft) {
       json.originalLeft = {
-        client: originalLeft.client,
-        clock: originalLeft.clock,
+        client: originalLeft.id.client,
+        clock: originalLeft.id.clock,
       };
     }
     if (originalRight) {
       json.originalRight = {
-        client: originalRight.client,
-        clock: originalRight.clock,
+        client: originalRight.id.client,
+        clock: originalRight.id.clock,
       };
     }
     return json;
+  }
+
+  static setId(item, json) {
+    item.id = {
+      client: json.id.client,
+      clock: json.id.clock,
+    };
+    if (json.originalLeft) {
+      item.originalLeft = {
+        client: json.originalLeft.client,
+        clock: json.originalLeft.clock,
+      };
+    }
+    if (json.originalRight) {
+      item.originalRight = {
+        client: json.originalRight.client,
+        clock: json.originalRight.clock,
+      };
+    }
+    return item;
+  }
+
+  static fromJSON(json) {
+    return this.itemMap[json.type].fromJSON(json);
   }
 
   greaterThan(item) {
@@ -165,6 +201,7 @@ export class MapItem {
 export class TextItem extends Item {
   constructor(text, marks = []) {
     super();
+    Item.itemMap['text'] = TextItem;
     this.text = text;
     this.marks = marks.map((mark) => {
       return mark.toJSON();
@@ -172,11 +209,18 @@ export class TextItem extends Item {
   }
 
   toJSON() {
+    const base = super.toJSON();
     return {
+      ...base,
       type: 'text',
       text: this.text,
       marks: this.marks,
     };
+  }
+
+  static fromJSON(json) {
+    const textItem = new TextItem(json.text, json.marks);
+    return Item.setId(textItem, json);
   }
 
   toHTMLString() {
@@ -196,6 +240,7 @@ export class TextItem extends Item {
 export class OpeningTagItem extends Item {
   constructor(tagName, attrs) {
     super();
+    Item.itemMap['openingTag'] = OpeningTagItem;
     this.tagName = tagName;
     // todo attrs should be items too
     this.attrs = attrs;
@@ -203,12 +248,20 @@ export class OpeningTagItem extends Item {
   }
 
   toJSON() {
+    const base = super.toJSON();
     return {
+      ...base,
       type: 'openingTag',
       tagName: this.tagName,
       attrs: this.attrs,
       closingTagItem: this.closingTagItem.id,
     };
+  }
+
+  static fromJSON(json) {
+    const openingTagItem = new OpeningTagItem(json.tagName, json.attrs);
+    openingTagItem.closingTagItem = json.closingTagItem;
+    return Item.setId(openingTagItem, json);
   }
 
   integrate(position) {
@@ -234,16 +287,25 @@ export class OpeningTagItem extends Item {
 export class ClosingTagItem extends Item {
   constructor(tagName) {
     super();
+    Item.itemMap['closingTag'] = ClosingTagItem;
     this.tagName = tagName;
     this.openingTagItem = null;
   }
 
   toJSON() {
+    const base = super.toJSON();
     return {
+      ...base,
       type: 'closingTag',
       tagName: this.tagName,
       openingTagItem: this.openingTagItem?.id,
     };
+  }
+
+  static fromJSON(json) {
+    const closingTagItem = new ClosingTagItem(json.tagName);
+    closingTagItem.openingTagItem = json.openingTagItem;
+    return Item.setId(closingTagItem, json);
   }
 
   integrate(position) {
@@ -271,16 +333,24 @@ export class ClosingTagItem extends Item {
 export class NodeItem extends Item {
   constructor(tagName, attrs) {
     super();
+    Item.itemMap['node'] = NodeItem;
     this.tagName = tagName;
     this.attrs = attrs;
   }
 
   toJSON() {
+    const base = super.toJSON();
     return {
+      ...base,
       type: 'node',
       tagName: this.tagName,
       attrs: this.attrs,
     };
+  }
+
+  static fromJSON(json) {
+    const nodeItem = new NodeItem(json.tagName, json.attrs);
+    return Item.setId(nodeItem, json);
   }
 
   toHTMLString() {
