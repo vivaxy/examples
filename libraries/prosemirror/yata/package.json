@@ -11,13 +11,13 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "prosemirror-example-setup": "^1.1.2",
-    "prosemirror-model": "^1.16.1",
-    "prosemirror-schema-basic": "^1.1.2",
-    "prosemirror-schema-list": "^1.1.6",
-    "prosemirror-state": "^1.3.4",
-    "prosemirror-transform": "^1.3.4",
-    "prosemirror-view": "^1.23.9"
+    "prosemirror-example-setup": "^1.2.3",
+    "prosemirror-model": "^1.25.4",
+    "prosemirror-schema-basic": "^1.2.4",
+    "prosemirror-schema-list": "^1.5.1",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-transform": "^1.10.5",
+    "prosemirror-view": "^1.41.5"
   },
   "scripts": {
     "dev": "NODE_ENV=development webpack server",

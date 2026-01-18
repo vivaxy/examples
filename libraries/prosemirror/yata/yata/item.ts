@@ -1,10 +1,17 @@
-/**
- * @since 2022-03-12
- * @author vivaxy
- */
-import { Fragment, Slice } from 'prosemirror-model';
+import type { Fragment, Slice, Node, Mark, Schema } from 'prosemirror-model';
+import type {
+  ItemID,
+  ItemReference,
+  AnyItemJSON,
+  TextItemJSON,
+  OpeningTagItemJSON,
+  ClosingTagItemJSON,
+  NodeItemJSON,
+  ItemMap,
+} from './types.js';
+import type { Position, Document } from './document.js';
 
-function attrsToQueryString(attrs) {
+function attrsToQueryString(attrs: Record<string, any> | null): string {
   if (!attrs) {
     return '';
   }
@@ -16,13 +23,23 @@ function attrsToQueryString(attrs) {
 }
 
 export class ID {
-  constructor(client, clock) {
+  client: string;
+  clock: number;
+
+  constructor(client: string, clock: number) {
     this.client = client;
     this.clock = clock;
   }
 }
 
 export class Item {
+  id: ItemID | null;
+  left: Item | null;
+  right: Item | null;
+  originalLeft: ItemReference<Item>;
+  originalRight: ItemReference<Item>;
+  deleted: boolean;
+
   constructor() {
     this.id = null;
     this.left = null;
@@ -32,9 +49,9 @@ export class Item {
     this.deleted = false;
   }
 
-  static itemMap = {};
+  static itemMap: Partial<ItemMap> = {};
 
-  insertIntoPosition(pos) {
+  insertIntoPosition(pos: Position): void {
     this.left = pos.left;
     this.right = pos.right;
     if (pos.left === null && pos.right === null) {
@@ -53,7 +70,11 @@ export class Item {
     }
   }
 
-  integrateInner(doc, originalLeft, originalRight) {
+  integrateInner(
+    doc: Document,
+    originalLeft: Item | null,
+    originalRight: Item | null,
+  ): void {
     if (originalLeft) {
       if (!this.originalLeft) {
         this.originalLeft = originalLeft;
@@ -78,17 +99,17 @@ export class Item {
     doc.clock++;
   }
 
-  integrate(position) {
+  integrate(position: Position): void {
     this.integrateInner(position.doc, position.left, position.right);
     this.insertIntoPosition(position);
   }
 
-  putIntoDocument(doc) {
+  putIntoDocument(doc: Document): Position | undefined {
     const foundPos = doc.findItemById(this.id);
     if (foundPos) {
       // Item already exists in document - update deleted status if incoming item is deleted
       // Deletions are permanent (tombstones), so once deleted, always deleted
-      if (this.deleted) {
+      if (this.deleted && foundPos.right) {
         foundPos.right.deleted = true;
       }
       return;
@@ -122,7 +143,7 @@ export class Item {
       while (pos.canForward()) {
         const nextItem = pos.right;
 
-        if (nextItem.lessThan(this)) {
+        if (nextItem && nextItem.lessThan(this)) {
           pos.forward();
         } else {
           break;
@@ -151,20 +172,21 @@ export class Item {
         const nextItem = originalLeftPos.right;
 
         // Get the ID of this.originalLeft (could be Item or ID object)
-        const thisOriginalLeftId = this.originalLeft.id
-          ? this.originalLeft.id
-          : this.originalLeft;
+        const thisOriginalLeftId =
+          this.originalLeft && 'id' in this.originalLeft && this.originalLeft.id
+            ? this.originalLeft.id
+            : this.originalLeft;
 
         // Get the ID of nextItem.originalLeft (could be Item or ID object)
         const nextOriginalLeftId = nextItem.originalLeft
-          ? nextItem.originalLeft.id
+          ? 'id' in nextItem.originalLeft && nextItem.originalLeft.id
             ? nextItem.originalLeft.id
             : nextItem.originalLeft
           : null;
 
         // Get the ID of nextItem.originalRight (could be Item or ID object)
         const nextOriginalRightId = nextItem.originalRight
-          ? nextItem.originalRight.id
+          ? 'id' in nextItem.originalRight && nextItem.originalRight.id
             ? nextItem.originalRight.id
             : nextItem.originalRight
           : null;
@@ -172,12 +194,14 @@ export class Item {
         // Check if nextItem has the same originalLeft as us
         const nextHasSameOriginalLeft =
           nextOriginalLeftId &&
+          thisOriginalLeftId &&
           nextOriginalLeftId.client === thisOriginalLeftId.client &&
           nextOriginalLeftId.clock === thisOriginalLeftId.clock;
 
         // Check if nextItem's originalRight equals our originalLeft
         const nextOriginalRightEqualsOurOriginalLeft =
           nextOriginalRightId &&
+          thisOriginalLeftId &&
           nextOriginalRightId.client === thisOriginalLeftId.client &&
           nextOriginalRightId.clock === thisOriginalLeftId.clock;
 
@@ -196,12 +220,13 @@ export class Item {
           // After skipping, check if we just skipped our originalRight
           // If so, stop here (we've gone as far as we should)
           const thisOriginalRightId = this.originalRight
-            ? this.originalRight.id
+            ? 'id' in this.originalRight && this.originalRight.id
               ? this.originalRight.id
               : this.originalRight
             : null;
           const justSkippedOriginalRight =
             thisOriginalRightId &&
+            nextItem.id &&
             nextItem.id.client === thisOriginalRightId.client &&
             nextItem.id.clock === thisOriginalRightId.clock;
 
@@ -231,52 +256,55 @@ export class Item {
     }
   }
 
-  delete() {
+  delete(): void {
     if (this.deleted) {
       return;
     }
     this.deleted = true;
   }
 
-  toJSON() {
+  toJSON(): AnyItemJSON {
     const { originalLeft, originalRight } = this;
-    const json = {
+    const json: Partial<AnyItemJSON> = {
       id: {
-        client: this.id.client,
-        clock: this.id.clock,
+        client: this.id!.client,
+        clock: this.id!.clock,
       },
+      type: 'text', // Will be overridden by subclasses
     };
     if (originalLeft) {
       // originalLeft might be an Item (with .id) or already a plain ID object {client, clock}
-      json.originalLeft = originalLeft.id
-        ? {
-            client: originalLeft.id.client,
-            clock: originalLeft.id.clock,
-          }
-        : {
-            client: originalLeft.client,
-            clock: originalLeft.clock,
-          };
+      json.originalLeft =
+        'id' in originalLeft && originalLeft.id
+          ? {
+              client: originalLeft.id.client,
+              clock: originalLeft.id.clock,
+            }
+          : {
+              client: (originalLeft as ItemID).client,
+              clock: (originalLeft as ItemID).clock,
+            };
     }
     if (originalRight) {
       // originalRight might be an Item (with .id) or already a plain ID object {client, clock}
-      json.originalRight = originalRight.id
-        ? {
-            client: originalRight.id.client,
-            clock: originalRight.id.clock,
-          }
-        : {
-            client: originalRight.client,
-            clock: originalRight.clock,
-          };
+      json.originalRight =
+        'id' in originalRight && originalRight.id
+          ? {
+              client: originalRight.id.client,
+              clock: originalRight.id.clock,
+            }
+          : {
+              client: (originalRight as ItemID).client,
+              clock: (originalRight as ItemID).clock,
+            };
     }
     if (this.deleted) {
       json.deleted = true;
     }
-    return json;
+    return json as AnyItemJSON;
   }
 
-  static setId(item, json) {
+  static setId(item: Item, json: AnyItemJSON): Item {
     item.id = {
       client: json.id.client,
       clock: json.id.clock,
@@ -299,11 +327,18 @@ export class Item {
     return item;
   }
 
-  static fromJSON(json) {
-    return this.itemMap[json.type].fromJSON(json);
+  static fromJSON(json: AnyItemJSON): Item {
+    const ItemClass = this.itemMap[json.type];
+    if (!ItemClass) {
+      throw new Error(`Unknown item type: ${json.type}`);
+    }
+    return ItemClass.fromJSON(json);
   }
 
-  greaterThan(item) {
+  greaterThan(item: Item): boolean {
+    if (!this.id || !item.id) {
+      return false;
+    }
     if (this.id.client < item.id.client) {
       return false;
     }
@@ -313,7 +348,10 @@ export class Item {
     return this.id.clock > item.id.clock;
   }
 
-  lessThan(item) {
+  lessThan(item: Item): boolean {
+    if (!this.id || !item.id) {
+      return false;
+    }
     if (this.id.client < item.id.client) {
       return true;
     }
@@ -322,9 +360,19 @@ export class Item {
     }
     return this.id.clock < item.id.clock;
   }
+
+  toHTMLString(): string {
+    return '';
+  }
 }
 
 export class MapItem {
+  id: ItemID | null;
+  parent: any | null;
+  key: string | null;
+  value: any | null;
+  deleted: boolean;
+
   constructor() {
     this.id = null;
     this.parent = null;
@@ -333,7 +381,7 @@ export class MapItem {
     this.deleted = false;
   }
 
-  integrate(key, value, parent, doc) {
+  integrate(key: string, value: any, parent: any, doc: Document): void {
     this.parent = parent;
     this.id = {
       client: doc.client,
@@ -342,7 +390,7 @@ export class MapItem {
     doc.clock++;
   }
 
-  delete() {
+  delete(): void {
     if (this.deleted) {
       return;
     }
@@ -351,7 +399,10 @@ export class MapItem {
 }
 
 export class TextItem extends Item {
-  constructor(text, marks = []) {
+  text: string;
+  marks: ReturnType<Mark['toJSON']>[];
+
+  constructor(text: string, marks: Mark[] = []) {
     super();
     Item.itemMap['text'] = TextItem;
     this.text = text;
@@ -360,22 +411,22 @@ export class TextItem extends Item {
     });
   }
 
-  toJSON() {
+  toJSON(): TextItemJSON {
     const base = super.toJSON();
     return {
       ...base,
-      type: 'text',
+      type: 'text' as const,
       text: this.text,
       marks: this.marks,
     };
   }
 
-  static fromJSON(json) {
-    const textItem = new TextItem(json.text, json.marks);
-    return Item.setId(textItem, json);
+  static fromJSON(json: TextItemJSON): TextItem {
+    const textItem = new TextItem(json.text, json.marks as any);
+    return Item.setId(textItem, json) as TextItem;
   }
 
-  toHTMLString() {
+  toHTMLString(): string {
     if (this.deleted) {
       return '';
     }
@@ -390,7 +441,11 @@ export class TextItem extends Item {
  *  - Option 1: Replace the unchanged tag with a new tag. This may bring performance issue.
  */
 export class OpeningTagItem extends Item {
-  constructor(tagName, attrs) {
+  tagName: string;
+  attrs: Record<string, any> | null;
+  closingTagItem: ClosingTagItem | ItemID | null;
+
+  constructor(tagName: string, attrs: Record<string, any> | null) {
     super();
     Item.itemMap['openingTag'] = OpeningTagItem;
     this.tagName = tagName;
@@ -399,36 +454,43 @@ export class OpeningTagItem extends Item {
     this.closingTagItem = null;
   }
 
-  toJSON() {
+  toJSON(): OpeningTagItemJSON {
     const base = super.toJSON();
+    const closingTagId =
+      this.closingTagItem && 'id' in this.closingTagItem
+        ? this.closingTagItem.id!
+        : (this.closingTagItem as ItemID);
     return {
       ...base,
-      type: 'openingTag',
+      type: 'openingTag' as const,
       tagName: this.tagName,
       attrs: this.attrs,
-      closingTagItem: this.closingTagItem.id,
+      closingTagItem: closingTagId,
     };
   }
 
-  static fromJSON(json) {
+  static fromJSON(json: OpeningTagItemJSON): OpeningTagItem {
     const openingTagItem = new OpeningTagItem(json.tagName, json.attrs);
     openingTagItem.closingTagItem = json.closingTagItem;
-    return Item.setId(openingTagItem, json);
+    return Item.setId(openingTagItem, json) as OpeningTagItem;
   }
 
-  integrate(position) {
+  integrate(position: Position): void {
     super.integrate(position);
     position.paths.push(this);
   }
 
-  replaceWithClosingTagItem(doc, closingTagItem) {
+  replaceWithClosingTagItem(
+    doc: Document,
+    closingTagItem: ClosingTagItem,
+  ): void {
     this.delete();
     const newOpeningTagItem = new OpeningTagItem(this.tagName, this.attrs);
     newOpeningTagItem.integrateInner(doc, this.left, this.right);
     this.closingTagItem = closingTagItem;
   }
 
-  toHTMLString() {
+  toHTMLString(): string {
     if (this.deleted) {
       return '';
     }
@@ -437,44 +499,54 @@ export class OpeningTagItem extends Item {
 }
 
 export class ClosingTagItem extends Item {
-  constructor(tagName) {
+  tagName: string;
+  openingTagItem: OpeningTagItem | ItemID | null;
+
+  constructor(tagName: string) {
     super();
     Item.itemMap['closingTag'] = ClosingTagItem;
     this.tagName = tagName;
     this.openingTagItem = null;
   }
 
-  toJSON() {
+  toJSON(): ClosingTagItemJSON {
     const base = super.toJSON();
+    const openingTagId =
+      this.openingTagItem && 'id' in this.openingTagItem
+        ? this.openingTagItem.id
+        : (this.openingTagItem as ItemID | undefined);
     return {
       ...base,
-      type: 'closingTag',
+      type: 'closingTag' as const,
       tagName: this.tagName,
-      openingTagItem: this.openingTagItem?.id,
+      openingTagItem: openingTagId,
     };
   }
 
-  static fromJSON(json) {
+  static fromJSON(json: ClosingTagItemJSON): ClosingTagItem {
     const closingTagItem = new ClosingTagItem(json.tagName);
-    closingTagItem.openingTagItem = json.openingTagItem;
-    return Item.setId(closingTagItem, json);
+    closingTagItem.openingTagItem = json.openingTagItem || null;
+    return Item.setId(closingTagItem, json) as ClosingTagItem;
   }
 
-  integrate(position) {
+  integrate(position: Position): void {
     super.integrate(position);
     console.assert(position.paths.length > 0);
-    const openingTagTag = position.paths.pop();
+    const openingTagTag = position.paths.pop()!;
     openingTagTag.closingTagItem = this;
   }
 
-  replaceWithOpeningTagItem(doc, openingTagItem) {
+  replaceWithOpeningTagItem(
+    doc: Document,
+    openingTagItem: OpeningTagItem,
+  ): void {
     this.delete();
-    const newClosingTagItem = new ClosingTagItem(this.tagName, this.attrs);
+    const newClosingTagItem = new ClosingTagItem(this.tagName);
     newClosingTagItem.integrateInner(doc, this.left, this.right);
     this.openingTagItem = openingTagItem;
   }
 
-  toHTMLString() {
+  toHTMLString(): string {
     if (this.deleted) {
       return '';
     }
@@ -483,29 +555,32 @@ export class ClosingTagItem extends Item {
 }
 
 export class NodeItem extends Item {
-  constructor(tagName, attrs) {
+  tagName: string;
+  attrs: Record<string, any> | null;
+
+  constructor(tagName: string, attrs: Record<string, any> | null) {
     super();
     Item.itemMap['node'] = NodeItem;
     this.tagName = tagName;
     this.attrs = attrs;
   }
 
-  toJSON() {
+  toJSON(): NodeItemJSON {
     const base = super.toJSON();
     return {
       ...base,
-      type: 'node',
+      type: 'node' as const,
       tagName: this.tagName,
       attrs: this.attrs,
     };
   }
 
-  static fromJSON(json) {
+  static fromJSON(json: NodeItemJSON): NodeItem {
     const nodeItem = new NodeItem(json.tagName, json.attrs);
-    return Item.setId(nodeItem, json);
+    return Item.setId(nodeItem, json) as NodeItem;
   }
 
-  toHTMLString() {
+  toHTMLString(): string {
     if (this.deleted) {
       return '';
     }
@@ -513,9 +588,9 @@ export class NodeItem extends Item {
   }
 }
 
-export function nodeToItems(node) {
+export function nodeToItems(node: Node): Item[] {
   if (node.isText) {
-    return node.text.split('').map((text) => {
+    return node.text!.split('').map((text) => {
       return new TextItem(text, node.marks);
     });
   }
@@ -523,20 +598,24 @@ export function nodeToItems(node) {
     return [new NodeItem(node.type.name, node.attrs)];
   }
   const openingTagItem = new OpeningTagItem(node.type.name, node.attrs);
-  const closingTagItem = new ClosingTagItem(node.type.name, node.attrs);
+  const closingTagItem = new ClosingTagItem(node.type.name);
   openingTagItem.closingTagItem = closingTagItem;
   closingTagItem.openingTagItem = openingTagItem;
   return [openingTagItem, ...fragmentToItems(node.content), closingTagItem];
 }
 
-export function itemsToSlice(items, schema) {
+export function itemsToSlice(items: Item[], schema: Schema): Slice {
   let fragment = Fragment.empty;
-  let openingNodes = [];
-  let closingNode = null;
+  let openingNodes: Array<{
+    tagName: string;
+    attrs: Record<string, any> | null;
+    content: Fragment;
+  }> = [];
+  let closingNode: Node | null = null;
   let openStart = 0;
   let currentDepth = 0;
 
-  function addToParent(node) {
+  function addToParent(node: Node): void {
     if (openingNodes.length) {
       openingNodes[openingNodes.length - 1].content = openingNodes[
         openingNodes.length - 1
@@ -617,15 +696,15 @@ export function itemsToSlice(items, schema) {
   return new Slice(fragment, openStart, currentDepth);
 }
 
-export function fragmentToItems(fragment) {
-  const items = [];
+export function fragmentToItems(fragment: Fragment): Item[] {
+  const items: Item[] = [];
   fragment.forEach((node) => {
     items.push(...nodeToItems(node));
   });
   return items;
 }
 
-export function sliceToItems(slice) {
+export function sliceToItems(slice: Slice): Item[] {
   const items = fragmentToItems(slice.content);
   return items.slice(slice.openStart, items.length - slice.openEnd);
 }

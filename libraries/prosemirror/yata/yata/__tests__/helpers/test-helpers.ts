@@ -3,16 +3,18 @@
  * Provides factories, helpers, and assertions to reduce test boilerplate
  */
 
-import { Fragment, Slice } from 'prosemirror-model';
-import schema from '../schema.js';
+import type { Fragment, Mark } from 'prosemirror-model';
+import { Slice } from 'prosemirror-model';
+import schema from '../../../schema.js';
 import {
   TextItem,
   OpeningTagItem,
   ClosingTagItem,
   NodeItem,
   fragmentToItems,
-} from './item.js';
-import { Document, Position } from './document.js';
+  Item,
+} from '../../item.js';
+import { Document, Position } from '../../document.js';
 
 // ============================================================================
 // Document Factories
@@ -20,20 +22,15 @@ import { Document, Position } from './document.js';
 
 /**
  * Creates an empty YATA Document
- * @param {string} client - Optional client ID
- * @returns {Document}
  */
-export function createEmptyDoc(client) {
+export function createEmptyDoc(client?: string): Document {
   return new Document(client);
 }
 
 /**
  * Creates a document with plain text (no tags)
- * @param {string} text - Text content
- * @param {string} client - Optional client ID
- * @returns {Document}
  */
-export function createDocWithText(text, client) {
+export function createDocWithText(text: string, client?: string): Document {
   const doc = new Document(client);
   const items = text.split('').map((char) => new TextItem(char));
   const pos = new Position(doc);
@@ -43,22 +40,22 @@ export function createDocWithText(text, client) {
 
 /**
  * Creates a document with a single paragraph containing text
- * @param {string} text - Text content
- * @param {string} client - Optional client ID
- * @returns {Document}
  */
-export function createDocWithParagraph(text, client) {
+export function createDocWithParagraph(
+  text: string,
+  client?: string,
+): Document {
   const node = schema.node('paragraph', null, [schema.text(text)]);
   return Document.fromNodes(Fragment.from([node]));
 }
 
 /**
  * Creates a document with multiple paragraphs
- * @param {string[]} paragraphs - Array of paragraph text
- * @param {string} client - Optional client ID
- * @returns {Document}
  */
-export function createDocWithParagraphs(paragraphs, client) {
+export function createDocWithParagraphs(
+  paragraphs: string[],
+  client?: string,
+): Document {
   const nodes = paragraphs.map((text) =>
     schema.node('paragraph', null, [schema.text(text)]),
   );
@@ -71,12 +68,12 @@ export function createDocWithParagraphs(paragraphs, client) {
 
 /**
  * Creates a document with a heading
- * @param {string} text - Heading text
- * @param {number} level - Heading level (1-6)
- * @param {string} client - Optional client ID
- * @returns {Document}
  */
-export function createDocWithHeading(text, level = 1, client) {
+export function createDocWithHeading(
+  text: string,
+  level: number = 1,
+  client?: string,
+): Document {
   const node = schema.node('heading', { level }, [schema.text(text)]);
   const doc = Document.fromNodes(Fragment.from([node]));
   if (client) {
@@ -91,21 +88,18 @@ export function createDocWithHeading(text, level = 1, client) {
 
 /**
  * Creates an array of TextItems from a string
- * @param {string} text - Text to convert
- * @param {Array} marks - Optional ProseMirror marks
- * @returns {TextItem[]}
  */
-export function createTextItems(text, marks = []) {
+export function createTextItems(text: string, marks: Mark[] = []): TextItem[] {
   return text.split('').map((char) => new TextItem(char, marks));
 }
 
 /**
  * Creates items for a paragraph with text
- * @param {string} text - Paragraph text
- * @param {Object} attrs - Optional paragraph attributes
- * @returns {Item[]}
  */
-export function createParagraphItems(text, attrs = null) {
+export function createParagraphItems(
+  text: string,
+  attrs: Record<string, any> | null = null,
+): Item[] {
   const openingTag = new OpeningTagItem('paragraph', attrs);
   const textItems = createTextItems(text);
   const closingTag = new ClosingTagItem('paragraph');
@@ -116,11 +110,8 @@ export function createParagraphItems(text, attrs = null) {
 
 /**
  * Creates items for a heading with text
- * @param {string} text - Heading text
- * @param {number} level - Heading level (1-6)
- * @returns {Item[]}
  */
-export function createHeadingItems(text, level = 1) {
+export function createHeadingItems(text: string, level: number = 1): Item[] {
   const openingTag = new OpeningTagItem('heading', { level });
   const textItems = createTextItems(text);
   const closingTag = new ClosingTagItem('heading');
@@ -131,12 +122,12 @@ export function createHeadingItems(text, level = 1) {
 
 /**
  * Creates nested items (e.g., paragraph inside a list)
- * @param {string} outerTag - Outer tag name
- * @param {string} innerTag - Inner tag name
- * @param {string} text - Text content
- * @returns {Item[]}
  */
-export function createNestedItems(outerTag, innerTag, text) {
+export function createNestedItems(
+  outerTag: string,
+  innerTag: string,
+  text: string,
+): Item[] {
   const outerOpening = new OpeningTagItem(outerTag, null);
   const innerOpening = new OpeningTagItem(innerTag, null);
   const textItems = createTextItems(text);
@@ -157,12 +148,12 @@ export function createNestedItems(outerTag, innerTag, text) {
 
 /**
  * Creates multiple documents for multi-client scenarios
- * @param {number} count - Number of clients
- * @param {Fragment} initialContent - Optional initial content for all docs
- * @returns {Document[]}
  */
-export function createMultiClientScenario(count, initialContent = null) {
-  const docs = [];
+export function createMultiClientScenario(
+  count: number,
+  initialContent: Fragment | null = null,
+): Document[] {
+  const docs: Document[] = [];
   for (let i = 0; i < count; i++) {
     const clientId = `client-${i}`;
     if (initialContent) {
@@ -178,9 +169,8 @@ export function createMultiClientScenario(count, initialContent = null) {
 
 /**
  * Synchronizes documents by applying all items from each doc to all others
- * @param {Document[]} docs - Array of documents to synchronize
  */
-export function synchronizeDocs(docs) {
+export function synchronizeDocs(docs: Document[]): void {
   const allItems = docs.map((doc) => doc.toItems());
   docs.forEach((doc, i) => {
     allItems.forEach((items, j) => {
@@ -193,10 +183,11 @@ export function synchronizeDocs(docs) {
 
 /**
  * Asserts that all documents have converged to the same state
- * @param {Document[]} docs - Array of documents to check
- * @param {string} message - Optional assertion message
  */
-export function assertConvergence(docs, message = 'Documents should converge') {
+export function assertConvergence(
+  docs: Document[],
+  message: string = 'Documents should converge',
+): void {
   if (docs.length < 2) {
     return;
   }
@@ -209,10 +200,8 @@ export function assertConvergence(docs, message = 'Documents should converge') {
 
 /**
  * Bidirectionally syncs two documents
- * @param {Document} doc1 - First document
- * @param {Document} doc2 - Second document
  */
-export function syncBidirectional(doc1, doc2) {
+export function syncBidirectional(doc1: Document, doc2: Document): void {
   const items1 = doc1.toItems();
   const items2 = doc2.toItems();
   doc1.applyItems(items2);
@@ -225,19 +214,18 @@ export function syncBidirectional(doc1, doc2) {
 
 /**
  * Asserts that a document produces the expected HTML string
- * @param {Document} doc - Document to check
- * @param {string} expectedHTML - Expected HTML output
  */
-export function expectDocHTML(doc, expectedHTML) {
+export function expectDocHTML(doc: Document, expectedHTML: string): void {
   expect(doc.toHTMLString()).toBe(expectedHTML);
 }
 
 /**
  * Asserts that items are in the expected order in the document
- * @param {Document} doc - Document to check
- * @param {function[]} itemTypeChecks - Array of type check functions
  */
-export function expectItemsInOrder(doc, itemTypeChecks) {
+export function expectItemsInOrder(
+  doc: Document,
+  itemTypeChecks: Array<(item: Item) => boolean>,
+): void {
   const items = doc.toArray();
   expect(items.length).toBe(itemTypeChecks.length);
   items.forEach((item, i) => {
@@ -247,10 +235,11 @@ export function expectItemsInOrder(doc, itemTypeChecks) {
 
 /**
  * Asserts position state
- * @param {Position} pos - Position to check
- * @param {Object} expected - Expected state { pos, paths }
  */
-export function expectPosition(pos, expected) {
+export function expectPosition(
+  pos: Position,
+  expected: { pos?: number; paths?: number; canForward?: boolean },
+): void {
   if (expected.pos !== undefined) {
     expect(pos.pos).toBe(expected.pos);
   }
@@ -264,31 +253,24 @@ export function expectPosition(pos, expected) {
 
 /**
  * Asserts that an item has the expected ID
- * @param {Item} item - Item to check
- * @param {string} client - Expected client ID
- * @param {number} clock - Expected clock value
  */
-export function expectItemId(item, client, clock) {
-  expect(item.id.client).toBe(client);
-  expect(item.id.clock).toBe(clock);
+export function expectItemId(item: Item, client: string, clock: number): void {
+  expect(item.id!.client).toBe(client);
+  expect(item.id!.clock).toBe(clock);
 }
 
 /**
  * Asserts that two items are properly linked
- * @param {Item} left - Left item
- * @param {Item} right - Right item
  */
-export function expectItemsLinked(left, right) {
+export function expectItemsLinked(left: Item, right: Item): void {
   expect(left.right).toBe(right);
   expect(right.left).toBe(left);
 }
 
 /**
  * Asserts document size (number of non-deleted items)
- * @param {Document} doc - Document to check
- * @param {number} expectedSize - Expected size
  */
-export function expectDocSize(doc, expectedSize) {
+export function expectDocSize(doc: Document, expectedSize: number): void {
   const items = doc.toArray().filter((item) => !item.deleted);
   expect(items.length).toBe(expectedSize);
 }
@@ -299,10 +281,11 @@ export function expectDocSize(doc, expectedSize) {
 
 /**
  * Logs the current document state for debugging
- * @param {Document} doc - Document to log
- * @param {string} label - Optional label
  */
-export function logDocState(doc, label = 'Document State') {
+export function logDocState(
+  doc: Document,
+  label: string = 'Document State',
+): void {
   console.log(`\n=== ${label} ===`);
   console.log('Client:', doc.client);
   console.log('Clock:', doc.clock);
@@ -312,10 +295,8 @@ export function logDocState(doc, label = 'Document State') {
 
 /**
  * Visualizes the item chain for debugging
- * @param {Document} doc - Document to visualize
- * @returns {string} Visual representation
  */
-export function visualizeItemChain(doc) {
+export function visualizeItemChain(doc: Document): string {
   const items = doc.toArray();
   return items
     .map((item) => {
@@ -342,10 +323,8 @@ export function visualizeItemChain(doc) {
 
 /**
  * Gets item type as string for debugging
- * @param {Item} item - Item to identify
- * @returns {string}
  */
-export function getItemTypeName(item) {
+export function getItemTypeName(item: Item): string {
   if (item instanceof TextItem) return 'TextItem';
   if (item instanceof OpeningTagItem) return 'OpeningTagItem';
   if (item instanceof ClosingTagItem) return 'ClosingTagItem';
@@ -357,36 +336,34 @@ export function getItemTypeName(item) {
 // Type Checkers (for use with expectItemsInOrder)
 // ============================================================================
 
-export const isTextItem = (item) => item instanceof TextItem;
-export const isOpeningTagItem = (item) => item instanceof OpeningTagItem;
-export const isClosingTagItem = (item) => item instanceof ClosingTagItem;
-export const isNodeItem = (item) => item instanceof NodeItem;
-export const isDeleted = (item) => item.deleted;
-export const isNotDeleted = (item) => !item.deleted;
+export const isTextItem = (item: Item): boolean => item instanceof TextItem;
+export const isOpeningTagItem = (item: Item): boolean =>
+  item instanceof OpeningTagItem;
+export const isClosingTagItem = (item: Item): boolean =>
+  item instanceof ClosingTagItem;
+export const isNodeItem = (item: Item): boolean => item instanceof NodeItem;
+export const isDeleted = (item: Item): boolean => item.deleted;
+export const isNotDeleted = (item: Item): boolean => !item.deleted;
 
 /**
  * Creates a checker for a text item with specific text
- * @param {string} text - Expected text
- * @returns {function}
  */
-export function isTextItemWith(text) {
-  return (item) => item instanceof TextItem && item.text === text;
+export function isTextItemWith(text: string): (item: Item) => boolean {
+  return (item: Item) => item instanceof TextItem && item.text === text;
 }
 
 /**
  * Creates a checker for an opening tag with specific name
- * @param {string} tagName - Expected tag name
- * @returns {function}
  */
-export function isOpeningTag(tagName) {
-  return (item) => item instanceof OpeningTagItem && item.tagName === tagName;
+export function isOpeningTag(tagName: string): (item: Item) => boolean {
+  return (item: Item) =>
+    item instanceof OpeningTagItem && item.tagName === tagName;
 }
 
 /**
  * Creates a checker for a closing tag with specific name
- * @param {string} tagName - Expected tag name
- * @returns {function}
  */
-export function isClosingTag(tagName) {
-  return (item) => item instanceof ClosingTagItem && item.tagName === tagName;
+export function isClosingTag(tagName: string): (item: Item) => boolean {
+  return (item: Item) =>
+    item instanceof ClosingTagItem && item.tagName === tagName;
 }

@@ -19,7 +19,7 @@ import {
   createParagraphItems,
   expectItemId,
   expectItemsLinked,
-} from '../test-helpers.js';
+} from './helpers/test-helpers.js';
 
 // ============================================================================
 // Phase 2: CRDT Core Primitives
@@ -136,7 +136,7 @@ describe('Item.greaterThan() - CRDT Ordering', function () {
 describe('Item.putIntoDocument() - Out-of-order Integration', function () {
   test('already integrated items return early', function () {
     const doc = createDocWithText('abc');
-    const firstItem = doc.head;
+    const firstItem = doc.head!;
 
     const result = firstItem.putIntoDocument(doc);
     expect(result).toBeUndefined();
@@ -158,17 +158,17 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
   test('normal integration inserts item between originalLeft and right', function () {
     const doc = createDocWithText('ac', 'client1');
     const items = doc.toArray();
-    const itemA = items[0];
-    const itemC = items[1];
+    const itemA = items[0] as TextItem;
+    const itemC = items[1] as TextItem;
 
     const itemB = new TextItem('b');
     itemB.id = { client: 'client2', clock: 0 };
-    itemB.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    itemB.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     itemB.originalRight = null;
 
     itemB.putIntoDocument(doc);
 
-    const allItems = doc.toArray();
+    const allItems = doc.toArray() as TextItem[];
     expect(allItems.length).toBe(3);
     expect(allItems[0].text).toBe('a');
     // Both 'b' and 'c' have originalLeft='a', so they're ordered by client ID
@@ -186,18 +186,18 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
 
     const itemB1 = new TextItem('1');
     itemB1.id = { client: 'client2', clock: 0 };
-    itemB1.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    itemB1.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     itemB1.originalRight = null;
 
     const itemB2 = new TextItem('2');
     itemB2.id = { client: 'client3', clock: 0 };
-    itemB2.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    itemB2.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     itemB2.originalRight = null;
 
     itemB1.putIntoDocument(doc);
     itemB2.putIntoDocument(doc);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items[0].text).toBe('a');
     expect(items[1].text).toBe('1');
     expect(items[2].text).toBe('2');
@@ -212,28 +212,28 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
 
     const item1 = new TextItem('1');
     item1.id = { client: 'alice', clock: 0 };
-    item1.originalLeft = { client: base.id.client, clock: base.id.clock };
+    item1.originalLeft = { client: base.id!.client, clock: base.id!.clock };
     item1.originalRight = null;
 
     const item2 = new TextItem('2');
     item2.id = { client: 'bob', clock: 0 };
-    item2.originalLeft = { client: base.id.client, clock: base.id.clock };
+    item2.originalLeft = { client: base.id!.client, clock: base.id!.clock };
     item2.originalRight = null;
 
     const item3 = new TextItem('3');
     item3.id = { client: 'charlie', clock: 0 };
-    item3.originalLeft = { client: base.id.client, clock: base.id.clock };
+    item3.originalLeft = { client: base.id!.client, clock: base.id!.clock };
     item3.originalRight = null;
 
     item1.putIntoDocument(doc);
     item2.putIntoDocument(doc);
     item3.putIntoDocument(doc);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items.map((i) => i.text).join('')).toBe('X123');
-    expect(items[1].id.client).toBe('alice');
-    expect(items[2].id.client).toBe('bob');
-    expect(items[3].id.client).toBe('charlie');
+    expect(items[1].id!.client).toBe('alice');
+    expect(items[2].id!.client).toBe('bob');
+    expect(items[3].id!.client).toBe('charlie');
   });
 
   test('integration scans right when originalLeft has multiple right neighbors', function () {
@@ -245,17 +245,17 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
 
     const item1 = new TextItem('1');
     item1.id = { client: 'client-aaa', clock: 0 };
-    item1.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    item1.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     item1.originalRight = null;
     item1.putIntoDocument(doc);
 
     const item2 = new TextItem('2');
     item2.id = { client: 'client-zzz', clock: 0 };
-    item2.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    item2.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     item2.originalRight = null;
     item2.putIntoDocument(doc);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items[0].text).toBe('a');
     expect(items[1].text).toBe('1');
     expect(items[2].text).toBe('2');
@@ -270,17 +270,17 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
     const itemX = new TextItem('x');
     itemX.id = { client: 'client2', clock: 0 };
     itemX.originalLeft = {
-      client: items[0].id.client,
-      clock: items[0].id.clock,
+      client: items[0].id!.client,
+      clock: items[0].id!.clock,
     };
     itemX.originalRight = {
-      client: items[2].id.client,
-      clock: items[2].id.clock,
+      client: items[2].id!.client,
+      clock: items[2].id!.clock,
     };
 
     itemX.putIntoDocument(doc);
 
-    const allItems = doc.toArray();
+    const allItems = doc.toArray() as TextItem[];
     expect(allItems.length).toBe(4);
     expect(
       allItems
@@ -299,27 +299,27 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
 
     const item1 = new TextItem('1');
     item1.id = { client: 'aaa', clock: 1 };
-    item1.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    item1.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     item1.originalRight = null;
     item1.putIntoDocument(doc);
 
     const item2 = new TextItem('2');
     item2.id = { client: 'bbb', clock: 1 };
-    item2.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    item2.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     item2.originalRight = null;
     item2.putIntoDocument(doc);
 
     const item3 = new TextItem('3');
     item3.id = { client: 'ccc', clock: 1 };
-    item3.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+    item3.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
     item3.originalRight = null;
     item3.putIntoDocument(doc);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items.map((i) => i.text).join('')).toBe('a123');
-    expect(items[1].id.client).toBe('aaa');
-    expect(items[2].id.client).toBe('bbb');
-    expect(items[3].id.client).toBe('ccc');
+    expect(items[1].id!.client).toBe('aaa');
+    expect(items[2].id!.client).toBe('bbb');
+    expect(items[3].id!.client).toBe('ccc');
   });
 
   test('integration with only originalRight (no originalLeft)', function () {
@@ -332,7 +332,7 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
     const itemA = new TextItem('a');
     itemA.id = { client: 'client2', clock: 0 };
     itemA.originalLeft = null;
-    itemA.originalRight = { client: itemB.id.client, clock: itemB.id.clock };
+    itemA.originalRight = { client: itemB.id!.client, clock: itemB.id!.clock };
 
     const result = itemA.putIntoDocument(doc);
     expect(doc.head).toBe(itemA);
@@ -341,20 +341,20 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
 
   test('multiple items with same originalLeft integrate in order', function () {
     const doc = createDocWithText('a', 'client1');
-    const itemA = doc.head;
+    const itemA = doc.head!;
 
-    const items = [];
+    const items: TextItem[] = [];
     for (let i = 0; i < 5; i++) {
       const item = new TextItem(String(i));
       item.id = { client: `client-${i}`, clock: 0 };
-      item.originalLeft = { client: itemA.id.client, clock: itemA.id.clock };
+      item.originalLeft = { client: itemA.id!.client, clock: itemA.id!.clock };
       item.originalRight = null;
       items.push(item);
     }
 
     items.forEach((item) => item.putIntoDocument(doc));
 
-    const allItems = doc.toArray();
+    const allItems = doc.toArray() as TextItem[];
     expect(allItems[0].text).toBe('a');
     for (let i = 0; i < 5; i++) {
       expect(allItems[i + 1].text).toBe(String(i));
@@ -371,20 +371,23 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
     const highPriority = new TextItem('H');
     highPriority.id = { client: 'zzz', clock: 0 };
     highPriority.originalLeft = {
-      client: base.id.client,
-      clock: base.id.clock,
+      client: base.id!.client,
+      clock: base.id!.clock,
     };
     highPriority.originalRight = null;
 
     const lowPriority = new TextItem('L');
     lowPriority.id = { client: 'aaa', clock: 0 };
-    lowPriority.originalLeft = { client: base.id.client, clock: base.id.clock };
+    lowPriority.originalLeft = {
+      client: base.id!.client,
+      clock: base.id!.clock,
+    };
     lowPriority.originalRight = null;
 
     lowPriority.putIntoDocument(doc);
     highPriority.putIntoDocument(doc);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items[1].text).toBe('L');
     expect(items[2].text).toBe('H');
   });
@@ -396,19 +399,19 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
     const itemX = new TextItem('X');
     itemX.id = { client: 'client2', clock: 0 };
     itemX.originalLeft = {
-      client: items[1].id.client,
-      clock: items[1].id.clock,
+      client: items[1].id!.client,
+      clock: items[1].id!.clock,
     }; // after 'b'
     itemX.originalRight = {
-      client: items[2].id.client,
-      clock: items[2].id.clock,
+      client: items[2].id!.client,
+      clock: items[2].id!.clock,
     }; // before 'c'
 
     itemX.putIntoDocument(doc);
 
     const result = doc
       .toArray()
-      .map((i) => i.text)
+      .map((i) => (i as TextItem).text)
       .join('');
     // Both 'c' and 'X' have originalLeft='b', so they're ordered by client ID
     // client1 < client2, so 'c' comes before 'X'
@@ -432,7 +435,7 @@ describe('Item.insertIntoPosition() - Linked List Manipulation', function () {
 
   test('insert at head of non-empty document', function () {
     const doc = createDocWithText('b');
-    const existingItem = doc.head;
+    const existingItem = doc.head!;
     const pos = new Position(doc);
 
     const newItem = new TextItem('a');
@@ -496,7 +499,7 @@ describe('Item.insertIntoPosition() - Linked List Manipulation', function () {
 
   test('position state is updated after insertion', function () {
     const doc = createDocWithText('a');
-    const oldHead = doc.head;
+    const oldHead = doc.head!;
     const pos = new Position(doc);
 
     const item = new TextItem('b');
@@ -520,7 +523,7 @@ describe('Item.insertIntoPosition() - Linked List Manipulation', function () {
     const item3 = new TextItem('3');
     item3.insertIntoPosition(pos);
 
-    const items = doc.toArray();
+    const items = doc.toArray() as TextItem[];
     expect(items.length).toBe(3);
     expect(items[0].text).toBe('1');
     expect(items[1].text).toBe('2');
@@ -541,7 +544,7 @@ describe('Item.insertIntoPosition() - Linked List Manipulation', function () {
 
     const result = doc
       .toArray()
-      .map((i) => i.text)
+      .map((i) => (i as TextItem).text)
       .join('');
     expect(result).toBe('abcde');
   });
@@ -555,8 +558,8 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item = new TextItem('a');
     item.integrateInner(doc, null, null);
 
-    expect(item.id.client).toBe('test-client');
-    expect(item.id.clock).toBe(5);
+    expect(item.id!.client).toBe('test-client');
+    expect(item.id!.clock).toBe(5);
   });
 
   test('increments document clock', function () {
@@ -694,7 +697,7 @@ describe('nodeToItems', function () {
 describe('itemsToSlice and fragmentToItems', function () {
   test('all items', function () {
     const items = [
-      new OpeningTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
       new TextItem('1'),
       new TextItem('2'),
       new NodeItem('image', { src: 'a' }),

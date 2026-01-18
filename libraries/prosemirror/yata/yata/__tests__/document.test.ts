@@ -10,8 +10,8 @@ describe('document', function () {
   test('replaceItems with empty doc', function () {
     const doc = new Document();
     doc.replaceItems(0, 0, [new Item()]);
-    expect(doc.head.id.client).toBe(doc.client);
-    expect(doc.head.id.clock).toBe(0);
+    expect(doc.head!.id!.client).toBe(doc.client);
+    expect(doc.head!.id!.clock).toBe(0);
   });
 });
 
@@ -34,7 +34,7 @@ describe('applyStep', function () {
   test('ReplaceStep', function () {
     const doc = new Document();
     doc.replaceItems(0, 0, [
-      new OpeningTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
       new TextItem('1'),
       new ClosingTagItem('paragraph'),
     ]);
@@ -101,8 +101,8 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
-    expect(proseMirrorDoc.firstChild.textContent).toBe('hello');
+    expect(proseMirrorDoc.firstChild!.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild!.textContent).toBe('hello');
   });
 
   test('should convert multiple paragraphs', function () {
@@ -133,7 +133,7 @@ describe('toProseMirrorDoc', function () {
     // Delete all text items (positions 1-5: h, e, l, l, o)
     for (let i = 1; i <= 5; i++) {
       const pos = doc.resolvePosition(1);
-      pos.right.delete();
+      pos.right!.delete();
     }
 
     // Act
@@ -142,8 +142,8 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
-    expect(proseMirrorDoc.firstChild.textContent).toBe('');
+    expect(proseMirrorDoc.firstChild!.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild!.textContent).toBe('');
   });
 
   test('should convert heading nodes', function () {
@@ -160,9 +160,9 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild.type.name).toBe('heading');
-    expect(proseMirrorDoc.firstChild.attrs.level).toBe(1);
-    expect(proseMirrorDoc.firstChild.textContent).toBe('Title');
+    expect(proseMirrorDoc.firstChild!.type.name).toBe('heading');
+    expect(proseMirrorDoc.firstChild!.attrs.level).toBe(1);
+    expect(proseMirrorDoc.firstChild!.textContent).toBe('Title');
   });
 
   test('should convert nested list structures', function () {
@@ -185,13 +185,13 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild.type.name).toBe('bullet_list');
-    expect(proseMirrorDoc.firstChild.childCount).toBe(2);
-    expect(proseMirrorDoc.firstChild.child(0).type.name).toBe('list_item');
-    expect(proseMirrorDoc.firstChild.child(0).firstChild.textContent).toBe(
+    expect(proseMirrorDoc.firstChild!.type.name).toBe('bullet_list');
+    expect(proseMirrorDoc.firstChild!.childCount).toBe(2);
+    expect(proseMirrorDoc.firstChild!.child(0).type.name).toBe('list_item');
+    expect(proseMirrorDoc.firstChild!.child(0).firstChild!.textContent).toBe(
       'item 1',
     );
-    expect(proseMirrorDoc.firstChild.child(1).firstChild.textContent).toBe(
+    expect(proseMirrorDoc.firstChild!.child(1).firstChild!.textContent).toBe(
       'item 2',
     );
   });
@@ -212,10 +212,10 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
-    expect(proseMirrorDoc.firstChild.textContent).toBe('bold');
-    expect(proseMirrorDoc.firstChild.firstChild.marks.length).toBe(1);
-    expect(proseMirrorDoc.firstChild.firstChild.marks[0].type.name).toBe(
+    expect(proseMirrorDoc.firstChild!.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild!.textContent).toBe('bold');
+    expect(proseMirrorDoc.firstChild!.firstChild!.marks.length).toBe(1);
+    expect(proseMirrorDoc.firstChild!.firstChild!.marks[0].type.name).toBe(
       'strong',
     );
   });

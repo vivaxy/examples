@@ -2,9 +2,10 @@
  * @since 2022-03-12
  * @author vivaxy
  */
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { Step } from 'prosemirror-transform';
 import schema from './schema.js';
 import { Document } from './yata/index.js';
 
@@ -17,9 +18,9 @@ const doc1 = Document.fromNodes(state1.doc.content);
 
 const view1 = new EditorView(document.querySelector('.editor[data-id="1"]'), {
   state: state1,
-  dispatchTransaction(tr) {
+  dispatchTransaction(tr: Transaction) {
     view1.updateState(view1.state.apply(tr));
-    tr.steps.forEach(function (step) {
+    tr.steps.forEach(function (step: Step) {
       doc1.applyStep(step);
     });
   },
@@ -29,16 +30,16 @@ const doc2 = new Document(doc1.client);
 doc2.applyItems(doc1.toItems());
 const view2 = new EditorView(document.querySelector('.editor[data-id="2"]'), {
   state: state1,
-  dispatchTransaction(tr) {
+  dispatchTransaction(tr: Transaction) {
     view2.updateState(view2.state.apply(tr));
-    tr.steps.forEach(function (step) {
+    tr.steps.forEach(function (step: Step) {
       doc2.applyStep(step);
     });
   },
 });
 
 document
-  .querySelector('.sync[data-id="1"]')
+  .querySelector('.sync[data-id="1"]')!
   .addEventListener('click', function () {
     const data1 = doc1.toItems();
     doc2.applyItems(data1);
@@ -53,10 +54,20 @@ document
   });
 
 document
-  .querySelector('.sync[data-id="2"]')
+  .querySelector('.sync[data-id="2"]')!
   .addEventListener('click', function () {
     const data2 = doc2.toItems();
   });
+
+// Expose to window for debugging
+declare global {
+  interface Window {
+    view1: EditorView;
+    doc1: Document;
+    view2: EditorView;
+    doc2: Document;
+  }
+}
 
 window.view1 = view1;
 window.doc1 = doc1;
