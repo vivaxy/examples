@@ -236,16 +236,6 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
     expect(items[3].id.client).toBe('charlie');
   });
 
-  test('error when both originalLeft and originalRight are missing', function () {
-    const doc = createDocWithText('a');
-    const item = new TextItem('b');
-    item.id = { client: 'client2', clock: 0 };
-    item.originalLeft = { client: 'nonexistent', clock: 99 };
-    item.originalRight = { client: 'nonexistent2', clock: 99 };
-
-    expect(() => item.putIntoDocument(doc)).toThrow('Left and Right not found');
-  });
-
   test('integration scans right when originalLeft has multiple right neighbors', function () {
     const doc = createEmptyDoc('client1');
     const pos = new Position(doc);

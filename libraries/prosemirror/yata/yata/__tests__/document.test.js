@@ -87,3 +87,148 @@ describe('toItems', function () {
     expect(item3.id.clock).toStrictEqual(2);
   });
 });
+
+describe('toProseMirrorDoc', function () {
+  test('should convert simple paragraph', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('hello')])]),
+    );
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(1);
+    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild.textContent).toBe('hello');
+  });
+
+  test('should convert multiple paragraphs', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([
+        schema.node('paragraph', null, [schema.text('first')]),
+        schema.node('paragraph', null, [schema.text('second')]),
+      ]),
+    );
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(2);
+    expect(proseMirrorDoc.child(0).textContent).toBe('first');
+    expect(proseMirrorDoc.child(1).textContent).toBe('second');
+  });
+
+  test('should exclude deleted items', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('hello')])]),
+    );
+
+    // Delete all text items (positions 1-5: h, e, l, l, o)
+    for (let i = 1; i <= 5; i++) {
+      const pos = doc.resolvePosition(1);
+      pos.right.delete();
+    }
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(1);
+    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild.textContent).toBe('');
+  });
+
+  test('should convert heading nodes', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([
+        schema.node('heading', { level: 1 }, [schema.text('Title')]),
+      ]),
+    );
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(1);
+    expect(proseMirrorDoc.firstChild.type.name).toBe('heading');
+    expect(proseMirrorDoc.firstChild.attrs.level).toBe(1);
+    expect(proseMirrorDoc.firstChild.textContent).toBe('Title');
+  });
+
+  test('should convert nested list structures', function () {
+    // Arrange
+    const originalFragment = Fragment.from([
+      schema.node('bullet_list', null, [
+        schema.node('list_item', null, [
+          schema.node('paragraph', null, [schema.text('item 1')]),
+        ]),
+        schema.node('list_item', null, [
+          schema.node('paragraph', null, [schema.text('item 2')]),
+        ]),
+      ]),
+    ]);
+    const doc = Document.fromNodes(originalFragment);
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(1);
+    expect(proseMirrorDoc.firstChild.type.name).toBe('bullet_list');
+    expect(proseMirrorDoc.firstChild.childCount).toBe(2);
+    expect(proseMirrorDoc.firstChild.child(0).type.name).toBe('list_item');
+    expect(proseMirrorDoc.firstChild.child(0).firstChild.textContent).toBe(
+      'item 1',
+    );
+    expect(proseMirrorDoc.firstChild.child(1).firstChild.textContent).toBe(
+      'item 2',
+    );
+  });
+
+  test('should convert text with marks', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([
+        schema.node('paragraph', null, [
+          schema.text('bold', [schema.marks.strong.create()]),
+        ]),
+      ]),
+    );
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(1);
+    expect(proseMirrorDoc.firstChild.type.name).toBe('paragraph');
+    expect(proseMirrorDoc.firstChild.textContent).toBe('bold');
+    expect(proseMirrorDoc.firstChild.firstChild.marks.length).toBe(1);
+    expect(proseMirrorDoc.firstChild.firstChild.marks[0].type.name).toBe(
+      'strong',
+    );
+  });
+
+  test('should handle empty document', function () {
+    // Arrange
+    const doc = new Document();
+
+    // Act
+    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+
+    // Assert
+    expect(proseMirrorDoc.type.name).toBe('doc');
+    expect(proseMirrorDoc.childCount).toBe(0);
+  });
+});

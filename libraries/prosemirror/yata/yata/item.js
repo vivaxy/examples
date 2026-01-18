@@ -86,44 +86,130 @@ export class Item {
   putIntoDocument(doc) {
     const foundPos = doc.findItemById(this.id);
     if (foundPos) {
-      // already put into document
+      // Item already exists in document - update deleted status if incoming item is deleted
+      // Deletions are permanent (tombstones), so once deleted, always deleted
+      if (this.deleted) {
+        foundPos.right.deleted = true;
+      }
       return;
     }
 
-    if (doc.head === null && !this.originalLeft && this.originalRight) {
-      doc.head = this;
-      return doc.resolvePosition();
+    // Handle empty document cases
+    if (doc.head === null) {
+      if (!this.originalLeft && !this.originalRight) {
+        // First item ever - neither left nor right references
+        doc.head = this;
+        return doc.resolvePosition();
+      }
+      if (!this.originalLeft && this.originalRight) {
+        // Has right reference but no left
+        doc.head = this;
+        return doc.resolvePosition();
+      }
     }
 
     const originalLeftPos = doc.findItemById(this.originalLeft);
     const originalRightPos = doc.findItemById(this.originalRight);
 
     if (!originalLeftPos && !originalRightPos) {
-      throw new Error('Left and Right not found');
+      // Neither reference found - this can happen when integrating concurrent
+      // inserts that both started from empty documents
+      // Place at the beginning and use CRDT ordering
+      const pos = doc.resolvePosition(0);
+
+      // Scan forward to find correct position based on item ordering
+      // Skip items that should come before us (lessThan)
+      while (pos.canForward()) {
+        const nextItem = pos.right;
+
+        if (nextItem.lessThan(this)) {
+          pos.forward();
+        } else {
+          break;
+        }
+      }
+
+      this.insertIntoPosition(pos);
+      if (this.left === null) {
+        doc.head = this;
+      }
+      return pos;
     }
     if (originalLeftPos) {
       // findItemById returns position where pos.right === found item
       // We need position after the item, so advance once
-      originalLeftPos.forward();
+      // Use forwardItem() instead of forward() because forward() skips deleted items
+      // and we want to scan from right after originalLeft, even if it's deleted
+      originalLeftPos.forwardItem();
 
       // Scan right to find the correct position
-      // Skip items that have the same originalLeft and should come before us
+      // Skip items that should come before us according to YATA algorithm:
+      // 1. Items with same originalLeft that are lessThan us
+      // 2. Items whose originalRight equals our originalLeft that are lessThan us
+      // But stop if we reach our originalRight (don't go past it)
       while (originalLeftPos.right) {
         const nextItem = originalLeftPos.right;
 
+        // Get the ID of this.originalLeft (could be Item or ID object)
+        const thisOriginalLeftId = this.originalLeft.id
+          ? this.originalLeft.id
+          : this.originalLeft;
+
+        // Get the ID of nextItem.originalLeft (could be Item or ID object)
+        const nextOriginalLeftId = nextItem.originalLeft
+          ? nextItem.originalLeft.id
+            ? nextItem.originalLeft.id
+            : nextItem.originalLeft
+          : null;
+
+        // Get the ID of nextItem.originalRight (could be Item or ID object)
+        const nextOriginalRightId = nextItem.originalRight
+          ? nextItem.originalRight.id
+            ? nextItem.originalRight.id
+            : nextItem.originalRight
+          : null;
+
         // Check if nextItem has the same originalLeft as us
         const nextHasSameOriginalLeft =
-          nextItem.originalLeft &&
-          ((nextItem.originalLeft.id &&
-            nextItem.originalLeft.id.client === this.originalLeft.client &&
-            nextItem.originalLeft.id.clock === this.originalLeft.clock) ||
-            (nextItem.originalLeft.client === this.originalLeft.client &&
-              nextItem.originalLeft.clock === this.originalLeft.clock));
+          nextOriginalLeftId &&
+          nextOriginalLeftId.client === thisOriginalLeftId.client &&
+          nextOriginalLeftId.clock === thisOriginalLeftId.clock;
 
-        // Only skip if it has same originalLeft AND should come before us
-        if (nextHasSameOriginalLeft && !nextItem.greaterThan(this)) {
-          originalLeftPos.forward();
+        // Check if nextItem's originalRight equals our originalLeft
+        const nextOriginalRightEqualsOurOriginalLeft =
+          nextOriginalRightId &&
+          nextOriginalRightId.client === thisOriginalLeftId.client &&
+          nextOriginalRightId.clock === thisOriginalLeftId.clock;
+
+        // Determine if YATA rules say to skip this item:
+        // - It has same originalLeft AND should come before us, OR
+        // - Its originalRight equals our originalLeft AND should come before us
+        const shouldSkipByYATA =
+          (nextHasSameOriginalLeft && nextItem.lessThan(this)) ||
+          (nextOriginalRightEqualsOurOriginalLeft && nextItem.lessThan(this));
+
+        if (shouldSkipByYATA) {
+          // Use forwardItem() instead of forward() to avoid skipping deleted items
+          // We want to check every item in the linked list, including deleted ones
+          originalLeftPos.forwardItem();
+
+          // After skipping, check if we just skipped our originalRight
+          // If so, stop here (we've gone as far as we should)
+          const thisOriginalRightId = this.originalRight
+            ? this.originalRight.id
+              ? this.originalRight.id
+              : this.originalRight
+            : null;
+          const justSkippedOriginalRight =
+            thisOriginalRightId &&
+            nextItem.id.client === thisOriginalRightId.client &&
+            nextItem.id.clock === thisOriginalRightId.clock;
+
+          if (justSkippedOriginalRight) {
+            break;
+          }
         } else {
+          // YATA rules don't match - stop here
           break;
         }
       }
@@ -161,16 +247,31 @@ export class Item {
       },
     };
     if (originalLeft) {
-      json.originalLeft = {
-        client: originalLeft.id.client,
-        clock: originalLeft.id.clock,
-      };
+      // originalLeft might be an Item (with .id) or already a plain ID object {client, clock}
+      json.originalLeft = originalLeft.id
+        ? {
+            client: originalLeft.id.client,
+            clock: originalLeft.id.clock,
+          }
+        : {
+            client: originalLeft.client,
+            clock: originalLeft.clock,
+          };
     }
     if (originalRight) {
-      json.originalRight = {
-        client: originalRight.id.client,
-        clock: originalRight.id.clock,
-      };
+      // originalRight might be an Item (with .id) or already a plain ID object {client, clock}
+      json.originalRight = originalRight.id
+        ? {
+            client: originalRight.id.client,
+            clock: originalRight.id.clock,
+          }
+        : {
+            client: originalRight.client,
+            clock: originalRight.clock,
+          };
+    }
+    if (this.deleted) {
+      json.deleted = true;
     }
     return json;
   }
@@ -192,6 +293,9 @@ export class Item {
         clock: json.originalRight.clock,
       };
     }
+    if (json.deleted) {
+      item.deleted = true;
+    }
     return item;
   }
 
@@ -207,6 +311,16 @@ export class Item {
       return true;
     }
     return this.id.clock > item.id.clock;
+  }
+
+  lessThan(item) {
+    if (this.id.client < item.id.client) {
+      return true;
+    }
+    if (this.id.client > item.id.client) {
+      return false;
+    }
+    return this.id.clock < item.id.clock;
   }
 }
 
@@ -435,14 +549,20 @@ export function itemsToSlice(items, schema) {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     if (item instanceof OpeningTagItem) {
-      openingNodes.push(schema.node(item.tagName, item.attrs));
+      // Store tag metadata instead of creating the node immediately
+      // Some nodes (like bullet_list) cannot be created empty
+      openingNodes.push({
+        tagName: item.tagName,
+        attrs: item.attrs,
+        content: Fragment.empty,
+      });
       if (closingNode) {
         addToParent(closingNode);
       }
       currentDepth++;
     } else if (item instanceof ClosingTagItem) {
-      const node = openingNodes.pop();
-      if (!node) {
+      const nodeData = openingNodes.pop();
+      if (!nodeData) {
         // handle start with closing node
         if (closingNode) {
           closingNode = schema.node(item.tagName, null, [closingNode]);
@@ -454,11 +574,17 @@ export function itemsToSlice(items, schema) {
           openStart++;
         }
       } else {
-        if (node.type.name !== item.tagName) {
+        if (nodeData.tagName !== item.tagName) {
           throw new Error(
-            `Closing wrong tag. Expect ${item.tagName}, actual ${node.type.name}`,
+            `Closing wrong tag. Expect ${item.tagName}, actual ${nodeData.tagName}`,
           );
         }
+        // Create the actual node now that we have its content
+        const node = schema.node(
+          nodeData.tagName,
+          nodeData.attrs,
+          nodeData.content,
+        );
         addToParent(node);
         currentDepth--;
       }
@@ -480,8 +606,12 @@ export function itemsToSlice(items, schema) {
     fragment = fragment.append(Fragment.from([closingNode]));
   }
 
-  if (openingNodes) {
-    fragment = fragment.append(Fragment.from(openingNodes));
+  if (openingNodes.length) {
+    // Create any remaining unclosed nodes with their partial content
+    const remainingNodes = openingNodes.map((nodeData) => {
+      return schema.node(nodeData.tagName, nodeData.attrs, nodeData.content);
+    });
+    fragment = fragment.append(Fragment.from(remainingNodes));
   }
 
   return new Slice(fragment, openStart, currentDepth);

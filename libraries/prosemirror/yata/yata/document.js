@@ -13,6 +13,7 @@ import {
   OpeningTagItem,
   sliceToItems,
   fragmentToItems,
+  itemsToSlice,
   Item,
 } from './item.js';
 
@@ -211,21 +212,49 @@ export class Document {
   }
 
   applyItems(clientMap) {
+    // First pass: integrate all items into the document
     Object.keys(clientMap).forEach((client) => {
       const items = clientMap[client];
       items.forEach((itemJSON) => {
         const item = Item.fromJSON(itemJSON);
-        const integratedPos = item.putIntoDocument(this);
-        if (integratedPos) {
-          console.log(
-            'integrated item',
-            item.id,
-            'into position',
-            integratedPos,
-          );
-        }
+        item.putIntoDocument(this);
       });
     });
+
+    // Second pass: restore tag pair references
+    // After all items are integrated, fix OpeningTagItem/ClosingTagItem references
+    // that were serialized as ID objects
+    let item = this.head;
+    while (item) {
+      if (item instanceof OpeningTagItem && item.closingTagItem) {
+        // If closingTagItem is an ID object, find the actual item
+        if (
+          item.closingTagItem.client !== undefined &&
+          item.closingTagItem.clock !== undefined &&
+          !item.closingTagItem.integrate
+        ) {
+          const closingPos = this.findItemById(item.closingTagItem);
+          if (closingPos && closingPos.right) {
+            item.closingTagItem = closingPos.right;
+          }
+        }
+      }
+      if (item instanceof ClosingTagItem && item.openingTagItem) {
+        // If openingTagItem is an ID object, find the actual item
+        if (
+          item.openingTagItem.client !== undefined &&
+          item.openingTagItem.clock !== undefined &&
+          !item.openingTagItem.integrate
+        ) {
+          const openingPos = this.findItemById(item.openingTagItem);
+          if (openingPos && openingPos.right) {
+            item.openingTagItem = openingPos.right;
+          }
+        }
+      }
+      item = item.right;
+    }
+
     // todo translate into prosemirror steps
   }
 
@@ -238,6 +267,7 @@ export class Document {
     if (item && item.id.client === id.client && item.id.clock === id.clock) {
       return pos;
     }
+    // Use forwardItem() directly to traverse ALL items including deleted ones
     while (pos.right) {
       if (
         pos.right.id.clock === id.clock &&
@@ -245,12 +275,29 @@ export class Document {
       ) {
         return pos;
       }
-      if (pos.canForward()) {
-        pos.forward();
-      } else {
-        return null;
-      }
+      // Use forwardItem() instead of forward() to not skip deleted items
+      pos.forwardItem();
     }
     return null;
+  }
+
+  toProseMirrorDoc(schema) {
+    const items = [];
+    let item = this.head;
+
+    // Collect all non-deleted items from the linked list
+    while (item) {
+      if (!item.deleted) {
+        items.push(item);
+      }
+      item = item.right;
+    }
+
+    // Convert items to a Slice, then extract the content as a document
+    const slice = itemsToSlice(items, schema);
+    return schema.nodeFromJSON({
+      type: 'doc',
+      content: slice.content.toJSON(),
+    });
   }
 }

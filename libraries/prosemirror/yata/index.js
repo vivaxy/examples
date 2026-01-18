@@ -42,11 +42,10 @@ document
   .addEventListener('click', function () {
     const data1 = doc1.toItems();
     doc2.applyItems(data1);
-    // todo doc to prosemirror doc
     const tr = view2.state.tr.replaceWith(
       0,
       view2.state.doc.content.size,
-      view2.state.schema.nodeFromJSON(data1),
+      doc2.toProseMirrorDoc(view2.state.schema).content,
     );
     view2.dispatch(tr);
     view2.focus();
