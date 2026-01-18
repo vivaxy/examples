@@ -40,10 +40,16 @@ export class Item {
     if (pos.left === null && pos.right === null) {
       // empty doc
       pos.doc.head = this;
+    } else if (pos.left === null && pos.right !== null) {
+      // inserting at the head of non-empty doc
+      pos.doc.head = this;
     }
     pos.left = this;
     if (this.left) {
       this.left.right = this;
+    }
+    if (this.right) {
+      this.right.left = this;
     }
   }
 
@@ -96,14 +102,46 @@ export class Item {
       throw new Error('Left and Right not found');
     }
     if (originalLeftPos) {
-      while (
-        originalLeftPos.right &&
-        !originalLeftPos.right.greaterThan(this)
-      ) {
-        originalLeftPos.forward();
+      // findItemById returns position where pos.right === found item
+      // We need position after the item, so advance once
+      originalLeftPos.forward();
+
+      // Scan right to find the correct position
+      // Skip items that have the same originalLeft and should come before us
+      while (originalLeftPos.right) {
+        const nextItem = originalLeftPos.right;
+
+        // Check if nextItem has the same originalLeft as us
+        const nextHasSameOriginalLeft =
+          nextItem.originalLeft &&
+          ((nextItem.originalLeft.id &&
+            nextItem.originalLeft.id.client === this.originalLeft.client &&
+            nextItem.originalLeft.id.clock === this.originalLeft.clock) ||
+            (nextItem.originalLeft.client === this.originalLeft.client &&
+              nextItem.originalLeft.clock === this.originalLeft.clock));
+
+        // Only skip if it has same originalLeft AND should come before us
+        if (nextHasSameOriginalLeft && !nextItem.greaterThan(this)) {
+          originalLeftPos.forward();
+        } else {
+          break;
+        }
       }
       this.insertIntoPosition(originalLeftPos);
       return originalLeftPos;
+    }
+
+    // Only originalRight is found - insert before originalRight
+    if (originalRightPos) {
+      // originalRightPos is where pos.right === originalRight item
+      // Insert at this position (before originalRight)
+      this.insertIntoPosition(originalRightPos);
+
+      // Update doc.head if we inserted at the beginning
+      if (this.left === null) {
+        doc.head = this;
+      }
+      return originalRightPos;
     }
   }
 
