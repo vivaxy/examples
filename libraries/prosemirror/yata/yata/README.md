@@ -17,3 +17,4 @@ An item represents:
 - fix document sync
 - fix test cases
 - fix types
+- vite instead of webpack

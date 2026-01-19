@@ -1,20 +1,6 @@
 import { defineConfig } from 'vitest/config';
-import swc from 'unplugin-swc';
 
 export default defineConfig({
-  plugins: [
-    swc.vite({
-      jsc: {
-        parser: {
-          syntax: 'typescript',
-        },
-        target: 'es2020',
-      },
-      module: {
-        type: 'es6',
-      },
-    }),
-  ],
   test: {
     include: ['**/__tests__/**/*.test.ts', '**/*.test.ts'],
     environment: 'node',
