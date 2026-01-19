@@ -1,4 +1,5 @@
-import type { Fragment, Slice, Node, Mark, Schema } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
+import type { Node, Mark, Schema } from 'prosemirror-model';
 import type {
   ItemID,
   ItemReference,

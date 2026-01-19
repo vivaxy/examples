@@ -12,3 +12,8 @@ An item represents:
 4. A node.
 5. An attribute with a value, an attribute belongs to a parent item and a key.
 6. A mark, similar to an attribute, except it belongs to a text item.
+
+# TODO
+- fix document sync
+- fix test cases
+- fix types

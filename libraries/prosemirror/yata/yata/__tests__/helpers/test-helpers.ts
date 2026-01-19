@@ -3,8 +3,8 @@
  * Provides factories, helpers, and assertions to reduce test boilerplate
  */
 
-import type { Fragment, Mark } from 'prosemirror-model';
-import { Slice } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
+import type { Mark } from 'prosemirror-model';
 import schema from '../../../schema.js';
 import {
   TextItem,
