@@ -4,9 +4,9 @@
  */
 
 import { Fragment } from 'prosemirror-model';
-import schema from '../../schema.js';
-import { Document, Position } from '../document.js';
-import { TextItem, OpeningTagItem, ClosingTagItem } from '../item.js';
+import schema from '../../schema';
+import { Document, Position } from '../document';
+import { TextItem, OpeningTagItem, ClosingTagItem } from '../item';
 import {
   createMultiClientScenario,
   synchronizeDocs,
@@ -21,7 +21,7 @@ import {
   createParagraphItems,
   logDocState,
   visualizeItemChain,
-} from '../test-helpers.js';
+} from '../__tests__/helpers/test-helpers';
 
 describe('YATA Document Synchronization Integration', () => {
   describe('Basic Two-Client Sync', () => {
