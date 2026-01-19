@@ -1,6 +1,24 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
+  // Build configuration
+  build: {
+    outDir: '.',
+    emptyOutDir: false,
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'bundle.js',
+      },
+    },
+  },
+
+  // Dev server configuration
+  server: {
+    open: true,
+  },
+
+  // Test configuration (Vitest)
   test: {
     include: ['**/__tests__/**/*.test.ts', '**/*.test.ts'],
     environment: 'node',
@@ -15,7 +33,7 @@ export default defineConfig({
         'node_modules/',
         '**/__tests__/**',
         '**/integration-test/**',
-        'webpack.config.js',
+        'vite.config.ts',
       ],
     },
     testTimeout: 10000,
