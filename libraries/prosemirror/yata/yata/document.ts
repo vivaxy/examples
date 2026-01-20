@@ -14,7 +14,11 @@ import {
   itemsToSlice,
   Item,
 } from './item.js';
-import type { ItemID, ClientMap } from './types.js';
+import type { ItemID, ClientMap, ItemReference } from './types.js';
+
+function hasAddMarkProperty(step: Step): boolean {
+  return 'addMark' in step;
+}
 
 export class Position {
   doc: Document;
@@ -47,7 +51,7 @@ export class Position {
     }
     this.left = this.right;
     this.right = this.right!.right;
-    if (!this.left.deleted) {
+    if (!this.left!.deleted) {
       this.pos += 1;
       if (this.left instanceof OpeningTagItem) {
         this.paths.push(this.left);
@@ -171,7 +175,7 @@ export class Document {
         this.applyReplaceStep(step as ReplaceStep);
       }
     } else if ('mark' in step) {
-      if ((step as any).addMark) {
+      if (hasAddMarkProperty(step)) {
         this.applyAddMarkStep(step as AddMarkStep);
       } else {
         this.applyRemoveMarkStep(step as RemoveMarkStep);

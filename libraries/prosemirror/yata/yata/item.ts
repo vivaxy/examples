@@ -9,10 +9,12 @@ import type {
   ClosingTagItemJSON,
   NodeItemJSON,
   ItemMap,
+  NodeAttributes,
+  MarkJSON,
 } from './types.js';
 import type { Position, Document } from './document.js';
 
-function attrsToQueryString(attrs: Record<string, any> | null): string {
+function attrsToQueryString(attrs: NodeAttributes): string {
   if (!attrs) {
     return '';
   }
@@ -21,6 +23,31 @@ function attrsToQueryString(attrs: Record<string, any> | null): string {
     attrString += ` ${key}="${attrs[key]}"`;
   });
   return attrString;
+}
+
+function getItemId(item: Item, context: string = 'operation'): ItemID {
+  if (!item.id) {
+    throw new Error(
+      `Item must be integrated before ${context}. Item has no ID assigned.`,
+    );
+  }
+  return item.id;
+}
+
+function extractItemId(ref: ItemReference<Item> | null): ItemID | null {
+  if (!ref) return null;
+  if ('id' in ref && ref.id) return ref.id;
+  return ref as ItemID;
+}
+
+function itemRefsEqual(
+  ref1: ItemReference<Item> | null,
+  ref2: ItemReference<Item> | null,
+): boolean {
+  const id1 = extractItemId(ref1 || null);
+  const id2 = extractItemId(ref2 || null);
+  if (!id1 || !id2) return false;
+  return id1.client === id2.client && id1.clock === id2.clock;
 }
 
 export class ID {
@@ -172,39 +199,17 @@ export class Item {
       while (originalLeftPos.right) {
         const nextItem = originalLeftPos.right;
 
-        // Get the ID of this.originalLeft (could be Item or ID object)
-        const thisOriginalLeftId =
-          this.originalLeft && 'id' in this.originalLeft && this.originalLeft.id
-            ? this.originalLeft.id
-            : this.originalLeft;
-
-        // Get the ID of nextItem.originalLeft (could be Item or ID object)
-        const nextOriginalLeftId = nextItem.originalLeft
-          ? 'id' in nextItem.originalLeft && nextItem.originalLeft.id
-            ? nextItem.originalLeft.id
-            : nextItem.originalLeft
-          : null;
-
-        // Get the ID of nextItem.originalRight (could be Item or ID object)
-        const nextOriginalRightId = nextItem.originalRight
-          ? 'id' in nextItem.originalRight && nextItem.originalRight.id
-            ? nextItem.originalRight.id
-            : nextItem.originalRight
-          : null;
-
         // Check if nextItem has the same originalLeft as us
-        const nextHasSameOriginalLeft =
-          nextOriginalLeftId &&
-          thisOriginalLeftId &&
-          nextOriginalLeftId.client === thisOriginalLeftId.client &&
-          nextOriginalLeftId.clock === thisOriginalLeftId.clock;
+        const nextHasSameOriginalLeft = itemRefsEqual(
+          nextItem.originalLeft,
+          this.originalLeft,
+        );
 
         // Check if nextItem's originalRight equals our originalLeft
-        const nextOriginalRightEqualsOurOriginalLeft =
-          nextOriginalRightId &&
-          thisOriginalLeftId &&
-          nextOriginalRightId.client === thisOriginalLeftId.client &&
-          nextOriginalRightId.clock === thisOriginalLeftId.clock;
+        const nextOriginalRightEqualsOurOriginalLeft = itemRefsEqual(
+          nextItem.originalRight,
+          this.originalLeft,
+        );
 
         // Determine if YATA rules say to skip this item:
         // - It has same originalLeft AND should come before us, OR
@@ -220,16 +225,10 @@ export class Item {
 
           // After skipping, check if we just skipped our originalRight
           // If so, stop here (we've gone as far as we should)
-          const thisOriginalRightId = this.originalRight
-            ? 'id' in this.originalRight && this.originalRight.id
-              ? this.originalRight.id
-              : this.originalRight
-            : null;
-          const justSkippedOriginalRight =
-            thisOriginalRightId &&
-            nextItem.id &&
-            nextItem.id.client === thisOriginalRightId.client &&
-            nextItem.id.clock === thisOriginalRightId.clock;
+          const justSkippedOriginalRight = itemRefsEqual(
+            nextItem,
+            this.originalRight,
+          );
 
           if (justSkippedOriginalRight) {
             break;
@@ -267,37 +266,16 @@ export class Item {
   toJSON(): AnyItemJSON {
     const { originalLeft, originalRight } = this;
     const json: Partial<AnyItemJSON> = {
-      id: {
-        client: this.id!.client,
-        clock: this.id!.clock,
-      },
+      id: getItemId(this, 'serialization'),
       type: 'text', // Will be overridden by subclasses
     };
-    if (originalLeft) {
-      // originalLeft might be an Item (with .id) or already a plain ID object {client, clock}
-      json.originalLeft =
-        'id' in originalLeft && originalLeft.id
-          ? {
-              client: originalLeft.id.client,
-              clock: originalLeft.id.clock,
-            }
-          : {
-              client: (originalLeft as ItemID).client,
-              clock: (originalLeft as ItemID).clock,
-            };
+    const leftId = extractItemId(originalLeft);
+    if (leftId) {
+      json.originalLeft = leftId;
     }
-    if (originalRight) {
-      // originalRight might be an Item (with .id) or already a plain ID object {client, clock}
-      json.originalRight =
-        'id' in originalRight && originalRight.id
-          ? {
-              client: originalRight.id.client,
-              clock: originalRight.id.clock,
-            }
-          : {
-              client: (originalRight as ItemID).client,
-              clock: (originalRight as ItemID).clock,
-            };
+    const rightId = extractItemId(originalRight);
+    if (rightId) {
+      json.originalRight = rightId;
     }
     if (this.deleted) {
       json.deleted = true;
@@ -333,7 +311,8 @@ export class Item {
     if (!ItemClass) {
       throw new Error(`Unknown item type: ${json.type}`);
     }
-    return ItemClass.fromJSON(json);
+    // Type assertion needed because each fromJSON expects its specific JSON type
+    return ItemClass.fromJSON(json as any);
   }
 
   greaterThan(item: Item): boolean {
@@ -367,11 +346,20 @@ export class Item {
   }
 }
 
-export class MapItem {
+/**
+ * MapItem - Generic item for potential future use with map-like CRDTs
+ *
+ * Currently not used in the main YATA implementation. This class is exported
+ * but has no active usage in the codebase. It's kept for potential future
+ * extensions to support map-like collaborative data structures.
+ *
+ * Note: Uses generic `any` types as this is speculative code for future use.
+ */
+export class MapItem<TParent = unknown, TValue = unknown> {
   id: ItemID | null;
-  parent: any | null;
+  parent: TParent | null;
   key: string | null;
-  value: any | null;
+  value: TValue | null;
   deleted: boolean;
 
   constructor() {
@@ -382,7 +370,7 @@ export class MapItem {
     this.deleted = false;
   }
 
-  integrate(key: string, value: any, parent: any, doc: Document): void {
+  integrate(key: string, value: TValue, parent: TParent, doc: Document): void {
     this.parent = parent;
     this.id = {
       client: doc.client,
@@ -401,7 +389,7 @@ export class MapItem {
 
 export class TextItem extends Item {
   text: string;
-  marks: ReturnType<Mark['toJSON']>[];
+  marks: MarkJSON[];
 
   constructor(text: string, marks: Mark[] = []) {
     super();
@@ -423,7 +411,8 @@ export class TextItem extends Item {
   }
 
   static fromJSON(json: TextItemJSON): TextItem {
-    const textItem = new TextItem(json.text, json.marks as any);
+    const textItem = new TextItem(json.text, []);
+    textItem.marks = json.marks;
     return Item.setId(textItem, json) as TextItem;
   }
 
@@ -443,10 +432,10 @@ export class TextItem extends Item {
  */
 export class OpeningTagItem extends Item {
   tagName: string;
-  attrs: Record<string, any> | null;
+  attrs: NodeAttributes;
   closingTagItem: ClosingTagItem | ItemID | null;
 
-  constructor(tagName: string, attrs: Record<string, any> | null) {
+  constructor(tagName: string, attrs: NodeAttributes) {
     super();
     Item.itemMap['openingTag'] = OpeningTagItem;
     this.tagName = tagName;
@@ -457,10 +446,10 @@ export class OpeningTagItem extends Item {
 
   toJSON(): OpeningTagItemJSON {
     const base = super.toJSON();
-    const closingTagId =
-      this.closingTagItem && 'id' in this.closingTagItem
-        ? this.closingTagItem.id!
-        : (this.closingTagItem as ItemID);
+    const closingTagId = extractItemId(this.closingTagItem);
+    if (!closingTagId) {
+      throw new Error('OpeningTagItem must have a closingTagItem to serialize');
+    }
     return {
       ...base,
       type: 'openingTag' as const,
@@ -512,16 +501,16 @@ export class ClosingTagItem extends Item {
 
   toJSON(): ClosingTagItemJSON {
     const base = super.toJSON();
-    const openingTagId =
-      this.openingTagItem && 'id' in this.openingTagItem
-        ? this.openingTagItem.id
-        : (this.openingTagItem as ItemID | undefined);
-    return {
+    const openingTagId = extractItemId(this.openingTagItem);
+    const result: ClosingTagItemJSON = {
       ...base,
       type: 'closingTag' as const,
       tagName: this.tagName,
-      openingTagItem: openingTagId,
     };
+    if (openingTagId) {
+      result.openingTagItem = openingTagId;
+    }
+    return result;
   }
 
   static fromJSON(json: ClosingTagItemJSON): ClosingTagItem {
@@ -557,9 +546,9 @@ export class ClosingTagItem extends Item {
 
 export class NodeItem extends Item {
   tagName: string;
-  attrs: Record<string, any> | null;
+  attrs: NodeAttributes;
 
-  constructor(tagName: string, attrs: Record<string, any> | null) {
+  constructor(tagName: string, attrs: NodeAttributes) {
     super();
     Item.itemMap['node'] = NodeItem;
     this.tagName = tagName;
@@ -592,7 +581,7 @@ export class NodeItem extends Item {
 export function nodeToItems(node: Node): Item[] {
   if (node.isText) {
     return node.text!.split('').map((text) => {
-      return new TextItem(text, node.marks);
+      return new TextItem(text, [...node.marks]);
     });
   }
   if (node.isAtom) {
@@ -609,7 +598,7 @@ export function itemsToSlice(items: Item[], schema: Schema): Slice {
   let fragment = Fragment.empty;
   let openingNodes: Array<{
     tagName: string;
-    attrs: Record<string, any> | null;
+    attrs: NodeAttributes;
     content: Fragment;
   }> = [];
   let closingNode: Node | null = null;

@@ -17,6 +17,16 @@ export type ItemReference<T = Item> = T | ItemID | null;
 
 export type ItemType = 'text' | 'openingTag' | 'closingTag' | 'node';
 
+// ProseMirror attribute types
+export type AttributeValue = string | number | boolean | null;
+export type NodeAttributes = Record<string, AttributeValue> | null;
+
+// Mark serialization type
+export interface MarkJSON {
+  type: string;
+  attrs?: NodeAttributes;
+}
+
 // JSON serialization interfaces
 export interface BaseItemJSON {
   id: ItemID;
@@ -29,13 +39,13 @@ export interface BaseItemJSON {
 export interface TextItemJSON extends BaseItemJSON {
   type: 'text';
   text: string;
-  marks: ReturnType<Mark['toJSON']>[];
+  marks: MarkJSON[];
 }
 
 export interface OpeningTagItemJSON extends BaseItemJSON {
   type: 'openingTag';
   tagName: string;
-  attrs: Record<string, any> | null;
+  attrs: NodeAttributes;
   closingTagItem: ItemID;
 }
 
@@ -48,7 +58,7 @@ export interface ClosingTagItemJSON extends BaseItemJSON {
 export interface NodeItemJSON extends BaseItemJSON {
   type: 'node';
   tagName: string;
-  attrs: Record<string, any> | null;
+  attrs: NodeAttributes;
 }
 
 export type AnyItemJSON =
@@ -61,7 +71,6 @@ export type ClientMap = Record<string, AnyItemJSON[]>;
 
 // Item registry types
 export interface ItemConstructor<T extends Item = Item> {
-  new (...args: any[]): T;
   fromJSON(json: AnyItemJSON): T;
 }
 

@@ -15,6 +15,7 @@ import {
   Item,
 } from '../../item.js';
 import { Document, Position } from '../../document.js';
+import type { NodeAttributes, ItemID } from '../../types.js';
 
 // ============================================================================
 // Document Factories
@@ -98,7 +99,7 @@ export function createTextItems(text: string, marks: Mark[] = []): TextItem[] {
  */
 export function createParagraphItems(
   text: string,
-  attrs: Record<string, any> | null = null,
+  attrs: NodeAttributes = null,
 ): Item[] {
   const openingTag = new OpeningTagItem('paragraph', attrs);
   const textItems = createTextItems(text);
@@ -273,6 +274,16 @@ export function expectItemsLinked(left: Item, right: Item): void {
 export function expectDocSize(doc: Document, expectedSize: number): void {
   const items = doc.toArray().filter((item) => !item.deleted);
   expect(items.length).toBe(expectedSize);
+}
+
+/**
+ * Type assertion that an item has an ID
+ * Useful for TypeScript narrowing in tests
+ */
+export function assertHasId(item: Item): asserts item is Item & { id: ItemID } {
+  if (!item.id) {
+    throw new Error('Test assertion failed: Item should have ID');
+  }
 }
 
 // ============================================================================

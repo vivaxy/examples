@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ESNext", "DOM"],
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "baseUrl": "."
+  },
+  "include": ["yata/**/*.ts", "*.ts"],
+  "exclude": [
+    "node_modules",
+    "bundle.js",
+    "bundle.js.map",
+    "**/__tests__/**",
+    "**/integration-test/**",
+    "vite.config.ts"
+  ]
+}
