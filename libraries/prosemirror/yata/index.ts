@@ -57,6 +57,15 @@ document
   .querySelector('.sync[data-id="2"]')!
   .addEventListener('click', function () {
     const data2 = doc2.toItems();
+    doc1.applyItems(data2);
+    const tr = view1.state.tr.replaceWith(
+      0,
+      view1.state.doc.content.size,
+      doc1.toProseMirrorDoc(view1.state.schema).content,
+    );
+    view1.dispatch(tr);
+    view1.focus();
+    console.log('sync doc2 to doc1');
   });
 
 // Expose to window for debugging

@@ -219,20 +219,14 @@ export class Item {
           (nextOriginalRightEqualsOurOriginalLeft && nextItem.lessThan(this));
 
         if (shouldSkipByYATA) {
+          // Check BEFORE advancing - originalRight is a hard boundary we must not cross
+          // This ensures items inserted between originalLeft and originalRight stay there
+          if (itemRefsEqual(nextItem, this.originalRight)) {
+            break;
+          }
           // Use forwardItem() instead of forward() to avoid skipping deleted items
           // We want to check every item in the linked list, including deleted ones
           originalLeftPos.forwardItem();
-
-          // After skipping, check if we just skipped our originalRight
-          // If so, stop here (we've gone as far as we should)
-          const justSkippedOriginalRight = itemRefsEqual(
-            nextItem,
-            this.originalRight,
-          );
-
-          if (justSkippedOriginalRight) {
-            break;
-          }
         } else {
           // YATA rules don't match - stop here
           break;

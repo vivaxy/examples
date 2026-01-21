@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { Fragment, Slice } from 'prosemirror-model';
 import schema from '../../schema.js';
 import {
@@ -413,9 +414,10 @@ describe('Item.putIntoDocument() - Out-of-order Integration', function () {
       .toArray()
       .map((i) => (i as TextItem).text)
       .join('');
-    // Both 'c' and 'X' have originalLeft='b', so they're ordered by client ID
-    // client1 < client2, so 'c' comes before 'X'
-    expect(result).toBe('abcXde');
+    // X has originalRight='c', which is a hard boundary constraint
+    // X must be placed before 'c', respecting its original insertion position
+    // originalRight takes precedence over YATA client ID ordering
+    expect(result).toBe('abXcde');
   });
 });
 
