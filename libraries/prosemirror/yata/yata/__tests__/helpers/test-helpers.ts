@@ -5,7 +5,7 @@
 
 import { Fragment, Slice } from 'prosemirror-model';
 import type { Mark } from 'prosemirror-model';
-import schema from '../../../schema.js';
+import schema from '../../../example/schema.js';
 import {
   TextItem,
   OpeningTagItem,

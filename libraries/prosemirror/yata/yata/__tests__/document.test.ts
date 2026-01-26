@@ -1,6 +1,6 @@
 import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
-import schema from '../../schema.js';
+import schema from '../../example/schema.js';
 import { Position, Document } from '../document.js';
 import { ClosingTagItem, Item, OpeningTagItem, TextItem } from '../item.js';
 

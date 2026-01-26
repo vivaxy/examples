@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  // Use example folder as the root for dev server
+  root: 'example',
+
   // Build configuration
   build: {
-    outDir: '.',
-    emptyOutDir: false,
+    outDir: '../dist',
+    emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
       output: {
@@ -20,6 +23,7 @@ export default defineConfig({
 
   // Test configuration (Vitest)
   test: {
+    root: '.',
     include: ['**/__tests__/**/*.test.ts', '**/*.test.ts'],
     environment: 'node',
     globals: true,

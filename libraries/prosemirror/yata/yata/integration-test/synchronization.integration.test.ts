@@ -4,7 +4,7 @@
  */
 
 import { Fragment } from 'prosemirror-model';
-import schema from '../../schema';
+import schema from '../../example/schema';
 import { Document, Position } from '../document';
 import { TextItem, OpeningTagItem, ClosingTagItem } from '../item';
 import {

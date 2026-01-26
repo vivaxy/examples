@@ -7,7 +7,7 @@ import { EditorView } from 'prosemirror-view';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { Step } from 'prosemirror-transform';
 import schema from './schema.js';
-import { Document } from './yata/index.js';
+import { Document } from '../yata/index.js';
 
 const state1 = EditorState.create({
   schema,

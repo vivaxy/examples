@@ -14,7 +14,5 @@ An item represents:
 6. A mark, similar to an attribute, except it belongs to a text item.
 
 # TODO
-- fix document sync
 - fix test cases
-- failing integration test
 - incomplete method implementations

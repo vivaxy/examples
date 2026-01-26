@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { Fragment, Slice } from 'prosemirror-model';
-import schema from '../../schema.js';
+import schema from '../../example/schema.js';
 import {
   nodeToItems,
   OpeningTagItem,
