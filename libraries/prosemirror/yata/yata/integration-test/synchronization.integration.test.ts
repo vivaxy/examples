@@ -3,7 +3,10 @@
  * Tests CRDT convergence properties across concurrent editing scenarios
  */
 
-import { Fragment } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { ReplaceStep } from 'prosemirror-transform';
+import { exampleSetup } from 'prosemirror-example-setup';
 import schema from '../../example/schema';
 import { Document, Position } from '../document';
 import { TextItem, OpeningTagItem, ClosingTagItem } from '../item';
@@ -385,6 +388,51 @@ describe('YATA Document Synchronization Integration', () => {
   });
 
   describe('Complex Document Structures', () => {
+    test('D0: empty paragraph receives text insertion via ReplaceStep and syncs', () => {
+      // Arrange
+      // Create two documents with empty paragraph using EditorState pattern
+      const state1 = EditorState.create({
+        schema,
+        plugins: exampleSetup({ schema }),
+      });
+      const doc1 = Document.fromNodes(state1.doc.content);
+
+      const doc2 = new Document(doc1.client);
+      doc2.applyItems(doc1.toItems());
+
+      // Both should start with empty paragraph
+      expectDocHTML(doc1, '<paragraph></paragraph>');
+      expectDocHTML(doc2, '<paragraph></paragraph>');
+
+      // Act
+      // Insert 'x' at position 1 (inside paragraph) using ReplaceStep
+      const step = new ReplaceStep(
+        1,
+        1,
+        new Slice(Fragment.from([schema.text('x')]), 0, 0),
+      );
+      doc1.applyStep(step);
+
+      // Sync to doc2
+      const items1 = doc1.toItems();
+      doc2.applyItems(items1);
+
+      // Assert
+      // Both documents should have 'x' inside paragraph
+      expectDocHTML(doc1, '<paragraph>x</paragraph>');
+      expectDocHTML(doc2, '<paragraph>x</paragraph>');
+
+      // Verify structure: OpeningTag + TextItem('x') + ClosingTag = 3 items
+      expectDocSize(doc1, 3);
+      expectDocSize(doc2, 3);
+
+      // Verify ProseMirror conversion for doc2
+      const proseMirrorDoc2 = doc2.toProseMirrorDoc(schema);
+      expect(proseMirrorDoc2.childCount).toBe(1);
+      expect(proseMirrorDoc2.firstChild!.type.name).toBe('paragraph');
+      expect(proseMirrorDoc2.firstChild!.textContent).toBe('x');
+    });
+
     test('D1: paragraph with text synchronization', () => {
       // Arrange
       const docs = createMultiClientScenario(2);
