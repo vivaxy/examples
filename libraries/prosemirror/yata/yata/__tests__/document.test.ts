@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 import schema from '../../example/schema.js';

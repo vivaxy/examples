@@ -16,3 +16,5 @@ An item represents:
 # TODO
 - fix test cases
 - incomplete method implementations
+- add tr meta to distinct user change from sync change, if sync change found, do not applyStep to doc
+- do not add claude co-author in git commit message

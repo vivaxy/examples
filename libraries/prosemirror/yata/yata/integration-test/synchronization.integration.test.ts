@@ -3,13 +3,14 @@
  * Tests CRDT convergence properties across concurrent editing scenarios
  */
 
+import { describe, test, expect } from 'vitest';
 import { Fragment, Slice } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { ReplaceStep } from 'prosemirror-transform';
 import { exampleSetup } from 'prosemirror-example-setup';
-import schema from '../../example/schema';
-import { Document, Position } from '../document';
-import { TextItem, OpeningTagItem, ClosingTagItem } from '../item';
+import schema from '../../example/schema.js';
+import { Document, Position } from '../document.js';
+import { TextItem, OpeningTagItem, ClosingTagItem } from '../item.js';
 import {
   createMultiClientScenario,
   synchronizeDocs,
@@ -24,7 +25,7 @@ import {
   createParagraphItems,
   logDocState,
   visualizeItemChain,
-} from '../__tests__/helpers/test-helpers';
+} from '../__tests__/helpers/test-helpers.js';
 
 describe('YATA Document Synchronization Integration', () => {
   describe('Basic Two-Client Sync', () => {

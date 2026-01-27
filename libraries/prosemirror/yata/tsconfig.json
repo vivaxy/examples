@@ -17,12 +17,5 @@
     "baseUrl": "."
   },
   "include": ["yata/**/*.ts", "*.ts"],
-  "exclude": [
-    "node_modules",
-    "bundle.js",
-    "bundle.js.map",
-    "**/__tests__/**",
-    "**/integration-test/**",
-    "vite.config.ts"
-  ]
+  "exclude": ["node_modules", "bundle.js", "bundle.js.map", "vite.config.ts"]
 }

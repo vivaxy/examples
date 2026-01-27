@@ -21,13 +21,23 @@ conflict-free replicated data structure.
 
 ### Testing
 
-- `yarn test` - Run Jest tests with experimental VM modules support
+- `yarn test` - Run Vitest tests
+- `yarn test:watch` - Run tests in watch mode
+- `yarn test:ui` - Run tests with UI interface
+- `yarn test:coverage` - Run tests with coverage report
 - Tests are located in `yata/__tests__/` directory
 - Test file should locate in `__tests__` of the same file folder of the source
-  file. And file name should be the same of the source file, with `.test.js`
-  extension. e.g. `a/b.js` test file should be `a/__tests__/b.test.js`
+  file. And file name should be the same of the source file, with `.test.ts`
+  extension. e.g. `a/b.ts` test file should be `a/__tests__/b.test.ts`
 - Test case should be arranged by `arrange act assert` steps. Before each step,
   a comment should mark the step name. e.g. `// Arrange`
+
+### Linting and Type Checking
+
+- `yarn lint` - Run TypeScript type checking on all files (including tests)
+  - This runs `tsc --noEmit` which checks for type errors without emitting files
+  - **IMPORTANT**: Always run this before committing to catch type errors
+  - Test files are included in type checking (see `tsconfig.json`)
 
 Note: This project uses Yarn 1.22.22 as the package manager. Always use `yarn`
 commands, not `npm`.
@@ -113,6 +123,60 @@ Tests are organized by module:
 Tests verify bidirectional conversion between ProseMirror's data structures
 (Fragment, Slice) and YATA items, as well as proper integration of items into
 documents.
+
+## Development Rules
+
+### Test File Import Requirements
+
+**CRITICAL**: All test files MUST follow these import patterns to avoid
+TypeScript errors:
+
+1. **Vitest Functions**: Always explicitly import test functions from Vitest,
+   even though `globals: true` is enabled in `vite.config.ts`:
+
+   ```typescript
+   import { describe, test, expect } from 'vitest';
+   ```
+
+   **Rationale**: While Vitest globals are available at runtime, TypeScript
+   requires explicit imports for type checking.
+
+2. **Local Module Imports**: Always include `.js` extensions when importing
+   local TypeScript files:
+
+   ```typescript
+   // ✅ CORRECT
+   import schema from '../../example/schema.js';
+   import { Document, Position } from '../document.js';
+   import { TextItem, OpeningTagItem } from '../item.js';
+   import { createEmptyDoc } from './helpers/test-helpers.js';
+
+   // ❌ INCORRECT - will cause module resolution errors
+   import schema from '../../example/schema';
+   import { Document, Position } from '../document';
+   ```
+
+   **Rationale**: This project uses TypeScript with `NodeNext` module resolution
+   (root `tsconfig.json`), which requires explicit `.js` extensions for ES
+   module imports. The Vitest alias in `vite.config.ts` automatically resolves
+   `.js` to `.ts` files during testing.
+
+3. **Reference Files**: When creating new test files, use these as templates:
+   - `yata/__tests__/item.test.ts` - Shows correct Vitest imports
+   - `yata/__tests__/helpers/test-helpers.ts` - Shows correct `.js` extension
+     usage
+
+### Pre-commit Checklist
+
+Before committing code (especially test files), verify:
+
+- [ ] Vitest functions (`describe`, `test`, `expect`, `beforeEach`, etc.) are
+      explicitly imported
+- [ ] All local imports use `.js` extensions (../../example/schema.js,
+      ../document.js, etc.)
+- [ ] **TypeScript compilation passes: `yarn lint`** (checks all files including
+      tests)
+- [ ] Tests run successfully: `yarn test`
 
 ## ProseMirror Schema
 
