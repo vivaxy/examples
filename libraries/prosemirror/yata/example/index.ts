@@ -20,21 +20,25 @@ const view1 = new EditorView(document.querySelector('.editor[data-id="1"]'), {
   state: state1,
   dispatchTransaction(tr: Transaction) {
     view1.updateState(view1.state.apply(tr));
-    tr.steps.forEach(function (step: Step) {
-      doc1.applyStep(step);
-    });
+    if (!tr.getMeta('sync')) {
+      tr.steps.forEach(function (step: Step) {
+        doc1.applyStep(step);
+      });
+    }
   },
 });
 
-const doc2 = new Document(doc1.client);
+const doc2 = new Document();
 doc2.applyItems(doc1.toItems());
 const view2 = new EditorView(document.querySelector('.editor[data-id="2"]'), {
   state: state1,
   dispatchTransaction(tr: Transaction) {
     view2.updateState(view2.state.apply(tr));
-    tr.steps.forEach(function (step: Step) {
-      doc2.applyStep(step);
-    });
+    if (!tr.getMeta('sync')) {
+      tr.steps.forEach(function (step: Step) {
+        doc2.applyStep(step);
+      });
+    }
   },
 });
 
@@ -43,11 +47,13 @@ document
   .addEventListener('click', function () {
     const data1 = doc1.toItems();
     doc2.applyItems(data1);
-    const tr = view2.state.tr.replaceWith(
-      0,
-      view2.state.doc.content.size,
-      doc2.toProseMirrorDoc(view2.state.schema).content,
-    );
+    const tr = view2.state.tr
+      .replaceWith(
+        0,
+        view2.state.doc.content.size,
+        doc2.toProseMirrorDoc(view2.state.schema).content,
+      )
+      .setMeta('sync', true);
     view2.dispatch(tr);
     view2.focus();
     console.log('sync doc1 to doc2');
@@ -58,11 +64,13 @@ document
   .addEventListener('click', function () {
     const data2 = doc2.toItems();
     doc1.applyItems(data2);
-    const tr = view1.state.tr.replaceWith(
-      0,
-      view1.state.doc.content.size,
-      doc1.toProseMirrorDoc(view1.state.schema).content,
-    );
+    const tr = view1.state.tr
+      .replaceWith(
+        0,
+        view1.state.doc.content.size,
+        doc1.toProseMirrorDoc(view1.state.schema).content,
+      )
+      .setMeta('sync', true);
     view1.dispatch(tr);
     view1.focus();
     console.log('sync doc2 to doc1');
