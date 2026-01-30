@@ -14,7 +14,4 @@ An item represents:
 6. A mark, similar to an attribute, except it belongs to a text item.
 
 # TODO
-- fix test cases
 - incomplete method implementations
-- add tr meta to distinct user change from sync change, if sync change found, do not applyStep to doc
-- do not add claude co-author in git commit message

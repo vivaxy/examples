@@ -166,6 +166,11 @@ TypeScript errors:
    - `yata/__tests__/helpers/test-helpers.ts` - Shows correct `.js` extension
      usage
 
+### Git Commit Conventions
+
+- **Do NOT add Claude co-author line** in git commit messages. Omit the
+  `Co-Authored-By: Claude ...` footer entirely.
+
 ### Pre-commit Checklist
 
 Before committing code (especially test files), verify:
@@ -177,6 +182,12 @@ Before committing code (especially test files), verify:
 - [ ] **TypeScript compilation passes: `yarn lint`** (checks all files including
       tests)
 - [ ] Tests run successfully: `yarn test`
+
+### Remembering Rules
+
+When the user asks Claude to "remember" a rule or convention, Claude must add it
+to this AGENTS.md file in the appropriate section. This ensures project-specific
+knowledge persists across sessions.
 
 ## ProseMirror Schema
 
