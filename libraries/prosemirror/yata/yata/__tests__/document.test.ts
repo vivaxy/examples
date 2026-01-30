@@ -44,7 +44,7 @@ describe('applyStep', function () {
         1,
         3,
         new Slice(
-          new Fragment([schema.node('paragraph', null, [schema.text('2')])]),
+          Fragment.from([schema.node('paragraph', null, [schema.text('2')])]),
           1,
           0,
         ),

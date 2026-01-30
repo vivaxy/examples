@@ -688,7 +688,7 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
 describe('nodeToItems', function () {
   test('all nodes', function () {
     const node = schema.node('paragraph', null, [
-      schema.text('123', schema.mark('em')),
+      schema.text('123', [schema.mark('em')]),
       schema.node('image', { src: 'a' }),
     ]);
     const items = nodeToItems(node);
@@ -721,7 +721,7 @@ describe('itemsToSlice and fragmentToItems', function () {
 describe('sliceToItems', () => {
   test('all nodes', () => {
     const node = schema.node('paragraph', null, [
-      schema.text('123', schema.mark('em')),
+      schema.text('123', [schema.mark('em')]),
       schema.node('image', { src: 'a' }),
     ]);
     const slice = new Slice(

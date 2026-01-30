@@ -240,7 +240,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Client A deletes 'b' (middle character)
       const deletePos = docA.resolvePosition(1); // Position after 'a', before 'b'
-      deletePos.right.delete(); // Delete 'b'
+      deletePos.right!.delete(); // Delete 'b'
 
       // Sync deletion to B
       syncBidirectional(docA, docB);
@@ -255,7 +255,7 @@ describe('YATA Document Synchronization Integration', () => {
       expect(allItemsA.length).toBe(3);
       const deletedItems = allItemsA.filter((item) => item.deleted);
       expect(deletedItems.length).toBe(1);
-      expect(deletedItems[0].text).toBe('b');
+      expect((deletedItems[0] as TextItem).text).toBe('b');
     });
 
     test('C2: concurrent insertion and deletion', () => {
@@ -277,7 +277,7 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Client B deletes 'a' (concurrent with A's insertion)
       const deletePosB = docB.resolvePosition(0); // Before 'a'
-      deletePosB.right.delete(); // Delete 'a'
+      deletePosB.right!.delete(); // Delete 'a'
 
       // Sync both operations
       synchronizeDocs(docs);
@@ -300,7 +300,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Delete 'y' (middle item)
       const deletePos = doc.resolvePosition(1);
-      const itemY = deletePos.right;
+      const itemY = deletePos.right!;
       itemY.delete();
 
       // Assert
@@ -314,8 +314,8 @@ describe('YATA Document Synchronization Integration', () => {
       // Verify the deleted item
       const deletedItem = allItems.find((item) => item.deleted);
       expect(deletedItem).toBeDefined();
-      expect(deletedItem.text).toBe('y');
-      expect(deletedItem.deleted).toBe(true);
+      expect((deletedItem as TextItem).text).toBe('y');
+      expect(deletedItem!.deleted).toBe(true);
 
       // Verify linked list integrity
       const itemX = allItems[0];
@@ -337,11 +337,11 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Client A deletes 'b'
       const deletePosA = docA.resolvePosition(1);
-      deletePosA.right.delete();
+      deletePosA.right!.delete();
 
       // Client B deletes 'd' (concurrent)
       const deletePosB = docB.resolvePosition(3);
-      deletePosB.right.delete();
+      deletePosB.right!.delete();
 
       // Sync deletions
       synchronizeDocs(docs);
@@ -369,10 +369,10 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Both clients delete 'b' concurrently
       const deletePosA = docA.resolvePosition(1);
-      deletePosA.right.delete();
+      deletePosA.right!.delete();
 
       const deletePosB = docB.resolvePosition(1);
-      deletePosB.right.delete();
+      deletePosB.right!.delete();
 
       // Sync
       synchronizeDocs(docs);
@@ -384,7 +384,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Should still only have one deleted item 'b'
       const deletedItems = docA.toArray().filter((item) => item.deleted);
       expect(deletedItems.length).toBe(1);
-      expect(deletedItems[0].text).toBe('b');
+      expect((deletedItems[0] as TextItem).text).toBe('b');
     });
   });
 
@@ -618,7 +618,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Client A deletes 'a'
       const deletePos = docA.resolvePosition(0);
-      deletePos.right.delete();
+      deletePos.right!.delete();
 
       // Client B inserts 'b' between 'a' and 'c' (before knowing 'a' is deleted)
       const insertPos = docB.resolvePosition(1);
@@ -649,7 +649,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       // Client A deletes 'c'
       const deletePos = docA.resolvePosition(1);
-      deletePos.right.delete();
+      deletePos.right!.delete();
 
       // Client B inserts 'b' between 'a' and 'c' (before knowing 'c' is deleted)
       const insertPos = docB.resolvePosition(1);
@@ -744,7 +744,8 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Verify each item has correct client ID and sequential clocks
       items['client-test'].forEach((item, i) => {
-        expectItemId(item, 'client-test', i);
+        expect(item.id.client).toBe('client-test');
+        expect(item.id.clock).toBe(i);
       });
     });
 
@@ -777,12 +778,15 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Create complex structure
       const items = [
-        new OpeningTagItem('paragraph'),
+        new OpeningTagItem('paragraph', null),
         ...createTextItems('hello'),
         new ClosingTagItem('paragraph'),
       ];
-      items[0].closingTagItem = items[items.length - 1];
-      items[items.length - 1].openingTagItem = items[0];
+      (items[0] as OpeningTagItem).closingTagItem = items[
+        items.length - 1
+      ] as ClosingTagItem;
+      (items[items.length - 1] as ClosingTagItem).openingTagItem =
+        items[0] as OpeningTagItem;
       items.forEach((item) => item.integrate(pos));
 
       // Act
