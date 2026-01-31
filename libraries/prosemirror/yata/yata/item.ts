@@ -590,7 +590,7 @@ export function nodeToItems(node: Node): Item[] {
 
 export function itemsToSlice(items: Item[], schema: Schema): Slice {
   let fragment = Fragment.empty;
-  let openingNodes: Array<{
+  const openingNodes: Array<{
     tagName: string;
     attrs: NodeAttributes;
     content: Fragment;

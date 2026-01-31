@@ -16,10 +16,6 @@ import {
 } from './item.js';
 import type { ItemID, ClientMap, ItemReference } from './types.js';
 
-function hasAddMarkProperty(step: Step): boolean {
-  return 'addMark' in step;
-}
-
 export class Position {
   doc: Document;
   pos: number;
@@ -175,11 +171,7 @@ export class Document {
         this.applyReplaceStep(step as ReplaceStep);
       }
     } else if ('mark' in step) {
-      if (hasAddMarkProperty(step)) {
-        this.applyAddMarkStep(step as AddMarkStep);
-      } else {
-        this.applyRemoveMarkStep(step as RemoveMarkStep);
-      }
+      throw new Error('Mark steps are not implemented');
     } else {
       throw new Error('Unexpected step');
     }
@@ -200,12 +192,12 @@ export class Document {
     );
   }
 
-  applyAddMarkStep(step: AddMarkStep): void {
-    // todo
+  applyAddMarkStep(_step: AddMarkStep): void {
+    throw new Error('applyAddMarkStep is not implemented');
   }
 
-  applyRemoveMarkStep(step: RemoveMarkStep): void {
-    // TODO
+  applyRemoveMarkStep(_step: RemoveMarkStep): void {
+    throw new Error('applyRemoveMarkStep is not implemented');
   }
 
   toHTMLString(): string {
@@ -300,7 +292,7 @@ export class Document {
     const targetId = 'id' in id && id.id ? id.id : (id as ItemID);
 
     const pos = new Position(this);
-    let item = this.head;
+    const item = this.head;
     if (
       item &&
       item.id &&

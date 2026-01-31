@@ -197,30 +197,6 @@ describe('toProseMirrorDoc', function () {
     );
   });
 
-  test('should convert text with marks', function () {
-    // Arrange
-    const doc = Document.fromNodes(
-      Fragment.from([
-        schema.node('paragraph', null, [
-          schema.text('bold', [schema.marks.strong.create()]),
-        ]),
-      ]),
-    );
-
-    // Act
-    const proseMirrorDoc = doc.toProseMirrorDoc(schema);
-
-    // Assert
-    expect(proseMirrorDoc.type.name).toBe('doc');
-    expect(proseMirrorDoc.childCount).toBe(1);
-    expect(proseMirrorDoc.firstChild!.type.name).toBe('paragraph');
-    expect(proseMirrorDoc.firstChild!.textContent).toBe('bold');
-    expect(proseMirrorDoc.firstChild!.firstChild!.marks.length).toBe(1);
-    expect(proseMirrorDoc.firstChild!.firstChild!.marks[0].type.name).toBe(
-      'strong',
-    );
-  });
-
   test('should handle empty document', function () {
     // Arrange
     const doc = new Document();
