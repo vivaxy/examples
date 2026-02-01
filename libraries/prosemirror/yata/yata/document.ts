@@ -11,6 +11,7 @@ import {
   ClosingTagItem,
   OpeningTagItem,
   DeleteItem,
+  SetAttrItem,
   sliceToItems,
   fragmentToItems,
   itemsToSlice,
@@ -73,7 +74,9 @@ export class Position {
   forwardToDeletionEnd(): void {
     while (
       this.right &&
-      (this.right.deleted || this.right instanceof DeleteItem)
+      (this.right.deleted ||
+        this.right instanceof DeleteItem ||
+        this.right instanceof SetAttrItem)
     ) {
       this.forwardItem();
     }
@@ -131,10 +134,10 @@ export class Document {
       console.assert($pos.right, 'Unexpected position ' + to);
       const item = $pos.right!;
 
-      // Create a DeleteItem pointing to this item
+      // Create a SetAttrItem with setDeleted: true pointing to this item
       if (item.id) {
-        const deleteItem = new DeleteItem(item.id);
-        deleteItem.integrate($pos);
+        const setAttrItem = new SetAttrItem(item.id, { setDeleted: true });
+        setAttrItem.integrate($pos);
       }
 
       // Mark the target as deleted immediately (local operation)
@@ -281,6 +284,8 @@ export class Document {
           repr = `Node(${item.tagName})`;
         } else if (item instanceof DeleteItem) {
           repr = `Del(${item.targetId.client}:${item.targetId.clock})`;
+        } else if (item instanceof SetAttrItem) {
+          repr = `SetAttr(${item.targetId.client}:${item.targetId.clock})`;
         } else {
           repr = 'Item';
         }
@@ -446,13 +451,33 @@ export class Document {
     return null;
   }
 
+  findSetAttrItemsByTargetId(targetId: ItemID): SetAttrItem[] {
+    const results: SetAttrItem[] = [];
+    let item = this.head;
+    while (item) {
+      if (
+        item instanceof SetAttrItem &&
+        item.targetId.client === targetId.client &&
+        item.targetId.clock === targetId.clock
+      ) {
+        results.push(item);
+      }
+      item = item.right;
+    }
+    return results;
+  }
+
   toProseMirrorDoc(schema: Schema): Node {
     const items: Item[] = [];
     let item = this.head;
 
-    // Collect all non-deleted items from the linked list, excluding DeleteItems
+    // Collect all non-deleted items from the linked list, excluding DeleteItems and SetAttrItems
     while (item) {
-      if (!item.deleted && !(item instanceof DeleteItem)) {
+      if (
+        !item.deleted &&
+        !(item instanceof DeleteItem) &&
+        !(item instanceof SetAttrItem)
+      ) {
         items.push(item);
       }
       item = item.right;

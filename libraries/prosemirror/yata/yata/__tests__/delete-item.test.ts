@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import schema from '../../example/schema.js';
-import { DeleteItem, TextItem } from '../item.js';
+import { DeleteItem, SetAttrItem, TextItem } from '../item.js';
 import { Document, Position } from '../document.js';
 import { createEmptyDoc, createDocWithText } from './helpers/test-helpers.js';
 
@@ -183,7 +183,7 @@ describe('DeleteItem - Integration with Document', function () {
 });
 
 describe('DeleteItem - Document.replaceItemsInner()', function () {
-  test('replaceItemsInner creates DeleteItems for deleted range', function () {
+  test('replaceItemsInner creates SetAttrItems for deleted range', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const initialItemCount = doc.toArray().length;
@@ -193,12 +193,13 @@ describe('DeleteItem - Document.replaceItemsInner()', function () {
 
     // Assert
     const allItems = doc.toArray();
-    // Should have original items + 1 DeleteItem
+    // Should have original items + 1 SetAttrItem
     expect(allItems.length).toBe(initialItemCount + 1);
 
-    // Find the DeleteItem
-    const deleteItems = allItems.filter((item) => item instanceof DeleteItem);
-    expect(deleteItems.length).toBe(1);
+    // Find the SetAttrItem (replaceItemsInner now uses SetAttrItem instead of DeleteItem)
+    const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
+    expect(setAttrItems.length).toBe(1);
+    expect((setAttrItems[0] as SetAttrItem).setDeleted).toBe(true);
 
     // The first text item 'a' should be deleted
     const textItems = allItems.filter((item) => item instanceof TextItem);
@@ -206,7 +207,7 @@ describe('DeleteItem - Document.replaceItemsInner()', function () {
     expect(firstTextItem.deleted).toBe(true);
   });
 
-  test('replaceItemsInner creates multiple DeleteItems for multi-char deletion', function () {
+  test('replaceItemsInner creates multiple SetAttrItems for multi-char deletion', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
 
@@ -215,8 +216,10 @@ describe('DeleteItem - Document.replaceItemsInner()', function () {
 
     // Assert
     const allItems = doc.toArray();
-    const deleteItems = allItems.filter((item) => item instanceof DeleteItem);
-    expect(deleteItems.length).toBe(2); // Two DeleteItems created
+    const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
+    expect(setAttrItems.length).toBe(2); // Two SetAttrItems created
+    expect((setAttrItems[0] as SetAttrItem).setDeleted).toBe(true);
+    expect((setAttrItems[1] as SetAttrItem).setDeleted).toBe(true);
 
     // The first two text items should be deleted
     const textItems = allItems.filter((item) => item instanceof TextItem);

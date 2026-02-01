@@ -6,6 +6,7 @@ import type {
   ClosingTagItem,
   NodeItem,
   DeleteItem,
+  SetAttrItem,
 } from './item.js';
 
 // Change tracking for applyItems → ProseMirror steps conversion
@@ -21,7 +22,13 @@ export interface ItemID {
   clock: number;
 }
 
-export type ItemType = 'text' | 'openingTag' | 'closingTag' | 'node' | 'delete';
+export type ItemType =
+  | 'text'
+  | 'openingTag'
+  | 'closingTag'
+  | 'node'
+  | 'delete'
+  | 'setAttr';
 
 // ProseMirror attribute types
 export type AttributeValue = string | number | boolean | null;
@@ -72,12 +79,21 @@ export interface DeleteItemJSON extends BaseItemJSON {
   targetId: ItemID;
 }
 
+export interface SetAttrItemJSON extends BaseItemJSON {
+  type: 'setAttr';
+  targetId: ItemID;
+  setDeleted?: boolean;
+  setAttrs?: NodeAttributes;
+  setTargetId?: ItemID;
+}
+
 export type AnyItemJSON =
   | TextItemJSON
   | OpeningTagItemJSON
   | ClosingTagItemJSON
   | NodeItemJSON
-  | DeleteItemJSON;
+  | DeleteItemJSON
+  | SetAttrItemJSON;
 
 export type ClientMap = Record<string, AnyItemJSON[]>;
 
@@ -92,4 +108,5 @@ export interface ItemMap {
   closingTag: typeof ClosingTagItem;
   node: typeof NodeItem;
   delete: typeof DeleteItem;
+  setAttr: typeof SetAttrItem;
 }
