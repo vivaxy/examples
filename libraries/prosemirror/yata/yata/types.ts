@@ -21,8 +21,6 @@ export interface ItemID {
   clock: number;
 }
 
-export type ItemReference<T = Item> = T | ItemID | null;
-
 export type ItemType = 'text' | 'openingTag' | 'closingTag' | 'node' | 'delete';
 
 // ProseMirror attribute types

@@ -18,7 +18,7 @@ import {
   TextItem,
   NodeItem,
 } from './item.js';
-import type { ItemID, ClientMap, ItemReference, ItemChange } from './types.js';
+import type { ItemID, ClientMap, ItemChange } from './types.js';
 
 export class Position {
   doc: Document;
@@ -400,12 +400,11 @@ export class Document {
     return steps.reverse();
   }
 
-  findItemById(id: ItemID | ItemReference<Item>): Position | null {
+  findItemById(id: ItemID | null): Position | null {
     if (!id) {
       return null;
     }
-    // Handle case where id might already be an Item with an id property
-    const targetId = 'id' in id && id.id ? id.id : (id as ItemID);
+    const targetId = id;
 
     const pos = new Position(this);
     const item = this.head;

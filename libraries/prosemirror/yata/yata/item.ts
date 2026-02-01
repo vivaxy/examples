@@ -2,7 +2,6 @@ import { Fragment, Slice } from 'prosemirror-model';
 import type { Node, Mark, Schema } from 'prosemirror-model';
 import type {
   ItemID,
-  ItemReference,
   AnyItemJSON,
   TextItemJSON,
   OpeningTagItemJSON,
@@ -36,18 +35,7 @@ function getItemId(item: Item, context: string = 'operation'): ItemID {
   return item.id;
 }
 
-function extractItemId(ref: ItemReference<Item> | null): ItemID | null {
-  if (!ref) return null;
-  if ('id' in ref && ref.id) return ref.id;
-  return ref as ItemID;
-}
-
-function itemRefsEqual(
-  ref1: ItemReference<Item> | null,
-  ref2: ItemReference<Item> | null,
-): boolean {
-  const id1 = extractItemId(ref1 || null);
-  const id2 = extractItemId(ref2 || null);
+function itemIdsEqual(id1: ItemID | null, id2: ItemID | null): boolean {
   if (!id1 || !id2) return false;
   return id1.client === id2.client && id1.clock === id2.clock;
 }
@@ -66,8 +54,8 @@ export class Item {
   id: ItemID | null;
   left: Item | null;
   right: Item | null;
-  originalLeft: ItemReference<Item>;
-  originalRight: ItemReference<Item>;
+  originalLeft: ItemID | null;
+  originalRight: ItemID | null;
   deleted: boolean;
 
   constructor() {
@@ -107,18 +95,24 @@ export class Item {
   ): void {
     if (originalLeft) {
       if (!this.originalLeft) {
-        this.originalLeft = originalLeft;
+        this.originalLeft = originalLeft.id;
       }
       if (!originalLeft.originalRight) {
-        originalLeft.originalRight = this;
+        originalLeft.originalRight = this.id || {
+          client: doc.client,
+          clock: doc.clock,
+        };
       }
     }
     if (originalRight) {
       if (!this.originalRight) {
-        this.originalRight = originalRight;
+        this.originalRight = originalRight.id;
       }
       if (!originalRight.originalLeft) {
-        originalRight.originalLeft = this;
+        originalRight.originalLeft = this.id || {
+          client: doc.client,
+          clock: doc.clock,
+        };
       }
     }
 
@@ -243,13 +237,13 @@ export class Item {
         const nextItem = originalLeftPos.right;
 
         // Check if nextItem has the same originalLeft as us
-        const nextHasSameOriginalLeft = itemRefsEqual(
+        const nextHasSameOriginalLeft = itemIdsEqual(
           nextItem.originalLeft,
           this.originalLeft,
         );
 
         // Check if nextItem's originalRight equals our originalLeft
-        const nextOriginalRightEqualsOurOriginalLeft = itemRefsEqual(
+        const nextOriginalRightEqualsOurOriginalLeft = itemIdsEqual(
           nextItem.originalRight,
           this.originalLeft,
         );
@@ -264,7 +258,7 @@ export class Item {
         if (shouldSkipByYATA) {
           // Check BEFORE advancing - originalRight is a hard boundary we must not cross
           // This ensures items inserted between originalLeft and originalRight stay there
-          if (itemRefsEqual(nextItem, this.originalRight)) {
+          if (itemIdsEqual(nextItem.id, this.originalRight)) {
             break;
           }
           // Use forwardItem() instead of forward() to avoid skipping deleted items
@@ -321,18 +315,15 @@ export class Item {
   }
 
   toJSON(): AnyItemJSON {
-    const { originalLeft, originalRight } = this;
     const json: Partial<AnyItemJSON> = {
       id: getItemId(this, 'serialization'),
       type: 'text', // Will be overridden by subclasses
     };
-    const leftId = extractItemId(originalLeft);
-    if (leftId) {
-      json.originalLeft = leftId;
+    if (this.originalLeft) {
+      json.originalLeft = this.originalLeft;
     }
-    const rightId = extractItemId(originalRight);
-    if (rightId) {
-      json.originalRight = rightId;
+    if (this.originalRight) {
+      json.originalRight = this.originalRight;
     }
     if (this.deleted) {
       json.deleted = true;
