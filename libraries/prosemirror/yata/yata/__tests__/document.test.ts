@@ -218,6 +218,115 @@ describe('toProseMirrorDoc', function () {
   });
 });
 
+describe('toString', function () {
+  test('empty document includes client and clock', function () {
+    // Arrange
+    const doc = new Document('test-client');
+
+    // Act
+    const result = doc.toString();
+
+    // Assert
+    expect(result).toContain('Document(client: test-client, clock: 0)');
+    expect(result).toBe('Document(client: test-client, clock: 0)\n');
+  });
+
+  test('paragraph with text shows complete chain with IDs', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('hi')])]),
+    );
+
+    // Act
+    const result = doc.toString();
+
+    // Assert
+    expect(result).toContain(
+      `Document(client: ${doc.client}, clock: ${doc.clock})`,
+    );
+    expect(result).toContain('Open(paragraph)');
+    expect(result).toContain('Text(h)');
+    expect(result).toContain('Text(i)');
+    expect(result).toContain('Close(paragraph)');
+    expect(result).toContain(' -> ');
+    // Check that items include their IDs in {client:clock} format
+    expect(result).toMatch(/\{.+:\d+\}/);
+  });
+
+  test('deleted items are marked', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('ab')])]),
+    );
+    doc.replaceItems(1, 2, []); // Delete first text item 'a'
+
+    // Act
+    const result = doc.toString();
+
+    // Assert
+    expect(result).toContain('[DEL]');
+  });
+
+  test('output has two lines for non-empty doc', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('a')])]),
+    );
+
+    // Act
+    const result = doc.toString();
+    const lines = result.split('\n');
+
+    // Assert
+    expect(lines.length).toBe(2);
+    expect(lines[0]).toMatch(/^Document\(client: .+, clock: \d+\)$/);
+  });
+
+  test('each item shows its client and clock ID', function () {
+    // Arrange
+    const doc = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('x')])]),
+    );
+
+    // Act
+    const result = doc.toString();
+    const lines = result.split('\n');
+    const itemLine = lines[1];
+
+    // Assert
+    // Should have format: Open(paragraph){client:0} -> Text(x){client:1} -> Close(paragraph){client:2}
+    expect(itemLine).toMatch(/Open\(paragraph\)\{.+:\d+\}/);
+    expect(itemLine).toMatch(/Text\(x\)\{.+:\d+\}/);
+    expect(itemLine).toMatch(/Close\(paragraph\)\{.+:\d+\}/);
+  });
+
+  test('multi-client document shows different client IDs', function () {
+    // Arrange
+    const doc1 = new Document('client-A');
+    const doc2 = new Document('client-B');
+
+    // doc1 creates a paragraph
+    const pos1 = new Position(doc1);
+    new OpeningTagItem('paragraph', null).integrate(pos1);
+    new TextItem('a').integrate(pos1);
+    new ClosingTagItem('paragraph').integrate(pos1);
+
+    // doc2 creates a text item
+    const pos2 = new Position(doc2);
+    new TextItem('b').integrate(pos2);
+
+    // Sync doc2's items to doc1
+    doc1.applyItems(doc2.toItems(), schema);
+
+    // Act
+    const result = doc1.toString();
+
+    // Assert
+    expect(result).toContain('client-A');
+    expect(result).toContain('client-B');
+  });
+});
+
 describe('applyItems - step generation', function () {
   test('should return empty array when no changes', function () {
     // Arrange

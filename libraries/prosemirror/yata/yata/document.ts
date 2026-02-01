@@ -15,6 +15,8 @@ import {
   fragmentToItems,
   itemsToSlice,
   Item,
+  TextItem,
+  NodeItem,
 } from './item.js';
 import type { ItemID, ClientMap, ItemReference, ItemChange } from './types.js';
 
@@ -236,6 +238,50 @@ export class Document {
       item = item.right;
     }
     return output;
+  }
+
+  /**
+   * Converts the document to a string representation.
+   * Includes the document's client ID, clock value, and a visualization of all items
+   * with their individual client:clock IDs.
+   *
+   * @returns String representation of the document
+   * @example
+   * const doc = createDocWithParagraph('hi');
+   * console.log(doc.toString());
+   * // Output:
+   * // Document(client: abc123, clock: 4)
+   * // Open(paragraph){abc123:0} -> Text(h){abc123:1} -> Text(i){abc123:2} -> Close(paragraph){abc123:3}
+   */
+  toString(): string {
+    const itemsStr = this.toArray()
+      .map((item) => {
+        let repr = '';
+        if (item instanceof TextItem) {
+          repr = `Text(${item.text})`;
+        } else if (item instanceof OpeningTagItem) {
+          repr = `Open(${item.tagName})`;
+        } else if (item instanceof ClosingTagItem) {
+          repr = `Close(${item.tagName})`;
+        } else if (item instanceof NodeItem) {
+          repr = `Node(${item.tagName})`;
+        } else if (item instanceof DeleteItem) {
+          repr = `Del(${item.targetId.client}:${item.targetId.clock})`;
+        } else {
+          repr = 'Item';
+        }
+
+        // Add client:clock ID
+        const idStr = item.id
+          ? `{${item.id.client}:${item.id.clock}}`
+          : '{no-id}';
+        repr += idStr;
+
+        return item.deleted ? `${repr}[DEL]` : repr;
+      })
+      .join(' -> ');
+
+    return `Document(client: ${this.client}, clock: ${this.clock})\n${itemsStr}`;
   }
 
   toItems(): ClientMap {
