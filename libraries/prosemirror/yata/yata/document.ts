@@ -10,7 +10,6 @@ import { ReplaceStep } from 'prosemirror-transform';
 import {
   ClosingTagItem,
   OpeningTagItem,
-  DeleteItem,
   SetAttrItem,
   sliceToItems,
   fragmentToItems,
@@ -74,9 +73,7 @@ export class Position {
   forwardToDeletionEnd(): void {
     while (
       this.right &&
-      (this.right.deleted ||
-        this.right instanceof DeleteItem ||
-        this.right instanceof SetAttrItem)
+      (this.right.deleted || this.right instanceof SetAttrItem)
     ) {
       this.forwardItem();
     }
@@ -282,8 +279,6 @@ export class Document {
           repr = `Close(${item.tagName})`;
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
-        } else if (item instanceof DeleteItem) {
-          repr = `Del(${item.targetId.client}:${item.targetId.clock})`;
         } else if (item instanceof SetAttrItem) {
           repr = `SetAttr(${item.targetId.client}:${item.targetId.clock})`;
         } else {
@@ -436,21 +431,6 @@ export class Document {
     return null;
   }
 
-  findDeleteItemByTargetId(targetId: ItemID): DeleteItem | null {
-    let item = this.head;
-    while (item) {
-      if (
-        item instanceof DeleteItem &&
-        item.targetId.client === targetId.client &&
-        item.targetId.clock === targetId.clock
-      ) {
-        return item;
-      }
-      item = item.right;
-    }
-    return null;
-  }
-
   findSetAttrItemsByTargetId(targetId: ItemID): SetAttrItem[] {
     const results: SetAttrItem[] = [];
     let item = this.head;
@@ -471,13 +451,9 @@ export class Document {
     const items: Item[] = [];
     let item = this.head;
 
-    // Collect all non-deleted items from the linked list, excluding DeleteItems and SetAttrItems
+    // Collect all non-deleted items from the linked list, excluding SetAttrItems
     while (item) {
-      if (
-        !item.deleted &&
-        !(item instanceof DeleteItem) &&
-        !(item instanceof SetAttrItem)
-      ) {
+      if (!item.deleted && !(item instanceof SetAttrItem)) {
         items.push(item);
       }
       item = item.right;

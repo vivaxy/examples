@@ -1,71 +1,10 @@
 import { describe, test, expect } from 'vitest';
-import schema from '../../example/schema.js';
-import { DeleteItem, SetAttrItem, TextItem } from '../item.js';
-import { Document, Position } from '../document.js';
+import { SetAttrItem, TextItem } from '../item.js';
+import { Position } from '../document.js';
 import { createEmptyDoc, createDocWithText } from './helpers/test-helpers.js';
 
-describe('DeleteItem - Basic Functionality', function () {
-  test('creates DeleteItem with targetId', function () {
-    // Arrange
-    const targetId = { client: 'client1', clock: 5 };
-
-    // Act
-    const deleteItem = new DeleteItem(targetId);
-
-    // Assert
-    expect(deleteItem.targetId).toEqual(targetId);
-    expect(deleteItem.deleted).toBe(false); // DeleteItem itself is not deleted
-  });
-
-  test('DeleteItem toJSON() serializes correctly', function () {
-    // Arrange
-    const doc = createEmptyDoc('client1');
-    const targetId = { client: 'client1', clock: 5 };
-    const deleteItem = new DeleteItem(targetId);
-    const pos = new Position(doc);
-
-    // Act
-    deleteItem.integrate(pos);
-    const json = deleteItem.toJSON();
-
-    // Assert
-    expect(json.type).toBe('delete');
-    expect(json.targetId).toEqual(targetId);
-    expect(json.id).toEqual({ client: 'client1', clock: 0 });
-  });
-
-  test('DeleteItem fromJSON() deserializes correctly', function () {
-    // Arrange
-    const json = {
-      id: { client: 'client1', clock: 10 },
-      type: 'delete' as const,
-      targetId: { client: 'client1', clock: 5 },
-    };
-
-    // Act
-    const deleteItem = DeleteItem.fromJSON(json);
-
-    // Assert
-    expect(deleteItem).toBeInstanceOf(DeleteItem);
-    expect(deleteItem.id).toEqual({ client: 'client1', clock: 10 });
-    expect(deleteItem.targetId).toEqual({ client: 'client1', clock: 5 });
-  });
-
-  test('DeleteItem toHTMLString() returns empty string', function () {
-    // Arrange
-    const targetId = { client: 'client1', clock: 5 };
-    const deleteItem = new DeleteItem(targetId);
-
-    // Act
-    const html = deleteItem.toHTMLString();
-
-    // Assert
-    expect(html).toBe('');
-  });
-});
-
-describe('DeleteItem - Integration with Document', function () {
-  test('DeleteItem marks existing item as deleted', function () {
+describe('SetAttrItem - Deletion via setDeleted', function () {
+  test('SetAttrItem with setDeleted: true marks existing item as deleted', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -73,116 +12,90 @@ describe('DeleteItem - Integration with Document', function () {
     expect(targetItem.deleted).toBe(false);
 
     // Act
-    const deleteItem = new DeleteItem(targetItem.id!);
+    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
     const pos = doc.resolvePosition(3); // Insert at end
-    deleteItem.integrate(pos);
+    setAttrItem.integrate(pos);
 
     // Assert
     expect(targetItem.deleted).toBe(true);
-    expect(deleteItem.deleted).toBe(false); // DeleteItem itself is not deleted
+    expect(setAttrItem.deleted).toBe(false); // SetAttrItem itself is not deleted
   });
 
-  test('DeleteItem integration returns delete ItemChange', function () {
+  test('SetAttrItem integration applies setDeleted immediately', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
     const targetItem = items[0]; // 'a'
 
     // Act
-    const deleteItem = new DeleteItem(targetItem.id!);
-    const change = deleteItem.putIntoDocument(doc);
+    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
+    const pos = doc.resolvePosition(3);
+    setAttrItem.integrate(pos);
 
     // Assert
-    expect(change).toBeDefined();
-    expect(change?.type).toBe('delete');
-    expect(change?.item).toBe(targetItem);
+    expect(targetItem.deleted).toBe(true);
   });
 
-  test('DeleteItem for non-existent target returns undefined change', function () {
+  test('SetAttrItem for non-existent target stores deletion for later', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const nonExistentId = { client: 'client2', clock: 99 };
 
     // Act
-    const deleteItem = new DeleteItem(nonExistentId);
-    const change = deleteItem.putIntoDocument(doc);
+    const setAttrItem = new SetAttrItem(nonExistentId, { setDeleted: true });
+    const change = setAttrItem.putIntoDocument(doc);
 
-    // Assert
-    // Change could be insert (for the DeleteItem itself) or undefined
-    // The target doesn't exist yet, so no delete change
-    if (change) {
-      expect(change.type).toBe('insert');
-      expect(change.item).toBe(deleteItem);
-    }
+    // Assert - SetAttrItem is inserted, waiting for target
+    expect(change).toBeDefined();
+    expect(change?.type).toBe('insert');
+    expect(change?.item).toBe(setAttrItem);
   });
 
-  test('DeleteItem arriving before target item', function () {
+  test('SetAttrItem arriving before target item applies deletion when target integrates', function () {
     // Arrange
-    const doc = createEmptyDoc('client1');
+    const doc = createDocWithText('abc', 'client1');
 
-    // Create a DeleteItem for an item that doesn't exist yet
+    // Create a SetAttrItem for an item that doesn't exist yet
     const targetId = { client: 'client2', clock: 0 };
-    const deleteItem = new DeleteItem(targetId);
-    const pos1 = doc.resolvePosition(0);
-    deleteItem.integrate(pos1);
+    const setAttrItem = new SetAttrItem(targetId, { setDeleted: true });
+    setAttrItem.id = { client: 'client1', clock: 10 };
+    setAttrItem.originalLeft = null;
+    setAttrItem.originalRight = null;
+    setAttrItem.putIntoDocument(doc);
 
-    // Act - Now create the target item and integrate it manually
+    // Act - Now create the target item and integrate it
     const textItem = new TextItem('x');
     textItem.id = targetId;
     textItem.originalLeft = null;
     textItem.originalRight = null;
+    textItem.putIntoDocument(doc);
 
-    // Manually insert the item to avoid Position errors
-    textItem.left = null;
-    textItem.right = null;
-    if (doc.head === null) {
-      doc.head = textItem;
-    } else {
-      // Insert at end
-      let lastItem = doc.head;
-      while (lastItem.right) {
-        lastItem = lastItem.right;
-      }
-      lastItem.right = textItem;
-      textItem.left = lastItem;
-    }
-
-    // Check if there's a DeleteItem targeting this item
-    const pendingDelete = doc.findDeleteItemByTargetId(targetId);
-
-    // Assert - The target item should be marked as deleted if DeleteItem exists
-    if (pendingDelete) {
-      textItem.deleted = true;
-    }
+    // Assert - The target item should be marked as deleted by pending SetAttrItem
     expect(textItem.deleted).toBe(true);
   });
 
-  test('Duplicate DeleteItem for same target is idempotent', function () {
+  test('Multiple SetAttrItems for same target - last one wins', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
     const targetItem = items[0]; // 'a'
 
-    // Act - Create two DeleteItems for the same target
-    const deleteItem1 = new DeleteItem(targetItem.id!);
+    // Act - Create two SetAttrItems, first deletes, second undeletes
+    const setAttrItem1 = new SetAttrItem(targetItem.id!, { setDeleted: true });
     const pos1 = doc.resolvePosition(3);
-    deleteItem1.integrate(pos1);
-
-    const deleteItem2 = new DeleteItem(targetItem.id!);
-    const pos2 = doc.resolvePosition(3);
-    const change2 = deleteItem2.putIntoDocument(doc);
-
-    // Assert - Target is still deleted, second delete doesn't cause issues
+    setAttrItem1.integrate(pos1);
     expect(targetItem.deleted).toBe(true);
-    // Second DeleteItem doesn't generate a change since target is already deleted
-    // The change would be for inserting the DeleteItem itself, but since
-    // putIntoDocument returns the first non-undefined result, we might get
-    // an insert change for the DeleteItem or undefined
-    expect(change2).toBeDefined();
+
+    const setAttrItem2 = new SetAttrItem(targetItem.id!, { setDeleted: false });
+    const pos2 = doc.resolvePosition(3);
+    setAttrItem2.integrate(pos2);
+
+    // Assert - Second SetAttrItem undeletes the item
+    expect(targetItem.deleted).toBe(false);
   });
 });
 
-describe('DeleteItem - Document.replaceItemsInner()', function () {
+describe('SetAttrItem - Document.replaceItemsInner()', function () {
   test('replaceItemsInner creates SetAttrItems for deleted range', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
@@ -196,7 +109,7 @@ describe('DeleteItem - Document.replaceItemsInner()', function () {
     // Should have original items + 1 SetAttrItem
     expect(allItems.length).toBe(initialItemCount + 1);
 
-    // Find the SetAttrItem (replaceItemsInner now uses SetAttrItem instead of DeleteItem)
+    // Find the SetAttrItem
     const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
     expect(setAttrItems.length).toBe(1);
     expect((setAttrItems[0] as SetAttrItem).setDeleted).toBe(true);
@@ -229,82 +142,84 @@ describe('DeleteItem - Document.replaceItemsInner()', function () {
   });
 });
 
-describe('DeleteItem - findDeleteItemByTargetId()', function () {
-  test('finds DeleteItem by targetId', function () {
+describe('SetAttrItem - findSetAttrItemsByTargetId()', function () {
+  test('finds SetAttrItem by targetId', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
     const targetItem = items[0];
 
-    const deleteItem = new DeleteItem(targetItem.id!);
+    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
     const pos = doc.resolvePosition(3);
-    deleteItem.integrate(pos);
+    setAttrItem.integrate(pos);
 
     // Act
-    const found = doc.findDeleteItemByTargetId(targetItem.id!);
+    const found = doc.findSetAttrItemsByTargetId(targetItem.id!);
 
     // Assert
-    expect(found).toBe(deleteItem);
+    expect(found).toHaveLength(1);
+    expect(found[0]).toBe(setAttrItem);
   });
 
-  test('returns null when DeleteItem not found', function () {
+  test('returns empty array when SetAttrItem not found', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const nonExistentId = { client: 'client2', clock: 99 };
 
     // Act
-    const found = doc.findDeleteItemByTargetId(nonExistentId);
+    const found = doc.findSetAttrItemsByTargetId(nonExistentId);
 
     // Assert
-    expect(found).toBeNull();
+    expect(found).toEqual([]);
   });
 });
 
-describe('DeleteItem - Position.forward() skips DeleteItems', function () {
-  test('forward() skips over DeleteItems', function () {
+describe('SetAttrItem - Position.forward() skips SetAttrItems', function () {
+  test('forward() skips over SetAttrItems', function () {
     // Arrange
     const doc = createDocWithText('ab', 'client1');
 
-    // Insert a DeleteItem at the end
-    const deleteItem = new DeleteItem({ client: 'other', clock: 99 });
+    // Insert a SetAttrItem at the end
+    const setAttrItem = new SetAttrItem(
+      { client: 'other', clock: 99 },
+      { setDeleted: true },
+    );
     const pos = doc.resolvePosition(2); // After 'ab'
-    deleteItem.integrate(pos);
+    setAttrItem.integrate(pos);
 
     // Verify the structure
     const allItems = doc.toArray();
-    expect(allItems.length).toBe(3); // 'a', 'b', DeleteItem
-    expect(allItems[2]).toBeInstanceOf(DeleteItem);
+    expect(allItems.length).toBe(3); // 'a', 'b', SetAttrItem
+    expect(allItems[2]).toBeInstanceOf(SetAttrItem);
 
-    // Act - Forward from position 1 should skip over DeleteItem
+    // Act - Forward from position 1 should skip over SetAttrItem
     const testPos = doc.resolvePosition(1);
-    testPos.forward(); // Should move to position 2, which skips the DeleteItem
+    testPos.forward(); // Should move to position 2, which skips the SetAttrItem
 
-    // Assert - Should be at position 2, having skipped the DeleteItem
+    // Assert - Should be at position 2, having skipped the SetAttrItem
     // so right should be null (end of visible items)
     expect(testPos.right).toBeNull();
   });
 });
 
-describe('DeleteItem - toProseMirrorDoc() excludes DeleteItems', function () {
-  test('DeleteItems are excluded from rendered document', function () {
+describe('SetAttrItem - toProseMirrorDoc() excludes SetAttrItems', function () {
+  test('SetAttrItems are excluded from rendered document', function () {
     // Arrange
     const doc = createDocWithText('abc', 'client1');
     const items = doc.toArray();
 
-    // Add a DeleteItem
-    const deleteItem = new DeleteItem(items[0].id!);
+    // Add a SetAttrItem that marks first item as deleted
+    const setAttrItem = new SetAttrItem(items[0].id!, { setDeleted: true });
     const pos = doc.resolvePosition(3);
-    deleteItem.integrate(pos);
+    setAttrItem.integrate(pos);
 
-    // Act - Need to wrap in paragraph for valid ProseMirror document
-    const node = schema.node('doc', null, [
-      schema.node('paragraph', null, [schema.text('bc')]),
-    ]);
+    // Verify deletion was applied
+    expect(items[0].deleted).toBe(true);
 
-    // Instead, let's check that the text items are correctly filtered
+    // Act - Check that non-deleted, non-SetAttrItem items are correctly filtered
     const nonDeletedItems = doc
       .toArray()
-      .filter((item) => !item.deleted && !(item instanceof DeleteItem));
+      .filter((item) => !item.deleted && !(item instanceof SetAttrItem));
     const text = nonDeletedItems
       .filter((item) => item instanceof TextItem)
       .map((item) => (item as TextItem).text)
