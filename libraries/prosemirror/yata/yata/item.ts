@@ -11,6 +11,7 @@ import type {
   ItemMap,
   NodeAttributes,
   MarkJSON,
+  ItemChange,
 } from './types.js';
 import type { Position, Document } from './document.js';
 
@@ -132,13 +133,19 @@ export class Item {
     this.insertIntoPosition(position);
   }
 
-  putIntoDocument(doc: Document): Position | undefined {
+  putIntoDocument(doc: Document): ItemChange | undefined {
     const foundPos = doc.findItemById(this.id);
     if (foundPos) {
       // Item already exists in document - update deleted status if incoming item is deleted
       // Deletions are permanent (tombstones), so once deleted, always deleted
-      if (this.deleted && foundPos.right) {
+      if (this.deleted && foundPos.right && !foundPos.right.deleted) {
         foundPos.right.deleted = true;
+        // Return delete change - foundPos.pos is the ProseMirror position
+        return {
+          type: 'delete',
+          item: foundPos.right,
+          pmPosition: foundPos.pos,
+        };
       }
       return;
     }
@@ -148,12 +155,14 @@ export class Item {
       if (!this.originalLeft && !this.originalRight) {
         // First item ever - neither left nor right references
         doc.head = this;
-        return doc.resolvePosition();
+        const pos = doc.resolvePosition();
+        return { type: 'insert', item: this, pmPosition: pos.pos };
       }
       if (!this.originalLeft && this.originalRight) {
         // Has right reference but no left
         doc.head = this;
-        return doc.resolvePosition();
+        const pos = doc.resolvePosition();
+        return { type: 'insert', item: this, pmPosition: pos.pos };
       }
     }
 
@@ -182,7 +191,7 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      return pos;
+      return { type: 'insert', item: this, pmPosition: pos.pos };
     }
     if (originalLeftPos) {
       // findItemById returns position where pos.right === found item
@@ -233,7 +242,7 @@ export class Item {
         }
       }
       this.insertIntoPosition(originalLeftPos);
-      return originalLeftPos;
+      return { type: 'insert', item: this, pmPosition: originalLeftPos.pos };
     }
 
     // Only originalRight is found - insert before originalRight
@@ -246,7 +255,7 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      return originalRightPos;
+      return { type: 'insert', item: this, pmPosition: originalRightPos.pos };
     }
   }
 

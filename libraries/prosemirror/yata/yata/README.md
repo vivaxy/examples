@@ -14,6 +14,5 @@ An item represents:
 6. A mark, similar to an attribute, except it belongs to a text item.
 
 # TODO
-- todo translate into prosemirror steps
 - Node attributes are currently stored as plain objects. For proper CRDT behavior with concurrent attribute edits, they should probably be CRDT items themselves.
 - ProseMirror Mark Data Structure and Mark Step implementation

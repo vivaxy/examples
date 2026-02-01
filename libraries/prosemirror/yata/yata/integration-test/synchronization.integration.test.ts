@@ -42,7 +42,7 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Sync A -> B
       const itemsA = docA.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       assertConvergence(
@@ -215,10 +215,10 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Test sync order: B -> A, then A -> B
       const itemsB = docB.toItems();
-      docA.applyItems(itemsB);
+      docA.applyItems(itemsB, schema);
 
       const itemsA = docA.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       assertConvergence(docs);
@@ -399,7 +399,7 @@ describe('YATA Document Synchronization Integration', () => {
       const doc1 = Document.fromNodes(state1.doc.content);
 
       const doc2 = new Document(doc1.client);
-      doc2.applyItems(doc1.toItems());
+      doc2.applyItems(doc1.toItems(), schema);
 
       // Both should start with empty paragraph
       expectDocHTML(doc1, '<paragraph></paragraph>');
@@ -416,7 +416,7 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Sync to doc2
       const items1 = doc1.toItems();
-      doc2.applyItems(items1);
+      doc2.applyItems(items1, schema);
 
       // Assert
       // Both documents should have 'x' inside paragraph
@@ -452,7 +452,7 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Sync to B
       const itemsA = docWithContent.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       expectDocHTML(docWithContent, '<paragraph>hello</paragraph>');
@@ -485,7 +485,7 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Sync to B
       const itemsA = docWithList.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       const expectedHTML =
@@ -510,8 +510,8 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Clone to both clients
       const itemsInit = initialDoc.toItems();
-      docA.applyItems(itemsInit);
-      docB.applyItems(itemsInit);
+      docA.applyItems(itemsInit, schema);
+      docB.applyItems(itemsInit, schema);
 
       // Act
       // Client A inserts 'x' at start of paragraph content
@@ -566,9 +566,9 @@ describe('YATA Document Synchronization Integration', () => {
       const items = itemsMap[docA.client];
 
       // Apply in different order to docB
-      docB.applyItems({ [docA.client]: [items[2]] }); // 'c'
-      docB.applyItems({ [docA.client]: [items[0]] }); // 'a'
-      docB.applyItems({ [docA.client]: [items[1]] }); // 'b'
+      docB.applyItems({ [docA.client]: [items[2]] }, schema); // 'c'
+      docB.applyItems({ [docA.client]: [items[0]] }, schema); // 'a'
+      docB.applyItems({ [docA.client]: [items[1]] }, schema); // 'b'
 
       // Assert
       // Should still converge to correct order
@@ -588,10 +588,10 @@ describe('YATA Document Synchronization Integration', () => {
 
       // Sync to B
       const itemsA = docA.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Apply same items again
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       expectDocHTML(docB, 'hello');
@@ -761,7 +761,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Act
       const docB = new Document('client-B');
       const itemsA = docA.toItems();
-      docB.applyItems(itemsA);
+      docB.applyItems(itemsA, schema);
 
       // Assert
       expectDocHTML(docA, '<paragraph>test</paragraph>');
@@ -793,7 +793,7 @@ describe('YATA Document Synchronization Integration', () => {
       // Serialize and deserialize
       const serialized = originalDoc.toItems();
       const reconstructedDoc = new Document('reconstructed');
-      reconstructedDoc.applyItems(serialized);
+      reconstructedDoc.applyItems(serialized, schema);
 
       // Assert
       expectDocHTML(originalDoc, '<paragraph>hello</paragraph>');

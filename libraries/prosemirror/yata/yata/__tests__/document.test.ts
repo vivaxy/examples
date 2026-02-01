@@ -3,7 +3,13 @@ import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 import schema from '../../example/schema.js';
 import { Position, Document } from '../document.js';
-import { ClosingTagItem, Item, OpeningTagItem, TextItem } from '../item.js';
+import {
+  ClosingTagItem,
+  Item,
+  OpeningTagItem,
+  TextItem,
+  fragmentToItems,
+} from '../item.js';
 
 const emptyDoc = new Document();
 
@@ -207,5 +213,176 @@ describe('toProseMirrorDoc', function () {
     // Assert
     expect(proseMirrorDoc.type.name).toBe('doc');
     expect(proseMirrorDoc.childCount).toBe(0);
+  });
+});
+
+describe('applyItems - step generation', function () {
+  test('should return empty array when no changes', function () {
+    // Arrange
+    const doc1 = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('hello')])]),
+    );
+    const doc2 = new Document();
+    doc2.applyItems(doc1.toItems(), schema);
+
+    // Act - apply same items again (idempotent)
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps).toEqual([]);
+  });
+
+  test('should return insert step for single text insertion', function () {
+    // Arrange
+    const doc1 = new Document('client-1');
+    const doc2 = new Document('client-2');
+
+    // doc1 inserts 'x' wrapped in a paragraph
+    const pos = new Position(doc1);
+    new OpeningTagItem('paragraph', null).integrate(pos);
+    new TextItem('x').integrate(pos);
+    new ClosingTagItem('paragraph').integrate(pos);
+
+    // Act - sync to doc2
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps.length).toBe(1);
+    expect(steps[0]).toBeInstanceOf(ReplaceStep);
+    expect(steps[0].from).toBe(0);
+    expect(steps[0].to).toBe(0);
+    expect(steps[0].slice.content.firstChild!.textContent).toBe('x');
+  });
+
+  test('should return delete step for single deletion', function () {
+    // Arrange
+    const doc1 = Document.fromNodes(
+      Fragment.from([schema.node('paragraph', null, [schema.text('abc')])]),
+    );
+    const doc2 = new Document();
+    doc2.applyItems(doc1.toItems(), schema);
+
+    // doc1 deletes 'b' (middle character at position 2)
+    const deletePos = doc1.resolvePosition(2);
+    deletePos.right!.delete();
+
+    // Act - sync deletion to doc2
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps.length).toBe(1);
+    expect(steps[0]).toBeInstanceOf(ReplaceStep);
+    expect(steps[0].from).toBe(2);
+    expect(steps[0].to).toBe(3);
+    expect(steps[0].slice.content.size).toBe(0); // empty slice for deletion
+  });
+
+  test('should group adjacent insertions into single step', function () {
+    // Arrange
+    const doc1 = new Document('client-1');
+    const doc2 = new Document('client-2');
+
+    // doc1 inserts 'abc' as three adjacent items wrapped in a paragraph
+    const pos = new Position(doc1);
+    new OpeningTagItem('paragraph', null).integrate(pos);
+    new TextItem('a').integrate(pos);
+    new TextItem('b').integrate(pos);
+    new TextItem('c').integrate(pos);
+    new ClosingTagItem('paragraph').integrate(pos);
+
+    // Act - sync to doc2
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps.length).toBe(1); // grouped into single step
+    expect(steps[0].from).toBe(0);
+    expect(steps[0].to).toBe(0);
+    expect(steps[0].slice.content.firstChild!.textContent).toBe('abc');
+  });
+
+  test('should return multiple steps for non-adjacent changes', function () {
+    // Arrange
+    const doc1 = Document.fromNodes(
+      Fragment.from([
+        schema.node('paragraph', null, [schema.text('first')]),
+        schema.node('paragraph', null, [schema.text('second')]),
+      ]),
+    );
+    const doc2 = new Document();
+    doc2.applyItems(doc1.toItems(), schema);
+
+    // doc1 makes changes: insert at position 1, delete at position 9
+    const pos1 = doc1.resolvePosition(1);
+    new TextItem('X').integrate(pos1);
+
+    // Note: After inserting at position 1, positions have shifted
+    // Original position 8 is now position 9
+    const deletePos = doc1.resolvePosition(9);
+    deletePos.right!.delete();
+
+    // Act - sync to doc2
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps.length).toBe(2); // separate steps for non-adjacent changes
+    // First step: bare text insertion at YATA position 1
+    expect(steps[0].from).toBe(1);
+    expect(steps[0].to).toBe(1);
+    // Second step: deletion at YATA position 8 (in doc2's coordinate system)
+    // Note: These are YATA positions which include tag items, not ProseMirror positions
+    expect(steps[1].from).toBe(8);
+    expect(steps[1].to).toBe(9);
+  });
+
+  test('should handle paragraph insertion with tags', function () {
+    // Arrange
+    const doc1 = new Document('client-1');
+    const doc2 = new Document('client-2');
+
+    // doc1 creates a paragraph with text
+    const fragment = Fragment.from([
+      schema.node('paragraph', null, [schema.text('test')]),
+    ]);
+    const items = fragmentToItems(fragment);
+    const pos = new Position(doc1);
+    items.forEach((item) => item.integrate(pos));
+
+    // Act - sync to doc2
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert
+    expect(steps.length).toBe(1);
+    expect(steps[0]).toBeInstanceOf(ReplaceStep);
+
+    // Verify the step creates the correct structure
+    const slice = steps[0].slice;
+    expect(slice.content.childCount).toBe(1);
+    expect(slice.content.firstChild!.type.name).toBe('paragraph');
+    expect(slice.content.firstChild!.textContent).toBe('test');
+  });
+
+  test('should handle concurrent insertions at same position', function () {
+    // Arrange
+    const doc1 = new Document('client-0');
+    const doc2 = new Document('client-1');
+
+    // Both insert at position 0 concurrently
+    const pos1 = new Position(doc1);
+    new TextItem('a').integrate(pos1);
+
+    const pos2 = new Position(doc2);
+    new TextItem('b').integrate(pos2);
+
+    // Act - sync both ways
+    const stepsToDoc2 = doc2.applyItems(doc1.toItems(), schema);
+    const stepsToDoc1 = doc1.applyItems(doc2.toItems(), schema);
+
+    // Assert - both should get insert steps
+    expect(stepsToDoc2.length).toBe(1);
+    expect(stepsToDoc1.length).toBe(1);
+
+    // Verify final convergence (CRDT ordering: client-0 < client-1)
+    expect(doc1.toHTMLString()).toBe('ab');
+    expect(doc2.toHTMLString()).toBe('ab');
   });
 });

@@ -1,11 +1,12 @@
 import type { Fragment, Schema, Node } from 'prosemirror-model';
+import { Slice } from 'prosemirror-model';
 import type {
   Step,
   AddMarkStep,
   RemoveMarkStep,
-  ReplaceStep,
   ReplaceAroundStep,
 } from 'prosemirror-transform';
+import { ReplaceStep } from 'prosemirror-transform';
 import {
   ClosingTagItem,
   OpeningTagItem,
@@ -14,7 +15,7 @@ import {
   itemsToSlice,
   Item,
 } from './item.js';
-import type { ItemID, ClientMap, ItemReference } from './types.js';
+import type { ItemID, ClientMap, ItemReference, ItemChange } from './types.js';
 
 export class Position {
   doc: Document;
@@ -53,10 +54,15 @@ export class Position {
         this.paths.push(this.left);
       }
       if (this.left instanceof ClosingTagItem) {
-        console.assert(
-          this.left.tagName === this.paths[this.paths.length - 1].tagName,
-        );
-        this.paths.pop();
+        // Only pop from paths if we have a matching opening tag
+        // This can happen when findItemById() traverses the document starting
+        // from the beginning with an empty paths array
+        if (this.paths.length > 0) {
+          console.assert(
+            this.left.tagName === this.paths[this.paths.length - 1].tagName,
+          );
+          this.paths.pop();
+        }
       }
     }
   }
@@ -237,13 +243,18 @@ export class Document {
     return clientMap;
   }
 
-  applyItems(clientMap: ClientMap): void {
-    // First pass: integrate all items into the document
+  applyItems(clientMap: ClientMap, schema: Schema): ReplaceStep[] {
+    const changes: ItemChange[] = [];
+
+    // First pass: integrate all items into the document and collect changes
     Object.keys(clientMap).forEach((client) => {
       const items = clientMap[client];
       items.forEach((itemJSON) => {
         const item = Item.fromJSON(itemJSON);
-        item.putIntoDocument(this);
+        const change = item.putIntoDocument(this);
+        if (change) {
+          changes.push(change);
+        }
       });
     });
 
@@ -281,7 +292,74 @@ export class Document {
       item = item.right;
     }
 
-    // todo translate into prosemirror steps
+    // Third pass: convert changes to ProseMirror steps
+    return this.changesToSteps(changes, schema);
+  }
+
+  private changesToSteps(changes: ItemChange[], schema: Schema): ReplaceStep[] {
+    if (changes.length === 0) {
+      return [];
+    }
+
+    // Sort changes by pmPosition (ascending)
+    const sortedChanges = [...changes].sort(
+      (a, b) => a.pmPosition - b.pmPosition,
+    );
+
+    // Group adjacent changes of the same type
+    interface ChangeGroup {
+      type: 'insert' | 'delete';
+      items: Item[];
+      startPos: number;
+    }
+
+    const groups: ChangeGroup[] = [];
+    let currentGroup: ChangeGroup | null = null;
+
+    for (const change of sortedChanges) {
+      if (
+        !currentGroup ||
+        currentGroup.type !== change.type ||
+        currentGroup.startPos + currentGroup.items.length !== change.pmPosition
+      ) {
+        // Start a new group
+        if (currentGroup) {
+          groups.push(currentGroup);
+        }
+        currentGroup = {
+          type: change.type,
+          items: [change.item],
+          startPos: change.pmPosition,
+        };
+      } else {
+        // Extend current group
+        currentGroup.items.push(change.item);
+      }
+    }
+    if (currentGroup) {
+      groups.push(currentGroup);
+    }
+
+    // Convert groups to ReplaceStep objects
+    // Process in reverse order (highest position first) to avoid position shifts
+    const steps: ReplaceStep[] = [];
+    for (let i = groups.length - 1; i >= 0; i--) {
+      const group = groups[i];
+      if (group.type === 'insert') {
+        // Insert: from=to=startPos, slice contains new items
+        const slice = itemsToSlice(group.items, schema);
+        steps.push(new ReplaceStep(group.startPos, group.startPos, slice));
+      } else {
+        // Delete: from=startPos, to=startPos+count, slice is empty
+        const count = group.items.length;
+        steps.push(
+          new ReplaceStep(group.startPos, group.startPos + count, Slice.empty),
+        );
+      }
+    }
+
+    // Reverse to get correct application order (low to high positions)
+    return steps.reverse();
   }
 
   findItemById(id: ItemID | ItemReference<Item>): Position | null {

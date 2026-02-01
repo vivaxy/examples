@@ -177,7 +177,7 @@ export function synchronizeDocs(docs: Document[]): void {
   docs.forEach((doc, i) => {
     allItems.forEach((items, j) => {
       if (i !== j) {
-        doc.applyItems(items);
+        doc.applyItems(items, schema);
       }
     });
   });
@@ -206,8 +206,8 @@ export function assertConvergence(
 export function syncBidirectional(doc1: Document, doc2: Document): void {
   const items1 = doc1.toItems();
   const items2 = doc2.toItems();
-  doc1.applyItems(items2);
-  doc2.applyItems(items1);
+  doc1.applyItems(items2, schema);
+  doc2.applyItems(items1, schema);
 }
 
 // ============================================================================

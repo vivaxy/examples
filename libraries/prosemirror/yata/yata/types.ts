@@ -7,6 +7,13 @@ import type {
   NodeItem,
 } from './item.js';
 
+// Change tracking for applyItems → ProseMirror steps conversion
+export interface ItemChange {
+  type: 'insert' | 'delete';
+  item: Item;
+  pmPosition: number; // ProseMirror position at time of change
+}
+
 // Core CRDT types
 export interface ItemID {
   client: string;
