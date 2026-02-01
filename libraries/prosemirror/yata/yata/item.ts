@@ -479,7 +479,7 @@ export class TextItem extends Item {
 export class OpeningTagItem extends Item {
   tagName: string;
   attrs: NodeAttributes;
-  closingTagItem: ClosingTagItem | ItemID | null;
+  targetId: ItemID | null;
 
   constructor(tagName: string, attrs: NodeAttributes) {
     super();
@@ -487,27 +487,26 @@ export class OpeningTagItem extends Item {
     this.tagName = tagName;
     // todo attrs should be items too
     this.attrs = attrs;
-    this.closingTagItem = null;
+    this.targetId = null;
   }
 
   toJSON(): OpeningTagItemJSON {
     const base = super.toJSON();
-    const closingTagId = extractItemId(this.closingTagItem);
-    if (!closingTagId) {
-      throw new Error('OpeningTagItem must have a closingTagItem to serialize');
+    if (!this.targetId) {
+      throw new Error('OpeningTagItem must have a targetId to serialize');
     }
     return {
       ...base,
       type: 'openingTag' as const,
       tagName: this.tagName,
       attrs: this.attrs,
-      closingTagItem: closingTagId,
+      closingTagItem: this.targetId,
     };
   }
 
   static fromJSON(json: OpeningTagItemJSON): OpeningTagItem {
     const openingTagItem = new OpeningTagItem(json.tagName, json.attrs);
-    openingTagItem.closingTagItem = json.closingTagItem;
+    openingTagItem.targetId = json.closingTagItem;
     return Item.setId(openingTagItem, json) as OpeningTagItem;
   }
 
@@ -520,10 +519,38 @@ export class OpeningTagItem extends Item {
     doc: Document,
     closingTagItem: ClosingTagItem,
   ): void {
+    // Store neighbors before deletion
+    const left = this.left;
+    const right = this.right;
+
     this.delete();
     const newOpeningTagItem = new OpeningTagItem(this.tagName, this.attrs);
-    newOpeningTagItem.integrateInner(doc, this.left, this.right);
-    this.closingTagItem = closingTagItem;
+    newOpeningTagItem.integrateInner(doc, left, right);
+
+    // Insert the new tag into the linked list at the same position
+    newOpeningTagItem.left = left;
+    newOpeningTagItem.right = right;
+    if (left) {
+      left.right = newOpeningTagItem;
+    } else if (doc.head === this) {
+      doc.head = newOpeningTagItem;
+    }
+    if (right) {
+      right.left = newOpeningTagItem;
+    }
+
+    if (!closingTagItem.id) {
+      throw new Error('ClosingTagItem must be integrated before pairing');
+    }
+    // Set bidirectional references
+    newOpeningTagItem.targetId = closingTagItem.id;
+    closingTagItem.targetId = newOpeningTagItem.id;
+  }
+
+  getClosingTagItem(doc: Document): ClosingTagItem | null {
+    if (!this.targetId) return null;
+    const pos = doc.findItemById(this.targetId);
+    return pos?.right as ClosingTagItem | null;
   }
 
   toHTMLString(): string {
@@ -536,50 +563,85 @@ export class OpeningTagItem extends Item {
 
 export class ClosingTagItem extends Item {
   tagName: string;
-  openingTagItem: OpeningTagItem | ItemID | null;
+  targetId: ItemID | null;
 
   constructor(tagName: string) {
     super();
     Item.itemMap['closingTag'] = ClosingTagItem;
     this.tagName = tagName;
-    this.openingTagItem = null;
+    this.targetId = null;
   }
 
   toJSON(): ClosingTagItemJSON {
     const base = super.toJSON();
-    const openingTagId = extractItemId(this.openingTagItem);
     const result: ClosingTagItemJSON = {
       ...base,
       type: 'closingTag' as const,
       tagName: this.tagName,
     };
-    if (openingTagId) {
-      result.openingTagItem = openingTagId;
+    if (this.targetId) {
+      result.openingTagItem = this.targetId;
     }
     return result;
   }
 
   static fromJSON(json: ClosingTagItemJSON): ClosingTagItem {
     const closingTagItem = new ClosingTagItem(json.tagName);
-    closingTagItem.openingTagItem = json.openingTagItem || null;
+    closingTagItem.targetId = json.openingTagItem || null;
     return Item.setId(closingTagItem, json) as ClosingTagItem;
   }
 
   integrate(position: Position): void {
     super.integrate(position);
     console.assert(position.paths.length > 0);
-    const openingTagTag = position.paths.pop()!;
-    openingTagTag.closingTagItem = this;
+    const openingTagItem = position.paths.pop()!;
+    if (!this.id || !openingTagItem.id) {
+      throw new Error('Both tags must be integrated before pairing');
+    }
+    // Only pair with non-deleted opening tags
+    // Deleted tags will be handled by updatePairedTagsAfterReplace
+    if (!openingTagItem.deleted) {
+      this.targetId = openingTagItem.id;
+      openingTagItem.targetId = this.id;
+    }
   }
 
   replaceWithOpeningTagItem(
     doc: Document,
     openingTagItem: OpeningTagItem,
   ): void {
+    // Store neighbors before deletion
+    const left = this.left;
+    const right = this.right;
+
     this.delete();
     const newClosingTagItem = new ClosingTagItem(this.tagName);
-    newClosingTagItem.integrateInner(doc, this.left, this.right);
-    this.openingTagItem = openingTagItem;
+    newClosingTagItem.integrateInner(doc, left, right);
+
+    // Insert the new tag into the linked list at the same position
+    newClosingTagItem.left = left;
+    newClosingTagItem.right = right;
+    if (left) {
+      left.right = newClosingTagItem;
+    } else if (doc.head === this) {
+      doc.head = newClosingTagItem;
+    }
+    if (right) {
+      right.left = newClosingTagItem;
+    }
+
+    if (!openingTagItem.id) {
+      throw new Error('OpeningTagItem must be integrated before pairing');
+    }
+    // Set bidirectional references
+    newClosingTagItem.targetId = openingTagItem.id;
+    openingTagItem.targetId = newClosingTagItem.id;
+  }
+
+  getOpeningTagItem(doc: Document): OpeningTagItem | null {
+    if (!this.targetId) return null;
+    const pos = doc.findItemById(this.targetId);
+    return pos?.right as OpeningTagItem | null;
   }
 
   toHTMLString(): string {
@@ -699,8 +761,7 @@ export function nodeToItems(node: Node): Item[] {
   }
   const openingTagItem = new OpeningTagItem(node.type.name, node.attrs);
   const closingTagItem = new ClosingTagItem(node.type.name);
-  openingTagItem.closingTagItem = closingTagItem;
-  closingTagItem.openingTagItem = openingTagItem;
+  // Tag pairing will happen during integration via ClosingTagItem.integrate()
   return [openingTagItem, ...fragmentToItems(node.content), closingTagItem];
 }
 

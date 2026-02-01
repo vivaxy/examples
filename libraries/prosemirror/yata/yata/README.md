@@ -13,6 +13,15 @@ An item represents:
 5. An attribute with a value, an attribute belongs to a parent item and a key.
 6. A mark, similar to an attribute, except it belongs to a text item.
 
-# TODO
+
+# Not TODO
+
 - Node attributes are currently stored as plain objects. For proper CRDT behavior with concurrent attribute edits, they should probably be CRDT items themselves.
 - ProseMirror Mark Data Structure and Mark Step implementation
+
+# TODO
+
+- distinct integrated item with pending to integrate item
+- originalLeft and originalRight is always ItemID type, remove ItemReference type, use ItemID type instead
+- add SetAttrItem, to set deleted, node attributes, targetIds
+- fix syncing issue. two docs synced state is<p>1</p><p>2</p>, delete </p><p> in doc1, sync to doc2, prosemirror will raise an error `TransformError: Inconsistent open depths`

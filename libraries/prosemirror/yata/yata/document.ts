@@ -154,23 +154,37 @@ export class Document {
   updatePairedTagsAfterReplace(items: Item[]): void {
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      if (
-        item instanceof ClosingTagItem &&
-        item.openingTagItem &&
-        'integrate' in item.openingTagItem &&
-        !items.includes(item.openingTagItem)
-      ) {
-        // this is a closing item, and its corresponding opening item is not newly integrated
-        item.openingTagItem.replaceWithClosingTagItem(this, item);
+      if (item instanceof ClosingTagItem && item.targetId) {
+        // Find the opening tag by ID
+        const openingPos = this.findItemById(item.targetId);
+        if (
+          openingPos &&
+          openingPos.right &&
+          !items.includes(openingPos.right) &&
+          !openingPos.right.deleted
+        ) {
+          // this is a closing item, and its corresponding opening item is not newly integrated and not deleted
+          (openingPos.right as OpeningTagItem).replaceWithClosingTagItem(
+            this,
+            item,
+          );
+        }
       }
-      if (
-        item instanceof OpeningTagItem &&
-        item.closingTagItem &&
-        'integrate' in item.closingTagItem &&
-        !items.includes(item.closingTagItem)
-      ) {
-        // this is an opening item, and its corresponding closing item is not newly integrated
-        item.closingTagItem.replaceWithOpeningTagItem(this, item);
+      if (item instanceof OpeningTagItem && item.targetId) {
+        // Find the closing tag by ID
+        const closingPos = this.findItemById(item.targetId);
+        if (
+          closingPos &&
+          closingPos.right &&
+          !items.includes(closingPos.right) &&
+          !closingPos.right.deleted
+        ) {
+          // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
+          (closingPos.right as ClosingTagItem).replaceWithOpeningTagItem(
+            this,
+            item,
+          );
+        }
       }
     }
   }
@@ -316,41 +330,7 @@ export class Document {
       });
     });
 
-    // Second pass: restore tag pair references
-    // After all items are integrated, fix OpeningTagItem/ClosingTagItem references
-    // that were serialized as ID objects
-    let item = this.head;
-    while (item) {
-      if (item instanceof OpeningTagItem && item.closingTagItem) {
-        // If closingTagItem is an ID object, find the actual item
-        if (
-          'client' in item.closingTagItem &&
-          'clock' in item.closingTagItem &&
-          !('integrate' in item.closingTagItem)
-        ) {
-          const closingPos = this.findItemById(item.closingTagItem as ItemID);
-          if (closingPos && closingPos.right) {
-            item.closingTagItem = closingPos.right as ClosingTagItem;
-          }
-        }
-      }
-      if (item instanceof ClosingTagItem && item.openingTagItem) {
-        // If openingTagItem is an ID object, find the actual item
-        if (
-          'client' in item.openingTagItem &&
-          'clock' in item.openingTagItem &&
-          !('integrate' in item.openingTagItem)
-        ) {
-          const openingPos = this.findItemById(item.openingTagItem as ItemID);
-          if (openingPos && openingPos.right) {
-            item.openingTagItem = openingPos.right as OpeningTagItem;
-          }
-        }
-      }
-      item = item.right;
-    }
-
-    // Third pass: convert changes to ProseMirror steps
+    // Convert changes to ProseMirror steps
     return this.changesToSteps(changes, schema);
   }
 

@@ -539,8 +539,12 @@ describe('YATA Document Synchronization Integration', () => {
       );
       expect(openingTags.length).toBe(1);
       expect(closingTags.length).toBe(1);
-      expect(openingTags[0].closingTagItem).toBe(closingTags[0]);
-      expect(closingTags[0].openingTagItem).toBe(openingTags[0]);
+      expect((openingTags[0] as OpeningTagItem).targetId).toEqual(
+        closingTags[0].id,
+      );
+      expect((closingTags[0] as ClosingTagItem).targetId).toEqual(
+        openingTags[0].id,
+      );
     });
   });
 
@@ -777,16 +781,12 @@ describe('YATA Document Synchronization Integration', () => {
       const pos = new Position(originalDoc);
 
       // Create complex structure
+      // Note: Tag pairing happens during integration via ClosingTagItem.integrate()
       const items = [
         new OpeningTagItem('paragraph', null),
         ...createTextItems('hello'),
         new ClosingTagItem('paragraph'),
       ];
-      (items[0] as OpeningTagItem).closingTagItem = items[
-        items.length - 1
-      ] as ClosingTagItem;
-      (items[items.length - 1] as ClosingTagItem).openingTagItem =
-        items[0] as OpeningTagItem;
       items.forEach((item) => item.integrate(pos));
 
       // Act

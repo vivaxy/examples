@@ -97,6 +97,7 @@ export function createTextItems(text: string, marks: Mark[] = []): TextItem[] {
 
 /**
  * Creates items for a paragraph with text
+ * Note: Tag pairing happens during integration via ClosingTagItem.integrate()
  */
 export function createParagraphItems(
   text: string,
@@ -105,25 +106,23 @@ export function createParagraphItems(
   const openingTag = new OpeningTagItem('paragraph', attrs);
   const textItems = createTextItems(text);
   const closingTag = new ClosingTagItem('paragraph');
-  openingTag.closingTagItem = closingTag;
-  closingTag.openingTagItem = openingTag;
   return [openingTag, ...textItems, closingTag];
 }
 
 /**
  * Creates items for a heading with text
+ * Note: Tag pairing happens during integration via ClosingTagItem.integrate()
  */
 export function createHeadingItems(text: string, level: number = 1): Item[] {
   const openingTag = new OpeningTagItem('heading', { level });
   const textItems = createTextItems(text);
   const closingTag = new ClosingTagItem('heading');
-  openingTag.closingTagItem = closingTag;
-  closingTag.openingTagItem = openingTag;
   return [openingTag, ...textItems, closingTag];
 }
 
 /**
  * Creates nested items (e.g., paragraph inside a list)
+ * Note: Tag pairing happens during integration via ClosingTagItem.integrate()
  */
 export function createNestedItems(
   outerTag: string,
@@ -135,11 +134,6 @@ export function createNestedItems(
   const textItems = createTextItems(text);
   const innerClosing = new ClosingTagItem(innerTag);
   const outerClosing = new ClosingTagItem(outerTag);
-
-  outerOpening.closingTagItem = outerClosing;
-  outerClosing.openingTagItem = outerOpening;
-  innerOpening.closingTagItem = innerClosing;
-  innerClosing.openingTagItem = innerOpening;
 
   return [outerOpening, innerOpening, ...textItems, innerClosing, outerClosing];
 }
