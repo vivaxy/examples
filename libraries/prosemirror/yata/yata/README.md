@@ -23,3 +23,5 @@ An item represents:
 
 - add SetAttrItem, to set deleted, node attributes, targetIds
 - fix syncing issue. two docs synced state is<p>1</p><p>2</p>, delete </p><p> in doc1, sync to doc2, prosemirror will raise an error `TransformError: Inconsistent open depths`
+- how to implement undo redo
+- implement ReplaceAroundStep
