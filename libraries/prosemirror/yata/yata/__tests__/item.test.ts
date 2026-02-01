@@ -757,6 +757,107 @@ describe('itemsToSlice', () => {
     );
     expect(slice.size).toBe(items.length);
   });
+
+  test('adjacent ClosingTagItem + OpeningTagItem without nesting', () => {
+    // Arrange
+    const items = [
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
+      new TextItem('a'),
+      new ClosingTagItem('paragraph'),
+    ];
+
+    // Act
+    const slice = itemsToSlice(items, schema);
+
+    // Assert
+    expect(slice.openStart).toBe(1); // First paragraph is orphaned
+    expect(slice.openEnd).toBe(0); // Last paragraph is properly closed
+    expect(slice.content.childCount).toBe(2); // Two sibling paragraphs
+
+    // Verify first paragraph is empty
+    const firstParagraph = slice.content.child(0);
+    expect(firstParagraph.type.name).toBe('paragraph');
+    expect(firstParagraph.childCount).toBe(0);
+
+    // Verify second paragraph contains "a"
+    const secondParagraph = slice.content.child(1);
+    expect(secondParagraph.type.name).toBe('paragraph');
+    expect(secondParagraph.textContent).toBe('a');
+
+    // Critical: Verify that creating the slice doesn't throw "Invalid content"
+    expect(() => {
+      new Slice(slice.content, slice.openStart, slice.openEnd);
+    }).not.toThrow();
+  });
+
+  test('multiple adjacent closing/opening pairs', () => {
+    // Arrange
+    const items = [
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
+      new TextItem('b'),
+      new ClosingTagItem('paragraph'),
+    ];
+
+    // Act
+    const slice = itemsToSlice(items, schema);
+
+    // Assert
+    expect(slice.content.childCount).toBe(3); // Three sibling paragraphs
+    expect(slice.openStart).toBe(1);
+    expect(slice.openEnd).toBe(0);
+
+    // Verify all paragraphs are siblings (not nested)
+    const firstParagraph = slice.content.child(0);
+    const secondParagraph = slice.content.child(1);
+    const thirdParagraph = slice.content.child(2);
+
+    expect(firstParagraph.type.name).toBe('paragraph');
+    expect(secondParagraph.type.name).toBe('paragraph');
+    expect(thirdParagraph.type.name).toBe('paragraph');
+
+    expect(firstParagraph.childCount).toBe(0); // Empty
+    expect(secondParagraph.childCount).toBe(0); // Empty
+    expect(thirdParagraph.textContent).toBe('b'); // Contains "b"
+  });
+
+  test('mixed tag types - orphaned paragraph before list', () => {
+    // Arrange
+    const items = [
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('bullet_list', null),
+      new OpeningTagItem('list_item', null),
+      new OpeningTagItem('paragraph', null),
+      new TextItem('item'),
+      new ClosingTagItem('paragraph'),
+      new ClosingTagItem('list_item'),
+      new ClosingTagItem('bullet_list'),
+    ];
+
+    // Act
+    const slice = itemsToSlice(items, schema);
+
+    // Assert
+    expect(slice.content.childCount).toBe(2); // Paragraph and bullet_list as siblings
+    expect(slice.openStart).toBe(1); // Orphaned paragraph
+
+    const orphanedParagraph = slice.content.child(0);
+    const bulletList = slice.content.child(1);
+
+    expect(orphanedParagraph.type.name).toBe('paragraph');
+    expect(orphanedParagraph.childCount).toBe(0); // Empty
+
+    expect(bulletList.type.name).toBe('bullet_list');
+    expect(bulletList.childCount).toBe(1); // Contains one list_item
+
+    // Verify the orphaned paragraph is NOT nested inside the bullet_list
+    expect(bulletList.firstChild?.type.name).toBe('list_item');
+    expect(bulletList.firstChild?.firstChild?.type.name).toBe('paragraph');
+    expect(bulletList.firstChild?.firstChild?.textContent).toBe('item');
+  });
 });
 
 describe('integrate', function () {

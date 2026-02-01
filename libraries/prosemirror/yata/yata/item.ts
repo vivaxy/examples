@@ -629,7 +629,10 @@ export function itemsToSlice(items: Item[], schema: Schema): Slice {
         content: Fragment.empty,
       });
       if (closingNode) {
-        addToParent(closingNode);
+        // Don't nest closingNode inside the new opening tag
+        // Instead, add it directly to fragment as a sibling
+        fragment = fragment.append(Fragment.from([closingNode]));
+        closingNode = null;
       }
       currentDepth++;
     } else if (item instanceof ClosingTagItem) {
