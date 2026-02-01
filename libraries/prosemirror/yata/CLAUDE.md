@@ -189,6 +189,13 @@ When the user asks Claude to "remember" a rule or convention, Claude must add it
 to this CLAUDE.md file in the appropriate section. This ensures project-specific
 knowledge persists across sessions.
 
+## Context Restrictions
+
+**IMPORTANT**: When working on the yata project, Claude must restrict all context
+gathering, file reads, and edits to the `libraries/prosemirror/yata/` directory
+only. Do not explore or modify files outside this folder unless explicitly
+instructed by the user.
+
 ## ProseMirror Schema
 
 The schema extends ProseMirror's basic schema with list nodes (ordered/unordered
