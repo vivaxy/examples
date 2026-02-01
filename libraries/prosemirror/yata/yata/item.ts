@@ -8,6 +8,7 @@ import type {
   OpeningTagItemJSON,
   ClosingTagItemJSON,
   NodeItemJSON,
+  DeleteItemJSON,
   ItemMap,
   NodeAttributes,
   MarkJSON,
@@ -156,12 +157,28 @@ export class Item {
         // First item ever - neither left nor right references
         doc.head = this;
         const pos = doc.resolvePosition();
+        // Check if there's a DeleteItem targeting this item
+        const deleteItem = this.id
+          ? doc.findDeleteItemByTargetId(this.id)
+          : null;
+        if (deleteItem && !this.deleted) {
+          this.deleted = true;
+          return { type: 'delete', item: this, pmPosition: pos.pos };
+        }
         return { type: 'insert', item: this, pmPosition: pos.pos };
       }
       if (!this.originalLeft && this.originalRight) {
         // Has right reference but no left
         doc.head = this;
         const pos = doc.resolvePosition();
+        // Check if there's a DeleteItem targeting this item
+        const deleteItem = this.id
+          ? doc.findDeleteItemByTargetId(this.id)
+          : null;
+        if (deleteItem && !this.deleted) {
+          this.deleted = true;
+          return { type: 'delete', item: this, pmPosition: pos.pos };
+        }
         return { type: 'insert', item: this, pmPosition: pos.pos };
       }
     }
@@ -190,6 +207,12 @@ export class Item {
       this.insertIntoPosition(pos);
       if (this.left === null) {
         doc.head = this;
+      }
+      // Check if there's a DeleteItem targeting this item
+      const deleteItem = this.id ? doc.findDeleteItemByTargetId(this.id) : null;
+      if (deleteItem && !this.deleted) {
+        this.deleted = true;
+        return { type: 'delete', item: this, pmPosition: pos.pos };
       }
       return { type: 'insert', item: this, pmPosition: pos.pos };
     }
@@ -242,6 +265,14 @@ export class Item {
         }
       }
       this.insertIntoPosition(originalLeftPos);
+      // Check if there's a DeleteItem targeting this item
+      const deleteItem1 = this.id
+        ? doc.findDeleteItemByTargetId(this.id)
+        : null;
+      if (deleteItem1 && !this.deleted) {
+        this.deleted = true;
+        return { type: 'delete', item: this, pmPosition: originalLeftPos.pos };
+      }
       return { type: 'insert', item: this, pmPosition: originalLeftPos.pos };
     }
 
@@ -254,6 +285,18 @@ export class Item {
       // Update doc.head if we inserted at the beginning
       if (this.left === null) {
         doc.head = this;
+      }
+      // Check if there's a DeleteItem targeting this item
+      const deleteItem2 = this.id
+        ? doc.findDeleteItemByTargetId(this.id)
+        : null;
+      if (deleteItem2 && !this.deleted) {
+        this.deleted = true;
+        return {
+          type: 'delete',
+          item: this,
+          pmPosition: originalRightPos.pos,
+        };
       }
       return { type: 'insert', item: this, pmPosition: originalRightPos.pos };
     }
@@ -578,6 +621,70 @@ export class NodeItem extends Item {
       return '';
     }
     return `<${this.tagName}${attrsToQueryString(this.attrs)} />`;
+  }
+}
+
+export class DeleteItem extends Item {
+  targetId: ItemID;
+
+  constructor(targetId: ItemID) {
+    super();
+    Item.itemMap['delete'] = DeleteItem;
+    this.targetId = targetId;
+  }
+
+  integrate(position: Position): void {
+    super.integrate(position);
+
+    // After integrating this DeleteItem, mark the target as deleted
+    const targetPos = position.doc.findItemById(this.targetId);
+    if (targetPos && targetPos.right && !targetPos.right.deleted) {
+      targetPos.right.deleted = true;
+    }
+  }
+
+  putIntoDocument(doc: Document): ItemChange | undefined {
+    // Check if this DeleteItem already exists
+    const foundPos = doc.findItemById(this.id);
+    if (foundPos) {
+      return; // Already integrated
+    }
+
+    // Insert the DeleteItem itself into the structure using base class logic
+    const result = super.putIntoDocument(doc);
+
+    // Find the target item and mark it as deleted
+    const targetPos = doc.findItemById(this.targetId);
+    if (targetPos && targetPos.right && !targetPos.right.deleted) {
+      targetPos.right.deleted = true;
+      return {
+        type: 'delete',
+        item: targetPos.right,
+        pmPosition: targetPos.pos,
+      };
+    }
+
+    // Target doesn't exist yet - it will be checked when target is integrated
+    return result;
+  }
+
+  toJSON(): DeleteItemJSON {
+    const base = super.toJSON();
+    return {
+      ...base,
+      type: 'delete' as const,
+      targetId: this.targetId,
+    };
+  }
+
+  static fromJSON(json: DeleteItemJSON): DeleteItem {
+    const deleteItem = new DeleteItem(json.targetId);
+    return Item.setId(deleteItem, json) as DeleteItem;
+  }
+
+  toHTMLString(): string {
+    // DeleteItems don't render
+    return '';
   }
 }
 

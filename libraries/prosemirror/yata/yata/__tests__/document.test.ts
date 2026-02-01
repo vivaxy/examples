@@ -57,7 +57,8 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<paragraph>2</paragraph>');
-    expect(doc.toArray().length).toBe(5);
+    // 7 items: opening paragraph, '2', closing paragraph, 2 DeleteItems for replaced items, and 2 deleted items (opening/text/closing of original)
+    expect(doc.toArray().length).toBe(7);
   });
 
   test('ReplaceAroundStep', function () {
@@ -75,7 +76,8 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<heading level="1">1</heading>');
-    expect(doc.toArray().length).toBe(5);
+    // 7 items: opening heading, '1', closing heading, 2 DeleteItems for replaced tags, and 2 deleted items (opening/closing paragraph tags)
+    expect(doc.toArray().length).toBe(7);
   });
 });
 

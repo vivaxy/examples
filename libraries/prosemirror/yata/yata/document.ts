@@ -10,6 +10,7 @@ import { ReplaceStep } from 'prosemirror-transform';
 import {
   ClosingTagItem,
   OpeningTagItem,
+  DeleteItem,
   sliceToItems,
   fragmentToItems,
   itemsToSlice,
@@ -68,7 +69,10 @@ export class Position {
   }
 
   forwardToDeletionEnd(): void {
-    while (this.right && this.right.deleted) {
+    while (
+      this.right &&
+      (this.right.deleted || this.right instanceof DeleteItem)
+    ) {
       this.forwardItem();
     }
   }
@@ -124,6 +128,14 @@ export class Document {
     while (currentPos < to) {
       console.assert($pos.right, 'Unexpected position ' + to);
       const item = $pos.right!;
+
+      // Create a DeleteItem pointing to this item
+      if (item.id) {
+        const deleteItem = new DeleteItem(item.id);
+        deleteItem.integrate($pos);
+      }
+
+      // Mark the target as deleted immediately (local operation)
       item.delete();
       $pos.forwardToDeletionEnd();
       currentPos++;
@@ -394,13 +406,28 @@ export class Document {
     return null;
   }
 
+  findDeleteItemByTargetId(targetId: ItemID): DeleteItem | null {
+    let item = this.head;
+    while (item) {
+      if (
+        item instanceof DeleteItem &&
+        item.targetId.client === targetId.client &&
+        item.targetId.clock === targetId.clock
+      ) {
+        return item;
+      }
+      item = item.right;
+    }
+    return null;
+  }
+
   toProseMirrorDoc(schema: Schema): Node {
     const items: Item[] = [];
     let item = this.head;
 
-    // Collect all non-deleted items from the linked list
+    // Collect all non-deleted items from the linked list, excluding DeleteItems
     while (item) {
-      if (!item.deleted) {
+      if (!item.deleted && !(item instanceof DeleteItem)) {
         items.push(item);
       }
       item = item.right;
