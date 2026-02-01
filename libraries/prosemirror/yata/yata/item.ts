@@ -134,6 +134,17 @@ export class Item {
     this.insertIntoPosition(position);
   }
 
+  isIntegrated(doc?: Document): boolean {
+    // An item is integrated if it's part of a linked list structure
+    // Check if item has neighbors first (most common case)
+    const hasNeighbors = this.left !== null || this.right !== null;
+    if (hasNeighbors) return true;
+
+    // Edge case: item is the sole item in the document (is doc.head)
+    // Note: An item can have an id but not be integrated yet (e.g., deserialized from JSON)
+    return doc !== undefined && doc.head === this;
+  }
+
   putIntoDocument(doc: Document): ItemChange | undefined {
     const foundPos = doc.findItemById(this.id);
     if (foundPos) {

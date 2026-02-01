@@ -879,3 +879,172 @@ describe('integrate', function () {
     expect(doc.clock).toBe(3);
   });
 });
+
+// ============================================================================
+// Item.isIntegrated() - Integration Status Check
+// ============================================================================
+
+describe('Item.isIntegrated()', () => {
+  test('returns false for newly constructed items', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item = new TextItem('a');
+
+    // Act
+    const result = item.isIntegrated(doc);
+
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test('returns true after local integration', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item = new TextItem('a');
+    const pos = new Position(doc);
+
+    // Act
+    item.integrate(pos);
+
+    // Assert
+    expect(item.isIntegrated(doc)).toBe(true);
+  });
+
+  test('returns false for items loaded from JSON before putIntoDocument', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const json = {
+      type: 'text' as const,
+      id: { client: 'client1', clock: 0 },
+      text: 'a',
+      marks: [],
+      deleted: false,
+    };
+
+    // Act
+    const item = TextItem.fromJSON(json);
+
+    // Assert
+    expect(item.id).not.toBeNull(); // Has ID
+    expect(item.isIntegrated(doc)).toBe(false); // But not in linked list yet
+  });
+
+  test('returns true for remote items after putIntoDocument', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const json = {
+      type: 'text' as const,
+      id: { client: 'client1', clock: 0 },
+      text: 'a',
+      marks: [],
+      deleted: false,
+    };
+    const item = TextItem.fromJSON(json);
+
+    // Act
+    item.putIntoDocument(doc);
+
+    // Assert
+    expect(item.isIntegrated(doc)).toBe(true);
+  });
+
+  test('returns true for head item in document', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item = new TextItem('x');
+
+    // Act
+    item.integrate(new Position(doc));
+
+    // Assert
+    expect(doc.head).toBe(item);
+    expect(item.isIntegrated(doc)).toBe(true);
+  });
+
+  test('returns true for item with left neighbor', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item1 = new TextItem('a');
+    const item2 = new TextItem('b');
+    const pos = new Position(doc);
+
+    // Act
+    item1.integrate(pos);
+    item2.integrate(pos);
+
+    // Assert
+    expect(item2.left).toBe(item1);
+    expect(item2.isIntegrated()).toBe(true); // No doc param needed
+  });
+
+  test('returns true for item with right neighbor', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item1 = new TextItem('a');
+    const item2 = new TextItem('b');
+    const pos = new Position(doc);
+
+    // Act
+    item1.integrate(pos);
+    item2.integrate(pos);
+
+    // Assert
+    expect(item1.right).toBe(item2);
+    expect(item1.isIntegrated()).toBe(true); // No doc param needed
+  });
+
+  test('works for all item types', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const textItem = new TextItem('x');
+    const openingTag = new OpeningTagItem('p', {});
+
+    // Act
+    textItem.integrate(new Position(doc));
+
+    // Assert
+    expect(textItem.isIntegrated(doc)).toBe(true);
+    expect(openingTag.isIntegrated(doc)).toBe(false); // not integrated yet
+  });
+
+  test('returns false without doc param for sole head item', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+    const item = new TextItem('x');
+
+    // Act
+    item.integrate(new Position(doc));
+
+    // Assert
+    expect(doc.head).toBe(item);
+    expect(item.left).toBeNull();
+    expect(item.right).toBeNull();
+    expect(item.isIntegrated()).toBe(false); // No neighbors
+    expect(item.isIntegrated(doc)).toBe(true); // But is doc.head
+  });
+
+  test('distinguishes between item with ID and item in list', () => {
+    // Arrange
+    const doc = createEmptyDoc();
+
+    // Create a remote item with ID but not in list
+    const remoteItem = TextItem.fromJSON({
+      type: 'text' as const,
+      id: { client: 'remote', clock: 5 },
+      text: 'x',
+      marks: [],
+      deleted: false,
+    });
+
+    // Create a local item and integrate it
+    const localItem = new TextItem('y');
+    localItem.integrate(new Position(doc));
+
+    // Assert
+    expect(remoteItem.id).not.toBeNull();
+    expect(remoteItem.isIntegrated(doc)).toBe(false);
+
+    expect(localItem.id).not.toBeNull();
+    expect(localItem.isIntegrated(doc)).toBe(true);
+  });
+});
