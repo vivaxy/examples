@@ -72,12 +72,15 @@ export interface NodeItemJSON extends BaseItemJSON {
   attrs: NodeAttributes;
 }
 
+// SetAttrItem key-value types
+export type SetAttrKey = 'deleted' | 'attrs' | 'targetId';
+export type SetAttrValue = boolean | NodeAttributes | ItemID;
+
 export interface SetAttrItemJSON extends BaseItemJSON {
   type: 'setAttr';
   target: ItemID;
-  setDeleted?: boolean;
-  setAttrs?: NodeAttributes;
-  setTargetId?: ItemID;
+  key: SetAttrKey;
+  value: SetAttrValue;
 }
 
 export type AnyItemJSON =

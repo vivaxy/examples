@@ -12,7 +12,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
     expect(targetItem.deleted).toBe(false);
 
     // Act
-    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos = doc.resolvePosition(3); // Insert at end
     setAttrItem.integrate(pos);
 
@@ -28,7 +28,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
     const targetItem = items[0]; // 'a'
 
     // Act
-    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos = doc.resolvePosition(3);
     setAttrItem.integrate(pos);
 
@@ -42,7 +42,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
     const nonExistentId = { client: 'client2', clock: 99 };
 
     // Act
-    const setAttrItem = new SetAttrItem(nonExistentId, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(nonExistentId, 'deleted', true);
     const change = setAttrItem.putIntoDocument(doc);
 
     // Assert - SetAttrItem is inserted, waiting for target
@@ -57,7 +57,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
 
     // Create a SetAttrItem for an item that doesn't exist yet
     const targetId = { client: 'client2', clock: 0 };
-    const setAttrItem = new SetAttrItem(targetId, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(targetId, 'deleted', true);
     setAttrItem.id = { client: 'client1', clock: 10 };
     setAttrItem.originalLeft = null;
     setAttrItem.originalRight = null;
@@ -81,12 +81,12 @@ describe('SetAttrItem - Deletion via deleted', function () {
     const targetItem = items[0]; // 'a'
 
     // Act - Create two SetAttrItems, first deletes, second undeletes
-    const setAttrItem1 = new SetAttrItem(targetItem.id!, { setDeleted: true });
+    const setAttrItem1 = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos1 = doc.resolvePosition(3);
     setAttrItem1.integrate(pos1);
     expect(targetItem.deleted).toBe(true);
 
-    const setAttrItem2 = new SetAttrItem(targetItem.id!, { setDeleted: false });
+    const setAttrItem2 = new SetAttrItem(targetItem.id!, 'deleted', false);
     const pos2 = doc.resolvePosition(3);
     setAttrItem2.integrate(pos2);
 
@@ -112,7 +112,8 @@ describe('SetAttrItem - Document.replaceItemsInner()', function () {
     // Find the SetAttrItem
     const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
     expect(setAttrItems.length).toBe(1);
-    expect((setAttrItems[0] as SetAttrItem).setDeleted).toBe(true);
+    expect((setAttrItems[0] as SetAttrItem).key).toBe('deleted');
+    expect((setAttrItems[0] as SetAttrItem).value).toBe(true);
 
     // The first text item 'a' should be deleted
     const textItems = allItems.filter((item) => item instanceof TextItem);
@@ -131,8 +132,10 @@ describe('SetAttrItem - Document.replaceItemsInner()', function () {
     const allItems = doc.toArray();
     const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
     expect(setAttrItems.length).toBe(2); // Two SetAttrItems created
-    expect((setAttrItems[0] as SetAttrItem).setDeleted).toBe(true);
-    expect((setAttrItems[1] as SetAttrItem).setDeleted).toBe(true);
+    expect((setAttrItems[0] as SetAttrItem).key).toBe('deleted');
+    expect((setAttrItems[0] as SetAttrItem).value).toBe(true);
+    expect((setAttrItems[1] as SetAttrItem).key).toBe('deleted');
+    expect((setAttrItems[1] as SetAttrItem).value).toBe(true);
 
     // The first two text items should be deleted
     const textItems = allItems.filter((item) => item instanceof TextItem);
@@ -149,7 +152,7 @@ describe('SetAttrItem - findSetAttrItemsByTarget()', function () {
     const items = doc.toArray();
     const targetItem = items[0];
 
-    const setAttrItem = new SetAttrItem(targetItem.id!, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos = doc.resolvePosition(3);
     setAttrItem.integrate(pos);
 
@@ -182,7 +185,8 @@ describe('SetAttrItem - Position.forward() skips SetAttrItems', function () {
     // Insert a SetAttrItem at the end
     const setAttrItem = new SetAttrItem(
       { client: 'other', clock: 99 },
-      { setDeleted: true },
+      'deleted',
+      true,
     );
     const pos = doc.resolvePosition(2); // After 'ab'
     setAttrItem.integrate(pos);
@@ -209,7 +213,7 @@ describe('SetAttrItem - toProseMirrorDoc() excludes SetAttrItems', function () {
     const items = doc.toArray();
 
     // Add a SetAttrItem that marks first item as deleted
-    const setAttrItem = new SetAttrItem(items[0].id!, { setDeleted: true });
+    const setAttrItem = new SetAttrItem(items[0].id!, 'deleted', true);
     const pos = doc.resolvePosition(3);
     setAttrItem.integrate(pos);
 

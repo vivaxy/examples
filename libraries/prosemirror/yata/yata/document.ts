@@ -131,9 +131,9 @@ export class Document {
       console.assert($pos.right, 'Unexpected position ' + to);
       const item = $pos.right!;
 
-      // Create a SetAttrItem with setDeleted: true pointing to this item
+      // Create a SetAttrItem with deleted: true pointing to this item
       if (item.id) {
-        const setAttrItem = new SetAttrItem(item.id, { setDeleted: true });
+        const setAttrItem = new SetAttrItem(item.id, 'deleted', true);
         setAttrItem.integrate($pos);
       }
 
@@ -280,7 +280,7 @@ export class Document {
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
         } else if (item instanceof SetAttrItem) {
-          repr = `SetAttr(${item.target.client}:${item.target.clock})`;
+          repr = `SetAttr(${item.key}=${JSON.stringify(item.value)}@${item.target.client}:${item.target.clock})`;
         } else {
           repr = 'Item';
         }

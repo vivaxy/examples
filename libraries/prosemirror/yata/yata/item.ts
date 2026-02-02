@@ -8,6 +8,8 @@ import type {
   ClosingTagItemJSON,
   NodeItemJSON,
   SetAttrItemJSON,
+  SetAttrKey,
+  SetAttrValue,
   ItemMap,
   NodeAttributes,
   MarkJSON,
@@ -677,44 +679,32 @@ export class NodeItem extends Item {
 
 export class SetAttrItem extends Item {
   target: ItemID;
-  setDeleted?: boolean;
-  setAttrs?: NodeAttributes;
-  setTargetId?: ItemID;
+  key: SetAttrKey;
+  value: SetAttrValue;
 
-  constructor(
-    target: ItemID,
-    options: {
-      setDeleted?: boolean;
-      setAttrs?: NodeAttributes;
-      setTargetId?: ItemID;
-    } = {},
-  ) {
+  constructor(target: ItemID, key: SetAttrKey, value: SetAttrValue) {
     super();
     Item.itemMap['setAttr'] = SetAttrItem;
     this.target = target;
-    this.setDeleted = options.setDeleted;
-    this.setAttrs = options.setAttrs;
-    this.setTargetId = options.setTargetId;
+    this.key = key;
+    this.value = value;
   }
 
   private applyToTarget(targetItem: Item): void {
-    // Apply deleted flag if specified
-    if (this.setDeleted !== undefined) {
-      targetItem.deleted = this.setDeleted;
-    }
-
-    // Apply attrs if specified (for OpeningTagItem and NodeItem)
-    if (this.setAttrs !== undefined) {
-      if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
-        targetItem.attrs = this.setAttrs;
-      }
-    }
-
-    // Apply targetId if specified (for OpeningTagItem and ClosingTagItem)
-    if (this.setTargetId !== undefined) {
-      if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
-        targetItem.targetId = this.setTargetId;
-      }
+    switch (this.key) {
+      case 'deleted':
+        targetItem.deleted = this.value as boolean;
+        break;
+      case 'attrs':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+          targetItem.attrs = this.value as NodeAttributes;
+        }
+        break;
+      case 'targetId':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+          targetItem.targetId = this.value as ItemID;
+        }
+        break;
     }
   }
 
@@ -751,29 +741,17 @@ export class SetAttrItem extends Item {
 
   toJSON(): SetAttrItemJSON {
     const base = super.toJSON();
-    const json: SetAttrItemJSON = {
+    return {
       ...base,
       type: 'setAttr' as const,
       target: this.target,
+      key: this.key,
+      value: this.value,
     };
-    if (this.setDeleted !== undefined) {
-      json.setDeleted = this.setDeleted;
-    }
-    if (this.setAttrs !== undefined) {
-      json.setAttrs = this.setAttrs;
-    }
-    if (this.setTargetId !== undefined) {
-      json.setTargetId = this.setTargetId;
-    }
-    return json;
   }
 
   static fromJSON(json: SetAttrItemJSON): SetAttrItem {
-    const setAttrItem = new SetAttrItem(json.target, {
-      setDeleted: json.setDeleted,
-      setAttrs: json.setAttrs,
-      setTargetId: json.setTargetId,
-    });
+    const setAttrItem = new SetAttrItem(json.target, json.key, json.value);
     return Item.setId(setAttrItem, json) as SetAttrItem;
   }
 
@@ -789,23 +767,20 @@ applyPendingSetAttrItems = function (doc: Document, targetItem: Item): void {
 
   const pendingSetAttrItems = doc.findSetAttrItemsByTarget(targetItem.id);
   for (const setAttrItem of pendingSetAttrItems) {
-    // Apply deleted flag if specified
-    if (setAttrItem.setDeleted !== undefined) {
-      targetItem.deleted = setAttrItem.setDeleted;
-    }
-
-    // Apply attrs if specified (for OpeningTagItem and NodeItem)
-    if (setAttrItem.setAttrs !== undefined) {
-      if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
-        targetItem.attrs = setAttrItem.setAttrs;
-      }
-    }
-
-    // Apply targetId if specified (for OpeningTagItem and ClosingTagItem)
-    if (setAttrItem.setTargetId !== undefined) {
-      if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
-        targetItem.targetId = setAttrItem.setTargetId;
-      }
+    switch (setAttrItem.key) {
+      case 'deleted':
+        targetItem.deleted = setAttrItem.value as boolean;
+        break;
+      case 'attrs':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+          targetItem.attrs = setAttrItem.value as NodeAttributes;
+        }
+        break;
+      case 'targetId':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+          targetItem.targetId = setAttrItem.value as ItemID;
+        }
+        break;
     }
   }
 };
