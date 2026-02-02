@@ -712,17 +712,33 @@ export class SetAttrItem extends Item {
     }
 
     // Insert the SetAttrItem itself into the structure using base class logic
-    const result = super.putIntoDocument(doc);
+    const insertResult = super.putIntoDocument(doc);
 
-    // Find the target item and apply changes
+    // Find the target item and determine if applying changes generates a visible change
     const targetPos = doc.findItemById(this.target);
     if (targetPos && targetPos.right) {
-      this.applyToTarget(targetPos.right);
+      const targetItem = targetPos.right;
+
+      // Check if this SetAttrItem will cause a visible change
+      if (this.key === 'deleted' && this.value === true) {
+        // Setting deleted=true generates a delete change only if target wasn't already deleted
+        if (!targetItem.deleted) {
+          this.applyToTarget(targetItem);
+          return { type: 'delete', item: targetItem, pmPosition: targetPos.pos };
+        }
+      } else {
+        // For other attribute changes (attrs, targetId), apply them but don't generate steps
+        // These changes don't directly affect ProseMirror document structure
+        this.applyToTarget(targetItem);
+      }
+
+      // Target exists but change doesn't produce a visible effect
+      return undefined;
     }
 
-    // SetAttrItem doesn't generate its own ItemChange type for now
-    // Return the insert result for the SetAttrItem itself
-    return result;
+    // Target doesn't exist yet - return insert change for the SetAttrItem itself
+    // so it's tracked in the document and will apply when target arrives
+    return insertResult;
   }
 
   toJSON(): SetAttrItemJSON {

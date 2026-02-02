@@ -368,11 +368,15 @@ export class Document {
     let currentGroup: ChangeGroup | null = null;
 
     for (const change of sortedChanges) {
-      if (
-        !currentGroup ||
-        currentGroup.type !== change.type ||
-        currentGroup.startPos + currentGroup.items.length !== change.pmPosition
-      ) {
+      // For deletions: group if same position (consecutive deletions at same PM position)
+      // For insertions: group if consecutive positions (startPos + length = nextPos)
+      const canGroup = currentGroup &&
+        currentGroup.type === change.type &&
+        (currentGroup.type === 'delete'
+          ? currentGroup.startPos === change.pmPosition
+          : currentGroup.startPos + currentGroup.items.length === change.pmPosition);
+
+      if (!canGroup) {
         // Start a new group
         if (currentGroup) {
           groups.push(currentGroup);
