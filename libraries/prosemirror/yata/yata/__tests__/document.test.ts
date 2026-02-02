@@ -57,8 +57,9 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<paragraph>2</paragraph>');
-    // 7 items: opening paragraph, '2', closing paragraph, 2 SetAttrItems for replaced items, and 2 deleted items (opening/text/closing of original)
-    expect(doc.toArray().length).toBe(7);
+    // 9 items: opening paragraph, '2', closing paragraph, 2 SetAttrItems for deleted items,
+    // 2 deleted items (text '1' and old closing), and 2 SetAttrItems for targetId updates
+    expect(doc.toArray().length).toBe(9);
   });
 
   test('ReplaceAroundStep', function () {
