@@ -280,7 +280,7 @@ export class Document {
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
         } else if (item instanceof SetAttrItem) {
-          repr = `SetAttr(${item.targetId.client}:${item.targetId.clock})`;
+          repr = `SetAttr(${item.target.client}:${item.target.clock})`;
         } else {
           repr = 'Item';
         }
@@ -431,14 +431,14 @@ export class Document {
     return null;
   }
 
-  findSetAttrItemsByTargetId(targetId: ItemID): SetAttrItem[] {
+  findSetAttrItemsByTarget(target: ItemID): SetAttrItem[] {
     const results: SetAttrItem[] = [];
     let item = this.head;
     while (item) {
       if (
         item instanceof SetAttrItem &&
-        item.targetId.client === targetId.client &&
-        item.targetId.clock === targetId.clock
+        item.target.client === target.client &&
+        item.target.clock === target.clock
       ) {
         results.push(item);
       }

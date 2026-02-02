@@ -3,8 +3,8 @@ import { SetAttrItem, TextItem } from '../item.js';
 import { Position } from '../document.js';
 import { createEmptyDoc, createDocWithText } from './helpers/test-helpers.js';
 
-describe('SetAttrItem - Deletion via setDeleted', function () {
-  test('SetAttrItem with setDeleted: true marks existing item as deleted', function () {
+describe('SetAttrItem - Deletion via deleted', function () {
+  test('SetAttrItem with deleted: true marks existing item as deleted', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -21,7 +21,7 @@ describe('SetAttrItem - Deletion via setDeleted', function () {
     expect(setAttrItem.deleted).toBe(false); // SetAttrItem itself is not deleted
   });
 
-  test('SetAttrItem integration applies setDeleted immediately', function () {
+  test('SetAttrItem integration applies deleted immediately', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -142,7 +142,7 @@ describe('SetAttrItem - Document.replaceItemsInner()', function () {
   });
 });
 
-describe('SetAttrItem - findSetAttrItemsByTargetId()', function () {
+describe('SetAttrItem - findSetAttrItemsByTarget()', function () {
   test('finds SetAttrItem by targetId', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
@@ -154,7 +154,7 @@ describe('SetAttrItem - findSetAttrItemsByTargetId()', function () {
     setAttrItem.integrate(pos);
 
     // Act
-    const found = doc.findSetAttrItemsByTargetId(targetItem.id!);
+    const found = doc.findSetAttrItemsByTarget(targetItem.id!);
 
     // Assert
     expect(found).toHaveLength(1);
@@ -167,7 +167,7 @@ describe('SetAttrItem - findSetAttrItemsByTargetId()', function () {
     const nonExistentId = { client: 'client2', clock: 99 };
 
     // Act
-    const found = doc.findSetAttrItemsByTargetId(nonExistentId);
+    const found = doc.findSetAttrItemsByTarget(nonExistentId);
 
     // Assert
     expect(found).toEqual([]);

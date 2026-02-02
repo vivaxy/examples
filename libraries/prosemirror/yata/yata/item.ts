@@ -676,13 +676,13 @@ export class NodeItem extends Item {
 }
 
 export class SetAttrItem extends Item {
-  targetId: ItemID;
+  target: ItemID;
   setDeleted?: boolean;
   setAttrs?: NodeAttributes;
   setTargetId?: ItemID;
 
   constructor(
-    targetId: ItemID,
+    target: ItemID,
     options: {
       setDeleted?: boolean;
       setAttrs?: NodeAttributes;
@@ -691,29 +691,29 @@ export class SetAttrItem extends Item {
   ) {
     super();
     Item.itemMap['setAttr'] = SetAttrItem;
-    this.targetId = targetId;
+    this.target = target;
     this.setDeleted = options.setDeleted;
     this.setAttrs = options.setAttrs;
     this.setTargetId = options.setTargetId;
   }
 
-  private applyToTarget(target: Item): void {
+  private applyToTarget(targetItem: Item): void {
     // Apply deleted flag if specified
     if (this.setDeleted !== undefined) {
-      target.deleted = this.setDeleted;
+      targetItem.deleted = this.setDeleted;
     }
 
     // Apply attrs if specified (for OpeningTagItem and NodeItem)
     if (this.setAttrs !== undefined) {
-      if (target instanceof OpeningTagItem || target instanceof NodeItem) {
-        target.attrs = this.setAttrs;
+      if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+        targetItem.attrs = this.setAttrs;
       }
     }
 
     // Apply targetId if specified (for OpeningTagItem and ClosingTagItem)
     if (this.setTargetId !== undefined) {
-      if (target instanceof OpeningTagItem || target instanceof ClosingTagItem) {
-        target.targetId = this.setTargetId;
+      if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+        targetItem.targetId = this.setTargetId;
       }
     }
   }
@@ -722,7 +722,7 @@ export class SetAttrItem extends Item {
     super.integrate(position);
 
     // After integrating this SetAttrItem, apply changes to the target
-    const targetPos = position.doc.findItemById(this.targetId);
+    const targetPos = position.doc.findItemById(this.target);
     if (targetPos && targetPos.right) {
       this.applyToTarget(targetPos.right);
     }
@@ -739,7 +739,7 @@ export class SetAttrItem extends Item {
     const result = super.putIntoDocument(doc);
 
     // Find the target item and apply changes
-    const targetPos = doc.findItemById(this.targetId);
+    const targetPos = doc.findItemById(this.target);
     if (targetPos && targetPos.right) {
       this.applyToTarget(targetPos.right);
     }
@@ -754,7 +754,7 @@ export class SetAttrItem extends Item {
     const json: SetAttrItemJSON = {
       ...base,
       type: 'setAttr' as const,
-      targetId: this.targetId,
+      target: this.target,
     };
     if (this.setDeleted !== undefined) {
       json.setDeleted = this.setDeleted;
@@ -769,7 +769,7 @@ export class SetAttrItem extends Item {
   }
 
   static fromJSON(json: SetAttrItemJSON): SetAttrItem {
-    const setAttrItem = new SetAttrItem(json.targetId, {
+    const setAttrItem = new SetAttrItem(json.target, {
       setDeleted: json.setDeleted,
       setAttrs: json.setAttrs,
       setTargetId: json.setTargetId,
@@ -784,27 +784,27 @@ export class SetAttrItem extends Item {
 }
 
 // Implement the forward-declared function now that SetAttrItem is defined
-applyPendingSetAttrItems = function (doc: Document, target: Item): void {
-  if (!target.id) return;
+applyPendingSetAttrItems = function (doc: Document, targetItem: Item): void {
+  if (!targetItem.id) return;
 
-  const pendingSetAttrItems = doc.findSetAttrItemsByTargetId(target.id);
+  const pendingSetAttrItems = doc.findSetAttrItemsByTarget(targetItem.id);
   for (const setAttrItem of pendingSetAttrItems) {
     // Apply deleted flag if specified
     if (setAttrItem.setDeleted !== undefined) {
-      target.deleted = setAttrItem.setDeleted;
+      targetItem.deleted = setAttrItem.setDeleted;
     }
 
     // Apply attrs if specified (for OpeningTagItem and NodeItem)
     if (setAttrItem.setAttrs !== undefined) {
-      if (target instanceof OpeningTagItem || target instanceof NodeItem) {
-        target.attrs = setAttrItem.setAttrs;
+      if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+        targetItem.attrs = setAttrItem.setAttrs;
       }
     }
 
     // Apply targetId if specified (for OpeningTagItem and ClosingTagItem)
     if (setAttrItem.setTargetId !== undefined) {
-      if (target instanceof OpeningTagItem || target instanceof ClosingTagItem) {
-        target.targetId = setAttrItem.setTargetId;
+      if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+        targetItem.targetId = setAttrItem.setTargetId;
       }
     }
   }

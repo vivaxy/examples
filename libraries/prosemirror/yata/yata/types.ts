@@ -74,7 +74,7 @@ export interface NodeItemJSON extends BaseItemJSON {
 
 export interface SetAttrItemJSON extends BaseItemJSON {
   type: 'setAttr';
-  targetId: ItemID;
+  target: ItemID;
   setDeleted?: boolean;
   setAttrs?: NodeAttributes;
   setTargetId?: ItemID;

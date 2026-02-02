@@ -14,7 +14,7 @@ import {
 } from './helpers/test-helpers.js';
 
 describe('SetAttrItem - Basic Functionality', function () {
-  test('creates SetAttrItem with targetId only', function () {
+  test('creates SetAttrItem with target only', function () {
     // Arrange
     const targetId = { client: 'client1', clock: 5 };
 
@@ -22,13 +22,13 @@ describe('SetAttrItem - Basic Functionality', function () {
     const setAttrItem = new SetAttrItem(targetId);
 
     // Assert
-    expect(setAttrItem.targetId).toEqual(targetId);
+    expect(setAttrItem.target).toEqual(targetId);
     expect(setAttrItem.setDeleted).toBeUndefined();
     expect(setAttrItem.setAttrs).toBeUndefined();
     expect(setAttrItem.setTargetId).toBeUndefined();
   });
 
-  test('creates SetAttrItem with setDeleted option', function () {
+  test('creates SetAttrItem with deleted option', function () {
     // Arrange
     const targetId = { client: 'client1', clock: 5 };
 
@@ -36,11 +36,11 @@ describe('SetAttrItem - Basic Functionality', function () {
     const setAttrItem = new SetAttrItem(targetId, { setDeleted: true });
 
     // Assert
-    expect(setAttrItem.targetId).toEqual(targetId);
+    expect(setAttrItem.target).toEqual(targetId);
     expect(setAttrItem.setDeleted).toBe(true);
   });
 
-  test('creates SetAttrItem with setAttrs option', function () {
+  test('creates SetAttrItem with attrs option', function () {
     // Arrange
     const targetId = { client: 'client1', clock: 5 };
     const attrs = { level: 2, id: 'heading-1' };
@@ -49,11 +49,11 @@ describe('SetAttrItem - Basic Functionality', function () {
     const setAttrItem = new SetAttrItem(targetId, { setAttrs: attrs });
 
     // Assert
-    expect(setAttrItem.targetId).toEqual(targetId);
+    expect(setAttrItem.target).toEqual(targetId);
     expect(setAttrItem.setAttrs).toEqual(attrs);
   });
 
-  test('creates SetAttrItem with setTargetId option', function () {
+  test('creates SetAttrItem with targetId option', function () {
     // Arrange
     const targetId = { client: 'client1', clock: 5 };
     const newTargetId = { client: 'client2', clock: 10 };
@@ -62,7 +62,7 @@ describe('SetAttrItem - Basic Functionality', function () {
     const setAttrItem = new SetAttrItem(targetId, { setTargetId: newTargetId });
 
     // Assert
-    expect(setAttrItem.targetId).toEqual(targetId);
+    expect(setAttrItem.target).toEqual(targetId);
     expect(setAttrItem.setTargetId).toEqual(newTargetId);
   });
 
@@ -80,7 +80,7 @@ describe('SetAttrItem - Basic Functionality', function () {
     });
 
     // Assert
-    expect(setAttrItem.targetId).toEqual(targetId);
+    expect(setAttrItem.target).toEqual(targetId);
     expect(setAttrItem.setDeleted).toBe(true);
     expect(setAttrItem.setAttrs).toEqual(attrs);
     expect(setAttrItem.setTargetId).toEqual(newTargetId);
@@ -107,7 +107,7 @@ describe('SetAttrItem - Serialization', function () {
 
     // Assert
     expect(json.type).toBe('setAttr');
-    expect(json.targetId).toEqual(targetId);
+    expect(json.target).toEqual(targetId);
     expect(json.setDeleted).toBe(true);
     expect(json.setAttrs).toEqual(attrs);
     expect(json.setTargetId).toEqual(newTargetId);
@@ -127,7 +127,7 @@ describe('SetAttrItem - Serialization', function () {
 
     // Assert
     expect(json.type).toBe('setAttr');
-    expect(json.targetId).toEqual(targetId);
+    expect(json.target).toEqual(targetId);
     expect('setDeleted' in json).toBe(false);
     expect('setAttrs' in json).toBe(false);
     expect('setTargetId' in json).toBe(false);
@@ -138,7 +138,7 @@ describe('SetAttrItem - Serialization', function () {
     const json = {
       id: { client: 'client1', clock: 10 },
       type: 'setAttr' as const,
-      targetId: { client: 'client1', clock: 5 },
+      target: { client: 'client1', clock: 5 },
       setDeleted: true,
       setAttrs: { level: 2 },
       setTargetId: { client: 'client2', clock: 20 },
@@ -150,7 +150,7 @@ describe('SetAttrItem - Serialization', function () {
     // Assert
     expect(setAttrItem).toBeInstanceOf(SetAttrItem);
     expect(setAttrItem.id).toEqual({ client: 'client1', clock: 10 });
-    expect(setAttrItem.targetId).toEqual({ client: 'client1', clock: 5 });
+    expect(setAttrItem.target).toEqual({ client: 'client1', clock: 5 });
     expect(setAttrItem.setDeleted).toBe(true);
     expect(setAttrItem.setAttrs).toEqual({ level: 2 });
     expect(setAttrItem.setTargetId).toEqual({ client: 'client2', clock: 20 });
@@ -170,7 +170,7 @@ describe('SetAttrItem - Serialization', function () {
 });
 
 describe('SetAttrItem - Setting deleted flag', function () {
-  test('SetAttrItem with setDeleted: true marks existing item as deleted', function () {
+  test('SetAttrItem with deleted: true marks existing item as deleted', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -187,7 +187,7 @@ describe('SetAttrItem - Setting deleted flag', function () {
     expect(setAttrItem.deleted).toBe(false); // SetAttrItem itself is not deleted
   });
 
-  test('SetAttrItem with setDeleted: false can undelete item', function () {
+  test('SetAttrItem with deleted: false can undelete item', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -327,7 +327,7 @@ describe('SetAttrItem - Setting targetId (paired tags)', function () {
 });
 
 describe('SetAttrItem - Remote integration via putIntoDocument', function () {
-  test('putIntoDocument applies setDeleted to target', function () {
+  test('putIntoDocument applies deleted to target', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
     const items = doc.toArray();
@@ -341,7 +341,7 @@ describe('SetAttrItem - Remote integration via putIntoDocument', function () {
     expect(targetItem.deleted).toBe(true);
   });
 
-  test('putIntoDocument applies setAttrs to target', function () {
+  test('putIntoDocument applies attrs to target', function () {
     // Arrange
     const doc = createDocWithParagraph('hi', 'client1');
     const items = doc.toArray();
@@ -441,7 +441,7 @@ describe('SetAttrItem - Remote integration via putIntoDocument', function () {
   });
 });
 
-describe('SetAttrItem - findSetAttrItemsByTargetId', function () {
+describe('SetAttrItem - findSetAttrItemsByTarget', function () {
   test('finds SetAttrItems by targetId', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');
@@ -453,7 +453,7 @@ describe('SetAttrItem - findSetAttrItemsByTargetId', function () {
     setAttrItem.integrate(pos);
 
     // Act
-    const found = doc.findSetAttrItemsByTargetId(targetItem.id!);
+    const found = doc.findSetAttrItemsByTarget(targetItem.id!);
 
     // Assert
     expect(found).toHaveLength(1);
@@ -476,7 +476,7 @@ describe('SetAttrItem - findSetAttrItemsByTargetId', function () {
     setAttrItem2.integrate(pos2);
 
     // Act
-    const found = doc.findSetAttrItemsByTargetId(targetItem.id!);
+    const found = doc.findSetAttrItemsByTarget(targetItem.id!);
 
     // Assert
     expect(found).toHaveLength(2);
@@ -490,7 +490,7 @@ describe('SetAttrItem - findSetAttrItemsByTargetId', function () {
     const nonExistentId = { client: 'client2', clock: 99 };
 
     // Act
-    const found = doc.findSetAttrItemsByTargetId(nonExistentId);
+    const found = doc.findSetAttrItemsByTarget(nonExistentId);
 
     // Assert
     expect(found).toEqual([]);
