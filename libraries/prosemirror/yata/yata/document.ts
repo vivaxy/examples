@@ -1,5 +1,5 @@
-import type { Fragment, Schema, Node } from 'prosemirror-model';
-import { Slice } from 'prosemirror-model';
+import type { Schema, Node } from 'prosemirror-model';
+import { Slice, Fragment } from 'prosemirror-model';
 import type {
   Step,
   AddMarkStep,
@@ -390,14 +390,60 @@ export class Document {
       } else {
         // Delete: from=startPos, to=startPos+count, slice is empty
         const count = group.items.length;
-        steps.push(
-          new ReplaceStep(group.startPos, group.startPos + count, Slice.empty),
+        // Calculate proper open depths for the deletion
+        const { openStart, openEnd } = this.calculateDeleteOpenDepths(
+          group.items,
         );
+        const slice = new Slice(Fragment.empty, openStart, openEnd);
+        steps.push(new ReplaceStep(group.startPos, group.startPos + count, slice));
       }
     }
 
     // Reverse to get correct application order (low to high positions)
     return steps.reverse();
+  }
+
+  /**
+   * Calculate the proper openStart and openEnd values for a deletion
+   * based on the items being deleted.
+   *
+   * openEnd: The depth at the start position (before the first deleted item)
+   * openStart: The depth at the end position (after the last deleted item)
+   *
+   * For example, when deleting </p><p> (ClosingTagItem, OpeningTagItem):
+   * - Before the ClosingTagItem, we're inside the paragraph (depth 1) -> openEnd=1
+   * - After the OpeningTagItem, we're inside the paragraph (depth 1) -> openStart=1
+   */
+  private calculateDeleteOpenDepths(items: Item[]): {
+    openStart: number;
+    openEnd: number;
+  } {
+    let openEnd = 0;
+    let openStart = 0;
+
+    // Calculate openEnd: depth before the first item
+    // Count how many closing tags we have before any opening tags at the start
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item instanceof ClosingTagItem) {
+        openEnd++;
+      } else if (item instanceof OpeningTagItem) {
+        break;
+      }
+    }
+
+    // Calculate openStart: depth after the last item
+    // Count how many opening tags we have after any closing tags at the end
+    for (let i = items.length - 1; i >= 0; i--) {
+      const item = items[i];
+      if (item instanceof OpeningTagItem) {
+        openStart++;
+      } else if (item instanceof ClosingTagItem) {
+        break;
+      }
+    }
+
+    return { openStart, openEnd };
   }
 
   findItemById(id: ItemID | null): Position | null {

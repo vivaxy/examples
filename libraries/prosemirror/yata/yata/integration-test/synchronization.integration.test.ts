@@ -805,4 +805,73 @@ describe('YATA Document Synchronization Integration', () => {
       expect(reconstructedItems.length).toBe(originalItems.length);
     });
   });
+
+  describe('Paragraph Merge Sync Issue', () => {
+    test('deleting closing and opening tags between paragraphs should sync without error', () => {
+      // Arrange: Create two synced documents with <p>1</p><p>2</p>
+      const doc1 = new Document('client1');
+      const doc2 = new Document('client2');
+
+      // Create initial content: <p>1</p><p>2</p>
+      const items = [
+        new OpeningTagItem('paragraph', null),
+        new TextItem('1'),
+        new ClosingTagItem('paragraph'),
+        new OpeningTagItem('paragraph', null),
+        new TextItem('2'),
+        new ClosingTagItem('paragraph'),
+      ];
+
+      const pos1 = new Position(doc1);
+      items.forEach((item) => item.integrate(pos1));
+
+      // Sync to doc2
+      syncBidirectional(doc1, doc2);
+
+      // Verify initial state
+      expectDocHTML(doc1, '<paragraph>1</paragraph><paragraph>2</paragraph>');
+      expectDocHTML(doc2, '<paragraph>1</paragraph><paragraph>2</paragraph>');
+
+      // Act: Delete the closing tag of first paragraph and opening tag of second paragraph
+      // This is equivalent to merging the two paragraphs
+      // In ProseMirror editor, this would be positions 2-4 (after <p>1, before 2</p>)
+      // Position 0: start
+      // Position 1: after opening <p>
+      // Position 2: after "1"
+      // Position 3: after </p> (first closing tag)
+      // Position 4: after <p> (second opening tag)
+      // Position 5: after "2"
+      // Position 6: after </p> (second closing tag)
+
+      // Delete from position 2 to position 4 (deletes </p><p>)
+      doc1.replaceItems(2, 4, []);
+
+      // Verify doc1 state after deletion
+      const doc1Items = doc1.toArray();
+      console.log('Doc1 items after deletion:', visualizeItemChain(doc1));
+
+      // Sync doc1 changes to doc2
+      // This should not throw "Inconsistent open depths" error
+      const items1 = doc1.toItems();
+
+      // This is where the error occurs
+      expect(() => {
+        const steps = doc2.applyItems(items1, schema);
+
+        // Apply steps to a mock editor state to verify they work
+        const mockState = EditorState.create({
+          schema,
+          doc: schema.node('doc', null, [
+            schema.node('paragraph', null, [schema.text('1')]),
+            schema.node('paragraph', null, [schema.text('2')]),
+          ]),
+        });
+
+        let tr = mockState.tr;
+        for (const step of steps) {
+          tr = tr.step(step);
+        }
+      }).not.toThrow();
+    });
+  });
 });
