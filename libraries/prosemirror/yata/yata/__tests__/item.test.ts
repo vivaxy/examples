@@ -582,7 +582,7 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item = new TextItem('b');
     item.integrateInner(doc, leftItem, null);
 
-    expect(item.originalLeft).toBe(leftItem);
+    expect(item.originalLeft).toEqual(leftItem.id);
   });
 
   test('sets originalRight when provided', function () {
@@ -593,7 +593,7 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item = new TextItem('b');
     item.integrateInner(doc, null, rightItem);
 
-    expect(item.originalRight).toBe(rightItem);
+    expect(item.originalRight).toEqual(rightItem.id);
   });
 
   test('creates bidirectional originalRight link', function () {
@@ -604,7 +604,7 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item = new TextItem('b');
     item.integrateInner(doc, leftItem, null);
 
-    expect(leftItem.originalRight).toBe(item);
+    expect(leftItem.originalRight).toEqual(item.id);
   });
 
   test('creates bidirectional originalLeft link', function () {
@@ -615,7 +615,7 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item = new TextItem('b');
     item.integrateInner(doc, null, rightItem);
 
-    expect(rightItem.originalLeft).toBe(item);
+    expect(rightItem.originalLeft).toEqual(item.id);
   });
 
   test('preserves existing originalLeft if already set', function () {
@@ -624,14 +624,14 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     existingLeft.id = { client: 'client1', clock: 0 };
 
     const item = new TextItem('b');
-    item.originalLeft = existingLeft;
+    item.originalLeft = existingLeft.id;
 
     const newLeft = new TextItem('a');
     newLeft.id = { client: 'client1', clock: 1 };
 
     item.integrateInner(doc, newLeft, null);
 
-    expect(item.originalLeft).toBe(existingLeft);
+    expect(item.originalLeft).toEqual(existingLeft.id);
   });
 
   test('preserves existing originalRight if already set', function () {
@@ -640,14 +640,14 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     existingRight.id = { client: 'client1', clock: 2 };
 
     const item = new TextItem('b');
-    item.originalRight = existingRight;
+    item.originalRight = existingRight.id;
 
     const newRight = new TextItem('c');
     newRight.id = { client: 'client1', clock: 1 };
 
     item.integrateInner(doc, null, newRight);
 
-    expect(item.originalRight).toBe(existingRight);
+    expect(item.originalRight).toEqual(existingRight.id);
   });
 
   test('handles null left and right neighbors', function () {
@@ -674,10 +674,10 @@ describe('Item.integrateInner() - ID and Relationship Setup', function () {
     const item3 = new TextItem('c');
     item3.integrateInner(doc, item2, null);
 
-    expect(item1.originalRight).toBe(item2);
-    expect(item2.originalLeft).toBe(item1);
-    expect(item2.originalRight).toBe(item3);
-    expect(item3.originalLeft).toBe(item2);
+    expect(item1.originalRight).toEqual(item2.id);
+    expect(item2.originalLeft).toEqual(item1.id);
+    expect(item2.originalRight).toEqual(item3.id);
+    expect(item3.originalLeft).toEqual(item2.id);
   });
 });
 
