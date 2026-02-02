@@ -496,4 +496,51 @@ describe('applyItems - step generation', function () {
     expect(doc1.toHTMLString()).toBe('ab');
     expect(doc2.toHTMLString()).toBe('ab');
   });
+
+  test('sync deletion of closing and opening tags (paragraph merge)', function () {
+    // Arrange: Create two synced documents with <p>1</p><p>2</p>
+    const doc1 = new Document('client1');
+    const doc2 = new Document('client2');
+
+    // Create initial content
+    const items = [
+      new OpeningTagItem('paragraph', null),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
+      new TextItem('2'),
+      new ClosingTagItem('paragraph'),
+    ];
+
+    const pos1 = new Position(doc1);
+    items.forEach((item) => item.integrate(pos1));
+
+    // Sync to doc2
+    doc2.applyItems(doc1.toItems(), schema);
+
+    // Act: Delete closing tag and opening tag (merge paragraphs)
+    doc1.replaceItems(2, 4, []);
+
+    // Sync to doc2 - this should generate steps with correct open depths
+    const steps = doc2.applyItems(doc1.toItems(), schema);
+
+    // Assert: Should create a delete step with openStart=1, openEnd=1
+    expect(steps.length).toBe(1);
+    expect(steps[0]).toBeInstanceOf(ReplaceStep);
+    const step = steps[0] as ReplaceStep;
+    expect(step.from).toBe(2);
+    expect(step.to).toBe(4);
+    expect(step.slice.openStart).toBe(1);
+    expect(step.slice.openEnd).toBe(1);
+
+    // Verify the step can be applied to a ProseMirror document
+    // This would throw "Inconsistent open depths" if the depths were wrong
+    expect(() => {
+      const pmDoc = schema.node('doc', null, [
+        schema.node('paragraph', null, [schema.text('1')]),
+        schema.node('paragraph', null, [schema.text('2')]),
+      ]);
+      step.apply(pmDoc);
+    }).not.toThrow();
+  });
 });
