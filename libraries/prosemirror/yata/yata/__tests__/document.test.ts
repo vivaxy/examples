@@ -57,7 +57,7 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<paragraph>2</paragraph>');
-    // 7 items: opening paragraph, '2', closing paragraph, 2 DeleteItems for replaced items, and 2 deleted items (opening/text/closing of original)
+    // 7 items: opening paragraph, '2', closing paragraph, 2 SetAttrItems for replaced items, and 2 deleted items (opening/text/closing of original)
     expect(doc.toArray().length).toBe(7);
   });
 
@@ -76,7 +76,7 @@ describe('applyStep', function () {
       ),
     );
     expect(doc.toHTMLString()).toBe('<heading level="1">1</heading>');
-    // 7 items: opening heading, '1', closing heading, 2 DeleteItems for replaced tags, and 2 deleted items (opening/closing paragraph tags)
+    // 7 items: opening heading, '1', closing heading, 2 SetAttrItems for replaced tags, and 2 deleted items (opening/closing paragraph tags)
     expect(doc.toArray().length).toBe(7);
   });
 });

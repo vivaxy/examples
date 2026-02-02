@@ -10,7 +10,7 @@ import { ReplaceStep } from 'prosemirror-transform';
 import {
   ClosingTagItem,
   OpeningTagItem,
-  DeleteItem,
+  SetAttrItem,
   sliceToItems,
   fragmentToItems,
   itemsToSlice,
@@ -73,7 +73,7 @@ export class Position {
   forwardToDeletionEnd(): void {
     while (
       this.right &&
-      (this.right.deleted || this.right instanceof DeleteItem)
+      (this.right.deleted || this.right instanceof SetAttrItem)
     ) {
       this.forwardItem();
     }
@@ -131,10 +131,10 @@ export class Document {
       console.assert($pos.right, 'Unexpected position ' + to);
       const item = $pos.right!;
 
-      // Create a DeleteItem pointing to this item
+      // Create a SetAttrItem with deleted: true pointing to this item
       if (item.id) {
-        const deleteItem = new DeleteItem(item.id);
-        deleteItem.integrate($pos);
+        const setAttrItem = new SetAttrItem(item.id, 'deleted', true);
+        setAttrItem.integrate($pos);
       }
 
       // Mark the target as deleted immediately (local operation)
@@ -279,8 +279,8 @@ export class Document {
           repr = `Close(${item.tagName})`;
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
-        } else if (item instanceof DeleteItem) {
-          repr = `Del(${item.targetId.client}:${item.targetId.clock})`;
+        } else if (item instanceof SetAttrItem) {
+          repr = `SetAttr(${item.key}=${JSON.stringify(item.value)}@${item.target.client}:${item.target.clock})`;
         } else {
           repr = 'Item';
         }
@@ -431,28 +431,29 @@ export class Document {
     return null;
   }
 
-  findDeleteItemByTargetId(targetId: ItemID): DeleteItem | null {
+  findSetAttrItemsByTarget(target: ItemID): SetAttrItem[] {
+    const results: SetAttrItem[] = [];
     let item = this.head;
     while (item) {
       if (
-        item instanceof DeleteItem &&
-        item.targetId.client === targetId.client &&
-        item.targetId.clock === targetId.clock
+        item instanceof SetAttrItem &&
+        item.target.client === target.client &&
+        item.target.clock === target.clock
       ) {
-        return item;
+        results.push(item);
       }
       item = item.right;
     }
-    return null;
+    return results;
   }
 
   toProseMirrorDoc(schema: Schema): Node {
     const items: Item[] = [];
     let item = this.head;
 
-    // Collect all non-deleted items from the linked list, excluding DeleteItems
+    // Collect all non-deleted items from the linked list, excluding SetAttrItems
     while (item) {
-      if (!item.deleted && !(item instanceof DeleteItem)) {
+      if (!item.deleted && !(item instanceof SetAttrItem)) {
         items.push(item);
       }
       item = item.right;

@@ -7,7 +7,9 @@ import type {
   OpeningTagItemJSON,
   ClosingTagItemJSON,
   NodeItemJSON,
-  DeleteItemJSON,
+  SetAttrItemJSON,
+  SetAttrKey,
+  SetAttrValue,
   ItemMap,
   NodeAttributes,
   MarkJSON,
@@ -162,12 +164,7 @@ export class Item {
         // First item ever - neither left nor right references
         doc.head = this;
         const pos = doc.resolvePosition();
-        // Check if there's a DeleteItem targeting this item
-        const deleteItem = this.id
-          ? doc.findDeleteItemByTargetId(this.id)
-          : null;
-        if (deleteItem && !this.deleted) {
-          this.deleted = true;
+        if (this.deleted) {
           return { type: 'delete', item: this, pmPosition: pos.pos };
         }
         return { type: 'insert', item: this, pmPosition: pos.pos };
@@ -176,12 +173,7 @@ export class Item {
         // Has right reference but no left
         doc.head = this;
         const pos = doc.resolvePosition();
-        // Check if there's a DeleteItem targeting this item
-        const deleteItem = this.id
-          ? doc.findDeleteItemByTargetId(this.id)
-          : null;
-        if (deleteItem && !this.deleted) {
-          this.deleted = true;
+        if (this.deleted) {
           return { type: 'delete', item: this, pmPosition: pos.pos };
         }
         return { type: 'insert', item: this, pmPosition: pos.pos };
@@ -213,10 +205,7 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      // Check if there's a DeleteItem targeting this item
-      const deleteItem = this.id ? doc.findDeleteItemByTargetId(this.id) : null;
-      if (deleteItem && !this.deleted) {
-        this.deleted = true;
+      if (this.deleted) {
         return { type: 'delete', item: this, pmPosition: pos.pos };
       }
       return { type: 'insert', item: this, pmPosition: pos.pos };
@@ -270,12 +259,7 @@ export class Item {
         }
       }
       this.insertIntoPosition(originalLeftPos);
-      // Check if there's a DeleteItem targeting this item
-      const deleteItem1 = this.id
-        ? doc.findDeleteItemByTargetId(this.id)
-        : null;
-      if (deleteItem1 && !this.deleted) {
-        this.deleted = true;
+      if (this.deleted) {
         return { type: 'delete', item: this, pmPosition: originalLeftPos.pos };
       }
       return { type: 'insert', item: this, pmPosition: originalLeftPos.pos };
@@ -291,17 +275,8 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      // Check if there's a DeleteItem targeting this item
-      const deleteItem2 = this.id
-        ? doc.findDeleteItemByTargetId(this.id)
-        : null;
-      if (deleteItem2 && !this.deleted) {
-        this.deleted = true;
-        return {
-          type: 'delete',
-          item: this,
-          pmPosition: originalRightPos.pos,
-        };
+      if (this.deleted) {
+        return { type: 'delete', item: this, pmPosition: originalRightPos.pos };
       }
       return { type: 'insert', item: this, pmPosition: originalRightPos.pos };
     }
@@ -688,66 +663,86 @@ export class NodeItem extends Item {
   }
 }
 
-export class DeleteItem extends Item {
-  targetId: ItemID;
+export class SetAttrItem extends Item {
+  target: ItemID;
+  key: SetAttrKey;
+  value: SetAttrValue;
 
-  constructor(targetId: ItemID) {
+  constructor(target: ItemID, key: SetAttrKey, value: SetAttrValue) {
     super();
-    Item.itemMap['delete'] = DeleteItem;
-    this.targetId = targetId;
+    Item.itemMap['setAttr'] = SetAttrItem;
+    this.target = target;
+    this.key = key;
+    this.value = value;
+  }
+
+  private applyToTarget(targetItem: Item): void {
+    switch (this.key) {
+      case 'deleted':
+        targetItem.deleted = this.value as boolean;
+        break;
+      case 'attrs':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+          targetItem.attrs = this.value as NodeAttributes;
+        }
+        break;
+      case 'targetId':
+        if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+          targetItem.targetId = this.value as ItemID;
+        }
+        break;
+    }
   }
 
   integrate(position: Position): void {
     super.integrate(position);
 
-    // After integrating this DeleteItem, mark the target as deleted
-    const targetPos = position.doc.findItemById(this.targetId);
-    if (targetPos && targetPos.right && !targetPos.right.deleted) {
-      targetPos.right.deleted = true;
+    // After integrating this SetAttrItem, apply changes to the target
+    const targetPos = position.doc.findItemById(this.target);
+    if (targetPos && targetPos.right) {
+      this.applyToTarget(targetPos.right);
     }
   }
 
   putIntoDocument(doc: Document): ItemChange | undefined {
-    // Check if this DeleteItem already exists
+    // Check if this SetAttrItem already exists
     const foundPos = doc.findItemById(this.id);
     if (foundPos) {
       return; // Already integrated
     }
 
-    // Insert the DeleteItem itself into the structure using base class logic
+    // Insert the SetAttrItem itself into the structure using base class logic
     const result = super.putIntoDocument(doc);
 
-    // Find the target item and mark it as deleted
-    const targetPos = doc.findItemById(this.targetId);
-    if (targetPos && targetPos.right && !targetPos.right.deleted) {
-      targetPos.right.deleted = true;
-      return {
-        type: 'delete',
-        item: targetPos.right,
-        pmPosition: targetPos.pos,
-      };
+    // Find the target item and apply changes
+    const targetPos = doc.findItemById(this.target);
+    if (targetPos && targetPos.right) {
+      this.applyToTarget(targetPos.right);
     }
 
-    // Target doesn't exist yet - it will be checked when target is integrated
+    // SetAttrItem doesn't generate its own ItemChange type for now
+    // Return the insert result for the SetAttrItem itself
     return result;
   }
 
-  toJSON(): DeleteItemJSON {
+  toJSON(): SetAttrItemJSON {
     const base = super.toJSON();
     return {
       ...base,
-      type: 'delete' as const,
-      targetId: this.targetId,
+      type: 'setAttr' as const,
+      target: this.target,
+      key: this.key,
+      value: this.value,
     };
   }
 
-  static fromJSON(json: DeleteItemJSON): DeleteItem {
-    const deleteItem = new DeleteItem(json.targetId);
-    return Item.setId(deleteItem, json) as DeleteItem;
+  static fromJSON(json: SetAttrItemJSON): SetAttrItem {
+    const setAttrItem = new SetAttrItem(json.target, json.key, json.value);
+    return Item.setId(setAttrItem, json) as SetAttrItem;
   }
 
   toHTMLString(): string {
-    // DeleteItems don't render
+    // SetAttrItems don't render
     return '';
   }
 }
