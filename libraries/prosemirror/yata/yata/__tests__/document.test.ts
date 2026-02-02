@@ -244,10 +244,10 @@ describe('toString', function () {
     expect(result).toContain(
       `Document(client: ${doc.client}, clock: ${doc.clock})`,
     );
-    expect(result).toContain('Open(paragraph)');
+    expect(result).toMatch(/Open\(paragraph→\{.+:\d+\}\)/);
     expect(result).toContain('Text(h)');
     expect(result).toContain('Text(i)');
-    expect(result).toContain('Close(paragraph)');
+    expect(result).toMatch(/Close\(paragraph←\{.+:\d+\}\)/);
     expect(result).toContain(' -> ');
     // Check that items include their IDs in {client:clock} format
     expect(result).toMatch(/\{.+:\d+\}/);
@@ -294,10 +294,10 @@ describe('toString', function () {
     const itemLine = lines[1];
 
     // Assert
-    // Should have format: Open(paragraph){client:0} -> Text(x){client:1} -> Close(paragraph){client:2}
-    expect(itemLine).toMatch(/Open\(paragraph\)\{.+:\d+\}/);
+    // Should have format: Open(paragraph→{client:2}){client:0} -> Text(x){client:1} -> Close(paragraph←{client:0}){client:2}
+    expect(itemLine).toMatch(/Open\(paragraph→\{.+:\d+\}\)\{.+:\d+\}/);
     expect(itemLine).toMatch(/Text\(x\)\{.+:\d+\}/);
-    expect(itemLine).toMatch(/Close\(paragraph\)\{.+:\d+\}/);
+    expect(itemLine).toMatch(/Close\(paragraph←\{.+:\d+\}\)\{.+:\d+\}/);
   });
 
   test('multi-client document shows different client IDs', function () {

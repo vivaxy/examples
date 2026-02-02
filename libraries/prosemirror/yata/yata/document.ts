@@ -80,6 +80,8 @@ export class Position {
   }
 }
 
+let docId = 0;
+
 export class Document {
   head: Item | null;
   client: string;
@@ -95,7 +97,10 @@ export class Document {
     return doc;
   }
 
-  constructor(client: string = Math.random().toString(36).slice(2)) {
+  constructor(
+    client: string = `doc${docId++}`,
+    // Math.random().toString(36).slice(2)
+  ) {
     this.head = null;
     this.client = client;
     this.clock = 0;
@@ -274,13 +279,21 @@ export class Document {
         if (item instanceof TextItem) {
           repr = `Text(${item.text})`;
         } else if (item instanceof OpeningTagItem) {
-          repr = `Open(${item.tagName})`;
+          const targetInfo = item.targetId
+            ? `→{${item.targetId.client}:${item.targetId.clock}}`
+            : '';
+          repr = `Open(${item.tagName}${targetInfo})`;
         } else if (item instanceof ClosingTagItem) {
-          repr = `Close(${item.tagName})`;
+          const targetInfo = item.targetId
+            ? `←{${item.targetId.client}:${item.targetId.clock}}`
+            : '';
+          repr = `Close(${item.tagName}${targetInfo})`;
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
         } else if (item instanceof SetAttrItem) {
-          repr = `SetAttr(${item.key}=${JSON.stringify(item.value)}@${item.target.client}:${item.target.clock})`;
+          repr = `SetAttr(${item.key}=${JSON.stringify(item.value)}@${
+            item.target.client
+          }:${item.target.clock})`;
         } else {
           repr = 'Item';
         }
@@ -395,7 +408,9 @@ export class Document {
           group.items,
         );
         const slice = new Slice(Fragment.empty, openStart, openEnd);
-        steps.push(new ReplaceStep(group.startPos, group.startPos + count, slice));
+        steps.push(
+          new ReplaceStep(group.startPos, group.startPos + count, slice),
+        );
       }
     }
 
