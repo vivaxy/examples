@@ -51,29 +51,6 @@ describe('SetAttrItem - Deletion via deleted', function () {
     expect(change?.item).toBe(setAttrItem);
   });
 
-  test('SetAttrItem arriving before target item applies deletion when target integrates', function () {
-    // Arrange
-    const doc = createDocWithText('abc', 'client1');
-
-    // Create a SetAttrItem for an item that doesn't exist yet
-    const targetId = { client: 'client2', clock: 0 };
-    const setAttrItem = new SetAttrItem(targetId, 'deleted', true);
-    setAttrItem.id = { client: 'client1', clock: 10 };
-    setAttrItem.originalLeft = null;
-    setAttrItem.originalRight = null;
-    setAttrItem.putIntoDocument(doc);
-
-    // Act - Now create the target item and integrate it
-    const textItem = new TextItem('x');
-    textItem.id = targetId;
-    textItem.originalLeft = null;
-    textItem.originalRight = null;
-    textItem.putIntoDocument(doc);
-
-    // Assert - The target item should be marked as deleted by pending SetAttrItem
-    expect(textItem.deleted).toBe(true);
-  });
-
   test('Multiple SetAttrItems for same target - last one wins', function () {
     // Arrange
     const doc = createDocWithText('client1', 'abc');

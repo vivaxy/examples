@@ -364,33 +364,6 @@ describe('SetAttrItem - Remote integration via putIntoDocument', function () {
     expect(updatedOpeningTag.attrs).toEqual({ modified: true });
   });
 
-  test('SetAttrItem arriving before target via putIntoDocument', function () {
-    // Arrange - Create a document with existing content
-    const doc = createDocWithText('abc', 'client1');
-
-    // Create a SetAttrItem that targets a future OpeningTagItem
-    const futureTargetId = { client: 'client2', clock: 0 };
-    const setAttrItem = new SetAttrItem(futureTargetId, 'attrs', {
-      modified: true,
-    });
-    setAttrItem.id = { client: 'client1', clock: 10 };
-    setAttrItem.originalLeft = null;
-    setAttrItem.originalRight = null;
-    setAttrItem.putIntoDocument(doc);
-
-    // Now create the target OpeningTagItem
-    const openingTag = new OpeningTagItem('paragraph', { initial: true });
-    openingTag.id = futureTargetId;
-    openingTag.originalLeft = null;
-    openingTag.originalRight = null;
-
-    // Act - Integrate the target item
-    openingTag.putIntoDocument(doc);
-
-    // Assert - The target item should have the pending SetAttrItem's changes applied
-    expect(openingTag.attrs).toEqual({ modified: true });
-  });
-
   test('Multiple SetAttrItems for same target are all applied', function () {
     // Arrange
     const doc = createEmptyDoc('client1');

@@ -42,10 +42,6 @@ function itemIdsEqual(id1: ItemID | null, id2: ItemID | null): boolean {
   return id1.client === id2.client && id1.clock === id2.clock;
 }
 
-// Forward declaration for applyPendingSetAttrItems
-// This will be implemented after SetAttrItem class is defined
-let applyPendingSetAttrItems: (doc: Document, target: Item) => void;
-
 export class ID {
   client: string;
   clock: number;
@@ -168,8 +164,6 @@ export class Item {
         // First item ever - neither left nor right references
         doc.head = this;
         const pos = doc.resolvePosition();
-        // Apply any pending SetAttrItems for this item (including setDeleted)
-        applyPendingSetAttrItems(doc, this);
         if (this.deleted) {
           return { type: 'delete', item: this, pmPosition: pos.pos };
         }
@@ -179,8 +173,6 @@ export class Item {
         // Has right reference but no left
         doc.head = this;
         const pos = doc.resolvePosition();
-        // Apply any pending SetAttrItems for this item (including setDeleted)
-        applyPendingSetAttrItems(doc, this);
         if (this.deleted) {
           return { type: 'delete', item: this, pmPosition: pos.pos };
         }
@@ -213,8 +205,6 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      // Apply any pending SetAttrItems for this item (including setDeleted)
-      applyPendingSetAttrItems(doc, this);
       if (this.deleted) {
         return { type: 'delete', item: this, pmPosition: pos.pos };
       }
@@ -269,8 +259,6 @@ export class Item {
         }
       }
       this.insertIntoPosition(originalLeftPos);
-      // Apply any pending SetAttrItems for this item (including setDeleted)
-      applyPendingSetAttrItems(doc, this);
       if (this.deleted) {
         return { type: 'delete', item: this, pmPosition: originalLeftPos.pos };
       }
@@ -287,8 +275,6 @@ export class Item {
       if (this.left === null) {
         doc.head = this;
       }
-      // Apply any pending SetAttrItems for this item (including setDeleted)
-      applyPendingSetAttrItems(doc, this);
       if (this.deleted) {
         return { type: 'delete', item: this, pmPosition: originalRightPos.pos };
       }
@@ -760,30 +746,6 @@ export class SetAttrItem extends Item {
     return '';
   }
 }
-
-// Implement the forward-declared function now that SetAttrItem is defined
-applyPendingSetAttrItems = function (doc: Document, targetItem: Item): void {
-  if (!targetItem.id) return;
-
-  const pendingSetAttrItems = doc.findSetAttrItemsByTarget(targetItem.id);
-  for (const setAttrItem of pendingSetAttrItems) {
-    switch (setAttrItem.key) {
-      case 'deleted':
-        targetItem.deleted = setAttrItem.value as boolean;
-        break;
-      case 'attrs':
-        if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
-          targetItem.attrs = setAttrItem.value as NodeAttributes;
-        }
-        break;
-      case 'targetId':
-        if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
-          targetItem.targetId = setAttrItem.value as ItemID;
-        }
-        break;
-    }
-  }
-};
 
 export function nodeToItems(node: Node): Item[] {
   if (node.isText) {
