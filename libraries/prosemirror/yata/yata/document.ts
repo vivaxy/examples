@@ -420,9 +420,20 @@ export class Document {
         } else if (item instanceof NodeItem) {
           repr = `Node(${item.tagName})`;
         } else if (item instanceof SetAttrItem) {
-          repr = `SetAttr(${item.key}=${JSON.stringify(item.value)}@${
-            item.target.client
-          }:${item.target.clock})`;
+          // Format value based on type
+          let valueStr;
+          if (
+            typeof item.value === 'object' &&
+            item.value !== null &&
+            'client' in item.value &&
+            'clock' in item.value
+          ) {
+            // It's an ItemID
+            valueStr = `{${item.value.client}:${item.value.clock}}`;
+          } else {
+            valueStr = JSON.stringify(item.value);
+          }
+          repr = `setAttr({${item.target.client}:${item.target.clock}}.${item.key}:${valueStr})`;
         } else {
           repr = 'Item';
         }
