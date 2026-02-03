@@ -9,6 +9,7 @@ import {
   OpeningTagItem,
   TextItem,
   fragmentToItems,
+  SetAttrItem,
 } from '../item.js';
 
 const emptyDoc = new Document();
@@ -543,5 +544,89 @@ describe('applyItems - step generation', function () {
       ]);
       step.apply(pmDoc);
     }).not.toThrow();
+  });
+});
+
+describe('replaceWith methods and paired tags', function () {
+  test('updatePairedTagsAfterReplace uses replaceWithClosingTagItem and creates SetAttrItems', function () {
+    // Arrange - This test uses ReplaceStep which actually triggers the scenario
+    const doc = new Document('client1');
+
+    // Create <p>1</p>
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('paragraph', null),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+    ]);
+
+    const initialItems = doc.toArray();
+    const initialOpening = initialItems[0] as OpeningTagItem;
+    const initialClosing = initialItems[2] as ClosingTagItem;
+
+    expect(initialOpening.targetId).toEqual(initialClosing.id);
+    const initialCount = initialItems.length;
+
+    // Act - Replace content, which creates a new closing tag that matches old opening
+    // This triggers replaceWithClosingTagItem in updatePairedTagsAfterReplace
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          Fragment.from([schema.node('paragraph', null, [schema.text('2')])]),
+          1,
+          0,
+        ),
+      ),
+    );
+
+    // Assert
+    const allItems = doc.toArray();
+    // Original items + new text + new closing + 2 SetAttrItems for deletions + 2 SetAttrItems for tag pairing
+    expect(allItems.length).toBe(9);
+
+    // Count SetAttrItems
+    const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
+    expect(setAttrItems.length).toBe(4); // 2 for deletions + 2 for targetId updates
+
+    // Check that old opening tag was replaced (deleted)
+    expect(initialOpening.deleted).toBe(true);
+  });
+
+  test('SetAttrItems are created at end of document during tag pairing', function () {
+    // Arrange
+    const doc = new Document('client1');
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('paragraph', null),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+    ]);
+
+    // Act - Replace which creates SetAttrItems
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          Fragment.from([schema.node('paragraph', null, [schema.text('2')])]),
+          1,
+          0,
+        ),
+      ),
+    );
+
+    // Assert - Check that SetAttrItems exist and are towards the end
+    const allItems = doc.toArray();
+    const setAttrItems = allItems.filter((item) => item instanceof SetAttrItem);
+
+    // Should have 4 SetAttrItems: 2 for deletions, 2 for targetId pairing
+    expect(setAttrItems.length).toBe(4);
+
+    // The last 2 should be targetId SetAttrItems
+    const lastTwo = allItems.slice(-2);
+    expect(lastTwo[0]).toBeInstanceOf(SetAttrItem);
+    expect(lastTwo[1]).toBeInstanceOf(SetAttrItem);
+    expect((lastTwo[0] as SetAttrItem).key).toBe('targetId');
+    expect((lastTwo[1] as SetAttrItem).key).toBe('targetId');
   });
 });
