@@ -11,7 +11,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
     const targetItem = items[0]; // 'a'
     expect(targetItem.deleted).toBe(false);
 
-    // Act
+    // Act - Apply {client1:0}.deleted=true to mark 'a' as deleted
     const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos = doc.resolvePosition(3); // Insert at end
     setAttrItem.integrate(pos);
@@ -57,7 +57,7 @@ describe('SetAttrItem - Deletion via deleted', function () {
     const items = doc.toArray();
     const targetItem = items[0]; // 'a'
 
-    // Act - Create two SetAttrItems, first deletes, second undeletes
+    // Act - Apply {client1:0}.deleted=true, then {client1:0}.deleted=false
     const setAttrItem1 = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos1 = doc.resolvePosition(3);
     setAttrItem1.integrate(pos1);

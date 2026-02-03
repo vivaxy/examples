@@ -18,7 +18,7 @@ describe('SetAttrItem - Basic Functionality', function () {
     // Arrange
     const targetId = { client: 'client1', clock: 5 };
 
-    // Act
+    // Act - Creates {client1:5}.deleted=true
     const setAttrItem = new SetAttrItem(targetId, 'deleted', true);
 
     // Assert
@@ -32,7 +32,7 @@ describe('SetAttrItem - Basic Functionality', function () {
     const targetId = { client: 'client1', clock: 5 };
     const attrs = { level: 2, id: 'heading-1' };
 
-    // Act
+    // Act - Creates {client1:5}.attrs={level:2,id:"heading-1"}
     const setAttrItem = new SetAttrItem(targetId, 'attrs', attrs);
 
     // Assert
@@ -46,7 +46,7 @@ describe('SetAttrItem - Basic Functionality', function () {
     const targetId = { client: 'client1', clock: 5 };
     const newTargetId = { client: 'client2', clock: 10 };
 
-    // Act
+    // Act - Creates {client1:5}.targetId={client2:10}
     const setAttrItem = new SetAttrItem(targetId, 'targetId', newTargetId);
 
     // Assert
@@ -156,7 +156,7 @@ describe('SetAttrItem - Setting deleted flag', function () {
     const targetItem = items[0]; // 'a'
     expect(targetItem.deleted).toBe(false);
 
-    // Act
+    // Act - Apply {client1:0}.deleted=true to mark 'a' as deleted
     const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', true);
     const pos = doc.resolvePosition(3); // Insert at end
     setAttrItem.integrate(pos);
@@ -173,7 +173,7 @@ describe('SetAttrItem - Setting deleted flag', function () {
     const targetItem = items[0]; // 'a'
     targetItem.deleted = true; // Pre-delete the item
 
-    // Act
+    // Act - Apply {client1:0}.deleted=false to undelete 'a'
     const setAttrItem = new SetAttrItem(targetItem.id!, 'deleted', false);
     const pos = doc.resolvePosition(3);
     setAttrItem.integrate(pos);
@@ -216,7 +216,7 @@ describe('SetAttrItem - Setting node attributes', function () {
     ) as OpeningTagItem;
     // Note: createDocWithParagraph uses empty object {} for attrs, not null
 
-    // Act
+    // Act - Apply {client1:0}.attrs={class:"highlighted"} to paragraph opening tag
     const setAttrItem = new SetAttrItem(openingTag.id!, 'attrs', {
       class: 'highlighted',
     });
@@ -274,7 +274,7 @@ describe('SetAttrItem - Setting targetId (paired tags)', function () {
     ) as OpeningTagItem;
     const newTargetId = { client: 'client2', clock: 99 };
 
-    // Act
+    // Act - Apply {client1:0}.targetId={client2:99} to update paired tag reference
     const setAttrItem = new SetAttrItem(openingTag.id!, 'targetId', newTargetId);
     const pos = doc.resolvePosition(4);
     setAttrItem.integrate(pos);
