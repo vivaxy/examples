@@ -806,6 +806,69 @@ describe('YATA Document Synchronization Integration', () => {
     });
   });
 
+  describe('ReplaceStep Edge Cases', () => {
+    test('inserting closing and opening tags in empty paragraph creates valid document', () => {
+      // Arrange
+      // Create document starting with <p></p>
+      const doc = Document.fromNodes(
+        Fragment.from([schema.node('paragraph', null)]),
+      );
+
+      // Verify initial state
+      expectDocHTML(doc, '<paragraph></paragraph>');
+
+      // Act
+      // Apply ReplaceStep to insert </p><p> at position 1 (inside the paragraph)
+      // In ProseMirror, splitting an empty paragraph is represented as a Slice with:
+      // - Two empty paragraph nodes in the Fragment
+      // - openStart=1 (we're starting inside the first paragraph)
+      // - openEnd=1 (we're ending inside the second paragraph)
+      // This effectively inserts: closing tag of first paragraph + opening tag of second
+      const slice = new Slice(
+        Fragment.from([
+          schema.node('paragraph', null),
+          schema.node('paragraph', null),
+        ]),
+        1,
+        1,
+      );
+
+      const step = new ReplaceStep(1, 1, slice);
+      doc.applyStep(step);
+
+      // Assert
+      // Should result in two empty paragraphs: <p></p><p></p>
+      expectDocHTML(doc, '<paragraph></paragraph><paragraph></paragraph>');
+
+      // Verify document is valid and can be converted to ProseMirror
+      const proseMirrorDoc = doc.toProseMirrorDoc(schema);
+      expect(proseMirrorDoc.childCount).toBe(2);
+      expect(proseMirrorDoc.child(0).type.name).toBe('paragraph');
+      expect(proseMirrorDoc.child(1).type.name).toBe('paragraph');
+      expect(proseMirrorDoc.child(0).textContent).toBe('');
+      expect(proseMirrorDoc.child(1).textContent).toBe('');
+
+      // Verify tags are balanced
+      const items = doc.toArray().filter((item) => !item.deleted);
+      const openingTags = items.filter(
+        (item) => item instanceof OpeningTagItem,
+      ) as OpeningTagItem[];
+      const closingTags = items.filter(
+        (item) => item instanceof ClosingTagItem,
+      ) as ClosingTagItem[];
+      expect(openingTags.length).toBe(2);
+      expect(closingTags.length).toBe(2);
+
+      // Verify targetId relationships for first paragraph
+      expect(openingTags[0].targetId).toEqual(closingTags[0].id);
+      expect(closingTags[0].targetId).toEqual(openingTags[0].id);
+
+      // Verify targetId relationships for second paragraph
+      expect(openingTags[1].targetId).toEqual(closingTags[1].id);
+      expect(closingTags[1].targetId).toEqual(openingTags[1].id);
+    });
+  });
+
   describe('Paragraph Merge Sync Issue', () => {
     test('deleting closing and opening tags between paragraphs should sync without error', () => {
       // Arrange: Create two synced documents with <p>1</p><p>2</p>

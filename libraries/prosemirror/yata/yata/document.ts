@@ -198,13 +198,9 @@ export class Document {
           (target as OpeningTagItem).replaceWithClosingTagItem(this, item);
         }
       }
-      if (item instanceof OpeningTagItem && item.targetId) {
-        // Find the closing tag by ID
-        const closingPos = this.findItemById(item.targetId);
-        const target = closingPos?.right;
-
-        if (target && !items.includes(target) && target.deleted) {
-          // Target was deleted in this replace operation, find a new valid closing tag
+      if (item instanceof OpeningTagItem) {
+        if (!item.targetId) {
+          // This opening tag has no target, find a matching closing tag
           const newTarget = this.findNewClosingTarget(
             item as OpeningTagItem,
             items,
@@ -226,9 +222,38 @@ export class Document {
             );
             setAttrItem2.integrate($pos);
           }
-        } else if (target && !items.includes(target) && !target.deleted) {
-          // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
-          (target as ClosingTagItem).replaceWithOpeningTagItem(this, item);
+        } else {
+          // Find the closing tag by ID
+          const closingPos = this.findItemById(item.targetId);
+          const target = closingPos?.right;
+
+          if (target && !items.includes(target) && target.deleted) {
+            // Target was deleted in this replace operation, find a new valid closing tag
+            const newTarget = this.findNewClosingTarget(
+              item as OpeningTagItem,
+              items,
+            );
+            if (newTarget && newTarget.id && item.id) {
+              // Create SetAttrItem to update this item's targetId
+              const setAttrItem1 = new SetAttrItem(
+                item.id,
+                'targetId',
+                newTarget.id,
+              );
+              setAttrItem1.integrate($pos);
+
+              // Create SetAttrItem to update the new target's targetId
+              const setAttrItem2 = new SetAttrItem(
+                newTarget.id,
+                'targetId',
+                item.id,
+              );
+              setAttrItem2.integrate($pos);
+            }
+          } else if (target && !items.includes(target) && !target.deleted) {
+            // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
+            (target as ClosingTagItem).replaceWithOpeningTagItem(this, item);
+          }
         }
       }
     }
@@ -256,7 +281,8 @@ export class Document {
           return current;
         }
         const targetPos = this.findItemById(current.targetId);
-        if (targetPos?.right && targetPos.right.deleted) {
+        // Target is available if it doesn't exist or is deleted
+        if (!targetPos || !targetPos.right || targetPos.right.deleted) {
           return current;
         }
       }
@@ -287,7 +313,8 @@ export class Document {
           return current;
         }
         const targetPos = this.findItemById(current.targetId);
-        if (targetPos?.right && targetPos.right.deleted) {
+        // Target is available if it doesn't exist or is deleted
+        if (!targetPos || !targetPos.right || targetPos.right.deleted) {
           return current;
         }
       }
