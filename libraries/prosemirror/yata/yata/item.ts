@@ -524,6 +524,7 @@ export class OpeningTagItem extends Item {
     }
 
     // Use SetAttrItem to update bidirectional references
+    // Creates {newOpening}.targetId={closing} and {closing}.targetId={newOpening}
     const $pos = new Position(doc);
     while ($pos.right) {
       $pos.forward();
@@ -635,6 +636,7 @@ export class ClosingTagItem extends Item {
     }
 
     // Use SetAttrItem to update bidirectional references
+    // Creates {newClosing}.targetId={opening} and {opening}.targetId={newClosing}
     const $pos = new Position(doc);
     while ($pos.right) {
       $pos.forward();
@@ -703,6 +705,17 @@ export class NodeItem extends Item {
   }
 }
 
+/**
+ * SetAttrItem - Modifies attributes of existing items in the CRDT
+ *
+ * Notation: {client:clock}.key=value
+ * Examples:
+ *  - {client1:5}.deleted=true - Marks item {client1:5} as deleted
+ *  - {client1:3}.attrs={level:2} - Sets attrs of item {client1:3}
+ *  - {client2:10}.targetId={client3:15} - Updates paired tag reference
+ *
+ * Valid keys: 'deleted' | 'attrs' | 'targetId'
+ */
 export class SetAttrItem extends Item {
   target: ItemID;
   key: SetAttrKey;
