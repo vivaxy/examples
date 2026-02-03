@@ -196,6 +196,39 @@ gathering, file reads, and edits to the `libraries/prosemirror/yata/` directory
 only. Do not explore or modify files outside this folder unless explicitly
 instructed by the user.
 
+## Notation Conventions
+
+### SetAttrItem Notation
+
+When documenting or discussing SetAttrItem operations, use the notation
+`{client:clock}.key=value` to represent a SetAttrItem concisely:
+
+- **Format**: `{client:clock}.key=value`
+- **Meaning**: A SetAttrItem that targets the item with ID `{client, clock}` and
+  sets its `key` property to `value`
+
+**Examples**:
+
+- `{client1:5}.deleted=true` - Marks item {client1:5} as deleted
+- `{client1:3}.attrs={level:2}` - Sets attrs of item {client1:3} to {level:2}
+- `{client2:10}.targetId={client3:15}` - Updates targetId reference of item
+  {client2:10}
+
+**Valid Keys**:
+
+- `deleted` - Sets the deleted flag (value: boolean)
+- `attrs` - Sets node attributes (value: object, applies to OpeningTagItem and
+  NodeItem)
+- `targetId` - Updates paired tag reference (value: ItemID, applies to
+  OpeningTagItem and ClosingTagItem)
+
+This notation is particularly useful in:
+
+- Test case descriptions and comments
+- Documentation explaining CRDT operations
+- Debug output and logging
+- Commit messages describing SetAttrItem-related changes
+
 ## ProseMirror Schema
 
 The schema extends ProseMirror's basic schema with list nodes (ordered/unordered
