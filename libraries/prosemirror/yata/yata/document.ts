@@ -133,7 +133,7 @@ export class Document {
     const $pos = this.resolvePosition(from);
     let currentPos = from;
     while (currentPos < to) {
-      console.assert($pos.right, 'Unexpected position ' + to);
+      console.assert($pos.right !== null, 'Unexpected position ' + to);
       const item = $pos.right!;
 
       // Create a SetAttrItem with deleted: true pointing to this item
@@ -517,7 +517,7 @@ export class Document {
         };
       } else {
         // Extend current group
-        currentGroup.items.push(change.item);
+        currentGroup!.items.push(change.item);
       }
     }
     if (currentGroup) {
