@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { Fragment, Slice } from 'prosemirror-model';
+import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 import schema from '../../example/schema.js';
 import {
   nodeToItems,
@@ -10,6 +11,7 @@ import {
   NodeItem,
   sliceToItems,
   Item,
+  SetAttrItem,
 } from '../item.js';
 import { Document, Position } from '../document.js';
 import {
@@ -1048,3 +1050,135 @@ describe('Item.isIntegrated()', () => {
     expect(localItem.isIntegrated(doc)).toBe(true);
   });
 });
+
+describe('OpeningTagItem.replaceWithClosingTagItem', function () {
+  test('replaces opening tag with new opening tag and creates SetAttrItems', function () {
+    // Arrange - Use ReplaceStep to create the scenario
+    const doc = createEmptyDoc('client1');
+
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('paragraph', null),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+    ]);
+
+    const initialItems = doc.toArray();
+    const initialOpening = initialItems[0] as OpeningTagItem;
+    const initialClosing = initialItems[2] as ClosingTagItem;
+
+    expect(initialOpening.targetId).toEqual(initialClosing.id);
+    const initialCount = initialItems.length;
+
+    // Act - Replace content, which triggers replaceWithClosingTagItem
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          Fragment.from([schema.node('paragraph', null, [schema.text('2')])]),
+          1,
+          0,
+        ),
+      ),
+    );
+
+    // Assert
+    const allItems = doc.toArray();
+
+    // Should have 9 items: 3 original + 2 new + 2 SetAttrItems for deletions + 2 SetAttrItems for pairing
+    expect(allItems.length).toBe(9);
+
+    // Old opening tag should be deleted
+    expect(initialOpening.deleted).toBe(true);
+
+    // Check that SetAttrItems were created for pairing
+    const setAttrItems = allItems.filter(
+      (item) =>
+        item instanceof SetAttrItem &&
+        (item as SetAttrItem).key === 'targetId',
+    );
+    expect(setAttrItems.length).toBe(2);
+
+    // Verify replacement happened (new non-deleted opening tag exists)
+    const nonDeletedOpenings = allItems.filter(
+      (item) => item instanceof OpeningTagItem && !item.deleted,
+    );
+    expect(nonDeletedOpenings.length).toBe(1);
+  });
+
+  test('new opening tag has same tagName and attrs as old one', function () {
+    // Arrange
+    const doc = createEmptyDoc('client1');
+
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('heading', { level: 2, id: 'test' }),
+      new TextItem('text'),
+      new ClosingTagItem('heading'),
+    ]);
+
+    const initialOpening = doc.toArray()[0] as OpeningTagItem;
+
+    // Act - Replace triggers replaceWithClosingTagItem
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          Fragment.from([
+            schema.node('heading', { level: 2, id: 'test' }, [schema.text('new')]),
+          ]),
+          1,
+          0,
+        ),
+      ),
+    );
+
+    // Assert - New opening tag should have same attrs
+    const allItems = doc.toArray();
+    const openingTags = allItems.filter(
+      (item) => item instanceof OpeningTagItem && !item.deleted,
+    );
+
+    expect(openingTags.length).toBe(1);
+    const newOpeningTag = openingTags[0] as OpeningTagItem;
+
+    expect(newOpeningTag.tagName).toBe('heading');
+    expect(newOpeningTag.attrs).toEqual({ level: 2, id: 'test' });
+  });
+
+  test('SetAttrItems are created at end of document', function () {
+    // Arrange
+    const doc = createEmptyDoc('client1');
+
+    doc.replaceItems(0, 0, [
+      new OpeningTagItem('paragraph', null),
+      new TextItem('1'),
+      new ClosingTagItem('paragraph'),
+    ]);
+
+    // Act - Replace triggers replaceWithClosingTagItem
+    doc.applyStep(
+      new ReplaceStep(
+        1,
+        3,
+        new Slice(
+          Fragment.from([schema.node('paragraph', null, [schema.text('2')])]),
+          1,
+          0,
+        ),
+      ),
+    );
+
+    // Assert - Last 2 items should be targetId SetAttrItems
+    const allItems = doc.toArray();
+    const lastTwo = allItems.slice(-2);
+
+    expect(lastTwo[0]).toBeInstanceOf(SetAttrItem);
+    expect(lastTwo[1]).toBeInstanceOf(SetAttrItem);
+    expect((lastTwo[0] as SetAttrItem).key).toBe('targetId');
+    expect((lastTwo[1] as SetAttrItem).key).toBe('targetId');
+  });
+});
+
+// Note: ClosingTagItem.replaceWithOpeningTagItem is tested indirectly through
+// document integration tests. It follows the same pattern as replaceWithClosingTagItem.

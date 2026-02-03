@@ -195,25 +195,7 @@ export class Document {
           }
         } else if (target && !items.includes(target) && !target.deleted) {
           // this is a closing item, and its corresponding opening item is not newly integrated and not deleted
-          const newOpeningTagItem = (
-            target as OpeningTagItem
-          ).replaceWithClosingTagItem(this, item);
-          if (newOpeningTagItem.id && item.id) {
-            // Create SetAttrItem to update bidirectional references
-            const setAttrItem1 = new SetAttrItem(
-              newOpeningTagItem.id,
-              'targetId',
-              item.id,
-            );
-            setAttrItem1.integrate($pos);
-
-            const setAttrItem2 = new SetAttrItem(
-              item.id,
-              'targetId',
-              newOpeningTagItem.id,
-            );
-            setAttrItem2.integrate($pos);
-          }
+          (target as OpeningTagItem).replaceWithClosingTagItem(this, item);
         }
       }
       if (item instanceof OpeningTagItem && item.targetId) {
@@ -246,25 +228,7 @@ export class Document {
           }
         } else if (target && !items.includes(target) && !target.deleted) {
           // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
-          const newClosingTagItem = (
-            target as ClosingTagItem
-          ).replaceWithOpeningTagItem(this, item);
-          if (newClosingTagItem.id && item.id) {
-            // Create SetAttrItem to update bidirectional references
-            const setAttrItem1 = new SetAttrItem(
-              newClosingTagItem.id,
-              'targetId',
-              item.id,
-            );
-            setAttrItem1.integrate($pos);
-
-            const setAttrItem2 = new SetAttrItem(
-              item.id,
-              'targetId',
-              newClosingTagItem.id,
-            );
-            setAttrItem2.integrate($pos);
-          }
+          (target as ClosingTagItem).replaceWithOpeningTagItem(this, item);
         }
       }
     }
