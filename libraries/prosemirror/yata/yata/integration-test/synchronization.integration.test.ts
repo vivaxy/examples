@@ -852,12 +852,20 @@ describe('YATA Document Synchronization Integration', () => {
       const items = doc.toArray().filter((item) => !item.deleted);
       const openingTags = items.filter(
         (item) => item instanceof OpeningTagItem,
-      );
+      ) as OpeningTagItem[];
       const closingTags = items.filter(
         (item) => item instanceof ClosingTagItem,
-      );
+      ) as ClosingTagItem[];
       expect(openingTags.length).toBe(2);
       expect(closingTags.length).toBe(2);
+
+      // Verify targetId relationships for first paragraph
+      expect(openingTags[0].targetId).toEqual(closingTags[0].id);
+      expect(closingTags[0].targetId).toEqual(openingTags[0].id);
+
+      // Verify targetId relationships for second paragraph
+      expect(openingTags[1].targetId).toEqual(closingTags[1].id);
+      expect(closingTags[1].targetId).toEqual(openingTags[1].id);
     });
   });
 
