@@ -15,7 +15,7 @@ import type {
   MarkJSON,
   ItemChange,
 } from './types.js';
-import type { Position, Document } from './document.js';
+import { Position, Document } from './document.js';
 
 function attrsToQueryString(attrs: NodeAttributes): string {
   if (!attrs) {
@@ -519,9 +519,29 @@ export class OpeningTagItem extends Item {
     if (!closingTagItem.id) {
       throw new Error('ClosingTagItem must be integrated before pairing');
     }
-    // Set bidirectional references
-    newOpeningTagItem.targetId = closingTagItem.id;
-    closingTagItem.targetId = newOpeningTagItem.id;
+    if (!newOpeningTagItem.id) {
+      throw new Error('NewOpeningTagItem must be integrated before pairing');
+    }
+
+    // Use SetAttrItem to update bidirectional references
+    const $pos = new Position(doc);
+    while ($pos.right) {
+      $pos.forward();
+    }
+
+    const setAttrItem1 = new SetAttrItem(
+      newOpeningTagItem.id,
+      'targetId',
+      closingTagItem.id,
+    );
+    setAttrItem1.integrate($pos);
+
+    const setAttrItem2 = new SetAttrItem(
+      closingTagItem.id,
+      'targetId',
+      newOpeningTagItem.id,
+    );
+    setAttrItem2.integrate($pos);
   }
 
   getClosingTagItem(doc: Document): ClosingTagItem | null {
@@ -610,9 +630,29 @@ export class ClosingTagItem extends Item {
     if (!openingTagItem.id) {
       throw new Error('OpeningTagItem must be integrated before pairing');
     }
-    // Set bidirectional references
-    newClosingTagItem.targetId = openingTagItem.id;
-    openingTagItem.targetId = newClosingTagItem.id;
+    if (!newClosingTagItem.id) {
+      throw new Error('NewClosingTagItem must be integrated before pairing');
+    }
+
+    // Use SetAttrItem to update bidirectional references
+    const $pos = new Position(doc);
+    while ($pos.right) {
+      $pos.forward();
+    }
+
+    const setAttrItem1 = new SetAttrItem(
+      newClosingTagItem.id,
+      'targetId',
+      openingTagItem.id,
+    );
+    setAttrItem1.integrate($pos);
+
+    const setAttrItem2 = new SetAttrItem(
+      openingTagItem.id,
+      'targetId',
+      newClosingTagItem.id,
+    );
+    setAttrItem2.integrate($pos);
   }
 
   getOpeningTagItem(doc: Document): OpeningTagItem | null {

@@ -157,41 +157,143 @@ export class Document {
   }
 
   updatePairedTagsAfterReplace(items: Item[]): void {
+    // Get position at the end of document for integrating SetAttrItems
+    const $pos = new Position(this);
+    while ($pos.right) {
+      $pos.forward();
+    }
+
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (item instanceof ClosingTagItem && item.targetId) {
         // Find the opening tag by ID
         const openingPos = this.findItemById(item.targetId);
-        if (
-          openingPos &&
-          openingPos.right &&
-          !items.includes(openingPos.right) &&
-          !openingPos.right.deleted
-        ) {
-          // this is a closing item, and its corresponding opening item is not newly integrated and not deleted
-          (openingPos.right as OpeningTagItem).replaceWithClosingTagItem(
-            this,
-            item,
+        const target = openingPos?.right;
+
+        if (target && !items.includes(target) && target.deleted) {
+          // Target was deleted in this replace operation, find a new valid opening tag
+          const newTarget = this.findNewOpeningTarget(
+            item as ClosingTagItem,
+            items,
           );
+          if (newTarget && newTarget.id && item.id) {
+            // Create SetAttrItem to update this item's targetId
+            const setAttrItem1 = new SetAttrItem(
+              item.id,
+              'targetId',
+              newTarget.id,
+            );
+            setAttrItem1.integrate($pos);
+
+            // Create SetAttrItem to update the new target's targetId
+            const setAttrItem2 = new SetAttrItem(
+              newTarget.id,
+              'targetId',
+              item.id,
+            );
+            setAttrItem2.integrate($pos);
+          }
+        } else if (target && !items.includes(target) && !target.deleted) {
+          // this is a closing item, and its corresponding opening item is not newly integrated and not deleted
+          (target as OpeningTagItem).replaceWithClosingTagItem(this, item);
         }
       }
       if (item instanceof OpeningTagItem && item.targetId) {
         // Find the closing tag by ID
         const closingPos = this.findItemById(item.targetId);
-        if (
-          closingPos &&
-          closingPos.right &&
-          !items.includes(closingPos.right) &&
-          !closingPos.right.deleted
-        ) {
-          // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
-          (closingPos.right as ClosingTagItem).replaceWithOpeningTagItem(
-            this,
-            item,
+        const target = closingPos?.right;
+
+        if (target && !items.includes(target) && target.deleted) {
+          // Target was deleted in this replace operation, find a new valid closing tag
+          const newTarget = this.findNewClosingTarget(
+            item as OpeningTagItem,
+            items,
           );
+          if (newTarget && newTarget.id && item.id) {
+            // Create SetAttrItem to update this item's targetId
+            const setAttrItem1 = new SetAttrItem(
+              item.id,
+              'targetId',
+              newTarget.id,
+            );
+            setAttrItem1.integrate($pos);
+
+            // Create SetAttrItem to update the new target's targetId
+            const setAttrItem2 = new SetAttrItem(
+              newTarget.id,
+              'targetId',
+              item.id,
+            );
+            setAttrItem2.integrate($pos);
+          }
+        } else if (target && !items.includes(target) && !target.deleted) {
+          // this is an opening item, and its corresponding closing item is not newly integrated and not deleted
+          (target as ClosingTagItem).replaceWithOpeningTagItem(this, item);
         }
       }
     }
+  }
+
+  /**
+   * Find a new valid opening tag for a closing tag whose original target was deleted.
+   * Searches backward from the closing tag to find an undeleted opening tag of the same
+   * type that either has no targetId or whose targetId points to a deleted item.
+   */
+  findNewOpeningTarget(
+    closingTag: ClosingTagItem,
+    newlyIntegratedItems: Item[],
+  ): OpeningTagItem | null {
+    let current = closingTag.left;
+    while (current) {
+      if (
+        current instanceof OpeningTagItem &&
+        current.tagName === closingTag.tagName &&
+        !current.deleted &&
+        !newlyIntegratedItems.includes(current)
+      ) {
+        // Check if this opening tag is available (no valid targetId pairing)
+        if (!current.targetId) {
+          return current;
+        }
+        const targetPos = this.findItemById(current.targetId);
+        if (targetPos?.right && targetPos.right.deleted) {
+          return current;
+        }
+      }
+      current = current.left;
+    }
+    return null;
+  }
+
+  /**
+   * Find a new valid closing tag for an opening tag whose original target was deleted.
+   * Searches forward from the opening tag to find an undeleted closing tag of the same
+   * type that either has no targetId or whose targetId points to a deleted item.
+   */
+  findNewClosingTarget(
+    openingTag: OpeningTagItem,
+    newlyIntegratedItems: Item[],
+  ): ClosingTagItem | null {
+    let current = openingTag.right;
+    while (current) {
+      if (
+        current instanceof ClosingTagItem &&
+        current.tagName === openingTag.tagName &&
+        !current.deleted &&
+        !newlyIntegratedItems.includes(current)
+      ) {
+        // Check if this closing tag is available (no valid targetId pairing)
+        if (!current.targetId) {
+          return current;
+        }
+        const targetPos = this.findItemById(current.targetId);
+        if (targetPos?.right && targetPos.right.deleted) {
+          return current;
+        }
+      }
+      current = current.right;
+    }
+    return null;
   }
 
   resolvePosition(value: number = 0): Position {
