@@ -1,0 +1,11 @@
+{
+  "name": "worker-threads-example",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "start:debug": "node --inspect index.js"
+  },
+  "author": "vivaxy",
+  "license": "ISC"
+}

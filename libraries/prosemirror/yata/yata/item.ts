@@ -416,7 +416,6 @@ export class TextItem extends Item {
 
   constructor(text: string, marks: Mark[] = []) {
     super();
-    Item.itemMap['text'] = TextItem;
     this.text = text;
     this.marks = marks.map((mark) => {
       return mark.toJSON();
@@ -460,7 +459,6 @@ export class OpeningTagItem extends Item {
 
   constructor(tagName: string, attrs: NodeAttributes) {
     super();
-    Item.itemMap['openingTag'] = OpeningTagItem;
     this.tagName = tagName;
     // todo attrs should be items too
     this.attrs = attrs;
@@ -565,7 +563,6 @@ export class ClosingTagItem extends Item {
 
   constructor(tagName: string) {
     super();
-    Item.itemMap['closingTag'] = ClosingTagItem;
     this.tagName = tagName;
     this.targetId = null;
   }
@@ -677,7 +674,6 @@ export class NodeItem extends Item {
 
   constructor(tagName: string, attrs: NodeAttributes) {
     super();
-    Item.itemMap['node'] = NodeItem;
     this.tagName = tagName;
     this.attrs = attrs;
   }
@@ -723,7 +719,6 @@ export class SetAttrItem extends Item {
 
   constructor(target: ItemID, key: SetAttrKey, value: SetAttrValue) {
     super();
-    Item.itemMap['setAttr'] = SetAttrItem;
     this.target = target;
     this.key = key;
     this.value = value;
@@ -735,12 +730,18 @@ export class SetAttrItem extends Item {
         targetItem.deleted = this.value as boolean;
         break;
       case 'attrs':
-        if (targetItem instanceof OpeningTagItem || targetItem instanceof NodeItem) {
+        if (
+          targetItem instanceof OpeningTagItem ||
+          targetItem instanceof NodeItem
+        ) {
           targetItem.attrs = this.value as NodeAttributes;
         }
         break;
       case 'targetId':
-        if (targetItem instanceof OpeningTagItem || targetItem instanceof ClosingTagItem) {
+        if (
+          targetItem instanceof OpeningTagItem ||
+          targetItem instanceof ClosingTagItem
+        ) {
           targetItem.targetId = this.value as ItemID;
         }
         break;
@@ -777,7 +778,11 @@ export class SetAttrItem extends Item {
         // Setting deleted=true generates a delete change only if target wasn't already deleted
         if (!targetItem.deleted) {
           this.applyToTarget(targetItem);
-          return { type: 'delete', item: targetItem, pmPosition: targetPos.pos };
+          return {
+            type: 'delete',
+            item: targetItem,
+            pmPosition: targetPos.pos,
+          };
         }
       } else {
         // For other attribute changes (attrs, targetId), apply them but don't generate steps
@@ -815,6 +820,15 @@ export class SetAttrItem extends Item {
     return '';
   }
 }
+
+// Populate itemMap at module load so Item.fromJSON works before any instances exist.
+Item.itemMap = {
+  text: TextItem,
+  openingTag: OpeningTagItem,
+  closingTag: ClosingTagItem,
+  node: NodeItem,
+  setAttr: SetAttrItem,
+};
 
 export function nodeToItems(node: Node): Item[] {
   if (node.isText) {
