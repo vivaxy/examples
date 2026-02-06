@@ -28,10 +28,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
     "@vivaxy/github-pages-scripts": "^0.5.1",
-    "eslint": "^8.56.0",
     "husky": "^9.0.10",
     "lint-staged": "^14.0.1",
     "prettier": "^2.8.8",
@@ -44,8 +41,7 @@
   },
   "packageManager": "npm@10.9.3",
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown",
-    "*.js": "eslint"
+    "**/*": "prettier --write --ignore-unknown"
   },
   "scripts": {
     "prepare": "husky install"
