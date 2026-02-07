@@ -509,12 +509,15 @@ export class Document {
 
     for (const change of sortedChanges) {
       // For deletions: group if same position (consecutive deletions at same PM position)
-      // For insertions: group if consecutive positions (startPos + length = nextPos)
+      // For insertions: group if at same position OR consecutive positions
+      // Same position grouping is needed for operations like paragraph splits where
+      // multiple items (</p><p>) are inserted at the same location
       const canGroup = currentGroup &&
         currentGroup.type === change.type &&
         (currentGroup.type === 'delete'
           ? currentGroup.startPos === change.pmPosition
-          : currentGroup.startPos + currentGroup.items.length === change.pmPosition);
+          : currentGroup.startPos === change.pmPosition ||
+            currentGroup.startPos + currentGroup.items.length === change.pmPosition);
 
       if (!canGroup) {
         // Start a new group

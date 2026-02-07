@@ -869,7 +869,7 @@ describe('YATA Document Synchronization Integration', () => {
     });
   });
 
-  describe('Paragraph Merge Sync Issue', () => {
+  describe('Paragraph Structure Sync', () => {
     test('deleting closing and opening tags between paragraphs should sync without error', () => {
       // Arrange: Create two synced documents with <p>1</p><p>2</p>
       const doc1 = new Document('client1');
@@ -936,5 +936,9 @@ describe('YATA Document Synchronization Integration', () => {
         }
       }).not.toThrow();
     });
+
+    // Note: Paragraph splitting (inserting </p><p>) currently has sync issues when items
+    // end up at different positions after CRDT integration. This requires more work to
+    // properly map CRDT structural changes to ProseMirror steps.
   });
 });

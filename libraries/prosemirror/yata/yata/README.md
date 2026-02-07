@@ -21,6 +21,6 @@ An item represents:
 
 # TODO
 
-- fix syncing issue. two docs synced state is<p>1</p><p>2</p>, delete </p><p> in doc1, sync to doc2, prosemirror will raise an error `TransformError: Inconsistent open depths`
+- fix paragraph split (inserting `</p><p>`) sync issues - items end up at different positions after CRDT integration, making it hard to generate valid ProseMirror steps
 - how to implement undo redo
 - implement ReplaceAroundStep
