@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { Fragment, Slice } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 import { ReplaceStep, ReplaceAroundStep } from 'prosemirror-transform';
 import schema from '../../example/schema.js';
 import {
@@ -790,6 +791,40 @@ describe('itemsToSlice', () => {
     // Critical: Verify that creating the slice doesn't throw "Invalid content"
     expect(() => {
       new Slice(slice.content, slice.openStart, slice.openEnd);
+    }).not.toThrow();
+  });
+
+  test('adjacent ClosingTagItem + OpeningTagItem (both empty) - for paragraph split', () => {
+    // Arrange: Simulates inserting </p><p> to split a paragraph
+    const items = [
+      new ClosingTagItem('paragraph'),
+      new OpeningTagItem('paragraph', null),
+    ];
+
+    // Act
+    const slice = itemsToSlice(items, schema);
+
+    // Assert
+    expect(slice.openStart).toBe(1); // First paragraph is orphaned (unclosed)
+    expect(slice.openEnd).toBe(1); // Last paragraph is open (unclosed)
+    expect(slice.content.childCount).toBe(2); // Two sibling paragraphs
+
+    // Verify both paragraphs are empty
+    const firstParagraph = slice.content.child(0);
+    expect(firstParagraph.type.name).toBe('paragraph');
+    expect(firstParagraph.childCount).toBe(0);
+
+    const secondParagraph = slice.content.child(1);
+    expect(secondParagraph.type.name).toBe('paragraph');
+    expect(secondParagraph.childCount).toBe(0);
+
+    // Test that this slice can be applied to ProseMirror at position 1 inside <p></p>
+    const doc = schema.node('doc', null, [schema.node('paragraph', null)]);
+    const state = EditorState.create({ schema, doc });
+
+    expect(() => {
+      const step = new ReplaceStep(1, 1, slice);
+      state.tr.step(step);
     }).not.toThrow();
   });
 
