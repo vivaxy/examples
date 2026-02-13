@@ -469,9 +469,12 @@ export class Document {
   }
 
   applyItems(clientMap: ClientMap, schema: Schema): ReplaceStep[] {
+    // Get the document state BEFORE applying changes to calculate correct depths
+    const pmDoc = this.toProseMirrorDoc(schema);
+
     const changes: ItemChange[] = [];
 
-    // First pass: integrate all items into the document and collect changes
+    // Integrate all items into the document and collect changes
     Object.keys(clientMap).forEach((client) => {
       const items = clientMap[client];
       items.forEach((itemJSON) => {
@@ -483,11 +486,15 @@ export class Document {
       });
     });
 
-    // Convert changes to ProseMirror steps
-    return this.changesToSteps(changes, schema);
+    // Convert changes to ProseMirror steps using the pre-integration document state
+    return this.changesToSteps(changes, schema, pmDoc);
   }
 
-  private changesToSteps(changes: ItemChange[], schema: Schema): ReplaceStep[] {
+  private changesToSteps(
+    changes: ItemChange[],
+    schema: Schema,
+    pmDoc: Node,
+  ): ReplaceStep[] {
     if (changes.length === 0) {
       return [];
     }
@@ -550,14 +557,16 @@ export class Document {
       } else {
         // Delete: from=startPos, to=startPos+count, slice is empty
         const count = group.items.length;
-        // Calculate proper open depths for the deletion
+        const endPos = group.startPos + count;
+        // Calculate proper open depths using actual document structure
         const { openStart, openEnd } = this.calculateDeleteOpenDepths(
           group.items,
+          group.startPos,
+          endPos,
+          pmDoc,
         );
         const slice = new Slice(Fragment.empty, openStart, openEnd);
-        steps.push(
-          new ReplaceStep(group.startPos, group.startPos + count, slice),
-        );
+        steps.push(new ReplaceStep(group.startPos, endPos, slice));
       }
     }
 
@@ -566,25 +575,62 @@ export class Document {
   }
 
   /**
-   * Calculate the proper openStart and openEnd values for a deletion
-   * based on the items being deleted.
+   * Calculate proper openStart and openEnd for deletion based on actual
+   * ProseMirror document structure at the deletion positions.
+   *
+   * Uses ProseMirror's resolve() to determine the true nesting depth,
+   * rather than inferring from item sequence which can be incorrect
+   * after CRDT integration.
    *
    * openEnd: The depth at the start position (before the first deleted item)
    * openStart: The depth at the end position (after the last deleted item)
-   *
-   * For example, when deleting </p><p> (ClosingTagItem, OpeningTagItem):
-   * - Before the ClosingTagItem, we're inside the paragraph (depth 1) -> openEnd=1
-   * - After the OpeningTagItem, we're inside the paragraph (depth 1) -> openStart=1
    */
-  private calculateDeleteOpenDepths(items: Item[]): {
+  private calculateDeleteOpenDepths(
+    items: Item[],
+    startPos: number,
+    endPos: number,
+    pmDoc: Node,
+  ): {
+    openStart: number;
+    openEnd: number;
+  } {
+    try {
+      // Resolve actual positions in ProseMirror document
+      const $start = pmDoc.resolve(startPos);
+      const $end = pmDoc.resolve(endPos);
+
+      // Find shared ancestor depth
+      const sharedDepth = $start.sharedDepth(endPos);
+
+      // Calculate how many levels to "open" at each end
+      // openEnd: levels from start position to shared ancestor
+      // openStart: levels from end position to shared ancestor
+      const openEnd = $start.depth - sharedDepth;
+      const openStart = $end.depth - sharedDepth;
+
+      return { openStart, openEnd };
+    } catch (error) {
+      // Fallback if positions are invalid (shouldn't happen normally)
+      console.warn(
+        'ProseMirror position resolution failed, using item-based fallback:',
+        error,
+      );
+      return this.calculateDeleteOpenDepthsFromItems(items);
+    }
+  }
+
+  /**
+   * Fallback: Calculate depths by examining item sequence.
+   * Used only if ProseMirror position resolution fails.
+   */
+  private calculateDeleteOpenDepthsFromItems(items: Item[]): {
     openStart: number;
     openEnd: number;
   } {
     let openEnd = 0;
     let openStart = 0;
 
-    // Calculate openEnd: depth before the first item
-    // Count how many closing tags we have before any opening tags at the start
+    // Count closing tags before opening tags at start
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (item instanceof ClosingTagItem) {
@@ -594,8 +640,7 @@ export class Document {
       }
     }
 
-    // Calculate openStart: depth after the last item
-    // Count how many opening tags we have after any closing tags at the end
+    // Count opening tags after closing tags at end
     for (let i = items.length - 1; i >= 0; i--) {
       const item = items[i];
       if (item instanceof OpeningTagItem) {
