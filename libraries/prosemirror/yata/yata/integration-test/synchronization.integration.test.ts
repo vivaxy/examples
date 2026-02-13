@@ -937,8 +937,63 @@ describe('YATA Document Synchronization Integration', () => {
       }).not.toThrow();
     });
 
-    // Note: Paragraph splitting (inserting </p><p>) currently has sync issues when items
-    // end up at different positions after CRDT integration. This requires more work to
-    // properly map CRDT structural changes to ProseMirror steps.
+    test('inserting paragraph after empty paragraph should sync without error', () => {
+      // Arrange: Create two synced documents with <p></p>
+      const doc1 = new Document('client1');
+      const doc2 = new Document('client2');
+
+      // Create initial content: <p></p> (single empty paragraph)
+      const initialItems = [
+        new OpeningTagItem('paragraph', null),
+        new ClosingTagItem('paragraph'),
+      ];
+
+      const pos1 = new Position(doc1);
+      initialItems.forEach((item) => item.integrate(pos1));
+
+      // Sync to doc2
+      syncBidirectional(doc1, doc2);
+
+      // Verify initial state
+      expectDocHTML(doc1, '<paragraph></paragraph>');
+      expectDocHTML(doc2, '<paragraph></paragraph>');
+
+      // Act: Insert <p></p> after the existing paragraph
+      // Position in CRDT: after ClosingTag (position 2)
+      // This creates: <p></p><p></p>
+      const insertItems = [
+        new OpeningTagItem('paragraph', null),
+        new ClosingTagItem('paragraph'),
+      ];
+      doc1.replaceItems(2, 2, insertItems);
+
+      // Verify doc1 state after insertion
+      expectDocHTML(doc1, '<paragraph></paragraph><paragraph></paragraph>');
+
+      // Sync doc1 changes to doc2
+      // This should not throw "Inconsistent open depths" error
+      const items1 = doc1.toItems();
+
+      expect(() => {
+        const steps = doc2.applyItems(items1, schema);
+
+        // Apply steps to a mock editor state to verify they work
+        const mockState = EditorState.create({
+          schema,
+          doc: schema.node('doc', null, [
+            schema.node('paragraph', null, []),
+          ]),
+        });
+
+        let tr = mockState.tr;
+        for (const step of steps) {
+          tr = tr.step(step);
+        }
+      }).not.toThrow();
+
+      // Verify final convergence
+      expectDocHTML(doc2, '<paragraph></paragraph><paragraph></paragraph>');
+      assertConvergence([doc1, doc2]);
+    });
   });
 });
