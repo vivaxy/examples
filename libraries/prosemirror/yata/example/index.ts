@@ -125,8 +125,10 @@ declare global {
     doc1: Document;
     view2: EditorView;
     doc2: Document;
-    undo: typeof undo;
-    redo: typeof redo;
+    undo1: () => boolean;
+    redo1: () => boolean;
+    undo2: () => boolean;
+    redo2: () => boolean;
   }
 }
 
@@ -134,5 +136,9 @@ window.view1 = view1;
 window.doc1 = doc1;
 window.view2 = view2;
 window.doc2 = doc2;
-window.undo = undo;
-window.redo = redo;
+
+// Editor-specific undo/redo functions for debugging
+window.undo1 = () => undo(view1.state, view1.dispatch);
+window.redo1 = () => redo(view1.state, view1.dispatch);
+window.undo2 = () => undo(view2.state, view2.dispatch);
+window.redo2 = () => redo(view2.state, view2.dispatch);
