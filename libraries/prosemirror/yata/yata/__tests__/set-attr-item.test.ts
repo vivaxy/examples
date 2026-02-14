@@ -12,6 +12,7 @@ import {
   createDocWithText,
   createDocWithParagraph,
 } from './helpers/test-helpers.js';
+import schema from '../../example/schema.js';
 
 describe('SetAttrItem - Basic Functionality', function () {
   test('creates SetAttrItem with deleted key', function () {
@@ -355,7 +356,7 @@ describe('SetAttrItem - Remote integration via putIntoDocument', function () {
     const doc1Items = doc1.toItems();
 
     // Act - Apply doc1's SetAttrItem to doc2 (where target exists)
-    doc2.applyItems(doc1Items, {} as any);
+    doc2.applyItems(doc1Items, schema);
 
     // Assert - The target item should have the SetAttrItem's changes applied
     const updatedOpeningTag = doc2.toArray().find(
