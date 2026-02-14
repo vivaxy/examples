@@ -5,13 +5,28 @@
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { exampleSetup } from 'prosemirror-example-setup';
+import { history, undo, redo } from 'prosemirror-history';
+import { keymap } from 'prosemirror-keymap';
 import { Step } from 'prosemirror-transform';
 import schema from './schema.js';
 import { Document } from '../yata/index.js';
 
 const state1 = EditorState.create({
   schema,
-  plugins: exampleSetup({ schema: schema }),
+  plugins: [
+    ...exampleSetup({ schema: schema }),
+    // Explicit history plugin with custom configuration
+    history({
+      depth: 100, // Number of undo levels
+      newGroupDelay: 500, // Milliseconds to group edits
+    }),
+    // Explicit keyboard shortcuts
+    keymap({
+      'Mod-z': undo,
+      'Mod-y': redo,
+      'Mod-Shift-z': redo,
+    }),
+  ],
 });
 
 const doc1 = Document.fromNodes(state1.doc.content);
@@ -28,10 +43,28 @@ const view1 = new EditorView(document.querySelector('.editor[data-id="1"]'), {
   },
 });
 
+const state2 = EditorState.create({
+  schema,
+  plugins: [
+    ...exampleSetup({ schema: schema }),
+    // Explicit history plugin with custom configuration
+    history({
+      depth: 100,
+      newGroupDelay: 500,
+    }),
+    // Explicit keyboard shortcuts
+    keymap({
+      'Mod-z': undo,
+      'Mod-y': redo,
+      'Mod-Shift-z': redo,
+    }),
+  ],
+});
+
 const doc2 = new Document();
 doc2.applyItems(doc1.toItems(), schema);
 const view2 = new EditorView(document.querySelector('.editor[data-id="2"]'), {
-  state: state1,
+  state: state2,
   dispatchTransaction(tr: Transaction) {
     view2.updateState(view2.state.apply(tr));
     if (!tr.getMeta('sync')) {
@@ -72,6 +105,36 @@ document
     console.log('sync doc2 to doc1', steps.length, 'steps');
   });
 
+// Undo/Redo button handlers for Editor 1
+document
+  .querySelector('.undo[data-id="1"]')!
+  .addEventListener('click', function () {
+    undo(view1.state, view1.dispatch);
+    view1.focus();
+  });
+
+document
+  .querySelector('.redo[data-id="1"]')!
+  .addEventListener('click', function () {
+    redo(view1.state, view1.dispatch);
+    view1.focus();
+  });
+
+// Undo/Redo button handlers for Editor 2
+document
+  .querySelector('.undo[data-id="2"]')!
+  .addEventListener('click', function () {
+    undo(view2.state, view2.dispatch);
+    view2.focus();
+  });
+
+document
+  .querySelector('.redo[data-id="2"]')!
+  .addEventListener('click', function () {
+    redo(view2.state, view2.dispatch);
+    view2.focus();
+  });
+
 // Expose to window for debugging
 declare global {
   interface Window {
@@ -79,6 +142,8 @@ declare global {
     doc1: Document;
     view2: EditorView;
     doc2: Document;
+    undo: typeof undo;
+    redo: typeof redo;
   }
 }
 
@@ -86,3 +151,5 @@ window.view1 = view1;
 window.doc1 = doc1;
 window.view2 = view2;
 window.doc2 = doc2;
+window.undo = undo;
+window.redo = redo;
