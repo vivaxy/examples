@@ -18,9 +18,3 @@ An item represents:
 
 - Node attributes are currently stored as plain objects. For proper CRDT behavior with concurrent attribute edits, they should probably be CRDT items themselves.
 - ProseMirror Mark Data Structure and Mark Step implementation
-
-# TODO
-
-- fix paragraph split (inserting `</p><p>`) sync issues - items end up at different positions after CRDT integration, making it hard to generate valid ProseMirror steps
-- how to implement undo redo
-- implement ReplaceAroundStep
