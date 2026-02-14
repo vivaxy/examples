@@ -722,17 +722,9 @@ prosemirror-inputrules@^1.0.0:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-keymap@^1.0.0:
+prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/prosemirror-keymap/-/prosemirror-keymap-1.2.3.tgz"
-  integrity sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==
-  dependencies:
-    prosemirror-state "^1.0.0"
-    w3c-keyname "^2.2.0"
-
-prosemirror-keymap@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/prosemirror-keymap/-/prosemirror-keymap-1.2.3.tgz#c0f6ab95f75c0b82c97e44eb6aaf29cbfc150472"
   integrity sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==
   dependencies:
     prosemirror-state "^1.0.0"

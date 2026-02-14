@@ -5,8 +5,7 @@
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { exampleSetup } from 'prosemirror-example-setup';
-import { history, undo, redo } from 'prosemirror-history';
-import { keymap } from 'prosemirror-keymap';
+import { undo, redo } from 'prosemirror-history';
 import { Step } from 'prosemirror-transform';
 import schema from './schema.js';
 import { Document } from '../yata/index.js';
@@ -14,17 +13,9 @@ import { Document } from '../yata/index.js';
 const state1 = EditorState.create({
   schema,
   plugins: [
-    ...exampleSetup({ schema: schema }),
-    // Explicit history plugin with custom configuration
-    history({
-      depth: 100, // Number of undo levels
-      newGroupDelay: 500, // Milliseconds to group edits
-    }),
-    // Explicit keyboard shortcuts
-    keymap({
-      'Mod-z': undo,
-      'Mod-y': redo,
-      'Mod-Shift-z': redo,
+    ...exampleSetup({
+      schema: schema,
+      history: true, // exampleSetup includes history plugin by default
     }),
   ],
 });
@@ -46,17 +37,9 @@ const view1 = new EditorView(document.querySelector('.editor[data-id="1"]'), {
 const state2 = EditorState.create({
   schema,
   plugins: [
-    ...exampleSetup({ schema: schema }),
-    // Explicit history plugin with custom configuration
-    history({
-      depth: 100,
-      newGroupDelay: 500,
-    }),
-    // Explicit keyboard shortcuts
-    keymap({
-      'Mod-z': undo,
-      'Mod-y': redo,
-      'Mod-Shift-z': redo,
+    ...exampleSetup({
+      schema: schema,
+      history: true, // exampleSetup includes history plugin by default
     }),
   ],
 });
