@@ -1,6 +1,109 @@
 @import "https://prosemirror.net/css/editor.css";
 @import "prosemirror-view/style/prosemirror.css";
 
-.sync {
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.editor-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
   margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editor-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.5em;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.undo,
+button.redo {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+button.undo:hover,
+button.redo:hover {
+  background: #bbdefb;
+}
+
+button.sync {
+  background: #e8f5e9;
+  border-color: #4caf50;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+button.sync:hover {
+  background: #c8e6c9;
+}
+
+.info {
+  background: #fff3e0;
+  border-left: 4px solid #ff9800;
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.info h3 {
+  margin-top: 0;
+  color: #e65100;
+}
+
+.info ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.info li {
+  margin: 8px 0;
+  color: #555;
+}
+
+.info strong {
+  color: #333;
+}
+
+.editor {
+  min-height: 200px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
 }

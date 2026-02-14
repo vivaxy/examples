@@ -17,10 +17,37 @@
     <title>ProseMirror YATA</title>
   </head>
   <body>
-    <div class="editor" data-id="1"></div>
-    <button class="sync" data-id="1">Sync To Editor 2</button>
-    <div class="editor" data-id="2"></div>
-    <button class="sync" data-id="2">Sync To Editor 1</button>
+    <div class="editor-container">
+      <h2>Editor 1</h2>
+      <div class="editor" data-id="1"></div>
+      <div class="controls">
+        <button class="undo" data-id="1" title="Undo (Ctrl/Cmd+Z)">↶ Undo</button>
+        <button class="redo" data-id="1" title="Redo (Ctrl/Cmd+Y or Ctrl/Cmd+Shift+Z)">↷ Redo</button>
+        <button class="sync" data-id="1">⇣ Sync To Editor 2</button>
+      </div>
+    </div>
+
+    <div class="editor-container">
+      <h2>Editor 2</h2>
+      <div class="editor" data-id="2"></div>
+      <div class="controls">
+        <button class="undo" data-id="2" title="Undo (Ctrl/Cmd+Z)">↶ Undo</button>
+        <button class="redo" data-id="2" title="Redo (Ctrl/Cmd+Y or Ctrl/Cmd+Shift+Z)">↷ Redo</button>
+        <button class="sync" data-id="2">⇡ Sync To Editor 1</button>
+      </div>
+    </div>
+
+    <div class="info">
+      <h3>💡 Instructions</h3>
+      <ul>
+        <li><strong>Undo:</strong> Ctrl+Z (Windows/Linux) or Cmd+Z (Mac)</li>
+        <li><strong>Redo:</strong> Ctrl+Y or Ctrl+Shift+Z (Windows/Linux) or Cmd+Shift+Z (Mac)</li>
+        <li><strong>Sync:</strong> Click sync buttons to synchronize changes between editors</li>
+        <li>Each editor has independent undo/redo history</li>
+        <li>CRDT ensures conflict-free synchronization</li>
+      </ul>
+    </div>
+
     <script
       type="text/javascript"
       src="https://unpkg.com/@vivaxy/framework/utils/console.js"
