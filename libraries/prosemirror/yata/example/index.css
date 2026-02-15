@@ -107,3 +107,8 @@ button.sync:hover {
   border-radius: 4px;
   padding: 10px;
 }
+
+.ProseMirror {
+  min-height: 200px;
+  outline: none;
+}
