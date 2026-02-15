@@ -846,42 +846,7 @@ export function nodeToItems(node: Node): Item[] {
 }
 
 export function itemsToSlice(items: Item[], schema: Schema): Slice {
-  // Quick check: if items only contain closing and opening tags with no content,
-  // this likely represents a node boundary/split operation
-  const hasOnlyBoundaryTags = items.every(
-    item => item instanceof OpeningTagItem || item instanceof ClosingTagItem
-  );
-  const hasContent = items.some(
-    item => item instanceof TextItem || item instanceof NodeItem
-  );
-
-  if (hasOnlyBoundaryTags && !hasContent) {
-    // Count leading closing tags and trailing opening tags
-    let leadingClosing = 0;
-    let trailingOpening = 0;
-
-    for (let i = 0; i < items.length; i++) {
-      if (items[i] instanceof ClosingTagItem) {
-        leadingClosing++;
-      } else {
-        break;
-      }
-    }
-
-    for (let i = items.length - 1; i >= 0; i--) {
-      if (items[i] instanceof OpeningTagItem) {
-        trailingOpening++;
-      } else {
-        break;
-      }
-    }
-
-    // For pure boundary operations (like splits), return empty fragment
-    // with depths indicating the structure
-    return new Slice(Fragment.empty, leadingClosing, trailingOpening);
-  }
-
-  // Standard processing for slices with actual content
+  // Standard processing for all slices
   let fragment = Fragment.empty;
   const openingNodes: Array<{
     tagName: string;
@@ -912,16 +877,11 @@ export function itemsToSlice(items: Item[], schema: Schema): Slice {
         attrs: item.attrs,
         content: Fragment.empty,
       });
-      // Check if closingNode exists and has no content
-      // This pattern (empty closing + opening) represents a node split/boundary
-      // Don't add the closingNode to fragment - it's represented by openStart
+      // If closingNode exists, add it to fragment as a sibling
+      // This handles the pattern where we have closing tag followed by opening tag
       if (closingNode) {
-        const closingHasContent = closingNode.content.size > 0;
-        if (closingHasContent) {
-          // closingNode has actual content, add it to fragment
-          fragment = fragment.append(Fragment.from([closingNode]));
-        }
-        // else: empty closingNode is just a boundary, represented by openStart
+        // Add closingNode to fragment (even if empty)
+        fragment = fragment.append(Fragment.from([closingNode]));
         closingNode = null;
       }
       currentDepth++;
@@ -967,32 +927,22 @@ export function itemsToSlice(items: Item[], schema: Schema): Slice {
     }
   }
 
-  // NOTE: closingNode and openingNodes represent the "open" structure
-  // and are indicated by openStart and openEnd, not added to the fragment.
-  // Only add them if they contain actual content.
+  // NOTE: closingNode represents an orphaned closing tag at the start
+  // and should be prepended to the fragment as a sibling.
+  // openingNodes represents unclosed opening tags and should wrap or append to fragment.
 
   if (closingNode) {
-    // Only add closingNode if the fragment has content
-    // An empty closingNode is represented by openStart, not added to fragment
-    if (fragment.size > 0) {
-      fragment = Fragment.from([closingNode]);
-    }
-    // else: fragment stays as-is (could be empty)
+    // Prepend closingNode to fragment as a sibling (even if empty)
+    fragment = Fragment.from([closingNode]).append(fragment);
   }
 
   if (openingNodes.length > 0) {
-    // Only create wrapper nodes if there's content to wrap
-    // Empty openingNodes are represented by openEnd (currentDepth)
-    if (fragment.size > 0) {
-      // Build nested structure from inside out
-      let content = fragment;
-      for (let i = openingNodes.length - 1; i >= 0; i--) {
-        const nodeData = openingNodes[i];
-        content = Fragment.from([schema.node(nodeData.tagName, nodeData.attrs, content)]);
-      }
-      fragment = content;
+    // Append unclosed opening nodes as empty siblings to the fragment
+    // These represent nodes that are "open" at the end of the slice
+    for (const nodeData of openingNodes) {
+      const emptyNode = schema.node(nodeData.tagName, nodeData.attrs, nodeData.content);
+      fragment = fragment.append(Fragment.from([emptyNode]));
     }
-    // else: fragment stays empty, open depth indicated by currentDepth
   }
 
   return new Slice(fragment, openStart, currentDepth);
