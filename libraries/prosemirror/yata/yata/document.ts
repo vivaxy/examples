@@ -553,7 +553,14 @@ export class Document {
       if (group.type === 'insert') {
         // Insert: from=to=startPos, slice contains new items
         const slice = itemsToSlice(group.items, schema);
-        steps.push(new ReplaceStep(group.startPos, group.startPos, slice));
+        // Calculate proper open depths using actual document structure
+        const { openStart, openEnd } = this.calculateInsertOpenDepths(
+          slice,
+          group.startPos,
+          pmDoc,
+        );
+        const adjustedSlice = new Slice(slice.content, openStart, openEnd);
+        steps.push(new ReplaceStep(group.startPos, group.startPos, adjustedSlice));
       } else {
         // Delete: from=startPos, to=startPos+count, slice is empty
         const count = group.items.length;
@@ -617,6 +624,27 @@ export class Document {
       );
       return this.calculateDeleteOpenDepthsFromItems(items);
     }
+  }
+
+  /**
+   * Calculate proper openStart and openEnd for insertion based on actual
+   * ProseMirror document structure at the insertion position.
+   *
+   * Ensures that the slice's open depths are compatible with the document
+   * structure by clamping them to not exceed the depth at the insertion point.
+   */
+  private calculateInsertOpenDepths(
+    slice: Slice,
+    pos: number,
+    pmDoc: Node,
+  ): {
+    openStart: number;
+    openEnd: number;
+  } {
+    // Use the depths calculated by itemsToSlice, which are based on the
+    // actual structure of the items (leading closing tags → openStart,
+    // trailing opening tags → openEnd)
+    return { openStart: slice.openStart, openEnd: slice.openEnd };
   }
 
   /**

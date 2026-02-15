@@ -266,9 +266,7 @@ describe('applyItems - ProseMirror roundtrip', function () {
     expect(doc2.toHTMLString()).toBe('<paragraph>firstsecond</paragraph>');
   });
 
-  test.skip('paragraph split - insert closing and opening tags', function () {
-    // KNOWN ISSUE: This test reveals an edge case with paragraph splits
-    // where generated steps have inconsistent open depths
+  test('paragraph split - insert closing and opening tags', function () {
     // ARRANGE
     const state1 = EditorState.create({
       schema,
@@ -319,10 +317,7 @@ describe('applyItems - ProseMirror roundtrip', function () {
     );
   });
 
-  test.skip('complex multi-operation transaction', function () {
-    // KNOWN ISSUE: This test reveals an edge case with complex transactions
-    // where generated steps have inconsistent open depths when multiple
-    // operations affect different parts of the document
+  test('complex multi-operation transaction', function () {
     // ARRANGE
     const state1 = EditorState.create({
       schema,
