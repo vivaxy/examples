@@ -123,6 +123,8 @@ Table of contents
   * [
       Integrate Go Library into a JavaScript Webpage with WebAssembly
     ](https://vivaxy.github.io/examples/go/integrate-go-library-into-a-javaScript-webpage-with-web-assembly/) Integrate Go Library into a JavaScript Webpage with WebAssembly
+* [Java](https://vivaxy.github.io/examples/java/) Java
+  * [Benchmark](https://vivaxy.github.io/examples/java/benchmark/) Java
 * [JavaScript](https://vivaxy.github.io/examples/javascript/) JavaScript
   * [append script](https://vivaxy.github.io/examples/javascript/append-script/) Append script
   * [Arrow Function](https://vivaxy.github.io/examples/javascript/arrow-function/) Arrow Function
