@@ -1,5 +1,9 @@
 [
   {
+    "name": "Binary Search vs Linear Search",
+    "link": "binary-search-vs-linear-search"
+  },
+  {
     "name": "gzip",
     "link": "gzip"
   },
