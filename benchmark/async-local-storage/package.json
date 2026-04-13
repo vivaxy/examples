@@ -1,0 +1,17 @@
+{
+  "name": "async-local-storage-benchmark",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "start:als": "node server.js --als",
+    "bench": "node bench.js"
+  },
+  "dependencies": {
+    "koa": "^2.15.3"
+  },
+  "devDependencies": {
+    "autocannon": "^7.15.0"
+  }
+}

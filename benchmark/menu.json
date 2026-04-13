@@ -110,5 +110,9 @@
   {
     "name": "UnregisterWithReturnedFunction vs Unregister",
     "link": "unregister-with-returned-function-vs-unregister/"
+  },
+  {
+    "name": "AsyncLocalStorage Overhead",
+    "link": "async-local-storage/bench.js"
   }
 ]
