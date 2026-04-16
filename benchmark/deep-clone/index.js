@@ -329,25 +329,76 @@ document.body.appendChild(resultsDiv);
 
 // ─── URL Hash State ───────────────────────────────────────────────────────────
 
-function encodeBase64url(str) {
-  return btoa(unescape(encodeURIComponent(str)))
+/**
+ * Gzip-compress a string and return a base64url-encoded string.
+ */
+async function gzipEncodeBase64url(str) {
+  const encoder = new TextEncoder();
+  const input = encoder.encode(str);
+  const cs = new CompressionStream('gzip');
+  const writer = cs.writable.getWriter();
+  writer.write(input);
+  writer.close();
+  const chunks = [];
+  const reader = cs.readable.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+  }
+  const totalLength = chunks.reduce((sum, c) => sum + c.length, 0);
+  const merged = new Uint8Array(totalLength);
+  let offset = 0;
+  for (const chunk of chunks) {
+    merged.set(chunk, offset);
+    offset += chunk.length;
+  }
+  // Convert to base64url
+  let binary = '';
+  for (let i = 0; i < merged.length; i++)
+    binary += String.fromCharCode(merged[i]);
+  return btoa(binary)
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 }
 
-function decodeBase64url(str) {
+/**
+ * Decode a base64url + Gzip-compressed string back to the original string.
+ */
+async function gzipDecodeBase64url(str) {
   const padded = str.replace(/-/g, '+').replace(/_/g, '/');
   const pad = padded.length % 4;
   const b64 = pad ? padded + '='.repeat(4 - pad) : padded;
-  return decodeURIComponent(escape(atob(b64)));
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  const ds = new DecompressionStream('gzip');
+  const writer = ds.writable.getWriter();
+  writer.write(bytes);
+  writer.close();
+  const chunks = [];
+  const reader = ds.readable.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+  }
+  const totalLength = chunks.reduce((sum, c) => sum + c.length, 0);
+  const merged = new Uint8Array(totalLength);
+  let offset = 0;
+  for (const chunk of chunks) {
+    merged.set(chunk, offset);
+    offset += chunk.length;
+  }
+  return new TextDecoder().decode(merged);
 }
 
 /**
  * Encode current data JSON + iterations into URL hash (no history entry).
  */
-function updateHash(dataJson, iterations) {
-  const encoded = encodeBase64url(dataJson);
+async function updateHash(dataJson, iterations) {
+  const encoded = await gzipEncodeBase64url(dataJson);
   const hash = `data=${encoded}&iterations=${iterations}`;
   history.replaceState(null, '', `#${hash}`);
 }
@@ -355,16 +406,26 @@ function updateHash(dataJson, iterations) {
 /**
  * Parse URL hash → { dataJson, iterations } or null.
  */
-function readHash() {
+async function readHash() {
   const raw = location.hash.slice(1); // strip leading '#'
   if (!raw) return null;
   const params = new URLSearchParams(raw);
-  // support legacy 'schema' param (base64url-encoded schema DSL) for back-compat
-  const encodedData = params.get('data') ?? params.get('schema');
+  const encodedData = params.get('data');
+  // support legacy 'schema' param (plain base64url, no gzip) for back-compat
+  const legacyEncoded = params.get('schema');
   const iterations = params.get('iterations');
-  if (!encodedData) return null;
+  if (!encodedData && !legacyEncoded) return null;
   try {
-    const dataJson = decodeBase64url(encodedData);
+    let dataJson;
+    if (encodedData) {
+      dataJson = await gzipDecodeBase64url(encodedData);
+    } else {
+      // legacy path: plain base64url decode
+      const padded = legacyEncoded.replace(/-/g, '+').replace(/_/g, '/');
+      const pad = padded.length % 4;
+      const b64 = pad ? padded + '='.repeat(4 - pad) : padded;
+      dataJson = decodeURIComponent(escape(atob(b64)));
+    }
     JSON.parse(dataJson); // validate
     return { dataJson, iterations: iterations ? Number(iterations) : null };
   } catch {
@@ -378,13 +439,13 @@ function readHash() {
  * Build data from a scenario's schema, write it as pretty JSON into the textarea,
  * and optionally sync to the URL hash.
  */
-function setData(schema, iterations, { updateUrl = true } = {}) {
+async function setData(schema, iterations, { updateUrl = true } = {}) {
   const data = buildObject(schema);
   const json = JSON.stringify(data, null, 2);
   textarea.value = json;
   iterInput.value = iterations;
   schemaError.textContent = '';
-  if (updateUrl) updateHash(json, iterations);
+  if (updateUrl) await updateHash(json, iterations);
 }
 
 function parseData() {
@@ -399,45 +460,56 @@ function parseData() {
 
 // ── Initialise from URL hash or default template ──
 
-const fromHash = readHash();
-if (fromHash) {
-  textarea.value = fromHash.dataJson;
-  iterInput.value = fromHash.iterations ?? SCENARIOS[0].iterations;
-  schemaError.textContent = '';
-  templateSelect.value = '';
-} else {
-  setData(SCENARIOS[0].schema, SCENARIOS[0].iterations, { updateUrl: true });
-  templateSelect.value = '0';
+async function init() {
+  const fromHash = await readHash();
+  if (fromHash) {
+    textarea.value = fromHash.dataJson;
+    iterInput.value = fromHash.iterations ?? SCENARIOS[0].iterations;
+    schemaError.textContent = '';
+    templateSelect.value = '';
+  } else {
+    await setData(SCENARIOS[0].schema, SCENARIOS[0].iterations, {
+      updateUrl: true,
+    });
+    templateSelect.value = '0';
+  }
+
+  // Template selection → generate data, fill editor, update URL
+  templateSelect.addEventListener('change', () => {
+    const idx = templateSelect.value;
+    if (idx === '') return;
+    const s = SCENARIOS[Number(idx)];
+    setData(s.schema, s.iterations, { updateUrl: true });
+  });
+
+  // Manual data edit → switch to custom + update URL
+  textarea.addEventListener('input', () => {
+    templateSelect.value = '';
+    try {
+      JSON.parse(textarea.value);
+      updateHash(textarea.value, iterInput.value);
+    } catch {
+      // invalid JSON — leave hash unchanged
+    }
+  });
+
+  // Iterations change → update URL
+  iterInput.addEventListener('input', () => {
+    try {
+      JSON.parse(textarea.value);
+      updateHash(textarea.value, iterInput.value);
+    } catch {
+      // ignore
+    }
+  });
+
+  // Auto-run when page loads with a hash
+  if (fromHash) {
+    startBenchmark();
+  }
 }
 
-// Template selection → generate data, fill editor, update URL
-templateSelect.addEventListener('change', () => {
-  const idx = templateSelect.value;
-  if (idx === '') return;
-  const s = SCENARIOS[Number(idx)];
-  setData(s.schema, s.iterations, { updateUrl: true });
-});
-
-// Manual data edit → switch to custom + update URL
-textarea.addEventListener('input', () => {
-  templateSelect.value = '';
-  try {
-    JSON.parse(textarea.value);
-    updateHash(textarea.value, iterInput.value);
-  } catch {
-    // invalid JSON — leave hash unchanged
-  }
-});
-
-// Iterations change → update URL
-iterInput.addEventListener('input', () => {
-  try {
-    JSON.parse(textarea.value);
-    updateHash(textarea.value, iterInput.value);
-  } catch {
-    // ignore
-  }
-});
+init();
 
 async function startBenchmark() {
   const obj = parseData();
@@ -460,11 +532,6 @@ async function startBenchmark() {
 }
 
 runButton.addEventListener('click', startBenchmark);
-
-// Auto-run when page loads with a hash
-if (fromHash) {
-  startBenchmark();
-}
 
 async function runScenario({ label, iterations, obj }) {
   console.log(
