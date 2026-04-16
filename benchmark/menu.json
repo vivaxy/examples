@@ -1,5 +1,9 @@
 [
   {
+    "name": "Deep Clone Performance Benchmark",
+    "link": "deep-clone/"
+  },
+  {
     "name": "Binary Search vs Linear Search",
     "link": "binary-search-vs-linear-search"
   },

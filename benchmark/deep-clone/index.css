@@ -1,0 +1,135 @@
+/**
+ * @since 2026-04-16
+ * @author vivaxy
+ */
+
+html {
+  font-family: monospace;
+}
+
+body {
+  padding: 12px;
+  max-width: 900px;
+}
+
+/* ── Editor ─────────────────────────────────────────────────────────────────── */
+
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.picker-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.picker-row select {
+  padding: 4px 8px;
+}
+
+.iter-input {
+  width: 100px;
+  padding: 4px 8px;
+}
+
+.schema-label {
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.schema-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  resize: vertical;
+}
+
+.schema-error {
+  color: red;
+  font-size: 0.9em;
+  min-height: 1.2em;
+}
+
+.action-row {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 6px 16px;
+  cursor: pointer;
+}
+
+.run-btn {
+  font-weight: bold;
+}
+
+/* ── Results ───────────────────────────────────────────────────────────────── */
+
+.results {
+  margin-top: 16px;
+}
+
+.result-table {
+  border-collapse: collapse;
+  min-width: 560px;
+  margin-bottom: 24px;
+}
+
+.result-table th,
+.result-table td {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  text-align: right;
+}
+
+.result-table th {
+  background: #f0f0f0;
+  text-align: center;
+}
+
+.result-table td:first-child {
+  text-align: left;
+}
+
+.fastest {
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+}
+
+.con-baseline {
+  color: #666;
+}
+
+.con-match {
+  color: green;
+}
+
+.con-mismatch {
+  color: red;
+  font-weight: bold;
+  cursor: help;
+}
+
+.con-error {
+  color: #c00;
+  cursor: help;
+}
