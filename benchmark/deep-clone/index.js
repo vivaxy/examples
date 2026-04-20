@@ -292,7 +292,7 @@ iterLabel.appendChild(iterInput);
 iterRow.appendChild(iterLabel);
 editorSection.appendChild(iterRow);
 
-// Textarea for test data JSON
+// Test data editor
 const dataLabel = document.createElement('div');
 dataLabel.className = 'schema-label';
 dataLabel.textContent = 'Test data (JSON):';

@@ -218,3 +218,6 @@ When adding or modifying code:
 5. **Use correct package manager**: Check local `package.json` for
    `packageManager` field
 6. **Let git hooks run**: TOC and formatting are automated
+7. **Keep code minimal**: All code must be kept as simple as possible. Remove
+   any unnecessary code. Never retain backward compatibility logic for
+   historical implementations.
