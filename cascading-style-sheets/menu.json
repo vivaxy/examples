@@ -1,5 +1,9 @@
 [
   {
+    "name": ":pseudo-default",
+    "link": "pseudo-default/"
+  },
+  {
     "name": "Inline flex width fit content",
     "link": "inline-flex-width-fit-content/"
   },

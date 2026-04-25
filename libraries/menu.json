@@ -1,5 +1,13 @@
 [
   {
+    "name": "CSS Loader",
+    "link": "css-loader/"
+  },
+  {
+    "name": "ShareDB",
+    "link": "sharedb/"
+  },
+  {
     "name": "Cuda",
     "link": "cuda"
   },

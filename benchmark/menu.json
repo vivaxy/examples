@@ -1,5 +1,13 @@
 [
   {
+    "name": "Algorithms",
+    "link": "algorithms/"
+  },
+  {
+    "name": "Event Loop Delay",
+    "link": "event-loop-delay/"
+  },
+  {
     "name": "Deep Clone",
     "link": "deep-clone/"
   },

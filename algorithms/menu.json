@@ -1,5 +1,17 @@
 [
   {
+    "name": "CRDT",
+    "link": "crdt/"
+  },
+  {
+    "name": "Linked List",
+    "link": "linked-list/"
+  },
+  {
+    "name": "Priority Queue",
+    "link": "priority-queue/"
+  },
+  {
     "name": "Rope",
     "link": "rope/"
   },

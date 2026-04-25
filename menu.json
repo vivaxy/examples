@@ -1,5 +1,13 @@
 [
   {
+    "name": "C++",
+    "link": "cpp/"
+  },
+  {
+    "name": "Node.js",
+    "link": "node-js/"
+  },
+  {
     "name": "Java",
     "link": "java"
   },

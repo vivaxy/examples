@@ -1,5 +1,21 @@
 [
   {
+    "name": "Inclusive Marks",
+    "link": "inclusive-marks/"
+  },
+  {
+    "name": "Not Supported",
+    "link": "not-supported/"
+  },
+  {
+    "name": "Rebase Steps",
+    "link": "rebase-steps/"
+  },
+  {
+    "name": "YATA",
+    "link": "yata/"
+  },
+  {
     "name": "Plugin State Best Practice",
     "link": "plugin-state-best-practice/"
   },

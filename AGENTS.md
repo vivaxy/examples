@@ -198,6 +198,8 @@ The repository uses a menu system for navigation:
 - `menu.json` files define navigation structure
 - HTML files use a common template
 - Index pages are auto-generated for directory listings
+- When adding a new entry to a `menu.json`, always append it at the **start** of
+  the array (not the end, not alphabetical)
 
 ### GitHub Pages Scripts
 

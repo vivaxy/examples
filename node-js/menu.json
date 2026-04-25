@@ -1,5 +1,13 @@
 [
   {
+    "name": "HTTP Request Header Size",
+    "link": "http-request-header-size/"
+  },
+  {
+    "name": "Worker Threads",
+    "link": "worker-threads/"
+  },
+  {
     "name": "AsyncLocalStorage",
     "link": "async-local-storage/index.js"
   },

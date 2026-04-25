@@ -1,5 +1,13 @@
 [
   {
+    "name": "Canvas",
+    "link": "canvas/"
+  },
+  {
+    "name": "Measure User Agent Specific Memory",
+    "link": "measure-user-agent-specific-memory/"
+  },
+  {
     "name": "Web Worker Multithreading",
     "link": "web-worker-multithreading/"
   },

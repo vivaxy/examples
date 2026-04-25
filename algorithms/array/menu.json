@@ -1,5 +1,9 @@
 [
   {
+    "name": "Heap Sort",
+    "link": "heap-sort/"
+  },
+  {
     "name": "Linear Search",
     "link": "linear-search/"
   },

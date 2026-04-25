@@ -1,5 +1,9 @@
 [
   {
+    "name": "Event Center",
+    "link": "event-center/"
+  },
+  {
     "name": "react dev tools",
     "link": "react-dev-tools"
   },
