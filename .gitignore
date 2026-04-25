@@ -8,3 +8,4 @@ yarn-error.log
 coverage
 /debug
 yarn.lock
+.claude

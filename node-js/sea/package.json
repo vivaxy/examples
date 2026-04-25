@@ -1,0 +1,18 @@
+{
+  "name": "sea",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=25.5.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "build": "node --build-sea sea-config.json && codesign --sign - hello",
+    "build:arm64": "node scripts/build-arch.js arm64",
+    "build:x64": "node scripts/build-arch.js x64",
+    "build:universal": "npm run build:arm64 && npm run build:x64 && lipo -create hello-arm64 hello-x64 -output hello && codesign --force --sign - hello",
+    "clean": "node scripts/clean.js"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+sea-prep.blob
+hello
+hello.exe
+hello-arm64
+hello-x64
+sea-config-arm64.json
+sea-config-x64.json
+node-v*-darwin-arm64*
+node-v*-darwin-x64*

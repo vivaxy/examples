@@ -1,0 +1,5 @@
+{
+  "main": "index.js",
+  "output": "hello",
+  "disableExperimentalSEAWarning": true
+}
