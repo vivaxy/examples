@@ -187,7 +187,11 @@ expect(result).toBe(expected);
 - Examples are independent and self-contained
 - No shared dependencies between examples (each has its own node_modules if
   needed)
+- Examples are isolated from each other: when working inside one example, treat
+  all other examples as unrelated — do not read, modify, or take cues from them
 - HTML files are entry points for browser-based examples
+- If an example does not have an `index.html`, it must include a `README.md` as
+  its entry point
 - Many examples are published to GitHub Pages
   (https://vivaxy.github.io/examples/)
 
@@ -200,6 +204,9 @@ The repository uses a menu system for navigation:
 - Index pages are auto-generated for directory listings
 - When adding a new entry to a `menu.json`, always append it at the **start** of
   the array (not the end, not alphabetical)
+- Every example must be listed in its parent `menu.json`. For examples without
+  an `index.html`, the `README.md` is the entry and must be referenced in
+  `menu.json`
 
 ### GitHub Pages Scripts
 
