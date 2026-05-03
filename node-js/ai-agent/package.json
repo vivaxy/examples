@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "openai": "^4.77.0"
+    "openai": "^4.77.0",
+    "undici": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
