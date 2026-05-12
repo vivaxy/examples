@@ -118,6 +118,8 @@ Table of contents
     * [Tokenizer](https://vivaxy.github.io/examples/compilers/write-a-programming-language-step-by-step/tokenizer/) Tokenizer
     * [Variables And Types](https://vivaxy.github.io/examples/compilers/write-a-programming-language-step-by-step/variables-and-types/) Variables And Types
 * [C++](https://vivaxy.github.io/examples/cpp/) C++
+* [Database](https://vivaxy.github.io/examples/database/) Database examples
+  * [Supabase](https://vivaxy.github.io/examples/database/supabase/) Supabase Auth, CRUD, and Realtime demo
 * [Functional Programming](https://vivaxy.github.io/examples/functional-programming/) 函数式编程
   * [Etc.](https://vivaxy.github.io/examples/functional-programming/etc/) Etc
   * [Manipulate Functions](https://vivaxy.github.io/examples/functional-programming/manipulate-functions/) Manipulate functions
