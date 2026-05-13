@@ -164,6 +164,7 @@ Table of contents
   * [load script](https://vivaxy.github.io/examples/javascript/load-script/) Load script
   * [matches-selector](https://vivaxy.github.io/examples/javascript/matches-selector/) Matches selector
   * [memorize](https://vivaxy.github.io/examples/javascript/memorize/) memorize
+  * [Microtask Queue](https://vivaxy.github.io/examples/javascript/microtask-queue/) Microtask Queue
   * [Mixin](https://vivaxy.github.io/examples/javascript/mixin/) Mixin implementation
   * [mobile input change](https://vivaxy.github.io/examples/javascript/mobile-input-change/) Mobile input change
   * [module view](https://vivaxy.github.io/examples/javascript/module-view/) Module view
