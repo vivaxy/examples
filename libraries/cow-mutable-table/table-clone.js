@@ -1,23 +1,24 @@
-let mutation = false;
 const cloned = new Set();
 
-class RowIds extends Array {
+export class RowIds extends Array {
   clone() {
     if (cloned.has(this)) {
       return this;
     }
-    return this.slice();
+    const newThis = RowIds.from(this);
+    cloned.add(newThis);
+    return newThis;
   }
 
   dump() {
-    return this.slice();
+    return Array.from(this);
   }
 }
 
-class CellValues extends Array {
+export class CellValues extends Array {
   set(offset, value) {
     const newThis = this.clone();
-    newThis[rowOffset] = value;
+    newThis[offset] = value;
     return newThis;
   }
 
@@ -25,11 +26,13 @@ class CellValues extends Array {
     if (cloned.has(this)) {
       return this;
     }
-    return this.slice();
+    const newThis = CellValues.from(this);
+    cloned.add(newThis);
+    return newThis;
   }
 
   dump() {
-    return this.slice();
+    return Array.from(this);
   }
 }
 
@@ -47,14 +50,19 @@ export class Column {
     if (cloned.has(this)) {
       return this;
     }
-    return new Column(id, this._cellValues);
+    const newColumn = new Column(this.id, this._cellValues);
+    cloned.add(newColumn);
+    return newColumn;
   }
 
   cloneWithCellValues(cellValues) {
     if (cloned.has(this)) {
+      this._cellValues = cellValues;
       return this;
     }
-    return new Column(id, cellValues);
+    const newColumn = new Column(this.id, cellValues);
+    cloned.add(newColumn);
+    return newColumn;
   }
 
   dump() {
@@ -84,8 +92,6 @@ class ColumnMap extends Map {
 }
 
 export class Table {
-  _version = 0;
-  _rowIds = new RowIds();
   _columnMap = new ColumnMap();
 
   constructor(version, columnMap, rowIds) {
@@ -102,18 +108,10 @@ export class Table {
     return new Table(version, columnMap, rowIds);
   }
 
-  withMutation(mutate) {
-    mutation = true;
-    cloned.clear();
-    mutate();
-    cloned.clear();
-    mutation = false;
-  }
-
   setCellValue(rowId, colId, cellValue) {
     const rowOffset = this._rowIds.indexOf(rowId);
     return this.cloneWithColumnMap(
-      this._columnMap.setCellValue(rowId, rowOffset, cellValue),
+      this._columnMap.setCellValue(colId, rowOffset, cellValue),
     );
   }
 
@@ -121,19 +119,43 @@ export class Table {
     if (cloned.has(this)) {
       return this;
     }
-    return new Table(this._version, this._columnMap, this._rowIds);
+    const newTable = new Table(this._version, this._columnMap, this._rowIds);
+    cloned.add(newTable);
+    return newTable;
+  }
+
+  cloneWithVersion(version) {
+    if (cloned.has(this)) {
+      return this;
+    }
+    const newTable = new Table(version, this._columnMap, this._rowIds);
+    cloned.add(newTable);
+    return newTable;
   }
 
   cloneWithColumnMap(columnMap) {
     if (cloned.has(this)) {
+      this._columnMap = columnMap;
       return this;
     }
-    return new Table(this._version, columnMap, this._rowIds);
+    const newTable = new Table(this._version, columnMap, this._rowIds);
+    cloned.add(newTable);
+    return newTable;
+  }
+
+  dump() {
+    return {
+      version: this._version,
+      columns: [...this._columnMap.values()].map((column) => {
+        return column.dump();
+      }),
+      rowIds: this._rowIds.dump(),
+    };
   }
 }
 
-const newDataCore = dataCore.clone();
-withMutation(() => {
-  newDataCore.setCellValue('row1', 'col1', 'newCell1');
-  newDataCore.setCellValue('row1', 'col1', 'newCell2');
-});
+export function withMutation(mutator) {
+  cloned.clear();
+  mutator();
+  cloned.clear();
+}
