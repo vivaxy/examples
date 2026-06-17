@@ -1,0 +1,10 @@
+{
+  "name": "chrome-devtools-mcp-auto-connect",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.7",
+  "scripts": {
+    "test:auto-connect": "zsh run.sh"
+  }
+}

@@ -1,5 +1,9 @@
 [
   {
+    "name": "Chrome DevTools MCP Auto Connect",
+    "link": "chrome-devtools-mcp-auto-connect/README.md"
+  },
+  {
     "name": "Copy-on-write Mutable Table",
     "link": "cow-mutable-table/"
   },
