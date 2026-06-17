@@ -1,18 +1,18 @@
-import { Column, Table } from '../table.js';
+import { Column, Table } from '../table-own-versions.js';
 
 describe('Column', () => {
   describe('constructor', () => {
     it('sets id and cellValues', () => {
       const col = new Column('col1', ['a', 'b']);
       expect(col.id).toBe('col1');
-      expect(col.dump()).toEqual(['a', 'b']);
+      expect(col.dump()).toEqual({ id: 'col1', cellValues: ['a', 'b'] });
     });
   });
 
   describe('dump()', () => {
     it('returns current cell values', () => {
       const col = new Column('col1', ['x']);
-      expect(col.dump()).toEqual(['x']);
+      expect(col.dump()).toEqual({ id: 'col1', cellValues: ['x'] });
     });
   });
 
@@ -21,7 +21,7 @@ describe('Column', () => {
       const col = new Column('col1', ['a', 'b', 'c']);
       col.setVersion('v1');
       col.setCellValue(1, 'B');
-      expect(col.dump()).toEqual(['a', 'B', 'c']);
+      expect(col.dump()).toEqual({ id: 'col1', cellValues: ['a', 'B', 'c'] });
     });
   });
 
@@ -61,8 +61,8 @@ describe('Column', () => {
       // Clone now owns its own copy
       expect(cloned._cellValues).not.toBe(originalArray);
       // Original is untouched
-      expect(col.dump()).toEqual(['a']);
-      expect(cloned.dump()).toEqual(['b']);
+      expect(col.dump().cellValues).toEqual(['a']);
+      expect(cloned.dump().cellValues).toEqual(['b']);
     });
 
     it('does not re-clone cellValues on subsequent writes in the same version', () => {
@@ -76,7 +76,7 @@ describe('Column', () => {
       cloned.setCellValue(1, 'B');
       // Second write must reuse the same array — no extra clone
       expect(cloned._cellValues).toBe(arrayAfterFirstWrite);
-      expect(cloned.dump()).toEqual(['A', 'B']);
+      expect(cloned.dump().cellValues).toEqual(['A', 'B']);
     });
   });
 });
@@ -95,8 +95,8 @@ describe('Table', () => {
       expect(dumped.version).toBe('v1');
       expect(dumped.rowIds).toEqual(['row1', 'row2']);
       expect(dumped.columns).toEqual([
-        ['cell_1_1', 'cell_2_1'],
-        ['cell_1_2', 'cell_2_2'],
+        { id: 'col1', cellValues: ['cell_1_1', 'cell_2_1'] },
+        { id: 'col2', cellValues: ['cell_1_2', 'cell_2_2'] },
       ]);
     });
   });
@@ -108,8 +108,8 @@ describe('Table', () => {
       expect(dumped).toEqual({
         version: 'v1',
         columns: [
-          ['cell_1_1', 'cell_2_1'],
-          ['cell_1_2', 'cell_2_2'],
+          { id: 'col1', cellValues: ['cell_1_1', 'cell_2_1'] },
+          { id: 'col2', cellValues: ['cell_1_2', 'cell_2_2'] },
         ],
         rowIds: ['row1', 'row2'],
       });
@@ -120,7 +120,10 @@ describe('Table', () => {
     it('updates the correct cell by rowId and colId', () => {
       const table = makeTable();
       table.setCellValue('row2', 'col1', 'updated');
-      expect(table.dump().columns[0]).toEqual(['cell_1_1', 'updated']);
+      expect(table.dump().columns[0].cellValues).toEqual([
+        'cell_1_1',
+        'updated',
+      ]);
     });
   });
 
@@ -151,8 +154,14 @@ describe('Table', () => {
 
       cloned.setCellValue('row1', 'col1', 'new_value');
 
-      expect(table.dump().columns[0]).toEqual(['cell_1_1', 'cell_2_1']);
-      expect(cloned.dump().columns[0]).toEqual(['new_value', 'cell_2_1']);
+      expect(table.dump().columns[0].cellValues).toEqual([
+        'cell_1_1',
+        'cell_2_1',
+      ]);
+      expect(cloned.dump().columns[0].cellValues).toEqual([
+        'new_value',
+        'cell_2_1',
+      ]);
     });
 
     it('multiple edits to clone leave original unchanged', () => {
@@ -162,8 +171,14 @@ describe('Table', () => {
       cloned.setCellValue('row1', 'col1', 'edit1');
       cloned.setCellValue('row1', 'col1', 'edit2');
 
-      expect(table.dump().columns[0]).toEqual(['cell_1_1', 'cell_2_1']);
-      expect(cloned.dump().columns[0]).toEqual(['edit2', 'cell_2_1']);
+      expect(table.dump().columns[0].cellValues).toEqual([
+        'cell_1_1',
+        'cell_2_1',
+      ]);
+      expect(cloned.dump().columns[0].cellValues).toEqual([
+        'edit2',
+        'cell_2_1',
+      ]);
     });
   });
 
@@ -180,7 +195,7 @@ describe('Table', () => {
 
       // Same array — no second clone
       expect(arrayAfterSecondWrite).toBe(arrayAfterFirstWrite);
-      expect(cloned.dump().columns[0]).toEqual(['A', 'B']);
+      expect(cloned.dump().columns[0].cellValues).toEqual(['A', 'B']);
     });
   });
 });

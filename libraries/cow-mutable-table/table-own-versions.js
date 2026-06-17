@@ -1,4 +1,5 @@
 export class Column {
+  // private _version;
   _ownedVersion = new Map();
 
   constructor(id, cellValues) {
@@ -37,11 +38,15 @@ export class Column {
   }
 
   dump() {
-    return this._cellValues;
+    return {
+      id: this.id,
+      cellValues: this._cellValues,
+    };
   }
 }
 
 export class Table {
+  // private _version;
   _columnMap = new Map();
   _ownedVersion = new Map();
 
