@@ -1,7 +1,3 @@
-/**
- * @since 2019-06-06 10:47
- * @author vivaxy
- */
 let a = { x: 1, y: 2, z: 3 };
 let b = {};
 b.x = 1;

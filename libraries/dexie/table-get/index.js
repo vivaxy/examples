@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-23
- * @author vivaxy
- */
 import Dexie from '//cdn.skypack.dev/dexie';
 
 const db = new Dexie('vivaxy-example-table-get');

@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-13 10:35:10
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -18,7 +13,4 @@ class Button extends Component {
 const mapStateToProps = () => {
   return null;
 };
-export default connect(
-  mapStateToProps,
-  actions.footer.button,
-)(Button);
+export default connect(mapStateToProps, actions.footer.button)(Button);

@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-29
- * @author vivaxy
- */
 function common(name, renderer) {
   let i = 0;
 

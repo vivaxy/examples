@@ -1,7 +1,3 @@
-/**
- * @since 2021-05-19
- * @author vivaxy
- */
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
 import { Node } from 'prosemirror-model';

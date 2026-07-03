@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-09 13:12:13
- * @author vivaxy
- */
-
 import { Component } from 'react';
 
 import events from './events';

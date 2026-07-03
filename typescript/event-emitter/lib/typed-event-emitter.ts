@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-14
- * @author vivaxy
- */
 import { EventEmitter } from 'events';
 
 interface IEventsProtocol {
@@ -13,7 +9,7 @@ interface IEventListenerProtocol<T extends unknown[]> {
 }
 
 export class TypedEventEmitter<
-  Events extends IEventsProtocol
+  Events extends IEventsProtocol,
 > extends EventEmitter {
   on<EventName extends keyof Events>(
     eventName: EventName,

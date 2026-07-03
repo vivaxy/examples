@@ -1,6 +1,4 @@
 /**
- * @since 2019-03-13 12:50
- * @author vivaxy
  * @see https://www.youtube.com/watch?v=IpfZ8Nj3uiE
  */
 

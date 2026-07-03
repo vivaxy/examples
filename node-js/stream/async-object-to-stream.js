@@ -1,13 +1,9 @@
-/**
- * @since 2019-12-16 07:49
- * @author vivaxy
- */
 const { Readable } = require('stream');
 
 function asyncObjectToStream(fn, keys) {
   const p = fn();
   const ret = {};
-  keys.forEach(function(key) {
+  keys.forEach(function (key) {
     ret[key] = new Readable({
       read() {
         p.then((data) => {
@@ -22,7 +18,7 @@ function asyncObjectToStream(fn, keys) {
 
 function getData() {
   return new Promise((resolve) => {
-    setTimeout(function() {
+    setTimeout(function () {
       resolve({
         name: 'ABCDEFG',
         age: 18,
@@ -32,11 +28,11 @@ function getData() {
 }
 
 const objectStream = asyncObjectToStream(getData, ['name', 'age']);
-setTimeout(function() {
-  Object.keys(objectStream).forEach(function(key) {
+setTimeout(function () {
+  Object.keys(objectStream).forEach(function (key) {
     const timeKey = 'getData for ' + key;
     console.time(timeKey);
-    objectStream[key].on('data', function(chunk) {
+    objectStream[key].on('data', function (chunk) {
       console.log(chunk.toString());
       console.timeEnd(timeKey);
     });

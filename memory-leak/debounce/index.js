@@ -1,8 +1,3 @@
-/**
- * @since 2019-03-06 19:45
- * @author vivaxy
- */
-
 function debounceWithClearMemory(handler, timeout) {
   let timer = null;
   return (params) => {
@@ -47,27 +42,22 @@ class TestDebounceWithoutCleatMemory {
     return typeof this.move;
   }
 
-  destroy() {
-  }
+  destroy() {}
 }
 
-window.testDebounceWithClearMemory = function() {
-
+window.testDebounceWithClearMemory = function () {
   for (let i = 0; i < 1e5; i++) {
     let a = new TestDebounceWithClearMemory();
     a.move();
     a.destroy();
     a = null;
   }
-
 };
 
-window.testDebounceWithoutClearMemory = function() {
-
+window.testDebounceWithoutClearMemory = function () {
   for (let i = 0; i < 1e5; i++) {
     let a = new TestDebounceWithoutCleatMemory();
     a.move();
     a.destroy();
   }
-
 };

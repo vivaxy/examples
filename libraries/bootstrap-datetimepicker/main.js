@@ -1,7 +1,3 @@
-/**
- * @since 150218 16:43
- * @author vivaxy
- */
 $('.form_datetime').datetimepicker({
   language: 'zh-CN',
   weekStart: 1,

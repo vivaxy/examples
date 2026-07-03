@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-29 12:53
- * @author vivaxy
- */
 export const initialState = { count: 0 };
 
 export function reducer(state, action) {

@@ -1,11 +1,7 @@
-/**
- * @since 2015-12-05 17:18
- * @author vivaxy
- */
 'use strict';
 
 if (!Array.prototype.find) {
-  Array.prototype.find = function(predicate) {
+  Array.prototype.find = function (predicate) {
     if (this === null) {
       throw new TypeError('Array.prototype.find called on null or undefined');
     }

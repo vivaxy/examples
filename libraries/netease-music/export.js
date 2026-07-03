@@ -1,7 +1,3 @@
-/**
- * @since 2024-09-04
- * @author vivaxy
- */
 import fs from 'fs';
 
 const content = fs.readFileSync('./list.json', 'utf8');

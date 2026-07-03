@@ -1,11 +1,6 @@
-/**
- * @since 2018-12-03 17:10
- * @author vivaxy
- */
-
 const { Observable } = rxjs;
 
-const foo = Observable.create(function(observer) {
+const foo = Observable.create(function (observer) {
   console.log('Hello');
   observer.next(42);
   observer.next(43);
@@ -17,7 +12,7 @@ const foo = Observable.create(function(observer) {
   }, 1000);
 });
 
-foo.subscribe(function(x) {
+foo.subscribe(function (x) {
   console.log(x);
 });
 

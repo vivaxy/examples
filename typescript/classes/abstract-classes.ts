@@ -1,13 +1,8 @@
-/**
- * @since 2019-04-23 05:04
- * @author vivaxy
- */
-
 abstract class AnimalOfAbstractClasses {
   abstract eat(): void;
   abstract makeSound(): void;
   move(): void {
-      console.log("roaming the earth...");
+    console.log('roaming the earth...');
   }
 }
 

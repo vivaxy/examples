@@ -1,11 +1,6 @@
-/**
- * @since 2017-05-11 14:20:23
- * @author vivaxy
- */
-
 import PropTypes from 'prop-types';
 
-const createActionObject = function(obj, actionCreator) {
+const createActionObject = function (obj, actionCreator) {
   const result = {};
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
@@ -35,9 +30,8 @@ export default (Component) => {
     constructor(props, context) {
       super(props, context);
       this.actionCreator = this.actionCreator.bind(this);
-      this.initializeStoreAndActions = this.initializeStoreAndActions.bind(
-        this,
-      );
+      this.initializeStoreAndActions =
+        this.initializeStoreAndActions.bind(this);
     }
 
     getChildContext() {

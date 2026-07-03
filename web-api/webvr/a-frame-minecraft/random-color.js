@@ -1,8 +1,3 @@
-/**
- * @since 2017-03-19 11:27:38
- * @author vivaxy
- */
-
 AFRAME.registerComponent('random-color', {
   dependencies: ['material'],
   init: function () {

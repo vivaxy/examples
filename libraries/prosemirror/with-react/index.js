@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-25
- * @author vivaxy
- */
 import React from 'https://cdn.skypack.dev/react';
 import ReactDOM from 'https://cdn.skypack.dev/react-dom';
 import { EditorState } from 'https://cdn.skypack.dev/prosemirror-state';

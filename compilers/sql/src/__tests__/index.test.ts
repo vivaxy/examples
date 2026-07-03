@@ -1,10 +1,6 @@
-/**
- * @since 2019-06-07 14:17:16
- * @author vivaxy
- */
 import { tokenize, parse, TYPES } from '../index';
 
-test('tokenize', function() {
+test('tokenize', function () {
   const tokens = tokenize(`
 /* comment */
 `);
@@ -24,9 +20,9 @@ test('tokenize', function() {
   ]);
 });
 
-test('parse', function() {
+test('parse', function () {
   const sqls = ['select a from b', 'select a, b, c from b'];
-  sqls.forEach(function(sql) {
+  sqls.forEach(function (sql) {
     const tokens = tokenize(sql);
     const parsed = parse(tokens);
     if (!parsed) {

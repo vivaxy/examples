@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-29
- * @author vivaxy
- */
 const APP_RESOURCE_BASE_PATH = './';
 
 function loadJS(appId, handleMessage) {
@@ -61,15 +57,13 @@ async function loadResources(appId) {
     }
   }
 
-  const [
-    { worker, initialData },
-    render,
-    { templateRoot },
-  ] = await Promise.all([
-    loadJS(appId, handleMessage),
-    loadTemplate(appId),
-    createShadowDOMAndLoadStyle(appId),
-  ]);
+  const [{ worker, initialData }, render, { templateRoot }] = await Promise.all(
+    [
+      loadJS(appId, handleMessage),
+      loadTemplate(appId),
+      createShadowDOMAndLoadStyle(appId),
+    ],
+  );
 
   templateRoot.addEventListener('click', function (e) {
     const clickHandlerName = e.target.getAttribute('bindclick');

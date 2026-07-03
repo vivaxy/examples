@@ -1,7 +1,3 @@
-/**
- * @since 2022-09-03 08:29
- * @author vivaxy
- */
 const fs = require('fs');
 const http = require('http');
 const { URL } = require('url');

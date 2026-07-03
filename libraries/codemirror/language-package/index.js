@@ -1,7 +1,3 @@
-/**
- * @since 2024-12-11
- * @author vivaxy
- */
 import { EditorView, basicSetup } from 'codemirror';
 import { conventionalCommits } from './language';
 

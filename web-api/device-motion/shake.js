@@ -1,8 +1,3 @@
-/**
- * @since 2014/9/9 10:05
- * @author vivaxy
- */
-
 function init() {
   const SHAKE_THRESHOLD = 500;
   let lastTime = 0;

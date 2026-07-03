@@ -1,8 +1,3 @@
-/**
- * @since 20180418 14:36
- * @author vivaxy
- */
-
 import EventEmitter1 from './EventEmitter1.js';
 import EventEmitter2 from './EventEmitter2.js';
 

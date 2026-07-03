@@ -1,7 +1,3 @@
-/**
- * @since 150107 09:42
- * @author vivaxy
- */
 // Function to show Notification
 function createNotification(type) {
   if (type == '') type = 'normal';
@@ -15,9 +11,8 @@ function createNotification(type) {
       msg,
     );
   } else {
-    var notification = window.Notifications.createHTMLNotification(
-      'content.html',
-    );
+    var notification =
+      window.Notifications.createHTMLNotification('content.html');
   }
   notification.show();
 }

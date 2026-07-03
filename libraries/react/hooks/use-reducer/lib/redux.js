@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-29 12:36
- * @author vivaxy
- */
 const { React } = window;
 
 export const ReducerContext = React.createContext();

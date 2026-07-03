@@ -69,15 +69,11 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
-/**
- * @since 2019-07-30 16:15
- * @author vivaxy
- */
 var Parent = require('./parent.js');
 
 var Child =
   /*#__PURE__*/
-  (function(_Parent) {
+  (function (_Parent) {
     _inherits(Child, _Parent);
 
     function Child() {

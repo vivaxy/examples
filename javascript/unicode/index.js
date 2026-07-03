@@ -1,8 +1,3 @@
-/**
- * @since 150521 19:15
- * @author vivaxy
- */
-
 // same as ES5.1
 '𠮷'.length == 2;
 

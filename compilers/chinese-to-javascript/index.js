@@ -1,7 +1,3 @@
-/**
- * @since 20180503 11:47
- * @author vivaxy
- */
 import {
   test,
   expect,

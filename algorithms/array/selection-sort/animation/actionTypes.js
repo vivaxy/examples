@@ -1,7 +1,3 @@
-/**
- * @since 2018-05-01 10:44:05
- * @author vivaxy
- */
 export const OUTER_SELECT = 0;
 export const OUTER_UNSELECT = 1;
 export const MARK = 2;

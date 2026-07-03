@@ -1,7 +1,3 @@
-/**
- * @since 2023-12-08
- * @author vivaxy
- */
 #demo-popover::backdrop {
   /* affects popover mask */
   background-color: rgba(0, 0, 0, 0.3);

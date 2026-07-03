@@ -1,8 +1,3 @@
-/**
- * @since 20180606 17:24
- * @author vivaxy
- */
-
 var dimension = 0.8;
 var arrows = null;
 var sceneEl = null;

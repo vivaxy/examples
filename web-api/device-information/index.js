@@ -1,7 +1,3 @@
-/**
- * @since 2019-10-20 07:22
- * @author vivaxy
- */
 console.log('devicePixelRatio', devicePixelRatio);
 
 console.log('document.referrer', document.referrer);

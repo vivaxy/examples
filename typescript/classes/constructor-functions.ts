@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 07:05
- * @author vivaxy
- */
 class GreeterOfConstructorFunctions {
   static standardGreeting = 'Hello, there';
   greeting: string;
@@ -14,8 +10,10 @@ class GreeterOfConstructorFunctions {
   }
 }
 
-const greeterMaker: typeof GreeterOfConstructorFunctions = GreeterOfConstructorFunctions;
+const greeterMaker: typeof GreeterOfConstructorFunctions =
+  GreeterOfConstructorFunctions;
 greeterMaker.standardGreeting = 'Hey there!';
 
-const greeterOfConstructorFunctions: GreeterOfConstructorFunctions = new greeterMaker();
+const greeterOfConstructorFunctions: GreeterOfConstructorFunctions =
+  new greeterMaker();
 console.log(greeterOfConstructorFunctions.greet());

@@ -1,7 +1,3 @@
-/**
- * @since 2023-03-28
- * @author vivaxy
- */
 const { Transform } = require('stream');
 
 module.exports = class SSE extends Transform {

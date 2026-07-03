@@ -1,7 +1,3 @@
-/**
- * @since 2019-09-16 07:53
- * @author vivaxy
- */
 import React, { Component } from 'react';
 
 export default class Child1 extends Component {

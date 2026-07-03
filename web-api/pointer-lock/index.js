@@ -1,8 +1,3 @@
-/**
- * @since 2016-02-04 15:59
- * @author vivaxy
- */
-
 const text = document.querySelector('.js-text');
 
 const getCurrentLockElement = () => {

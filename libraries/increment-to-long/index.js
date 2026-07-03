@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-10
- * @author vivaxy
- */
 import { incrementToLong } from './utils/increment-to-long.js';
 
 const input = /** @type {HTMLInputElement} */ (

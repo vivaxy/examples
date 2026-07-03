@@ -1,6 +1,4 @@
 /**
- * @since 2024-07-10
- * @author vivaxy
  * @see https://github.com/grantila/fast-string-compare/blob/master/lib/index.ts
  */
 import {

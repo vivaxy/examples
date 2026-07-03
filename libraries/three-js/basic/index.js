@@ -1,7 +1,3 @@
-/**
- * @since 2017-03-10 17:15
- * @author vivaxy
- */
 var scene, camera, renderer;
 var geometry, material, mesh;
 

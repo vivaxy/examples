@@ -1,7 +1,3 @@
-/**
- * @since 2025-07-24 17:10
- * @author vivaxy
- */
 var dom = document.getElementById('container');
 var myChart = echarts.init(dom, null, {
   renderer: 'canvas',

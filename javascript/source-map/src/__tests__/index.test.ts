@@ -1,14 +1,10 @@
-/**
- * @since 2020-03-08 17:45:41
- * @author vivaxy
- */
 import * as path from 'path';
 import * as fse from 'fs-extra';
 import * as webpack from 'webpack';
 import parse from '../index';
 
 function buildWebpack() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     webpack(
       {
         entry: './index.js',
@@ -20,7 +16,7 @@ function buildWebpack() {
         mode: 'production',
         devtool: 'source-map',
       },
-      function(err, stats) {
+      function (err, stats) {
         if (err || stats.hasErrors()) {
           reject(err || stats.toString());
         } else {
@@ -46,12 +42,12 @@ async function getSourceMap(fixtureName: string, sourceMapPath: string) {
   return JSON.parse(sourceMapFileContent);
 }
 
-test('uglify', async function() {
+test('uglify', async function () {
   const sourceMap = await getSourceMap('uglify', 'index.js.map');
   expect(parse(sourceMap)).toMatchSnapshot();
 });
 
-test('webpack', async function() {
+test('webpack', async function () {
   // await buildWebpack();
   const sourceMap = await getSourceMap('webpack', 'bundle.js.map');
   expect(parse(sourceMap)).toMatchSnapshot();

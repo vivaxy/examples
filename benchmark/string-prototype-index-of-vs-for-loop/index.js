@@ -1,8 +1,3 @@
-/**
- * @since 20180612 17:46
- * @author vivaxy
- */
-
 const logEl = document.querySelector('log');
 
 function log(c) {

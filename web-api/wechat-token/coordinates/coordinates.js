@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-/**
- * @since 150622 13:34
- * @author vivaxy
- */
 var fs = require('fs');
 var getRange = require('./data/get-range');
 var filePath = './coordinates.json';

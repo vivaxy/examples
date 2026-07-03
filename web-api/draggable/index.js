@@ -1,8 +1,3 @@
-/**
- * @since 2014/8/26 16:34
- * @author vivaxy
- */
-
 var balls = Array.prototype.slice.call(document.querySelectorAll('ball'));
 var buckets = Array.prototype.slice.call(document.querySelectorAll('buckets'));
 

@@ -1,8 +1,4 @@
-/**
- * @since 150215 14:31
- * @author vivaxy
- */
-var t2q = function() {
+var t2q = function () {
   $('#qrcode-canvas')
     .html('')
     .qrcode({
@@ -10,7 +6,7 @@ var t2q = function() {
     });
 };
 
-var utf16to8 = function(str) {
+var utf16to8 = function (str) {
   var out, i, len, c;
   out = '';
   len = str.length;
@@ -40,6 +36,6 @@ function saveAsLocalImage() {
 
 $('#txt').on('keyup', t2q);
 
-document.getElementById('download').onclick = function() {
+document.getElementById('download').onclick = function () {
   saveAsLocalImage();
 };

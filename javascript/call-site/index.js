@@ -1,14 +1,10 @@
-/**
- * @since 2020-06-03 11:27
- * @author vivaxy
- */
 function getCallSites() {
   const _prepareStackTrace = Error.prepareStackTrace;
   Error.prepareStackTrace = (_, stack) => stack;
   const stack = new Error().stack;
   const stacks =
     typeof stack === 'string'
-      ? stack.split('\n').map(function(s) {
+      ? stack.split('\n').map(function (s) {
           return s.trim();
         })
       : stack;
@@ -24,7 +20,7 @@ function a() {
 function b() {
   window.callSites = getCallSites();
   console.log(
-    window.callSites.map(function(callSite) {
+    window.callSites.map(function (callSite) {
       return callSite.toString();
     }),
   );

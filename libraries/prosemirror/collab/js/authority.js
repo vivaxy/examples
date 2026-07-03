@@ -1,7 +1,3 @@
-/**
- * @since 2021-05-19
- * @author vivaxy
- */
 export default class Authority {
   constructor(doc) {
     this.doc = doc;

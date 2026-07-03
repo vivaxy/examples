@@ -1,15 +1,10 @@
-/**
- * @since 20171227 14:33
- * @author vivaxy
- */
-
 body {
-    height: 2000px;
+  height: 2000px;
 }
 
 #content {
-    background-size: 100%;
-    background-image: url(//www.baidu.com/img/bd_logo.png);
-    height: 400px;
-    overflow-y: scroll;
+  background-size: 100%;
+  background-image: url(//www.baidu.com/img/bd_logo.png);
+  height: 400px;
+  overflow-y: scroll;
 }

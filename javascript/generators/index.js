@@ -1,9 +1,5 @@
-/**
- * @since 150723 16:44
- * @author vivaxy
- */
 var fibonacci = {
-  [Symbol.iterator]: function*() {
+  [Symbol.iterator]: function* () {
     var pre = 0,
       cur = 1;
     for (;;) {

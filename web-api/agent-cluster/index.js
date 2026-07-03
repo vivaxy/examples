@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-22 19:20
- * @author vivaxy
- */
 const button = document.getElementById('button');
 const iframe = document.getElementById('iframe');
 button.addEventListener('click', function () {

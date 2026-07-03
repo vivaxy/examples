@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-11 17:57:28
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 

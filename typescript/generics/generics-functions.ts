@@ -1,8 +1,3 @@
-/**
- * @since 2019-05-28 17:10
- * @author vivaxy
- */
-
 function identityOfGenerics<T>(arg: T): T {
   return arg;
 }
@@ -22,7 +17,8 @@ interface IdentityOfGenerics {
   <T>(arg: T): T;
 }
 
-const identityOfGenericsInterface: IdentityOfGenerics = (arg) => {						// 函数 interface 的声明方式
+const identityOfGenericsInterface: IdentityOfGenerics = (arg) => {
+  // 函数 interface 的声明方式
   return arg;
 };
 
@@ -30,6 +26,9 @@ interface IdentityOfGenericsWithGenerics<T> {
   (arg: T): T;
 }
 
-const identityOfGenericsInterfaceWithGenerics: IdentityOfGenericsWithGenerics<number> = (arg) => {						// 函数 interface 的声明方式
+const identityOfGenericsInterfaceWithGenerics: IdentityOfGenericsWithGenerics<
+  number
+> = (arg) => {
+  // 函数 interface 的声明方式
   return arg;
 };

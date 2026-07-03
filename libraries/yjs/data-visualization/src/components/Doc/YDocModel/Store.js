@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-14
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import Struct from './Struct';
 import { toJSON } from '../../../data-viewer';

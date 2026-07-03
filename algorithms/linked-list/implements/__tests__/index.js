@@ -1,8 +1,3 @@
-/**
- * @since 20180719 11:51
- * @author vivaxy
- */
-
 const test = require('ava');
 const LinkedList = require('../index.js');
 
@@ -54,7 +49,7 @@ test('should delete node by value from linked list', (t) => {
   t.is(linkedList.tail.value, 5);
 
   const deletedNodes = linkedList.remove(3);
-  t.is(deletedNodes.map(node => node.value).join(','), '3,3,3');
+  t.is(deletedNodes.map((node) => node.value).join(','), '3,3,3');
   t.is(linkedList.toString(), '1,1,2,4,5');
 
   linkedList.remove(3);

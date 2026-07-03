@@ -1,8 +1,3 @@
-/**
- * @since 150610 10:31
- * @author vivaxy
- */
-
 var http = require('http');
 
 var approach = require('./approach');
@@ -61,28 +56,40 @@ module.exports = function (callback) {
     latitude: {},
   };
   console.log('\n-- getting longitude low bound --');
-  approach(longitude.lowMin, longitude.lowMax, longitude.get, function (
-    longitudeLow,
-  ) {
-    rangeData.longitude.low = parseFloat(longitudeLow);
-    console.log('\n-- getting longitude high bound --');
-    approach(longitude.highMin, longitude.highMax, longitude.get, function (
-      longitudeHigh,
-    ) {
-      rangeData.longitude.high = parseFloat(longitudeHigh);
-      console.log('\n-- getting latitude low bound --');
-      approach(latitude.lowMin, latitude.lowMax, latitude.get, function (
-        latitudeLow,
-      ) {
-        rangeData.latitude.low = parseFloat(latitudeLow);
-        console.log('\n-- getting latitude high bound --');
-        approach(latitude.highMin, latitude.highMax, latitude.get, function (
-          latitudeHigh,
-        ) {
-          rangeData.latitude.high = parseFloat(latitudeHigh);
-          callback && callback(rangeData);
-        });
-      });
-    });
-  });
+  approach(
+    longitude.lowMin,
+    longitude.lowMax,
+    longitude.get,
+    function (longitudeLow) {
+      rangeData.longitude.low = parseFloat(longitudeLow);
+      console.log('\n-- getting longitude high bound --');
+      approach(
+        longitude.highMin,
+        longitude.highMax,
+        longitude.get,
+        function (longitudeHigh) {
+          rangeData.longitude.high = parseFloat(longitudeHigh);
+          console.log('\n-- getting latitude low bound --');
+          approach(
+            latitude.lowMin,
+            latitude.lowMax,
+            latitude.get,
+            function (latitudeLow) {
+              rangeData.latitude.low = parseFloat(latitudeLow);
+              console.log('\n-- getting latitude high bound --');
+              approach(
+                latitude.highMin,
+                latitude.highMax,
+                latitude.get,
+                function (latitudeHigh) {
+                  rangeData.latitude.high = parseFloat(latitudeHigh);
+                  callback && callback(rangeData);
+                },
+              );
+            },
+          );
+        },
+      );
+    },
+  );
 };

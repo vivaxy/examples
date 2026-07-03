@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-25
- * @author vivaxy
- */
 import * as E from '../enums/event-types.js';
 import * as EDIT_TYPES from '../enums/edit-types.js';
 

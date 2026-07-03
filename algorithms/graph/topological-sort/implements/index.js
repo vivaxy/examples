@@ -1,15 +1,11 @@
 /**
- * @since 20180527 17:10
- * @author vivaxy
- */
-
-/**
  * n edges
  * m vertexes
  * @param graph
  * @returns {Array}
  */
-exports.topologicalSort = function topologicalSort(graph) { // Θ(m * n + 6 * n + 2 * m)
+exports.topologicalSort = function topologicalSort(graph) {
+  // Θ(m * n + 6 * n + 2 * m)
   const vertices = graph.getAllVertices(); // Θ(n)
   const edges = graph.getAllEdges(); // Θ(m)
   const inDegree = vertices.map(mapZero); // Θ(n)
@@ -22,17 +18,20 @@ exports.topologicalSort = function topologicalSort(graph) { // Θ(m * n + 6 * n 
   //     inDegree[vertices.indexOf(edges[j].endVertex)]++; // Θ(n)
   //   }
   // }
-  for (let i = 0; i < edges.length; i++) { // Θ(m * n)
+  for (let i = 0; i < edges.length; i++) {
+    // Θ(m * n)
     inDegree[vertices.indexOf(edges[i].endVertex)]++; // Θ(n)
   }
 
-  for (let i = 0; i < inDegree.length; i++) { // Θ(n)
+  for (let i = 0; i < inDegree.length; i++) {
+    // Θ(n)
     if (inDegree[i] === 0) {
       next.push(vertices[i].value);
     }
   }
 
-  while (next.length) { // Θ(2 * n + m)
+  while (next.length) {
+    // Θ(2 * n + m)
     const value = next.shift();
     sequence.push(value);
     const vertex = vertices.find(findVertexByValue(value)); // Θ(n)
@@ -46,7 +45,6 @@ exports.topologicalSort = function topologicalSort(graph) { // Θ(m * n + 6 * n 
         }
       }
     }
-
   }
 
   return sequence;

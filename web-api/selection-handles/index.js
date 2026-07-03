@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-22 16:45
- * @author vivaxy
- */
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 

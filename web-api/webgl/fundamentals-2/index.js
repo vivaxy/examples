@@ -1,6 +1,4 @@
 /**
- * @since 2017-03-08 17:35
- * @author vivaxy
  * @see https://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html
  */
 

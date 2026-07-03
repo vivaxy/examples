@@ -1,7 +1,3 @@
-/**
- * @since 2018-04-22 09:27:13
- * @author vivaxy
- */
 const params = [
   {
     name: 'interval',

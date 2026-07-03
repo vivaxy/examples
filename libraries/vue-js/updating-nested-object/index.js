@@ -1,8 +1,3 @@
-/**
- * @since 20180813 14:59
- * @author vivaxy
- */
-
 const vm = new Vue({
   el: '#root',
   data: {

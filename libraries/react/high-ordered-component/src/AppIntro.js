@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-09 10:20:57
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 
 import createEventfulComponent from './createEventfulComponent';

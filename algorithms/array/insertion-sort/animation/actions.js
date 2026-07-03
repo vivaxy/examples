@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-06 12:47:59
- * @author vivaxy
- */
-
 import algorithm from './algorithm.js';
 import array from './array.js';
 import query from './query.js';

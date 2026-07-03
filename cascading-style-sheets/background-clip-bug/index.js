@@ -1,7 +1,3 @@
-/**
- * @since 2021-09-08
- * @author vivaxy
- */
 const $css = document.querySelector('#css');
 
 // function camelCase(str) {

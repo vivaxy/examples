@@ -1,7 +1,3 @@
-/**
- * @since 150521 20:17
- * @author vivaxy
- */
 class Base {
   constructor(id) {
     this.id = id;

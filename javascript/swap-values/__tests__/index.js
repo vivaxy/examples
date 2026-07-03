@@ -1,8 +1,3 @@
-/**
- * @since 20180503 14:02
- * @author vivaxy
- */
-
 const test = require('ava');
 const { swapValues1, swapValues2 } = require('../index.js');
 

@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-/**
- * @since 2020-09-14 19:28
- * @author vivaxy
- */
 const path = require('path');
 
 function runBin(binPath, args = []) {

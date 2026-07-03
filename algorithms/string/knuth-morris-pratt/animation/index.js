@@ -1,7 +1,3 @@
-/**
- * @since 2024-02-04
- * @author vivaxy
- */
 import { events } from './utils/events.js';
 import { initKMP } from './services/kmp.js';
 import { initStage } from './services/stage.js';

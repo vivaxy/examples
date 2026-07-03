@@ -1,8 +1,3 @@
-/**
- * @since 20180525 16:23
- * @author vivaxy
- */
-
 function init() {
   const ball = document.createElement('div');
   ball.style.width = '30px';

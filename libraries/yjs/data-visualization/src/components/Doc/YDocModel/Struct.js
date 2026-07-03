@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-14
- * @author vivaxy
- */
 import { DATA_TYPES } from '../../../data-viewer';
 
 import './Struct.css';

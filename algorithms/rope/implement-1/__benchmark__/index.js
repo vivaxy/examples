@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-19
- * @author vivaxy
- */
 const Benchmark = require('benchmark');
 const Rope = require('../index');
 

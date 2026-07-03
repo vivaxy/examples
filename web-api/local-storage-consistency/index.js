@@ -1,7 +1,3 @@
-/**
- * @since 2024-08-28
- * @author vivaxy
- */
 const LOCAL_STORAGE_KEY = 'local-storage-consistency';
 const tabId = String(Math.random());
 

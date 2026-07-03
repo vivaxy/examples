@@ -1,8 +1,3 @@
-/**
- * @since 2016-06-25 17:38
- * @author vivaxy
- */
-
 var ajax = function (config) {
   var url = config.url;
   var success = config.success;

@@ -1,7 +1,3 @@
-/**
- * @since 2023-05-06
- * @author vivaxy
- */
 const shadowDOMRoot = document.getElementById('shadow-dom-root');
 const shadow = shadowDOMRoot.attachShadow({ mode: 'closed' });
 

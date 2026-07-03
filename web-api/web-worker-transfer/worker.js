@@ -1,8 +1,3 @@
-/**
- * @since 2019-06-20 11:13
- * @author vivaxy
- */
-
 self.onmessage = function (msg) {
   console.log('incoming message from invoker, msg:', msg);
   sendWorkerArrBuff(msg.data);

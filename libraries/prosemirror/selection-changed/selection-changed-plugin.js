@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-29
- * @author vivaxy
- */
 import { Plugin, PluginKey } from 'prosemirror-state';
 
 export const selectionChangedPluginKey = new PluginKey('selection-changed');

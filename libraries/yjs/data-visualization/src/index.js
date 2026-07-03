@@ -1,8 +1,3 @@
-/**
- * @author vivaxy
- * @since 2021-07-08
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

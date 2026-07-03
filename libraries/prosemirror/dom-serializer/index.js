@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-26 16:27
- * @author vivaxy
- */
 import { Schema, DOMParser, DOMSerializer } from 'prosemirror-model';
 
 const schema = new Schema({

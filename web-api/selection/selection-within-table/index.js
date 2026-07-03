@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-06 11:22
- * @author vivaxy
- */
 function getTableWrapperNode() {
   return document.querySelector('#table-wrapper');
 }

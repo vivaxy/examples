@@ -1,8 +1,3 @@
-/**
- * @since 20180417 10:44
- * @author vivaxy
- */
-
 const test = require('ava');
 
 const { binarySearch, recursiveBinarySearch } = require('../index.js');

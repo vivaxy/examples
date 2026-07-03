@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-07 17:00
- * @author vivaxy
- */
 'use strict';
 
 class Graph {

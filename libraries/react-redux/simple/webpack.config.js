@@ -1,8 +1,3 @@
-/**
- * @since 2016-01-22 14:55
- * @author vivaxy
- */
-
 'use strict';
 
 const path = require('path');

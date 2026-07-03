@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-12 12:06:53
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -59,7 +54,4 @@ const mapStateToProps = (state) => {
   const { count } = state[Header.name];
   return { count };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

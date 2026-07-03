@@ -1,8 +1,3 @@
-/**
- * @since 20180305 15:24
- * @author vivaxy
- */
-
 const memory = new WebAssembly.Memory({ initial: 256, maximum: 256 });
 const importObj = {
   env: {

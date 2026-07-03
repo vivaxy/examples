@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-24
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import { toJSON } from '../data-visualization/src/data-viewer';
 import decodeUpdate from '../data-visualization/src/update-decoder';

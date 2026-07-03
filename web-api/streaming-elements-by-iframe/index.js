@@ -1,6 +1,4 @@
 /**
- * @since 2022-11-30 16:03
- * @author vivaxy
  * @ref https://jakearchibald.com/2016/fun-hacks-faster-content/
  */
 // Create an iframe:
@@ -26,9 +24,8 @@ iframe.onload = async () => {
     iframe.contentDocument.write('<streaming-element>');
 
     // Get a reference to that element:
-    const streamingElement = iframe.contentDocument.querySelector(
-      'streaming-element',
-    );
+    const streamingElement =
+      iframe.contentDocument.querySelector('streaming-element');
 
     // Pull it out of the iframe & into the parent document:
     document.body.appendChild(streamingElement);

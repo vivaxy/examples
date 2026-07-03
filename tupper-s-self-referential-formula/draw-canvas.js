@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-07
- * @author vivaxy
- */
 const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth * window.devicePixelRatio;
 canvas.height = window.innerHeight * window.devicePixelRatio;

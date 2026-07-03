@@ -1,7 +1,3 @@
-/**
- * @since 2014/8/28 14:40
- * @author vivaxy
- */
 if (localStorage.visited) {
   localStorage.visited = Number(localStorage.visited) + 1;
 } else {

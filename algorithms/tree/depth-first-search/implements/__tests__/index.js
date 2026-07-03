@@ -1,13 +1,15 @@
-/**
- * @since 20180309 12:21
- * @author vivaxy
- */
-
 const test = require('ava');
 
 const { treeNode } = require('../../../implements/index.js');
 
-const { treeNodePreorderIterate, treeNodePreorderRecurse, treeNodeInorderIterate, treeNodeInorderRecurse, treeNodePostorderIterate, treeNodePostorderRecurse } = require('..');
+const {
+  treeNodePreorderIterate,
+  treeNodePreorderRecurse,
+  treeNodeInorderIterate,
+  treeNodeInorderRecurse,
+  treeNodePostorderIterate,
+  treeNodePostorderRecurse,
+} = require('..');
 
 const treeNode1 = treeNode(1);
 treeNode1.left = treeNode(2);

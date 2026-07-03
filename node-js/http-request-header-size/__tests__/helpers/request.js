@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-15 20:28
- * @author vivaxy
- */
 const http = require('http');
 const { Buffer } = require('buffer');
 

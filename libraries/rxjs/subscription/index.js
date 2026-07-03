@@ -1,8 +1,3 @@
-/**
- * @since 2018-12-03 19:36
- * @author vivaxy
- */
-
 const { interval } = rxjs;
 
 const observable1 = interval(400);

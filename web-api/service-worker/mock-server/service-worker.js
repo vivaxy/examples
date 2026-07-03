@@ -1,8 +1,3 @@
-/**
- * @since 2016-06-25 17:39
- * @author vivaxy
- */
-
 self.addEventListener('fetch', function (event) {
   var request = event.request;
   console.log('Handling fetch event for', request.url);

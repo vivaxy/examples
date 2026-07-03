@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-14 14:24
- * @author vivaxy
- */
-
 var isRetina = function () {
   var mediaQuery;
   if (typeof window !== 'undefined' && window !== null) {

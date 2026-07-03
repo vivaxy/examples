@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-10 20:36
- * @author vivaxy
- */
-
 var zoom = 14;
 var center = [121.4203236, 31.2162311];
 
@@ -27,7 +22,7 @@ AMap.service('AMap.DistrictSearch', () => {
     extensions: 'all',
   });
   // 行政区查询
-  district.search('长宁区', function(status, result) {
+  district.search('长宁区', function (status, result) {
     if (status === 'complete') {
       var bounds = result.districtList[0].boundaries;
       var polygons = [];

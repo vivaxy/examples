@@ -1,7 +1,3 @@
-/**
- * @since 15-09-04 18:17
- * @author vivaxy
- */
 'use strict';
 navigator.getUserMedia =
   navigator.getUserMedia ||

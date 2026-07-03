@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-01 10:09
- * @author vivaxy
- */
 // 正向先行断言 // positive lookahead assertions // (?=...)
 console.log('正向先行断言 positive lookahead assertions (?=...)');
 const positiveLookaheadAssertion = /a(?=b)/;

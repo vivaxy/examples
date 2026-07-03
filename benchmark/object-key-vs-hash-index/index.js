@@ -1,7 +1,4 @@
 /**
- * @since 2019-06-06 13:23
- * @author vivaxy
- *
  * Result:
  *
  * Store data as an object x 11,899,507 ops/sec ±0.54% (93 runs sampled)

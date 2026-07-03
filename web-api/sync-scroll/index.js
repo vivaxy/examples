@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-08 15:49
- * @author vivaxy
- */
 const source = document.getElementById('source');
 const target = document.getElementById('target');
 

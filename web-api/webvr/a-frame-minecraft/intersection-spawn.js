@@ -1,6 +1,4 @@
 /**
- * @since 2017-03-19 10:39:07
- * @author vivaxy
  * @see https://css-tricks.com/minecraft-webvr-html-using-frame/
  */
 

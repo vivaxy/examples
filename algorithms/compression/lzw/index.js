@@ -1,8 +1,3 @@
-/**
- * @since 20180918 19:22
- * @author vivaxy
- */
-
 function compress(input) {
   const cset = {};
   for (let i = 0; i < 256; i++) {
@@ -50,7 +45,7 @@ function decompress(input) {
       const s = cset[previous] + cset[previous].charAt(0);
       output += s;
       cset[code] = s;
-      code++
+      code++;
     }
   }
   return output;

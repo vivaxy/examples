@@ -1,8 +1,3 @@
-/**
- * @since 20180309 12:21
- * @author vivaxy
- */
-
 const test = require('ava');
 
 const { treeNode } = require('../../../tree-node/implements');
@@ -20,17 +15,17 @@ treeNode1.left.left.left = treeNode(8);
 treeNode1.left.left.right = treeNode(9);
 
 test('treeNode iterate', (t) => {
-    const nodeValues = [];
-    treeNodeIterate(treeNode1, (val) => {
-        nodeValues.push(val);
-    });
-    t.deepEqual(nodeValues, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const nodeValues = [];
+  treeNodeIterate(treeNode1, (val) => {
+    nodeValues.push(val);
+  });
+  t.deepEqual(nodeValues, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
 });
 
 test('treeNode recurse', (t) => {
-    const nodeValues = [];
-    treeNodeRecurse(treeNode1, (val) => {
-        nodeValues.push(val);
-    });
-    t.deepEqual(nodeValues, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const nodeValues = [];
+  treeNodeRecurse(treeNode1, (val) => {
+    nodeValues.push(val);
+  });
+  t.deepEqual(nodeValues, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
 });

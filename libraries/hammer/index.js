@@ -1,4 +1,4 @@
-/******/ (function(modules) {
+/******/ (function (modules) {
   // webpackBootstrap
   /******/ // The module cache
   /******/ var installedModules = {}; // The require function
@@ -40,11 +40,7 @@
   /************************************************************************/
   /******/ [
     /* 0 */
-    /***/ function(module, exports, __webpack_require__) {
-      /**
-       * @since 2015-12-07 16:47
-       * @author vivaxy
-       */
+    /***/ function (module, exports, __webpack_require__) {
       'use strict';
 
       var _arrayPrototypeFind = __webpack_require__(1);
@@ -66,18 +62,14 @@
       /***/
     },
     /* 1 */
-    /***/ function(module, exports) {
-      /**
-       * @since 2015-12-05 17:18
-       * @author vivaxy
-       */
+    /***/ function (module, exports) {
       'use strict';
 
       Object.defineProperty(exports, '__esModule', {
         value: true,
       });
       if (!Array.prototype.find) {
-        Array.prototype.find = function(predicate) {
+        Array.prototype.find = function (predicate) {
           if (this === null) {
             throw new TypeError(
               'Array.prototype.find called on null or undefined',
@@ -106,14 +98,10 @@
       /***/
     },
     /* 2 */
-    /***/ function(module, exports, __webpack_require__) {
-      /**
-       * @since 2015-12-07 16:54
-       * @author vivaxy
-       */
+    /***/ function (module, exports, __webpack_require__) {
       'use strict';
 
-      var _createClass = (function() {
+      var _createClass = (function () {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -123,7 +111,7 @@
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
-        return function(Constructor, protoProps, staticProps) {
+        return function (Constructor, protoProps, staticProps) {
           if (protoProps) defineProperties(Constructor.prototype, protoProps);
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
@@ -160,7 +148,7 @@
         }
       }
 
-      var Application = (function() {
+      var Application = (function () {
         function Application(config) {
           var _this = this;
 
@@ -173,7 +161,7 @@
           this._activeGraph = undefined;
           this._savedRotation = undefined;
 
-          this._preload(function() {
+          this._preload(function () {
             _this._graphList = _this._getGraphList();
             _this._input = _this._getInput();
             _this._paint();
@@ -186,7 +174,7 @@
             value: function _getGraphList() {
               var _this2 = this;
 
-              return _resources2.default.map(function(resource) {
+              return _resources2.default.map(function (resource) {
                 return new _graph2.default({
                   ctx: _this2._ctx,
                   width: resource.width,
@@ -214,7 +202,7 @@
 
               var input = new _input2.default(this._canvas);
 
-              input.on('drag-start', function(center, delta) {
+              input.on('drag-start', function (center, delta) {
                 var graph = _this3._getActiveGraph(center);
                 if (!graph) {
                   return false;
@@ -226,14 +214,14 @@
                 _this3._paint(delta.x, delta.y, undefined, undefined);
               });
 
-              input.on('drag-move', function(center, delta) {
+              input.on('drag-move', function (center, delta) {
                 if (!_this3._activeGraph) {
                   return false;
                 }
                 _this3._paint(delta.x, delta.y, undefined, undefined);
               });
 
-              input.on('drag-end', function(center, delta) {
+              input.on('drag-end', function (center, delta) {
                 if (!_this3._activeGraph) {
                   return false;
                 }
@@ -248,7 +236,7 @@
                 _this3._paint();
               });
 
-              input.on('pinch-start', function(center, rotation, scale) {
+              input.on('pinch-start', function (center, rotation, scale) {
                 var graph = _this3._getActiveGraph(center);
                 if (!graph) {
                   return false;
@@ -260,7 +248,7 @@
                 _this3._activeGraph.paint();
               });
 
-              input.on('pinch-move', function(center, rotation, scale) {
+              input.on('pinch-move', function (center, rotation, scale) {
                 if (!_this3._activeGraph) {
                   return false;
                 }
@@ -268,7 +256,7 @@
                 _this3._savedRotation = rotation;
               });
 
-              input.on('pinch-end', function(center, rotation, scale) {
+              input.on('pinch-end', function (center, rotation, scale) {
                 if (!_this3._activeGraph) {
                   return false;
                 }
@@ -279,7 +267,7 @@
                 _this3._paint();
               });
 
-              input.on('double-tap', function(center) {
+              input.on('double-tap', function (center) {
                 var graph = _this3._getActiveGraph(center);
                 graph.resize(2);
                 _this3._paint();
@@ -292,7 +280,7 @@
             key: '_getActiveGraph',
             value: function _getActiveGraph(center) {
               this._graphList.reverse();
-              var found = this._graphList.find(function(graph) {
+              var found = this._graphList.find(function (graph) {
                 return graph.inRange(center);
               });
               this._graphList.reverse();
@@ -310,7 +298,7 @@
                 this._canvas.width,
                 this._canvas.height,
               );
-              this._graphList.forEach(function(o) {
+              this._graphList.forEach(function (o) {
                 // 不画正在拖动的元素，都则会有残影
                 if (o !== _this4._activeGraph) {
                   o.paint();
@@ -343,14 +331,10 @@
       /***/
     },
     /* 3 */
-    /***/ function(module, exports, __webpack_require__) {
-      /**
-       * @since 2015-12-05 16:15
-       * @author vivaxy
-       */
+    /***/ function (module, exports, __webpack_require__) {
       'use strict';
 
-      var _createClass = (function() {
+      var _createClass = (function () {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -360,7 +344,7 @@
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
-        return function(Constructor, protoProps, staticProps) {
+        return function (Constructor, protoProps, staticProps) {
           if (protoProps) defineProperties(Constructor.prototype, protoProps);
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
@@ -417,7 +401,7 @@
             : (subClass.__proto__ = superClass);
       }
 
-      var Input = (function(_EventEmitter) {
+      var Input = (function (_EventEmitter) {
         _inherits(Input, _EventEmitter);
 
         function Input(canvas) {
@@ -507,7 +491,7 @@
               hammer.get('swipe').set({ enable: false });
               hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
-              hammer.on('panstart', function(e) {
+              hammer.on('panstart', function (e) {
                 _this2.emit(
                   'drag-start',
                   _this2._getCoordinates(e.center),
@@ -518,7 +502,7 @@
                 );
               });
 
-              hammer.on('panmove', function(e) {
+              hammer.on('panmove', function (e) {
                 _this2.emit(
                   'drag-move',
                   _this2._getCoordinates(e.center),
@@ -529,7 +513,7 @@
                 );
               });
 
-              hammer.on('panend', function(e) {
+              hammer.on('panend', function (e) {
                 _this2.emit(
                   'drag-end',
                   _this2._getCoordinates(e.center),
@@ -540,7 +524,7 @@
                 );
               });
 
-              hammer.on('pancancel', function(e) {
+              hammer.on('pancancel', function (e) {
                 _this2.emit(
                   'drag-end',
                   _this2._getCoordinates(e.center),
@@ -551,33 +535,33 @@
                 );
               });
 
-              hammer.on('doubletap', function(e) {
+              hammer.on('doubletap', function (e) {
                 var coordinate = _this2._getCoordinates(e.center);
                 _this2.emit('double-tap', coordinate);
               });
 
-              hammer.on('pinchstart', function(e) {
+              hammer.on('pinchstart', function (e) {
                 var coordinate = _this2._getCoordinates(e.center);
                 var scale = e.scale;
                 var rotation = e.rotation;
                 _this2.emit('pinch-start', coordinate, rotation, scale);
               });
 
-              hammer.on('pinchmove', function(e) {
+              hammer.on('pinchmove', function (e) {
                 var coordinate = _this2._getCoordinates(e.center);
                 var scale = e.scale;
                 var rotation = e.rotation;
                 _this2.emit('pinch-move', coordinate, rotation, scale);
               });
 
-              hammer.on('pinchend', function(e) {
+              hammer.on('pinchend', function (e) {
                 var coordinate = _this2._getCoordinates(e.center);
                 var scale = e.scale;
                 var rotation = e.rotation;
                 _this2.emit('pinch-end', coordinate, rotation, scale);
               });
 
-              hammer.on('pinchcancel', function(e) {
+              hammer.on('pinchcancel', function (e) {
                 var coordinate = _this2._getCoordinates(e.center);
                 var scale = e.scale;
                 var rotation = e.rotation;
@@ -629,14 +613,10 @@
       /***/
     },
     /* 4 */
-    /***/ function(module, exports) {
-      /**
-       * @since 15-09-02 10:25
-       * @author vivaxy
-       */
+    /***/ function (module, exports) {
       'use strict';
 
-      var _createClass = (function() {
+      var _createClass = (function () {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -646,7 +626,7 @@
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
-        return function(Constructor, protoProps, staticProps) {
+        return function (Constructor, protoProps, staticProps) {
           if (protoProps) defineProperties(Constructor.prototype, protoProps);
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
@@ -663,7 +643,7 @@
         }
       }
 
-      var EventEmitter = (function() {
+      var EventEmitter = (function () {
         function EventEmitter() {
           _classCallCheck(this, EventEmitter);
 
@@ -701,7 +681,7 @@
               var callbacks = this.events[event];
               var _arguments = arguments;
               if (callbacks) {
-                callbacks.forEach(function(callback) {
+                callbacks.forEach(function (callback) {
                   callback.apply(
                     _this,
                     Array.prototype.slice.call(_arguments, 1),
@@ -742,14 +722,10 @@
       /***/
     },
     /* 5 */
-    /***/ function(module, exports) {
-      /**
-       * @since 2015-12-07 17:00
-       * @author vivaxy
-       */
+    /***/ function (module, exports) {
       'use strict';
 
-      var _createClass = (function() {
+      var _createClass = (function () {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -759,7 +735,7 @@
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
-        return function(Constructor, protoProps, staticProps) {
+        return function (Constructor, protoProps, staticProps) {
           if (protoProps) defineProperties(Constructor.prototype, protoProps);
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
@@ -776,7 +752,7 @@
         }
       }
 
-      var Graph = (function() {
+      var Graph = (function () {
         /**
          * 构造函数
          * @param config
@@ -1021,11 +997,7 @@
       /***/
     },
     /* 6 */
-    /***/ function(module, exports, __webpack_require__) {
-      /**
-       * @since 2015-12-05 15:38
-       * @author vivaxy
-       */
+    /***/ function (module, exports, __webpack_require__) {
       'use strict';
 
       /**
@@ -1041,7 +1013,7 @@
        *     参数 src 图片的路径
        */
 
-      var _createClass = (function() {
+      var _createClass = (function () {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -1051,7 +1023,7 @@
             Object.defineProperty(target, descriptor.key, descriptor);
           }
         }
-        return function(Constructor, protoProps, staticProps) {
+        return function (Constructor, protoProps, staticProps) {
           if (protoProps) defineProperties(Constructor.prototype, protoProps);
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
@@ -1108,7 +1080,7 @@
             : (subClass.__proto__ = superClass);
       }
 
-      var Preload = (function(_EventEmitter) {
+      var Preload = (function (_EventEmitter) {
         _inherits(Preload, _EventEmitter);
 
         function Preload(resourceList) {
@@ -1127,7 +1099,7 @@
 
           _this._resourceList = resourceList;
 
-          _this._list = resourceList.map(function(o, index) {
+          _this._list = resourceList.map(function (o, index) {
             return {
               index: index,
               src: o.src,
@@ -1148,11 +1120,11 @@
             value: function start() {
               var _this2 = this;
 
-              this._list.forEach(function(o) {
+              this._list.forEach(function (o) {
                 var load = function load() {
                   _this2._loadImage(
                     o.src,
-                    function(image) {
+                    function (image) {
                       o.loaded = true;
                       /**
                        * 加载后的 image 对象应该被缓存下来，虽然 src 加载过，但是
@@ -1169,7 +1141,7 @@
                         _this2.emit('done');
                       }
                     },
-                    function() {
+                    function () {
                       if (o.retryCount > 0) {
                         o.retryCount--;
                         load();
@@ -1195,7 +1167,7 @@
             key: '_loadImage',
             value: function _loadImage(src, success, error) {
               var image = new Image();
-              image.addEventListener('load', function() {
+              image.addEventListener('load', function () {
                 success(image);
               });
               image.addEventListener('error', error);
@@ -1213,7 +1185,7 @@
           {
             key: '_getProgress',
             value: function _getProgress() {
-              var loadedImage = this._list.filter(function(o) {
+              var loadedImage = this._list.filter(function (o) {
                 return o.loaded;
               });
 
@@ -1230,11 +1202,7 @@
       /***/
     },
     /* 7 */
-    /***/ function(module, exports) {
-      /**
-       * @since 2015-12-07 17:17
-       * @author vivaxy
-       */
+    /***/ function (module, exports) {
       'use strict';
 
       Object.defineProperty(exports, '__esModule', {

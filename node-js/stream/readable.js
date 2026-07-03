@@ -1,7 +1,3 @@
-/**
- * @since 2019-12-16 05:42
- * @author vivaxy
- */
 const { Readable } = require('stream');
 
 const input = 'ABCDEFG';
@@ -15,6 +11,6 @@ const readable = new Readable({
   },
 });
 
-readable.on('data', function(chunk) {
+readable.on('data', function (chunk) {
   console.log(chunk.toString());
 });

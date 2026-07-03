@@ -1,13 +1,6 @@
-/**
- * @since 2023-03-28
- * @author vivaxy
- */
 function logMemory() {
-  const {
-    jsHeapSizeLimit,
-    totalJSHeapSize,
-    usedJSHeapSize,
-  } = performance.memory;
+  const { jsHeapSizeLimit, totalJSHeapSize, usedJSHeapSize } =
+    performance.memory;
   console.log('memory', {
     jsHeapSizeLimit,
     totalJSHeapSize,

@@ -1,11 +1,10 @@
-/**
- * @since 20180417 10:44
- * @author vivaxy
- */
-
 const test = require('ava');
 
-const { linearSearch, betterLinearSearch, sentinelLinearSearch } = require('../index.js');
+const {
+  linearSearch,
+  betterLinearSearch,
+  sentinelLinearSearch,
+} = require('../index.js');
 
 const A1 = [9, 4, 1, 0, 5, 6, 4, 3];
 

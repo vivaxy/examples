@@ -1,8 +1,4 @@
-/**
- * @since 2014/8/28 10:35
- * @author vivaxy
- */
-var utf16to8 = function(str) {
+var utf16to8 = function (str) {
   var out, i, len, c;
   out = '';
   len = str.length;
@@ -27,7 +23,7 @@ var nameInput = document.getElementById('name');
 var homeAddress = document.getElementById('home-address');
 var homePhoneNumber = document.getElementById('home-phone-number');
 
-var generateQrcode = function() {
+var generateQrcode = function () {
   var txt =
     '姓名：' +
     nameInput.value +

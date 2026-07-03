@@ -1,7 +1,3 @@
-/**
- * @since 2023-03-28
- * @author vivaxy
- */
 const fs = require('fs');
 const Koa = require('koa');
 const path = require('path');

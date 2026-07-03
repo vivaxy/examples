@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-11 19:24
- * @author vivaxy
- */
-
 var zoom = 14;
 var lng = 121.4203236;
 var lat = 31.2162311;

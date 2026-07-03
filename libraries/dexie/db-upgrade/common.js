@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-23
- * @author vivaxy
- */
 export const DB_NAME = 'vivaxy-example-db-upgrade';
 
 const handlers = {

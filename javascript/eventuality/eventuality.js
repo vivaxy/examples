@@ -1,9 +1,4 @@
 /**
- * @since 150208 15:22
- * @author vivaxy
- */
-
-/**
  * use `object = eventuality(object);` to initialize
  * use `object.on(type, callback);` to bind callbacks on event
  * use `object.fire(type, data);` to emit event with data
@@ -21,53 +16,49 @@
  * @returns {*}
  */
 var eventuality = function (that) {
+  if (that instanceof HTMLElement) {
+    var createEvent = function (type, data) {
+      var event = window.document.createEvent('HTMLEvents');
+      event.initEvent(type, true, true);
+      // data stored in data
+      event.data = data;
+      return event;
+    };
 
-    if (that instanceof HTMLElement) {
+    that.fire = function (type, data) {
+      that.dispatchEvent(createEvent(type, data));
+    };
 
-        var createEvent = function (type, data) {
-            var event = window.document.createEvent('HTMLEvents');
-            event.initEvent(type, true, true);
-            // data stored in data
-            event.data = data;
-            return event;
-        };
+    that.on = function (type, callback) {
+      that.addEventListener(type, callback, false);
+    };
 
-        that.fire = function (type, data) {
-            that.dispatchEvent(createEvent(type, data));
-        };
+    return that;
+  } else {
+    var events = {};
 
-        that.on = function (type, callback) {
-            that.addEventListener(type, callback, false);
-        };
+    that.fire = function (type, data) {
+      var callbacks, i;
 
-        return that;
+      callbacks = events[type];
+      if (callbacks) {
+        for (i = 0; i < callbacks.length; i++) {
+          callbacks[i].apply(that, [data]);
+        }
+      }
 
-    } else {
+      return that;
+    };
 
-        var events = {};
+    that.on = function (type, callback) {
+      if (events.hasOwnProperty(type)) {
+        events[type].push(callback);
+      } else {
+        events[type] = [callback];
+      }
+      return that;
+    };
 
-        that.fire = function (type, data) {
-            var callbacks, i;
-
-            callbacks = events[type];
-            if (callbacks) {
-                for (i = 0; i < callbacks.length; i++) {
-                    callbacks[i].apply(that, [data]);
-                }
-            }
-
-            return that;
-        };
-
-        that.on = function (type, callback) {
-            if (events.hasOwnProperty(type)) {
-                events[type].push(callback);
-            } else {
-                events[type] = [callback];
-            }
-            return that;
-        };
-
-        return that;
-    }
+    return that;
+  }
 };

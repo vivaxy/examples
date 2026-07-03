@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-23 04:59
- * @author vivaxy
- */
-
 class EmployeeOfAccessors {
   private _fullName: string;
 

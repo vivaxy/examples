@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-06 12:20:04
- * @author vivaxy
- */
-
 import * as actionTypes from './action-types.js';
 
 export default function InsertionSort(A, n) {

@@ -1,7 +1,3 @@
-/**
- * @since 2022-02-23
- * @author vivaxy
- */
 const { schema } = require('prosemirror-schema-basic');
 const { Node, Fragment } = require('prosemirror-model');
 

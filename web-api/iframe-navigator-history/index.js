@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-29
- * @author vivaxy
- */
 console.log('location.href', location.href);
 const redirect = document.getElementById('redirect');
 

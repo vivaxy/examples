@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-22
- * @author vivaxy
- */
 [
   document.querySelector('textarea'),
   document.querySelector('input'),

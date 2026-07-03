@@ -1,8 +1,3 @@
-/**
- * @since 20180607 19:30
- * @author vivaxy
- */
-
 const dataChannelSend = document.getElementById('dataChannelSend');
 const dataChannelReceive = document.getElementById('dataChannelReceive');
 dataChannelSend.disabled = true;

@@ -1,8 +1,3 @@
-/**
- * @since 2019-08-03 22:01:28
- * @author vivaxy
- */
-
 function loadImage(src) {
   return new Promise(function (resolve, reject) {
     const image = new Image();

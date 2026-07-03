@@ -1,8 +1,3 @@
-/**
- * @since 2017-04-25 15:27:23
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import Animation from 'lottie-react-native';
 import { StyleSheet } from 'react-native';

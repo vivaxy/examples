@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-08 09:20
- * @author vivaxy
- */
 for (let i = 0; i < 100; i++) {
   const p = document.createElement('p');
   p.innerHTML = i;

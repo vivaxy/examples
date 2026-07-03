@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-02 19:58
- * @author vivaxy
- */
 export default SemVer;
 
 var debug;
@@ -12,13 +8,13 @@ if (
   process.env.NODE_DEBUG &&
   /\bsemver\b/i.test(process.env.NODE_DEBUG)
 ) {
-  debug = function() {
+  debug = function () {
     var args = Array.prototype.slice.call(arguments, 0);
     args.unshift('SEMVER');
     console.log.apply(console, args);
   };
 } else {
-  debug = function() {};
+  debug = function () {};
 }
 
 // Note: this is the semver.org version of the spec that it implements
@@ -433,7 +429,7 @@ export function SemVer(version, options) {
   if (!m[4]) {
     this.prerelease = [];
   } else {
-    this.prerelease = m[4].split('.').map(function(id) {
+    this.prerelease = m[4].split('.').map(function (id) {
       if (/^[0-9]+$/.test(id)) {
         var num = +id;
         if (num >= 0 && num < MAX_SAFE_INTEGER) {
@@ -448,7 +444,7 @@ export function SemVer(version, options) {
   this.format();
 }
 
-SemVer.prototype.format = function() {
+SemVer.prototype.format = function () {
   this.version = this.major + '.' + this.minor + '.' + this.patch;
   if (this.prerelease.length) {
     this.version += '-' + this.prerelease.join('.');
@@ -456,11 +452,11 @@ SemVer.prototype.format = function() {
   return this.version;
 };
 
-SemVer.prototype.toString = function() {
+SemVer.prototype.toString = function () {
   return this.version;
 };
 
-SemVer.prototype.compare = function(other) {
+SemVer.prototype.compare = function (other) {
   debug('SemVer.compare', this.version, this.options, other);
   if (!(other instanceof SemVer)) {
     other = new SemVer(other, this.options);
@@ -469,7 +465,7 @@ SemVer.prototype.compare = function(other) {
   return this.compareMain(other) || this.comparePre(other);
 };
 
-SemVer.prototype.compareMain = function(other) {
+SemVer.prototype.compareMain = function (other) {
   if (!(other instanceof SemVer)) {
     other = new SemVer(other, this.options);
   }
@@ -481,7 +477,7 @@ SemVer.prototype.compareMain = function(other) {
   );
 };
 
-SemVer.prototype.comparePre = function(other) {
+SemVer.prototype.comparePre = function (other) {
   if (!(other instanceof SemVer)) {
     other = new SemVer(other, this.options);
   }
@@ -514,7 +510,7 @@ SemVer.prototype.comparePre = function(other) {
   } while (++i);
 };
 
-SemVer.prototype.compareBuild = function(other) {
+SemVer.prototype.compareBuild = function (other) {
   if (!(other instanceof SemVer)) {
     other = new SemVer(other, this.options);
   }
@@ -540,7 +536,7 @@ SemVer.prototype.compareBuild = function(other) {
 
 // preminor will bump the version up to the next minor release, and immediately
 // down to pre-release. premajor and prepatch work the same way.
-SemVer.prototype.inc = function(release, identifier) {
+SemVer.prototype.inc = function (release, identifier) {
   switch (release) {
     case 'premajor':
       this.prerelease.length = 0;
@@ -732,13 +728,13 @@ export function rcompare(a, b, loose) {
 }
 
 export function sort(list, loose) {
-  return list.sort(function(a, b) {
+  return list.sort(function (a, b) {
     return compareBuild(a, b, loose);
   });
 }
 
 export function rsort(list, loose) {
-  return list.sort(function(a, b) {
+  return list.sort(function (a, b) {
     return compareBuild(b, a, loose);
   });
 }
@@ -839,7 +835,7 @@ export function Comparator(comp, options) {
 }
 
 var ANY = {};
-Comparator.prototype.parse = function(comp) {
+Comparator.prototype.parse = function (comp) {
   var r = this.options.loose ? re[t.COMPARATORLOOSE] : re[t.COMPARATOR];
   var m = comp.match(r);
 
@@ -860,11 +856,11 @@ Comparator.prototype.parse = function(comp) {
   }
 };
 
-Comparator.prototype.toString = function() {
+Comparator.prototype.toString = function () {
   return this.value;
 };
 
-Comparator.prototype.test = function(version) {
+Comparator.prototype.test = function (version) {
   debug('Comparator.test', version, this.options.loose);
 
   if (this.semver === ANY || version === ANY) {
@@ -882,7 +878,7 @@ Comparator.prototype.test = function(version) {
   return cmp(version, this.operator, this.semver, this.options);
 };
 
-Comparator.prototype.intersects = function(comp, options) {
+Comparator.prototype.intersects = function (comp, options) {
   if (!(comp instanceof Comparator)) {
     throw new TypeError('a Comparator is required');
   }
@@ -922,12 +918,12 @@ Comparator.prototype.intersects = function(comp, options) {
     (comp.operator === '>=' || comp.operator === '<=');
   var oppositeDirectionsLessThan =
     cmp(this.semver, '<', comp.semver, options) &&
-    ((this.operator === '>=' || this.operator === '>') &&
-      (comp.operator === '<=' || comp.operator === '<'));
+    (this.operator === '>=' || this.operator === '>') &&
+    (comp.operator === '<=' || comp.operator === '<');
   var oppositeDirectionsGreaterThan =
     cmp(this.semver, '>', comp.semver, options) &&
-    ((this.operator === '<=' || this.operator === '<') &&
-      (comp.operator === '>=' || comp.operator === '>'));
+    (this.operator === '<=' || this.operator === '<') &&
+    (comp.operator === '>=' || comp.operator === '>');
 
   return (
     sameDirectionIncreasing ||
@@ -973,10 +969,10 @@ export function Range(range, options) {
   this.raw = range;
   this.set = range
     .split(/\s*\|\|\s*/)
-    .map(function(range) {
+    .map(function (range) {
       return this.parseRange(range.trim());
     }, this)
-    .filter(function(c) {
+    .filter(function (c) {
       // throw out any that are not relevant for whatever reason
       return c.length;
     });
@@ -988,9 +984,9 @@ export function Range(range, options) {
   this.format();
 }
 
-Range.prototype.format = function() {
+Range.prototype.format = function () {
   this.range = this.set
-    .map(function(comps) {
+    .map(function (comps) {
       return comps.join(' ').trim();
     })
     .join('||')
@@ -998,11 +994,11 @@ Range.prototype.format = function() {
   return this.range;
 };
 
-Range.prototype.toString = function() {
+Range.prototype.toString = function () {
   return this.range;
 };
 
-Range.prototype.parseRange = function(range) {
+Range.prototype.parseRange = function (range) {
   var loose = this.options.loose;
   range = range.trim();
   // `1.2.3 - 1.2.4` => `>=1.2.3 <=1.2.4`
@@ -1028,37 +1024,37 @@ Range.prototype.parseRange = function(range) {
   var compRe = loose ? re[t.COMPARATORLOOSE] : re[t.COMPARATOR];
   var set = range
     .split(' ')
-    .map(function(comp) {
+    .map(function (comp) {
       return parseComparator(comp, this.options);
     }, this)
     .join(' ')
     .split(/\s+/);
   if (this.options.loose) {
     // in loose mode, throw out any that are not valid comparators
-    set = set.filter(function(comp) {
+    set = set.filter(function (comp) {
       return !!comp.match(compRe);
     });
   }
-  set = set.map(function(comp) {
+  set = set.map(function (comp) {
     return new Comparator(comp, this.options);
   }, this);
 
   return set;
 };
 
-Range.prototype.intersects = function(range, options) {
+Range.prototype.intersects = function (range, options) {
   if (!(range instanceof Range)) {
     throw new TypeError('a Range is required');
   }
 
-  return this.set.some(function(thisComparators) {
+  return this.set.some(function (thisComparators) {
     return (
       isSatisfiable(thisComparators, options) &&
-      range.set.some(function(rangeComparators) {
+      range.set.some(function (rangeComparators) {
         return (
           isSatisfiable(rangeComparators, options) &&
-          thisComparators.every(function(thisComparator) {
-            return rangeComparators.every(function(rangeComparator) {
+          thisComparators.every(function (thisComparator) {
+            return rangeComparators.every(function (rangeComparator) {
               return thisComparator.intersects(rangeComparator, options);
             });
           })
@@ -1076,7 +1072,7 @@ function isSatisfiable(comparators, options) {
   var testComparator = remainingComparators.pop();
 
   while (result && remainingComparators.length) {
-    result = remainingComparators.every(function(otherComparator) {
+    result = remainingComparators.every(function (otherComparator) {
       return testComparator.intersects(otherComparator, options);
     });
 
@@ -1088,9 +1084,9 @@ function isSatisfiable(comparators, options) {
 
 // Mostly just for testing and legacy API reasons
 export function toComparators(range, options) {
-  return new Range(range, options).set.map(function(comp) {
+  return new Range(range, options).set.map(function (comp) {
     return comp
-      .map(function(c) {
+      .map(function (c) {
         return c.value;
       })
       .join(' ')
@@ -1129,7 +1125,7 @@ function replaceTildes(comp, options) {
   return comp
     .trim()
     .split(/\s+/)
-    .map(function(comp) {
+    .map(function (comp) {
       return replaceTilde(comp, options);
     })
     .join(' ');
@@ -1137,7 +1133,7 @@ function replaceTildes(comp, options) {
 
 function replaceTilde(comp, options) {
   var r = options.loose ? re[t.TILDELOOSE] : re[t.TILDE];
-  return comp.replace(r, function(_, M, m, p, pr) {
+  return comp.replace(r, function (_, M, m, p, pr) {
     debug('tilde', comp, _, M, m, p, pr);
     var ret;
 
@@ -1184,7 +1180,7 @@ function replaceCarets(comp, options) {
   return comp
     .trim()
     .split(/\s+/)
-    .map(function(comp) {
+    .map(function (comp) {
       return replaceCaret(comp, options);
     })
     .join(' ');
@@ -1193,7 +1189,7 @@ function replaceCarets(comp, options) {
 function replaceCaret(comp, options) {
   debug('caret', comp, options);
   var r = options.loose ? re[t.CARETLOOSE] : re[t.CARET];
-  return comp.replace(r, function(_, M, m, p, pr) {
+  return comp.replace(r, function (_, M, m, p, pr) {
     debug('caret', comp, _, M, m, p, pr);
     var ret;
 
@@ -1269,7 +1265,7 @@ function replaceXRanges(comp, options) {
   debug('replaceXRanges', comp, options);
   return comp
     .split(/\s+/)
-    .map(function(comp) {
+    .map(function (comp) {
       return replaceXRange(comp, options);
     })
     .join(' ');
@@ -1278,7 +1274,7 @@ function replaceXRanges(comp, options) {
 function replaceXRange(comp, options) {
   comp = comp.trim();
   var r = options.loose ? re[t.XRANGELOOSE] : re[t.XRANGE];
-  return comp.replace(r, function(ret, gtlt, M, m, p, pr) {
+  return comp.replace(r, function (ret, gtlt, M, m, p, pr) {
     debug('xRange', comp, ret, gtlt, M, m, p, pr);
     var xM = isX(M);
     var xm = xM || isX(m);
@@ -1387,7 +1383,7 @@ function hyphenReplace($0, from, fM, fm, fp, fpr, fb, to, tM, tm, tp, tpr, tb) {
 }
 
 // if ANY of the sets match ALL of its comparators, then pass
-Range.prototype.test = function(version) {
+Range.prototype.test = function (version) {
   if (!version) {
     return false;
   }
@@ -1463,7 +1459,7 @@ export function maxSatisfying(versions, range, options) {
   } catch (er) {
     return null;
   }
-  versions.forEach(function(v) {
+  versions.forEach(function (v) {
     if (rangeObj.test(v)) {
       // satisfies(v, range, options)
       if (!max || maxSV.compare(v) === -1) {
@@ -1484,7 +1480,7 @@ export function minSatisfying(versions, range, options) {
   } catch (er) {
     return null;
   }
-  versions.forEach(function(v) {
+  versions.forEach(function (v) {
     if (rangeObj.test(v)) {
       // satisfies(v, range, options)
       if (!min || minSV.compare(v) === 1) {
@@ -1514,7 +1510,7 @@ export function minVersion(range, loose) {
   for (var i = 0; i < range.set.length; ++i) {
     var comparators = range.set[i];
 
-    comparators.forEach(function(comparator) {
+    comparators.forEach(function (comparator) {
       // Clone to avoid manipulating the comparator's semver object.
       var compver = new SemVer(comparator.semver.version);
       switch (comparator.operator) {
@@ -1608,7 +1604,7 @@ export function outside(version, range, hilo, options) {
     var high = null;
     var low = null;
 
-    comparators.forEach(function(comparator) {
+    comparators.forEach(function (comparator) {
       if (comparator.semver === ANY) {
         comparator = new Comparator('>=0.0.0');
       }

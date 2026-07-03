@@ -208,10 +208,6 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * @since 2020-03-08 08:03
- * @author vivaxy
- */
 setTimeout(async function () {
   const result = await __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./dynamic-module */ "./src/dynamic-module.js"));
   console.log(result);

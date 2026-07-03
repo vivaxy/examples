@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-03 22:12:52
- * @author vivaxy
- */
 const lockManager = navigator.locks;
 console.log('lockManager', lockManager);
 
@@ -22,24 +18,28 @@ requestExclusive.addEventListener('click', async function () {
 
 const requestShared = document.querySelector('.js-request-shared');
 requestShared.addEventListener('click', async function () {
-  lockManager.request('vivaxy-examples', { mode: 'shared' }, async function (
-    lock,
-  ) {
-    console.log('callback start lock', lock);
-    await sleep();
-    console.log('callback end lock', lock);
-  });
+  lockManager.request(
+    'vivaxy-examples',
+    { mode: 'shared' },
+    async function (lock) {
+      console.log('callback start lock', lock);
+      await sleep();
+      console.log('callback end lock', lock);
+    },
+  );
 });
 
 const requestIfAvailable = document.querySelector('.js-request-if-available');
 requestIfAvailable.addEventListener('click', async function () {
-  lockManager.request('vivaxy-examples', { ifAvailable: true }, async function (
-    lock,
-  ) {
-    console.log('callback start lock', lock);
-    await sleep();
-    console.log('callback end lock', lock);
-  });
+  lockManager.request(
+    'vivaxy-examples',
+    { ifAvailable: true },
+    async function (lock) {
+      console.log('callback start lock', lock);
+      await sleep();
+      console.log('callback end lock', lock);
+    },
+  );
 });
 
 const $countdown = document.querySelector('.js-countdown');

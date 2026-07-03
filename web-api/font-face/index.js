@@ -1,8 +1,3 @@
-/**
- * @since 2014/8/28 9:16
- * @author vivaxy
- */
-
 const loadFont = async () => {
   const font = new FontFace('Royalacid', 'url(Royalacid.ttf)');
   await font.load();

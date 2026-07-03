@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-10 20:36
- * @author vivaxy
- */
-
 function init() {
   var zoom = 14;
 
@@ -21,7 +16,7 @@ function init() {
 
   var searchService = new qq.maps.SearchService({
     // 请求成功回调函数
-    complete: function(results) {
+    complete: function (results) {
       var pois = results.detail.pois;
       var infoWin = new qq.maps.InfoWindow({
         map: map,
@@ -35,7 +30,7 @@ function init() {
       // 调整地图视野
       map.fitBounds(latlngBounds);
     },
-    error: function() {
+    error: function () {
       alert('出错了，请输入正确的经纬度！！！');
     },
   });

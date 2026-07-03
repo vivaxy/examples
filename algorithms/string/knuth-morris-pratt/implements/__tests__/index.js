@@ -1,7 +1,3 @@
-/**
- * @since 20180906 11:35
- * @author vivaxy
- */
 import { knuthMorrisPratt } from '../index.js';
 
 test('Knuth Morris Pratt', function () {

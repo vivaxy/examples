@@ -1,7 +1,3 @@
-/**
- * @since 15-09-03 09:37
- * @author vivaxy
- */
 'use strict';
 
 var _createClass = (function () {

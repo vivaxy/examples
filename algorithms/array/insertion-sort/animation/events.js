@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-06 12:40:17
- * @author vivaxy
- */
-
 class EventEmitter {
   constructor() {
     this.events = {};
@@ -33,7 +28,7 @@ class EventEmitter {
   emit(event, data, sender) {
     const handlers = this.events[event];
     if (handlers) {
-      for (let i = 0; i < handlers.length;) {
+      for (let i = 0; i < handlers.length; ) {
         const handler = handlers[i];
         if (handler) {
           handler.callback(event, data, sender, handler.refer);
@@ -72,7 +67,6 @@ class EventEmitter {
     }
     return this;
   }
-
 }
 
 export default new EventEmitter();

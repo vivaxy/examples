@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-26 16:27
- * @author vivaxy
- */
 import { DOMParser, Schema, Fragment } from 'prosemirror-model';
 
 function tag() {

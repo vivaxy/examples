@@ -1,7 +1,3 @@
-/**
- * @since 20200220 11:51
- * @author vivaxy
- */
 const {
   createLinkedList,
   toString,
@@ -12,27 +8,27 @@ const {
   insert,
 } = require('..');
 
-test('Should create an empty linked list', function() {
+test('Should create an empty linked list', function () {
   const linkedList = createLinkedList();
   expect(toString(linkedList)).toBe('');
 });
 
-test('Should create a linked list', function() {
+test('Should create a linked list', function () {
   const linkedList = createLinkedList(1, 2);
   expect(toString(linkedList)).toBe('1,2');
 });
 
-test('Should append to a linked list', function() {
+test('Should append to a linked list', function () {
   const linkedList = createLinkedList(1, 2);
   expect(toString(append(3, linkedList))).toBe('1,2,3');
 });
 
-test('Should prepend to a linked list', function() {
+test('Should prepend to a linked list', function () {
   const linkedList = createLinkedList(2, 3);
   expect(toString(prepend(1, linkedList))).toBe('1,2,3');
 });
 
-test('should remove node by value from linked list', function() {
+test('should remove node by value from linked list', function () {
   const linkedList = createLinkedList(1, 2, 3);
   expect(toString(remove(1, linkedList))).toBe('2,3');
   expect(toString(remove(2, linkedList))).toBe('1,3');
@@ -43,12 +39,12 @@ test('should remove node by value from linked list', function() {
   expect(toString(remove(1, linkedList2))).toBe('2,3');
 });
 
-test('should find node by value in linked list', function() {
+test('should find node by value in linked list', function () {
   const linkedList = createLinkedList(1, 2, 3);
   expect(toString(find(2, linkedList))).toBe('2,3');
 });
 
-test('should insert val before node in linked list', function() {
+test('should insert val before node in linked list', function () {
   expect(toString(insert(2, 3, createLinkedList(1, 3)))).toBe('1,2,3');
   expect(toString(insert(1, 2, createLinkedList(2, 3)))).toBe('1,2,3');
 });

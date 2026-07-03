@@ -1,7 +1,3 @@
-/**
- * @since 2020-03-03 03:26
- * @author vivaxy
- */
 type InternalType = {
   id: number;
 };

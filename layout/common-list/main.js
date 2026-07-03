@@ -1,8 +1,3 @@
-/**
- * @since 14/12/5 上午9:34
- * @author vivaxy
- */
-
 var appendItem = function (item) {
   var template = document.querySelector('.list .item.hide');
   var one = document.querySelector('.list .item.hide').cloneNode(true);
@@ -31,7 +26,7 @@ var request = function (callback) {
       callback(ajax.responseText);
     }
   });
-  ajax.open("GET", "main.json", true);
+  ajax.open('GET', 'main.json', true);
   ajax.send();
 };
 

@@ -1,8 +1,3 @@
-/**
- * @since 20180718 15:36
- * @author vivaxy
- */
-
 const createPromise = () => {
   return new Promise((resolve) => {
     resolve();
@@ -65,5 +60,4 @@ for (let i = 0; i < TEST_COUNT; i++) {
 
   createPromise().then(checkDone);
   createPromise().then(checkDone);
-
 }

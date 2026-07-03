@@ -1,8 +1,3 @@
-/**
- * @since 2017-03-02 16:22
- * @author vivaxy
- */
-
 eval(
   (function (p, a, c, k, e, r) {
     e = function (c) {

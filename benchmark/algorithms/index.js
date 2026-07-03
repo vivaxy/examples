@@ -1,7 +1,3 @@
-/**
- * @since 2024-09-03
- * @author vivaxy
- */
 import { findMaxPrime } from './find-max-prime.js';
 
 const algorithms = {

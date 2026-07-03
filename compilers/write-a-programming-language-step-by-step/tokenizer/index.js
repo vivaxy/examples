@@ -1,6 +1,4 @@
 /**
- * @since 2024-03-29
- * @author vivaxy
  * @source https://gitee.com/richard-gong/craft-a-language/blob/master/02/play.ts
  */
 /**

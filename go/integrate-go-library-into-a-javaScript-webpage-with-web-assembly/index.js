@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-08
- * @author vivaxy
- */
 // @ts-expect-error Go is defined globally
 const go = new Go();
 WebAssembly.instantiateStreaming(fetch('./main.wasm'), go.importObject).then(

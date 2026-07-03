@@ -1,7 +1,3 @@
-/**
- * @since 2018-05-20 14:56:12
- * @author vivaxy
- */
 import assert from 'https://unpkg.com/@vivaxy/framework/utils/assert.js';
 import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';

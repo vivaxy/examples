@@ -1,7 +1,3 @@
-/**
- * @since 150531 10:11
- * @author vivaxy
- */
 var label1 = document.querySelector('.label-1'),
   input1 = document.querySelector('.input-1'),
   listenClickEvent = function (dom, callback) {

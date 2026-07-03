@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-15 21:14
- * @author vivaxy
- */
 const request = require('./request.js');
 (async function () {
   try {

@@ -1,7 +1,3 @@
-/**
- * @since 2019-12-16 07:23
- * @author vivaxy
- */
 const { Duplex } = require('stream');
 
 const input = 'ABCDEFG';
@@ -21,7 +17,7 @@ const duplex = new Duplex({
   decodeStrings: false,
 });
 
-duplex.on('data', function(chunk) {
+duplex.on('data', function (chunk) {
   console.log(chunk.toString());
 });
 

@@ -1,7 +1,3 @@
-/**
- * @since 2023-05-06
- * @author vivaxy
- */
 import { run } from 'https://unpkg.com/@vivaxy/framework/utils/benchmark';
 
 const innerHTML = `

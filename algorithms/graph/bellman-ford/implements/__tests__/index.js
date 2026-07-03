@@ -1,8 +1,3 @@
-/**
- * @since 20180711 19:24
- * @author vivaxy
- */
-
 const test = require('ava');
 const bellmanFord = require('../index.js');
 const Graph = require('../../../implements/class/Graph.js');
@@ -10,7 +5,6 @@ const GraphEdge = require('../../../implements/class/GraphEdge.js');
 const GraphVertex = require('../../../implements/class/GraphVertex.js');
 
 test('find minimum paths to all vertices for undirected graph', (t) => {
-
   const vertexA = new GraphVertex('A');
   const vertexB = new GraphVertex('B');
   const vertexC = new GraphVertex('C');
@@ -69,12 +63,9 @@ test('find minimum paths to all vertices for undirected graph', (t) => {
   t.is(previousVertices.C.getKey(), 'A');
   t.is(previousVertices.A, null);
   t.is(previousVertices.H, null);
-
 });
 
-
 test('find minimum paths to all vertices for directed graph with negative edge weights', (t) => {
-
   const vertexS = new GraphVertex('S');
   const vertexE = new GraphVertex('E');
   const vertexA = new GraphVertex('A');
@@ -122,5 +113,4 @@ test('find minimum paths to all vertices for directed graph with negative edge w
   t.is(previousVertices.C.getKey(), 'A');
   t.is(previousVertices.A.getKey(), 'D');
   t.is(previousVertices.D.getKey(), 'E');
-
 });

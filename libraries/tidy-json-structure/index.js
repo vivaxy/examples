@@ -1,6 +1,4 @@
 /**
- * @since 20180712 10:18
- * @author vivaxy
  *  1. Remove circular structure
  *  2. Remove function values
  *  3. Remove undefined values
@@ -14,14 +12,14 @@ module.exports = function tidyJsonStructure(data, parentObjects = []) {
 
   if (Object.prototype.toString.call(data) === '[object Array]') {
     newData = [];
-    traverse = function(array, visitor) {
+    traverse = function (array, visitor) {
       array.forEach((value, index) => {
         visitor(value, index);
       });
     };
   } else if (Object.prototype.toString.call(data) === '[object Object]') {
     newData = {};
-    traverse = function(object, visitor) {
+    traverse = function (object, visitor) {
       for (let key in object) {
         if (object.hasOwnProperty(key)) {
           visitor(object[key], key);

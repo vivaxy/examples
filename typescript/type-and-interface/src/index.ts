@@ -1,7 +1,3 @@
-/**
- * @since 2020-03-03 03:27
- * @author vivaxy
- */
 import {
   internalTypeWithFunction,
   internalTypeWithArrowFunction,

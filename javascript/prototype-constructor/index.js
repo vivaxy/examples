@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-22 10:01
- * @author vivaxy
- */
-
 function A() {}
 
 function B() {}

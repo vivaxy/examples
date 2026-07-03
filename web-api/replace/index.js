@@ -1,7 +1,3 @@
-/**
- * @since 2015-11-21 16:05
- * @author vivaxy
- */
 'use strict';
 let string = '123abc456abc789';
 

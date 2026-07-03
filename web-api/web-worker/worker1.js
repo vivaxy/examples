@@ -1,7 +1,3 @@
-/**
- * @since 2014/8/29 8:36
- * @author vivaxy
- */
 var i = 0;
 var data = {};
 var timedCount = function () {

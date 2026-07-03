@@ -1,8 +1,3 @@
-/**
- * @since 2019-02-02 10:56
- * @author vivaxy
- */
-
 const reportActions = {
   sendSyncXHR() {
     const xhr = new XMLHttpRequest();

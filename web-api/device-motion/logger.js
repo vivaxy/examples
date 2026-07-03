@@ -1,8 +1,3 @@
-/**
- * @since 20180525 16:25
- * @author vivaxy
- */
-
 function init() {
   const deviceorientationEl = document.querySelector('.deviceorientation');
   const devicemotionEl = document.querySelector('.devicemotion');

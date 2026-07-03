@@ -1,7 +1,3 @@
-/**
- * @since 2020-10-11 15:07
- * @author vivaxy
- */
 const $connect = document.getElementById('connect');
 $connect.addEventListener('click', async function () {
   const deviceFilter = { vendorId: 0x045e };

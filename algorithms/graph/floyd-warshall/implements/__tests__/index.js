@@ -1,8 +1,3 @@
-/**
- * @since 20180711 19:24
- * @author vivaxy
- */
-
 const test = require('ava');
 const floydWarshall = require('../index.js');
 const Graph = require('../../../implements/class/Graph.js');
@@ -10,7 +5,6 @@ const GraphEdge = require('../../../implements/class/GraphEdge.js');
 const GraphVertex = require('../../../implements/class/GraphVertex.js');
 
 test('weight matrix', (t) => {
-
   const vertex1 = new GraphVertex(1);
   const vertex2 = new GraphVertex(2);
   const vertex3 = new GraphVertex(3);
@@ -33,13 +27,21 @@ test('weight matrix', (t) => {
   const { distances, previousVertices } = floydWarshall(graph);
 
   const vertices = graph.getAllVertices();
-  t.is(distances[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][vertices.length], 0);
-  t.is(previousVertices[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][vertices.length], vertex3);
-
+  t.is(
+    distances[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][
+      vertices.length
+    ],
+    0,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertex1)][vertices.indexOf(vertex4)][
+      vertices.length
+    ],
+    vertex3,
+  );
 });
 
 test('find minimum paths to all vertices for undirected graph', (t) => {
-
   const vertexA = new GraphVertex('A');
   const vertexB = new GraphVertex('B');
   const vertexC = new GraphVertex('C');
@@ -81,28 +83,100 @@ test('find minimum paths to all vertices for undirected graph', (t) => {
   const { distances, previousVertices } = floydWarshall(graph);
 
   const vertices = graph.getAllVertices();
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][vertices.length], Infinity);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][vertices.length], 0);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][vertices.length], 4);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexE)][vertices.length], 7);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][vertices.length], 3);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][vertices.length], 9);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][vertices.length], 12);
-  t.is(distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][vertices.length], 11);
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][
+      vertices.length
+    ],
+    Infinity,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][
+      vertices.length
+    ],
+    0,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][
+      vertices.length
+    ],
+    4,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexE)][
+      vertices.length
+    ],
+    7,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][
+      vertices.length
+    ],
+    3,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][
+      vertices.length
+    ],
+    9,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][
+      vertices.length
+    ],
+    12,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][
+      vertices.length
+    ],
+    11,
+  );
 
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][vertices.length], vertexD);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][vertices.length], vertexB);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][vertices.length], vertexA);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][vertices.length], vertexE);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][vertices.length], vertexA);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][vertices.length], null);
-  t.is(previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][vertices.length], null);
-
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexF)][
+      vertices.length
+    ],
+    vertexD,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexD)][
+      vertices.length
+    ],
+    vertexB,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexB)][
+      vertices.length
+    ],
+    vertexA,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexG)][
+      vertices.length
+    ],
+    vertexE,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexC)][
+      vertices.length
+    ],
+    vertexA,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexA)][
+      vertices.length
+    ],
+    null,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexA)][vertices.indexOf(vertexH)][
+      vertices.length
+    ],
+    null,
+  );
 });
 
-
 test('find minimum paths to all vertices for directed graph with negative edge weights', (t) => {
-
   const vertexS = new GraphVertex('S');
   const vertexE = new GraphVertex('E');
   const vertexA = new GraphVertex('A');
@@ -135,19 +209,83 @@ test('find minimum paths to all vertices for directed graph with negative edge w
   const { distances, previousVertices } = floydWarshall(graph);
 
   const vertices = graph.getAllVertices();
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][vertices.length], Infinity);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][vertices.length], 0);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][vertices.length], 5);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][vertices.length], 5);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][vertices.length], 7);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][vertices.length], 9);
-  t.is(distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexE)][vertices.length], 8);
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][
+      vertices.length
+    ],
+    Infinity,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][
+      vertices.length
+    ],
+    0,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][
+      vertices.length
+    ],
+    5,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][
+      vertices.length
+    ],
+    5,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][
+      vertices.length
+    ],
+    7,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][
+      vertices.length
+    ],
+    9,
+  );
+  t.is(
+    distances[vertices.indexOf(vertexS)][vertices.indexOf(vertexE)][
+      vertices.length
+    ],
+    8,
+  );
 
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][vertices.length], null);
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][vertices.length], null);
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][vertices.length], vertexC);
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][vertices.length], vertexA);
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][vertices.length], vertexD);
-  t.is(previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][vertices.length], vertexE);
-
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexH)][
+      vertices.length
+    ],
+    null,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexS)][
+      vertices.length
+    ],
+    null,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexB)][
+      vertices.length
+    ],
+    vertexC,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexC)][
+      vertices.length
+    ],
+    vertexA,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexA)][
+      vertices.length
+    ],
+    vertexD,
+  );
+  t.is(
+    previousVertices[vertices.indexOf(vertexS)][vertices.indexOf(vertexD)][
+      vertices.length
+    ],
+    vertexE,
+  );
 });

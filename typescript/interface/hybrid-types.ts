@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 01:10
- * @author vivaxy
- */
 interface Counter {
   (start: number): string;
   interval: number;
@@ -9,9 +5,9 @@ interface Counter {
 }
 
 function getCounter(): Counter {
-  const counter = <Counter>function (start: number) { };
+  const counter = <Counter>function (start: number) {};
   counter.interval = 123;
-  counter.reset = function () { };
+  counter.reset = function () {};
   return counter;
 }
 

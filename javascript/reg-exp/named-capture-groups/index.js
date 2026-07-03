@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-01 11:52
- * @author vivaxy
- */
 // 命名捕获组 // ?<name>
 const namedCaptureGroups = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
 const result = namedCaptureGroups.exec('2020-03-04');

@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 11:24
- * @author vivaxy
- */
 var readonlyArray = [1, 2, 3];
 readonlyArray[0] = 0; // Index signature in type 'readonly number[]' only permits reading.
 readonlyArray.push(4); // Property 'push' does not exist on type 'readonly number[]'.

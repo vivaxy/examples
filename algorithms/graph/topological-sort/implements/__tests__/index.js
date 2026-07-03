@@ -1,8 +1,3 @@
-/**
- * @since 20180527 17:10
- * @author vivaxy
- */
-
 const test = require('ava');
 const Graph = require('../../../implements/class/Graph.js');
 const GraphEdge = require('../../../implements/class/GraphEdge.js');
@@ -60,7 +55,19 @@ test('topological sort', (t) => {
     .addEdge(edge15);
 
   t.deepEqual(topologicalSort(graph), [
-    'undershorts', 'socks', 'T-shirt', 'compression shorts', 'chest pad', 'hose',
-    'cup', 'pants', 'skates', 'sweater', 'leg pads', 'mask', 'catch glove', 'blocker',
+    'undershorts',
+    'socks',
+    'T-shirt',
+    'compression shorts',
+    'chest pad',
+    'hose',
+    'cup',
+    'pants',
+    'skates',
+    'sweater',
+    'leg pads',
+    'mask',
+    'catch glove',
+    'blocker',
   ]);
 });

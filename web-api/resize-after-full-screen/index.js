@@ -1,7 +1,3 @@
-/**
- * @since 2022-07-19 15:30
- * @author vivaxy
- */
 const $button = document.querySelector('#button');
 const $container = document.querySelector('#container');
 

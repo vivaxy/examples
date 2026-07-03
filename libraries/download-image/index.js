@@ -1,15 +1,11 @@
-/**
- * @since 2019-10-28 12:43
- * @author vivaxy
- */
 const canvas = document.getElementsByTagName('canvas')[0];
 const imageURL = '/vivaxy.icon.png';
 
 document
   .getElementById('download-canvas-by-create-a-tag')
-  .addEventListener('click', function() {
+  .addEventListener('click', function () {
     const image = new Image();
-    image.addEventListener('load', function() {
+    image.addEventListener('load', function () {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(image, 0, 0);
       const dataURL = canvas.toDataURL('image/png');
@@ -24,9 +20,9 @@ document
 
 document
   .getElementById('download-canvas-by-redirect-to')
-  .addEventListener('click', function() {
+  .addEventListener('click', function () {
     const image = new Image();
-    image.addEventListener('load', function() {
+    image.addEventListener('load', function () {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(image, 0, 0);
       const dataURL = canvas.toDataURL('image/png');

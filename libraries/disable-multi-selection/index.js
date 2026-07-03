@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-19
- * @author vivaxy
- */
 const ul = document.querySelector('ul');
 document.addEventListener('selectionchange', function (e) {
   const sel = window.getSelection();

@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-03 18:30:36
- * @author vivaxy
- */
 import { html, Component } from '//unpkg.com/htm/preact/standalone.module.js';
 import RELEASE_TYPES from '../enums/release-types.js';
 import CHANGE_TYPES from '../enums/change-types.js';
@@ -14,7 +10,7 @@ function update(m) {
   const modules = JSON.parse(JSON.stringify(m));
   gatherDependencyGraph(modules);
   const updatedModules = [];
-  Object.keys(modules).forEach(function(name) {
+  Object.keys(modules).forEach(function (name) {
     if (modules[name].releaseType !== RELEASE_TYPES.NONE) {
       modules[name].version = semver.inc(
         modules[name].version,
@@ -24,8 +20,8 @@ function update(m) {
       updatedModules.push(name);
     }
   });
-  updatedModules.forEach(function(name) {
-    modules[name].dependent.forEach(function(dependentName) {
+  updatedModules.forEach(function (name) {
+    modules[name].dependent.forEach(function (dependentName) {
       if (
         !semver.satisfies(
           modules[name].version,
@@ -47,10 +43,10 @@ function update(m) {
 }
 
 function gatherDependencyGraph(modules) {
-  Object.keys(modules).forEach(function(name) {
+  Object.keys(modules).forEach(function (name) {
     modules[name].dependent = modules[name].dependent || [];
     const { dependencies } = modules[name];
-    Object.keys(dependencies).forEach(function(dependencyName) {
+    Object.keys(dependencies).forEach(function (dependencyName) {
       modules[dependencyName].dependent =
         modules[dependencyName].dependent || [];
       modules[dependencyName].dependent.push(name);
@@ -61,12 +57,12 @@ function gatherDependencyGraph(modules) {
 function updateKeys(
   object,
   onModule,
-  before = function() {},
-  after = function() {},
+  before = function () {},
+  after = function () {},
 ) {
   const ret = {};
   before(ret);
-  Object.keys(object).forEach(function(key) {
+  Object.keys(object).forEach(function (key) {
     onModule(ret, key, object[key], object);
   });
   after(ret);
@@ -131,18 +127,17 @@ export default class App extends Component {
 
     const handlers = {
       [CHANGE_TYPES.NAME]: ({ name, value }) => {
-        const newModules = updateKeys(modules, function(ret, key, value) {
-          const dependencies = updateKeys(value.dependencies, function(
-            _ret,
-            _key,
-            _value,
-          ) {
-            if (_key === name) {
-              _ret[value] = _value;
-            } else {
-              _ret[_key] = _value;
-            }
-          });
+        const newModules = updateKeys(modules, function (ret, key, value) {
+          const dependencies = updateKeys(
+            value.dependencies,
+            function (_ret, _key, _value) {
+              if (_key === name) {
+                _ret[value] = _value;
+              } else {
+                _ret[_key] = _value;
+              }
+            },
+          );
           if (name === key) {
             ret[value] = {
               ...value,
@@ -293,7 +288,7 @@ export default class App extends Component {
           editable
           onChange="${handleModuleChange}"
         />
-        ${Object.keys(modules).map(function(name) {
+        ${Object.keys(modules).map(function (name) {
           const releaseType = modules[name].releaseType;
           return html`
             <${ReleaseTypeSelect}

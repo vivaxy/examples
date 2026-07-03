@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-26 15:10
- * @author vivaxy
- */
 import { findWrapping } from 'prosemirror-transform';
 import { EditorState, Plugin, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';

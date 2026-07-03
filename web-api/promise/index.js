@@ -1,7 +1,3 @@
-/**
- * @since 150508 13:45
- * @author vivaxy
- */
 'use strict';
 
 // A-> $http function is implemented in order to follow the standard Adapter pattern

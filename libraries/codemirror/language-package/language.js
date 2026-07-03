@@ -1,7 +1,3 @@
-/**
- * @since 2024-12-17
- * @author vivaxy
- */
 import { LRLanguage, LanguageSupport } from '@codemirror/language';
 import { foldNodeProp, foldInside, indentNodeProp } from '@codemirror/language';
 import { styleTags, tags as t } from '@lezer/highlight';

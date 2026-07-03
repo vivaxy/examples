@@ -1,7 +1,3 @@
-/**
- * @since 2020-09-30 17:01
- * @author vivaxy
- */
 function simpleErrorBoundary(fn) {
   try {
     fn();
@@ -20,14 +16,14 @@ function betterErrorBoundary(fn) {
   }
   window.addEventListener('error', handleError);
   $fake.dispatchEvent(new CustomEvent(FAKE_EVENT));
-  window.removeEventListener('error', function(e) {
+  window.removeEventListener('error', function (e) {
     console.error('error', e);
   });
 }
 
 function test1() {
   console.log(1);
-  simpleErrorBoundary(function() {
+  simpleErrorBoundary(function () {
     console.log(2);
     // do not pause when `Pause on exceptions` on
     // only pause when `Pause on caught exceptions` on
@@ -41,7 +37,7 @@ test1();
 
 function test2() {
   console.log(1);
-  betterErrorBoundary(function() {
+  betterErrorBoundary(function () {
     console.log(2);
     // pause when `Pause on exceptions` on
     throw new Error();

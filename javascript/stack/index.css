@@ -1,12 +1,7 @@
-/**
- * @since 15-08-11 17:17
- * @author vivaxy
- */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
-

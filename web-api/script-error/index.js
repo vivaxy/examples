@@ -1,8 +1,3 @@
-/**
- * @since 2019-07-09 08:40:24
- * @author vivaxy
- */
-
 function loadScript(url) {
   return new Promise(function (reslove, reject) {
     const script = document.createElement('script');

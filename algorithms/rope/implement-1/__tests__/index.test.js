@@ -1,6 +1,4 @@
 /**
- * @since 2021-10-13
- * @author vivaxy
  * @see https://en.wikipedia.org/wiki/Rope_(data_structure)
  */
 const Rope = require('..');

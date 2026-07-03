@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-25
- * @author vivaxy
- */
 import { DATA_SOURCES } from '../../../enums/view-options';
 import Share from './Share';
 import Store from './Store';

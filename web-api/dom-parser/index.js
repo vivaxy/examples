@@ -1,7 +1,3 @@
-/**
- * @since 2020-05-17 13:38
- * @author vivaxy
- */
 const domParser = new DOMParser();
 
 console.log(

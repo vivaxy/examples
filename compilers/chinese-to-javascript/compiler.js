@@ -1,7 +1,3 @@
-/**
- * @since 2017-04-21 10:21:46
- * @author vivaxy
- */
 function tokenizer(input) {
   let current = 0;
   let tokens = [];

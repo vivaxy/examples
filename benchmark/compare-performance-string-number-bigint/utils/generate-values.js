@@ -1,9 +1,4 @@
 /**
- * @since 2024-07-09
- * @author vivaxy
- */
-
-/**
  * @param {Uint8Array} bytes
  * @return {string}
  */

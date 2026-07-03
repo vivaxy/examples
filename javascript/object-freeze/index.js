@@ -1,6 +1,4 @@
 /**
- * @since 2023-12-21
- * @author vivaxy
  * these piece of code will not reproduce when it is run in DevTools console
  */
 // define a

@@ -1,7 +1,3 @@
-/**
- * @since 2022-02-08
- * @author vivaxy
- */
 const { Mapping } = require('prosemirror-transform');
 
 exports.rebaseSteps = (doc, steps, over) => {

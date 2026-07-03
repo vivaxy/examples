@@ -1,8 +1,3 @@
-/**
- * @since 20180418 15:25
- * @author vivaxy
- */
-
 class EventEmitter {
   constructor() {
     this.events = {};

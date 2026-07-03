@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-15
- * @author vivaxy
- */
 import { useState } from 'react';
 import './index.css';
 

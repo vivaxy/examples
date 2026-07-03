@@ -1,7 +1,3 @@
-/**
- * @since 150517 20:08
- * @author vivaxy
- */
 var Canvas = require('./canvas'),
   Dot = require('./dot'),
   url = require('url'),

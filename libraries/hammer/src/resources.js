@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-07 17:17
- * @author vivaxy
- */
 'use strict';
 export default [
   {

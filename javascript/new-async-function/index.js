@@ -1,8 +1,4 @@
-/**
- * @since 2020-09-30 10:27
- * @author vivaxy
- */
-const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor;
+const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
 const fetchJS = new AsyncFunction('url', 'return await fetch(url);');
 fetchJS('./index.js')

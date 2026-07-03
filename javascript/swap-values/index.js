@@ -1,8 +1,3 @@
-/**
- * @since 20180503 14:01
- * @author vivaxy
- */
-
 function swapValues1([a, b]) {
   a = a - b;
   b = b + a;

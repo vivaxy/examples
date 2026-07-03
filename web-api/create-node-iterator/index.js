@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-07 18:51
- * @author vivaxy
- */
 const nodeIterator = document.createNodeIterator(
   document.body,
   NodeFilter.SHOW_ELEMENT,

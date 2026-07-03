@@ -1,8 +1,3 @@
-/**
- * @since 20180813 13:44
- * @author vivaxy
- */
-
 const test = require('ava');
 const computeTransformTables = require('../index.js');
 

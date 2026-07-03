@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-22
- * @author vivaxy
- */
 import {
   BroadcastChannel,
   createLeaderElection,

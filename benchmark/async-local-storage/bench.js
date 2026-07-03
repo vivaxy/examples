@@ -1,7 +1,4 @@
 /**
- * @since 2026-04-13
- * @author vivaxy
- *
  * AsyncLocalStorage overhead benchmark.
  *
  * Starts the Koa server in baseline and ALS modes, then runs autocannon at

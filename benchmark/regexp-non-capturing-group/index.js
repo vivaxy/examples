@@ -1,7 +1,3 @@
-/**
- * @since 2022-01-14
- * @author vivaxy
- */
 const Benchmark = require('benchmark');
 
 const suite = new Benchmark.Suite();

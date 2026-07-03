@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-09 19:57:24
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 
 class AppChildChild extends Component {

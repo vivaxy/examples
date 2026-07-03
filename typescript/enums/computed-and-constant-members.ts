@@ -1,7 +1,3 @@
-/**
- * @since 2019-06-20 16:18
- * @author vivaxy
- */
 enum FileAccessOfComputedAndConstantMembers {
   // constant members
   None,

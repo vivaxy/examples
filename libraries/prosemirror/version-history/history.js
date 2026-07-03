@@ -1,7 +1,3 @@
-/**
- * @since 2021-09-13
- * @author vivaxy
- */
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Mapping, ReplaceStep, Transform } from 'prosemirror-transform';
@@ -314,9 +310,8 @@ class History {
 }
 
 export const history = new History();
-history.createEditorStateByCommitId = history.createEditorStateByCommitIdWithApply.bind(
-  history,
-);
+history.createEditorStateByCommitId =
+  history.createEditorStateByCommitIdWithApply.bind(history);
 
 function mergeStep(stepInfo0, stepInfo1) {
   const step0 = stepInfo0.step;

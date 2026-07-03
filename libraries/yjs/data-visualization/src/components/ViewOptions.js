@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-14
- * @author vivaxy
- */
 import * as VIEW_OPTIONS from '../enums/view-options';
 
 export default function ViewOptions(props) {

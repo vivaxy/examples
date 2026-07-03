@@ -1,8 +1,3 @@
-/**
- * @since 2017-04-18 10:55:41
- * @author vivaxy
- */
-
 import { observable, action } from 'mobx';
 
 export default class AppState {

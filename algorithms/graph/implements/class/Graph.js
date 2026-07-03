@@ -1,6 +1,4 @@
 /**
- * @since 20180527 17:17
- * @author vivaxy
  * @see https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/graph/Graph.js
  */
 
@@ -76,5 +74,4 @@ module.exports = class Graph {
 
     return vertex.findEdge(endVertex);
   }
-
 };

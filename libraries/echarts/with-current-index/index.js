@@ -1,12 +1,7 @@
-/**
- * @since 2016-09-28 20:38
- * @author vivaxy
- */
-
 var currentIndex = 0;
 var indexPanel = document.querySelector('.js-index-panel');
 
-var updateAxisPointer = function() {
+var updateAxisPointer = function () {
   var _series = option.series[0];
   _series.markLine = {
     data: [
@@ -35,9 +30,9 @@ var option = {
   tooltip: {
     trigger: 'axis',
     // alwaysShowContent: true,
-    formatter: function(params, ticket, callback) {
+    formatter: function (params, ticket, callback) {
       if (params.length) {
-        var index = params.map(function(pa) {
+        var index = params.map(function (pa) {
           return pa.dataIndex;
         })[0];
         if (currentIndex !== index) {
@@ -113,6 +108,6 @@ var myChart = echarts.init(element);
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption(option);
 
-element.addEventListener('mouseout', function() {
+element.addEventListener('mouseout', function () {
   updateAxisPointer();
 });

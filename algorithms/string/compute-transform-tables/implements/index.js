@@ -1,6 +1,4 @@
 /**
- * @since 20180813 13:44
- * @author vivaxy
  * transform operation:
  *  - copy
  *  - replace
@@ -12,17 +10,29 @@ function assembleTransformation(operation, cost, s1, s2, operations, i, j) {
   if (i === 0 && j === 0) {
     return [];
   }
-  if (operations[i][j] === operation.COPY || operations[i][j] === operation.REPLACE) {
-    return assembleTransformation(operation, cost, operations, i - 1, j - 1).concat(operations[i][j]);
+  if (
+    operations[i][j] === operation.COPY ||
+    operations[i][j] === operation.REPLACE
+  ) {
+    return assembleTransformation(
+      operation,
+      cost,
+      operations,
+      i - 1,
+      j - 1,
+    ).concat(operations[i][j]);
   }
   if (operations[i][j] === operation.DELETE) {
-    return assembleTransformation(operation, cost, operations, i - 1, j).concat(operations[i][j]);
+    return assembleTransformation(operation, cost, operations, i - 1, j).concat(
+      operations[i][j],
+    );
   }
-  return assembleTransformation(operation, cost, operations, i, j - 1).concat(operations[i][j]);
+  return assembleTransformation(operation, cost, operations, i, j - 1).concat(
+    operations[i][j],
+  );
 }
 
 module.exports = function computeTransformTables(operation, cost, s1, s2) {
-
   let costs = [];
   let operations = [];
 
@@ -31,7 +41,6 @@ module.exports = function computeTransformTables(operation, cost, s1, s2) {
     operations[i] = [];
 
     for (let j = 0; j <= s2.length; j++) {
-
       if (i === 0) {
         costs[i][j] = j * cost.INSERT;
         if (j !== 0) {
@@ -62,9 +71,7 @@ module.exports = function computeTransformTables(operation, cost, s1, s2) {
         costs[i][j] = costs[i][j - 1] + cost.INSERT;
         operations[i][j] = operation.INSERT;
       }
-
     }
-
   }
 
   return { costs, operations };

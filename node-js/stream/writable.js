@@ -1,7 +1,3 @@
-/**
- * @since 2019-12-16 06:02
- * @author vivaxy
- */
 const { Writable } = require('stream');
 
 const writable = new Writable({

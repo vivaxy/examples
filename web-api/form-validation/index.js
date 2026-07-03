@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-19 13:39
- * @author vivaxy
- */
 const input = document.querySelector('#input');
 
 function log() {

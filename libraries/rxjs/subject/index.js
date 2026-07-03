@@ -1,8 +1,3 @@
-/**
- * @since 2018-12-03 19:40
- * @author vivaxy
- */
-
 const { Subject, from } = rxjs;
 
 const subject = new Subject();

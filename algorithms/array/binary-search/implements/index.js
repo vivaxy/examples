@@ -1,8 +1,3 @@
-/**
- * @since 20180417 10:42
- * @author vivaxy
- */
-
 exports.binarySearch = (A, n, x) => {
   let p = 1;
   let r = n;

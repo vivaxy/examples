@@ -1,7 +1,3 @@
-/**
- * @since 2015-11-21 13:49
- * @author vivaxy
- */
 'use strict';
 var eventSource;
 if (!!window.EventSource) {

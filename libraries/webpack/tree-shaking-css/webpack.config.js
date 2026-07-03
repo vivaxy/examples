@@ -1,7 +1,3 @@
-/**
- * @since 2023-06-05
- * @author vivaxy
- */
 module.exports = {
   entry: './index.js',
   mode: process.env.NODE_ENV,

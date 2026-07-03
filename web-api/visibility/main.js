@@ -1,7 +1,3 @@
-/**
- * @since 150122 21:08
- * @author vivaxy
- */
 var log = document.querySelector('.console');
 var vendors = ['webkit', 'moz', 'ms'];
 var visibilityChangeEvent = 'visibilitychange';

@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-17 14:12
- * @author vivaxy
- */
-
 module.exports = {
   entry: './source.js',
   output: {

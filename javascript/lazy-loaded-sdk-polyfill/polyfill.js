@@ -1,7 +1,3 @@
-/**
- * @since 2023-04-21
- * @author vivaxy
- */
 const callHistory = [];
 
 function createProxy(properties) {

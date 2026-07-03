@@ -1,7 +1,3 @@
-/**
- * @since 2017-01-26 19:02
- * @author vivaxy
- */
 var textarea = document.querySelector('.js-text');
 var sign = document.querySelector('.js-sign');
 var check = document.querySelector('.js-check');

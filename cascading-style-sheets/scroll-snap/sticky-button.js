@@ -1,6 +1,4 @@
 /**
- * @since 2021-03-07 09:34
- * @author vivaxy
  * @see https://mp.weixin.qq.com/s/gxe5QOVt9kRFWvXx-gugbg
  */
 let container = null;

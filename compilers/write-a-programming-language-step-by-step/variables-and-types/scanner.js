@@ -1,13 +1,8 @@
 /**
- * @since 2024-04-01
- * @author vivaxy
- */
-/**
  * 词法分析器
  * @version 0.2
  * @author 宫文学
  * @license 木兰开源协议
- * @since 2021-06-04
  *
  * 缺失的特性：
  * 1.不支持Unicode；

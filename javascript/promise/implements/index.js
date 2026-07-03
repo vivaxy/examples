@@ -1,7 +1,3 @@
-/**
- * @since 2020-04-20 04:52
- * @author vivaxy
- */
 const STATUS = {
   PENDING: 0,
   RESOLVED: 1,

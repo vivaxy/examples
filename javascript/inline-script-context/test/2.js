@@ -1,7 +1,3 @@
-/**
- * @since 15-09-16 10:51
- * @author vivaxy
- */
 'use strict';
 log('begin', '2.js');
 logLastScript();

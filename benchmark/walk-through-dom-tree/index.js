@@ -1,7 +1,3 @@
-/**
- * @since 2020-08-05 11:17
- * @author vivaxy
- */
 function initializeDOM(totalDepth) {
   const root = document.createElement('div');
   root.setAttribute('data-depth', 0);

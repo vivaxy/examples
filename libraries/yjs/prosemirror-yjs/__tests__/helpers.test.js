@@ -1,7 +1,3 @@
-/**
- * @since 2021-11-08
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { Schema, DOMParser, Slice, Fragment } from 'prosemirror-model';

@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-30
- * @author vivaxy
- */
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Plugin, TextSelection } from 'prosemirror-state';
 import {

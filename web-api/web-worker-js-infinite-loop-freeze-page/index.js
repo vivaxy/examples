@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-29
- * @author vivaxy
- */
 document
   .getElementById('start-infinite-loop')
   .addEventListener('click', function () {

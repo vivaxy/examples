@@ -1,6 +1,4 @@
 /**
- * @since 2023-07-31
- * @author vivaxy
  * @source https://developer.chrome.com/blog/page-lifecycle-api/
  */
 const getState = () => {

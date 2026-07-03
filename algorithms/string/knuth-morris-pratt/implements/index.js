@@ -1,6 +1,4 @@
 /**
- * @since 20180906 11:34
- * @author vivaxy
  * O(n + m)
  */
 /**

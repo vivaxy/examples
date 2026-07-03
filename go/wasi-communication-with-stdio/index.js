@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-08
- * @author vivaxy
- */
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'node:os';

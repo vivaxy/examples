@@ -1,7 +1,3 @@
-/**
- * @since 2023-01-09 10:53
- * @author vivaxy
- */
 import yoga, { Node } from 'yoga-layout';
 
 const root = Node.create();

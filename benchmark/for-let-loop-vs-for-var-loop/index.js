@@ -1,7 +1,3 @@
-/**
- * @since 2023-12-22
- * @author vivaxy
- */
 import { run } from 'https://vivaxy.github.io/framework/utils/benchmark.js';
 
 /**

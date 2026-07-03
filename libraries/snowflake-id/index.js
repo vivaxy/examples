@@ -1,7 +1,3 @@
-/**
- * @since 2023-02-14 14:32
- * @author vivaxy
- */
 function clamp(value, length) {
   const RADIX = 2;
   const binaryValue = value.toString(RADIX);

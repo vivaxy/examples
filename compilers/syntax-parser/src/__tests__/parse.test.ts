@@ -1,12 +1,8 @@
-/**
- * @since 20180911 17:16
- * @author vivaxy
- */
 import parseRule from '../parse-rule';
 import tokenize from '../tokenize';
 import parse from '../parse';
 
-test('keyword', function() {
+test('keyword', function () {
   const rule = parseRule(`
 Null ::= 'null' ;
 `);

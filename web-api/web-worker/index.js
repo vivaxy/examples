@@ -1,7 +1,3 @@
-/**
- * @since 2014/8/28 17:24
- * @author vivaxy
- */
 // web worker 1
 const button1 = document.getElementsByClassName('button1')[0];
 const output1 = document.getElementsByClassName('output1')[0];

@@ -1,8 +1,3 @@
-/**
- * @since 14/12/2017 12:05
- * @author vivaxy
- */
-
 var CACHE_NAME = 'my-site-cache-v1';
 
 // looping through all of the caches in the service worker

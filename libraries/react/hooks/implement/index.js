@@ -1,8 +1,3 @@
-/**
- * @since 2019-07-19 18:53
- * @author vivaxy
- */
-
 const map = {};
 
 let currentComponent = null;
@@ -17,20 +12,20 @@ function useHook(fn) {
 }
 
 function ComponentA() {
-  useHook(function() {
+  useHook(function () {
     console.log('ComponentA');
   });
   render(ComponentAA);
 }
 
 function ComponentAA() {
-  useHook(function() {
+  useHook(function () {
     console.log('ComponentAA');
   });
 }
 
 function ComponentB() {
-  useHook(function() {
+  useHook(function () {
     console.log('ComponentB');
   });
 }

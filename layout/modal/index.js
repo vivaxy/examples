@@ -1,8 +1,3 @@
-/**
- * @since 2016-04-05 10:19
- * @author vivaxy
- */
-
 'use strict';
 
 var btn = document.querySelector('.js-open-modal');
@@ -14,11 +9,11 @@ var body = document.body;
 var bodyClassList = body.classList;
 
 modalOverlay.addEventListener('click', function () {
-    bodyClassList.remove(MODAL_OPEN_CLASS_NAME);
+  bodyClassList.remove(MODAL_OPEN_CLASS_NAME);
 });
 modalWrapper.addEventListener('click', function (e) {
-    e.stopPropagation();
+  e.stopPropagation();
 });
 btn.addEventListener('click', function () {
-    bodyClassList.add(MODAL_OPEN_CLASS_NAME);
+  bodyClassList.add(MODAL_OPEN_CLASS_NAME);
 });

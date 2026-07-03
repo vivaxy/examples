@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-21
- * @author vivaxy
- */
 import Broadcast from './broadcast.js';
 
 const COUNT = 1000000;

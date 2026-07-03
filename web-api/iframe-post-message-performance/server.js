@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-05 16:46
- * @author vivaxy
- */
 const fs = require('fs');
 const Koa = require('koa');
 const mime = require('mime');

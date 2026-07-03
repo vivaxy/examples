@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-25
- * @author vivaxy
- */
 const asyncHooks = require('async_hooks');
 const fs = require('fs');
 const util = require('util');

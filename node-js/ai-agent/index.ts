@@ -1,7 +1,3 @@
-/**
- * @since 2026-05-02
- * @author vivaxy
- */
 import 'dotenv/config';
 import { exec } from 'node:child_process';
 import * as fs from 'node:fs/promises';

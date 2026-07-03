@@ -1,7 +1,3 @@
-/**
- * @since 2021-12-19
- * @author vivaxy
- */
 class Item {
   constructor(clientId, clock, originLeft, originRight) {
     this.clientId = clientId;

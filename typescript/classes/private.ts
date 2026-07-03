@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-23 11:08
- * @author vivaxy
- */
-
 class AnimalOfPrivate {
   private name: string;
   constructor(theName: string) {

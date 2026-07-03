@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-17 15:34
- * @author vivaxy
- */
 function name() {
   return `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mi nulla, ornare in ultricies vitae, dictum et velit. Aenean eget neque sit amet purus pretium accumsan sed vel magna. Sed efficitur laoreet consequat. Integer molestie maximus vulputate. Proin id tincidunt urna. Proin sed diam feugiat, viverra magna non, cursus metus. Cras tristique ipsum vestibulum, tempor ligula pharetra, imperdiet turpis. Nullam feugiat sollicitudin elit a facilisis. Fusce sagittis sed nisl vel luctus.
 

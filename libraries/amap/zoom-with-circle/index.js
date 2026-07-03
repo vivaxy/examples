@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-10 20:36
- * @author vivaxy
- */
-
 var zoomIn = document.querySelector('.js-zoom-in');
 var zoomOut = document.querySelector('.js-zoom-out');
 

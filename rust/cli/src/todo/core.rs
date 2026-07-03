@@ -1,7 +1,3 @@
-/**
- * @since 2025-07-21 13:41
- * @author vivaxy
- */
 use clap::Subcommand;
 use serde::{Deserialize, Serialize};
 use serde_json;

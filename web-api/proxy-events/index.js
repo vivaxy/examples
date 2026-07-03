@@ -1,8 +1,4 @@
 /**
- * @since 2024-02-22
- * @author vivaxy
- */
-/**
  *
  * @param {EventTarget} target
  * @param {(e: Event) => void} listener

@@ -1,7 +1,3 @@
-/**
- * @since 20180719 11:40
- * @author vivaxy
- */
 module.exports = class LinkedList {
   constructor() {
     this.head = null;

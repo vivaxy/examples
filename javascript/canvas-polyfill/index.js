@@ -1,7 +1,3 @@
-/**
- * @since 150315 10:13
- * @author vivaxy
- */
 var canvasPolyfill = new CanvasPolyfill();
 console.log(canvasPolyfill.supported);
 canvasPolyfill.convert();

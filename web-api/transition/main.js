@@ -1,7 +1,3 @@
-/**
- * @since 150119 09:43
- * @author vivaxy
- */
 var demo = document.querySelector('.demo'),
   getTransitionEndEventName = function () {
     var transitions = {

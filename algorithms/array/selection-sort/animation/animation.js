@@ -1,7 +1,3 @@
-/**
- * @since 2018-04-22 09:30:32
- * @author vivaxy
- */
 import * as actionTypes from './actionTypes.js';
 
 const stateTypes = {

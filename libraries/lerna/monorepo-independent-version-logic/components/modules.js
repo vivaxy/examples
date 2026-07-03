@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-02 19:01
- * @author vivaxy
- */
 import { html } from '//unpkg.com/htm/preact/standalone.module.js';
 import ModuleItem from './module-item.js';
 import CHANGE_TYPES from '../enums/change-types.js';
@@ -19,7 +15,7 @@ export default function Modules(props) {
 
   return html`
     <div class="modules">
-      ${Object.keys(modules).map(function(name) {
+      ${Object.keys(modules).map(function (name) {
         const { version, dependencies, updated } = modules[name];
         return html`
           <${ModuleItem}
@@ -33,9 +29,7 @@ export default function Modules(props) {
         `;
       })}
       ${editable &&
-        html`
-          <button class="edit-button" onClick="${handleAdd}">+</button>
-        `}
+      html` <button class="edit-button" onClick="${handleAdd}">+</button> `}
     </div>
   `;
 }

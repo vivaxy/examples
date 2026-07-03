@@ -1,7 +1,3 @@
-/**
- * @since 2021-09-13
- * @author vivaxy
- */
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Mapping, ReplaceStep } from 'prosemirror-transform';

@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-02
- * @author vivaxy
- */
 async function getMemory() {
   // @ts-expect-error measureUserAgentSpecificMemory
   if (performance.measureUserAgentSpecificMemory) {

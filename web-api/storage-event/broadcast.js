@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-21
- * @author vivaxy
- */
 import EventEmitter from 'https://unpkg.com/@vivaxy/framework/class/event-emitter2.js';
 
 const STORAGE_EVENT = 'storage';

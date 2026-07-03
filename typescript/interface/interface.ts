@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-22 10:52
- * @author vivaxy
- */
-
 interface LabeledValue {
   label: string;
 }

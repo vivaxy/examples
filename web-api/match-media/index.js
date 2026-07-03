@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-28 21:00:17
- * @author vivaxy
- */
 const mediaQueryListEvent = window.matchMedia('(max-width: 600px)');
 logMediaQueryListEvent(mediaQueryListEvent);
 mediaQueryListEvent.addEventListener('change', logMediaQueryListEvent);

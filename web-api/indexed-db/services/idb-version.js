@@ -1,8 +1,3 @@
-/**
- * @since 20180710 14:27
- * @author vivaxy
- */
-
 import * as eventTypes from '../enums/event-types.js';
 import * as updateTypes from '../enums/upgrade-types.js';
 

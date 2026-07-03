@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-12 12:07:09
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -87,7 +82,4 @@ const mapStateToProps = (state) => {
   const { inputValue, errorMessage } = state[Footer.name];
   return { inputValue, errorMessage };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Footer);
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

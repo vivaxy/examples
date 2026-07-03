@@ -1,8 +1,4 @@
 /**
- * @since 2024-09-03
- * @author vivaxy
- */
-/**
  * @param {number} num
  * @return {boolean}
  */

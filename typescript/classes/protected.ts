@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 02:06
- * @author vivaxy
- */
 class PersonOfProtected {
   protected name: string;
   private department: string;

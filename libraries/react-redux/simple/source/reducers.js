@@ -1,8 +1,3 @@
-/**
- * @since 2016-01-22 15:01
- * @author vivaxy
- */
-
 'use strict';
 
 import { combineReducers } from 'redux';

@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-08 03:40
- * @author vivaxy
- */
 function createIframe(src) {
   const startTime = performance.now();
   const iframe = document.createElement('iframe');

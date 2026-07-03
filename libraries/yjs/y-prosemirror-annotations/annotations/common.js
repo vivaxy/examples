@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-30
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import { PluginKey } from 'prosemirror-state';
 import {

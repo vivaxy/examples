@@ -1,7 +1,4 @@
 /**
- * @since 2021-06-30
- * @author vivaxy
- *
  * Testcases:
  *  - Select text to add annotation and sync.
  *  - Click annotation to show tooltip.

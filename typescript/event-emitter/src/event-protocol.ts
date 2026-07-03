@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-14
- * @author vivaxy
- */
 export const EVENTS = {
   LOAD: 'load' as 'load',
   SCROLL: 'scroll' as 'scroll',

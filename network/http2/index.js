@@ -1,8 +1,3 @@
-/**
- * @since 20180620 19:22
- * @author vivaxy
- */
-
 const { Writable } = require('stream');
 const http2 = require('http2');
 const {
@@ -40,5 +35,4 @@ pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
   });
 
   server.listen(8443);
-
 });

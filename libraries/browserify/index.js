@@ -11,7 +11,7 @@
       var l = (n[o] = { exports: {} });
       t[o][0].call(
         l.exports,
-        function(e) {
+        function (e) {
           var n = t[o][1][e];
           return s(n ? n : e);
         },
@@ -31,10 +31,10 @@
 })(
   {
     1: [
-      function(require, module, exports) {
-        (function(global) {
+      function (require, module, exports) {
+        (function (global) {
           /*! https://mths.be/punycode v1.3.2 by @mathias */
-          (function(root) {
+          (function (root) {
             /** Detect free variables */
             var freeExports =
               typeof exports == 'object' &&
@@ -192,7 +192,7 @@
              * @returns {String} The new Unicode string (UCS-2).
              */
             function ucs2encode(array) {
-              return map(array, function(value) {
+              return map(array, function (value) {
                 var output = '';
                 if (value > 0xffff) {
                   value -= 0x10000;
@@ -499,7 +499,7 @@
              * string.
              */
             function toUnicode(input) {
-              return mapDomain(input, function(string) {
+              return mapDomain(input, function (string) {
                 return regexPunycode.test(string)
                   ? decode(string.slice(4).toLowerCase())
                   : string;
@@ -518,7 +518,7 @@
              * email address.
              */
             function toASCII(input) {
-              return mapDomain(input, function(string) {
+              return mapDomain(input, function (string) {
                 return regexNonASCII.test(string)
                   ? 'xn--' + encode(string)
                   : string;
@@ -560,7 +560,7 @@
               typeof define.amd == 'object' &&
               define.amd
             ) {
-              define('punycode', function() {
+              define('punycode', function () {
                 return punycode;
               });
             } else if (freeExports && freeModule) {
@@ -579,7 +579,7 @@
               root.punycode = punycode;
             }
           })(this);
-        }.call(
+        }).call(
           this,
           typeof global !== 'undefined'
             ? global
@@ -588,12 +588,12 @@
             : typeof window !== 'undefined'
             ? window
             : {},
-        ));
+        );
       },
       {},
     ],
     2: [
-      function(require, module, exports) {
+      function (require, module, exports) {
         // Copyright Joyent, Inc. and other Node contributors.
         //
         // Permission is hereby granted, free of charge, to any person obtaining a
@@ -624,7 +624,7 @@
           return Object.prototype.hasOwnProperty.call(obj, prop);
         }
 
-        module.exports = function(qs, sep, eq, options) {
+        module.exports = function (qs, sep, eq, options) {
           sep = sep || '&';
           eq = eq || '=';
           var obj = {};
@@ -680,14 +680,14 @@
 
         var isArray =
           Array.isArray ||
-          function(xs) {
+          function (xs) {
             return Object.prototype.toString.call(xs) === '[object Array]';
           };
       },
       {},
     ],
     3: [
-      function(require, module, exports) {
+      function (require, module, exports) {
         // Copyright Joyent, Inc. and other Node contributors.
         //
         // Permission is hereby granted, free of charge, to any person obtaining a
@@ -711,7 +711,7 @@
 
         'use strict';
 
-        var stringifyPrimitive = function(v) {
+        var stringifyPrimitive = function (v) {
           switch (typeof v) {
             case 'string':
               return v;
@@ -727,7 +727,7 @@
           }
         };
 
-        module.exports = function(obj, sep, eq, name) {
+        module.exports = function (obj, sep, eq, name) {
           sep = sep || '&';
           eq = eq || '=';
           if (obj === null) {
@@ -735,10 +735,10 @@
           }
 
           if (typeof obj === 'object') {
-            return map(objectKeys(obj), function(k) {
+            return map(objectKeys(obj), function (k) {
               var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
               if (isArray(obj[k])) {
-                return map(obj[k], function(v) {
+                return map(obj[k], function (v) {
                   return ks + encodeURIComponent(stringifyPrimitive(v));
                 }).join(sep);
               } else {
@@ -757,7 +757,7 @@
 
         var isArray =
           Array.isArray ||
-          function(xs) {
+          function (xs) {
             return Object.prototype.toString.call(xs) === '[object Array]';
           };
 
@@ -772,7 +772,7 @@
 
         var objectKeys =
           Object.keys ||
-          function(obj) {
+          function (obj) {
             var res = [];
             for (var key in obj) {
               if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
@@ -783,7 +783,7 @@
       {},
     ],
     4: [
-      function(require, module, exports) {
+      function (require, module, exports) {
         'use strict';
 
         exports.decode = exports.parse = require('./decode');
@@ -792,7 +792,7 @@
       { './decode': 2, './encode': 3 },
     ],
     5: [
-      function(require, module, exports) {
+      function (require, module, exports) {
         // Copyright Joyent, Inc. and other Node contributors.
         //
         // Permission is hereby granted, free of charge, to any person obtaining a
@@ -893,7 +893,7 @@
           return u;
         }
 
-        Url.prototype.parse = function(
+        Url.prototype.parse = function (
           url,
           parseQueryString,
           slashesDenoteHost,
@@ -1146,7 +1146,7 @@
           return obj.format();
         }
 
-        Url.prototype.format = function() {
+        Url.prototype.format = function () {
           var auth = this.auth || '';
           if (auth) {
             auth = encodeURIComponent(auth);
@@ -1201,7 +1201,7 @@
           if (hash && hash.charAt(0) !== '#') hash = '#' + hash;
           if (search && search.charAt(0) !== '?') search = '?' + search;
 
-          pathname = pathname.replace(/[?#]/g, function(match) {
+          pathname = pathname.replace(/[?#]/g, function (match) {
             return encodeURIComponent(match);
           });
           search = search.replace('#', '%23');
@@ -1213,7 +1213,7 @@
           return urlParse(source, false, true).resolve(relative);
         }
 
-        Url.prototype.resolve = function(relative) {
+        Url.prototype.resolve = function (relative) {
           return this.resolveObject(urlParse(relative, false, true)).format();
         };
 
@@ -1222,7 +1222,7 @@
           return urlParse(source, false, true).resolveObject(relative);
         }
 
-        Url.prototype.resolveObject = function(relative) {
+        Url.prototype.resolveObject = function (relative) {
           if (isString(relative)) {
             var rel = new Url();
             rel.parse(relative, false, true);
@@ -1230,7 +1230,7 @@
           }
 
           var result = new Url();
-          Object.keys(this).forEach(function(k) {
+          Object.keys(this).forEach(function (k) {
             result[k] = this[k];
           }, this);
 
@@ -1247,7 +1247,7 @@
           // hrefs like //foo/bar always cut to the protocol.
           if (relative.slashes && !relative.protocol) {
             // take everything except the protocol from relative
-            Object.keys(relative).forEach(function(k) {
+            Object.keys(relative).forEach(function (k) {
               if (k !== 'protocol') result[k] = relative[k];
             });
 
@@ -1274,7 +1274,7 @@
             // because that's known to be hostless.
             // anything else is assumed to be absolute.
             if (!slashedProtocol[relative.protocol]) {
-              Object.keys(relative).forEach(function(k) {
+              Object.keys(relative).forEach(function (k) {
                 result[k] = relative[k];
               });
               result.href = result.format();
@@ -1505,7 +1505,7 @@
           return result;
         };
 
-        Url.prototype.parseHost = function() {
+        Url.prototype.parseHost = function () {
           var host = this.host;
           var port = portPattern.exec(host);
           if (port) {
@@ -1536,12 +1536,8 @@
       { punycode: 1, querystring: 4 },
     ],
     6: [
-      function(require, module, exports) {
-        /**
-         * @since 150517 20:07
-         * @author vivaxy
-         */
-        var Canvas = function() {
+      function (require, module, exports) {
+        var Canvas = function () {
             var canvas = (this.canvas = document.createElement('canvas'));
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1552,13 +1548,13 @@
 
         Canvas.prototype = p;
 
-        p.render = function() {
+        p.render = function () {
           var body = document.getElementById('body');
           body.appendChild(this.canvas);
           return this;
         };
 
-        p.getCtx = function() {
+        p.getCtx = function () {
           return this.canvas.getContext('2d');
         };
 
@@ -1567,12 +1563,8 @@
       {},
     ],
     7: [
-      function(require, module, exports) {
-        /**
-         * @since 150517 20:07
-         * @author vivaxy
-         */
-        var Dot = function(options) {
+      function (require, module, exports) {
+        var Dot = function (options) {
             this.x = options.x;
             this.y = options.y;
             this.ctx = options.ctx;
@@ -1584,7 +1576,7 @@
 
         Dot.prototype = p;
 
-        p.render = function() {
+        p.render = function () {
           this.ctx.fillRect(this.x, this.y, 1, 1);
           return this;
         };
@@ -1594,11 +1586,7 @@
       {},
     ],
     8: [
-      function(require, module, exports) {
-        /**
-         * @since 150517 20:08
-         * @author vivaxy
-         */
+      function (require, module, exports) {
         var Canvas = require('./canvas'),
           Dot = require('./dot'),
           url = require('url'),

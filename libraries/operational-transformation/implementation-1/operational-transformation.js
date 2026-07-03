@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-01
- * @author vivaxy
- */
 const TYPES = {
   INSERT: 'insert',
   DELETE: 'delete',

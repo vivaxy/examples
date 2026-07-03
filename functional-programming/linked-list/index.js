@@ -1,28 +1,23 @@
-/**
- * @since 2017-06-12 10:02:30
- * @author vivaxy
- */
-
 // create a linked list by closure
 function createNode(value, next) {
-    return function(x) {
-        if (x) {
-            return value;
-        }
-        return next;
-    };
+  return function (x) {
+    if (x) {
+      return value;
+    }
+    return next;
+  };
 }
 
 exports.createNode = createNode;
 
 function getValue(node) {
-    return node(true);
+  return node(true);
 }
 
 exports.getValue = getValue;
 
 function getNext(node) {
-    return node(false);
+  return node(false);
 }
 
 exports.getNext = getNext;
@@ -44,24 +39,24 @@ console.log('getNext(linkedList3)', '=', getNext(linkedList3)); // => null
  * @param value
  */
 function append(next, value) {
-    if (next === null) {
-        return createNode(value, null);
-    }
-    return createNode(getValue(next), append(getNext(next), value));
+  if (next === null) {
+    return createNode(value, null);
+  }
+  return createNode(getValue(next), append(getNext(next), value));
 }
 
 function reverse(linkedList) {
-    if (linkedList === null) {
-        return null;
-    }
-    return append(reverse(getNext(linkedList)), getValue(linkedList));
+  if (linkedList === null) {
+    return null;
+  }
+  return append(reverse(getNext(linkedList)), getValue(linkedList));
 }
 
 function logLinkedList(linkedList) {
-    if (linkedList === null) {
-        return 'null';
-    }
-    return getValue(linkedList) + ' -> ' + logLinkedList(getNext(linkedList));
+  if (linkedList === null) {
+    return 'null';
+  }
+  return getValue(linkedList) + ' -> ' + logLinkedList(getNext(linkedList));
 }
 exports.logLinkedList = logLinkedList;
 

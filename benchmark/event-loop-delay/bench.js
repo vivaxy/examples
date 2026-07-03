@@ -1,7 +1,4 @@
 /**
- * @since 2026-04-13
- * @author vivaxy
- *
  * Event Loop Delay monitor overhead benchmark.
  *
  * Starts the Koa server in baseline and monitor modes, then runs autocannon at

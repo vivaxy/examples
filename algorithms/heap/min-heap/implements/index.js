@@ -1,10 +1,4 @@
-/**
- * @since 20180711 10:47
- * @author vivaxy
- */
-
 module.exports = class MinHeap {
-
   static getParentIndex(childIndex) {
     return Math.floor((childIndex - 1) / 2);
   }
@@ -43,7 +37,7 @@ module.exports = class MinHeap {
         return compare(a, b) === 0;
       },
     };
-  };
+  }
 
   constructor(comparator) {
     /**
@@ -94,13 +88,16 @@ module.exports = class MinHeap {
   }
 
   removeIndex(index) {
-
     if (index === this.heap.length - 1) {
       this.heap.pop();
     } else {
       this.heap[index] = this.heap.pop();
 
-      if (this.hasLeftChild(index) && MinHeap.hasParent(index) && this.comparator(this.getParent(index)).lessThan(this.heap[index])) {
+      if (
+        this.hasLeftChild(index) &&
+        MinHeap.hasParent(index) &&
+        this.comparator(this.getParent(index)).lessThan(this.heap[index])
+      ) {
         this.downHeap(index);
       } else {
         this.upHeap(index);
@@ -141,7 +138,10 @@ module.exports = class MinHeap {
   upHeap(fromIndex) {
     let index = fromIndex || this.heap.length - 1;
 
-    while (MinHeap.hasParent(index) && this.comparator(this.getParent(index)).greaterThan(this.heap[index])) {
+    while (
+      MinHeap.hasParent(index) &&
+      this.comparator(this.getParent(index)).greaterThan(this.heap[index])
+    ) {
       const parentIndex = MinHeap.getParentIndex(index);
       this.swap(index, parentIndex);
       index = parentIndex;
@@ -153,7 +153,12 @@ module.exports = class MinHeap {
     let nextIndex = null;
 
     while (this.hasLeftChild(index)) {
-      if (this.hasRightChild(index) && this.comparator(this.getRightChild(index)).lessThan(this.getLeftChild(index))) {
+      if (
+        this.hasRightChild(index) &&
+        this.comparator(this.getRightChild(index)).lessThan(
+          this.getLeftChild(index),
+        )
+      ) {
         nextIndex = MinHeap.getRightChildIndex(index);
       } else {
         nextIndex = MinHeap.getLeftChildIndex(index);
@@ -185,5 +190,4 @@ module.exports = class MinHeap {
   hasValue(value) {
     return this.heap.includes(value);
   }
-
 };

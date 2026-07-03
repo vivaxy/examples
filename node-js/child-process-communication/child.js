@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-17
- * @author vivaxy
- */
 const id = Number(process.argv[2]);
 
 process.on('message', function (data) {

@@ -1,7 +1,3 @@
-/**
- * @since 2019-10-30 07:27
- * @author vivaxy
- */
 const arr = new Uint8Array(2);
 
 arr[0] = 0x12;

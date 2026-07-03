@@ -1,10 +1,12 @@
-/**
- * @since 2018-05-20 15:54:54
- * @author vivaxy
- */
-
 export default class NewArray {
-  constructor({ arrayLength, fromIndex, toIndex, parent, arrayName, animationDuration }) {
+  constructor({
+    arrayLength,
+    fromIndex,
+    toIndex,
+    parent,
+    arrayName,
+    animationDuration,
+  }) {
     this.arrayLength = arrayLength;
     this.fromIndex = fromIndex;
     this.toIndex = toIndex;
@@ -15,8 +17,9 @@ export default class NewArray {
     this.element = document.createElement('div');
     this.element.classList.add('new-array');
     this.element.classList.add('new-array-' + arrayName);
-    this.element.style.width = (toIndex - fromIndex + 1) * 100 / arrayLength + '%';
-    this.element.style.left = fromIndex * 100 / arrayLength + '%';
+    this.element.style.width =
+      ((toIndex - fromIndex + 1) * 100) / arrayLength + '%';
+    this.element.style.left = (fromIndex * 100) / arrayLength + '%';
     this.element.style.transition = `all ${animationDuration}ms`;
 
     parent.appendChild(this.element);

@@ -1,8 +1,3 @@
-/**
- * @since 2017-03-10 17:31
- * @author vivaxy
- */
-
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);

@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-17
- * @author vivaxy
- */
 const child_process = require('child_process');
 
 function log(...data) {

@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-09
- * @author vivaxy
- */
 let times = 0;
 
 function run() {

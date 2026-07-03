@@ -1,7 +1,3 @@
-/**
- * @since 2024-02-29
- * @author vivaxy
- */
 const zoomElementSelect = /** @type {HTMLSelectElement} */ (
   document.getElementById('zoom-element')
 );

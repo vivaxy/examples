@@ -1,9 +1,4 @@
 /**
- * @since 2018-04-21 18:37:34
- * @author vivaxy
- */
-
-/**
  * Ω(n²) <= Θ(n²) <= O(n²)
  * @param A
  * @param n

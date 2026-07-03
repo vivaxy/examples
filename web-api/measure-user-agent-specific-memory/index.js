@@ -1,7 +1,3 @@
-/**
- * @since 2023-03-28
- * @author vivaxy
- */
 async function measure() {
   const startTime = Date.now();
   console.log('Measure start.');

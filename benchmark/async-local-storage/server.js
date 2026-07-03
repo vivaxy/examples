@@ -1,7 +1,4 @@
 /**
- * @since 2026-04-13
- * @author vivaxy
- *
  * Koa server for AsyncLocalStorage benchmark.
  *
  * Usage:

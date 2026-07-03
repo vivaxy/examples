@@ -15,7 +15,3 @@ function _interopRequireDefault(obj) {
 }
 
 exports.default = React.createElement(_button2.default, null, 'test');
-/**
- * @since 2017-03-06 17:58
- * @author vivaxy
- */

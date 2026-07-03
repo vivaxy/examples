@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-26
- * @author vivaxy
- */
 import { useRef, useEffect } from 'react';
 import * as EDIT_TYPES from '../../enums/edit-types';
 import * as Y_DOC_KEYS from '../../enums/y-doc-keys';

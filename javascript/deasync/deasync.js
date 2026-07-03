@@ -1,6 +1,4 @@
 /**
- * @since 2023-10-13
- * @author vivaxy
  * @see https://github.com/abbr/deasync
  */
 export default function deasync(asyncFunction) {

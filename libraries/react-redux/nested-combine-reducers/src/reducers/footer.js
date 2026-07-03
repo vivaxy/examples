@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-13 10:26:50
- * @author vivaxy
- */
-
 import { combineReducers } from 'redux';
 
 import input from './footer/input';

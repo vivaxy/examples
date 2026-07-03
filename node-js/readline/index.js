@@ -1,14 +1,10 @@
-/**
- * @since 15-08-03 14:35
- * @author vivaxy
- */
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout);
 
 rl.setPrompt('OHAI> ');
 rl.prompt();
 
-rl.on('line', function(line) {
+rl.on('line', function (line) {
   switch (line.trim()) {
     case 'hello':
       console.log('world!');
@@ -18,7 +14,7 @@ rl.on('line', function(line) {
       break;
   }
   rl.prompt();
-}).on('close', function() {
+}).on('close', function () {
   console.log('Have a great day!');
   process.exit(0);
 });

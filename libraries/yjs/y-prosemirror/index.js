@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-28
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';

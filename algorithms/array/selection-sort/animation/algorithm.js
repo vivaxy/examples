@@ -1,7 +1,3 @@
-/**
- * @since 2018-04-22 09:29:38
- * @author vivaxy
- */
 import * as actionTypes from './actionTypes.js';
 
 export default function SelectionSort(A, n) {

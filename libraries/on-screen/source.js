@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-17 15:21
- * @author vivaxy
- */
-
 import OnScreen from 'onscreen';
 
 const SELECTOR = '.js-element';

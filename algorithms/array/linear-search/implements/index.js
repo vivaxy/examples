@@ -1,8 +1,3 @@
-/**
- * @since 20180417 10:42
- * @author vivaxy
- */
-
 exports.linearSearch = (A, n, x) => {
   let answer = -1;
   for (let i = 0; i < n; i++) {

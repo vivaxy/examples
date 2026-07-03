@@ -1,7 +1,3 @@
-/**
- * @since 2023-10-20
- * @author vivaxy
- */
 const mo = new MutationObserver(function (records) {
   records.forEach(function (record) {
     if (record.type === 'childList') {

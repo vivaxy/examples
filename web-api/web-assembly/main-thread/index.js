@@ -1,7 +1,3 @@
-/**
- * @since 2024-01-15
- * @author vivaxy
- */
 const memory = new WebAssembly.Memory({
   initial: 10240,
   maximum: 10240,

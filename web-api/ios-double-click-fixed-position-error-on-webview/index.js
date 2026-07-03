@@ -1,8 +1,3 @@
-/**
- * @since 2016-08-05 13:11
- * @author vivaxy
- */
-
 var checkbox = document.querySelector('.js-checkbox');
 var show = document.querySelector('.js-show');
 show.addEventListener('click', function () {

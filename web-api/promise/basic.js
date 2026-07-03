@@ -1,7 +1,3 @@
-/**
- * @since 150508 13:28
- * @author vivaxy
- */
 var promiseCount = 0,
   testPromise = function () {
     var thisPromiseCount = ++promiseCount,

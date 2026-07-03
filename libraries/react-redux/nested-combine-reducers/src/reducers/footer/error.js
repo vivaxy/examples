@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-13 10:53:09
- * @author vivaxy
- */
-
 import * as actionTypes from '../../configs/actionTypes';
 import createReducer from '../../lib/createReducer';
 

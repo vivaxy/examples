@@ -1,10 +1,6 @@
-/**
- * @since 15-08-25 14:50
- * @author vivaxy
- */
 'use strict';
 var log = require('./log.js'),
-    person = {};
+  person = {};
 log('index', 'before require a');
 person.a = require('./action-a.js');
 log('index', 'after require a');

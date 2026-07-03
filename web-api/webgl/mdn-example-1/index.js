@@ -1,6 +1,4 @@
 /**
- * @since 2017-03-02 11:58
- * @author vivaxy
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL
  */
@@ -94,18 +92,7 @@ const initBuffers = (gl) => {
   gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer);
 
   const vertices = [
-    1.0,
-    1.0,
-    0.0,
-    -1.0,
-    1.0,
-    0.0,
-    1.0,
-    -1.0,
-    0.0,
-    -1.0,
-    -1.0,
-    0.0,
+    1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0,
   ];
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);

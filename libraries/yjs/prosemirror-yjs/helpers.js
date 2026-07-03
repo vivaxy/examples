@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-27
- * @author vivaxy
- */
 import * as Y from 'yjs';
 import { Fragment } from 'prosemirror-model';
 

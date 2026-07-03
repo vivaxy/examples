@@ -1,7 +1,3 @@
-/**
- * @since 2015-11-19 16:26
- * @author vivaxy
- */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -16,11 +12,11 @@ const app = koa();
 //});
 const INDEX_PAGE = 'index.html';
 
-app.use(function*(next) {
+app.use(function* (next) {
   let requestPath = this.request.path;
   console.log(requestPath);
   var fillRequestPath = path.join(__dirname, requestPath);
-  yield function(done) {
+  yield function (done) {
     fs.readFile(fillRequestPath, (err, fileContent) => {
       if (err) {
         if (err.code === 'EISDIR') {

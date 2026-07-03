@@ -1,8 +1,3 @@
-/**
- * @since 2018-04-21 18:40:33
- * @author vivaxy
- */
-
 const test = require('ava');
 
 const selectionSort = require('../index.js');

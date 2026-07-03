@@ -1,8 +1,3 @@
-/**
- * @since 150324 18:20
- * @author vivaxy
- */
-
 var consoleDiv = document.querySelector('.console'),
   log = function (text) {
     consoleDiv.innerHTML += text + '<hr>';

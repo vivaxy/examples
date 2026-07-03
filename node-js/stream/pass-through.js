@@ -1,11 +1,7 @@
-/**
- * @since 2019-12-16 07:38
- * @author vivaxy
- */
 const { PassThrough } = require('stream');
 
 const passThrough = new PassThrough();
-passThrough.on('data', function(chunk, encoding) {
+passThrough.on('data', function (chunk, encoding) {
   console.log(chunk.toString());
 });
 

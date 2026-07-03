@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-16 19:40
- * @author vivaxy
- */
 document.querySelectorAll('button[data-event-in]').forEach(function (button) {
   const { eventIn, eventOut } = button.dataset;
   button.addEventListener(eventIn, function (e) {

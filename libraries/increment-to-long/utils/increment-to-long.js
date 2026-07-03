@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-10
- * @author vivaxy
- */
 const MAX_SAFE_LONG = (2 ** 53 - 1) * 2 ** 10;
 
 /**

@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-25
- * @author vivaxy
- */
 import Tab from './Tab';
 import Editor from './Editor';
 import Updates from './Updates';

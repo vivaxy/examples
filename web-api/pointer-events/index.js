@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-10 11:53
- * @author vivaxy
- */
 const nodeIds = ['a', 'b'];
 
 const eventNames = [

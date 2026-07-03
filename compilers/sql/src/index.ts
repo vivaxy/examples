@@ -1,7 +1,4 @@
 /**
- * @since 2019-06-07 14:04:05
- * @author vivaxy
- *
  * @see https://github.com/dt-fe/weekly/blob/v2/064.%E7%B2%BE%E8%AF%BB%E3%80%8A%E6%89%8B%E5%86%99%20SQL%20%E7%BC%96%E8%AF%91%E5%99%A8%20-%20%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E3%80%8B.md
  * 4 Steps
  *  1. 词法分析，将 SQL 字符串拆分成包含关键词识别的字符段（Tokens）。
@@ -158,7 +155,11 @@ export function parse(tokens: Token[]) {
 
   const field = () => tree(word, functional);
 
-  const optional = (val: boolean) => tree(() => val, () => true);
+  const optional = (val: boolean) =>
+    tree(
+      () => val,
+      () => true,
+    );
 
   const selectList: () => boolean = () =>
     field() && optional(match(',') && selectList());

@@ -1,7 +1,3 @@
-/**
- * @since 2024-08-27
- * @author vivaxy
- */
 function isStandardZoom() {
   const div = document.createElement('div');
   div.style.width = '100px';

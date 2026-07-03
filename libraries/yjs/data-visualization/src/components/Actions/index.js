@@ -1,7 +1,3 @@
-/**
- * @since 2021-07-13
- * @author vivaxy
- */
 import Buttons from './Buttons';
 import Options from './Options';
 

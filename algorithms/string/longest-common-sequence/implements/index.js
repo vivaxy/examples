@@ -1,8 +1,3 @@
-/**
- * @since 20180712 19:48
- * @author vivaxy
- */
-
 function assembleLCS(s1, s2, matrix, i, j) {
   if (matrix[i][j] === 0) {
     return '';
@@ -16,7 +11,6 @@ function assembleLCS(s1, s2, matrix, i, j) {
 }
 
 module.exports = function longestCommonSequence(s1, s2) {
-
   const matrix = [];
 
   for (let i = 0; i <= s1.length; i++) {
@@ -26,13 +20,11 @@ module.exports = function longestCommonSequence(s1, s2) {
       if (i === 0 || j === 0) {
         matrix[i][j] = 0;
       } else {
-
         if (s1[i - 1] === s2[j - 1]) {
           matrix[i][j] = matrix[i - 1][j - 1] + 1;
         } else {
           matrix[i][j] = Math.max(matrix[i][j - 1], matrix[i - 1][j]);
         }
-
       }
     }
   }

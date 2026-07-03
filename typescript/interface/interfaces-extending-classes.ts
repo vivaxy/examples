@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-23 01:11
- * @author vivaxy
- */
-
 class Control {
   private state: any;
 }
@@ -23,11 +18,11 @@ class TextBox extends Control {
 // Types have separate declarations of a private property 'state'.
 class Image1 implements SelectableControl {
   private state: any;
-  select() { }
+  select() {}
 }
 
 // Class 'Image2' incorrectly implements interface 'SelectableControl'.
 // Property 'state' is missing in type 'Image2' but required in type 'SelectableControl'.
 class Image2 implements SelectableControl {
-  select() { }
+  select() {}
 }

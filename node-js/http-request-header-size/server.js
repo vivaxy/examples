@@ -1,6 +1,4 @@
 /**
- * @since 2021-02-18 15:23
- * @author vivaxy
  * 2 ways of getting request header size
  * 1. bytesRead - previousBytesRead
  * 2. byteLength(socket.data)

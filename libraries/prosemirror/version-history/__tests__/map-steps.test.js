@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-22
- * @author vivaxy
- */
 import { schema } from 'prosemirror-schema-basic';
 import { Slice, Fragment } from 'prosemirror-model';
 import { ReplaceStep } from 'prosemirror-transform';

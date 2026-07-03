@@ -1,7 +1,3 @@
-/**
- * @since 2022-07-20 21:54
- * @author vivaxy
- */
 const $test = /** @type {HTMLDivElement} */ (document.querySelector('.node'));
 const $viewportMeta = document.querySelector('meta[name="viewport"]');
 

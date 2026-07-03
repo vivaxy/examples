@@ -1,7 +1,3 @@
-/**
- * @since 15-08-04 20:21
- * @author vivaxy
- */
 var log = function (string) {
   var log = document.querySelector('log'),
     entry = document.createElement('entry');

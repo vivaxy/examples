@@ -1,7 +1,3 @@
-/**
- * @since 2020-02-26 02:39
- * @author vivaxy
- */
 export interface TokenPattern {
   type: string;
   regExps: RegExp[];

@@ -1,8 +1,3 @@
-/**
- * @since 2017-03-02 09:55
- * @author vivaxy
- */
-
 const root = document.querySelector('.js-root');
 
 const documentElement = document.documentElement;

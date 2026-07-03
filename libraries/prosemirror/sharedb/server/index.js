@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-10
- * @author vivaxy
- */
 const http = require('http');
 const Koa = require('koa');
 const WebSocket = require('ws');

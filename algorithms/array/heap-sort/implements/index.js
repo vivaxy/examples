@@ -1,8 +1,3 @@
-/**
- * @since 20180711 18:27
- * @author vivaxy
- */
-
 const MinHeap = require('../../../heap/min-heap/implements/index.js');
 
 module.exports = function heapSort(array) {

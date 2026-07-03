@@ -1,9 +1,5 @@
-/**
- * @since 20200220 11:40
- * @author vivaxy
- */
 function createNode(val, node) {
-  return function(flag) {
+  return function (flag) {
     if (flag) {
       return val;
     }

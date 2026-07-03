@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-10 13:36
- * @author vivaxy
- */
 // const $app = document.getElementById('app');
 
 let lastTimestamp = performance.now();

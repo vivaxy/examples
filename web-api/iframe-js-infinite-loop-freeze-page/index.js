@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-29
- * @author vivaxy
- */
 function appendIframe(src) {
   const iframe = document.createElement('iframe');
   iframe.src = src;

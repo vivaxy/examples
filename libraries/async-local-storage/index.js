@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-28
- * @author vivaxy
- */
 const Koa = require('koa');
 const als = require('async-local-storage');
 

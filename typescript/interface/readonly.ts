@@ -1,8 +1,3 @@
-/**
- * @since 2019-04-23 11:23
- * @author vivaxy
- */
-
 interface Point {
   readonly x: number;
   readonly y: number;

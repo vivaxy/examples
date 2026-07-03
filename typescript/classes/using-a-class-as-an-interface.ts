@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 07:08
- * @author vivaxy
- */
 class PointOfUsingAClassAsAnInterface {
   x: number;
   y: number;

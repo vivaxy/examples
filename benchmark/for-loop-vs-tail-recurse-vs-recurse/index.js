@@ -1,7 +1,4 @@
 /**
- * @since 2019-09-10 08:07:40
- * @author vivaxy
- *
  * @result
  * for loop x 6,684,412 ops/sec ±1.58% (84 runs sampled)
  * recurse x 3,551,024 ops/sec ±1.08% (92 runs sampled)

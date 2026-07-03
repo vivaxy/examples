@@ -1,7 +1,3 @@
-/**
- * @since 2021-05-12
- * @author vivaxy
- */
 import path from 'path';
 
 const dirname = path.dirname(import.meta.url).slice('file://'.length);

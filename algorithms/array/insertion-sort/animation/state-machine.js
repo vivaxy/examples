@@ -1,13 +1,7 @@
-/**
- * @since 2018-05-06 11:16:50
- * @author vivaxy
- */
-
 import * as eventTypes from './event-types.js';
 
 export default class StateMachine {
   constructor(name, events, maxStatePipeline = 10) {
-
     this.name = name;
     this.events = events;
     this.maxStatePipeline = maxStatePipeline;
@@ -103,5 +97,4 @@ export default class StateMachine {
     this.previousState = null;
     this.currentState = null;
   }
-
 }

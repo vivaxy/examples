@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-29 12:38
- * @author vivaxy
- */
 import { ReducerContext } from '../lib/redux.js';
 
 const { React } = window;

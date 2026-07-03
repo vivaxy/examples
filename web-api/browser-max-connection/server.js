@@ -1,7 +1,3 @@
-/**
- * @since 2022-07-29 21:36
- * @author vivaxy
- */
 const http = require('http');
 
 const server = http.createServer((req, res) => {

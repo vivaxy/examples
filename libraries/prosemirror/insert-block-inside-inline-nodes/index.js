@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-06
- * @author vivaxy
- */
 const { Slice, Fragment } = require('prosemirror-model');
 const { schema } = require('prosemirror-schema-basic');
 const { ReplaceStep } = require('prosemirror-transform');

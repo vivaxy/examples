@@ -1,7 +1,3 @@
-/**
- * @since 2019-09-19 01:45
- * @author vivaxy
- */
 performance.mark('javascript-execution-start');
 
 const $markName = document.getElementById('mark-name');

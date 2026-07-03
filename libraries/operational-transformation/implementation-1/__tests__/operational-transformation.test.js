@@ -1,7 +1,3 @@
-/**
- * @since 2021-07-30
- * @author vivaxy
- */
 const {
   TYPES,
   forEachRange,

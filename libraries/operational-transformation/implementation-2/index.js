@@ -1,6 +1,4 @@
 /**
- * @since 2022-02-28
- * @author vivaxy
  * @see https://readpaper.com/paper/335169515
  */
 const OP_TYPES = {

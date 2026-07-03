@@ -1,6 +1,4 @@
 /**
- * @since 2020-03-04 10:08
- * @author vivaxy
  * Rule is a graph with start and end
  * start ------> (node1 + node2 + node3) -----> end
  * start -------> (node6) ------------------> end
@@ -59,7 +57,7 @@ export class Rule {
     this.startNode = new Node(NodeType.Start);
     const startNodes = this.parse(ruleText);
     this.startNode.nextNodes = [...startNodes];
-    this.paths = this.startNode.nextNodes.map(function(node) {
+    this.paths = this.startNode.nextNodes.map(function (node) {
       return [node];
     });
   }
@@ -67,20 +65,14 @@ export class Rule {
   parse(rules: string) {
     // TODO: support ; | ::= within quotes
     const startNodes: Node[] = [];
-    for (const rule of rules
-      .split(';')
-      .map(trim)
-      .filter(Boolean)) {
+    for (const rule of rules.split(';').map(trim).filter(Boolean)) {
       const [name, detail] = rule.split('::=').map(trim);
       const ruleNode = new Node(NodeType.Rule, name);
       for (const optionPath of detail.split('|')) {
         let rootNode: Node | null = null;
         let currentNode: Node | null = null;
         const option = optionPath.trim();
-        for (const optionNode of option
-          .split(' ')
-          .map(trim)
-          .filter(Boolean)) {
+        for (const optionNode of option.split(' ').map(trim).filter(Boolean)) {
           let n: Node;
           if (
             (optionNode.startsWith("'") && optionNode.endsWith("'")) ||
@@ -114,7 +106,7 @@ export class Rule {
 
   getRules() {
     const rules: Record<string, Node[]> = {};
-    this.startNode.nextNodes.forEach(function(node) {
+    this.startNode.nextNodes.forEach(function (node) {
       rules[node.value as string] = node.nextNodes;
     });
     return rules;
@@ -151,7 +143,7 @@ export class Rule {
           matchedNextNodes.push(nextNode);
         }
       }
-      const newPaths: Node[][] = matchedNextNodes.map(function(
+      const newPaths: Node[][] = matchedNextNodes.map(function (
         matchedNextNode,
       ) {
         return [...path, matchedNextNode];
@@ -172,7 +164,7 @@ export class Rule {
     if (this.paths.length !== 1) {
       throw new Error('Invalid ast');
     }
-    this.paths[0].forEach(function(node) {
+    this.paths[0].forEach(function (node) {
       if (node.type === NodeType.Rule) {
         currentASTNode.type = node.value as string;
       }

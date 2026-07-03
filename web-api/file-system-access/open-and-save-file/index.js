@@ -1,7 +1,3 @@
-/**
- * @since 2020-10-11 10:41
- * @author vivaxy
- */
 const $openFile = document.getElementById('open-file');
 const $content = document.getElementById('content');
 const $saveFile = document.getElementById('save-file');

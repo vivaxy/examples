@@ -1,18 +1,18 @@
-/**
- * @since 2019-05-31 17:17
- * @author vivaxy
- */
-
 interface LengthwiseOfGenericsConstraints {
   length: number;
 }
 
-function loggingIdentityOfGenericsConstraints<T extends LengthwiseOfGenericsConstraints>(arg: T): T {
+function loggingIdentityOfGenericsConstraints<
+  T extends LengthwiseOfGenericsConstraints,
+>(arg: T): T {
   console.log(arg.length);
   return arg;
 }
 
-function getPropertyOfGenericsConstraints<T, K extends keyof T>(obj: T, key: K) {
+function getPropertyOfGenericsConstraints<T, K extends keyof T>(
+  obj: T,
+  key: K,
+) {
   return obj[key];
 }
 
@@ -32,11 +32,11 @@ class Lion extends Animal {
   keeper: ZooKeeper;
 }
 
-function createInstance<A extends Animal>(c: { new(): A; }): A {
+function createInstance<A extends Animal>(c: { new (): A }): A {
   return new c();
 }
 
-function createInstance1<A extends Animal>(c: new() => A): A {
+function createInstance1<A extends Animal>(c: new () => A): A {
   return new c();
 }
 

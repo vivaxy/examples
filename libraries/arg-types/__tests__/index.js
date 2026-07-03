@@ -1,8 +1,3 @@
-/**
- * @since 20180125 16:06
- * @author vivaxy
- */
-
 const test = require('ava');
 const ArgTypes = require('..');
 

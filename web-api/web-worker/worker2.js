@@ -1,7 +1,3 @@
-/**
- * @since 150423 11:07
- * @author vivaxy
- */
 importScripts('worker2-string.js');
 console.log(self);
 self.addEventListener(

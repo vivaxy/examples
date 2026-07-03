@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-05 15:38
- * @author vivaxy
- */
 'use strict';
 
 /**

@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-25
- * @author vivaxy
- */
 const Koa = require('koa');
 const { log, middleware } = require('./lib');
 

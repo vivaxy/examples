@@ -1,8 +1,3 @@
-/**
- * @since 2019-02-02 17:32
- * @author vivaxy
- */
-
 document.querySelector('#pay').addEventListener('click', pay);
 
 function pay() {

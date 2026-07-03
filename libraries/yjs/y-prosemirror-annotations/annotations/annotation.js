@@ -1,7 +1,4 @@
 /**
- * @since 2021-06-30
- * @author vivaxy
- *
  * annotation: {
  *   from: y.js relative position
  *   to: y.js relative position

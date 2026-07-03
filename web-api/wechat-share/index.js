@@ -1,7 +1,3 @@
-/**
- * @since 150115 11:19
- * @author vivaxy
- */
 var theConsole = document.querySelector('.console');
 var log = function (text) {
   theConsole.innerHTML += text + '<br>';

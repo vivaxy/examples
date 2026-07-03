@@ -1,7 +1,3 @@
-/**
- * @since 2020-02-06 12:05
- * @author vivaxy
- */
 const $switchSizeButton = document.getElementById('switch-size');
 const $container = document.querySelector('.container');
 const $iframe0 = document.querySelectorAll('iframe')[0];

@@ -1,9 +1,5 @@
 // https://github.com/pukhalski/tap
 /**
- * @since 150213 13:09
- * @author vivaxy
- */
-/**
  * usage
  *
  * ```js
@@ -20,153 +16,178 @@
  * support ie9+, webkit
  */
 (function (window) {
-    var Tap = {};
+  var Tap = {};
 
-    var utils = {};
+  var utils = {};
 
-    utils.attachEvent = function (element, eventName, callback) {
-        return element.addEventListener(eventName, callback, false);
+  utils.attachEvent = function (element, eventName, callback) {
+    return element.addEventListener(eventName, callback, false);
+  };
+
+  utils.fireFakeEvent = function (e, eventName, coords) {
+    return e.target.dispatchEvent(utils.createEvent(eventName, coords));
+  };
+
+  utils.createEvent = function (name, coords) {
+    var event = window.document.createEvent('HTMLEvents');
+    event.initEvent(name, true, true);
+
+    event.coordinate = coords.move || coords.start;
+
+    return event;
+  };
+
+  utils.getRealEvent = function (e) {
+    return e && e.touches && e.touches.length ? e.touches[0] : e;
+  };
+
+  utils.getCoordinate = function (e) {
+    var x = e.offsetX || e.pageX - e.target.offsetLeft;
+    var y = e.offsetY || e.pageY - e.target.offsetTop;
+    return {
+      offset: {
+        x: e.offsetX,
+        y: e.offsetY,
+      },
+      page: {
+        x: e.pageX,
+        y: e.pageY,
+      },
+      client: {
+        x: e.clientX,
+        y: e.clientY,
+      },
+      target: {
+        x: x,
+        y: y,
+      },
     };
+  };
 
-    utils.fireFakeEvent = function (e, eventName, coords) {
-        return e.target.dispatchEvent(utils.createEvent(eventName, coords));
-    };
+  var eventMatrix = [
+    {
+      // Touchable devices
+      test:
+        ('propertyIsEnumerable' in window || 'hasOwnProperty' in document) &&
+        (window.propertyIsEnumerable('ontouchstart') ||
+          document.hasOwnProperty('ontouchstart')),
+      events: {
+        start: 'touchstart',
+        move: 'touchmove',
+        end: 'touchend',
+      },
+    },
+    {
+      // IE10
+      test: window.navigator.msPointerEnabled,
+      events: {
+        start: 'MSPointerDown',
+        move: 'MSPointerMove',
+        end: 'MSPointerUp',
+      },
+    },
+    {
+      // Modern device agnostic web
+      test: window.navigator.pointerEnabled,
+      events: {
+        start: 'pointerdown',
+        move: 'pointermove',
+        end: 'pointerup',
+      },
+    },
+  ];
 
-    utils.createEvent = function (name, coords) {
-        var event = window.document.createEvent('HTMLEvents');
-        event.initEvent(name, true, true);
+  Tap.options = {
+    eventName: 'tap',
+    fingerMaxOffset: 11,
+  };
 
-        event.coordinate = coords.move || coords.start;
+  var attachDeviceEvent,
+    init,
+    handlers,
+    deviceEvents,
+    coords = {};
 
-        return event;
-    };
+  attachDeviceEvent = function (eventName) {
+    return utils.attachEvent(
+      document.body,
+      deviceEvents[eventName],
+      handlers[eventName],
+    );
+  };
 
-    utils.getRealEvent = function (e) {
-        return e && e.touches && e.touches.length ? e.touches[0] : e;
-    };
+  handlers = {
+    start: function (e) {
+      e = utils.getRealEvent(e);
 
-    utils.getCoordinate = function (e) {
-        var x = e.offsetX || e.pageX - e.target.offsetLeft;
-        var y = e.offsetY || e.pageY - e.target.offsetTop;
-        return {
-            offset: {
-                x: e.offsetX,
-                y: e.offsetY
-            },
-            page: {
-                x: e.pageX,
-                y: e.pageY
-            },
-            client: {
-                x: e.clientX,
-                y: e.clientY
-            },
-            target: {
-                x: x,
-                y: y
-            }
-        };
-    };
+      coords.start = utils.getCoordinate(e);
+      coords.offset = [0, 0];
+    },
 
-    var eventMatrix = [{
-        // Touchable devices
-        test: ( 'propertyIsEnumerable' in window || 'hasOwnProperty' in document ) && ( window.propertyIsEnumerable('ontouchstart') || document.hasOwnProperty('ontouchstart') ),
-        events: {
-            start: 'touchstart',
-            move: 'touchmove',
-            end: 'touchend'
-        }
-    }, {
-        // IE10
-        test: window.navigator.msPointerEnabled,
-        events: {
-            start: 'MSPointerDown',
-            move: 'MSPointerMove',
-            end: 'MSPointerUp'
-        }
-    }, {
-        // Modern device agnostic web
-        test: window.navigator.pointerEnabled,
-        events: {
-            start: 'pointerdown',
-            move: 'pointermove',
-            end: 'pointerup'
-        }
-    }];
+    move: function (e) {
+      if (!coords['start'] && !coords['move']) return false;
 
-    Tap.options = {
-        eventName: 'tap',
-        fingerMaxOffset: 11
-    };
+      e = utils.getRealEvent(e);
 
-    var attachDeviceEvent, init, handlers, deviceEvents, coords = {};
+      coords.move = utils.getCoordinate(e);
+      coords.offset = [
+        Math.abs(coords.move[0] - coords.start[0]),
+        Math.abs(coords.move[1] - coords.start[1]),
+      ];
+    },
 
-    attachDeviceEvent = function (eventName) {
-        return utils.attachEvent(document.body, deviceEvents[eventName], handlers[eventName]);
-    };
+    end: function (e) {
+      e = utils.getRealEvent(e);
 
-    handlers = {
-        start: function (e) {
-            e = utils.getRealEvent(e);
+      if (
+        coords.offset[0] < Tap.options.fingerMaxOffset &&
+        coords.offset[1] < Tap.options.fingerMaxOffset &&
+        !utils.fireFakeEvent(e, Tap.options.eventName, coords)
+      ) {
+        if (
+          window.navigator.msPointerEnabled ||
+          window.navigator.pointerEnabled
+        ) {
+          var preventDefault = function (clickEvent) {
+            clickEvent.preventDefault();
+            e.target.removeEventListener('click', preventDefault);
+          };
 
-            coords.start = utils.getCoordinate(e);
-            coords.offset = [0, 0];
-        },
-
-        move: function (e) {
-            if (!coords['start'] && !coords['move']) return false;
-
-            e = utils.getRealEvent(e);
-
-            coords.move = utils.getCoordinate(e);
-            coords.offset = [
-                Math.abs(coords.move[0] - coords.start[0]),
-                Math.abs(coords.move[1] - coords.start[1])
-            ];
-        },
-
-        end: function (e) {
-            e = utils.getRealEvent(e);
-
-            if (coords.offset[0] < Tap.options.fingerMaxOffset && coords.offset[1] < Tap.options.fingerMaxOffset && !utils.fireFakeEvent(e, Tap.options.eventName, coords)) {
-                if (window.navigator.msPointerEnabled || window.navigator.pointerEnabled) {
-                    var preventDefault = function (clickEvent) {
-                        clickEvent.preventDefault();
-                        e.target.removeEventListener('click', preventDefault);
-                    };
-
-                    e.target.addEventListener('click', preventDefault, false);
-                }
-
-                e.preventDefault();
-            }
-
-            coords = {};
-        },
-
-        click: function (e) {
-            if (!utils.fireFakeEvent(e, Tap.options.eventName, {start: utils.getCoordinate(e)})) {
-                return e.preventDefault();
-            }
-        }
-    };
-
-    init = function () {
-        for (var i = 0, l = eventMatrix.length; i < l; i++) {
-            if (eventMatrix[i].test) {
-                deviceEvents = eventMatrix[i].events;
-
-                attachDeviceEvent('start');
-                attachDeviceEvent('move');
-                attachDeviceEvent('end');
-
-                return false;
-            }
+          e.target.addEventListener('click', preventDefault, false);
         }
 
-        return utils.attachEvent(document.body, 'click', handlers['click']);
-    };
+        e.preventDefault();
+      }
 
-    utils.attachEvent(window, 'load', init);
+      coords = {};
+    },
 
+    click: function (e) {
+      if (
+        !utils.fireFakeEvent(e, Tap.options.eventName, {
+          start: utils.getCoordinate(e),
+        })
+      ) {
+        return e.preventDefault();
+      }
+    },
+  };
+
+  init = function () {
+    for (var i = 0, l = eventMatrix.length; i < l; i++) {
+      if (eventMatrix[i].test) {
+        deviceEvents = eventMatrix[i].events;
+
+        attachDeviceEvent('start');
+        attachDeviceEvent('move');
+        attachDeviceEvent('end');
+
+        return false;
+      }
+    }
+
+    return utils.attachEvent(document.body, 'click', handlers['click']);
+  };
+
+  utils.attachEvent(window, 'load', init);
 })(window);

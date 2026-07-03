@@ -1,7 +1,3 @@
-/**
- * @since 2020-11-15 14:58
- * @author vivaxy
- */
 import piano from './wave-tables/piano.js';
 
 function play(frequency) {

@@ -1,7 +1,3 @@
-/**
- * @since 150628 13:18
- * @author vivaxy
- */
 let startTime;
 const rotateElement = document.querySelector('.rotate');
 

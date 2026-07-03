@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-05 16:57
- * @author vivaxy
- */
 import { longTask } from './common.js';
 
 const iframe = document.getElementById('iframe');

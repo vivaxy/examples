@@ -1,7 +1,3 @@
-/**
- * @since 2025-09-18 12:52
- * @author vivaxy
- */
 import pako from 'https://esm.run/pako@2.1.0';
 
 const methods = [

@@ -1,8 +1,3 @@
-/**
- * @since 20180125 20:49
- * @author vivaxy
- */
-
 const fse = require('fs-extra');
 const NodeRSA = require('node-rsa');
 

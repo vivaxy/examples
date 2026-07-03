@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-11 14:27:26
- * @author vivaxy
- */
-
 import PropTypes from 'prop-types';
 
 export default (Component) => {

@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-09 12:51:50
- * @author vivaxy
- */
-
 import events from './events';
 
 const logEvents = (sourceName, method, type, data) => {

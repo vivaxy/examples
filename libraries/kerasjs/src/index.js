@@ -1,8 +1,3 @@
-/**
- * @since 20180611 14:49
- * @author vivaxy
- */
-
 import ndarray from 'ndarray';
 import ops from 'ndarray-ops';
 

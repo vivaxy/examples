@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-16 04:13
- * @author vivaxy
- */
 enum EnumColor {
   Red,
   Green,

@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-26 09:57:46
- * @author vivaxy
- */
-
 import BaseElement from '../../../../_animation/class/element.js';
 
 export default class Element extends BaseElement {
@@ -38,5 +33,4 @@ export default class Element extends BaseElement {
       cb();
     }, 0);
   }
-
 }

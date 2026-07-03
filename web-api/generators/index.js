@@ -1,7 +1,3 @@
-/**
- * @since 2015-11-19 15:25
- * @author vivaxy
- */
 'use strict';
 //var add = function* (i) {
 //    console.log('before-yield + 1', i);

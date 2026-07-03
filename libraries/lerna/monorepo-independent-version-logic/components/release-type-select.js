@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-02 19:18
- * @author vivaxy
- */
 import { html } from '//unpkg.com/htm/preact/standalone.module.js';
 import RELEASE_TYPES from '../enums/release-types.js';
 
@@ -19,7 +15,7 @@ export default function ReleaseTypeSelect(props) {
     <div class="release-type-select">
       <label for="${name}">${name}:</label>
       <select id="${name}" onChange="${handleChange}">
-        ${Object.keys(RELEASE_TYPES).map(function(key) {
+        ${Object.keys(RELEASE_TYPES).map(function (key) {
           const rt = RELEASE_TYPES[key];
           return html`
             <option selected="${rt === releaseType}">${rt}</option>

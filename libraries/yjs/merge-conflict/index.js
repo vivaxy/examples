@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-24
- * @author vivaxy
- */
 import * as Y from 'yjs';
 
 const TEXT_KEY = 'text-key';

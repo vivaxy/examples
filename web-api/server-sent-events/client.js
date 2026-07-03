@@ -1,7 +1,3 @@
-/**
- * @since 2023-03-28
- * @author vivaxy
- */
 const evtSource = new EventSource('/server');
 
 evtSource.addEventListener('message', function (e) {

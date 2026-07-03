@@ -1,8 +1,3 @@
-/**
- * @since 150122 09:43
- * @author vivaxy
- */
-
 var Drag2Load = function (callback) {
   ///**
   // *
@@ -36,12 +31,14 @@ var Drag2Load = function (callback) {
    * scroll event
    */
   var listener = function () {
-    if (!loading && document.body.scrollTop + screen.height > document.body.offsetHeight) {
+    if (
+      !loading &&
+      document.body.scrollTop + screen.height > document.body.offsetHeight
+    ) {
       load();
       callback(load);
     }
     if (document.body.scrollTop <= 0) {
-
     }
   };
   /**

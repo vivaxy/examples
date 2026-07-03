@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-10 20:36
- * @author vivaxy
- */
-
 var zoom = 14;
 var center = [121.4203236, 31.2162311];
 var container = document.querySelector('.js-container');

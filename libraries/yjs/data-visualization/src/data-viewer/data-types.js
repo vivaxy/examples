@@ -1,7 +1,3 @@
-/**
- * @since 2021-08-25
- * @author vivaxy
- */
 export default {
   // utils
   DOC: 'Doc',

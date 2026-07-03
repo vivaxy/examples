@@ -1,4 +1,4 @@
-/******/ (function(modules) {
+/******/ (function (modules) {
   // webpackBootstrap
   /******/ // The module cache
   /******/ var installedModules = {}; // The require function
@@ -40,7 +40,7 @@
   /************************************************************************/
   /******/ [
     /* 0 */
-    /***/ function(module, exports, __webpack_require__) {
+    /***/ function (module, exports, __webpack_require__) {
       'use strict';
 
       var _onscreen = __webpack_require__(1);
@@ -52,10 +52,6 @@
       }
 
       var SELECTOR = '.js-element';
-      /**
-       * @since 2016-10-17 15:21
-       * @author vivaxy
-       */
 
       var CLICK = 'click';
       var panel = document.querySelector('.js-panel');
@@ -64,11 +60,11 @@
         tolerance: 50,
       });
 
-      os.on('enter', SELECTOR, function() {
+      os.on('enter', SELECTOR, function () {
         panel.style.backgroundColor = 'yellow';
       });
 
-      os.on('leave', SELECTOR, function() {
+      os.on('leave', SELECTOR, function () {
         panel.style.backgroundColor = 'white';
       });
 
@@ -80,20 +76,20 @@
       var toggleWidth = panel.querySelector('.js-toggle-width');
       var toggleTransform = panel.querySelector('.js-toggle-transform');
 
-      check.addEventListener(CLICK, function() {
+      check.addEventListener(CLICK, function () {
         var on = _onscreen2['default'].check(SELECTOR);
         panel.style.backgroundColor = on ? 'yellow' : 'white';
       });
 
       var display = true;
-      toggleDisplay.addEventListener(CLICK, function() {
+      toggleDisplay.addEventListener(CLICK, function () {
         element.style.display = display ? 'none' : 'block';
         display = !display;
       });
 
       var elementExist = true;
       var parent = document.body;
-      toggleElement.addEventListener(CLICK, function() {
+      toggleElement.addEventListener(CLICK, function () {
         if (elementExist) {
           parent.removeChild(element);
         } else {
@@ -103,19 +99,19 @@
       });
 
       var visibility = true;
-      toggleVisibility.addEventListener(CLICK, function() {
+      toggleVisibility.addEventListener(CLICK, function () {
         element.style.visibility = visibility ? 'hidden' : 'visible';
         visibility = !visibility;
       });
 
       var width = true;
-      toggleWidth.addEventListener(CLICK, function() {
+      toggleWidth.addEventListener(CLICK, function () {
         element.style.width = width ? '0px' : '100px';
         width = !width;
       });
 
       var transform = true;
-      toggleTransform.addEventListener(CLICK, function() {
+      toggleTransform.addEventListener(CLICK, function () {
         element.style.msTransform = transform
           ? 'translateX(1000%)'
           : 'translateX(0)';
@@ -134,14 +130,14 @@
       /***/
     },
     /* 1 */
-    /***/ function(module, exports, __webpack_require__) {
-      (function(global, factory) {
+    /***/ function (module, exports, __webpack_require__) {
+      (function (global, factory) {
         true
           ? (module.exports = factory())
           : typeof define === 'function' && define.amd
           ? define(factory)
           : (global.OnScreen = factory());
-      })(this, function() {
+      })(this, function () {
         'use strict';
 
         /**
@@ -281,8 +277,8 @@
             testVisibility = inContainer;
           }
 
-          selectors.forEach(function(selector) {
-            trackedElements[selector].nodes.forEach(function(item) {
+          selectors.forEach(function (selector) {
+            trackedElements[selector].nodes.forEach(function (item) {
               if (testVisibility(item.node, options)) {
                 item.wasVisible = item.isVisible;
                 item.isVisible = true;
@@ -314,10 +310,10 @@
 
           var timeout = void 0;
 
-          return function() {
+          return function () {
             clearTimeout(timeout);
 
-            timeout = setTimeout(function() {
+            timeout = setTimeout(function () {
               eventHandler(_this.trackedElements, _this.options);
             }, _this.options.throttle);
           };
@@ -408,7 +404,7 @@
           var eventListenerSupported = window.addEventListener;
 
           if (MutationObserver) {
-            var obs = new MutationObserver(function(mutations) {
+            var obs = new MutationObserver(function (mutations) {
               if (
                 mutations[0].addedNodes.length ||
                 mutations[0].removedNodes.length
@@ -487,8 +483,8 @@
             value: this._debouncedScroll.call(this),
           });
 
-          observeDOM(document.querySelector('body'), function() {
-            Object.keys(_this.trackedElements).forEach(function(element) {
+          observeDOM(document.querySelector('body'), function () {
+            Object.keys(_this.trackedElements).forEach(function (element) {
               _this.on('enter', element);
               _this.on('leave', element);
             });

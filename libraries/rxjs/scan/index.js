@@ -1,8 +1,3 @@
-/**
- * @since 2018-12-03 15:38
- * @author vivaxy
- */
-
 const {
   fromEvent,
   operators: { scan },

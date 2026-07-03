@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-29
- * @author vivaxy
- */
 function App(appConfig) {
   appConfig.setData = function setData(newData) {
     this.data = { ...this.data, ...newData };

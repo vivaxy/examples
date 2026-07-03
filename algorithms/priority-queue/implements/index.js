@@ -1,8 +1,3 @@
-/**
- * @since 20180711 15:24
- * @author vivaxy
- */
-
 const MinHeap = require('../../heap/min-heap/implements/index.js');
 
 module.exports = class PriorityQueue extends MinHeap {
@@ -61,5 +56,4 @@ module.exports = class PriorityQueue extends MinHeap {
     this.remove(value);
     this.add(value, priority);
   }
-
 };

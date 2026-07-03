@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-26 10:38:37
- * @author vivaxy
- */
-
 import * as EVENT_TYPES from '../../../../_animation/enums/event-types.js';
 import * as ACTION_TYPES from '../enums/action-types.js';
 
@@ -15,7 +10,10 @@ function init(events) {
     events.on(EVENT_TYPES.ON_AN_ANIMATION_ACTION_END, () => {
       actionIndex++;
       if (actionIndex < actions.length) {
-        events.emit(EVENT_TYPES.APPLY_AN_ANIMATION_ACTION, actions[actionIndex]);
+        events.emit(
+          EVENT_TYPES.APPLY_AN_ANIMATION_ACTION,
+          actions[actionIndex],
+        );
       } else {
         events.emit(EVENT_TYPES.ON_ANIMATION_ACTIONS_END, actions);
       }

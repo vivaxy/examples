@@ -1,7 +1,3 @@
-/**
- * @since 150723 16:16
- * @author vivaxy
- */
 let fibonacci = {
   [Symbol.iterator]() {
     let pre = 0,

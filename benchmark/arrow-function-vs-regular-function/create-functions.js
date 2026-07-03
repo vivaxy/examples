@@ -1,7 +1,3 @@
-/**
- * @since 2024-01-22
- * @author vivaxy
- */
 const fs = require('fs');
 
 function createFunctionBody(index, functionLoopCount, skip) {

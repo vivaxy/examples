@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-25
- * @author vivaxy
- */
 const { createContext, getContext, debug } = require('./async-hooks');
 
 exports.log = function log(msg) {

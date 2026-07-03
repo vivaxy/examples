@@ -1,7 +1,3 @@
-/**
- * @since 2020-03-04 10:03
- * @author vivaxy
- */
 import tokenize, { TokenPattern } from './tokenize';
 import parse from './parse';
 

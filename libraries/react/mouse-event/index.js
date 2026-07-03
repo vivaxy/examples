@@ -1,7 +1,3 @@
-/**
- * @since 2022-06-27 18:50
- * @author vivaxy
- */
 const Target = function () {
   return React.createElement('div', {
     className: 'target',

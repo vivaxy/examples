@@ -1,6 +1,4 @@
 /**
- * @since 2021-03-04 10:43
- * @author vivaxy
  * @reference https://web.dev/nfc/
  */
 function checkNFCCompatible() {

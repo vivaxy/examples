@@ -9,10 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/**
- * @since 2020-03-08 08:04
- * @author vivaxy
- */
 /* harmony default export */ __webpack_exports__["default"] = (1);
 
 

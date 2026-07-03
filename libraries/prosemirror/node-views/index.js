@@ -1,7 +1,3 @@
-/**
- * @since 2021-05-11
- * @author vivaxy
- */
 import { schema } from 'prosemirror-schema-basic';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';

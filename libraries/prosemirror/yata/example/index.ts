@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-12
- * @author vivaxy
- */
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { exampleSetup } from 'prosemirror-example-setup';

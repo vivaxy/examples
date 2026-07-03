@@ -1,14 +1,10 @@
-/**
- * @since 2019-12-16 08:01
- * @author vivaxy
- */
 function streamToString(stream) {
   return new Promise((resolve) => {
     let data = '';
-    stream.on('data', function(chunk) {
+    stream.on('data', function (chunk) {
       data += chunk;
     });
-    stream.on('end', function() {
+    stream.on('end', function () {
       resolve(data);
     });
   });
@@ -30,6 +26,6 @@ const readable = new Readable({
   },
 });
 
-streamToString(readable).then(function(data) {
+streamToString(readable).then(function (data) {
   console.log(data);
 });

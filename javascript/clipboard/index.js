@@ -1,9 +1,4 @@
 /**
- * @since 2016-11-13 18:28
- * @author vivaxy
- */
-
-/**
  * @see https://github.com/xiaokaike/magic-upload-image/blob/master/src/mixin/paste.js
  * @type {Element}
  */
@@ -53,26 +48,26 @@ textarea.addEventListener('paste', (e) => {
       if (item.kind === 'string' && item.type === 'text/plain') {
         console.log('Paste: Plain Text');
         // This item is the target node
-        item.getAsString(function(s) {
+        item.getAsString(function (s) {
           html.innerHTML = s;
         });
       } else if (item.kind === 'string' && item.type === 'text/html') {
         // Drag data item is HTML
         console.log('Paste: HTML');
-        item.getAsString(function(s) {
+        item.getAsString(function (s) {
           html.innerHTML = s;
         });
       } else if (item.kind === 'string' && item.type === 'text/uri-list') {
         // Drag data item is URI
         console.log('Paste: URI');
-        item.getAsString(function(s) {
+        item.getAsString(function (s) {
           html.innerHTML = s;
         });
       } else {
         console.log(
           'Paste: item.kind: ' + item.kind + ', item.type: ' + item.type,
         );
-        item.getAsString(function(s) {
+        item.getAsString(function (s) {
           html.innerHTML = s;
         });
       }

@@ -1,7 +1,3 @@
-/**
- * @since 2018-05-26 10:38:15
- * @author vivaxy
- */
 import Query from 'https://unpkg.com/@vivaxy/framework/class/query.js';
 import EventEmitter from 'https://unpkg.com/@vivaxy/framework/class/event-emitter.js';
 import * as EVENT_TYPES from '../../../_animation/enums/event-types.js';

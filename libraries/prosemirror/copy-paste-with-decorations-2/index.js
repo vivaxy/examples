@@ -1,7 +1,3 @@
-/**
- * @since 2021-07-04
- * @author vivaxy
- */
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
 import {
@@ -142,9 +138,10 @@ const decorationsPlugin = new Plugin({
               return mapped;
             });
           });
-        return DOMSerializer.fromSchema(
-          schemaWithDecoration,
-        ).serializeFragment(content, { document });
+        return DOMSerializer.fromSchema(schemaWithDecoration).serializeFragment(
+          content,
+          { document },
+        );
       },
     },
     clipboardParser: {

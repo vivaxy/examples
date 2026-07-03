@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-21 16:13:03
- * @author vivaxy
- */
 setup = () => {
   poses = [];
   createCanvas(window.innerWidth, window.innerHeight, WEBGL);

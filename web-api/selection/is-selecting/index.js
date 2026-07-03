@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-06 20:28
- * @author vivaxy
- */
 [
   'click',
   'touchstart',

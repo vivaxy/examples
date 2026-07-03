@@ -1,7 +1,3 @@
-/**
- * @since 2021-01-28 12:07
- * @author vivaxy
- */
 function MyPromise(task) {
   let resolves = [];
 

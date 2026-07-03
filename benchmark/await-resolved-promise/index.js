@@ -1,7 +1,4 @@
 /**
- * @since 2019-07-19 14:13
- * @author vivaxy
- *
  * Call simple function. 7.964s
  * Call function await promise. 16.687s
  * Call function with if logic. 9.612s
@@ -9,8 +6,8 @@
 let resolved = false;
 
 function request() {
-  return new Promise(function(resolve) {
-    setTimeout(function() {
+  return new Promise(function (resolve) {
+    setTimeout(function () {
       resolve(true);
     }, 1000);
   });
@@ -39,7 +36,7 @@ function getTime(s) {
   return (Date.now() - s) / 1000 + 's';
 }
 
-(async function() {
+(async function () {
   await promise;
   resolved = true;
 

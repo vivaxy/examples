@@ -1,8 +1,3 @@
-/**
- * @since 2016-08-16 22:25
- * @author vivaxy
- */
-
 'use strict';
 
 // var ON_SCREEN_HEIGHT = 0;

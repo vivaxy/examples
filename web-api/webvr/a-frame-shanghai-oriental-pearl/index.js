@@ -1,8 +1,3 @@
-/**
- * @since 2017-03-22 10:32:51
- * @author vivaxy
- */
-
 var scene = document.querySelector('a-scene');
 var size = 500;
 var offset = 2 * size;

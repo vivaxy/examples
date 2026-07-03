@@ -1,8 +1,3 @@
-/**
- * @since 20180503 13:33
- * @author vivaxy
- */
-
 class CheckerboardPainter {
   static get inputProperties() {
     return ['--checkerboard-spacing', '--checkerboard-size'];

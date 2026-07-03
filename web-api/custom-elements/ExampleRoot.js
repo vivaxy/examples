@@ -1,8 +1,3 @@
-/**
- * @since 20180227 18:31
- * @author vivaxy
- */
-
 class ExampleRoot extends BaseElement {
   static get observedAttributes() {
     return ['width', 'height'];

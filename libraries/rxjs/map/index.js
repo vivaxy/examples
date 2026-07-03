@@ -1,8 +1,3 @@
-/**
- * @since 2018-12-03 16:20
- * @author vivaxy
- */
-
 const {
   fromEvent,
   operators: { throttleTime, map, scan },

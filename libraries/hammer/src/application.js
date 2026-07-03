@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-07 16:54
- * @author vivaxy
- */
 'use strict';
 
 import Input from './input.js';

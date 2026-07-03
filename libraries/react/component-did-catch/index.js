@@ -1,7 +1,3 @@
-/**
- * @since 2022-08-05 16:14
- * @author vivaxy
- */
 function Node() {
   React.useEffect(function () {
     console.log('component mout');

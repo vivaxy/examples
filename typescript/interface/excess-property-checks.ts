@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 11:47
- * @author vivaxy
- */
 interface IUser {
   name: string;
   job?: string;
@@ -9,5 +5,5 @@ interface IUser {
 }
 
 const person: IUser = {
-  name: 'vivaxy'
-}
+  name: 'vivaxy',
+};

@@ -1,7 +1,3 @@
-/**
- * @since 2020-03-08 17:45:41
- * @author vivaxy
- */
 import * as vlq from '@vivaxy/vlq';
 
 export default function parse(sourceMap: any) {

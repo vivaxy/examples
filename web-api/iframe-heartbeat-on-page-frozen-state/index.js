@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-07
- * @author vivaxy
- */
 let heartbeatTimer = null;
 const iframe = document.querySelector('iframe');
 

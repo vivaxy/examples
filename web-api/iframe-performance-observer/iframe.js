@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-07 07:12
- * @author vivaxy
- */
 function longTask() {
   let a = 0;
   for (let i = 0; i < 1e9; i++) {

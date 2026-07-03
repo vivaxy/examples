@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-18
- * @author vivaxy
- */
 // import * as tts from
 // 'https://unpkg.com/@diffusionstudio/vits-web/dist/vits-web.js?module';
 // @ts-expect-error types

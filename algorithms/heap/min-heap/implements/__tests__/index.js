@@ -1,8 +1,3 @@
-/**
- * @since 20180711 10:48
- * @author vivaxy
- */
-
 const test = require('ava');
 const MinHeap = require('../index.js');
 
@@ -28,5 +23,4 @@ test('min heap', (t) => {
   minHeap.add(8).remove(4);
 
   t.is(minHeap.toString(), [3, 5, 8, 11, 15].toString());
-
 });

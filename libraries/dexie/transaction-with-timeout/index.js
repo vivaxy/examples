@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-14
- * @author vivaxy
- */
 import Dexie from 'https://cdn.skypack.dev/dexie';
 
 const db = new Dexie('vivaxy');

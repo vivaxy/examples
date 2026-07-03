@@ -1,7 +1,3 @@
-/**
- * @since 2022-07-14 17:08
- * @author vivaxy
- */
 const $container = document.getElementById('container');
 
 document.addEventListener('click', function (e) {

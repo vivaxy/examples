@@ -1,6 +1,4 @@
 /**
- * @since 2021-03-01 20:23
- * @author vivaxy
  * @description
  * - Update `SAMESITE_VALUE` to `Strict`, `Lax` to test.
  *  - Run `node ./index.js` to start website A on `http://127.0.0.1:3000/`.

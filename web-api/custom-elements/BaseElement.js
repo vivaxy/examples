@@ -1,8 +1,3 @@
-/**
- * @since 20180227 18:31
- * @author vivaxy
- */
-
 class BaseElement extends HTMLElement {
   constructor() {
     super();

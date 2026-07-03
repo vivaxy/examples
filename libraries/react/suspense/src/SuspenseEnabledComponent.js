@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-22
- * @author vivaxy
- */
 import { useState } from 'react';
 
 const STATES = {

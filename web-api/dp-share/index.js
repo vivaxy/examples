@@ -1,7 +1,3 @@
-/**
- * @since 150109 10:16
- * @author vivaxy
- */
 var consoleDIV = document.querySelector('.console');
 if (location.href.indexOf('product=dpapp') >= 0) {
   consoleDIV.innerHTML += '是点评客户端\n';

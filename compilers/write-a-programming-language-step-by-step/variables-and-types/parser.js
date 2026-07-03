@@ -1,13 +1,8 @@
 /**
- * @since 2024-04-01
- * @author vivaxy
- */
-/**
  * 语法分析器
  * @version 0.2
  * @author 宫文学
  * @license 木兰开源协议
- * @since 2021-06-04
  *
  * 当前特性：
  * 1.简化版的函数声明

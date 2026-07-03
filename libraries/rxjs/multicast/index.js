@@ -1,8 +1,3 @@
-/**
- * @since 2018-12-03 19:55
- * @author vivaxy
- */
-
 const {
   from,
   Subject,

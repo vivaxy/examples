@@ -1,8 +1,3 @@
-/**
- * @since 2016-01-19 15:24
- * @author vivaxy
- */
-
 var body = document.querySelector('body');
 var touchList = document.querySelector('touch-list');
 

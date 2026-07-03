@@ -1,7 +1,3 @@
-/**
- * @since 2021-07-08
- * @author vivaxy
- */
 import * as decoding from 'lib0/decoding';
 
 export default function readDeleteSet(decoder) {

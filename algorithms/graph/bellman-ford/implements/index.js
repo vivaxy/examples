@@ -1,10 +1,4 @@
-/**
- * @since 20180711 19:24
- * @author vivaxy
- */
-
 module.exports = function bellmanFord(graph, startVertex) {
-
   const distances = {};
   const previousVertices = {};
 
@@ -16,13 +10,10 @@ module.exports = function bellmanFord(graph, startVertex) {
   distances[startVertex.getKey()] = 0;
 
   for (let i = 0; i < allVertices.length - 1; i++) {
-
     Object.keys(distances).forEach((vertexKey) => {
-
       const vertex = graph.getVertexByKey(vertexKey);
 
       vertex.getNeighbors().forEach((neighborVertex) => {
-
         const edge = graph.findEdge(vertex, neighborVertex);
 
         const distanceToVertex = distances[vertex.getKey()];
@@ -32,16 +23,12 @@ module.exports = function bellmanFord(graph, startVertex) {
           distances[neighborVertex.getKey()] = distanceToNeighborVertex;
           previousVertices[neighborVertex.getKey()] = vertex;
         }
-
       });
-
     });
-
   }
 
   return {
     distances,
     previousVertices,
   };
-
 };

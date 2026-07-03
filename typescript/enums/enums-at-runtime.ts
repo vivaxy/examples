@@ -1,9 +1,7 @@
-/**
- * @since 2019-06-20 16:38
- * @author vivaxy
- */
 enum EnumsAtRuntime {
-  X, Y, Z
+  X,
+  Y,
+  Z,
 }
 
 function functionOfEnumsAtRuntime(obj: { X: number }) {

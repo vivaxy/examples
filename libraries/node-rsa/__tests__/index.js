@@ -1,8 +1,3 @@
-/**
- * @since 20180125 20:59
- * @author vivaxy
- */
-
 const path = require('path');
 
 const test = require('ava');

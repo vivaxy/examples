@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-05 16:15
- * @author vivaxy
- */
 'use strict';
 
 import EventEmitter from '../node_modules/event-emitter/src/event-emitter.js';

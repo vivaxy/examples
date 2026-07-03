@@ -1,7 +1,3 @@
-/**
- * @since 2021-04-06 17:13
- * @author vivaxy
- */
 import { schema as baseSchema } from 'https://cdn.skypack.dev/prosemirror-schema-basic';
 import { EditorState } from 'https://cdn.skypack.dev/prosemirror-state';
 import { EditorView } from 'https://cdn.skypack.dev/prosemirror-view';

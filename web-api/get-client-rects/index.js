@@ -1,7 +1,3 @@
-/**
- * @since 2023-06-21
- * @author vivaxy
- */
 const node = document.getElementById('node');
 
 const clientRects = node.getClientRects();

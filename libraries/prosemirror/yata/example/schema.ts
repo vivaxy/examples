@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-14
- * @author vivaxy
- */
 import { Schema } from 'prosemirror-model';
 import { addListNodes } from 'prosemirror-schema-list';
 import { schema as basicSchema } from 'prosemirror-schema-basic';

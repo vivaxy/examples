@@ -1,7 +1,3 @@
-/**
- * @since 2017-05-09 19:55:59
- * @author vivaxy
- */
 import React, { Component } from 'react';
 
 import AppChildChild from './AppChildChild';

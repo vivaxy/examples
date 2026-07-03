@@ -1,8 +1,4 @@
 /**
- * @since 2017-03-19 11:14:49
- * @author vivaxy
- */
-/**
  * Snap entity to the closest interval specified by `snap`.
  * Offset entity by `offset`.
  */

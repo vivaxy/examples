@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-06 12:45:26
- * @author vivaxy
- */
-
 import * as stateTypes from './state-types.js';
 import StateMachine from './state-machine.js';
 import events from './events.js';
@@ -36,9 +31,12 @@ const removeNoteFromElement = (element, note) => {
   if (!content.includes(note)) {
     return false;
   }
-  element.innerHTML = content.split('\n').filter((n) => {
-    return n !== note;
-  }).join('\n');
+  element.innerHTML = content
+    .split('\n')
+    .filter((n) => {
+      return n !== note;
+    })
+    .join('\n');
 };
 
 const actionHandlers = {
@@ -69,7 +67,7 @@ const actionHandlers = {
   [actionTypes.MARK]: {
     enter: ({ type, value, index }, cb) => {
       markElement = selectElement(index);
-      markElement.style.top = (100 - (value * 100)) + '%';
+      markElement.style.top = 100 - value * 100 + '%';
       markElement.style.bottom = 'unset';
       addNoteToElement(markElement, 'mark');
       setTimeout(() => {
@@ -85,11 +83,11 @@ const actionHandlers = {
   [actionTypes.UNMARK_AND_ASSIGN]: {
     enter: ({ index, value }, cb) => {
       markElement.style.top = '';
-      markElement.style.bottom = (100 - (value * 100)) + '%';
+      markElement.style.bottom = 100 - value * 100 + '%';
       markElement.setAttribute('data-value', String(value));
       removeNoteFromElement(markElement, 'mark');
       setTimeout(() => {
-        markElement.style.left = (100 / query.length * index) + '%';
+        markElement.style.left = (100 / query.length) * index + '%';
         setTimeout(() => {
           markElement.style.bottom = '';
           setTimeout(() => {
@@ -149,7 +147,7 @@ const actionHandlers = {
   [actionTypes.ASSIGN]: {
     enter: ({ type, index }, cb) => {
       const ele = selectElement(index - 1);
-      ele.style.left = (100 / query.length * index) + '%';
+      ele.style.left = (100 / query.length) * index + '%';
       ele.setAttribute('data-index', String(index));
       addNoteToElement(ele, 'assign');
       markElement.setAttribute('data-index', String(index - 1));

@@ -1,7 +1,3 @@
-/**
- * @since 2018-04-22 09:09:29
- * @author vivaxy
- */
 import query from './query.js';
 import algorithm from './algorithm.js';
 import createAnimation from './animation.js';

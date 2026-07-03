@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-26
- * @author vivaxy
- */
 import * as EDIT_TYPES from '../../enums/edit-types';
 import './Updates.css';
 

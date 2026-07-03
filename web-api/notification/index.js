@@ -1,8 +1,3 @@
-/**
- * @since 2016-02-04 15:59
- * @author vivaxy
- */
-
 'use strict';
 
 var notify = function (title, options) {

@@ -1,8 +1,3 @@
-/**
- * @since 2016-10-10 12:16
- * @author vivaxy
- */
-
 var element = document.querySelector('.js-chart');
 var myChart = echarts.init(element);
 
@@ -39,7 +34,7 @@ fetch('data.json')
           type: 'value',
           name: 'rank',
           axisLabel: {
-            formatter: function(rank) {
+            formatter: function (rank) {
               return maxRank - rank;
             },
           },

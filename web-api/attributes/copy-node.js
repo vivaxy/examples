@@ -1,7 +1,3 @@
-/**
- * @since 150609 17:41
- * @author vivaxy
- */
 var copyNode = function (source) {
   var tagName = source.tagName,
     attributes = source.attributes,

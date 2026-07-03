@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-10
- * @author vivaxy
- */
 import { expect, test } from 'vitest';
 import { incrementToLong } from '../increment-to-long';
 

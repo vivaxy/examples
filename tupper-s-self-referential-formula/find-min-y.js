@@ -1,7 +1,3 @@
-/**
- * @since 2023-08-07
- * @author vivaxy
- */
 import { draw } from './draw-canvas.js';
 /**
  * @param points

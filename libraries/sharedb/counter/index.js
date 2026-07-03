@@ -1,7 +1,3 @@
-/**
- * @since 2021-09-24
- * @author vivaxy
- */
 import ShareDB from 'sharedb/lib/client';
 
 const ws = new WebSocket('ws://127.0.0.1:8081/');

@@ -1,7 +1,3 @@
-/**
- * @since 2020-03-08 08:02
- * @author vivaxy
- */
 const path = require('path');
 
 module.exports = {

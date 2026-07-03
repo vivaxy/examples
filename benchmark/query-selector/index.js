@@ -1,7 +1,3 @@
-/**
- * @since 2021-06-09
- * @author vivaxy
- */
 function createId(index) {
   return `id-${index}`;
 }

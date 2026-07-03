@@ -1,7 +1,3 @@
-/**
- * @since 2024-06-26
- * @author vivaxy
- */
 // @ts-expect-error window.TableCore
 const { createColumnHelper, createTable, getCoreRowModel } = window.TableCore;
 

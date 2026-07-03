@@ -1,7 +1,3 @@
-/**
- * @since 2021-01-29 17:17
- * @author vivaxy
- */
 const currentLocks = [];
 
 function getMutex() {

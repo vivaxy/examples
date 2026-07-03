@@ -1,8 +1,3 @@
-/**
- * @since 2016-01-22 14:30
- * @author vivaxy
- */
-
 'use strict';
 
 import React from 'react';

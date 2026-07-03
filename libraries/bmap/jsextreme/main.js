@@ -1,7 +1,3 @@
-/**
- * @since 150116 10:16
- * @author vivaxy
- */
 // 创建地图实例
 var map = new BMap.Map('container');
 // 上海
@@ -12,11 +8,11 @@ var point1 = new BMap.Point(116.404, 39.915);
 map.centerAndZoom(point1, 15);
 
 // 2秒后
-setTimeout(function() {
+setTimeout(function () {
   //移动到公司
   map.panTo(point);
   //1秒后
-  setTimeout(function() {
+  setTimeout(function () {
     //缩放
     map.setZoom(30);
   }, 1000);
@@ -26,9 +22,9 @@ setTimeout(function() {
 var geoc = new BMap.Geocoder();
 
 //点击
-map.addEventListener('click', function(e) {
+map.addEventListener('click', function (e) {
   console.log('clicked ', e.point.lng, e.point.lat);
-  geoc.getLocation(e.point, function(rs) {
+  geoc.getLocation(e.point, function (rs) {
     var addComp = rs.addressComponents;
     console.log(
       addComp.province +
@@ -45,7 +41,7 @@ map.addEventListener('click', function(e) {
 });
 
 //拖动事件
-map.addEventListener('dragend', function() {
+map.addEventListener('dragend', function () {
   var center = map._getCenter();
   console.log('center moved to ', center.lng, center.lat);
 });

@@ -1,7 +1,3 @@
-/**
- * @since 2024-02-04
- * @author vivaxy
- */
 import * as EVENTS from '../enums/events.js';
 
 /**

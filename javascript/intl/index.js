@@ -1,6 +1,4 @@
 /**
- * @since 2023-12-21
- * @author vivaxy
  * @see https://www.freecodecamp.org/news/how-to-get-started-with-internationalization-in-javascript-c09a0d2cd834/
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#digit_options
  */

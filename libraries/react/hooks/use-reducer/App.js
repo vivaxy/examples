@@ -1,7 +1,3 @@
-/**
- * @since 2019-07-29 12:37
- * @author vivaxy
- */
 import { Provider } from './lib/redux.js';
 import Counter from './components/Counter.js';
 import RenderCount from './components/RenderCount.js';

@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-23
- * @author vivaxy
- */
 import Dexie from '//cdn.skypack.dev/dexie';
 import { run } from '//cdn.skypack.dev/@vivaxy/framework/utils/benchmark.js';
 

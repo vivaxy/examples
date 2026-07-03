@@ -1,10 +1,4 @@
-/**
- * @since 20180712 19:48
- * @author vivaxy
- */
-
 module.exports = function longestCommonSubstring(s1, s2) {
-
   const matrix = [];
 
   let lcsLength = 0;
@@ -18,7 +12,6 @@ module.exports = function longestCommonSubstring(s1, s2) {
       if (i === 0 || j === 0) {
         matrix[i][j] = 0;
       } else {
-
         if (s1[i - 1] === s2[j - 1]) {
           matrix[i][j] = matrix[i - 1][j - 1] + 1;
         } else {
@@ -30,7 +23,6 @@ module.exports = function longestCommonSubstring(s1, s2) {
           lcsI = i;
           lcsJ = j;
         }
-
       }
     }
   }

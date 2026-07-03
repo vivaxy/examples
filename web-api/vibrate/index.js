@@ -1,7 +1,3 @@
-/**
- * @since 15-09-08 19:55
- * @author vivaxy
- */
 'use strict';
 
 navigator.vibrate =

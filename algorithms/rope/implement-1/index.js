@@ -1,7 +1,3 @@
-/**
- * @since 2021-10-13
- * @author vivaxy
- */
 const errors = {
   indexOutOfBound(input, min, max) {
     return new Error(

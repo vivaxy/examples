@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-26 16:27
- * @author vivaxy
- */
 import { StepMap } from 'prosemirror-transform';
 
 // 0 1 2 3 4  0 1 2 3 4

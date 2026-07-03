@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-19 09:53
- * @author vivaxy
- */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const assert = require('assert');
 // eslint-disable-next-line @typescript-eslint/no-var-requires

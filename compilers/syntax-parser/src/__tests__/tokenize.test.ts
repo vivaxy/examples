@@ -1,10 +1,6 @@
-/**
- * @since 2020-02-26 03:57
- * @author vivaxy
- */
 import tokenize from '../tokenize';
 
-test('binary operation', function() {
+test('binary operation', function () {
   const patterns = [
     {
       type: 'Number',
@@ -22,13 +18,18 @@ test('binary operation', function() {
   ];
   expect(tokenize(patterns, `1 + 2`)).toMatchSnapshot();
   expect(tokenize(patterns, `1 + 2 - 3`)).toMatchSnapshot();
-  expect(tokenize(patterns, `1+2
+  expect(
+    tokenize(
+      patterns,
+      `1+2
 -3
 
-+4`)).toMatchSnapshot();
++4`,
+    ),
+  ).toMatchSnapshot();
 });
 
-test('variable declaration', function() {
+test('variable declaration', function () {
   const patterns = [
     {
       type: 'Declarator',
@@ -52,5 +53,7 @@ test('variable declaration', function() {
 });
 
 test('unexpected token', function () {
-  expect(tokenize.bind(null, [], `unexpected token`)).toThrow('Unexpected token');
-})
+  expect(tokenize.bind(null, [], `unexpected token`)).toThrow(
+    'Unexpected token',
+  );
+});

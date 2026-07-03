@@ -1,7 +1,3 @@
-/**
- * @since 2022-12-05 16:57
- * @author vivaxy
- */
 const buttons = document
   .querySelectorAll('[data-button]')
   .forEach(function (button) {

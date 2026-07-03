@@ -1,8 +1,3 @@
-/**
- * @since 2016-08-20 11:09
- * @author vivaxy
- */
-
 var promisifiedOldGUM = function (constraints) {
   // First get ahold of getUserMedia, if present
   var getUserMedia =

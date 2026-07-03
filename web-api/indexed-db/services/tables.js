@@ -1,7 +1,3 @@
-/**
- * @since 20180709 18:58
- * @author vivaxy
- */
 import * as eventTypes from '../enums/event-types.js';
 import * as upgradeTypes from '../enums/upgrade-types.js';
 import AddTable from '../components/add-table.js';

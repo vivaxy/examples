@@ -1,36 +1,32 @@
-/**
- * @since 15-08-03 21:21
- * @author vivaxy
- */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 ol {
-    counter-reset: ol;
-    list-style: none;
+  counter-reset: ol;
+  list-style: none;
 }
 
 ol li {
-    counter-increment: ol;
+  counter-increment: ol;
 }
 
 ol li:before {
-    content: '第' counter(ol) '章';
+  content: "第" counter(ol) "章";
 }
 
 ol li ul {
-    list-style: none;
+  list-style: none;
 }
 
 ol li ul li {
-    counter-increment: ul;
+  counter-increment: ul;
 }
 
 ol li ul li:before {
-    content: '第' counter(ol) '章 第' counter(ul) '个';
+  content: "第" counter(ol) "章 第" counter(ul) "个";
 }

@@ -1,8 +1,3 @@
-/**
- * @since 20180125 16:05
- * @author vivaxy
- */
-
 const check = (argTypes, target) => {
   Object.keys(argTypes).map((argName) => {
     return argTypes[argName](target, argName);

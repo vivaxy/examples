@@ -1,6 +1,4 @@
 /**
- * @since 2024-07-29
- * @author vivaxy
  * @see https://stackoverflow.com/questions/6772757/using-the-push-method-or-length-when-adding-to-array
  */
 import {

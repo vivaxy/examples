@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-07 11:51:05
- * @author vivaxy
- */
-
 const elemenet = document.querySelector('.js-element');
 
 const growKeyframes = [{ transform: 'none' }, { transform: 'scale(2)' }];

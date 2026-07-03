@@ -1,7 +1,3 @@
-/**
- * @since 2021-09-24
- * @author vivaxy
- */
 const ShareDB = require('sharedb');
 const { WebSocketServer } = require('ws');
 WebSocketJSONStream = require('@teamwork/websocket-json-stream');

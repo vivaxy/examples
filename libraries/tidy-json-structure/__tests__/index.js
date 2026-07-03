@@ -1,8 +1,3 @@
-/**
- * @since 20180713 11:24
- * @author vivaxy
- */
-
 const test = require('ava');
 const tidyJsonStructure = require('../index.js');
 

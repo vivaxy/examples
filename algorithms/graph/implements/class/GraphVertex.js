@@ -1,6 +1,4 @@
 /**
- * @since 20180527 17:19
- * @author vivaxy
  * @see https://github.com/trekhleb/javascript-algorithms/blob/master/src/data-structures/graph/GraphVertex.js
  */
 
@@ -38,14 +36,14 @@ module.exports = class GraphVertex {
   }
 
   findEdge(vertex) {
-
-    return Object.values(this.edges).find((edge) => {
-      return edge.startVertex === vertex || edge.endVertex === vertex;
-    }) || null;
+    return (
+      Object.values(this.edges).find((edge) => {
+        return edge.startVertex === vertex || edge.endVertex === vertex;
+      }) || null
+    );
   }
 
   toString() {
     return this.getKey();
   }
-
 };

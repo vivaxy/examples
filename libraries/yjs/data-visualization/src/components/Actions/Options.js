@@ -1,7 +1,3 @@
-/**
- * @since 2021-07-16
- * @author vivaxy
- */
 import './Options.css';
 
 const IDS = {

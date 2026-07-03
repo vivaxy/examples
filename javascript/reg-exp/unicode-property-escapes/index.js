@@ -1,7 +1,3 @@
-/**
- * @since 2019-08-01 13:35
- * @author vivaxy
- */
 const number = /^\p{Number}+$/u;
 console.log(`${number}.test('²³¹¼½¾')`, number.test('²³¹¼½¾')); // true
 console.log(`${number}.test('㉛㉜㉝')`, number.test('㉛㉜㉝')); // true

@@ -1,9 +1,4 @@
 /**
- * @since 2018-05-20 10:05:23
- * @author vivaxy
- */
-
-/**
  * Ω(nlgn) <= Θ(nlgn) <= O(nlgn)
  * @param A Array
  * @param p Starting index

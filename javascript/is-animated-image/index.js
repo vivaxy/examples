@@ -1,6 +1,4 @@
 /**
- * @since 2019-02-26 16:27
- * @author vivaxy
  * @supported android 5
  * @see https://github.com/sindresorhus/file-type
  * @see https://github.com/qzb/is-animated
@@ -21,31 +19,45 @@ function handleChange(e) {
 }
 
 function handleFileReaderLoad(file) {
-  return function(e) {
+  return function (e) {
     var imageMeta = getImageMeta(e.target.result);
     if (imageMeta) {
-      return log(imageMeta.ext, imageMeta.mime, file.name, imageMeta.animated ? '✔' : '✖');
+      return log(
+        imageMeta.ext,
+        imageMeta.mime,
+        file.name,
+        imageMeta.animated ? '✔' : '✖',
+      );
     }
     return log('N/A', 'N/A', file.name, 'N/A');
   };
 }
 
 function log(extension, mime, filename, animated) {
-  consoleEl.innerHTML += '<tr><td>' + extension + '</td><td>' + mime + '</td><td>' + filename + '</td><td>' + animated + '</td></tr>';
+  consoleEl.innerHTML +=
+    '<tr><td>' +
+    extension +
+    '</td><td>' +
+    mime +
+    '</td><td>' +
+    filename +
+    '</td><td>' +
+    animated +
+    '</td></tr>';
 }
 
 function getImageMeta(arrayBuffer) {
   var buffer = new Uint8Array(arrayBuffer);
-  if (check(buffer, [0xFF, 0xD8, 0xFF])) {
+  if (check(buffer, [0xff, 0xd8, 0xff])) {
     return {
       ext: 'jpg',
       mime: 'image/jpeg',
       animated: false,
     };
   }
-  if (check(buffer, [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])) {
+  if (check(buffer, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])) {
     // apng has `61 63 54 4C` before first `00 00 00 08`
-    if (findIndex(buffer, [0x61, 0x63, 0x54, 0x4C]) === -1) {
+    if (findIndex(buffer, [0x61, 0x63, 0x54, 0x4c]) === -1) {
       return {
         ext: 'png',
         mime: 'image/png',
@@ -66,7 +78,7 @@ function getImageMeta(arrayBuffer) {
     };
   }
   if (check(buffer, [0x57, 0x45, 0x42, 0x50], 8)) {
-    if (findIndex(buffer, [0x41, 0x4E, 0x49, 0x4D]) === -1) {
+    if (findIndex(buffer, [0x41, 0x4e, 0x49, 0x4d]) === -1) {
       return {
         ext: 'webp',
         mime: 'image/webp',

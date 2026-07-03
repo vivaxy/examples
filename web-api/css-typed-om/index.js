@@ -1,6 +1,4 @@
 /**
- * @since 2019-02-03 15:26
- * @author vivaxy
  * @see https://developers.google.com/web/updates/2018/03/cssom
  */
 

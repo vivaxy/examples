@@ -1,7 +1,3 @@
-/**
- * @since 2024-07-09
- * @author vivaxy
- */
 import { expect, test, describe } from 'vitest';
 import {
   exponentNumber,

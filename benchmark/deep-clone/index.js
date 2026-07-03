@@ -1,8 +1,3 @@
-/**
- * @since 2026-04-16
- * @author vivaxy
- */
-
 // ─── Deep Clone Implementations ──────────────────────────────────────────────
 
 function cloneJSON(obj) {

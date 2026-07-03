@@ -1,7 +1,3 @@
-/**
- * @since 2021-03-15 20:25
- * @author vivaxy
- */
 const path = require('path');
 const execa = require('execa');
 const { Buffer } = require('buffer');

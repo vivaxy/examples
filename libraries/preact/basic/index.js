@@ -1,7 +1,3 @@
-/**
- * @since 2023-06-27
- * @author vivaxy
- */
 import { html, render } from 'https://esm.sh/htm/preact';
 import { useState } from 'https://esm.sh/preact/hooks';
 

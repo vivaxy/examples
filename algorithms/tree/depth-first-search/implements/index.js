@@ -1,6 +1,4 @@
 /**
- * @since 20180309 12:13
- * @author vivaxy
  * @see https://www.wikiwand.com/en/Tree_traversal#/Depth-first_search_2
  */
 

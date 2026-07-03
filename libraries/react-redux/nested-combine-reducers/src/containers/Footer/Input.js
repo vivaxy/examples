@@ -1,8 +1,3 @@
-/**
- * @since 2017-05-13 10:35:06
- * @author vivaxy
- */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -29,7 +24,4 @@ const mapStateToProps = (state) => {
   const { value } = state.footer.input;
   return { value };
 };
-export default connect(
-  mapStateToProps,
-  actions.footer.input,
-)(Input);
+export default connect(mapStateToProps, actions.footer.input)(Input);

@@ -1,8 +1,3 @@
-/**
- * @since 2016-01-22 14:26
- * @author vivaxy
- */
-
 'use strict';
 
 import React, { Component, PropTypes } from 'react';

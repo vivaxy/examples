@@ -1,8 +1,3 @@
-/**
- * @since 2019-06-20 11:13
- * @author vivaxy
- */
-
 const worker = new Worker('worker.js');
 
 function handleMessageFromWorker(msg) {

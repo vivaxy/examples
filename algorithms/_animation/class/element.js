@@ -1,8 +1,3 @@
-/**
- * @since 2018-05-20 13:59:25
- * @author vivaxy
- */
-
 export default class Element {
   constructor({ index, value, parent, width, animationDuration }) {
     this.value = value;

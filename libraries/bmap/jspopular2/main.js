@@ -1,7 +1,3 @@
-/**
- * @since 150116 10:16
- * @author vivaxy
- */
 // 创建地图实例
 var map = new BMap.Map('container');
 // 上海
@@ -12,14 +8,14 @@ map.centerAndZoom(point, 15);
 // 浏览器定位
 var geolocation = new BMap.Geolocation();
 geolocation.getCurrentPosition(
-  function(r) {
+  function (r) {
     if (this.getStatus() == BMAP_STATUS_SUCCESS) {
       var mk = new BMap.Marker(r.point);
       map.addOverlay(mk);
       map.panTo(r.point);
       console.log('您的位置', r.point.lng, r.point.lat);
       var geoc = new BMap.Geocoder();
-      geoc.getLocation(r.point, function(rs) {
+      geoc.getLocation(r.point, function (rs) {
         var addComp = rs.addressComponents;
         console.log(
           '您的地址',
@@ -38,7 +34,7 @@ geolocation.getCurrentPosition(
       console.log('failed', this.getStatus());
       // ip定位
       var myCity = new BMap.LocalCity();
-      myCity.get(function(result) {
+      myCity.get(function (result) {
         var cityName = result.name;
         map.setCenter(cityName);
         console.log('当前定位城市', cityName);

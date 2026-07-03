@@ -1,8 +1,3 @@
-/**
- * @since 20180607 10:46
- * @author vivaxy
- */
-
 function functionalRunner() {
   let cachedFns = [];
 
@@ -39,4 +34,8 @@ function functionalRunner() {
 
 const array = [1, 2, 3];
 
-functionalRunner().map(x => x * 2).filter(x => x !== 4).map(console.log).call(array);
+functionalRunner()
+  .map((x) => x * 2)
+  .filter((x) => x !== 4)
+  .map(console.log)
+  .call(array);

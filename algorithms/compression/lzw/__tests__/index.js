@@ -1,8 +1,3 @@
-/**
- * @since 20180918 19:22
- * @author vivaxy
- */
-
 const test = require('ava');
 const { compress, decompress } = require('../index.js');
 
@@ -16,5 +11,4 @@ test('lzw', (t) => {
   inputs.forEach((input) => {
     t.is(decompress(compress(input)), input);
   });
-
 });

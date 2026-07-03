@@ -1,12 +1,8 @@
-/**
- * @since 2020-05-08 20:02
- * @author vivaxy
- */
 const Koa = require('koa');
 
 const app = new Koa();
 
-app.use(async function(ctx) {
+app.use(async function (ctx) {
   if (ctx.path === '/index.html') {
     ctx.body = `<html><head>Redirect Server</head><body><script src="/redirect.js"></script></body></html>`;
     return;

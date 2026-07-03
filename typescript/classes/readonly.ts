@@ -1,7 +1,3 @@
-/**
- * @since 2019-04-23 04:47
- * @author vivaxy
- */
 class OctopusOfReadonly {
   readonly name: string;
   readonly numberOfLegs: number = 8;

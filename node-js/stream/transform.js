@@ -1,7 +1,3 @@
-/**
- * @since 2019-12-16 07:32
- * @author vivaxy
- */
 const { Transform } = require('stream');
 
 const input = 'ABCDEFG';
@@ -14,7 +10,7 @@ const transform = new Transform({
   },
 });
 
-transform.on('data', function(chunk, encoding) {
+transform.on('data', function (chunk, encoding) {
   console.log(chunk.toString());
 });
 

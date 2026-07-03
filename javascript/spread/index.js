@@ -1,8 +1,4 @@
-/**
- * @since 150521 19:15
- * @author vivaxy
- */
-var f = function(x, y, z) {
+var f = function (x, y, z) {
   console.log(x + y + z);
 };
 

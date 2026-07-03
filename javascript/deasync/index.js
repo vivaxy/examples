@@ -1,7 +1,3 @@
-/**
- * @since 2023-10-13
- * @author vivaxy
- */
 import deasync from './deasync.js';
 
 function testAsyncFunction() {

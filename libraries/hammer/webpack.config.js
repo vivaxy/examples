@@ -1,7 +1,3 @@
-/**
- * @since 2015-12-07 16:43
- * @author vivaxy
- */
 'use strict';
 module.exports = {
   entry: {

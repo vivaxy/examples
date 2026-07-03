@@ -1,7 +1,3 @@
-/**
- * @since 2025-07-24 16:36
- * @author vivaxy
- */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { fork } = require('child_process');
 

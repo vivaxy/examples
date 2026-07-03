@@ -1,7 +1,3 @@
-/**
- * @since 2022-03-15
- * @author vivaxy
- */
 import { BroadcastChannel } from 'https://cdn.skypack.dev/broadcast-channel';
 
 const channel = new BroadcastChannel('sample');

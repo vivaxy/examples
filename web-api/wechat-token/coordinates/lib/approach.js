@@ -1,8 +1,3 @@
-/**
- * @since 150611 13:43
- * @author vivaxy
- */
-
 var approach = function (from, to, req, callback) {
   console.log('ranging: from ' + from + ' to ' + to);
   var next = (from + to) / 2;

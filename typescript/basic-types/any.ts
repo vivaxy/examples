@@ -1,6 +1,2 @@
-/**
- * @since 2019-04-16 04:21
- * @author vivaxy
- */
-const anyList: any[] = [1, true, 'Free']
-console.log(anyList)
+const anyList: any[] = [1, true, 'Free'];
+console.log(anyList);

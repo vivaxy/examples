@@ -1,6 +1,4 @@
 /**
- * @since 2017-04-26 16:40:51
- * @author vivaxy
  * 比较在构造中重复声明函数和在构造函数中绑定 this 的运行差异
  *  `node --expose_gc index.js`
  * 结果：
