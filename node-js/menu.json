@@ -1,5 +1,9 @@
 [
   {
+    "name": "max-old-space-size",
+    "link": "max-old-space-size/README.md"
+  },
+  {
     "name": "AI Agent",
     "link": "ai-agent/README.md"
   },
