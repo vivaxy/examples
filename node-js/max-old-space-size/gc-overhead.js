@@ -1,9 +1,9 @@
 // Measures GC overhead under different heap size limits.
 //
 // A 200-entry circular cache keeps ~20 MB of objects alive in old generation.
-// With a small heap that 20 MB is a large fraction of the limit, so V8 runs
-// incremental marking aggressively. With a large heap it is a small fraction,
-// so incremental marking barely runs.
+// With a small heap (64 MB) that 20 MB creates steady old-gen pressure, so V8
+// runs Major GC (MarkCompact via incremental marking) aggressively. With a
+// large heap (512 MB) the same 20 MB is negligible — Major GC barely fires.
 //
 // Compare:
 //   node --max-old-space-size=64  gc-overhead.js
@@ -18,11 +18,15 @@ const ELEMENTS_PER_ENTRY = 25 * 1024;
 // 200 × 100 KB ≈ 20 MB working set kept alive throughout the run
 const CACHE_SIZE = 200;
 
-// V8 GC kind values surfaced via PerformanceObserver
+// V8 GC kind values surfaced via PerformanceObserver.
+// Modern V8 routes all Major GC through the incremental marking pipeline, so
+// the stop-the-world MarkCompact phase is reported as kind=4 (MajorGC), not
+// kind=2. kind=2 only appears when GC is forced without incremental marking
+// (e.g. via global.gc() with --expose-gc).
 const GC_KIND = {
-  1: 'Scavenge',
+  1: 'MinorGC',
   2: 'MarkCompact',
-  4: 'Incremental',
+  4: 'MajorGC',
   8: 'Weak',
 };
 
@@ -35,13 +39,17 @@ async function main() {
   const counts = {};
   const times = {};
 
-  const obs = new PerformanceObserver((list) => {
-    for (const entry of list.getEntries()) {
+  function recordEntries(entries) {
+    for (const entry of entries) {
       const k = entry.detail?.kind ?? 0;
       counts[k] = (counts[k] || 0) + 1;
       times[k] = (times[k] || 0) + entry.duration;
     }
-  });
+  }
+
+  const obs = new PerformanceObserver((list) =>
+    recordEntries(list.getEntries()),
+  );
   obs.observe({ entryTypes: ['gc'], buffered: true });
 
   // Circular buffer: overwriting a slot releases the old entry to be collected.
@@ -52,7 +60,9 @@ async function main() {
   }
   const elapsed = performance.now() - start;
 
-  // Yield once so PerformanceObserver can flush all pending GC entries.
+  // Two-phase yield: setImmediate lets the observer queue its entries, then
+  // setTimeout(0) lets the observer callback actually fire and deliver them.
+  await new Promise((resolve) => setImmediate(resolve));
   await new Promise((resolve) => setTimeout(resolve, 0));
   obs.disconnect();
 

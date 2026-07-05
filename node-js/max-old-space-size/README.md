@@ -24,12 +24,14 @@ node --max-old-space-size=512 gc-overhead.js
 ```
 
 A 200-entry circular cache keeps ~20 MB of objects alive in old generation. With
-a small heap that 20 MB occupies a large fraction of the limit, so V8 runs
-incremental marking aggressively to stay ahead of old-space pressure. With a
-large heap the same 20 MB is negligible — incremental marking barely runs.
+a small heap (64 MB) that 20 MB creates constant old-gen pressure, so V8 runs
+Major GC (MarkCompact via incremental marking) aggressively throughout the run.
+With a large heap (512 MB) the same 20 MB is negligible — Major GC barely fires.
 
-The key signal is the `Incremental` row in the GC breakdown: expect ~10–20× more
-incremental marking events and time at 64 MB versus 512 MB.
+Modern V8 routes all Major GC through the incremental marking pipeline, so the
+stop-the-world MarkCompact phase shows up in the GC breakdown as `MajorGC`
+(kind=4), not `MarkCompact` (kind=2). The key signal is the `MajorGC` row:
+expect ~10–20× more events and time at 64 MB versus 512 MB.
 
 ## native-memory.js — Buffer.alloc bypasses the heap limit
 
