@@ -412,7 +412,8 @@ Table of contents
   * [err_insufficient_resources](https://vivaxy.github.io/examples/network/err-insufficient-resources/) err_insufficient_resources
   * [HTTP Size](https://vivaxy.github.io/examples/network/http-size/) HTTP Size
 * [Node.js](https://vivaxy.github.io/examples/node-js/) Node.js
-  * [GC Overhead vs --max-old-space-size](https://vivaxy.github.io/examples/node-js/max-old-space-size/) GC Overhead vs --max-old-space-size
+  * [max-old-space-size](https://vivaxy.github.io/examples/node-js/max-old-space-size/) max-old-space-size
+    * [GC Overhead vs --max-old-space-size](https://vivaxy.github.io/examples/node-js/max-old-space-size/gc-overhead/) GC Overhead vs --max-old-space-size
 * [Rust](https://vivaxy.github.io/examples/rust/) Rust
   * [Shared Memory](https://vivaxy.github.io/examples/rust/shared-memory/) Rust Shared Memory
 * [Shell](https://vivaxy.github.io/examples/shell/) Shell

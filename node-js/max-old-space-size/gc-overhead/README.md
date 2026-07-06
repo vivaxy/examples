@@ -1,31 +1,15 @@
-# max-old-space-size
+# gc-overhead
 
-Demonstrates how `--max-old-space-size=<MB>` sets the V8 old generation heap
-limit. Three scripts cover OOM behavior, GC overhead under heap pressure, and
-the contrast with native C++ memory allocations.
-
-## oom.js — fill old-gen heap until OOM
-
-```bash
-node --max-old-space-size=256 oom.js
-node --max-old-space-size=128 oom.js   # OOM occurs sooner
-node oom.js                            # default limit (~1.5 GB on 64-bit)
-```
-
-Each iteration allocates a plain JS array kept alive in `chunks[]`. The process
-exits with `FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap
-out of memory` once V8 cannot reclaim enough space.
-
-## gc-overhead.js — GC overhead chart across heap sizes
+Measures GC overhead across a range of `--max-old-space-size` values and renders
+four Chart.js charts to `index.html`.
 
 ```bash
 node gc-overhead.js   # sweeps 64/128/256/512/1024/2048/4096/8192/16384 MB, writes index.html
 open index.html
 ```
 
-Spawns one worker process per heap size (64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384 MB), runs a
-5 000-iteration circular-cache workload in each, and writes four Chart.js
-charts to `index.html`:
+Spawns one worker process per heap size, runs a 5 000-iteration circular-cache workload
+in each, and writes four charts:
 
 | Chart | What to look for |
 |-------|-----------------|
@@ -44,7 +28,7 @@ stop-the-world MarkCompact phase shows up as `MajorGC` (kind=4), not
 `ConstructRetained` (kind=2). Each MajorGC is paired with a corresponding
 `IncrementalGC` event (kind=8) for the preceding marking phase.
 
-### GC kinds
+## GC kinds
 
 | Kind | Name                  | What it is |
 |-----:|-----------------------|------------|
@@ -55,29 +39,3 @@ stop-the-world MarkCompact phase shows up as `MajorGC` (kind=4), not
 |   16 | `WeakCB`              | Processing weak references and their finalizer callbacks after a GC cycle. |
 |   32 | `AllExternalMemory`   | GC triggered to account for externally allocated memory (e.g. large `Buffer` / `ArrayBuffer` backing stores) that exceeded a threshold. |
 |   64 | `ScheduleIdle`        | Idle-time GC — V8 schedules a collection when the event loop has spare time, to amortise future pressure. |
-
-## native-memory.js — Buffer.alloc bypasses the heap limit
-
-```bash
-node --max-old-space-size=128 native-memory.js
-```
-
-Allocates 600 MB via `Buffer.alloc` — far above the 128 MB heap limit. Because
-`Buffer.alloc` (and `Uint8Array`) back their data with native C++ memory, `heapUsed`
-stays low and no OOM occurs. RSS grows instead.
-
-## How it works
-
-- `--max-old-space-size=N` caps the V8 old generation at N MB.
-  `v8.getHeapStatistics().heap_size_limit` reflects this value.
-- Plain JS arrays (`new Array(...).fill(...)`) live in the V8 JavaScript heap
-  and count against this limit.
-- `Buffer.alloc` / `Uint8Array` back their data with native C++ memory (outside
-  the V8 heap) and do **not** count against `heap_size_limit`.
-- When V8 exhausts the old generation after a full GC, Node.js aborts with:
-  `FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`
-
-## Default limit
-
-The default old-generation size varies by Node.js version and system. On 64-bit
-Node.js 20+ it is approximately 1.5 GB.
