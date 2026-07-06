@@ -461,6 +461,26 @@ ${tabsHtml}
   <code>ConstructRetained</code> (kind=2). Each MajorGC is paired with a corresponding
   <code>IncrementalGC</code> event (kind=8) for the preceding marking phase.</p>
 
+  <h2>Practical guidance</h2>
+  <p><strong>The 2&times; working-set rule.</strong> When the heap is smaller than roughly
+  2&times; the working set, MajorGC fires at extreme frequency (100&ndash;130 events per run),
+  consuming 40&ndash;70&thinsp;% of elapsed time. Once the heap exceeds 2&ndash;3&times; the
+  working set, MajorGC event count drops to single digits and total GC overhead settles into the
+  30&ndash;40&thinsp;% range. Set <code>--max-old-space-size</code> to at least 2&times; the
+  old-generation working set; 3&times; provides a comfortable margin.</p>
+  <p><strong>The &asymp;&thinsp;30&ndash;35&thinsp;% MinorGC floor.</strong> Even with an
+  arbitrarily large heap, total GC overhead does not approach zero &mdash; it plateaus around
+  30&ndash;35&thinsp;% of elapsed time, driven entirely by MinorGC. A larger heap allows more
+  objects to accumulate in old generation without triggering MajorGC, so new-space fills up faster
+  and minor scavenges become more frequent. Reducing this floor requires lowering the object
+  allocation rate, not increasing heap size.</p>
+  <p><strong>Latency vs. throughput trade-off.</strong> Increasing heap size reduces total GC
+  overhead (throughput benefit) but raises the duration of individual MajorGC pauses (latency
+  cost). For latency-sensitive services, infrequent but long stop-the-world pauses at multi-GB
+  heaps can be more harmful than frequent short pauses at a smaller heap. If single-pause latency
+  matters, consider sharding the workload across more processes so each process&rsquo;s working
+  set stays small.</p>
+
   <h2>GC kinds</h2>
   <table>
     <thead><tr><th>Kind</th><th>Name</th><th>What it is</th></tr></thead>
