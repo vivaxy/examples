@@ -9,7 +9,7 @@
 //   node --max-old-space-size=64  gc-overhead.js
 //   node --max-old-space-size=512 gc-overhead.js
 
-import { PerformanceObserver, performance } from 'perf_hooks';
+import { PerformanceObserver, performance, constants } from 'perf_hooks';
 import v8 from 'v8';
 
 const ITERATIONS = 2000;
@@ -24,10 +24,14 @@ const CACHE_SIZE = 200;
 // kind=2. kind=2 only appears when GC is forced without incremental marking
 // (e.g. via global.gc() with --expose-gc).
 const GC_KIND = {
-  1: 'MinorGC',
-  2: 'MarkCompact',
-  4: 'MajorGC',
-  8: 'Weak',
+  [constants.NODE_PERFORMANCE_GC_MINOR]: 'MinorGC', // 1
+  [constants.NODE_PERFORMANCE_GC_FLAGS_CONSTRUCT_RETAINED]: 'ConstructRetained', // 2
+  [constants.NODE_PERFORMANCE_GC_MAJOR]: 'MajorGC', // 4
+  [constants.NODE_PERFORMANCE_GC_INCREMENTAL]: 'IncrementalGC', // 8
+  [constants.NODE_PERFORMANCE_GC_WEAKCB]: 'WeakCB', // 16
+  [constants.NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY]:
+    'AllExternalMemory', // 32
+  [constants.NODE_PERFORMANCE_GC_FLAGS_SCHEDULE_IDLE]: 'ScheduleIdle', // 64
 };
 
 async function main() {
