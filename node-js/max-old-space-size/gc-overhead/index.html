@@ -62,13 +62,42 @@
       .subhead {
         color: var(--text-sec);
         font-size: 13px;
-        margin-bottom: 32px;
+        margin-bottom: 16px;
       }
       code {
         font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
         font-size: 0.9em;
       }
 
+      /* ── tab selector ─────────────────────────────────────────────────────────── */
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .tab {
+        background: none;
+        border: 1px solid var(--gridline);
+        border-radius: 20px;
+        color: var(--text-sec);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 13px;
+        padding: 5px 14px;
+        transition: border-color 0.1s, color 0.1s;
+      }
+      .tab:hover:not(.active) {
+        border-color: var(--text-muted);
+        color: var(--text-pri);
+      }
+      .tab.active {
+        background: var(--s1);
+        border-color: var(--s1);
+        color: #fff;
+      }
+
+      /* ── chart grid ───────────────────────────────────────────────────────────── */
       .grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -96,6 +125,56 @@
         position: relative;
         height: 280px;
       }
+
+      /* ── documentation section ────────────────────────────────────────────────── */
+      .doc {
+        border-top: 1px solid var(--gridline);
+        margin-top: 48px;
+        max-width: 900px;
+        padding-top: 32px;
+      }
+      .doc h2 {
+        color: var(--text-pri);
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        margin-top: 32px;
+      }
+      .doc h2:first-child {
+        margin-top: 0;
+      }
+      .doc p {
+        color: var(--text-sec);
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 12px;
+        max-width: 720px;
+      }
+      .doc table {
+        border-collapse: collapse;
+        font-size: 13px;
+        width: 100%;
+      }
+      .doc th,
+      .doc td {
+        border: 1px solid var(--gridline);
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .doc th {
+        background: var(--surface-1);
+        color: var(--text-sec);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .doc td {
+        color: var(--text-sec);
+      }
+      .doc td:first-child {
+        color: var(--text-pri);
+        white-space: nowrap;
+      }
     </style>
     <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
     <meta
@@ -107,10 +186,48 @@
   <body class="viz-root">
     <h1>GC Overhead vs <code>--max-old-space-size</code></h1>
     <p class="subhead">
-      5,000 iterations &nbsp;·&nbsp; 200 × 100&nbsp;KB ≈ 20&nbsp;MB working set
+      5,000 iterations &nbsp;·&nbsp; 200 entries  × <span
+        id="entry-meta"
+      ></span>
       &nbsp;·&nbsp; x-axis: flag value (effective
       <code>heap_size_limit</code> in parentheses)
     </p>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-idx="0">
+        16 KB / entry · 3 MB working set
+      </button>
+      <button class="tab" data-idx="1">32 KB / entry · 6 MB working set</button>
+      <button class="tab" data-idx="2">
+        128 KB / entry · 25 MB working set
+      </button>
+      <button class="tab" data-idx="3">
+        256 KB / entry · 50 MB working set
+      </button>
+      <button class="tab" data-idx="4">
+        512 KB / entry · 100 MB working set
+      </button>
+      <button class="tab" data-idx="5">
+        1 MB / entry · 200 MB working set
+      </button>
+      <button class="tab" data-idx="6">
+        2 MB / entry · 400 MB working set
+      </button>
+      <button class="tab" data-idx="7">
+        4 MB / entry · 800 MB working set
+      </button>
+      <button class="tab" data-idx="8">
+        8 MB / entry · 1.6 GB working set
+      </button>
+      <button class="tab" data-idx="9">
+        16 MB / entry · 3.1 GB working set
+      </button>
+      <button class="tab" data-idx="10">
+        32 MB / entry · 6.3 GB working set
+      </button>
+      <button class="tab" data-idx="11">
+        64 MB / entry · 12.5 GB working set
+      </button>
+    </div>
     <div class="grid">
       <figure>
         <figcaption>1 &nbsp;GC share of elapsed time &nbsp;(%)</figcaption>
@@ -130,193 +247,1421 @@
       </figure>
     </div>
 
+    <section class="doc">
+      <h2>How to read these charts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Chart</th>
+            <th>What to look for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1&nbsp;&nbsp;GC share (%)</td>
+            <td>
+              At 64 MB with a ~20 MB working set, MajorGC alone consumes ~55 %
+              of elapsed time. The fraction drops steeply through 512 MB and
+              plateaus near zero beyond 1–2 GB, where MinorGC dominates and
+              MajorGC barely fires. Switch to the smaller entry size to see this
+              effect compress; switch to the larger to see even more aggressive
+              GC pressure at small heaps.
+            </td>
+          </tr>
+          <tr>
+            <td>2&nbsp;&nbsp;GC total time (ms)</td>
+            <td>
+              MajorGC total collapses as the heap grows (high at 64 MB, near
+              zero at ≥1 GB). MinorGC total rises in the opposite direction:
+              with a large heap the young generation fills up without MajorGC
+              intervening, forcing more minor scavenges.
+            </td>
+          </tr>
+          <tr>
+            <td>3&nbsp;&nbsp;GC event count</td>
+            <td>
+              MajorGC fires dozens of times at 64 MB and approaches zero at
+              ≥1 GB; IncrementalGC at 128+ MB tracks MajorGC 1:1. At 64 MB many
+              major GCs are triggered by allocation failure rather than the
+              incremental scheduler, so IncrementalGC count is lower. MinorGC
+              count increases steadily with heap size.
+            </td>
+          </tr>
+          <tr>
+            <td>4&nbsp;&nbsp;Avg time / event (ms/event)</td>
+            <td>
+              Counter-intuitively, each individual MajorGC event
+              <em>takes longer</em> as the heap grows (a few ms at 64 MB, tens
+              of ms at multi-GB sizes). With a large heap V8 commits more
+              address space and has more internal metadata to process per cycle.
+              The net overhead is still lower because events are far less
+              frequent.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Background</h2>
+      <p>
+        A 200-entry circular cache keeps the working set alive in old
+        generation. With a small heap the working set occupies a large fraction
+        of available space, so V8 runs Major GC (MarkCompact via incremental
+        marking) aggressively. With a large heap the same working set is
+        negligible — Major GC barely fires.
+      </p>
+      <p>
+        Modern V8 routes all Major GC through the incremental marking pipeline,
+        so the stop-the-world MarkCompact phase shows up as
+        <code>MajorGC</code> (kind=4), not
+        <code>ConstructRetained</code> (kind=2). Each MajorGC is paired with a
+        corresponding <code>IncrementalGC</code> event (kind=8) for the
+        preceding marking phase.
+      </p>
+
+      <h2>GC kinds</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Kind</th>
+            <th>Name</th>
+            <th>What it is</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><code>MinorGC</code></td>
+            <td>
+              Scavenger on the young generation (new space). Fast; promotes
+              survivors to old generation.
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>ConstructRetained</code></td>
+            <td>
+              Stop-the-world MarkCompact <strong>without</strong> incremental
+              marking. Rare in normal runs; appears when GC is forced
+              (e.g.&nbsp;<code>global.gc()</code> with
+              <code>--expose-gc</code>).
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>MajorGC</code></td>
+            <td>
+              Full old-generation collection (MarkCompact)
+              <strong>with</strong> incremental marking. This is the dominant
+              cost under heap pressure.
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><code>IncrementalGC</code></td>
+            <td>
+              One incremental marking step. V8 slices marking work across many
+              small pauses between JS execution turns.
+            </td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td><code>WeakCB</code></td>
+            <td>
+              Processing weak references and their finalizer callbacks after a
+              GC cycle.
+            </td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td><code>AllExternalMemory</code></td>
+            <td>
+              GC triggered to account for externally allocated memory (e.g.
+              large <code>Buffer</code> / <code>ArrayBuffer</code> backing
+              stores) that exceeded a threshold.
+            </td>
+          </tr>
+          <tr>
+            <td>64</td>
+            <td><code>ScheduleIdle</code></td>
+            <td>
+              Idle-time GC — V8 schedules a collection when the event loop has
+              spare time, to amortise future pressure.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <script>
       "use strict";
       var DATA = {
-        rows: [
+        heapLabels: [
+          ["64 MB", "(112 MB)"],
+          ["128 MB", "(176 MB)"],
+          ["256 MB", "(304 MB)"],
+          ["512 MB", "(560 MB)"],
+          ["1024 MB", "(1072 MB)"],
+          ["2048 MB", "(2096 MB)"],
+          ["4096 MB", "(4144 MB)"],
+          ["8192 MB", "(8240 MB)"],
+          ["16384 MB", "(16432 MB)"],
+        ],
+        entrySizes: [
           {
-            flagMb: 64,
-            limitMb: 112,
-            minorPct: 1.2,
-            majorPct: 56.76,
-            incrPct: 0.07,
-            minorMs: 4,
-            majorMs: 192,
-            incrMs: 0,
-            minorCount: 8,
-            majorCount: 60,
-            incrCount: 2,
-            minorAvg: 0.51,
-            majorAvg: 3.2,
-            incrAvg: 0.11,
-            totalAvg: 2.8,
-            totalPct: 58.03,
-            totalMs: 196,
-            totalCount: 70,
+            entryLabel: "16 KB",
+            workingSetLabel: "3 MB",
+            rows: [
+              {
+                flagMb: 64,
+                limitMb: 112,
+                minorPct: 50.24,
+                majorPct: 2.73,
+                incrPct: 0.29,
+                minorMs: 21,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.81,
+                majorAvg: 1.14,
+                incrAvg: 0.12,
+                totalAvg: 0.8,
+                totalPct: 53.25,
+                totalMs: 22,
+                totalCount: 28,
+              },
+              {
+                flagMb: 128,
+                limitMb: 176,
+                minorPct: 43.17,
+                majorPct: 2.95,
+                incrPct: 0.29,
+                minorMs: 14,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.52,
+                majorAvg: 0.92,
+                incrAvg: 0.09,
+                totalAvg: 0.52,
+                totalPct: 46.41,
+                totalMs: 15,
+                totalCount: 28,
+              },
+              {
+                flagMb: 256,
+                limitMb: 304,
+                minorPct: 47.1,
+                majorPct: 2.6,
+                incrPct: 0.39,
+                minorMs: 12,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.47,
+                majorAvg: 0.67,
+                incrAvg: 0.1,
+                totalAvg: 0.46,
+                totalPct: 50.08,
+                totalMs: 13,
+                totalCount: 28,
+              },
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 47.44,
+                majorPct: 0,
+                incrPct: 0.37,
+                minorMs: 12,
+                majorMs: 0,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 0,
+                incrCount: 1,
+                minorAvg: 0.46,
+                majorAvg: 0,
+                incrAvg: 0.09,
+                totalAvg: 0.45,
+                totalPct: 47.82,
+                totalMs: 12,
+                totalCount: 27,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 47.45,
+                majorPct: 2.32,
+                incrPct: 0.39,
+                minorMs: 14,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.53,
+                majorAvg: 0.68,
+                incrAvg: 0.11,
+                totalAvg: 0.52,
+                totalPct: 50.16,
+                totalMs: 15,
+                totalCount: 28,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 47.01,
+                majorPct: 2.56,
+                incrPct: 0.35,
+                minorMs: 12,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.48,
+                majorAvg: 0.67,
+                incrAvg: 0.09,
+                totalAvg: 0.47,
+                totalPct: 49.92,
+                totalMs: 13,
+                totalCount: 28,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 47.05,
+                majorPct: 2.56,
+                incrPct: 0.36,
+                minorMs: 12,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.46,
+                majorAvg: 0.66,
+                incrAvg: 0.09,
+                totalAvg: 0.46,
+                totalPct: 49.97,
+                totalMs: 13,
+                totalCount: 28,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 47.16,
+                majorPct: 2.53,
+                incrPct: 0.41,
+                minorMs: 13,
+                majorMs: 1,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 1,
+                incrCount: 1,
+                minorAvg: 0.49,
+                majorAvg: 0.68,
+                incrAvg: 0.11,
+                totalAvg: 0.48,
+                totalPct: 50.1,
+                totalMs: 13,
+                totalCount: 28,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 47.11,
+                majorPct: 0,
+                incrPct: 0.36,
+                minorMs: 12,
+                majorMs: 0,
+                incrMs: 0,
+                minorCount: 26,
+                majorCount: 0,
+                incrCount: 1,
+                minorAvg: 0.46,
+                majorAvg: 0,
+                incrAvg: 0.09,
+                totalAvg: 0.45,
+                totalPct: 47.46,
+                totalMs: 12,
+                totalCount: 27,
+              },
+            ],
           },
           {
-            flagMb: 128,
-            limitMb: 176,
-            minorPct: 10.6,
-            majorPct: 26.8,
-            incrPct: 0.47,
-            minorMs: 28,
-            majorMs: 71,
-            incrMs: 1,
-            minorCount: 54,
-            majorCount: 14,
-            incrCount: 14,
-            minorAvg: 0.52,
-            majorAvg: 5.09,
-            incrAvg: 0.09,
-            totalAvg: 1.23,
-            totalPct: 37.87,
-            totalMs: 101,
-            totalCount: 82,
+            entryLabel: "32 KB",
+            workingSetLabel: "6 MB",
+            rows: [
+              {
+                flagMb: 64,
+                limitMb: 112,
+                minorPct: 47.6,
+                majorPct: 13.8,
+                incrPct: 0.86,
+                minorMs: 36,
+                majorMs: 11,
+                incrMs: 1,
+                minorCount: 41,
+                majorCount: 9,
+                incrCount: 8,
+                minorAvg: 0.88,
+                majorAvg: 1.17,
+                incrAvg: 0.08,
+                totalAvg: 0.82,
+                totalPct: 62.26,
+                totalMs: 47,
+                totalCount: 58,
+              },
+              {
+                flagMb: 128,
+                limitMb: 176,
+                minorPct: 58.55,
+                majorPct: 14.4,
+                incrPct: 0.7,
+                minorMs: 66,
+                majorMs: 16,
+                incrMs: 1,
+                minorCount: 59,
+                majorCount: 6,
+                incrCount: 6,
+                minorAvg: 1.12,
+                majorAvg: 2.71,
+                incrAvg: 0.13,
+                totalAvg: 1.17,
+                totalPct: 73.65,
+                totalMs: 83,
+                totalCount: 71,
+              },
+              {
+                flagMb: 256,
+                limitMb: 304,
+                minorPct: 65.62,
+                majorPct: 4.44,
+                incrPct: 0.5,
+                minorMs: 61,
+                majorMs: 4,
+                incrMs: 0,
+                minorCount: 53,
+                majorCount: 4,
+                incrCount: 4,
+                minorAvg: 1.16,
+                majorAvg: 1.04,
+                incrAvg: 0.12,
+                totalAvg: 1.08,
+                totalPct: 70.56,
+                totalMs: 66,
+                totalCount: 61,
+              },
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 64.67,
+                majorPct: 4.55,
+                incrPct: 0.58,
+                minorMs: 58,
+                majorMs: 4,
+                incrMs: 1,
+                minorCount: 53,
+                majorCount: 4,
+                incrCount: 4,
+                minorAvg: 1.1,
+                majorAvg: 1.03,
+                incrAvg: 0.13,
+                totalAvg: 1.03,
+                totalPct: 69.81,
+                totalMs: 63,
+                totalCount: 61,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 69.59,
+                majorPct: 3.55,
+                incrPct: 0.45,
+                minorMs: 75,
+                majorMs: 4,
+                incrMs: 0,
+                minorCount: 55,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 1.36,
+                majorAvg: 1.27,
+                incrAvg: 0.16,
+                totalAvg: 1.29,
+                totalPct: 73.59,
+                totalMs: 79,
+                totalCount: 61,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 77.04,
+                majorPct: 2.11,
+                incrPct: 0.48,
+                minorMs: 100,
+                majorMs: 3,
+                incrMs: 1,
+                minorCount: 57,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 1.76,
+                majorAvg: 1.38,
+                incrAvg: 0.31,
+                totalAvg: 1.7,
+                totalPct: 79.63,
+                totalMs: 104,
+                totalCount: 61,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 72.85,
+                majorPct: 2.27,
+                incrPct: 0.37,
+                minorMs: 80,
+                majorMs: 2,
+                incrMs: 0,
+                minorCount: 57,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 1.4,
+                majorAvg: 1.24,
+                incrAvg: 0.2,
+                totalAvg: 1.36,
+                totalPct: 75.48,
+                totalMs: 83,
+                totalCount: 61,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 72.69,
+                majorPct: 2.35,
+                incrPct: 0.4,
+                minorMs: 80,
+                majorMs: 3,
+                incrMs: 0,
+                minorCount: 57,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 1.4,
+                majorAvg: 1.3,
+                incrAvg: 0.22,
+                totalAvg: 1.36,
+                totalPct: 75.45,
+                totalMs: 83,
+                totalCount: 61,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 73.57,
+                majorPct: 2.44,
+                incrPct: 0.39,
+                minorMs: 85,
+                majorMs: 3,
+                incrMs: 0,
+                minorCount: 57,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 1.49,
+                majorAvg: 1.41,
+                incrAvg: 0.23,
+                totalAvg: 1.45,
+                totalPct: 76.4,
+                totalMs: 88,
+                totalCount: 61,
+              },
+            ],
           },
           {
-            flagMb: 256,
-            limitMb: 304,
-            minorPct: 11.29,
-            majorPct: 23.72,
-            incrPct: 0.36,
-            minorMs: 25,
-            majorMs: 53,
-            incrMs: 1,
-            minorCount: 59,
-            majorCount: 9,
-            incrCount: 9,
-            minorAvg: 0.43,
-            majorAvg: 5.9,
-            incrAvg: 0.09,
-            totalAvg: 1.03,
-            totalPct: 35.37,
-            totalMs: 79,
-            totalCount: 77,
+            entryLabel: "128 KB",
+            workingSetLabel: "25 MB",
+            rows: [
+              null,
+              {
+                flagMb: 128,
+                limitMb: 176,
+                minorPct: 12.34,
+                majorPct: 28.81,
+                incrPct: 0.67,
+                minorMs: 40,
+                majorMs: 92,
+                incrMs: 2,
+                minorCount: 66,
+                majorCount: 19,
+                incrCount: 20,
+                minorAvg: 0.6,
+                majorAvg: 4.86,
+                incrAvg: 0.11,
+                totalAvg: 1.28,
+                totalPct: 41.82,
+                totalMs: 134,
+                totalCount: 105,
+              },
+              {
+                flagMb: 256,
+                limitMb: 304,
+                minorPct: 11.95,
+                majorPct: 22.01,
+                incrPct: 0.41,
+                minorMs: 32,
+                majorMs: 59,
+                incrMs: 1,
+                minorCount: 72,
+                majorCount: 13,
+                incrCount: 13,
+                minorAvg: 0.45,
+                majorAvg: 4.55,
+                incrAvg: 0.09,
+                totalAvg: 0.94,
+                totalPct: 34.38,
+                totalMs: 92,
+                totalCount: 98,
+              },
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 13.6,
+                majorPct: 22.01,
+                incrPct: 0.27,
+                minorMs: 45,
+                majorMs: 73,
+                incrMs: 1,
+                minorCount: 77,
+                majorCount: 8,
+                incrCount: 8,
+                minorAvg: 0.59,
+                majorAvg: 9.12,
+                incrAvg: 0.11,
+                totalAvg: 1.28,
+                totalPct: 35.89,
+                totalMs: 119,
+                totalCount: 93,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 15.66,
+                majorPct: 18.46,
+                incrPct: 0.26,
+                minorMs: 48,
+                majorMs: 57,
+                incrMs: 1,
+                minorCount: 81,
+                majorCount: 5,
+                incrCount: 5,
+                minorAvg: 0.6,
+                majorAvg: 11.43,
+                incrAvg: 0.16,
+                totalAvg: 1.17,
+                totalPct: 34.37,
+                totalMs: 106,
+                totalCount: 91,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 17.94,
+                majorPct: 11.84,
+                incrPct: 0.13,
+                minorMs: 64,
+                majorMs: 43,
+                incrMs: 0,
+                minorCount: 83,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 0.78,
+                majorAvg: 21.27,
+                incrAvg: 0.23,
+                totalAvg: 1.24,
+                totalPct: 29.91,
+                totalMs: 107,
+                totalCount: 87,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 17.41,
+                majorPct: 13.29,
+                incrPct: 0.13,
+                minorMs: 48,
+                majorMs: 37,
+                incrMs: 0,
+                minorCount: 83,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 0.58,
+                majorAvg: 18.36,
+                incrAvg: 0.18,
+                totalAvg: 0.98,
+                totalPct: 30.83,
+                totalMs: 85,
+                totalCount: 87,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 16.95,
+                majorPct: 13.9,
+                incrPct: 0.13,
+                minorMs: 45,
+                majorMs: 37,
+                incrMs: 0,
+                minorCount: 83,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 0.55,
+                majorAvg: 18.55,
+                incrAvg: 0.17,
+                totalAvg: 0.95,
+                totalPct: 30.98,
+                totalMs: 83,
+                totalCount: 87,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 17.4,
+                majorPct: 12.91,
+                incrPct: 0.12,
+                minorMs: 54,
+                majorMs: 40,
+                incrMs: 0,
+                minorCount: 83,
+                majorCount: 2,
+                incrCount: 2,
+                minorAvg: 0.65,
+                majorAvg: 20.09,
+                incrAvg: 0.18,
+                totalAvg: 1.09,
+                totalPct: 30.43,
+                totalMs: 95,
+                totalCount: 87,
+              },
+            ],
           },
           {
-            flagMb: 512,
-            limitMb: 560,
-            minorPct: 12.46,
-            majorPct: 19.24,
-            incrPct: 0.28,
-            minorMs: 27,
-            majorMs: 42,
-            incrMs: 1,
-            minorCount: 61,
-            majorCount: 6,
-            incrCount: 6,
-            minorAvg: 0.44,
-            majorAvg: 6.93,
-            incrAvg: 0.1,
-            totalAvg: 0.95,
-            totalPct: 31.98,
-            totalMs: 69,
-            totalCount: 73,
+            entryLabel: "256 KB",
+            workingSetLabel: "50 MB",
+            rows: [
+              null,
+              null,
+              {
+                flagMb: 256,
+                limitMb: 304,
+                minorPct: 15.81,
+                majorPct: 23.21,
+                incrPct: 0.33,
+                minorMs: 79,
+                majorMs: 116,
+                incrMs: 2,
+                minorCount: 148,
+                majorCount: 21,
+                incrCount: 21,
+                minorAvg: 0.53,
+                majorAvg: 5.52,
+                incrAvg: 0.08,
+                totalAvg: 1.03,
+                totalPct: 39.36,
+                totalMs: 197,
+                totalCount: 190,
+              },
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 17.07,
+                majorPct: 17.48,
+                incrPct: 0.27,
+                minorMs: 80,
+                majorMs: 82,
+                incrMs: 1,
+                minorCount: 152,
+                majorCount: 16,
+                incrCount: 16,
+                minorAvg: 0.53,
+                majorAvg: 5.13,
+                incrAvg: 0.08,
+                totalAvg: 0.89,
+                totalPct: 34.82,
+                totalMs: 163,
+                totalCount: 184,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 17.44,
+                majorPct: 15.83,
+                incrPct: 0.22,
+                minorMs: 78,
+                majorMs: 71,
+                incrMs: 1,
+                minorCount: 157,
+                majorCount: 12,
+                incrCount: 12,
+                minorAvg: 0.5,
+                majorAvg: 5.92,
+                incrAvg: 0.08,
+                totalAvg: 0.83,
+                totalPct: 33.49,
+                totalMs: 150,
+                totalCount: 181,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 25,
+                majorPct: 9.63,
+                incrPct: 0.08,
+                minorMs: 147,
+                majorMs: 57,
+                incrMs: 0,
+                minorCount: 165,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.89,
+                majorAvg: 18.84,
+                incrAvg: 0.15,
+                totalAvg: 1.19,
+                totalPct: 34.71,
+                totalMs: 204,
+                totalCount: 171,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 20.94,
+                majorPct: 9.32,
+                incrPct: 0.08,
+                minorMs: 131,
+                majorMs: 59,
+                incrMs: 0,
+                minorCount: 165,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.8,
+                majorAvg: 19.5,
+                incrAvg: 0.16,
+                totalAvg: 1.11,
+                totalPct: 30.35,
+                totalMs: 190,
+                totalCount: 171,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 24.76,
+                majorPct: 8.86,
+                incrPct: 0.08,
+                minorMs: 135,
+                majorMs: 48,
+                incrMs: 0,
+                minorCount: 165,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.82,
+                majorAvg: 16.08,
+                incrAvg: 0.15,
+                totalAvg: 1.07,
+                totalPct: 33.7,
+                totalMs: 183,
+                totalCount: 171,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 24.56,
+                majorPct: 9.47,
+                incrPct: 0.08,
+                minorMs: 125,
+                majorMs: 48,
+                incrMs: 0,
+                minorCount: 165,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.76,
+                majorAvg: 16.1,
+                incrAvg: 0.14,
+                totalAvg: 1.02,
+                totalPct: 34.11,
+                totalMs: 174,
+                totalCount: 171,
+              },
+            ],
           },
           {
-            flagMb: 1024,
-            limitMb: 1072,
-            minorPct: 13.1,
-            majorPct: 17.56,
-            incrPct: 0.17,
-            minorMs: 36,
-            majorMs: 48,
-            incrMs: 0,
-            minorCount: 64,
-            majorCount: 3,
-            incrCount: 3,
-            minorAvg: 0.56,
-            majorAvg: 15.92,
-            incrAvg: 0.16,
-            totalAvg: 1.2,
-            totalPct: 30.84,
-            totalMs: 84,
-            totalCount: 70,
+            entryLabel: "512 KB",
+            workingSetLabel: "100 MB",
+            rows: [
+              null,
+              null,
+              {
+                flagMb: 256,
+                limitMb: 304,
+                minorPct: 12.43,
+                majorPct: 54.14,
+                incrPct: 0.48,
+                minorMs: 217,
+                majorMs: 944,
+                incrMs: 8,
+                minorCount: 901,
+                majorCount: 128,
+                incrCount: 128,
+                minorAvg: 0.24,
+                majorAvg: 7.37,
+                incrAvg: 0.07,
+                totalAvg: 1.01,
+                totalPct: 67.05,
+                totalMs: 1169,
+                totalCount: 1157,
+              },
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 19.03,
+                majorPct: 19.88,
+                incrPct: 0.18,
+                minorMs: 182,
+                majorMs: 190,
+                incrMs: 2,
+                minorCount: 317,
+                majorCount: 22,
+                incrCount: 22,
+                minorAvg: 0.57,
+                majorAvg: 8.63,
+                incrAvg: 0.08,
+                totalAvg: 1.03,
+                totalPct: 39.09,
+                totalMs: 373,
+                totalCount: 361,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 22.6,
+                majorPct: 13.9,
+                incrPct: 0.15,
+                minorMs: 212,
+                majorMs: 131,
+                incrMs: 1,
+                minorCount: 325,
+                majorCount: 15,
+                incrCount: 15,
+                minorAvg: 0.65,
+                majorAvg: 8.71,
+                incrAvg: 0.09,
+                totalAvg: 0.97,
+                totalPct: 36.65,
+                totalMs: 344,
+                totalCount: 355,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 25.07,
+                majorPct: 9.26,
+                incrPct: 0.07,
+                minorMs: 277,
+                majorMs: 102,
+                incrMs: 1,
+                minorCount: 335,
+                majorCount: 5,
+                incrCount: 5,
+                minorAvg: 0.83,
+                majorAvg: 20.46,
+                incrAvg: 0.16,
+                totalAvg: 1.1,
+                totalPct: 34.4,
+                totalMs: 380,
+                totalCount: 345,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 27.29,
+                majorPct: 6.49,
+                incrPct: 0.04,
+                minorMs: 287,
+                majorMs: 68,
+                incrMs: 0,
+                minorCount: 336,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.86,
+                majorAvg: 22.76,
+                incrAvg: 0.14,
+                totalAvg: 1.04,
+                totalPct: 33.81,
+                totalMs: 356,
+                totalCount: 342,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 29.13,
+                majorPct: 5.5,
+                incrPct: 0.04,
+                minorMs: 322,
+                majorMs: 61,
+                incrMs: 0,
+                minorCount: 336,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.96,
+                majorAvg: 20.26,
+                incrAvg: 0.15,
+                totalAvg: 1.12,
+                totalPct: 34.67,
+                totalMs: 383,
+                totalCount: 342,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 29.36,
+                majorPct: 5.81,
+                incrPct: 0.06,
+                minorMs: 324,
+                majorMs: 64,
+                incrMs: 1,
+                minorCount: 336,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.96,
+                majorAvg: 21.37,
+                incrAvg: 0.22,
+                totalAvg: 1.14,
+                totalPct: 35.23,
+                totalMs: 389,
+                totalCount: 342,
+              },
+            ],
           },
           {
-            flagMb: 2048,
-            limitMb: 2096,
-            minorPct: 18.48,
-            majorPct: 16.07,
-            incrPct: 0.15,
-            minorMs: 58,
-            majorMs: 51,
-            incrMs: 0,
-            minorCount: 66,
-            majorCount: 2,
-            incrCount: 2,
-            minorAvg: 0.88,
-            majorAvg: 25.3,
-            incrAvg: 0.24,
-            totalAvg: 1.56,
-            totalPct: 34.7,
-            totalMs: 109,
-            totalCount: 70,
+            entryLabel: "1 MB",
+            workingSetLabel: "200 MB",
+            rows: [
+              null,
+              null,
+              null,
+              {
+                flagMb: 512,
+                limitMb: 560,
+                minorPct: 19.68,
+                majorPct: 48.25,
+                incrPct: 0.27,
+                minorMs: 710,
+                majorMs: 1742,
+                incrMs: 10,
+                minorCount: 1991,
+                majorCount: 124,
+                incrCount: 124,
+                minorAvg: 0.36,
+                majorAvg: 14.05,
+                incrAvg: 0.08,
+                totalAvg: 1.1,
+                totalPct: 68.2,
+                totalMs: 2462,
+                totalCount: 2239,
+              },
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 20.49,
+                majorPct: 19.34,
+                incrPct: 0.1,
+                minorMs: 413,
+                majorMs: 390,
+                incrMs: 2,
+                minorCount: 698,
+                majorCount: 21,
+                incrCount: 21,
+                minorAvg: 0.59,
+                majorAvg: 18.57,
+                incrAvg: 0.09,
+                totalAvg: 1.09,
+                totalPct: 39.92,
+                totalMs: 805,
+                totalCount: 740,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 23.75,
+                majorPct: 9.43,
+                incrPct: 0.04,
+                minorMs: 446,
+                majorMs: 177,
+                incrMs: 1,
+                minorCount: 711,
+                majorCount: 8,
+                incrCount: 8,
+                minorAvg: 0.63,
+                majorAvg: 22.16,
+                incrAvg: 0.11,
+                totalAvg: 0.86,
+                totalPct: 33.23,
+                totalMs: 625,
+                totalCount: 727,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 27.37,
+                majorPct: 7.17,
+                incrPct: 0.04,
+                minorMs: 627,
+                majorMs: 164,
+                incrMs: 1,
+                minorCount: 715,
+                majorCount: 5,
+                incrCount: 5,
+                minorAvg: 0.88,
+                majorAvg: 32.84,
+                incrAvg: 0.18,
+                totalAvg: 1.09,
+                totalPct: 34.57,
+                totalMs: 792,
+                totalCount: 725,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 31.17,
+                majorPct: 4.38,
+                incrPct: 0.04,
+                minorMs: 771,
+                majorMs: 108,
+                incrMs: 1,
+                minorCount: 716,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 1.08,
+                majorAvg: 36.08,
+                incrAvg: 0.35,
+                totalAvg: 1.22,
+                totalPct: 35.59,
+                totalMs: 880,
+                totalCount: 722,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 29.09,
+                majorPct: 4.29,
+                incrPct: 0.02,
+                minorMs: 594,
+                majorMs: 88,
+                incrMs: 0,
+                minorCount: 716,
+                majorCount: 3,
+                incrCount: 3,
+                minorAvg: 0.83,
+                majorAvg: 29.19,
+                incrAvg: 0.14,
+                totalAvg: 0.94,
+                totalPct: 33.39,
+                totalMs: 682,
+                totalCount: 722,
+              },
+            ],
           },
           {
-            flagMb: 4096,
-            limitMb: 4144,
-            minorPct: 17.22,
-            majorPct: 18.76,
-            incrPct: 0.17,
-            minorMs: 45,
-            majorMs: 49,
-            incrMs: 0,
-            minorCount: 66,
-            majorCount: 2,
-            incrCount: 2,
-            minorAvg: 0.68,
-            majorAvg: 24.42,
-            incrAvg: 0.22,
-            totalAvg: 1.34,
-            totalPct: 36.15,
-            totalMs: 94,
-            totalCount: 70,
+            entryLabel: "2 MB",
+            workingSetLabel: "400 MB",
+            rows: [
+              null,
+              null,
+              null,
+              null,
+              {
+                flagMb: 1024,
+                limitMb: 1072,
+                minorPct: 19.74,
+                majorPct: 42.56,
+                incrPct: 0.16,
+                minorMs: 1133,
+                majorMs: 2441,
+                incrMs: 9,
+                minorCount: 3014,
+                majorCount: 124,
+                incrCount: 124,
+                minorAvg: 0.38,
+                majorAvg: 19.69,
+                incrAvg: 0.07,
+                totalAvg: 1.1,
+                totalPct: 62.46,
+                totalMs: 3583,
+                totalCount: 3262,
+              },
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 25.25,
+                majorPct: 17.77,
+                incrPct: 0.04,
+                minorMs: 1004,
+                majorMs: 707,
+                incrMs: 2,
+                minorCount: 1649,
+                majorCount: 21,
+                incrCount: 21,
+                minorAvg: 0.61,
+                majorAvg: 33.65,
+                incrAvg: 0.08,
+                totalAvg: 1.01,
+                totalPct: 43.06,
+                totalMs: 1712,
+                totalCount: 1691,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 30.77,
+                majorPct: 7.83,
+                incrPct: 0.02,
+                minorMs: 1267,
+                majorMs: 322,
+                incrMs: 1,
+                minorCount: 1662,
+                majorCount: 9,
+                incrCount: 9,
+                minorAvg: 0.76,
+                majorAvg: 35.83,
+                incrAvg: 0.11,
+                totalAvg: 0.95,
+                totalPct: 38.62,
+                totalMs: 1590,
+                totalCount: 1680,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 32.03,
+                majorPct: 6.35,
+                incrPct: 0.02,
+                minorMs: 1428,
+                majorMs: 283,
+                incrMs: 1,
+                minorCount: 1665,
+                majorCount: 5,
+                incrCount: 5,
+                minorAvg: 0.86,
+                majorAvg: 56.65,
+                incrAvg: 0.14,
+                totalAvg: 1.02,
+                totalPct: 38.4,
+                totalMs: 1711,
+                totalCount: 1675,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 35.03,
+                majorPct: 6.62,
+                incrPct: 0.03,
+                minorMs: 1643,
+                majorMs: 311,
+                incrMs: 1,
+                minorCount: 1667,
+                majorCount: 4,
+                incrCount: 4,
+                minorAvg: 0.99,
+                majorAvg: 77.67,
+                incrAvg: 0.31,
+                totalAvg: 1.17,
+                totalPct: 41.68,
+                totalMs: 1955,
+                totalCount: 1675,
+              },
+            ],
           },
           {
-            flagMb: 8192,
-            limitMb: 8240,
-            minorPct: 18.32,
-            majorPct: 15.32,
-            incrPct: 0.17,
-            minorMs: 53,
-            majorMs: 44,
-            incrMs: 0,
-            minorCount: 66,
-            majorCount: 2,
-            incrCount: 2,
-            minorAvg: 0.8,
-            majorAvg: 22.06,
-            incrAvg: 0.24,
-            totalAvg: 1.39,
-            totalPct: 33.8,
-            totalMs: 97,
-            totalCount: 70,
+            entryLabel: "4 MB",
+            workingSetLabel: "800 MB",
+            rows: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              {
+                flagMb: 2048,
+                limitMb: 2096,
+                minorPct: 17.07,
+                majorPct: 46.94,
+                incrPct: 0.07,
+                minorMs: 2228,
+                majorMs: 6128,
+                incrMs: 9,
+                minorCount: 4892,
+                majorCount: 119,
+                incrCount: 119,
+                minorAvg: 0.46,
+                majorAvg: 51.5,
+                incrAvg: 0.08,
+                totalAvg: 1.63,
+                totalPct: 64.08,
+                totalMs: 8366,
+                totalCount: 5130,
+              },
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 20.6,
+                majorPct: 30.12,
+                incrPct: 0.02,
+                minorMs: 2183,
+                majorMs: 3192,
+                incrMs: 2,
+                minorCount: 4981,
+                majorCount: 21,
+                incrCount: 21,
+                minorAvg: 0.44,
+                majorAvg: 152.01,
+                incrAvg: 0.11,
+                totalAvg: 1.07,
+                totalPct: 50.74,
+                totalMs: 5378,
+                totalCount: 5023,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 28.41,
+                majorPct: 7.19,
+                incrPct: 0.02,
+                minorMs: 2631,
+                majorMs: 666,
+                incrMs: 2,
+                minorCount: 4993,
+                majorCount: 9,
+                incrCount: 9,
+                minorAvg: 0.53,
+                majorAvg: 74,
+                incrAvg: 0.2,
+                totalAvg: 0.66,
+                totalPct: 35.62,
+                totalMs: 3299,
+                totalCount: 5011,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 30.26,
+                majorPct: 6.63,
+                incrPct: 0.01,
+                minorMs: 2829,
+                majorMs: 620,
+                incrMs: 1,
+                minorCount: 4997,
+                majorCount: 6,
+                incrCount: 6,
+                minorAvg: 0.57,
+                majorAvg: 103.29,
+                incrAvg: 0.19,
+                totalAvg: 0.69,
+                totalPct: 36.9,
+                totalMs: 3450,
+                totalCount: 5009,
+              },
+            ],
           },
           {
-            flagMb: 16384,
-            limitMb: 16432,
-            minorPct: 18.09,
-            majorPct: 17.07,
-            incrPct: 0.16,
-            minorMs: 47,
-            majorMs: 44,
-            incrMs: 0,
-            minorCount: 66,
-            majorCount: 2,
-            incrCount: 2,
-            minorAvg: 0.71,
-            majorAvg: 22.1,
-            incrAvg: 0.21,
-            totalAvg: 1.31,
-            totalPct: 35.32,
-            totalMs: 91,
-            totalCount: 70,
+            entryLabel: "8 MB",
+            workingSetLabel: "1.6 GB",
+            rows: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              {
+                flagMb: 4096,
+                limitMb: 4144,
+                minorPct: 11.86,
+                majorPct: 58.01,
+                incrPct: 0.04,
+                minorMs: 4031,
+                majorMs: 19719,
+                incrMs: 15,
+                minorCount: 4892,
+                majorCount: 119,
+                incrCount: 119,
+                minorAvg: 0.82,
+                majorAvg: 165.71,
+                incrAvg: 0.12,
+                totalAvg: 4.63,
+                totalPct: 69.91,
+                totalMs: 23765,
+                totalCount: 5130,
+              },
+              {
+                flagMb: 8192,
+                limitMb: 8240,
+                minorPct: 16.75,
+                majorPct: 29.54,
+                incrPct: 0.01,
+                minorMs: 4260,
+                majorMs: 7515,
+                incrMs: 3,
+                minorCount: 4980,
+                majorCount: 22,
+                incrCount: 22,
+                minorAvg: 0.86,
+                majorAvg: 341.58,
+                incrAvg: 0.16,
+                totalAvg: 2.34,
+                totalPct: 46.3,
+                totalMs: 11778,
+                totalCount: 5024,
+              },
+              {
+                flagMb: 16384,
+                limitMb: 16432,
+                minorPct: 22.24,
+                majorPct: 9.57,
+                incrPct: 0.02,
+                minorMs: 4556,
+                majorMs: 1959,
+                incrMs: 4,
+                minorCount: 4993,
+                majorCount: 10,
+                incrCount: 10,
+                minorAvg: 0.91,
+                majorAvg: 195.9,
+                incrAvg: 0.37,
+                totalAvg: 1.3,
+                totalPct: 31.83,
+                totalMs: 6518,
+                totalCount: 5013,
+              },
+            ],
+          },
+          {
+            entryLabel: "16 MB",
+            workingSetLabel: "3.1 GB",
+            rows: [null, null, null, null, null, null, null, null, null],
+          },
+          {
+            entryLabel: "32 MB",
+            workingSetLabel: "6.3 GB",
+            rows: [null, null, null, null, null, null, null, null, null],
+          },
+          {
+            entryLabel: "64 MB",
+            workingSetLabel: "12.5 GB",
+            rows: [null, null, null, null, null, null, null, null, null],
           },
         ],
       };
-      var rows = DATA.rows;
+      var currentIdx = 0;
 
       /* read a CSS custom property from the root element */
       function css(name) {
@@ -338,9 +1683,26 @@
         };
       }
 
-      /* x-axis labels: two-line — flag value / effective limit */
-      var labels = rows.map(function (r) {
-        return [r.flagMb + " MB", "(" + r.limitMb + " MB)"];
+      /* update the subhead span to show the currently selected entry size */
+      function updateSubhead() {
+        var es = DATA.entrySizes[currentIdx];
+        document.getElementById("entry-meta").innerHTML =
+          es.entryLabel +
+          "&thinsp;/&thinsp;entry &asymp;&thinsp;" +
+          es.workingSetLabel +
+          "&thinsp;working set";
+      }
+
+      /* tab click handler */
+      document.getElementById("tabs").addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-idx]");
+        if (!btn) return;
+        var btns = document.querySelectorAll(".tab");
+        for (var i = 0; i < btns.length; i++)
+          btns[i].classList.remove("active");
+        btn.classList.add("active");
+        currentIdx = +btn.dataset.idx;
+        buildCharts();
       });
 
       /* ── stacked-bar dataset helpers ──────────────────────────────────────────── */
@@ -465,12 +1827,22 @@
       var charts = [];
 
       function buildCharts() {
+        updateSubhead();
         charts.forEach(function (c) {
           c.destroy();
         });
         charts = [];
         var p = palette();
         var surf = p.surface;
+        var rows = DATA.entrySizes[currentIdx].rows;
+        var labels = DATA.heapLabels;
+
+        /* extract a named field from each row; null for failed/missing rows */
+        function get(field) {
+          return rows.map(function (r) {
+            return r ? r[field] : null;
+          });
+        }
 
         /* chart 1 — GC share of elapsed time (%) */
         charts.push(
@@ -479,30 +1851,9 @@
             data: {
               labels: labels,
               datasets: [
-                dsStack(
-                  "MinorGC",
-                  rows.map(function (r) {
-                    return r.minorPct;
-                  }),
-                  p.s1,
-                  surf,
-                ),
-                dsStack(
-                  "MajorGC",
-                  rows.map(function (r) {
-                    return r.majorPct;
-                  }),
-                  p.s2,
-                  surf,
-                ),
-                dsStackTop(
-                  "IncrementalGC",
-                  rows.map(function (r) {
-                    return r.incrPct;
-                  }),
-                  p.s3,
-                  surf,
-                ),
+                dsStack("MinorGC", get("minorPct"), p.s1, surf),
+                dsStack("MajorGC", get("majorPct"), p.s2, surf),
+                dsStackTop("IncrementalGC", get("incrPct"), p.s3, surf),
               ],
             },
             options: {
@@ -516,6 +1867,7 @@
                   intersect: false,
                   callbacks: {
                     label: function (ctx) {
+                      if (ctx.parsed.y === null) return null;
                       return (
                         " " +
                         ctx.dataset.label +
@@ -526,7 +1878,7 @@
                     },
                     afterBody: function (items) {
                       var total = items.reduce(function (s, it) {
-                        return s + it.parsed.y;
+                        return s + (it.parsed.y || 0);
                       }, 0);
                       return ["Total: " + total.toFixed(1) + " %"];
                     },
@@ -550,30 +1902,9 @@
             data: {
               labels: labels,
               datasets: [
-                dsStack(
-                  "MinorGC",
-                  rows.map(function (r) {
-                    return r.minorMs;
-                  }),
-                  p.s1,
-                  surf,
-                ),
-                dsStack(
-                  "MajorGC",
-                  rows.map(function (r) {
-                    return r.majorMs;
-                  }),
-                  p.s2,
-                  surf,
-                ),
-                dsStackTop(
-                  "IncrementalGC",
-                  rows.map(function (r) {
-                    return r.incrMs;
-                  }),
-                  p.s3,
-                  surf,
-                ),
+                dsStack("MinorGC", get("minorMs"), p.s1, surf),
+                dsStack("MajorGC", get("majorMs"), p.s2, surf),
+                dsStackTop("IncrementalGC", get("incrMs"), p.s3, surf),
               ],
             },
             options: {
@@ -587,6 +1918,7 @@
                   intersect: false,
                   callbacks: {
                     label: function (ctx) {
+                      if (ctx.parsed.y === null) return null;
                       return (
                         " " +
                         ctx.dataset.label +
@@ -597,7 +1929,7 @@
                     },
                     afterBody: function (items) {
                       var total = items.reduce(function (s, it) {
-                        return s + it.parsed.y;
+                        return s + (it.parsed.y || 0);
                       }, 0);
                       return ["Total: " + Math.round(total) + " ms"];
                     },
@@ -621,30 +1953,9 @@
             data: {
               labels: labels,
               datasets: [
-                dsStack(
-                  "MinorGC",
-                  rows.map(function (r) {
-                    return r.minorCount;
-                  }),
-                  p.s1,
-                  surf,
-                ),
-                dsStack(
-                  "MajorGC",
-                  rows.map(function (r) {
-                    return r.majorCount;
-                  }),
-                  p.s2,
-                  surf,
-                ),
-                dsStackTop(
-                  "IncrementalGC",
-                  rows.map(function (r) {
-                    return r.incrCount;
-                  }),
-                  p.s3,
-                  surf,
-                ),
+                dsStack("MinorGC", get("minorCount"), p.s1, surf),
+                dsStack("MajorGC", get("majorCount"), p.s2, surf),
+                dsStackTop("IncrementalGC", get("incrCount"), p.s3, surf),
               ],
             },
             options: {
@@ -658,6 +1969,7 @@
                   intersect: false,
                   callbacks: {
                     label: function (ctx) {
+                      if (ctx.parsed.y === null) return null;
                       return (
                         " " +
                         ctx.dataset.label +
@@ -668,7 +1980,7 @@
                     },
                     afterBody: function (items) {
                       var total = items.reduce(function (s, it) {
-                        return s + it.parsed.y;
+                        return s + (it.parsed.y || 0);
                       }, 0);
                       return ["Total: " + total + " events"];
                     },
@@ -692,34 +2004,10 @@
             data: {
               labels: labels,
               datasets: [
-                dsGroup(
-                  "MinorGC",
-                  rows.map(function (r) {
-                    return r.minorAvg;
-                  }),
-                  p.s1,
-                ),
-                dsGroup(
-                  "MajorGC",
-                  rows.map(function (r) {
-                    return r.majorAvg;
-                  }),
-                  p.s2,
-                ),
-                dsGroup(
-                  "IncrementalGC",
-                  rows.map(function (r) {
-                    return r.incrAvg;
-                  }),
-                  p.s3,
-                ),
-                dsGroup(
-                  "Total avg",
-                  rows.map(function (r) {
-                    return r.totalAvg;
-                  }),
-                  p.s4,
-                ),
+                dsGroup("MinorGC", get("minorAvg"), p.s1),
+                dsGroup("MajorGC", get("majorAvg"), p.s2),
+                dsGroup("IncrementalGC", get("incrAvg"), p.s3),
+                dsGroup("Total avg", get("totalAvg"), p.s4),
               ],
             },
             options: {
@@ -733,6 +2021,7 @@
                   intersect: false,
                   callbacks: {
                     label: function (ctx) {
+                      if (ctx.parsed.y === null) return null;
                       return (
                         " " +
                         ctx.dataset.label +

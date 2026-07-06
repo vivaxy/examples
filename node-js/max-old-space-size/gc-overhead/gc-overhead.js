@@ -1,11 +1,12 @@
 // Measures GC overhead across a range of --max-old-space-size values and
-// writes four Chart.js charts to index.html next to this file.
+// cache entry sizes, and writes four Chart.js charts to index.html next to
+// this file.
 //
 // Usage:
 //   node gc-overhead.js          # spawns workers, writes index.html
 //
 // The same script runs as a worker when passed --json:
-//   node --max-old-space-size=N gc-overhead.js --json <N>
+//   node --max-old-space-size=N gc-overhead.js --json <N> <entrySize>
 
 import { spawnSync } from 'child_process';
 import { writeFileSync } from 'fs';
@@ -18,10 +19,25 @@ import v8 from 'v8';
 // the V8 limit applies cleanly without cross-contamination.
 const HEAP_SIZES = [64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384];
 
+// Cache entry sizes (array elements) to sweep; each × ~4 bytes = bytes per entry.
+// Small heaps will OOM at large entry sizes — shown as gaps in charts.
+const ENTRY_SIZES = [
+  4 * 1024, //  16 KB / entry →   ~3 MB working set
+  8 * 1024, //  32 KB / entry →   ~6 MB working set
+  32 * 1024, // 128 KB / entry →  ~25 MB working set
+  64 * 1024, // 256 KB / entry →  ~50 MB working set
+  128 * 1024, // 512 KB / entry → ~100 MB working set
+  256 * 1024, //   1 MB / entry → ~200 MB working set
+  512 * 1024, //   2 MB / entry → ~400 MB working set
+  1024 * 1024, //   4 MB / entry → ~800 MB working set
+  2048 * 1024, //   8 MB / entry →  ~1.6 GB working set
+  4096 * 1024, //  16 MB / entry →  ~3.1 GB working set
+  8192 * 1024, //  32 MB / entry →  ~6.3 GB working set
+  16384 * 1024, //  64 MB / entry → ~12.5 GB working set
+];
+
 const ITERATIONS = 5000;
-// 25 K elements × ~4 bytes (pointer compression) ≈ 100 KB per cache entry
-const ELEMENTS_PER_ENTRY = 25 * 1024;
-// 200 × 100 KB ≈ 20 MB working set kept alive throughout the run
+// 200 cache slots; rotating writes release old entries to GC.
 const CACHE_SIZE = 200;
 
 // V8 GC kind constants used as dataset keys.
@@ -42,7 +58,9 @@ if (process.argv.includes('--json')) {
 // Runs the workload and prints a single JSON line to stdout.
 
 async function runWorker() {
-  const flagMb = parseInt(process.argv[process.argv.indexOf('--json') + 1], 10);
+  const jsonIdx = process.argv.indexOf('--json');
+  const flagMb = parseInt(process.argv[jsonIdx + 1], 10);
+  const entrySize = parseInt(process.argv[jsonIdx + 2], 10);
   const { heap_size_limit } = v8.getHeapStatistics();
   const limitMb = Math.round(heap_size_limit / 1024 / 1024);
 
@@ -62,7 +80,7 @@ async function runWorker() {
   const cache = new Array(CACHE_SIZE);
   const start = performance.now();
   for (let i = 0; i < ITERATIONS; i++) {
-    cache[i % CACHE_SIZE] = new Array(ELEMENTS_PER_ENTRY).fill(i);
+    cache[i % CACHE_SIZE] = new Array(entrySize).fill(i);
   }
   const elapsed = performance.now() - start;
 
@@ -73,88 +91,139 @@ async function runWorker() {
   obs.disconnect();
 
   process.stdout.write(
-    JSON.stringify({ flagMb, limitMb, elapsed, counts, times }) + '\n',
+    JSON.stringify({ flagMb, limitMb, entrySize, elapsed, counts, times }) +
+      '\n',
   );
 }
 
 // ─── Orchestrator ─────────────────────────────────────────────────────────────
-// Spawns one worker per heap size, collects JSON results, writes index.html.
+// Spawns one worker per (heap size × entry size) combo, collects JSON results,
+// writes index.html.
 
 function runOrchestrator() {
   const scriptPath = fileURLToPath(import.meta.url);
   const outPath = join(dirname(scriptPath), 'index.html');
-  const rawResults = [];
+  const resultsByEntrySize = {};
 
-  for (const mb of HEAP_SIZES) {
-    process.stdout.write(`measuring --max-old-space-size=${mb}…`);
-    const { stdout, stderr, status } = spawnSync(
-      process.execPath,
-      [`--max-old-space-size=${mb}`, scriptPath, '--json', String(mb)],
-      { encoding: 'utf8', timeout: 60_000 },
-    );
-    if (status !== 0) {
-      process.stderr.write(`\nworker failed for ${mb} MB:\n${stderr}\n`);
-      process.exit(1);
+  for (const entrySize of ENTRY_SIZES) {
+    resultsByEntrySize[entrySize] = [];
+    for (const mb of HEAP_SIZES) {
+      process.stdout.write(
+        `measuring --max-old-space-size=${mb} entry-size=${entrySize}…`,
+      );
+      const { stdout, stderr, status } = spawnSync(
+        process.execPath,
+        [
+          `--max-old-space-size=${mb}`,
+          scriptPath,
+          '--json',
+          String(mb),
+          String(entrySize),
+        ],
+        { encoding: 'utf8', timeout: 60_000 },
+      );
+      if (status !== 0) {
+        process.stderr.write(
+          `\n  worker failed (${mb} MB / entry ${entrySize}): skipping\n`,
+        );
+        resultsByEntrySize[entrySize].push(null);
+      } else {
+        resultsByEntrySize[entrySize].push(JSON.parse(stdout.trim()));
+      }
+      process.stdout.write(' done\n');
     }
-    rawResults.push(JSON.parse(stdout.trim()));
-    process.stdout.write(' done\n');
   }
 
-  writeFileSync(outPath, generateHtml(rawResults));
+  // Collect limitMb for each flagMb from any successful worker result so the
+  // x-axis labels can show both the flag value and the effective heap limit.
+  const limitByFlagMb = {};
+  for (const rawResults of Object.values(resultsByEntrySize)) {
+    for (const r of rawResults) {
+      if (r && !(r.flagMb in limitByFlagMb)) {
+        limitByFlagMb[r.flagMb] = r.limitMb;
+      }
+    }
+  }
+
+  writeFileSync(outPath, generateHtml(resultsByEntrySize, limitByFlagMb));
   console.log(`\nchart written → ${outPath}`);
 }
 
 // ─── HTML / chart generation ──────────────────────────────────────────────────
 
-function generateHtml(rawResults) {
-  const r0 = ELEMENTS_PER_ENTRY * 4; // bytes per entry (pointer-compressed)
-  const entryKb = Math.round(r0 / 1024);
-  const workingSetMb = Math.round((CACHE_SIZE * r0) / 1024 / 1024);
+function generateHtml(resultsByEntrySize, limitByFlagMb) {
+  // Format a byte count as a human-readable string (KB / MB / GB).
+  function fmtBytes(n) {
+    if (n >= 1024 * 1024 * 1024)
+      return +(n / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+    if (n >= 1024 * 1024) return Math.round(n / (1024 * 1024)) + ' MB';
+    return Math.round(n / 1024) + ' KB';
+  }
 
-  // Derive all chart series from raw worker output.
-  const rows = rawResults.map((r) => {
-    const minorMs = r.times[K_MINOR] ?? 0;
-    const majorMs = r.times[K_MAJOR] ?? 0;
-    const incrMs = r.times[K_INCR] ?? 0;
-    const minorCount = r.counts[K_MINOR] ?? 0;
-    const majorCount = r.counts[K_MAJOR] ?? 0;
-    const incrCount = r.counts[K_INCR] ?? 0;
-    const totalMs = minorMs + majorMs + incrMs;
-    const totalCount = minorCount + majorCount + incrCount;
-
-    const pct = (ms) =>
-      r.elapsed > 0 ? +((ms / r.elapsed) * 100).toFixed(2) : 0;
-    const avg = (ms, n) => (n > 0 ? +(ms / n).toFixed(2) : 0);
-
-    return {
-      flagMb: r.flagMb,
-      limitMb: r.limitMb,
-      // chart 1 — % of elapsed time
-      minorPct: pct(minorMs),
-      majorPct: pct(majorMs),
-      incrPct: pct(incrMs),
-      // chart 2 — total ms
-      minorMs: +minorMs.toFixed(0),
-      majorMs: +majorMs.toFixed(0),
-      incrMs: +incrMs.toFixed(0),
-      // chart 3 — event count
-      minorCount,
-      majorCount,
-      incrCount,
-      // chart 4 — avg ms/event
-      minorAvg: avg(minorMs, minorCount),
-      majorAvg: avg(majorMs, majorCount),
-      incrAvg: avg(incrMs, incrCount),
-      totalAvg: avg(totalMs, totalCount),
-      // totals for bar-cap labels
-      totalPct: pct(totalMs),
-      totalMs: +totalMs.toFixed(0),
-      totalCount,
-    };
+  // Per-entry-size metadata and derived chart rows.
+  const entrySizes = ENTRY_SIZES.map((entrySize) => {
+    const bytesPerEntry = entrySize * 4; // pointer-compressed
+    const entryLabel = fmtBytes(bytesPerEntry);
+    const workingSetLabel = fmtBytes(CACHE_SIZE * bytesPerEntry);
+    const rows = (resultsByEntrySize[entrySize] ?? []).map((r) => {
+      if (!r) return null;
+      const minorMs = r.times[K_MINOR] ?? 0;
+      const majorMs = r.times[K_MAJOR] ?? 0;
+      const incrMs = r.times[K_INCR] ?? 0;
+      const minorCount = r.counts[K_MINOR] ?? 0;
+      const majorCount = r.counts[K_MAJOR] ?? 0;
+      const incrCount = r.counts[K_INCR] ?? 0;
+      const totalMs = minorMs + majorMs + incrMs;
+      const totalCount = minorCount + majorCount + incrCount;
+      const pct = (ms) =>
+        r.elapsed > 0 ? +((ms / r.elapsed) * 100).toFixed(2) : 0;
+      const avg = (ms, n) => (n > 0 ? +(ms / n).toFixed(2) : 0);
+      return {
+        flagMb: r.flagMb,
+        limitMb: r.limitMb,
+        // chart 1 — % of elapsed time
+        minorPct: pct(minorMs),
+        majorPct: pct(majorMs),
+        incrPct: pct(incrMs),
+        // chart 2 — total ms
+        minorMs: +minorMs.toFixed(0),
+        majorMs: +majorMs.toFixed(0),
+        incrMs: +incrMs.toFixed(0),
+        // chart 3 — event count
+        minorCount,
+        majorCount,
+        incrCount,
+        // chart 4 — avg ms/event
+        minorAvg: avg(minorMs, minorCount),
+        majorAvg: avg(majorMs, majorCount),
+        incrAvg: avg(incrMs, incrCount),
+        totalAvg: avg(totalMs, totalCount),
+        // totals for bar-cap labels
+        totalPct: pct(totalMs),
+        totalMs: +totalMs.toFixed(0),
+        totalCount,
+      };
+    });
+    return { entryLabel, workingSetLabel, rows };
   });
 
+  // x-axis labels: two-line — flag value / effective heap limit.
+  const heapLabels = HEAP_SIZES.map((mb) => {
+    const lim = limitByFlagMb[mb];
+    return lim ? [mb + ' MB', '(' + lim + ' MB)'] : [mb + ' MB'];
+  });
+
+  // Tab buttons (server-rendered; first tab is active to match currentIdx=0).
+  const tabsHtml = ENTRY_SIZES.map((entrySize, i) => {
+    const bytesPerEntry = entrySize * 4;
+    const entryLabel = fmtBytes(bytesPerEntry);
+    const workingSetLabel = fmtBytes(CACHE_SIZE * bytesPerEntry);
+    const cls = i === 0 ? ' active' : '';
+    return `  <button class="tab${cls}" data-idx="${i}">${entryLabel} / entry &middot; ${workingSetLabel} working set</button>`;
+  }).join('\n');
+
   // Embed pre-computed data as JSON so the browser script is logic-free.
-  const DATA = JSON.stringify({ rows });
+  const DATA = JSON.stringify({ heapLabels, entrySizes });
 
   // Palette (from palette.md reference instance, validated adjacently):
   //   MinorGC → slot 1 blue  #2a78d6 / #3987e5
@@ -223,13 +292,42 @@ h1 {
 .subhead {
   color: var(--text-sec);
   font-size: 13px;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 code {
   font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
   font-size: 0.9em;
 }
 
+/* ── tab selector ─────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tab {
+  background: none;
+  border: 1px solid var(--gridline);
+  border-radius: 20px;
+  color: var(--text-sec);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 5px 14px;
+  transition: border-color 0.1s, color 0.1s;
+}
+.tab:hover:not(.active) {
+  border-color: var(--text-muted);
+  color: var(--text-pri);
+}
+.tab.active {
+  background: var(--s1);
+  border-color: var(--s1);
+  color: #fff;
+}
+
+/* ── chart grid ───────────────────────────────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -255,15 +353,61 @@ figcaption {
   position: relative;
   height: 280px;
 }
+
+/* ── documentation section ────────────────────────────────────────────────── */
+.doc {
+  border-top: 1px solid var(--gridline);
+  margin-top: 48px;
+  max-width: 900px;
+  padding-top: 32px;
+}
+.doc h2 {
+  color: var(--text-pri);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-top: 32px;
+}
+.doc h2:first-child { margin-top: 0; }
+.doc p {
+  color: var(--text-sec);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  max-width: 720px;
+}
+.doc table {
+  border-collapse: collapse;
+  font-size: 13px;
+  width: 100%;
+}
+.doc th, .doc td {
+  border: 1px solid var(--gridline);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.doc th {
+  background: var(--surface-1);
+  color: var(--text-sec);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.doc td { color: var(--text-sec); }
+.doc td:first-child { color: var(--text-pri); white-space: nowrap; }
 </style>
 </head>
 <body class="viz-root">
 <h1>GC Overhead vs <code>--max-old-space-size</code></h1>
 <p class="subhead">
-  ${ITERATIONS.toLocaleString()} iterations &nbsp;·&nbsp;
-  ${CACHE_SIZE} &times; ${entryKb}&nbsp;KB &asymp; ${workingSetMb}&nbsp;MB working set &nbsp;·&nbsp;
+  ${ITERATIONS.toLocaleString()} iterations &nbsp;&middot;&nbsp;
+  ${CACHE_SIZE} entries &thinsp;&times;&thinsp;<span id="entry-meta"></span>
+  &nbsp;&middot;&nbsp;
   x-axis: flag value (effective <code>heap_size_limit</code> in parentheses)
 </p>
+<div class="tabs" id="tabs">
+${tabsHtml}
+</div>
 <div class="grid">
   <figure>
     <figcaption>1 &nbsp;GC share of elapsed time &nbsp;(%)</figcaption>
@@ -283,10 +427,59 @@ figcaption {
   </figure>
 </div>
 
+<section class="doc">
+  <h2>How to read these charts</h2>
+  <table>
+    <thead><tr><th>Chart</th><th>What to look for</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1&nbsp;&nbsp;GC share (%)</td>
+        <td>At 64&thinsp;MB with a ~20&thinsp;MB working set, MajorGC alone consumes ~55&thinsp;% of elapsed time. The fraction drops steeply through 512&thinsp;MB and plateaus near zero beyond 1&ndash;2&thinsp;GB, where MinorGC dominates and MajorGC barely fires. Switch to the smaller entry size to see this effect compress; switch to the larger to see even more aggressive GC pressure at small heaps.</td>
+      </tr>
+      <tr>
+        <td>2&nbsp;&nbsp;GC total time (ms)</td>
+        <td>MajorGC total collapses as the heap grows (high at 64&thinsp;MB, near zero at &ge;1&thinsp;GB). MinorGC total rises in the opposite direction: with a large heap the young generation fills up without MajorGC intervening, forcing more minor scavenges.</td>
+      </tr>
+      <tr>
+        <td>3&nbsp;&nbsp;GC event count</td>
+        <td>MajorGC fires dozens of times at 64&thinsp;MB and approaches zero at &ge;1&thinsp;GB; IncrementalGC at 128+&thinsp;MB tracks MajorGC 1:1. At 64&thinsp;MB many major GCs are triggered by allocation failure rather than the incremental scheduler, so IncrementalGC count is lower. MinorGC count increases steadily with heap size.</td>
+      </tr>
+      <tr>
+        <td>4&nbsp;&nbsp;Avg time / event (ms/event)</td>
+        <td>Counter-intuitively, each individual MajorGC event <em>takes longer</em> as the heap grows (a few ms at 64&thinsp;MB, tens of ms at multi-GB sizes). With a large heap V8 commits more address space and has more internal metadata to process per cycle. The net overhead is still lower because events are far less frequent.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Background</h2>
+  <p>A ${CACHE_SIZE}-entry circular cache keeps the working set alive in old generation.
+  With a small heap the working set occupies a large fraction of available space,
+  so V8 runs Major GC (MarkCompact via incremental marking) aggressively. With a
+  large heap the same working set is negligible &mdash; Major GC barely fires.</p>
+  <p>Modern V8 routes all Major GC through the incremental marking pipeline, so the
+  stop-the-world MarkCompact phase shows up as <code>MajorGC</code> (kind=4), not
+  <code>ConstructRetained</code> (kind=2). Each MajorGC is paired with a corresponding
+  <code>IncrementalGC</code> event (kind=8) for the preceding marking phase.</p>
+
+  <h2>GC kinds</h2>
+  <table>
+    <thead><tr><th>Kind</th><th>Name</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><code>MinorGC</code></td><td>Scavenger on the young generation (new space). Fast; promotes survivors to old generation.</td></tr>
+      <tr><td>2</td><td><code>ConstructRetained</code></td><td>Stop-the-world MarkCompact <strong>without</strong> incremental marking. Rare in normal runs; appears when GC is forced (e.g.&nbsp;<code>global.gc()</code> with <code>--expose-gc</code>).</td></tr>
+      <tr><td>4</td><td><code>MajorGC</code></td><td>Full old-generation collection (MarkCompact) <strong>with</strong> incremental marking. This is the dominant cost under heap pressure.</td></tr>
+      <tr><td>8</td><td><code>IncrementalGC</code></td><td>One incremental marking step. V8 slices marking work across many small pauses between JS execution turns.</td></tr>
+      <tr><td>16</td><td><code>WeakCB</code></td><td>Processing weak references and their finalizer callbacks after a GC cycle.</td></tr>
+      <tr><td>32</td><td><code>AllExternalMemory</code></td><td>GC triggered to account for externally allocated memory (e.g. large <code>Buffer</code>&thinsp;/&thinsp;<code>ArrayBuffer</code> backing stores) that exceeded a threshold.</td></tr>
+      <tr><td>64</td><td><code>ScheduleIdle</code></td><td>Idle-time GC &mdash; V8 schedules a collection when the event loop has spare time, to amortise future pressure.</td></tr>
+    </tbody>
+  </table>
+</section>
+
 <script>
 'use strict';
 var DATA = ${DATA};
-var rows = DATA.rows;
+var currentIdx = 0;
 
 /* read a CSS custom property from the root element */
 function css(name) {
@@ -306,9 +499,22 @@ function palette() {
   };
 }
 
-/* x-axis labels: two-line — flag value / effective limit */
-var labels = rows.map(function(r) {
-  return [r.flagMb + ' MB', '(' + r.limitMb + ' MB)'];
+/* update the subhead span to show the currently selected entry size */
+function updateSubhead() {
+  var es = DATA.entrySizes[currentIdx];
+  document.getElementById('entry-meta').innerHTML =
+    es.entryLabel + '&thinsp;/&thinsp;entry &asymp;&thinsp;' + es.workingSetLabel + '&thinsp;working set';
+}
+
+/* tab click handler */
+document.getElementById('tabs').addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-idx]');
+  if (!btn) return;
+  var btns = document.querySelectorAll('.tab');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+  btn.classList.add('active');
+  currentIdx = +btn.dataset.idx;
+  buildCharts();
 });
 
 /* ── stacked-bar dataset helpers ──────────────────────────────────────────── */
@@ -421,10 +627,18 @@ function legendOpts(p) {
 var charts = [];
 
 function buildCharts() {
+  updateSubhead();
   charts.forEach(function(c) { c.destroy(); });
   charts = [];
   var p = palette();
   var surf = p.surface;
+  var rows = DATA.entrySizes[currentIdx].rows;
+  var labels = DATA.heapLabels;
+
+  /* extract a named field from each row; null for failed/missing rows */
+  function get(field) {
+    return rows.map(function(r) { return r ? r[field] : null; });
+  }
 
   /* chart 1 — GC share of elapsed time (%) */
   charts.push(new Chart(document.getElementById('c1'), {
@@ -432,9 +646,9 @@ function buildCharts() {
     data: {
       labels: labels,
       datasets: [
-        dsStack('MinorGC',        rows.map(function(r) { return r.minorPct; }), p.s1, surf),
-        dsStack('MajorGC',        rows.map(function(r) { return r.majorPct; }), p.s2, surf),
-        dsStackTop('IncrementalGC', rows.map(function(r) { return r.incrPct;  }), p.s3, surf),
+        dsStack('MinorGC',          get('minorPct'), p.s1, surf),
+        dsStack('MajorGC',          get('majorPct'), p.s2, surf),
+        dsStackTop('IncrementalGC', get('incrPct'),  p.s3, surf),
       ],
     },
     options: {
@@ -445,10 +659,13 @@ function buildCharts() {
           mode: 'index', intersect: false,
           callbacks: {
             label: function(ctx) {
+              if (ctx.parsed.y === null) return null;
               return ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + ' %';
             },
             afterBody: function(items) {
-              var total = items.reduce(function(s, it) { return s + it.parsed.y; }, 0);
+              var total = items.reduce(function(s, it) {
+                return s + (it.parsed.y || 0);
+              }, 0);
               return ['Total: ' + total.toFixed(1) + ' %'];
             },
           },
@@ -465,9 +682,9 @@ function buildCharts() {
     data: {
       labels: labels,
       datasets: [
-        dsStack('MinorGC',        rows.map(function(r) { return r.minorMs; }), p.s1, surf),
-        dsStack('MajorGC',        rows.map(function(r) { return r.majorMs; }), p.s2, surf),
-        dsStackTop('IncrementalGC', rows.map(function(r) { return r.incrMs;  }), p.s3, surf),
+        dsStack('MinorGC',          get('minorMs'), p.s1, surf),
+        dsStack('MajorGC',          get('majorMs'), p.s2, surf),
+        dsStackTop('IncrementalGC', get('incrMs'),  p.s3, surf),
       ],
     },
     options: {
@@ -478,10 +695,13 @@ function buildCharts() {
           mode: 'index', intersect: false,
           callbacks: {
             label: function(ctx) {
+              if (ctx.parsed.y === null) return null;
               return ' ' + ctx.dataset.label + ': ' + Math.round(ctx.parsed.y) + ' ms';
             },
             afterBody: function(items) {
-              var total = items.reduce(function(s, it) { return s + it.parsed.y; }, 0);
+              var total = items.reduce(function(s, it) {
+                return s + (it.parsed.y || 0);
+              }, 0);
               return ['Total: ' + Math.round(total) + ' ms'];
             },
           },
@@ -498,9 +718,9 @@ function buildCharts() {
     data: {
       labels: labels,
       datasets: [
-        dsStack('MinorGC',        rows.map(function(r) { return r.minorCount; }), p.s1, surf),
-        dsStack('MajorGC',        rows.map(function(r) { return r.majorCount; }), p.s2, surf),
-        dsStackTop('IncrementalGC', rows.map(function(r) { return r.incrCount;  }), p.s3, surf),
+        dsStack('MinorGC',          get('minorCount'), p.s1, surf),
+        dsStack('MajorGC',          get('majorCount'), p.s2, surf),
+        dsStackTop('IncrementalGC', get('incrCount'),  p.s3, surf),
       ],
     },
     options: {
@@ -511,10 +731,13 @@ function buildCharts() {
           mode: 'index', intersect: false,
           callbacks: {
             label: function(ctx) {
+              if (ctx.parsed.y === null) return null;
               return ' ' + ctx.dataset.label + ': ' + ctx.parsed.y + ' events';
             },
             afterBody: function(items) {
-              var total = items.reduce(function(s, it) { return s + it.parsed.y; }, 0);
+              var total = items.reduce(function(s, it) {
+                return s + (it.parsed.y || 0);
+              }, 0);
               return ['Total: ' + total + ' events'];
             },
           },
@@ -531,10 +754,10 @@ function buildCharts() {
     data: {
       labels: labels,
       datasets: [
-        dsGroup('MinorGC',        rows.map(function(r) { return r.minorAvg; }), p.s1),
-        dsGroup('MajorGC',        rows.map(function(r) { return r.majorAvg; }), p.s2),
-        dsGroup('IncrementalGC',  rows.map(function(r) { return r.incrAvg;  }), p.s3),
-        dsGroup('Total avg',      rows.map(function(r) { return r.totalAvg; }), p.s4),
+        dsGroup('MinorGC',       get('minorAvg'), p.s1),
+        dsGroup('MajorGC',       get('majorAvg'), p.s2),
+        dsGroup('IncrementalGC', get('incrAvg'),  p.s3),
+        dsGroup('Total avg',     get('totalAvg'), p.s4),
       ],
     },
     options: {
@@ -545,6 +768,7 @@ function buildCharts() {
           mode: 'index', intersect: false,
           callbacks: {
             label: function(ctx) {
+              if (ctx.parsed.y === null) return null;
               return ' ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + ' ms';
             },
           },
