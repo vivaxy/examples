@@ -33,6 +33,18 @@ stop-the-world MarkCompact phase shows up in the GC breakdown as `MajorGC`
 (kind=4), not `MarkCompact` (kind=2). The key signal is the `MajorGC` row:
 expect ~10–20× more events and time at 64 MB versus 512 MB.
 
+### GC kinds
+
+| Kind | Name                  | What it is |
+|-----:|-----------------------|------------|
+|    1 | `MinorGC`             | Scavenger on the young generation (new space). Fast; promotes survivors to old generation. |
+|    2 | `ConstructRetained`   | Stop-the-world MarkCompact **without** incremental marking. Rare in normal runs; appears when GC is forced (e.g. `global.gc()` with `--expose-gc`). |
+|    4 | `MajorGC`             | Full old-generation collection (MarkCompact) **with** incremental marking. This is the dominant cost under heap pressure. |
+|    8 | `IncrementalGC`       | One incremental marking step. V8 slices marking work across many small pauses between JS execution turns. |
+|   16 | `WeakCB`              | Processing weak references and their finalizer callbacks after a GC cycle. |
+|   32 | `AllExternalMemory`   | GC triggered to account for externally allocated memory (e.g. large `Buffer` / `ArrayBuffer` backing stores) that exceeded a threshold. |
+|   64 | `ScheduleIdle`        | Idle-time GC — V8 schedules a collection when the event loop has spare time, to amortise future pressure. |
+
 ## native-memory.js — Buffer.alloc bypasses the heap limit
 
 ```bash
