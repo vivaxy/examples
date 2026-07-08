@@ -1,5 +1,9 @@
 [
   {
+    "name": "First GC Moment",
+    "link": "first-gc/"
+  },
+  {
     "name": "max-old-space-size",
     "link": "max-old-space-size/"
   },

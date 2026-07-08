@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>What moves V8's first major GC</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    <style>
+      .viz-root {
+        --s1: #2a78d6; /* blue  — single series / "off" */
+        --s2: #1baf7a; /* aqua  — "on" (--gc-global) */
+        --surface-1: #fcfcfb;
+        --page-plane: #f9f9f7;
+        --text-pri: #0b0b0b;
+        --text-sec: #52514e;
+        --text-muted: #898781;
+        --gridline: #e1e0d9;
+        --baseline: #c3c2b7;
+      }
+      @media (prefers-color-scheme: dark) {
+        .viz-root {
+          --s1: #3987e5;
+          --s2: #199e70;
+          --surface-1: #1a1a19;
+          --page-plane: #0d0d0d;
+          --text-pri: #ffffff;
+          --text-sec: #c3c2b7;
+          --text-muted: #898781;
+          --gridline: #2c2c2a;
+          --baseline: #383835;
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body.viz-root {
+        background: var(--page-plane);
+        color: var(--text-pri);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 28px 36px 56px;
+      }
+      h1 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .subhead {
+        color: var(--text-sec);
+        font-size: 13px;
+        margin-bottom: 20px;
+      }
+      code {
+        font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
+        font-size: 0.9em;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      @media (max-width: 820px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      figure {
+        background: var(--surface-1);
+        border: 1px solid var(--gridline);
+        border-radius: 8px;
+        padding: 20px 20px 16px;
+      }
+      figcaption {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-sec);
+        margin-bottom: 4px;
+      }
+      .figsub {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+      .chart-wrap {
+        position: relative;
+        height: 300px;
+      }
+      .doc {
+        border-top: 1px solid var(--gridline);
+        margin-top: 48px;
+        max-width: 900px;
+        padding-top: 32px;
+      }
+      .doc h2 {
+        color: var(--text-pri);
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        margin-top: 32px;
+      }
+      .doc h2:first-child {
+        margin-top: 0;
+      }
+      .doc p {
+        color: var(--text-sec);
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 12px;
+        max-width: 720px;
+      }
+      .doc table {
+        border-collapse: collapse;
+        font-size: 13px;
+        width: 100%;
+      }
+      .doc th,
+      .doc td {
+        border: 1px solid var(--gridline);
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .doc th {
+        background: var(--surface-1);
+        color: var(--text-sec);
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .doc td {
+        color: var(--text-sec);
+      }
+      .doc td:first-child {
+        color: var(--text-pri);
+        white-space: nowrap;
+      }
+      .doc pre {
+        background: var(--surface-1);
+        border: 1px solid var(--gridline);
+        border-radius: 6px;
+        color: var(--text-pri);
+        font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        overflow-x: auto;
+        padding: 12px 14px;
+      }
+      .doc pre code {
+        background: none;
+        font-size: inherit;
+      }
+    </style>
+    <meta name="author" content="vivaxy <xyxuye2007@126.com>" />
+    <meta
+      name="keywords"
+      content="vivaxy,examples,github,demo,playground,node-js,test,sample,demos,samples,example,first-gc"
+    />
+    <meta name="description" content="What moves V8's first major GC" />
+  </head>
+  <body class="viz-root">
+    <h1>What moves V8's first <code>MajorGC</code> (Mark-Compact)</h1>
+    <p class="subhead">
+      Each chart varies ONE parameter; y-axis = MiB allocated when the first
+      major GC fires. Workload: ~1 MiB arrays into old space, ~40 MiB live
+      sliding window. Each point = median of 5 runs.
+    </p>
+    <div class="grid">
+      <figure>
+        <figcaption>1 &nbsp;<code>--initial-old-space-size</code></figcaption>
+        <div class="figsub">
+          initial old-space capacity (last bar = no flag)
+        </div>
+        <div class="chart-wrap"><canvas id="c1"></canvas></div>
+      </figure>
+      <figure>
+        <figcaption>2 &nbsp;<code>--max-old-space-size</code></figcaption>
+        <div class="figsub">old-space cap (last bar = no flag)</div>
+        <div class="chart-wrap"><canvas id="c2"></canvas></div>
+      </figure>
+      <figure>
+        <figcaption>3 &nbsp;object size per allocation</figcaption>
+        <div class="figsub">array chunk size, default flags</div>
+        <div class="chart-wrap"><canvas id="c3"></canvas></div>
+      </figure>
+      <figure>
+        <figcaption>4 &nbsp;<code>--gc-global</code> off vs on</figcaption>
+        <div class="figsub">
+          forces every GC to be major → first GC is Mark-Compact at ~1 MiB
+        </div>
+        <div class="chart-wrap"><canvas id="c4"></canvas></div>
+      </figure>
+    </div>
+
+    <section class="doc">
+      <h2>How to read these charts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Chart</th>
+            <th>What it shows</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1&nbsp;&nbsp;<code>--initial-old-space-size</code></td>
+            <td>
+              Sets the old-space capacity V8 starts with. Below ~128 MiB the
+              trigger is floored at ~64 MiB (V8's growth-factor heuristic over
+              the live set); from 128 MiB up the flag sets the moment directly
+              and monotonically (128→80, 256→160, 512→256, 1024→480 MiB).
+              <code>default</code> lands at the 512 MiB point.
+            </td>
+          </tr>
+          <tr>
+            <td>2&nbsp;&nbsp;<code>--max-old-space-size</code></td>
+            <td>
+              The old-space cap. A tight cap pulls the trigger earlier (64→54,
+              128→64 MiB); as it relaxes the moment climbs and saturates at the
+              natural default trigger (~304 MiB) once the cap no longer binds.
+            </td>
+          </tr>
+          <tr>
+            <td>3&nbsp;&nbsp;object size</td>
+            <td>
+              Larger allocations delay the first major GC (64 KiB→17 MiB,
+              1 MiB→304, 8 MiB→456). Bigger chunks mean fewer V8 allocations per
+              MiB, so old space fills and hits its trigger more slowly in
+              cumulative-byte terms.
+            </td>
+          </tr>
+          <tr>
+            <td>4&nbsp;&nbsp;<code>--gc-global</code></td>
+            <td>
+              Forcing every GC to be global collapses the first major GC to
+              ~1 MiB regardless of object size — it bypasses the heuristic
+              entirely. The flat aqua bar vs the climbing blue bar shows the
+              override.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Background</h2>
+      <p>
+        The workload allocates ~1 MiB arrays (large enough to land in old
+        generation) and retains the last ~40 MiB of them in a sliding window;
+        older chunks are released, so old space holds live data plus dead
+        promoted objects. A <code>PerformanceObserver</code> watches
+        <code>gc</code> entries; the first <code>MajorGC</code> (kind = 4,
+        Mark-Compact) is located by correlating each entry’s
+        <code>startTime</code> against a per-iteration timeline, so the reported
+        moment and before/after heap are real — not the nearest event-loop
+        yield.
+      </p>
+      <p>
+        V8’s major-GC trigger scales with old-space capacity:
+        <code>--initial-old-space-size</code> sets the starting capacity
+        (chart 1), <code>--max-old-space-size</code> sets the cap (chart 2). The
+        first <em>minor</em> GC (Scavenge, young generation) fires early and
+        often — V8’s new space is small and fills quickly, copying survivors to
+        old space. It is fixed by V8’s minimum semi-space and is
+        <em>not</em> moved by these flags — only the first <em>major</em> GC is.
+        <code>--gc-global</code> bypasses the heuristic and forces every GC to
+        be major, so the very first GC is a Mark-Compact.
+      </p>
+      <p>
+        The sliding window (~40 MiB live) lets the major GC actually reclaim
+        dead promoted objects — visible as the before → after
+        <code>used</code> drop in the CLI output — instead of retaining
+        everything until the heap limit.
+      </p>
+
+      <h2>Run the interactive CLI</h2>
+      <p>
+        This report is generated by <code>generate-report.js</code>. The same
+        detection runs live in <code>index.js</code>, which prints the first
+        major GC’s kind, duration, iteration, before/after heap, the minor-GC
+        count before it, and a one-line “why”.
+      </p>
+      <pre><code># default — first major GC fires at V8's reclamation trigger
+node first-gc/index.js
+
+# smaller initial old space → first major GC fires much earlier
+node --initial-old-space-size=4 first-gc/index.js
+
+# larger initial old space → first major GC fires later
+node --initial-old-space-size=64 first-gc/index.js
+
+# force every GC to be global → first GC is a Mark-Compact at ~1 MiB
+node --gc-global first-gc/index.js
+
+# keep allocating, print each major GC (up to 5) with minor-GC counts between
+node first-gc/index.js --keep-going</code></pre>
+
+      <h2>Flags</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Effect on the first major GC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--initial-old-space-size=N</code> (MiB)</td>
+            <td>
+              Initial old-space capacity → sets the early trigger (has a floor).
+              <strong>Most direct.</strong>
+            </td>
+          </tr>
+          <tr>
+            <td><code>--max-old-space-size=N</code> (MiB)</td>
+            <td>
+              Old-space cap; a tight cap pulls the trigger earlier, saturates at
+              default once it stops binding.
+            </td>
+          </tr>
+          <tr>
+            <td><code>--gc-global</code></td>
+            <td>
+              Forces every GC to be major → first GC is a Mark-Compact at
+              ~1 MiB, overriding all heuristics.
+            </td>
+          </tr>
+          <tr>
+            <td><code>--gc-interval=N</code></td>
+            <td>
+              Force a GC every N V8 allocations (mainly affects minor-GC
+              cadence, not the major trigger).
+            </td>
+          </tr>
+          <tr>
+            <td><code>--expose-gc</code></td>
+            <td>Exposes <code>global.gc()</code> for manual triggering.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Script option: <code>--keep-going</code> continues past the first major
+        GC and prints each subsequent major GC (up to 5), with the minor-GC
+        count between them.
+      </p>
+
+      <h2>Practical guidance</h2>
+      <p>
+        <strong>Two levers, one override.</strong>
+        <code>--initial-old-space-size</code> and
+        <code>--max-old-space-size</code> both move the first major GC, but in
+        different regimes: the initial size sets the early trigger (and has a
+        floor), the max size sets the ceiling that, when tight, pulls the
+        trigger earlier. <code>--gc-global</code> overrides both, forcing a
+        major GC almost immediately — useful for forcing reclamation, costly for
+        throughput.
+      </p>
+      <p>
+        <strong>Allocation shape matters.</strong> Chart 3 shows the first major
+        GC is not a fixed property of the heap — larger per-allocation objects
+        push it later. When estimating when a service will first major-GC, the
+        object size distribution matters as much as the heap flags.
+      </p>
+    </section>
+
+    <script>
+      "use strict";
+      var DATA = [
+        {
+          id: "c1",
+          title: "--initial-old-space-size",
+          unit: "MiB flag",
+          points: [
+            {
+              label: "16 MB",
+              mib: 64,
+              durMs: 1.06,
+              beforeMib: 68,
+              afterMib: 69,
+              reclaimedMib: 0,
+              minors: 10,
+            },
+            {
+              label: "32 MB",
+              mib: 64,
+              durMs: 1.04,
+              beforeMib: 68,
+              afterMib: 69,
+              reclaimedMib: 0,
+              minors: 10,
+            },
+            {
+              label: "64 MB",
+              mib: 64,
+              durMs: 1.05,
+              beforeMib: 68,
+              afterMib: 68,
+              reclaimedMib: 0,
+              minors: 10,
+            },
+            {
+              label: "128 MB",
+              mib: 80,
+              durMs: 1.7,
+              beforeMib: 84,
+              afterMib: 60,
+              reclaimedMib: 24,
+              minors: 11,
+            },
+            {
+              label: "256 MB",
+              mib: 144,
+              durMs: 3.66,
+              beforeMib: 148,
+              afterMib: 60,
+              reclaimedMib: 88,
+              minors: 15,
+            },
+            {
+              label: "512 MB",
+              mib: 256,
+              durMs: 5.03,
+              beforeMib: 261,
+              afterMib: 60,
+              reclaimedMib: 201,
+              minors: 23,
+            },
+            {
+              label: "1024 MB",
+              mib: 480,
+              durMs: 9.06,
+              beforeMib: 485,
+              afterMib: 60,
+              reclaimedMib: 425,
+              minors: 38,
+            },
+            {
+              label: "default",
+              mib: 304,
+              durMs: 4.97,
+              beforeMib: 309,
+              afterMib: 92,
+              reclaimedMib: 201,
+              minors: 26,
+            },
+          ],
+          series: null,
+        },
+        {
+          id: "c2",
+          title: "--max-old-space-size",
+          unit: "MiB flag",
+          points: [
+            {
+              label: "64 MB",
+              mib: 54,
+              durMs: 2.57,
+              beforeMib: 58,
+              afterMib: 59,
+              reclaimedMib: 0,
+              minors: 9,
+            },
+            {
+              label: "128 MB",
+              mib: 64,
+              durMs: 1.03,
+              beforeMib: 68,
+              afterMib: 68,
+              reclaimedMib: 0,
+              minors: 10,
+            },
+            {
+              label: "256 MB",
+              mib: 80,
+              durMs: 1.66,
+              beforeMib: 84,
+              afterMib: 60,
+              reclaimedMib: 24,
+              minors: 11,
+            },
+            {
+              label: "512 MB",
+              mib: 144,
+              durMs: 2.69,
+              beforeMib: 148,
+              afterMib: 60,
+              reclaimedMib: 88,
+              minors: 15,
+            },
+            {
+              label: "1024 MB",
+              mib: 304,
+              durMs: 4.82,
+              beforeMib: 309,
+              afterMib: 92,
+              reclaimedMib: 201,
+              minors: 26,
+            },
+            {
+              label: "2048 MB",
+              mib: 304,
+              durMs: 4.69,
+              beforeMib: 309,
+              afterMib: 92,
+              reclaimedMib: 217,
+              minors: 26,
+            },
+            {
+              label: "4096 MB",
+              mib: 256,
+              durMs: 4.42,
+              beforeMib: 261,
+              afterMib: 60,
+              reclaimedMib: 201,
+              minors: 23,
+            },
+            {
+              label: "8192 MB",
+              mib: 304,
+              durMs: 5.25,
+              beforeMib: 309,
+              afterMib: 92,
+              reclaimedMib: 201,
+              minors: 26,
+            },
+            {
+              label: "16384 MB",
+              mib: 256,
+              durMs: 4.42,
+              beforeMib: 261,
+              afterMib: 60,
+              reclaimedMib: 201,
+              minors: 23,
+            },
+            {
+              label: "default",
+              mib: 304,
+              durMs: 5.06,
+              beforeMib: 309,
+              afterMib: 92,
+              reclaimedMib: 217,
+              minors: 26,
+            },
+          ],
+          series: null,
+        },
+        {
+          id: "c3",
+          title: "object size per allocation",
+          unit: "bytes",
+          points: [
+            {
+              label: "64 KiB",
+              mib: 19,
+              durMs: 0.91,
+              beforeMib: 17,
+              afterMib: 8,
+              reclaimedMib: 9,
+              minors: 11,
+            },
+            {
+              label: "256 KiB",
+              mib: 132,
+              durMs: 3.03,
+              beforeMib: 102,
+              afterMib: 22,
+              reclaimedMib: 80,
+              minors: 14,
+            },
+            {
+              label: "1 MiB",
+              mib: 256,
+              durMs: 4.69,
+              beforeMib: 261,
+              afterMib: 60,
+              reclaimedMib: 201,
+              minors: 23,
+            },
+            {
+              label: "4 MiB",
+              mib: 408,
+              durMs: 12.83,
+              beforeMib: 413,
+              afterMib: 176,
+              reclaimedMib: 237,
+              minors: 38,
+            },
+            {
+              label: "8 MiB",
+              mib: 440,
+              durMs: 19.43,
+              beforeMib: 445,
+              afterMib: 332,
+              reclaimedMib: 113,
+              minors: 55,
+            },
+          ],
+          series: null,
+        },
+        {
+          id: "c4",
+          title: "--gc-global (off vs on)",
+          unit: "object size",
+          points: [
+            {
+              label: "64 KiB",
+              off: {
+                label: "64 KiB",
+                mib: 17,
+                durMs: 0.57,
+                beforeMib: 17,
+                afterMib: 9,
+                reclaimedMib: 8,
+                minors: 10,
+              },
+              on: {
+                label: "64 KiB",
+                mib: 0.2,
+                durMs: 1.49,
+                beforeMib: 5,
+                afterMib: 4,
+                reclaimedMib: 1,
+                minors: 0,
+              },
+            },
+            {
+              label: "1 MiB",
+              off: {
+                label: "1 MiB",
+                mib: 256,
+                durMs: 4.87,
+                beforeMib: 261,
+                afterMib: 60,
+                reclaimedMib: 201,
+                minors: 23,
+              },
+              on: {
+                label: "1 MiB",
+                mib: 1,
+                durMs: 1.76,
+                beforeMib: 6,
+                afterMib: 6,
+                reclaimedMib: 0,
+                minors: 0,
+              },
+            },
+            {
+              label: "8 MiB",
+              off: {
+                label: "8 MiB",
+                mib: 440,
+                durMs: 19.71,
+                beforeMib: 445,
+                afterMib: 332,
+                reclaimedMib: 113,
+                minors: 55,
+              },
+              on: {
+                label: "8 MiB",
+                mib: 8,
+                durMs: 2.77,
+                beforeMib: 13,
+                afterMib: 20,
+                reclaimedMib: 0,
+                minors: 0,
+              },
+            },
+          ],
+          series: ["off", "on"],
+        },
+      ];
+      function css(n) {
+        return getComputedStyle(document.body).getPropertyValue(n).trim();
+      }
+      function palette() {
+        return {
+          s1: css("--s1"),
+          s2: css("--s2"),
+          surface: css("--surface-1"),
+          textSec: css("--text-sec"),
+          textMuted: css("--text-muted"),
+          gridline: css("--gridline"),
+          baseline: css("--baseline"),
+        };
+      }
+      /* value label above each bar — relief for sub-3:1 slots (aqua). */
+      function valueLabelPlugin(getVals) {
+        return {
+          id: "valueLabel",
+          afterDatasetsDraw: function (chart) {
+            var ctx = chart.ctx,
+              p = palette();
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.textBaseline = "bottom";
+            ctx.fillStyle = p.textSec;
+            ctx.font = "bold 11px system-ui, sans-serif";
+            var vals = getVals(chart);
+            chart.getDatasetMeta(0).data.forEach(function (bar, i) {
+              var v = vals[i];
+              if (v == null) return;
+              /* label the stack top (max y across datasets at this index) */
+              var topY = bar.y;
+              chart.data.datasets.forEach(function (ds) {
+                var m = chart.getDatasetMeta(chart.data.datasets.indexOf(ds));
+                if (m.data[i] && m.data[i].y < topY) topY = m.data[i].y;
+              });
+              ctx.fillText(v, bar.x, topY - 4);
+            });
+            ctx.restore();
+          },
+        };
+      }
+      function scalesBar(p, yTitle) {
+        return {
+          x: {
+            ticks: { color: p.textSec, font: { size: 12 } },
+            grid: { display: false },
+            border: { color: p.baseline },
+          },
+          y: {
+            title: {
+              display: true,
+              text: yTitle,
+              color: p.textMuted,
+              font: { size: 12 },
+            },
+            ticks: { color: p.textSec, font: { size: 12 } },
+            grid: { color: p.gridline, lineWidth: 1 },
+            border: { display: false },
+            beginAtZero: true,
+          },
+        };
+      }
+      var charts = [];
+      function buildCharts() {
+        charts.forEach(function (c) {
+          c.destroy();
+        });
+        charts = [];
+        var p = palette();
+        var fmtMiB = function (v) {
+          if (v == null) return "";
+          return (v < 10 ? v.toFixed(1) : Math.round(v)) + " MiB";
+        };
+
+        DATA.forEach(function (ch) {
+          var ctx = document.getElementById(ch.id);
+          var datasets, labels, getVals;
+          if (ch.series) {
+            /* grouped: c4 off vs on */
+            labels = ch.points.map(function (r) {
+              return r.label;
+            });
+            datasets = [
+              {
+                label: "off",
+                data: ch.points.map(function (r) {
+                  return r.off ? r.off.mib : null;
+                }),
+                backgroundColor: p.s1,
+                borderRadius: 4,
+                maxBarThickness: 36,
+              },
+              {
+                label: "on (--gc-global)",
+                data: ch.points.map(function (r) {
+                  return r.on ? r.on.mib : null;
+                }),
+                backgroundColor: p.s2,
+                borderRadius: 4,
+                maxBarThickness: 36,
+              },
+            ];
+            getVals = function (chart) {
+              var i = chart.data.datasets.indexOf(
+                chart.getDatasetMeta(0)?.dataset ? null : null,
+              );
+              return labels.map(function (_, idx) {
+                var a = ch.points[idx].off,
+                  b = ch.points[idx].on;
+                return Math.max((a && a.mib) || 0, (b && b.mib) || 0);
+              });
+            };
+          } else {
+            labels = ch.points.map(function (r) {
+              return r.label;
+            });
+            datasets = [
+              {
+                label: "MiB",
+                data: ch.points.map(function (r) {
+                  return r.mib;
+                }),
+                backgroundColor: p.s1,
+                borderRadius: 4,
+                maxBarThickness: 48,
+              },
+            ];
+            getVals = function () {
+              return ch.points.map(function (r) {
+                return r.mib;
+              });
+            };
+          }
+          charts.push(
+            new Chart(ctx, {
+              type: "bar",
+              data: { labels: labels, datasets: datasets },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                  legend: {
+                    display: !!ch.series,
+                    position: "bottom",
+                    labels: {
+                      color: p.textSec,
+                      usePointStyle: true,
+                      pointStyleWidth: 10,
+                      padding: 14,
+                      font: { size: 12 },
+                    },
+                  },
+                  tooltip: {
+                    mode: "index",
+                    intersect: false,
+                    callbacks: {
+                      label: function (c) {
+                        if (c.parsed.y === null) return null;
+                        return (
+                          " " +
+                          (c.dataset.label === "MiB"
+                            ? "first major GC"
+                            : c.dataset.label) +
+                          ": " +
+                          c.parsed.y +
+                          " MiB"
+                        );
+                      },
+                    },
+                  },
+                },
+                scales: scalesBar(p, "MiB at first major GC"),
+              },
+              plugins: [valueLabelPlugin(getVals)],
+            }),
+          );
+        });
+      }
+      buildCharts();
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", buildCharts);
+    </script>
+  </body>
+</html>
