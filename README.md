@@ -406,6 +406,7 @@ Table of contents
 * [Machine Learning](https://vivaxy.github.io/examples/machine-learning/) Machine Learning
   * [TensorFlow](https://vivaxy.github.io/examples/machine-learning/tensorflow/) TensorFlow
     * [Tensorflow.js Demo 0](https://vivaxy.github.io/examples/machine-learning/tensorflow/tensorflow-js-demo-0/) Tensorflow.js
+  * [Vector Database Retrieval](https://vivaxy.github.io/examples/machine-learning/vector-database-retrieval/) Simplest vector database retrieval
 * [Memory Leak](https://vivaxy.github.io/examples/memory-leak/) 内存泄漏
   * [Debounce](https://vivaxy.github.io/examples/memory-leak/debounce/) Debounce
 * [Network](https://vivaxy.github.io/examples/network/) 网络

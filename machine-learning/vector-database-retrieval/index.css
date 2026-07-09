@@ -1,0 +1,155 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f7f7f8;
+  color: #222;
+}
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+h1 {
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+.hint {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 20px;
+}
+.search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  background: #1d4ed8;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.panel {
+  margin-top: 28px;
+}
+.panel h2 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+.corpus-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.corpus-card {
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.corpus-card .idx {
+  display: inline-block;
+  min-width: 18px;
+  margin-right: 8px;
+  font-size: 12px;
+  color: #999;
+  font-variant-numeric: tabular-nums;
+}
+mark {
+  background: rgba(37, 99, 235, 0.15);
+  color: #1d4ed8;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+.matrix-scroll,
+.qv-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+canvas {
+  display: block;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+.step.current {
+  outline: 2px solid #2563eb;
+  outline-offset: -2px;
+}
+.step .row {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+.step .idx {
+  font-size: 12px;
+  color: #999;
+  font-variant-numeric: tabular-nums;
+}
+.bar-track {
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  width: 0;
+  background: #2563eb;
+  border-radius: 6px;
+  transition: width 250ms ease;
+}
+.step.zero .bar-fill {
+  background: #ccc;
+}
+.step .vals {
+  font-size: 11px;
+  color: #666;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  padding-left: 36px;
+}
+.step .score {
+  font-size: 13px;
+  color: #2563eb;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: right;
+}

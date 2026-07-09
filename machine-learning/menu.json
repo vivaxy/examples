@@ -1,5 +1,9 @@
 [
   {
+    "name": "Vector Database Retrieval",
+    "link": "vector-database-retrieval/"
+  },
+  {
     "name": "TensorFlow",
     "link": "tensorflow/"
   }

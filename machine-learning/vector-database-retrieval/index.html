@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="description" content="Simplest vector database retrieval" />
+    <meta
+      name="keywords"
+      content="vivaxy,examples,github,demo,playground,vector,database,retrieval,embedding,cosine,similarity,machine-learning,sample,demos,samples,example,test,vector-database-retrieval"
+    />
+    <meta name="author" content="vivaxy" />
+    <link type="image/png" rel="shortcut icon" href="/vivaxy.icon.png" />
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <title>Vector Database Retrieval</title>
+  </head>
+  <body>
+    <main>
+      <h1>Vector Database Retrieval</h1>
+      <p class="hint">
+        Type a query. Documents are embedded as bag-of-words vectors and ranked
+        by cosine similarity.
+      </p>
+      <div class="search">
+        <input
+          id="query"
+          type="text"
+          placeholder="e.g. fish"
+          value="fish"
+          autofocus=""
+        />
+        <button id="search">Search</button>
+      </div>
+      <section id="corpus-panel" class="panel">
+        <h2>Corpus</h2>
+        <p class="hint">The documents stored in the vector database.</p>
+        <div id="corpus" class="corpus-grid"></div>
+      </section>
+      <section id="matrix-panel" class="panel">
+        <h2>VectorStore</h2>
+        <p class="hint">
+          Each row is a document's bag-of-words vector over the vocabulary; cell
+          color = term count.
+        </p>
+        <div class="matrix-scroll"><canvas id="matrix"></canvas></div>
+      </section>
+      <section id="process-panel" class="panel">
+        <h2>Search process</h2>
+        <p class="hint">
+          The query as a vector (only its in-vocab terms), then cosine
+          similarity scored per document.
+        </p>
+        <div class="qv-scroll"><canvas id="query-vec"></canvas></div>
+        <div id="steps" class="steps"></div>
+      </section>
+    </main>
+    <script type="module" src="index.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/cm.js"></script>
+  </body>
+</html>
