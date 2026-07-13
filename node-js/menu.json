@@ -1,5 +1,9 @@
 [
   {
+    "name": "Connection Pool",
+    "link": "connection-pool/"
+  },
+  {
     "name": "First GC Moment",
     "link": "first-gc/"
   },

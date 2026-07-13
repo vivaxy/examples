@@ -413,6 +413,7 @@ Table of contents
   * [err_insufficient_resources](https://vivaxy.github.io/examples/network/err-insufficient-resources/) err_insufficient_resources
   * [HTTP Size](https://vivaxy.github.io/examples/network/http-size/) HTTP Size
 * [Node.js](https://vivaxy.github.io/examples/node-js/) Node.js
+  * [Connection Pool](https://vivaxy.github.io/examples/node-js/connection-pool/) Connection Pool
   * [What moves V8's first major GC](https://vivaxy.github.io/examples/node-js/first-gc/) What moves V8's first major GC
   * [max-old-space-size](https://vivaxy.github.io/examples/node-js/max-old-space-size/) max-old-space-size
     * [GC Overhead vs --max-old-space-size](https://vivaxy.github.io/examples/node-js/max-old-space-size/gc-overhead/) GC Overhead vs --max-old-space-size
