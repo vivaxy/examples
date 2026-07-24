@@ -61,6 +61,7 @@ Table of contents
   * [querySelector](https://vivaxy.github.io/examples/benchmark/query-selector/) querySelector
   * [RegExp vs String Edit](https://vivaxy.github.io/examples/benchmark/reg-exp-vs-string-edit/) Reg exp vs string edit
   * [ShadowDOM vs Light DOM](https://vivaxy.github.io/examples/benchmark/shadow-dom-vs-light-dom/) ShadowDOM vs Light DOM
+  * [SIMD vs Scalar](https://vivaxy.github.io/examples/benchmark/simd-vs-scalar/) SIMD vs Scalar
   * [split vs String Edit](https://vivaxy.github.io/examples/benchmark/split-vs-string-edit/) Split vs string edit
   * [String.prototype.indexOf vs For Loop](https://vivaxy.github.io/examples/benchmark/string-prototype-index-of-vs-for-loop/) String.prototype.index of vs for loop
   * [UnregisterWithReturnedFunction vs Unregister](https://vivaxy.github.io/examples/benchmark/unregister-with-returned-function-vs-unregister/) Unregister with returned function vs unregister

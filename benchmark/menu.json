@@ -1,5 +1,9 @@
 [
   {
+    "name": "SIMD vs Scalar",
+    "link": "simd-vs-scalar/"
+  },
+  {
     "name": "Algorithms",
     "link": "algorithms/"
   },
