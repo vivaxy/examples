@@ -1,0 +1,15 @@
+{
+  "name": "pm2-overcommit",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "./run.sh",
+    "stop": "pm2 delete pm2-overcommit",
+    "logs": "pm2 logs pm2-overcommit"
+  },
+  "devDependencies": {
+    "pm2": "^7.0.3"
+  }
+}
