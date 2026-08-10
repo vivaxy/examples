@@ -87,6 +87,37 @@ Grows to 200 MB, then holds — no V8 OOM.
    RAM by compressing inactive pages, but this is OS-level paging, not
    "recycling" — V8 heap is not reclaimed or bounded to the system ceiling.
 
+## Findings (Linux, 32 GB RAM, 4 × 16384 MB target)
+
+1. **Does it run abnormally?** Yes — the system froze. All 4 workers grew
+   linearly (~272 MB/s each, ~1088 MB/s total). At ~30 s, combined RSS
+   reached ~31 GB (4 × 7.8 GB), exhausting the 32 GB physical RAM. The
+   system became completely unresponsive; SSH unreachable; required reboot.
+   No V8 OOM (workers at ~7.9 GB / 32.8 GB limit = 24%). No OOM-killer
+   log — the system froze before the killer could run (dmesg empty after
+   reboot).
+2. **Does memory auto-recycle to the system limit?** No. On Linux, V8 heap
+   pages allocated via `.fill(0)` are fully resident (RSS ≈ heapUsed). There
+   is no memory compression to absorb overcommit (unlike macOS). The 4
+   workers' combined RSS directly consumed physical RAM with no mitigation,
+   freezing the machine in ~30 s.
+
+### macOS vs Linux comparison
+
+| | macOS (18 GB RAM) | Linux (32 GB RAM) |
+| --- | --- | --- |
+| Target | 4 × 9216 MB (200%) | 4 × 16384 MB (200%) |
+| V8 heapUsed/worker | ~9282 MB | ~7893 MB |
+| RSS/worker | **52 MB** (99.4% compressed) | **7815 MB** (0% compressed) |
+| Memory compression | ✅ Compresses inactive heap pages | ❌ None |
+| OOM | No OOM, no kills, 120 s stable | System freeze at ~30 s, reboot required |
+| V8 GC reclaims | Per-process dead objects only | Same — but RSS = heapUsed, so no slack |
+
+The key difference is **memory compression**. macOS compresses inactive V8
+heap pages (9.2 GB heap → 52 MB RSS), keeping physical memory under system
+RAM. Linux has no compression; every `.fill(0)` page is resident, so 4
+workers × 7.9 GB = 31.6 GB directly exhausts the 32 GB RAM.
+
 Set `instances × max-old-space-size < system RAM` (leave headroom); or PM2
 `max_memory_restart` (per-process RSS, still not system-aware); or cgroups /
 container memory limit (the real system-level bound).
