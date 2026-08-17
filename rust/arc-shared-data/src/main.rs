@@ -1,10 +1,11 @@
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::Arc;
+use std::sync::RwLock;
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::thread;
 use std::time::Instant;
 
-/// Number of f64 elements in the dataset (10M * 8 bytes = ~76.3 MiB).
+/// Total number of f64 cells across all regions (~76.3 MiB).
 const DATA_LEN: usize = 10_000_000;
 
 /// Timing rounds per scenario, reported individually and averaged.
@@ -56,8 +57,55 @@ fn mib(bytes: i64) -> f64 {
   bytes as f64 / 1024.0 / 1024.0
 }
 
-fn build_dataset() -> Vec<f64> {
-  (0..DATA_LEN).map(|i| (i % 1000) as f64 * 0.5).collect()
+/// A nested composite object tree:
+/// `Dataset` → `Vec<Region>` → `{ String name, Vec<f64> cells }`.
+#[derive(Clone)]
+struct Region {
+  name: String,
+  cells: Vec<f64>,
+}
+
+#[derive(Clone)]
+struct Dataset {
+  name: String,
+  regions: Vec<Region>,
+}
+
+/// Shared across threads through one `Arc`.
+///
+/// The heavy nested `dataset` stays immutable; only the small write-back
+/// target gets interior mutability, so readers never contend on a lock.
+struct Shared {
+  dataset: Dataset,
+  /// Each thread writes its total into its own slot — cross-thread mutation.
+  sums: RwLock<Vec<f64>>,
+}
+
+impl Dataset {
+  fn sum(&self) -> f64 {
+    self.regions.iter().flat_map(|r| r.cells.iter()).sum()
+  }
+}
+
+fn build_dataset(regions: usize) -> Dataset {
+  let cells_per_region = DATA_LEN / regions;
+  let mut offset = 0;
+  let regions = (0..regions)
+    .map(|i| {
+      let cells = (offset..offset + cells_per_region)
+        .map(|i| (i % 1000) as f64 * 0.5)
+        .collect();
+      offset += cells_per_region;
+      Region {
+        name: format!("region-{:04}", i),
+        cells,
+      }
+    })
+    .collect();
+  Dataset {
+    name: "shared-dataset".to_string(),
+    regions,
+  }
 }
 
 fn verify(sums: &[f64]) -> f64 {
@@ -69,31 +117,37 @@ fn verify(sums: &[f64]) -> f64 {
   checksum
 }
 
-/// One round of the clone scenario: copy the dataset per thread, then sum.
+/// One round of the clone scenario: deep-clone the whole nested tree per
+/// thread (every `Vec<Region>`, `String`, and `Vec<f64>` copied), then sum.
 /// Returns (copy_ms, compute_ms, checksum).
-fn clone_round(data: &[f64], threads: usize) -> (u128, u128, f64) {
+fn clone_round(dataset: &Dataset, threads: usize) -> (u128, u128, f64) {
   let started = Instant::now();
-  let copies: Vec<_> = (0..threads).map(|_| data.to_vec()).collect();
+  let copies: Vec<_> = (0..threads).map(|_| dataset.clone()).collect();
   let copy_ms = started.elapsed().as_millis();
 
   let started = Instant::now();
   let handles: Vec<_> = copies
     .into_iter()
-    .map(|data| thread::spawn(move || data.iter().sum::<f64>()))
+    .map(|dataset| thread::spawn(move || dataset.sum()))
     .collect();
   let sums: Vec<_> = handles.into_iter().map(|h| h.join().unwrap()).collect();
   let compute_ms = started.elapsed().as_millis();
   (copy_ms, compute_ms, verify(&sums))
 }
 
-/// One round of the Arc scenario: share the dataset, then sum.
+/// One round of the Arc scenario: share the tree via refcount bumps, sum it
+/// read-only, and write the result back through the shared `RwLock`.
 /// Returns (compute_ms, checksum).
-fn arc_round(shared: &Arc<Vec<f64>>, threads: usize) -> (u128, f64) {
+fn arc_round(shared: &Arc<Shared>, threads: usize) -> (u128, f64) {
   let started = Instant::now();
   let handles: Vec<_> = (0..threads)
-    .map(|_| {
+    .map(|i| {
       let shared = Arc::clone(shared);
-      thread::spawn(move || shared.iter().sum::<f64>())
+      thread::spawn(move || {
+        let sum = shared.dataset.sum();
+        shared.sums.write().unwrap()[i] = sum;
+        sum
+      })
     })
     .collect();
   let sums: Vec<_> = handles.into_iter().map(|h| h.join().unwrap()).collect();
@@ -108,20 +162,29 @@ fn main() {
   let threads = thread::available_parallelism()
     .map(|n| n.get())
     .unwrap_or(4);
-  let data = build_dataset();
-  let data_bytes = (DATA_LEN * 8) as i64;
+  let dataset = build_dataset(threads);
+  let cells: usize = dataset.regions.iter().map(|r| r.cells.len()).sum();
+  let data_bytes = (cells * 8) as i64;
 
-  println!("Dataset: {} f64 = {:.1} MiB", DATA_LEN, mib(data_bytes));
+  println!(
+    "Dataset: {} ({} .. {}) — {} regions x {} f64 cells = {:.1} MiB",
+    dataset.name,
+    dataset.regions.first().unwrap().name,
+    dataset.regions.last().unwrap().name,
+    threads,
+    cells / threads,
+    mib(data_bytes)
+  );
   println!("Threads: {}", threads);
   println!("Rounds per scenario: {}", ROUNDS);
 
-  // Scenario A: every thread gets its own copy of the dataset.
+  // Scenario A: every thread gets its own deep copy of the nested tree.
   let (stats, clone_peak) = measure(|| {
     let mut copy = Vec::with_capacity(ROUNDS);
     let mut compute = Vec::with_capacity(ROUNDS);
     let mut checksum = 0.0;
     for _ in 0..ROUNDS {
-      let (c, t, sum) = clone_round(&data, threads);
+      let (c, t, sum) = clone_round(&dataset, threads);
       copy.push(c);
       compute.push(t);
       checksum = sum;
@@ -150,9 +213,13 @@ fn main() {
     clone_total
   );
 
-  // Scenario B: share one dataset through Arc clones (refcount bumps only).
+  // Scenario B: share one nested tree through Arc clones (refcount bumps
+  // only), and mutate the inner `sums` slot through a fine-grained RwLock.
   let (stats, arc_peak) = measure(|| {
-    let shared = Arc::new(data);
+    let shared = Arc::new(Shared {
+      dataset,
+      sums: RwLock::new(vec![0.0; threads]),
+    });
     let mut compute = Vec::with_capacity(ROUNDS);
     let mut checksum = 0.0;
     for _ in 0..ROUNDS {
@@ -160,6 +227,8 @@ fn main() {
       compute.push(t);
       checksum = sum;
     }
+    let sums = shared.sums.read().unwrap().clone();
+    assert_eq!(sums, vec![checksum; threads], "write-back slots diverged");
     (compute, checksum)
   });
   let (arc_compute, arc_checksum) = stats;
@@ -168,7 +237,7 @@ fn main() {
     "scenarios computed different sums"
   );
   println!();
-  println!("Arc share:");
+  println!("Arc share + RwLock write-back:");
   println!("  peak memory: {:.1} MiB", mib(arc_peak));
   println!("  checksum:    {}", arc_checksum);
   for round in 0..ROUNDS {
