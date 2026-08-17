@@ -1,5 +1,9 @@
 [
   {
+    "name": "Arc Shared Data",
+    "link": "arc-shared-data/README.md"
+  },
+  {
     "name": "cli",
     "link": "cli"
   },
