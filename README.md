@@ -208,6 +208,7 @@ Table of contents
   * [0.5px border](https://vivaxy.github.io/examples/layout/half-px-border/) 0.5px border
   * [modal](https://vivaxy.github.io/examples/layout/modal/) Modal
   * [popover](https://vivaxy.github.io/examples/layout/popover/) Popover
+* [Lean](https://vivaxy.github.io/examples/lean/) Lean
 * [Libraries](https://vivaxy.github.io/examples/libraries/) 各种库
   * [amap](https://vivaxy.github.io/examples/libraries/amap/) Amap
     * [mark circle area](https://vivaxy.github.io/examples/libraries/amap/mark-circle-area/) Mark circle area

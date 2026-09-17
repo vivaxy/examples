@@ -1,5 +1,9 @@
 [
   {
+    "name": "Lean",
+    "link": "lean/"
+  },
+  {
     "name": "Database",
     "link": "database/"
   },

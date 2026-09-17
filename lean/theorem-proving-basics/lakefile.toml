@@ -1,0 +1,5 @@
+name = "theorem-proving-basics"
+defaultTargets = ["TheoremProvingBasics"]
+
+[[lean_lib]]
+name = "TheoremProvingBasics"
