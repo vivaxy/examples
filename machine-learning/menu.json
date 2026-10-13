@@ -1,5 +1,9 @@
 [
   {
+    "name": "Mini Transformer",
+    "link": "mini-transformer/README.md"
+  },
+  {
     "name": "Vector Database Retrieval",
     "link": "vector-database-retrieval/"
   },
